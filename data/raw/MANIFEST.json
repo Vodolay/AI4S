@@ -1,0 +1,1565 @@
+{
+  "schema_version": 1,
+  "sources": {
+    "axon_diode": {
+      "name": "axon_diode",
+      "status": "ok",
+      "landing_url": "https://europepmc.org/",
+      "license": "CC-BY-4.0 (per article, verified from XML)",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "citation": "Renault et al. 2015 PLoS One, doi:10.1371/journal.pone.0120680; Lassus et al. 2018 Sci Rep, doi:10.1038/s41598-018-35802-9; Courte et al. 2020 Sci Rep, doi:10.1038/s41598-020-61757-x",
+      "note": "licenses verified from XML: PMC4406441: http://creativecommons.org/licenses/by/4.0/; PMC6265304: https://creativecommons.org/licenses/by/4.0/; PMC7078319: https://creativecommons.org/licenses/by/4.0/ | not open access, cited only: Peyrin 2011 Lab Chip doi:10.1039/c1lc20014c; Courte 2018 Methods Cell Biol doi:10.1016/bs.mcb.2018.07.002",
+      "checked_at": "2026-09-16T14:05:35+00:00",
+      "files": [
+        {
+          "path": "axon_diode/PMC4406441.xml",
+          "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC4406441/fullTextXML",
+          "sha256": "7f93b05cc8a42366da487f430566aa1772f093bf4d22a03028421bed9c4a6f76",
+          "bytes": 97757,
+          "downloaded_at": "2026-09-16T14:03:47+00:00"
+        },
+        {
+          "path": "axon_diode/PMC6265304.xml",
+          "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6265304/fullTextXML",
+          "sha256": "b6439fa3699a18bd6ad6785f7a48f4974aa485d4fe608739c7f7278e71b097d3",
+          "bytes": 110644,
+          "downloaded_at": "2026-09-16T14:03:59+00:00"
+        },
+        {
+          "path": "axon_diode/PMC7078319.xml",
+          "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7078319/fullTextXML",
+          "sha256": "f9d38664bbfbafc5e36c7533d49e5faa105c2fa86070a88056d923ec47eb2536",
+          "bytes": 122034,
+          "downloaded_at": "2026-09-16T14:04:22+00:00"
+        }
+      ]
+    },
+    "iras_mea": {
+      "name": "iras_mea",
+      "status": "ok",
+      "landing_url": "https://doi.org/10.1093/toxsci/kfaa136",
+      "license": "CC-BY-NC-4.0",
+      "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "citation": "Tukker AM, Wijnolts FMJ, de Groot A, Westerink RHS. Applicability of hiPSC-derived neuronal cocultures and rodent primary cortical cultures for in vitro seizure liability assessment. Toxicol Sci 178(1):71-87 (2020). doi:10.1093/toxsci/kfaa136",
+      "note": "license verified from article XML: PMC7657345: http://creativecommons.org/licenses/by-nc/4.0/",
+      "checked_at": "2026-09-16T14:05:29+00:00",
+      "files": [
+        {
+          "path": "iras_mea/PMC7657345.xml",
+          "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7657345/fullTextXML",
+          "sha256": "856e84baa1aed4184250b06ce3ef5d840379e0f4b1d8514a49fd0cc6e5371446",
+          "bytes": 172580,
+          "downloaded_at": "2026-09-16T14:03:30+00:00"
+        },
+        {
+          "path": "iras_mea/PMC7657345_supplementary.zip",
+          "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7657345/supplementaryFiles",
+          "sha256": "4542a3ee7d1a3e9e7f93e9247698b6b3da99969fc7672474a1e6369308c3c6ee",
+          "bytes": 1897855,
+          "downloaded_at": "2026-09-16T14:03:32+00:00"
+        }
+      ]
+    },
+    "kapucu2022": {
+      "name": "kapucu2022",
+      "status": "ok",
+      "landing_url": "https://doi.org/10.12751/g-node.wvr3jf",
+      "license": "CC-BY-4.0 (Data/); article CC-BY-4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "citation": "Kapucu FE, Vinogradov A, Hyv\u00e4rinen T, Yl\u00e4-Outinen L, Narkilahti S. Comparative microelectrode array data of the functional development of hPSC-derived and rat neuronal networks. Sci Data 9, 120 (2022). doi:10.1038/s41597-022-01242-4",
+      "note": "tier=quick; GIN commit 0f0f13517bf6cfc382b5f3c3f9219f13d76d798a; raw .h5 excluded by design",
+      "checked_at": "2026-09-16T14:05:27+00:00",
+      "files": [
+        {
+          "path": "kapucu2022/Data/LICENSE.txt",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/LICENSE.txt",
+          "sha256": "9ba9550ad48438d0836ddab3da480b3b69ffa0aac7b7878b5a0039e7ab429411",
+          "bytes": 18657,
+          "downloaded_at": "2026-09-16T14:00:28+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/PCA_table.xlsx",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/PCA_table.xlsx",
+          "sha256": "944dd1d97c1f5c2e878330363a4d2310b15ab37fbfa7d6d0030d93e67f7bb613",
+          "bytes": 27615,
+          "downloaded_at": "2026-09-16T14:00:29+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/Rat_MEA1_PCA/Rat_MEA1_PCA_meaRtools_output/Rat_190617_MEA1_STTC.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/Rat_MEA1_PCA/Rat_MEA1_PCA_meaRtools_output/Rat_190617_MEA1_STTC.csv",
+          "sha256": "7d373865bc23df77357b0113caeb8abb65a7d6bd2f0e39a4e10d2f8b58c79dc8",
+          "bytes": 997,
+          "downloaded_at": "2026-09-16T14:00:30+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/Rat_MEA1_PCA/Rat_MEA1_PCA_meaRtools_output/Rat_190617_MEA1_bursts_per_min.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/Rat_MEA1_PCA/Rat_MEA1_PCA_meaRtools_output/Rat_190617_MEA1_bursts_per_min.csv",
+          "sha256": "7fecec85b173fb76d3daf47bd59222a04abfa4377ead8a51637304760f303d6a",
+          "bytes": 884,
+          "downloaded_at": "2026-09-16T14:00:30+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/Rat_MEA1_PCA/Rat_MEA1_PCA_meaRtools_output/Rat_190617_MEA1_mean_dur.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/Rat_MEA1_PCA/Rat_MEA1_PCA_meaRtools_output/Rat_190617_MEA1_mean_dur.csv",
+          "sha256": "de2f241dd6b2759279d2cee76401acca5604922010a2b9b693bfbb607b0010f6",
+          "bytes": 996,
+          "downloaded_at": "2026-09-16T14:00:31+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/Rat_MEA1_PCA/Rat_MEA1_PCA_meaRtools_output/Rat_190617_MEA1_mean_freq_in_burst.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/Rat_MEA1_PCA/Rat_MEA1_PCA_meaRtools_output/Rat_190617_MEA1_mean_freq_in_burst.csv",
+          "sha256": "f95021f64a0a308abe6bdd31648e3abc142969e1a26b117029d8b3ad21ab9321",
+          "bytes": 961,
+          "downloaded_at": "2026-09-16T14:00:31+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/Rat_MEA1_PCA/Rat_MEA1_PCA_meaRtools_output/Rat_190617_MEA1_mean_spikes_in_burst.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/Rat_MEA1_PCA/Rat_MEA1_PCA_meaRtools_output/Rat_190617_MEA1_mean_spikes_in_burst.csv",
+          "sha256": "12457f57ca23876c3acaa2adc4c8d889192d73dedbb4f103a24815897f170ebd",
+          "bytes": 601,
+          "downloaded_at": "2026-09-16T14:00:32+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/Rat_MEA1_PCA/Rat_MEA1_PCA_meaRtools_output/Rat_190617_MEA1_meanfiringrate_by_active_electordes.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/Rat_MEA1_PCA/Rat_MEA1_PCA_meaRtools_output/Rat_190617_MEA1_meanfiringrate_by_active_electordes.csv",
+          "sha256": "5d9e93745e2e5ee4b44ab58ed9fa619dbe604cc3dff48bd551102fa6383423a9",
+          "bytes": 962,
+          "downloaded_at": "2026-09-16T14:00:33+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/Rat_MEA1_PCA/Rat_MEA1_PCA_meaRtools_output/Rat_190617_MEA1_nae.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/Rat_MEA1_PCA/Rat_MEA1_PCA_meaRtools_output/Rat_190617_MEA1_nae.csv",
+          "sha256": "1caab5c87684d01e08e576d935a806256213edb4781889bfc6d753f762543b92",
+          "bytes": 460,
+          "downloaded_at": "2026-09-16T14:00:33+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/Rat_MEA1_PCA/Rat_MEA1_PCA_meaRtools_output/Rat_190617_MEA1_per_spikes_in_burst.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/Rat_MEA1_PCA/Rat_MEA1_PCA_meaRtools_output/Rat_190617_MEA1_per_spikes_in_burst.csv",
+          "sha256": "51cea28841a7ef95d80624a048fb51054037ebc99d32904a4fae67709ecee9a4",
+          "bytes": 599,
+          "downloaded_at": "2026-09-16T14:00:34+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/Rat_MEA1_PCA/Rat_MEA1_PCA_spikes_noise_explogs/PCAnoisy_electrodes_Rat_MEA1.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/Rat_MEA1_PCA/Rat_MEA1_PCA_spikes_noise_explogs/PCAnoisy_electrodes_Rat_MEA1.csv",
+          "sha256": "7c3ef143387573f2efe1143858e5ebb532fb7a5c87660d62cdf8e5b9199bfdd3",
+          "bytes": 93,
+          "downloaded_at": "2026-09-16T14:00:34+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/Rat_MEA1_PCA/Rat_MEA1_PCA_spikes_noise_explogs/Rat_190617_MEA1_DIV21_PCAexpLog.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/Rat_MEA1_PCA/Rat_MEA1_PCA_spikes_noise_explogs/Rat_190617_MEA1_DIV21_PCAexpLog.csv",
+          "sha256": "92f000a3ac8bdef83375332e1e6b1e88531d13fbe9f01ffdc70a874eb3e83fb5",
+          "bytes": 548,
+          "downloaded_at": "2026-09-16T14:00:35+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/Rat_MEA3_PCA/Rat_MEA3_PCA_meaRtools_output/Rat_250417_MEA3_STTC.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/Rat_MEA3_PCA/Rat_MEA3_PCA_meaRtools_output/Rat_250417_MEA3_STTC.csv",
+          "sha256": "0062407f08c669a2c07ae6b0bdaf5b4c8ea25eabc140c25fedc1ebd8672ebadf",
+          "bytes": 1021,
+          "downloaded_at": "2026-09-16T14:00:36+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/Rat_MEA3_PCA/Rat_MEA3_PCA_meaRtools_output/Rat_250417_MEA3_bursts_per_min.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/Rat_MEA3_PCA/Rat_MEA3_PCA_meaRtools_output/Rat_250417_MEA3_bursts_per_min.csv",
+          "sha256": "7eebb28e5619af56ff847517171f666479fecb7aff13b2fb3251a34b3888c353",
+          "bytes": 795,
+          "downloaded_at": "2026-09-16T14:00:36+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/Rat_MEA3_PCA/Rat_MEA3_PCA_meaRtools_output/Rat_250417_MEA3_mean_dur.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/Rat_MEA3_PCA/Rat_MEA3_PCA_meaRtools_output/Rat_250417_MEA3_mean_dur.csv",
+          "sha256": "439c9188ebe6a7f6207614428fad18d6bd72f25eb5ae7a49791d8e103901c4eb",
+          "bytes": 997,
+          "downloaded_at": "2026-09-16T14:00:37+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/Rat_MEA3_PCA/Rat_MEA3_PCA_meaRtools_output/Rat_250417_MEA3_mean_freq_in_burst.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/Rat_MEA3_PCA/Rat_MEA3_PCA_meaRtools_output/Rat_250417_MEA3_mean_freq_in_burst.csv",
+          "sha256": "1cd82e7b50ef5d5a36b38903b9f53d5b547b100baafe545cc6585c63b895eaa9",
+          "bytes": 959,
+          "downloaded_at": "2026-09-16T14:00:37+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/Rat_MEA3_PCA/Rat_MEA3_PCA_meaRtools_output/Rat_250417_MEA3_mean_spikes_in_burst.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/Rat_MEA3_PCA/Rat_MEA3_PCA_meaRtools_output/Rat_250417_MEA3_mean_spikes_in_burst.csv",
+          "sha256": "5058abb14cfa55c03a87b791bb8218e0171aa86ffe56b5845055fa8b0114d7b5",
+          "bytes": 585,
+          "downloaded_at": "2026-09-16T14:00:38+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/Rat_MEA3_PCA/Rat_MEA3_PCA_meaRtools_output/Rat_250417_MEA3_meanfiringrate_by_active_electordes.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/Rat_MEA3_PCA/Rat_MEA3_PCA_meaRtools_output/Rat_250417_MEA3_meanfiringrate_by_active_electordes.csv",
+          "sha256": "13fe76b745f62544cca5c5b63b3b9867ee274ddcdfe92f5f9667e9dd0a402fc4",
+          "bytes": 964,
+          "downloaded_at": "2026-09-16T14:00:38+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/Rat_MEA3_PCA/Rat_MEA3_PCA_meaRtools_output/Rat_250417_MEA3_nae.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/Rat_MEA3_PCA/Rat_MEA3_PCA_meaRtools_output/Rat_250417_MEA3_nae.csv",
+          "sha256": "491f3a9e2a168fe2dabc74ac80349238a0f41bd53f7eb361d088fc55b82ae7dd",
+          "bytes": 460,
+          "downloaded_at": "2026-09-16T14:00:39+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/Rat_MEA3_PCA/Rat_MEA3_PCA_meaRtools_output/Rat_250417_MEA3_per_spikes_in_burst.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/Rat_MEA3_PCA/Rat_MEA3_PCA_meaRtools_output/Rat_250417_MEA3_per_spikes_in_burst.csv",
+          "sha256": "b315dcc9d26d8d39d2e53b6555c1389a1da92c888321dccd4d72ce07f852904e",
+          "bytes": 599,
+          "downloaded_at": "2026-09-16T14:00:40+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/Rat_MEA3_PCA/Rat_MEA3_PCA_spikes_noise_explogs/Rat_250417_MEA3_DIV21_expLog.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/Rat_MEA3_PCA/Rat_MEA3_PCA_spikes_noise_explogs/Rat_250417_MEA3_DIV21_expLog.csv",
+          "sha256": "dac7cc8f250878e824d9c9cb77f6e319566ff58950af6ce535d07cba290a42c2",
+          "bytes": 548,
+          "downloaded_at": "2026-09-16T14:00:40+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/Rat_MEA3_PCA/Rat_MEA3_PCA_spikes_noise_explogs/noisy_electrodes_Rat_MEA3.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/Rat_MEA3_PCA/Rat_MEA3_PCA_spikes_noise_explogs/noisy_electrodes_Rat_MEA3.csv",
+          "sha256": "a3715b45762354de36f92953ee8103bc01cad05cd4291744f540c786787f6a3d",
+          "bytes": 65,
+          "downloaded_at": "2026-09-16T14:00:41+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/Rat_MEA4_PCA/Rat_MEA4_PCA_meaRtools_output/Rat_31017_MEA4_STTC.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/Rat_MEA4_PCA/Rat_MEA4_PCA_meaRtools_output/Rat_31017_MEA4_STTC.csv",
+          "sha256": "1c69072d4643282c366687c5f749738470726f6aa7089a63b90885133221a16e",
+          "bytes": 994,
+          "downloaded_at": "2026-09-16T14:00:42+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/Rat_MEA4_PCA/Rat_MEA4_PCA_meaRtools_output/Rat_31017_MEA4_bursts_per_min.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/Rat_MEA4_PCA/Rat_MEA4_PCA_meaRtools_output/Rat_31017_MEA4_bursts_per_min.csv",
+          "sha256": "c1d0289bd32014b29a582b5a1c8f68e50a6561f18a9cfc9aa97e0f8f10db7511",
+          "bytes": 841,
+          "downloaded_at": "2026-09-16T14:00:42+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/Rat_MEA4_PCA/Rat_MEA4_PCA_meaRtools_output/Rat_31017_MEA4_mean_dur.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/Rat_MEA4_PCA/Rat_MEA4_PCA_meaRtools_output/Rat_31017_MEA4_mean_dur.csv",
+          "sha256": "98750d3d39600194525f0173bfa5f69f90c4d93e46ed83df84de3bb21257b4a1",
+          "bytes": 990,
+          "downloaded_at": "2026-09-16T14:00:43+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/Rat_MEA4_PCA/Rat_MEA4_PCA_meaRtools_output/Rat_31017_MEA4_mean_freq_in_burst.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/Rat_MEA4_PCA/Rat_MEA4_PCA_meaRtools_output/Rat_31017_MEA4_mean_freq_in_burst.csv",
+          "sha256": "1e41f28540914522e68e086491b5f06ae70eadbbe4519434d4caa5a595ecece5",
+          "bytes": 962,
+          "downloaded_at": "2026-09-16T14:00:43+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/Rat_MEA4_PCA/Rat_MEA4_PCA_meaRtools_output/Rat_31017_MEA4_mean_spikes_in_burst.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/Rat_MEA4_PCA/Rat_MEA4_PCA_meaRtools_output/Rat_31017_MEA4_mean_spikes_in_burst.csv",
+          "sha256": "c66550b11ddeb117e49bb4890e0aa7a7cf95ab577c79e0ff5b2e650df81dddc3",
+          "bytes": 601,
+          "downloaded_at": "2026-09-16T14:00:44+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/Rat_MEA4_PCA/Rat_MEA4_PCA_meaRtools_output/Rat_31017_MEA4_meanfiringrate_by_active_electordes.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/Rat_MEA4_PCA/Rat_MEA4_PCA_meaRtools_output/Rat_31017_MEA4_meanfiringrate_by_active_electordes.csv",
+          "sha256": "e4303bf3a2651cf0e47399b66e7a018439b5bfdb8ead81609409d37322a8388e",
+          "bytes": 961,
+          "downloaded_at": "2026-09-16T14:00:45+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/Rat_MEA4_PCA/Rat_MEA4_PCA_meaRtools_output/Rat_31017_MEA4_nae.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/Rat_MEA4_PCA/Rat_MEA4_PCA_meaRtools_output/Rat_31017_MEA4_nae.csv",
+          "sha256": "77d446a89bd4840bae58c33b00db6a76a2d1d479eaf42216422c442ee6961db4",
+          "bytes": 460,
+          "downloaded_at": "2026-09-16T14:00:45+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/Rat_MEA4_PCA/Rat_MEA4_PCA_meaRtools_output/Rat_31017_MEA4_per_spikes_in_burst.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/Rat_MEA4_PCA/Rat_MEA4_PCA_meaRtools_output/Rat_31017_MEA4_per_spikes_in_burst.csv",
+          "sha256": "ee32bf37f0b3e8280c17c3ba116c667b4095d264f9eff9366f2ffaf9e4a921b5",
+          "bytes": 599,
+          "downloaded_at": "2026-09-16T14:00:46+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/Rat_MEA4_PCA/Rat_MEA4_PCA_spikes_noise_explogs/Rat_31017_MEA4_DIV24_expLog.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/Rat_MEA4_PCA/Rat_MEA4_PCA_spikes_noise_explogs/Rat_31017_MEA4_DIV24_expLog.csv",
+          "sha256": "f94e585f35789569da6443c508a1268c7b243c4370856013c0fe4a697739e7dc",
+          "bytes": 536,
+          "downloaded_at": "2026-09-16T14:00:46+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/Rat_MEA4_PCA/Rat_MEA4_PCA_spikes_noise_explogs/noisy_electrodes_Rat_MEA4.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/Rat_MEA4_PCA/Rat_MEA4_PCA_spikes_noise_explogs/noisy_electrodes_Rat_MEA4.csv",
+          "sha256": "ffd869b8b6cc1ffac3dded2069ee3a52bc0aa66e23cd7f2eaa1321dcbb89119b",
+          "bytes": 260,
+          "downloaded_at": "2026-09-16T14:00:47+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/hPSC_MEA1_PCA/hPSC_MEA1_PCA_meaRtools_output/hPSC_20517_MEA1_STTC.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/hPSC_MEA1_PCA/hPSC_MEA1_PCA_meaRtools_output/hPSC_20517_MEA1_STTC.csv",
+          "sha256": "f785d86b7cf7d4062d2a996bdb1e0886e10e125852894ef9bee3cc48451e1848",
+          "bytes": 531,
+          "downloaded_at": "2026-09-16T14:00:47+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/hPSC_MEA1_PCA/hPSC_MEA1_PCA_meaRtools_output/hPSC_20517_MEA1_bursts_per_min.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/hPSC_MEA1_PCA/hPSC_MEA1_PCA_meaRtools_output/hPSC_20517_MEA1_bursts_per_min.csv",
+          "sha256": "d8e7bf9bcc91c134ce36addea191c44ef81720356a8988908ebc1306fe6766f7",
+          "bytes": 441,
+          "downloaded_at": "2026-09-16T14:00:48+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/hPSC_MEA1_PCA/hPSC_MEA1_PCA_meaRtools_output/hPSC_20517_MEA1_mean_dur.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/hPSC_MEA1_PCA/hPSC_MEA1_PCA_meaRtools_output/hPSC_20517_MEA1_mean_dur.csv",
+          "sha256": "f9e989d033f6592334450606cd14bb7fd5a8cf0e08e5432078e26f5c30d2710e",
+          "bytes": 524,
+          "downloaded_at": "2026-09-16T14:00:49+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/hPSC_MEA1_PCA/hPSC_MEA1_PCA_meaRtools_output/hPSC_20517_MEA1_mean_freq_in_burst.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/hPSC_MEA1_PCA/hPSC_MEA1_PCA_meaRtools_output/hPSC_20517_MEA1_mean_freq_in_burst.csv",
+          "sha256": "6cbcebda858254151ddc7a266a60da1fa78ee9c6eb1dfb7d669a64a50281bf79",
+          "bytes": 506,
+          "downloaded_at": "2026-09-16T14:00:49+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/hPSC_MEA1_PCA/hPSC_MEA1_PCA_meaRtools_output/hPSC_20517_MEA1_mean_spikes_in_burst.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/hPSC_MEA1_PCA/hPSC_MEA1_PCA_meaRtools_output/hPSC_20517_MEA1_mean_spikes_in_burst.csv",
+          "sha256": "2f68d56bb29ec24d33eabb6bf823d374007a091c7cf5d1de336a0e3c0c330640",
+          "bytes": 323,
+          "downloaded_at": "2026-09-16T14:00:50+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/hPSC_MEA1_PCA/hPSC_MEA1_PCA_meaRtools_output/hPSC_20517_MEA1_meanfiringrate_by_active_electordes.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/hPSC_MEA1_PCA/hPSC_MEA1_PCA_meaRtools_output/hPSC_20517_MEA1_meanfiringrate_by_active_electordes.csv",
+          "sha256": "c844180645ddc497004536a160b8494b19d55cdeb9f4893a52e91fe31c4ca504",
+          "bytes": 505,
+          "downloaded_at": "2026-09-16T14:00:50+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/hPSC_MEA1_PCA/hPSC_MEA1_PCA_meaRtools_output/hPSC_20517_MEA1_nae.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/hPSC_MEA1_PCA/hPSC_MEA1_PCA_meaRtools_output/hPSC_20517_MEA1_nae.csv",
+          "sha256": "b072ccbf4eeca67d02c40a10ae87071afe7ebc54ead226bc558ef29a39df396b",
+          "bytes": 256,
+          "downloaded_at": "2026-09-16T14:00:51+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/hPSC_MEA1_PCA/hPSC_MEA1_PCA_meaRtools_output/hPSC_20517_MEA1_per_spikes_in_burst.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/hPSC_MEA1_PCA/hPSC_MEA1_PCA_meaRtools_output/hPSC_20517_MEA1_per_spikes_in_burst.csv",
+          "sha256": "2b46eade3ec0574b025b0ddd4047bebc560da81136c9dfff32624d64a3fa7485",
+          "bytes": 328,
+          "downloaded_at": "2026-09-16T14:00:52+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/hPSC_MEA1_PCA/hPSC_MEA1_PCA_spikes_noise_explogs/PCAnoisy_electrodes_hPSC_MEA1.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/hPSC_MEA1_PCA/hPSC_MEA1_PCA_spikes_noise_explogs/PCAnoisy_electrodes_hPSC_MEA1.csv",
+          "sha256": "b7e484e39fa15c77eaecd810e70370ee78c024b9494674fb50b36d6ef7633828",
+          "bytes": 67,
+          "downloaded_at": "2026-09-16T14:00:52+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/hPSC_MEA1_PCA/hPSC_MEA1_PCA_spikes_noise_explogs/hPSC_20517_MEA1_DIV21_PCAexpLog.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/hPSC_MEA1_PCA/hPSC_MEA1_PCA_spikes_noise_explogs/hPSC_20517_MEA1_DIV21_PCAexpLog.csv",
+          "sha256": "95766657b28bf7bb1f1a7ee55461d14eb5132fbaabd350a7b6f89d51fa9641be",
+          "bytes": 554,
+          "downloaded_at": "2026-09-16T14:00:53+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/hPSC_MEA2_PCA/hPSC_MEA2_PCA_meaRtools_output/hPSC_20517_MEA2_STTC.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/hPSC_MEA2_PCA/hPSC_MEA2_PCA_meaRtools_output/hPSC_20517_MEA2_STTC.csv",
+          "sha256": "bbd591b109a5ab56790f0e7aae5b92cb27c7efe6ced0e2261f7e4d0299b2bc4d",
+          "bytes": 526,
+          "downloaded_at": "2026-09-16T14:00:53+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/hPSC_MEA2_PCA/hPSC_MEA2_PCA_meaRtools_output/hPSC_20517_MEA2_bursts_per_min.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/hPSC_MEA2_PCA/hPSC_MEA2_PCA_meaRtools_output/hPSC_20517_MEA2_bursts_per_min.csv",
+          "sha256": "eb8db35dd8239406a52b9143db76e37ec5918d58431bb180510551d1f01be5c6",
+          "bytes": 454,
+          "downloaded_at": "2026-09-16T14:00:54+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/hPSC_MEA2_PCA/hPSC_MEA2_PCA_meaRtools_output/hPSC_20517_MEA2_mean_dur.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/hPSC_MEA2_PCA/hPSC_MEA2_PCA_meaRtools_output/hPSC_20517_MEA2_mean_dur.csv",
+          "sha256": "81b231ddd584e7fa356faa6c64e73976a5c6812f9523242114d3d868788e0a5a",
+          "bytes": 524,
+          "downloaded_at": "2026-09-16T14:00:54+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/hPSC_MEA2_PCA/hPSC_MEA2_PCA_meaRtools_output/hPSC_20517_MEA2_mean_freq_in_burst.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/hPSC_MEA2_PCA/hPSC_MEA2_PCA_meaRtools_output/hPSC_20517_MEA2_mean_freq_in_burst.csv",
+          "sha256": "3a035bda8e6827f685357c49032a75b04b830c249a5a8d43baba4389c4931baa",
+          "bytes": 508,
+          "downloaded_at": "2026-09-16T14:00:55+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/hPSC_MEA2_PCA/hPSC_MEA2_PCA_meaRtools_output/hPSC_20517_MEA2_mean_spikes_in_burst.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/hPSC_MEA2_PCA/hPSC_MEA2_PCA_meaRtools_output/hPSC_20517_MEA2_mean_spikes_in_burst.csv",
+          "sha256": "0203eb0d9b200bbbd29fc87f5d49554844f2117dac9c450825006eda6a67ced4",
+          "bytes": 326,
+          "downloaded_at": "2026-09-16T14:00:56+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/hPSC_MEA2_PCA/hPSC_MEA2_PCA_meaRtools_output/hPSC_20517_MEA2_meanfiringrate_by_active_electordes.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/hPSC_MEA2_PCA/hPSC_MEA2_PCA_meaRtools_output/hPSC_20517_MEA2_meanfiringrate_by_active_electordes.csv",
+          "sha256": "f13d3c861c88538df60243baed5544194d1b36d6debc3354c8e8fba74034ecc9",
+          "bytes": 504,
+          "downloaded_at": "2026-09-16T14:00:56+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/hPSC_MEA2_PCA/hPSC_MEA2_PCA_meaRtools_output/hPSC_20517_MEA2_nae.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/hPSC_MEA2_PCA/hPSC_MEA2_PCA_meaRtools_output/hPSC_20517_MEA2_nae.csv",
+          "sha256": "fc1cb6023e9ab1f6159a24cc48e1df3ddd44ea9e515e6e02a805ee2ca704eab0",
+          "bytes": 256,
+          "downloaded_at": "2026-09-16T14:00:57+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/hPSC_MEA2_PCA/hPSC_MEA2_PCA_meaRtools_output/hPSC_20517_MEA2_per_spikes_in_burst.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/hPSC_MEA2_PCA/hPSC_MEA2_PCA_meaRtools_output/hPSC_20517_MEA2_per_spikes_in_burst.csv",
+          "sha256": "07cf63e3b96ce38a0c627b80208c4ab6c577d969f2b7a734f1ea0090f5b43cef",
+          "bytes": 324,
+          "downloaded_at": "2026-09-16T14:00:57+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/hPSC_MEA2_PCA/hPSC_MEA2_PCA_spikes_noise_explogs/PCAnoisy_electrodes_hPSC_MEA2.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/hPSC_MEA2_PCA/hPSC_MEA2_PCA_spikes_noise_explogs/PCAnoisy_electrodes_hPSC_MEA2.csv",
+          "sha256": "7b4740cbbe819b382b1fdb08008d22e281037e0d6210838a5fdcccc5c1fc0dbe",
+          "bytes": 70,
+          "downloaded_at": "2026-09-16T14:00:58+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/hPSC_MEA2_PCA/hPSC_MEA2_PCA_spikes_noise_explogs/hPSC_20517_MEA2_DIV21_PCAexpLog.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/hPSC_MEA2_PCA/hPSC_MEA2_PCA_spikes_noise_explogs/hPSC_20517_MEA2_DIV21_PCAexpLog.csv",
+          "sha256": "8ac6610eb3771d992e1b51489cc819d070323d085a5fb182c0b646cd618c25af",
+          "bytes": 554,
+          "downloaded_at": "2026-09-16T14:00:58+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/hPSC_MEA4_PCA/hPSC_MEA4_PCA_meaRtools_output/hPSC_171017_MEA4_STTC.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/hPSC_MEA4_PCA/hPSC_MEA4_PCA_meaRtools_output/hPSC_171017_MEA4_STTC.csv",
+          "sha256": "7dcd567287132b80677a4e6c00a2ce42905230af69e8480c17ebc23f05ea3038",
+          "bytes": 536,
+          "downloaded_at": "2026-09-16T14:00:59+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/hPSC_MEA4_PCA/hPSC_MEA4_PCA_meaRtools_output/hPSC_171017_MEA4_bursts_per_min.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/hPSC_MEA4_PCA/hPSC_MEA4_PCA_meaRtools_output/hPSC_171017_MEA4_bursts_per_min.csv",
+          "sha256": "d239f91d86a5162e136fa00cb8986fbeea63b71aa0c94d2d38db513b38968aa4",
+          "bytes": 382,
+          "downloaded_at": "2026-09-16T14:01:00+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/hPSC_MEA4_PCA/hPSC_MEA4_PCA_meaRtools_output/hPSC_171017_MEA4_mean_dur.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/hPSC_MEA4_PCA/hPSC_MEA4_PCA_meaRtools_output/hPSC_171017_MEA4_mean_dur.csv",
+          "sha256": "f2702383ad9e54e8b62c1f56189e67186d17d0eb96b8b5f77a393b0ccba462be",
+          "bytes": 515,
+          "downloaded_at": "2026-09-16T14:01:00+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/hPSC_MEA4_PCA/hPSC_MEA4_PCA_meaRtools_output/hPSC_171017_MEA4_mean_freq_in_burst.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/hPSC_MEA4_PCA/hPSC_MEA4_PCA_meaRtools_output/hPSC_171017_MEA4_mean_freq_in_burst.csv",
+          "sha256": "3870adca9ea2596a950df036bc38e81fb1df14e3e7bed3d5989b7298ea77d03d",
+          "bytes": 505,
+          "downloaded_at": "2026-09-16T14:01:01+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/hPSC_MEA4_PCA/hPSC_MEA4_PCA_meaRtools_output/hPSC_171017_MEA4_mean_spikes_in_burst.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/hPSC_MEA4_PCA/hPSC_MEA4_PCA_meaRtools_output/hPSC_171017_MEA4_mean_spikes_in_burst.csv",
+          "sha256": "fd898d2f144e587b193f690f9e873f6d90aaed06f44aaab55552c7101391bb91",
+          "bytes": 326,
+          "downloaded_at": "2026-09-16T14:01:01+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/hPSC_MEA4_PCA/hPSC_MEA4_PCA_meaRtools_output/hPSC_171017_MEA4_meanfiringrate_by_active_electordes.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/hPSC_MEA4_PCA/hPSC_MEA4_PCA_meaRtools_output/hPSC_171017_MEA4_meanfiringrate_by_active_electordes.csv",
+          "sha256": "bbd20d5477613060b2081d5d85246da497d3cbc1f220c5f6445d5354d78f8526",
+          "bytes": 505,
+          "downloaded_at": "2026-09-16T14:01:02+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/hPSC_MEA4_PCA/hPSC_MEA4_PCA_meaRtools_output/hPSC_171017_MEA4_nae.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/hPSC_MEA4_PCA/hPSC_MEA4_PCA_meaRtools_output/hPSC_171017_MEA4_nae.csv",
+          "sha256": "b843689bfd3cb2fe6221c53836ec964334d7cfb661f3c543e5aa0f2806c426c3",
+          "bytes": 256,
+          "downloaded_at": "2026-09-16T14:01:03+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/hPSC_MEA4_PCA/hPSC_MEA4_PCA_meaRtools_output/hPSC_171017_MEA4_per_spikes_in_burst.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/hPSC_MEA4_PCA/hPSC_MEA4_PCA_meaRtools_output/hPSC_171017_MEA4_per_spikes_in_burst.csv",
+          "sha256": "de14b8cd3ff78fe48bf8bc0e3a5961615f93e15763b2094dbdb38f7b0981a21e",
+          "bytes": 327,
+          "downloaded_at": "2026-09-16T14:01:03+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/hPSC_MEA4_PCA/hPSC_MEA4_PCA_spikes_noise_explogs/hPSC_171017_MEA4_DIV21_expLog.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/hPSC_MEA4_PCA/hPSC_MEA4_PCA_spikes_noise_explogs/hPSC_171017_MEA4_DIV21_expLog.csv",
+          "sha256": "e8edd052119330e6b36f3ac9925409db89228eb7265a8c3cbbc76c0c21a20c36",
+          "bytes": 566,
+          "downloaded_at": "2026-09-16T14:01:04+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/hPSC_MEA4_PCA/hPSC_MEA4_PCA_spikes_noise_explogs/noisy_electrodes_hPSC_MEA4.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/hPSC_MEA4_PCA/hPSC_MEA4_PCA_spikes_noise_explogs/noisy_electrodes_hPSC_MEA4.csv",
+          "sha256": "a7b8ddf61dbe054f525699a4edd237cc07c0688c74483ab7d4e8149fd8b26b38",
+          "bytes": 212,
+          "downloaded_at": "2026-09-16T14:01:05+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/hPSC_MEA5_PCA/hPSC_MEA5_PCA_meaRtools_output/hPSC_21018_MEA5_STTC.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/hPSC_MEA5_PCA/hPSC_MEA5_PCA_meaRtools_output/hPSC_21018_MEA5_STTC.csv",
+          "sha256": "6a3053020733809a7e10d46e590456c355faa055007bcfcbc234456d2437e7a8",
+          "bytes": 370,
+          "downloaded_at": "2026-09-16T14:01:05+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/hPSC_MEA5_PCA/hPSC_MEA5_PCA_meaRtools_output/hPSC_21018_MEA5_bursts_per_min.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/hPSC_MEA5_PCA/hPSC_MEA5_PCA_meaRtools_output/hPSC_21018_MEA5_bursts_per_min.csv",
+          "sha256": "fe72eac2aa092e6aa078bd934052c73ce62754f23727b4a73cc13793be238f11",
+          "bytes": 312,
+          "downloaded_at": "2026-09-16T14:01:06+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/hPSC_MEA5_PCA/hPSC_MEA5_PCA_meaRtools_output/hPSC_21018_MEA5_mean_dur.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/hPSC_MEA5_PCA/hPSC_MEA5_PCA_meaRtools_output/hPSC_21018_MEA5_mean_dur.csv",
+          "sha256": "92c514c767f94cb530800a803c6271d8ee021bf7c215c096eaa83def761aacbe",
+          "bytes": 364,
+          "downloaded_at": "2026-09-16T14:01:07+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/hPSC_MEA5_PCA/hPSC_MEA5_PCA_meaRtools_output/hPSC_21018_MEA5_mean_freq_in_burst.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/hPSC_MEA5_PCA/hPSC_MEA5_PCA_meaRtools_output/hPSC_21018_MEA5_mean_freq_in_burst.csv",
+          "sha256": "0a5f357c1c1a3a29a3c0ba1f66b840a8c66a3d702a3200457c00f970e2ba5eee",
+          "bytes": 356,
+          "downloaded_at": "2026-09-16T14:01:07+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/hPSC_MEA5_PCA/hPSC_MEA5_PCA_meaRtools_output/hPSC_21018_MEA5_mean_spikes_in_burst.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/hPSC_MEA5_PCA/hPSC_MEA5_PCA_meaRtools_output/hPSC_21018_MEA5_mean_spikes_in_burst.csv",
+          "sha256": "3dcc9a70e806c09ea3a89bd16807beddfe9f18fd6c108bde448d39f7d960208b",
+          "bytes": 234,
+          "downloaded_at": "2026-09-16T14:01:08+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/hPSC_MEA5_PCA/hPSC_MEA5_PCA_meaRtools_output/hPSC_21018_MEA5_meanfiringrate_by_active_electordes.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/hPSC_MEA5_PCA/hPSC_MEA5_PCA_meaRtools_output/hPSC_21018_MEA5_meanfiringrate_by_active_electordes.csv",
+          "sha256": "6ab03870e0d23ae48cd6e4bbcbdc83b6c3cf3ed6458dc29395f7b4a4a0c84329",
+          "bytes": 356,
+          "downloaded_at": "2026-09-16T14:01:09+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/hPSC_MEA5_PCA/hPSC_MEA5_PCA_meaRtools_output/hPSC_21018_MEA5_nae.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/hPSC_MEA5_PCA/hPSC_MEA5_PCA_meaRtools_output/hPSC_21018_MEA5_nae.csv",
+          "sha256": "5fc0c55728631660f775bb07ba0c9f2ac6ac3ee78d6ccc8760f440182c94674d",
+          "bytes": 188,
+          "downloaded_at": "2026-09-16T14:01:10+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/hPSC_MEA5_PCA/hPSC_MEA5_PCA_meaRtools_output/hPSC_21018_MEA5_per_spikes_in_burst.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/hPSC_MEA5_PCA/hPSC_MEA5_PCA_meaRtools_output/hPSC_21018_MEA5_per_spikes_in_burst.csv",
+          "sha256": "9dca168c975f9b026e81feb366ea454b630944366d0e1464e73bc7b6694aac78",
+          "bytes": 236,
+          "downloaded_at": "2026-09-16T14:01:10+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/hPSC_MEA5_PCA/hPSC_MEA5_PCA_spikes_noise_explogs/hPSC_21018_MEA5_DIV70_expLog.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/hPSC_MEA5_PCA/hPSC_MEA5_PCA_spikes_noise_explogs/hPSC_21018_MEA5_DIV70_expLog.csv",
+          "sha256": "ea08da89e17f56a072160447e27763516cc3fd650ce2369310b95126957763c5",
+          "bytes": 556,
+          "downloaded_at": "2026-09-16T14:01:11+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/PCA/hPSC_MEA5_PCA/hPSC_MEA5_PCA_spikes_noise_explogs/noisy_electrodes_hPSC_MEA5.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/PCA/hPSC_MEA5_PCA/hPSC_MEA5_PCA_spikes_noise_explogs/noisy_electrodes_hPSC_MEA5.csv",
+          "sha256": "e630e965510aa1fc86525636459860dfd55eaf2b1ba2be329ff55095cc38ed5e",
+          "bytes": 325,
+          "downloaded_at": "2026-09-16T14:01:11+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/Rat_MEA1/Rat_MEA1_meaRtools_output/Rat_190617_MEA1_STTC.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/Rat_MEA1/Rat_MEA1_meaRtools_output/Rat_190617_MEA1_STTC.csv",
+          "sha256": "253f2529bb7acdafb67afd6782d43b540ee5cbf6b42f9f509ca6c329b7688ddb",
+          "bytes": 2462,
+          "downloaded_at": "2026-09-16T14:01:12+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/Rat_MEA1/Rat_MEA1_meaRtools_output/Rat_190617_MEA1_bursts_per_min.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/Rat_MEA1/Rat_MEA1_meaRtools_output/Rat_190617_MEA1_bursts_per_min.csv",
+          "sha256": "4644015842ae3ed23c4ad36abd29ec52e0a2bf6c77be36dc99e647489a0cbeec",
+          "bytes": 1863,
+          "downloaded_at": "2026-09-16T14:01:13+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/Rat_MEA1/Rat_MEA1_meaRtools_output/Rat_190617_MEA1_mean_dur.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/Rat_MEA1/Rat_MEA1_meaRtools_output/Rat_190617_MEA1_mean_dur.csv",
+          "sha256": "ad2244b66ed0cd031bdf9911e42d132256ff75910d4d74b81ee3465ad82c75f4",
+          "bytes": 2352,
+          "downloaded_at": "2026-09-16T14:01:13+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/Rat_MEA1/Rat_MEA1_meaRtools_output/Rat_190617_MEA1_mean_freq_in_burst.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/Rat_MEA1/Rat_MEA1_meaRtools_output/Rat_190617_MEA1_mean_freq_in_burst.csv",
+          "sha256": "dac3d31dbcde5b3af78a2aad148c5a7ce88c65483cdad041ec36a7c01388a8be",
+          "bytes": 2250,
+          "downloaded_at": "2026-09-16T14:01:14+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/Rat_MEA1/Rat_MEA1_meaRtools_output/Rat_190617_MEA1_mean_spikes_in_burst.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/Rat_MEA1/Rat_MEA1_meaRtools_output/Rat_190617_MEA1_mean_spikes_in_burst.csv",
+          "sha256": "60dded10272a6d3e65d8a6b9ac43d2257a106a0302a0f30f624ac1aab96ec177",
+          "bytes": 1278,
+          "downloaded_at": "2026-09-16T14:01:14+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/Rat_MEA1/Rat_MEA1_meaRtools_output/Rat_190617_MEA1_meanfiringrate_by_active_electordes.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/Rat_MEA1/Rat_MEA1_meaRtools_output/Rat_190617_MEA1_meanfiringrate_by_active_electordes.csv",
+          "sha256": "b9f443e04948795ab79db935074a8e2ff9d295b9171225610b7f1cd4735453f6",
+          "bytes": 2456,
+          "downloaded_at": "2026-09-16T14:01:15+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/Rat_MEA1/Rat_MEA1_meaRtools_output/Rat_190617_MEA1_nae.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/Rat_MEA1/Rat_MEA1_meaRtools_output/Rat_190617_MEA1_nae.csv",
+          "sha256": "d42fa150504f47b435cbfae5f38cc8cb209afebbd89469ae819672017084e001",
+          "bytes": 908,
+          "downloaded_at": "2026-09-16T14:01:15+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/Rat_MEA1/Rat_MEA1_meaRtools_output/Rat_190617_MEA1_per_spikes_in_burst.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/Rat_MEA1/Rat_MEA1_meaRtools_output/Rat_190617_MEA1_per_spikes_in_burst.csv",
+          "sha256": "b9fc6e89610e07a7f3bb018d11fc52158caab1c82c760b77c2cedecc84583f0a",
+          "bytes": 1271,
+          "downloaded_at": "2026-09-16T14:01:16+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/Rat_MEA1/Rat_MEA1_spikes_noise_explogs/Rat_190617_MEA1_DIV2_expLog.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/Rat_MEA1/Rat_MEA1_spikes_noise_explogs/Rat_190617_MEA1_DIV2_expLog.csv",
+          "sha256": "84a2f627b421d21a0fe0314b131d48e7e91f8a7c5fd9ad06140a060a1b297067",
+          "bytes": 536,
+          "downloaded_at": "2026-09-16T14:01:17+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/Rat_MEA1/Rat_MEA1_spikes_noise_explogs/noisy_electrodes_Rat_MEA1.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/Rat_MEA1/Rat_MEA1_spikes_noise_explogs/noisy_electrodes_Rat_MEA1.csv",
+          "sha256": "5d5febeb8a8e1706cccb2fb9d2c52dd0e050a545f48f9abc66b47b8aaff1bc11",
+          "bytes": 404,
+          "downloaded_at": "2026-09-16T14:01:17+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2Baseline_DIV22/Rat_MEA2Baseline_DIV22_meaRtools_output/Rat_50618_MEA2Baseline_STTC.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/Rat_MEA2_Pharmacology/Rat_MEA2Baseline_DIV22/Rat_MEA2Baseline_DIV22_meaRtools_output/Rat_50618_MEA2Baseline_STTC.csv",
+          "sha256": "392cf12858f7e7be8dcbd97a5523aaacdeda09cccc4925907a7b312f6593c634",
+          "bytes": 1693,
+          "downloaded_at": "2026-09-16T14:01:18+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2Baseline_DIV22/Rat_MEA2Baseline_DIV22_meaRtools_output/Rat_50618_MEA2Baseline_bursts_per_min.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/Rat_MEA2_Pharmacology/Rat_MEA2Baseline_DIV22/Rat_MEA2Baseline_DIV22_meaRtools_output/Rat_50618_MEA2Baseline_bursts_per_min.csv",
+          "sha256": "551a9c12d5ed8ce8069e4ec1a5767e9a02883e6c97db601cdaeba44c37105ae3",
+          "bytes": 1289,
+          "downloaded_at": "2026-09-16T14:01:18+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2Baseline_DIV22/Rat_MEA2Baseline_DIV22_meaRtools_output/Rat_50618_MEA2Baseline_mean_dur.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/Rat_MEA2_Pharmacology/Rat_MEA2Baseline_DIV22/Rat_MEA2Baseline_DIV22_meaRtools_output/Rat_50618_MEA2Baseline_mean_dur.csv",
+          "sha256": "ad000cdeb923f53efc0044deacf98d4cf78c239bfa129094acc14111021d682f",
+          "bytes": 1612,
+          "downloaded_at": "2026-09-16T14:01:19+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2Baseline_DIV22/Rat_MEA2Baseline_DIV22_meaRtools_output/Rat_50618_MEA2Baseline_mean_freq_in_burst.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/Rat_MEA2_Pharmacology/Rat_MEA2Baseline_DIV22/Rat_MEA2Baseline_DIV22_meaRtools_output/Rat_50618_MEA2Baseline_mean_freq_in_burst.csv",
+          "sha256": "97a1ac3eda61de9768cd467f17a7b22365801dbd93363cc1039db69400f02615",
+          "bytes": 1569,
+          "downloaded_at": "2026-09-16T14:01:19+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2Baseline_DIV22/Rat_MEA2Baseline_DIV22_meaRtools_output/Rat_50618_MEA2Baseline_mean_spikes_in_burst.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/Rat_MEA2_Pharmacology/Rat_MEA2Baseline_DIV22/Rat_MEA2Baseline_DIV22_meaRtools_output/Rat_50618_MEA2Baseline_mean_spikes_in_burst.csv",
+          "sha256": "91bb50fd5fa9b2cbcfe83190570940019c238a5ea123bd07ad4cd7bf10a6c9c9",
+          "bytes": 1169,
+          "downloaded_at": "2026-09-16T14:01:20+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2Baseline_DIV22/Rat_MEA2Baseline_DIV22_meaRtools_output/Rat_50618_MEA2Baseline_meanfiringrate_by_active_electordes.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/Rat_MEA2_Pharmacology/Rat_MEA2Baseline_DIV22/Rat_MEA2Baseline_DIV22_meaRtools_output/Rat_50618_MEA2Baseline_meanfiringrate_by_active_electordes.csv",
+          "sha256": "7c5c270013bd8c63dc90164bc9a0ab5618cf4eb9d9389bcc685774eb1607b68b",
+          "bytes": 1626,
+          "downloaded_at": "2026-09-16T14:01:21+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2Baseline_DIV22/Rat_MEA2Baseline_DIV22_meaRtools_output/Rat_50618_MEA2Baseline_nae.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/Rat_MEA2_Pharmacology/Rat_MEA2Baseline_DIV22/Rat_MEA2Baseline_DIV22_meaRtools_output/Rat_50618_MEA2Baseline_nae.csv",
+          "sha256": "73db6ff364f7b0c3cebe266d4a0791c29480d3950fecc9bab42a7cc69fbeec20",
+          "bytes": 1028,
+          "downloaded_at": "2026-09-16T14:01:21+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2Baseline_DIV22/Rat_MEA2Baseline_DIV22_meaRtools_output/Rat_50618_MEA2Baseline_per_spikes_in_burst.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/Rat_MEA2_Pharmacology/Rat_MEA2Baseline_DIV22/Rat_MEA2Baseline_DIV22_meaRtools_output/Rat_50618_MEA2Baseline_per_spikes_in_burst.csv",
+          "sha256": "13cc1f769c4bb48545ccf33a6fa7480d4edd301a320764e61d04d475114f3dc6",
+          "bytes": 1175,
+          "downloaded_at": "2026-09-16T14:01:22+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2Baseline_DIV22/Rat_MEA2Baseline_DIV22_spikes_noise_explogs/Rat_50618_MEA2Baseline_DIV22_expLog.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/Rat_MEA2_Pharmacology/Rat_MEA2Baseline_DIV22/Rat_MEA2Baseline_DIV22_spikes_noise_explogs/Rat_50618_MEA2Baseline_DIV22_expLog.csv",
+          "sha256": "5d8fa6a80670aae140fb9d4648e46dd599630e849cebd5043d92e6edc29e19d1",
+          "bytes": 2330,
+          "downloaded_at": "2026-09-16T14:01:22+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2Baseline_DIV22/Rat_MEA2Baseline_DIV22_spikes_noise_explogs/Rat_50618_MEA2Baseline_DIV22_spikes.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/Rat_MEA2_Pharmacology/Rat_MEA2Baseline_DIV22/Rat_MEA2Baseline_DIV22_spikes_noise_explogs/Rat_50618_MEA2Baseline_DIV22_spikes.csv",
+          "sha256": "951bc64c983c5798127dfbc11e33b865a4cec42973164c40d40f43502a35b7f7",
+          "bytes": 60309223,
+          "downloaded_at": "2026-09-16T14:01:28+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2Baseline_DIV22/Rat_MEA2Baseline_DIV22_spikes_noise_explogs/noisy_electrodes_Rat_MEA2Baseline_DIV22.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/Rat_MEA2_Pharmacology/Rat_MEA2Baseline_DIV22/Rat_MEA2Baseline_DIV22_spikes_noise_explogs/noisy_electrodes_Rat_MEA2Baseline_DIV22.csv",
+          "sha256": "1776d3532d4520ac7a3e055b39a0c9e93965d8abd10b7a609c0f0a724a4f7adc",
+          "bytes": 12,
+          "downloaded_at": "2026-09-16T14:01:29+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2Pharma_DIV22/Rat_MEA2Pharma_DIV22_meaRtools_output/Rat_50618_MEA2Pharma_STTC.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/Rat_MEA2_Pharmacology/Rat_MEA2Pharma_DIV22/Rat_MEA2Pharma_DIV22_meaRtools_output/Rat_50618_MEA2Pharma_STTC.csv",
+          "sha256": "86fe4fc7edd2a3fae2ecc3209f8c3be2c08a3ef1cbcc8b1b4f460aaf72bb0ab4",
+          "bytes": 1276,
+          "downloaded_at": "2026-09-16T14:01:29+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2Pharma_DIV22/Rat_MEA2Pharma_DIV22_meaRtools_output/Rat_50618_MEA2Pharma_bursts_per_min.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/Rat_MEA2_Pharmacology/Rat_MEA2Pharma_DIV22/Rat_MEA2Pharma_DIV22_meaRtools_output/Rat_50618_MEA2Pharma_bursts_per_min.csv",
+          "sha256": "0a48f0818b1970d75db40be8708c525788788a627115c3f44eaaec348d90c9a8",
+          "bytes": 918,
+          "downloaded_at": "2026-09-16T14:01:30+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2Pharma_DIV22/Rat_MEA2Pharma_DIV22_meaRtools_output/Rat_50618_MEA2Pharma_mean_dur.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/Rat_MEA2_Pharmacology/Rat_MEA2Pharma_DIV22/Rat_MEA2Pharma_DIV22_meaRtools_output/Rat_50618_MEA2Pharma_mean_dur.csv",
+          "sha256": "c5bf3c690762caa2f0a68e37ccd76d54e61f58c399eb12a1818fb63e493fef5d",
+          "bytes": 1194,
+          "downloaded_at": "2026-09-16T14:01:30+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2Pharma_DIV22/Rat_MEA2Pharma_DIV22_meaRtools_output/Rat_50618_MEA2Pharma_mean_freq_in_burst.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/Rat_MEA2_Pharmacology/Rat_MEA2Pharma_DIV22/Rat_MEA2Pharma_DIV22_meaRtools_output/Rat_50618_MEA2Pharma_mean_freq_in_burst.csv",
+          "sha256": "e4241dc55a62752770d64163361decba25eefbf14dc73a747cc8d38df1ccc5c1",
+          "bytes": 1165,
+          "downloaded_at": "2026-09-16T14:01:31+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2Pharma_DIV22/Rat_MEA2Pharma_DIV22_meaRtools_output/Rat_50618_MEA2Pharma_mean_spikes_in_burst.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/Rat_MEA2_Pharmacology/Rat_MEA2Pharma_DIV22/Rat_MEA2Pharma_DIV22_meaRtools_output/Rat_50618_MEA2Pharma_mean_spikes_in_burst.csv",
+          "sha256": "4002c34522e15930049e24f2f9a080558de437660f6a6ebcd046feada21fabcb",
+          "bytes": 871,
+          "downloaded_at": "2026-09-16T14:01:32+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2Pharma_DIV22/Rat_MEA2Pharma_DIV22_meaRtools_output/Rat_50618_MEA2Pharma_meanfiringrate_by_active_electordes.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/Rat_MEA2_Pharmacology/Rat_MEA2Pharma_DIV22/Rat_MEA2Pharma_DIV22_meaRtools_output/Rat_50618_MEA2Pharma_meanfiringrate_by_active_electordes.csv",
+          "sha256": "e68e92697d98461cbc9dd64bf61c7ae3178f1c3dcf329ef0b57c0a65548a5dbe",
+          "bytes": 1310,
+          "downloaded_at": "2026-09-16T14:01:32+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2Pharma_DIV22/Rat_MEA2Pharma_DIV22_meaRtools_output/Rat_50618_MEA2Pharma_nae.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/Rat_MEA2_Pharmacology/Rat_MEA2Pharma_DIV22/Rat_MEA2Pharma_DIV22_meaRtools_output/Rat_50618_MEA2Pharma_nae.csv",
+          "sha256": "eb3d629d8176a2f8a710d7fd151cded9788caae5c2db30ae099ca17020ee4970",
+          "bytes": 746,
+          "downloaded_at": "2026-09-16T14:01:33+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2Pharma_DIV22/Rat_MEA2Pharma_DIV22_meaRtools_output/Rat_50618_MEA2Pharma_per_spikes_in_burst.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/Rat_MEA2_Pharmacology/Rat_MEA2Pharma_DIV22/Rat_MEA2Pharma_DIV22_meaRtools_output/Rat_50618_MEA2Pharma_per_spikes_in_burst.csv",
+          "sha256": "c798da076cab3c639c0b10161b00b1cb4e01653cf99429dd77f7dfd26cb25133",
+          "bytes": 853,
+          "downloaded_at": "2026-09-16T14:01:33+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2Pharma_DIV22/Rat_MEA2Pharma_DIV22_spikes_noise_explogs/Rat_50618_MEA2Pharma_DIV22_expLog.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/Rat_MEA2_Pharmacology/Rat_MEA2Pharma_DIV22/Rat_MEA2Pharma_DIV22_spikes_noise_explogs/Rat_50618_MEA2Pharma_DIV22_expLog.csv",
+          "sha256": "c80d5585238da6263409511ec3e7244a920c2a560fa9c4e01ea773ec54a6c03f",
+          "bytes": 2164,
+          "downloaded_at": "2026-09-16T14:01:34+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2Pharma_DIV22/Rat_MEA2Pharma_DIV22_spikes_noise_explogs/Rat_50618_MEA2Pharma_DIV22_spikes.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/Rat_MEA2_Pharmacology/Rat_MEA2Pharma_DIV22/Rat_MEA2Pharma_DIV22_spikes_noise_explogs/Rat_50618_MEA2Pharma_DIV22_spikes.csv",
+          "sha256": "44a26d8dd7c9eb5510f04b856f983178d624b51a8edbcb2f187553f6a1dcef5b",
+          "bytes": 25422767,
+          "downloaded_at": "2026-09-16T14:01:37+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2Pharma_DIV22/Rat_MEA2Pharma_DIV22_spikes_noise_explogs/noisy_electrodes_Rat_MEA2Pharma_DIV22.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/Rat_MEA2_Pharmacology/Rat_MEA2Pharma_DIV22/Rat_MEA2Pharma_DIV22_spikes_noise_explogs/noisy_electrodes_Rat_MEA2Pharma_DIV22.csv",
+          "sha256": "1776d3532d4520ac7a3e055b39a0c9e93965d8abd10b7a609c0f0a724a4f7adc",
+          "bytes": 12,
+          "downloaded_at": "2026-09-16T14:01:38+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2TTX_DIV22/Rat_MEA2TTX_DIV22_meaRtools_output/Rat_50618_MEA2TTX_STTC.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/Rat_MEA2_Pharmacology/Rat_MEA2TTX_DIV22/Rat_MEA2TTX_DIV22_meaRtools_output/Rat_50618_MEA2TTX_STTC.csv",
+          "sha256": "8adbaa36ee2b15ad2bf08b75f56fb2a4aa137b0ad62945c3b044f2f9efd7835b",
+          "bytes": 1004,
+          "downloaded_at": "2026-09-16T14:01:38+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2TTX_DIV22/Rat_MEA2TTX_DIV22_meaRtools_output/Rat_50618_MEA2TTX_bursts_per_min.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/Rat_MEA2_Pharmacology/Rat_MEA2TTX_DIV22/Rat_MEA2TTX_DIV22_meaRtools_output/Rat_50618_MEA2TTX_bursts_per_min.csv",
+          "sha256": "4607ece3476056d3a46642fbab306424dc8b72d69d34e0d8141b63e82c1f032f",
+          "bytes": 726,
+          "downloaded_at": "2026-09-16T14:01:39+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2TTX_DIV22/Rat_MEA2TTX_DIV22_meaRtools_output/Rat_50618_MEA2TTX_mean_dur.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/Rat_MEA2_Pharmacology/Rat_MEA2TTX_DIV22/Rat_MEA2TTX_DIV22_meaRtools_output/Rat_50618_MEA2TTX_mean_dur.csv",
+          "sha256": "7e864d59fcb80b4cd7832904b14b7759a32d28bde84a56aeb7d8b35de0a8ecb0",
+          "bytes": 916,
+          "downloaded_at": "2026-09-16T14:01:39+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2TTX_DIV22/Rat_MEA2TTX_DIV22_meaRtools_output/Rat_50618_MEA2TTX_mean_freq_in_burst.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/Rat_MEA2_Pharmacology/Rat_MEA2TTX_DIV22/Rat_MEA2TTX_DIV22_meaRtools_output/Rat_50618_MEA2TTX_mean_freq_in_burst.csv",
+          "sha256": "56d24184a7ce4650da913c954409556feb1a8db26305aa45bdebd51d4bbe906a",
+          "bytes": 908,
+          "downloaded_at": "2026-09-16T14:01:40+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2TTX_DIV22/Rat_MEA2TTX_DIV22_meaRtools_output/Rat_50618_MEA2TTX_mean_spikes_in_burst.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/Rat_MEA2_Pharmacology/Rat_MEA2TTX_DIV22/Rat_MEA2TTX_DIV22_meaRtools_output/Rat_50618_MEA2TTX_mean_spikes_in_burst.csv",
+          "sha256": "dc364fbc340eeec4033a9c7631ab1bdfaf33254d5b968fbb9bf742a57364a127",
+          "bytes": 723,
+          "downloaded_at": "2026-09-16T14:01:40+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2TTX_DIV22/Rat_MEA2TTX_DIV22_meaRtools_output/Rat_50618_MEA2TTX_meanfiringrate_by_active_electordes.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/Rat_MEA2_Pharmacology/Rat_MEA2TTX_DIV22/Rat_MEA2TTX_DIV22_meaRtools_output/Rat_50618_MEA2TTX_meanfiringrate_by_active_electordes.csv",
+          "sha256": "cdbd3a25deda18d5facbf21fbc1a524f0c6e9a48bf9e03932ef4f7ddc00147e4",
+          "bytes": 1049,
+          "downloaded_at": "2026-09-16T14:01:41+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2TTX_DIV22/Rat_MEA2TTX_DIV22_meaRtools_output/Rat_50618_MEA2TTX_nae.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/Rat_MEA2_Pharmacology/Rat_MEA2TTX_DIV22/Rat_MEA2TTX_DIV22_meaRtools_output/Rat_50618_MEA2TTX_nae.csv",
+          "sha256": "4970dac3da5f477c2eaa4cfaf513c9fb10518032fe5770e679113189c7e19605",
+          "bytes": 643,
+          "downloaded_at": "2026-09-16T14:01:42+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2TTX_DIV22/Rat_MEA2TTX_DIV22_meaRtools_output/Rat_50618_MEA2TTX_per_spikes_in_burst.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/Rat_MEA2_Pharmacology/Rat_MEA2TTX_DIV22/Rat_MEA2TTX_DIV22_meaRtools_output/Rat_50618_MEA2TTX_per_spikes_in_burst.csv",
+          "sha256": "80cb0a00b12436b1b4c5d2de83f4233296f2e4aa7f1a4ef242f8c3d8af1ea722",
+          "bytes": 710,
+          "downloaded_at": "2026-09-16T14:01:42+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2TTX_DIV22/Rat_MEA2TTX_DIV22_spikes_noise_explogs/Rat_50618_MEA2TTX_DIV22_expLog.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/Rat_MEA2_Pharmacology/Rat_MEA2TTX_DIV22/Rat_MEA2TTX_DIV22_spikes_noise_explogs/Rat_50618_MEA2TTX_DIV22_expLog.csv",
+          "sha256": "d62bda3e8a5aa9c3309297265e747299c08afcdf3a485c0f98caa402e5d823db",
+          "bytes": 2017,
+          "downloaded_at": "2026-09-16T14:01:43+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2TTX_DIV22/Rat_MEA2TTX_DIV22_spikes_noise_explogs/Rat_50618_MEA2TTX_DIV22_spikes.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/Rat_MEA2_Pharmacology/Rat_MEA2TTX_DIV22/Rat_MEA2TTX_DIV22_spikes_noise_explogs/Rat_50618_MEA2TTX_DIV22_spikes.csv",
+          "sha256": "0103413c95eca4f955cc6f95d5bd092b539e2b06e9b14c428cbaf5b559a3e496",
+          "bytes": 3389686,
+          "downloaded_at": "2026-09-16T14:01:46+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2TTX_DIV22/Rat_MEA2TTX_DIV22_spikes_noise_explogs/noisy_electrodes_Rat_MEA2TTX_DIV22.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/Rat_MEA2_Pharmacology/Rat_MEA2TTX_DIV22/Rat_MEA2TTX_DIV22_spikes_noise_explogs/noisy_electrodes_Rat_MEA2TTX_DIV22.csv",
+          "sha256": "1776d3532d4520ac7a3e055b39a0c9e93965d8abd10b7a609c0f0a724a4f7adc",
+          "bytes": 12,
+          "downloaded_at": "2026-09-16T14:01:46+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA1/hPSC_MEA1_meaRtools_output/hPSC_20517_MEA1_STTC.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA1/hPSC_MEA1_meaRtools_output/hPSC_20517_MEA1_STTC.csv",
+          "sha256": "8ebb33ab43d1a266c80c135d86e1490a6a33afa7c0c17876f06a6959e1fac33c",
+          "bytes": 2713,
+          "downloaded_at": "2026-09-16T14:01:47+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA1/hPSC_MEA1_meaRtools_output/hPSC_20517_MEA1_bursts_per_min.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA1/hPSC_MEA1_meaRtools_output/hPSC_20517_MEA1_bursts_per_min.csv",
+          "sha256": "e54701fcb0415f206267aac82f33c4c9649c5975eeaa26587151633719621a68",
+          "bytes": 1784,
+          "downloaded_at": "2026-09-16T14:01:48+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA1/hPSC_MEA1_meaRtools_output/hPSC_20517_MEA1_mean_dur.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA1/hPSC_MEA1_meaRtools_output/hPSC_20517_MEA1_mean_dur.csv",
+          "sha256": "0276f58381bb129785d1a6b7df8446e79e4ada6e6fbc2551a1daf6ebc1da9403",
+          "bytes": 2573,
+          "downloaded_at": "2026-09-16T14:01:48+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA1/hPSC_MEA1_meaRtools_output/hPSC_20517_MEA1_mean_freq_in_burst.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA1/hPSC_MEA1_meaRtools_output/hPSC_20517_MEA1_mean_freq_in_burst.csv",
+          "sha256": "55e9c87203476770f0238c95aee8045ef0aaf1d5af7d919ce94bf36f6edf74bc",
+          "bytes": 2467,
+          "downloaded_at": "2026-09-16T14:01:49+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA1/hPSC_MEA1_meaRtools_output/hPSC_20517_MEA1_mean_spikes_in_burst.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA1/hPSC_MEA1_meaRtools_output/hPSC_20517_MEA1_mean_spikes_in_burst.csv",
+          "sha256": "4e7ac7abb9f9a79ce21c35f47c9c14cfa4353f9e146a6247ca9bda465a8d5ed0",
+          "bytes": 1308,
+          "downloaded_at": "2026-09-16T14:01:50+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA1/hPSC_MEA1_meaRtools_output/hPSC_20517_MEA1_meanfiringrate_by_active_electordes.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA1/hPSC_MEA1_meaRtools_output/hPSC_20517_MEA1_meanfiringrate_by_active_electordes.csv",
+          "sha256": "83485e3a7bd9a603d1d1f38b783491f10ce4d4edd7c686ec9e2ef5bcd97d364e",
+          "bytes": 2512,
+          "downloaded_at": "2026-09-16T14:01:50+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA1/hPSC_MEA1_meaRtools_output/hPSC_20517_MEA1_nae.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA1/hPSC_MEA1_meaRtools_output/hPSC_20517_MEA1_nae.csv",
+          "sha256": "2fdad089871d401ac1727f2fdc3e6e8d9c7f15de1c9436439d254c883ffc769a",
+          "bytes": 905,
+          "downloaded_at": "2026-09-16T14:01:51+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA1/hPSC_MEA1_meaRtools_output/hPSC_20517_MEA1_per_spikes_in_burst.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA1/hPSC_MEA1_meaRtools_output/hPSC_20517_MEA1_per_spikes_in_burst.csv",
+          "sha256": "7b481da8ac1f9e62db202da500d5213e421d3c10f20dab4573a29ba1d203bfe1",
+          "bytes": 1345,
+          "downloaded_at": "2026-09-16T14:01:51+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA1/hPSC_MEA1_spikes_noise_explogs/hPSC_20517_MEA1_DIV3_expLog.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA1/hPSC_MEA1_spikes_noise_explogs/hPSC_20517_MEA1_DIV3_expLog.csv",
+          "sha256": "9334f8b0869a2ce83c7a0abe00ef1401f8d26974f6f91770367e96f5b747c88d",
+          "bytes": 542,
+          "downloaded_at": "2026-09-16T14:01:52+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA1/hPSC_MEA1_spikes_noise_explogs/noisy_electrodes_hPSC_MEA1.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA1/hPSC_MEA1_spikes_noise_explogs/noisy_electrodes_hPSC_MEA1.csv",
+          "sha256": "3c057d5bedb0bfc5ba51271882f4e68669bec95a9d98e9e3fb427dfc2d994257",
+          "bytes": 558,
+          "downloaded_at": "2026-09-16T14:01:52+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA2/hPSC_MEA2_meaRtools_output/hPSC_20517_MEA2_STTC.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA2/hPSC_MEA2_meaRtools_output/hPSC_20517_MEA2_STTC.csv",
+          "sha256": "a39d08ae1472c53c8ebf94002fbc2957bed2d5204b506662b0549919f330c120",
+          "bytes": 2707,
+          "downloaded_at": "2026-09-16T14:01:53+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA2/hPSC_MEA2_meaRtools_output/hPSC_20517_MEA2_bursts_per_min.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA2/hPSC_MEA2_meaRtools_output/hPSC_20517_MEA2_bursts_per_min.csv",
+          "sha256": "30926c65dc96ee6987e6e95edc3f631c61ed0b85780e2c8e27874de2efe9444f",
+          "bytes": 1835,
+          "downloaded_at": "2026-09-16T14:01:54+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA2/hPSC_MEA2_meaRtools_output/hPSC_20517_MEA2_mean_dur.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA2/hPSC_MEA2_meaRtools_output/hPSC_20517_MEA2_mean_dur.csv",
+          "sha256": "d2a614e73c167d402e42e1f9ae2759b9e863eec7f907db017daa533b43b2bb3c",
+          "bytes": 2569,
+          "downloaded_at": "2026-09-16T14:01:54+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA2/hPSC_MEA2_meaRtools_output/hPSC_20517_MEA2_mean_freq_in_burst.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA2/hPSC_MEA2_meaRtools_output/hPSC_20517_MEA2_mean_freq_in_burst.csv",
+          "sha256": "964c0fb9eb426708a315c9e499d9aa44eb465d7159bda8ca1e4b0a2a54613c59",
+          "bytes": 2498,
+          "downloaded_at": "2026-09-16T14:01:55+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA2/hPSC_MEA2_meaRtools_output/hPSC_20517_MEA2_mean_spikes_in_burst.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA2/hPSC_MEA2_meaRtools_output/hPSC_20517_MEA2_mean_spikes_in_burst.csv",
+          "sha256": "ae4bbc831c112c1e10598b866af73b911ff934aa5347dac5635950b970343781",
+          "bytes": 1327,
+          "downloaded_at": "2026-09-16T14:01:55+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA2/hPSC_MEA2_meaRtools_output/hPSC_20517_MEA2_meanfiringrate_by_active_electordes.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA2/hPSC_MEA2_meaRtools_output/hPSC_20517_MEA2_meanfiringrate_by_active_electordes.csv",
+          "sha256": "81499acf49e403edb339d57d37e2e2a231d2d9ea60dbb9a253311c04647b7015",
+          "bytes": 2520,
+          "downloaded_at": "2026-09-16T14:01:56+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA2/hPSC_MEA2_meaRtools_output/hPSC_20517_MEA2_nae.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA2/hPSC_MEA2_meaRtools_output/hPSC_20517_MEA2_nae.csv",
+          "sha256": "85d81e4f51bf4f47b4b282c43286ecc30624e89d8aa6bd6babd3cf976529f981",
+          "bytes": 905,
+          "downloaded_at": "2026-09-16T14:01:56+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA2/hPSC_MEA2_meaRtools_output/hPSC_20517_MEA2_per_spikes_in_burst.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA2/hPSC_MEA2_meaRtools_output/hPSC_20517_MEA2_per_spikes_in_burst.csv",
+          "sha256": "5df06a46045f4a1097241d81f368b442c3cba14e078ca027a7f3816a5f3d4836",
+          "bytes": 1347,
+          "downloaded_at": "2026-09-16T14:01:57+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA2/hPSC_MEA2_spikes_noise_explogs/hPSC_20517_MEA2_DIV3_expLog.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA2/hPSC_MEA2_spikes_noise_explogs/hPSC_20517_MEA2_DIV3_expLog.csv",
+          "sha256": "359da9d01a80563e681cfa27e5f6cb83b354ba0645a9e309fd9bfc170d85acbf",
+          "bytes": 542,
+          "downloaded_at": "2026-09-16T14:01:58+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA2/hPSC_MEA2_spikes_noise_explogs/noisy_electrodes_hPSC_MEA2.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA2/hPSC_MEA2_spikes_noise_explogs/noisy_electrodes_hPSC_MEA2.csv",
+          "sha256": "f5b996af1eda252052d9ece993b97969ec55d9e6682d2d99c642156843e9ef0e",
+          "bytes": 1157,
+          "downloaded_at": "2026-09-16T14:01:58+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Baseline_DIV29/hPSC_MEA3Baseline_DIV29_meaRtools_output/hPSC_120618_MEA3Baseline_STTC.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Baseline_DIV29/hPSC_MEA3Baseline_DIV29_meaRtools_output/hPSC_120618_MEA3Baseline_STTC.csv",
+          "sha256": "749f9ccef8c2aa8be485ba2f944835d3e5ed374f9502f19d066380d4795ef7ff",
+          "bytes": 963,
+          "downloaded_at": "2026-09-16T14:01:59+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Baseline_DIV29/hPSC_MEA3Baseline_DIV29_meaRtools_output/hPSC_120618_MEA3Baseline_bursts_per_min.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Baseline_DIV29/hPSC_MEA3Baseline_DIV29_meaRtools_output/hPSC_120618_MEA3Baseline_bursts_per_min.csv",
+          "sha256": "f09694a0ddc1d3a5cc19c5fe5477bbfc8a0bbec97ba81dc06ee686ad2855f345",
+          "bytes": 820,
+          "downloaded_at": "2026-09-16T14:01:59+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Baseline_DIV29/hPSC_MEA3Baseline_DIV29_meaRtools_output/hPSC_120618_MEA3Baseline_mean_dur.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Baseline_DIV29/hPSC_MEA3Baseline_DIV29_meaRtools_output/hPSC_120618_MEA3Baseline_mean_dur.csv",
+          "sha256": "ab54472abf3324121a9dc1c8f56ff11894180100d7c099688269dc5084635322",
+          "bytes": 962,
+          "downloaded_at": "2026-09-16T14:02:00+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Baseline_DIV29/hPSC_MEA3Baseline_DIV29_meaRtools_output/hPSC_120618_MEA3Baseline_mean_freq_in_burst.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Baseline_DIV29/hPSC_MEA3Baseline_DIV29_meaRtools_output/hPSC_120618_MEA3Baseline_mean_freq_in_burst.csv",
+          "sha256": "5b43207f3a46ff7a2aa5a4a61e5f886eeaa639ce1522c4d1d8df73d64a787664",
+          "bytes": 939,
+          "downloaded_at": "2026-09-16T14:02:01+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Baseline_DIV29/hPSC_MEA3Baseline_DIV29_meaRtools_output/hPSC_120618_MEA3Baseline_mean_spikes_in_burst.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Baseline_DIV29/hPSC_MEA3Baseline_DIV29_meaRtools_output/hPSC_120618_MEA3Baseline_mean_spikes_in_burst.csv",
+          "sha256": "f84eee209b092d4e831d1f209d264769b32d44ecc346a2b5dedc63322bb41aad",
+          "bytes": 701,
+          "downloaded_at": "2026-09-16T14:02:01+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Baseline_DIV29/hPSC_MEA3Baseline_DIV29_meaRtools_output/hPSC_120618_MEA3Baseline_meanfiringrate_by_active_electordes.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Baseline_DIV29/hPSC_MEA3Baseline_DIV29_meaRtools_output/hPSC_120618_MEA3Baseline_meanfiringrate_by_active_electordes.csv",
+          "sha256": "c8721431438f06634195b3710f123206548ddbac00b2b0f104b0513ab7671225",
+          "bytes": 938,
+          "downloaded_at": "2026-09-16T14:02:02+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Baseline_DIV29/hPSC_MEA3Baseline_DIV29_meaRtools_output/hPSC_120618_MEA3Baseline_nae.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Baseline_DIV29/hPSC_MEA3Baseline_DIV29_meaRtools_output/hPSC_120618_MEA3Baseline_nae.csv",
+          "sha256": "d989d52e935958807b1a1474f8e17ee6ff469f2666ebb9093793a8e6ac220581",
+          "bytes": 606,
+          "downloaded_at": "2026-09-16T14:02:02+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Baseline_DIV29/hPSC_MEA3Baseline_DIV29_meaRtools_output/hPSC_120618_MEA3Baseline_per_spikes_in_burst.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Baseline_DIV29/hPSC_MEA3Baseline_DIV29_meaRtools_output/hPSC_120618_MEA3Baseline_per_spikes_in_burst.csv",
+          "sha256": "1173c03830dbec3e21565d88605f186e5e7b5d10ffaa60c27bec8a4825be8fa1",
+          "bytes": 697,
+          "downloaded_at": "2026-09-16T14:02:03+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Baseline_DIV29/hPSC_MEA3Baseline_DIV29_spikes_noise_explogs/hPSC_120618_MEA3Baseline_DIV29_expLog.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Baseline_DIV29/hPSC_MEA3Baseline_DIV29_spikes_noise_explogs/hPSC_120618_MEA3Baseline_DIV29_expLog.csv",
+          "sha256": "90a32d3eed619a4dd08a452c4a258a6eaaed84d6b68bdf25d6f8b8d9f4085096",
+          "bytes": 2444,
+          "downloaded_at": "2026-09-16T14:02:04+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Baseline_DIV29/hPSC_MEA3Baseline_DIV29_spikes_noise_explogs/hPSC_120618_MEA3Baseline_DIV29_spikes.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Baseline_DIV29/hPSC_MEA3Baseline_DIV29_spikes_noise_explogs/hPSC_120618_MEA3Baseline_DIV29_spikes.csv",
+          "sha256": "3d4df7965c1abc9ef3a170f262aed2125f7a87576f10612ed774ece5fba1ec73",
+          "bytes": 55828307,
+          "downloaded_at": "2026-09-16T14:02:08+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Baseline_DIV29/hPSC_MEA3Baseline_DIV29_spikes_noise_explogs/noisy_electrodes_hPSC_MEA3Baseline_DIV29.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Baseline_DIV29/hPSC_MEA3Baseline_DIV29_spikes_noise_explogs/noisy_electrodes_hPSC_MEA3Baseline_DIV29.csv",
+          "sha256": "2ba7f12e284a0f6c7baf3d32711d2a2873e9dbebfa5b054b8db92fcee355eacb",
+          "bytes": 24,
+          "downloaded_at": "2026-09-16T14:02:09+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Pharma_DIV29/hPSC_MEA3Pharma_DIV29_meaRtools_output/hPSC_120618_MEA3Pharma_STTC.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Pharma_DIV29/hPSC_MEA3Pharma_DIV29_meaRtools_output/hPSC_120618_MEA3Pharma_STTC.csv",
+          "sha256": "c68de207eddb2a92bfb34f00dd1ee7e21975ba911b4af0c5b3e9f2dcde8907ad",
+          "bytes": 876,
+          "downloaded_at": "2026-09-16T14:02:09+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Pharma_DIV29/hPSC_MEA3Pharma_DIV29_meaRtools_output/hPSC_120618_MEA3Pharma_bursts_per_min.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Pharma_DIV29/hPSC_MEA3Pharma_DIV29_meaRtools_output/hPSC_120618_MEA3Pharma_bursts_per_min.csv",
+          "sha256": "4aca83aff7a91460eba990bf9a678332f8dcce77659fd4230f4815097903a868",
+          "bytes": 615,
+          "downloaded_at": "2026-09-16T14:02:10+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Pharma_DIV29/hPSC_MEA3Pharma_DIV29_meaRtools_output/hPSC_120618_MEA3Pharma_mean_dur.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Pharma_DIV29/hPSC_MEA3Pharma_DIV29_meaRtools_output/hPSC_120618_MEA3Pharma_mean_dur.csv",
+          "sha256": "f3d1d3e5e26feb14f5672e46651e767e606ba802c3e74c9a3223152354f7cd7f",
+          "bytes": 835,
+          "downloaded_at": "2026-09-16T14:02:11+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Pharma_DIV29/hPSC_MEA3Pharma_DIV29_meaRtools_output/hPSC_120618_MEA3Pharma_mean_freq_in_burst.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Pharma_DIV29/hPSC_MEA3Pharma_DIV29_meaRtools_output/hPSC_120618_MEA3Pharma_mean_freq_in_burst.csv",
+          "sha256": "849101d5b6503c169c9676bf8b0ff585f008c147ea649090e4463fd3a639c9a2",
+          "bytes": 812,
+          "downloaded_at": "2026-09-16T14:02:11+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Pharma_DIV29/hPSC_MEA3Pharma_DIV29_meaRtools_output/hPSC_120618_MEA3Pharma_mean_spikes_in_burst.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Pharma_DIV29/hPSC_MEA3Pharma_DIV29_meaRtools_output/hPSC_120618_MEA3Pharma_mean_spikes_in_burst.csv",
+          "sha256": "82f8de26677bee5fba0ae8eb194790ef63f0a2cf7e5dd03b633eda517f4ff9bd",
+          "bytes": 573,
+          "downloaded_at": "2026-09-16T14:02:12+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Pharma_DIV29/hPSC_MEA3Pharma_DIV29_meaRtools_output/hPSC_120618_MEA3Pharma_meanfiringrate_by_active_electordes.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Pharma_DIV29/hPSC_MEA3Pharma_DIV29_meaRtools_output/hPSC_120618_MEA3Pharma_meanfiringrate_by_active_electordes.csv",
+          "sha256": "9a77ec7ec622ce0d61f2e833847500b994c4e190b470cb8f3763e882d7e5f1a8",
+          "bytes": 831,
+          "downloaded_at": "2026-09-16T14:02:12+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Pharma_DIV29/hPSC_MEA3Pharma_DIV29_meaRtools_output/hPSC_120618_MEA3Pharma_nae.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Pharma_DIV29/hPSC_MEA3Pharma_DIV29_meaRtools_output/hPSC_120618_MEA3Pharma_nae.csv",
+          "sha256": "106a77f467edb74b44f9d16fdaad83dceb4ce0ebebc3c9bc295510fa3a76f353",
+          "bytes": 493,
+          "downloaded_at": "2026-09-16T14:02:13+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Pharma_DIV29/hPSC_MEA3Pharma_DIV29_meaRtools_output/hPSC_120618_MEA3Pharma_per_spikes_in_burst.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Pharma_DIV29/hPSC_MEA3Pharma_DIV29_meaRtools_output/hPSC_120618_MEA3Pharma_per_spikes_in_burst.csv",
+          "sha256": "3200c7e53b784f289eec977a25eeb3678591a08bc281e0f847167379ed2db864",
+          "bytes": 578,
+          "downloaded_at": "2026-09-16T14:02:14+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Pharma_DIV29/hPSC_MEA3Pharma_DIV29_spikes_noise_explogs/hPSC_120618_MEA3Pharma_DIV29_expLog.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Pharma_DIV29/hPSC_MEA3Pharma_DIV29_spikes_noise_explogs/hPSC_120618_MEA3Pharma_DIV29_expLog.csv",
+          "sha256": "a06ac6b3673e71548d2159c6c299786480299d020d7a6fe7d8c4227eeb4367c0",
+          "bytes": 2312,
+          "downloaded_at": "2026-09-16T14:02:14+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Pharma_DIV29/hPSC_MEA3Pharma_DIV29_spikes_noise_explogs/hPSC_120618_MEA3Pharma_DIV29_spikes.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Pharma_DIV29/hPSC_MEA3Pharma_DIV29_spikes_noise_explogs/hPSC_120618_MEA3Pharma_DIV29_spikes.csv",
+          "sha256": "b17da9fb2dfc2a472e3717460bdd3e7dec7a48f29bb586111b3a1ed5ff0c36b9",
+          "bytes": 39336289,
+          "downloaded_at": "2026-09-16T14:02:18+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Pharma_DIV29/hPSC_MEA3Pharma_DIV29_spikes_noise_explogs/noisy_electrodes_hPSC_MEA3Pharma_DIV29.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Pharma_DIV29/hPSC_MEA3Pharma_DIV29_spikes_noise_explogs/noisy_electrodes_hPSC_MEA3Pharma_DIV29.csv",
+          "sha256": "66c958f7a94c3748e906fd02417b21c282f89a2aeadae3127025b27607b39e1b",
+          "bytes": 18,
+          "downloaded_at": "2026-09-16T14:02:19+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3TTX_DIV29/hPSC_MEA3TTX_DIV29_meaRtools_output/hPSC_120618_MEA3TTX_STTC.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3TTX_DIV29/hPSC_MEA3TTX_DIV29_meaRtools_output/hPSC_120618_MEA3TTX_STTC.csv",
+          "sha256": "85a7eead6b9257c84cf91a0cdef9dffcd5a22c40be091006a4a0b7353166b404",
+          "bytes": 522,
+          "downloaded_at": "2026-09-16T14:02:19+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3TTX_DIV29/hPSC_MEA3TTX_DIV29_meaRtools_output/hPSC_120618_MEA3TTX_bursts_per_min.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3TTX_DIV29/hPSC_MEA3TTX_DIV29_meaRtools_output/hPSC_120618_MEA3TTX_bursts_per_min.csv",
+          "sha256": "35c6a665d41515e77bf946c655a04b6d9f2283833383fa0ac09d32877f206ffd",
+          "bytes": 372,
+          "downloaded_at": "2026-09-16T14:02:20+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3TTX_DIV29/hPSC_MEA3TTX_DIV29_meaRtools_output/hPSC_120618_MEA3TTX_mean_dur.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3TTX_DIV29/hPSC_MEA3TTX_DIV29_meaRtools_output/hPSC_120618_MEA3TTX_mean_dur.csv",
+          "sha256": "c80d4251ab4af0caea2b1c0b7fe232a63ed778cc6e8fd90b0913568534e5e381",
+          "bytes": 501,
+          "downloaded_at": "2026-09-16T14:02:20+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3TTX_DIV29/hPSC_MEA3TTX_DIV29_meaRtools_output/hPSC_120618_MEA3TTX_mean_freq_in_burst.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3TTX_DIV29/hPSC_MEA3TTX_DIV29_meaRtools_output/hPSC_120618_MEA3TTX_mean_freq_in_burst.csv",
+          "sha256": "f5ecc125803cd966297ebebb6c7c7ea3316dee714cd1e89cfedb90e85161e65c",
+          "bytes": 494,
+          "downloaded_at": "2026-09-16T14:02:21+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3TTX_DIV29/hPSC_MEA3TTX_DIV29_meaRtools_output/hPSC_120618_MEA3TTX_mean_spikes_in_burst.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3TTX_DIV29/hPSC_MEA3TTX_DIV29_meaRtools_output/hPSC_120618_MEA3TTX_mean_spikes_in_burst.csv",
+          "sha256": "d2f2ede4b9ac74dbec5fe09d942eedf529abdfdc9ac9b1b591ccd52ef5e0de36",
+          "bytes": 368,
+          "downloaded_at": "2026-09-16T14:02:21+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3TTX_DIV29/hPSC_MEA3TTX_DIV29_meaRtools_output/hPSC_120618_MEA3TTX_meanfiringrate_by_active_electordes.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3TTX_DIV29/hPSC_MEA3TTX_DIV29_meaRtools_output/hPSC_120618_MEA3TTX_meanfiringrate_by_active_electordes.csv",
+          "sha256": "31286e140f7147d5a226538ae0779f92fd11db5039e7a62bc6bcc69880165ccd",
+          "bytes": 508,
+          "downloaded_at": "2026-09-16T14:02:22+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3TTX_DIV29/hPSC_MEA3TTX_DIV29_meaRtools_output/hPSC_120618_MEA3TTX_nae.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3TTX_DIV29/hPSC_MEA3TTX_DIV29_meaRtools_output/hPSC_120618_MEA3TTX_nae.csv",
+          "sha256": "b4b3aa53c8cd12a10c76dffc652e88e12592ace5a32fa579ae9d843e53c71e5a",
+          "bytes": 325,
+          "downloaded_at": "2026-09-16T14:02:23+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3TTX_DIV29/hPSC_MEA3TTX_DIV29_meaRtools_output/hPSC_120618_MEA3TTX_per_spikes_in_burst.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3TTX_DIV29/hPSC_MEA3TTX_DIV29_meaRtools_output/hPSC_120618_MEA3TTX_per_spikes_in_burst.csv",
+          "sha256": "a4a79bfe879ab328e20eaef395b35ad117d16dc425210b3e4087b0a0c1a8024c",
+          "bytes": 367,
+          "downloaded_at": "2026-09-16T14:02:23+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3TTX_DIV29/hPSC_MEA3TTX_DIV29_spikes_noise_explogs/hPSC_120618_MEA3TTX_DIV29_expLog.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3TTX_DIV29/hPSC_MEA3TTX_DIV29_spikes_noise_explogs/hPSC_120618_MEA3TTX_DIV29_expLog.csv",
+          "sha256": "dcdb4ae411c990898243ffb119bc78b6e766814b6122d15375bdc900926a7b8c",
+          "bytes": 2136,
+          "downloaded_at": "2026-09-16T14:02:24+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3TTX_DIV29/hPSC_MEA3TTX_DIV29_spikes_noise_explogs/hPSC_120618_MEA3TTX_DIV29_spikes.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3TTX_DIV29/hPSC_MEA3TTX_DIV29_spikes_noise_explogs/hPSC_120618_MEA3TTX_DIV29_spikes.csv",
+          "sha256": "8dded0862f14dc0ede4bac2b7c46c0b208945f208ddd1b2a2057a7d0f6d0d653",
+          "bytes": 6365116,
+          "downloaded_at": "2026-09-16T14:02:26+00:00"
+        },
+        {
+          "path": "kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3TTX_DIV29/hPSC_MEA3TTX_DIV29_spikes_noise_explogs/noisy_electrodes_hPSC_MEA3TTX_DIV29.csv",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3TTX_DIV29/hPSC_MEA3TTX_DIV29_spikes_noise_explogs/noisy_electrodes_hPSC_MEA3TTX_DIV29.csv",
+          "sha256": "2ba7f12e284a0f6c7baf3d32711d2a2873e9dbebfa5b054b8db92fcee355eacb",
+          "bytes": 24,
+          "downloaded_at": "2026-09-16T14:02:26+00:00"
+        },
+        {
+          "path": "kapucu2022/datacite.yml",
+          "url": "https://gin.g-node.org/NeuroGroup_TUNI/Comparative_MEA_dataset/raw/0f0f13517bf6cfc382b5f3c3f9219f13d76d798a/datacite.yml",
+          "sha256": "40ff342d2603ac9a31c53b1acdbd86c165725417685819409db341db40f34a3e",
+          "bytes": 5204,
+          "downloaded_at": "2026-09-16T14:00:27+00:00"
+        },
+        {
+          "path": "kapucu2022/paper/PMC8969177.xml",
+          "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8969177/fullTextXML",
+          "sha256": "744e65e884beb7d0e1dc4f00c1ab42d96873e6a3e35779557c5219cd529e9a03",
+          "bytes": 87146,
+          "downloaded_at": "2026-09-16T14:02:41+00:00"
+        }
+      ]
+    },
+    "toxcast_mea": {
+      "name": "toxcast_mea",
+      "status": "ok",
+      "landing_url": "https://doi.org/10.23645/epacomptox.6062623.v14",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "citation": "U.S. EPA Center for Computational Toxicology and Exposure. ToxCast Database: invitrodb version 4.3. doi:10.23645/epacomptox.6062623.v14",
+      "note": "tier=quick; invitrodb v4.3 via EPA Clowder",
+      "checked_at": "2026-09-16T14:05:28+00:00",
+      "files": [
+        {
+          "path": "toxcast_mea/assay_docs/AEID2454_CCTE_Shafer_MEA_acute_spike_number.pdf",
+          "url": "https://clowder.edap-cluster.com/api/files/68a37c24e4b02565fc7b3860/blob",
+          "sha256": "2fee7f1cf3496dfc06022734bc8880b6475c413ad2208a6d15400c16c8511085",
+          "bytes": 327001,
+          "downloaded_at": "2026-09-16T14:02:46+00:00"
+        },
+        {
+          "path": "toxcast_mea/assay_docs/AEID2456_CCTE_Shafer_MEA_acute_firing_rate_mean.pdf",
+          "url": "https://clowder.edap-cluster.com/api/files/68a37c24e4b02565fc7b3877/blob",
+          "sha256": "aac966542528ca77c02140b10a0d7dd979dc0be65a95716db702ae99da0e54c2",
+          "bytes": 327916,
+          "downloaded_at": "2026-09-16T14:02:47+00:00"
+        },
+        {
+          "path": "toxcast_mea/assay_docs/AEID2458_CCTE_Shafer_MEA_acute_burst_number.pdf",
+          "url": "https://clowder.edap-cluster.com/api/files/68a37c24e4b02565fc7b389e/blob",
+          "sha256": "1bc1f34c690069e0653398720b132a362436ecaaacfc6b3d1ae56a14ad3ae65f",
+          "bytes": 327863,
+          "downloaded_at": "2026-09-16T14:02:48+00:00"
+        },
+        {
+          "path": "toxcast_mea/assay_docs/AEID2460_CCTE_Shafer_MEA_acute_burst_duration_mean.pdf",
+          "url": "https://clowder.edap-cluster.com/api/files/68a37c24e4b02565fc7b3871/blob",
+          "sha256": "90b82443c43cdf3e4533454c84ec4d42ff22ab8971ec37225e348e161a7a36ce",
+          "bytes": 327603,
+          "downloaded_at": "2026-09-16T14:02:48+00:00"
+        },
+        {
+          "path": "toxcast_mea/assay_docs/AEID2462_CCTE_Shafer_MEA_acute_per_burst_spike_number_mean.pdf",
+          "url": "https://clowder.edap-cluster.com/api/files/68a37c24e4b02565fc7b3883/blob",
+          "sha256": "48448fb3a98e40ace890babd4f1a05ee4d85f6aaa777bbc1db3da9d8d85ea8ed",
+          "bytes": 327316,
+          "downloaded_at": "2026-09-16T14:02:49+00:00"
+        },
+        {
+          "path": "toxcast_mea/assay_docs/AEID2464_CCTE_Shafer_MEA_acute_interburst_interval_mean.pdf",
+          "url": "https://clowder.edap-cluster.com/api/files/68a37c24e4b02565fc7b3892/blob",
+          "sha256": "aad4e37a21055740f08645276cbfc62851f96cc6b5ff21fc5317b037194bab23",
+          "bytes": 327355,
+          "downloaded_at": "2026-09-16T14:02:49+00:00"
+        },
+        {
+          "path": "toxcast_mea/assay_docs/AEID2466_CCTE_Shafer_MEA_acute_burst_percentage_mean.pdf",
+          "url": "https://clowder.edap-cluster.com/api/files/68a37c24e4b02565fc7b39b7/blob",
+          "sha256": "70a1b044b77b876f37ec991bab368eca995fc679a1917d481c6e301fdc076c30",
+          "bytes": 327466,
+          "downloaded_at": "2026-09-16T14:02:50+00:00"
+        },
+        {
+          "path": "toxcast_mea/assay_docs/AEID2468_CCTE_Shafer_MEA_acute_burst_percentage_std.pdf",
+          "url": "https://clowder.edap-cluster.com/api/files/68a37c24e4b02565fc7b3895/blob",
+          "sha256": "d99e8b7c2c892c3a979cca684bdfd65e278f6b8580ebb383b1f1b3a5fbb4b888",
+          "bytes": 328639,
+          "downloaded_at": "2026-09-16T14:02:50+00:00"
+        },
+        {
+          "path": "toxcast_mea/assay_docs/AEID2470_CCTE_Shafer_MEA_acute_per_network_burst_spike_number_mean.pdf",
+          "url": "https://clowder.edap-cluster.com/api/files/68a37c24e4b02565fc7b38d8/blob",
+          "sha256": "22704a7f9cdd879ff2a5d80f597cab76c1aaf6a8ad697521efd7b4ac5dbf9169",
+          "bytes": 328263,
+          "downloaded_at": "2026-09-16T14:02:51+00:00"
+        },
+        {
+          "path": "toxcast_mea/assay_docs/AEID2472_CCTE_Shafer_MEA_acute_per_network_burst_spike_number_std.pdf",
+          "url": "https://clowder.edap-cluster.com/api/files/68a37c24e4b02565fc7b38bb/blob",
+          "sha256": "70a35cbf916001b55419bee3107ee0fc4724f4406cf0ac7f022bac6fdba69d33",
+          "bytes": 327113,
+          "downloaded_at": "2026-09-16T14:02:51+00:00"
+        },
+        {
+          "path": "toxcast_mea/assay_docs/AEID2474_CCTE_Shafer_MEA_acute_per_network_burst_electrodes_number_mean.pdf",
+          "url": "https://clowder.edap-cluster.com/api/files/68a37c24e4b02565fc7b38ce/blob",
+          "sha256": "bcbab8ff7c5723a8f04875c858c01acab8cdcb767a3fba79a5a4a726fc9242f1",
+          "bytes": 327604,
+          "downloaded_at": "2026-09-16T14:02:52+00:00"
+        },
+        {
+          "path": "toxcast_mea/assay_docs/AEID2476_CCTE_Shafer_MEA_acute_network_burst_percentage.pdf",
+          "url": "https://clowder.edap-cluster.com/api/files/68a37c24e4b02565fc7b38dc/blob",
+          "sha256": "516863ff4f9943331abb6b26be0f8f4cd65ec0be8ad5ea6420a1562254abcb04",
+          "bytes": 329292,
+          "downloaded_at": "2026-09-16T14:02:52+00:00"
+        },
+        {
+          "path": "toxcast_mea/assay_docs/AEID2478_CCTE_Shafer_MEA_acute_cross_correlation_area.pdf",
+          "url": "https://clowder.edap-cluster.com/api/files/68a37c24e4b02565fc7b38b8/blob",
+          "sha256": "983a8978ceba460cf916b38f6c3c75a45423ba3e0a9f2c7ab7c710b09b2ab88d",
+          "bytes": 327124,
+          "downloaded_at": "2026-09-16T14:02:53+00:00"
+        },
+        {
+          "path": "toxcast_mea/assay_docs/AEID2480_CCTE_Shafer_MEA_acute_cross_correlation_HWHM.pdf",
+          "url": "https://clowder.edap-cluster.com/api/files/68a37c24e4b02565fc7b3908/blob",
+          "sha256": "b604edb734d9e50ba5b9d6b288b1229c6d597bbf82db909c26ae6c5c67c97f27",
+          "bytes": 328433,
+          "downloaded_at": "2026-09-16T14:02:53+00:00"
+        },
+        {
+          "path": "toxcast_mea/assay_docs/AEID2482_CCTE_Shafer_MEA_acute_synchrony_index.pdf",
+          "url": "https://clowder.edap-cluster.com/api/files/68a37c24e4b02565fc7b38df/blob",
+          "sha256": "9629fe3d7d444ba977dba39c268a9660988856a5c066ba8f4441f7ce9b59303a",
+          "bytes": 325831,
+          "downloaded_at": "2026-09-16T14:02:54+00:00"
+        },
+        {
+          "path": "toxcast_mea/assay_docs/AEID2494_CCTE_Shafer_MEA_dev_firing_rate_mean.pdf",
+          "url": "https://clowder.edap-cluster.com/api/files/68a37c24e4b02565fc7b3946/blob",
+          "sha256": "b8000b265184155830e745ae0d04aeb1e2cdf141892c04faf3f533d20a1fbee3",
+          "bytes": 334962,
+          "downloaded_at": "2026-09-16T14:02:54+00:00"
+        },
+        {
+          "path": "toxcast_mea/assay_docs/AEID2496_CCTE_Shafer_MEA_dev_burst_rate.pdf",
+          "url": "https://clowder.edap-cluster.com/api/files/68a37c24e4b02565fc7b3959/blob",
+          "sha256": "14035871771589b96609f27ff3901a7eea5eebea52eb70c02ba61f76db69350d",
+          "bytes": 335942,
+          "downloaded_at": "2026-09-16T14:02:55+00:00"
+        },
+        {
+          "path": "toxcast_mea/assay_docs/AEID2498_CCTE_Shafer_MEA_dev_active_electrodes_number.pdf",
+          "url": "https://clowder.edap-cluster.com/api/files/68a37c24e4b02565fc7b394a/blob",
+          "sha256": "f207955a087ce6cfb535fa13803d9ea0250b8c53fea744fdd4f1a5b3d7b99f24",
+          "bytes": 337567,
+          "downloaded_at": "2026-09-16T14:02:55+00:00"
+        },
+        {
+          "path": "toxcast_mea/assay_docs/AEID2500_CCTE_Shafer_MEA_dev_bursting_electrodes_number.pdf",
+          "url": "https://clowder.edap-cluster.com/api/files/68a37c24e4b02565fc7b3840/blob",
+          "sha256": "09c8fb9f01080802ac628f1348bcc14b6ff20cd1b568615f5e83b031d1aec230",
+          "bytes": 336846,
+          "downloaded_at": "2026-09-16T14:02:56+00:00"
+        },
+        {
+          "path": "toxcast_mea/assay_docs/AEID2502_CCTE_Shafer_MEA_dev_per_burst_interspike_interval.pdf",
+          "url": "https://clowder.edap-cluster.com/api/files/68a37c24e4b02565fc7b3977/blob",
+          "sha256": "0da2d75c82364d2a7e504699eab5839e08c5b134bba8e595d46ce047b3986312",
+          "bytes": 335895,
+          "downloaded_at": "2026-09-16T14:02:56+00:00"
+        },
+        {
+          "path": "toxcast_mea/assay_docs/AEID2504_CCTE_Shafer_MEA_dev_per_burst_spike_percent.pdf",
+          "url": "https://clowder.edap-cluster.com/api/files/68a37c24e4b02565fc7b399f/blob",
+          "sha256": "d26ace2f02b79c38d891bae7ab7927d9aeba89366ba5d037b2a44dc45a563080",
+          "bytes": 337464,
+          "downloaded_at": "2026-09-16T14:02:56+00:00"
+        },
+        {
+          "path": "toxcast_mea/assay_docs/AEID2506_CCTE_Shafer_MEA_dev_burst_duration_mean.pdf",
+          "url": "https://clowder.edap-cluster.com/api/files/68a37c24e4b02565fc7b3831/blob",
+          "sha256": "b51bc9b2178a8fe37eaeefe6b341afbcd1962127301c4cf40dca6dd36d784396",
+          "bytes": 336369,
+          "downloaded_at": "2026-09-16T14:02:57+00:00"
+        },
+        {
+          "path": "toxcast_mea/assay_docs/AEID2508_CCTE_Shafer_MEA_dev_interburst_interval_mean.pdf",
+          "url": "https://clowder.edap-cluster.com/api/files/68a37c24e4b02565fc7b39b6/blob",
+          "sha256": "04edb4e124f6185e2126f34ebb773dbc78d96d5b1a8137564a6d49fc02c08be5",
+          "bytes": 337005,
+          "downloaded_at": "2026-09-16T14:02:57+00:00"
+        },
+        {
+          "path": "toxcast_mea/assay_docs/AEID2510_CCTE_Shafer_MEA_dev_network_spike_number.pdf",
+          "url": "https://clowder.edap-cluster.com/api/files/68a37c24e4b02565fc7b39e6/blob",
+          "sha256": "2d8211299c6228da7750045f969ad81b7a14bc2f386d10addbccfec2d8285698",
+          "bytes": 336386,
+          "downloaded_at": "2026-09-16T14:02:58+00:00"
+        },
+        {
+          "path": "toxcast_mea/assay_docs/AEID2512_CCTE_Shafer_MEA_dev_network_spike_peak.pdf",
+          "url": "https://clowder.edap-cluster.com/api/files/68a37c24e4b02565fc7b397f/blob",
+          "sha256": "2e30dc797a6b4038b80423fad9fa82cf048fcf819401f40d8d568124c10cc707",
+          "bytes": 334388,
+          "downloaded_at": "2026-09-16T14:02:58+00:00"
+        },
+        {
+          "path": "toxcast_mea/assay_docs/AEID2514_CCTE_Shafer_MEA_dev_spike_duration_mean.pdf",
+          "url": "https://clowder.edap-cluster.com/api/files/68a37c24e4b02565fc7b39e0/blob",
+          "sha256": "98f0eff89724c37bab6f4aefb4b45a249f218a65cf087a56de3a3a192aaae17c",
+          "bytes": 335282,
+          "downloaded_at": "2026-09-16T14:02:59+00:00"
+        },
+        {
+          "path": "toxcast_mea/assay_docs/AEID2516_CCTE_Shafer_MEA_dev_network_spike_duration_std.pdf",
+          "url": "https://clowder.edap-cluster.com/api/files/68a37c24e4b02565fc7b39ec/blob",
+          "sha256": "79f4cae68ccca088e5576961e273fa179204032d5a555db2f7b0c3bac494648c",
+          "bytes": 336044,
+          "downloaded_at": "2026-09-16T14:03:00+00:00"
+        },
+        {
+          "path": "toxcast_mea/assay_docs/AEID2518_CCTE_Shafer_MEA_dev_inter_network_spike_interval_mean.pdf",
+          "url": "https://clowder.edap-cluster.com/api/files/68a37c24e4b02565fc7b3a1e/blob",
+          "sha256": "db1c823ceb1e4321122a0937e80ce5e41e5e468aa1bae6df39b9cb2ac8f04716",
+          "bytes": 336737,
+          "downloaded_at": "2026-09-16T14:03:00+00:00"
+        },
+        {
+          "path": "toxcast_mea/assay_docs/AEID2520_CCTE_Shafer_MEA_dev_per_network_spike_spike_number_mean.pdf",
+          "url": "https://clowder.edap-cluster.com/api/files/68a37c24e4b02565fc7b39d5/blob",
+          "sha256": "4281ac1f89c4d6917e394958f1fafb9b1732851d9574e26b1259d844998ad097",
+          "bytes": 336377,
+          "downloaded_at": "2026-09-16T14:03:01+00:00"
+        },
+        {
+          "path": "toxcast_mea/assay_docs/AEID2522_CCTE_Shafer_MEA_dev_per_network_spike_spike_percent.pdf",
+          "url": "https://clowder.edap-cluster.com/api/files/68a37c24e4b02565fc7b3a29/blob",
+          "sha256": "fa0ce83ddee6bdfb832004d670e4f866709df18b486a5eed0d2f746606980a30",
+          "bytes": 334682,
+          "downloaded_at": "2026-09-16T14:03:01+00:00"
+        },
+        {
+          "path": "toxcast_mea/assay_docs/AEID2524_CCTE_Shafer_MEA_dev_correlation_coefficient_mean.pdf",
+          "url": "https://clowder.edap-cluster.com/api/files/68a37c24e4b02565fc7b39e3/blob",
+          "sha256": "ea426d7b04e0e42e0556ac22e355efedf0d78d66713429094b639cee5653a99d",
+          "bytes": 335255,
+          "downloaded_at": "2026-09-16T14:03:02+00:00"
+        },
+        {
+          "path": "toxcast_mea/assay_docs/AEID2526_CCTE_Shafer_MEA_dev_mutual_information_norm.pdf",
+          "url": "https://clowder.edap-cluster.com/api/files/68a37c24e4b02565fc7b39da/blob",
+          "sha256": "3118550db3ae619812a29a1a1e7c9de51e8e863ff1bbad2ab94352f02bdbbae1",
+          "bytes": 334180,
+          "downloaded_at": "2026-09-16T14:03:02+00:00"
+        },
+        {
+          "path": "toxcast_mea/assay_docs/AEID2529_CCTE_Shafer_MEA_dev_LDH.pdf",
+          "url": "https://clowder.edap-cluster.com/api/files/68a37c25e4b02565fc7b3a3b/blob",
+          "sha256": "314221d27b6217f83d4b78d2353aa6e1f1574887573d2b1ed528a06fda7c51ff",
+          "bytes": 333625,
+          "downloaded_at": "2026-09-16T14:03:03+00:00"
+        },
+        {
+          "path": "toxcast_mea/assay_docs/AEID2530_CCTE_Shafer_MEA_dev_AB.pdf",
+          "url": "https://clowder.edap-cluster.com/api/files/68a37c24e4b02565fc7b39c6/blob",
+          "sha256": "e67c3449d82887270c08ba8de5798a2450c744cc4efe054a4f237c0f709144b4",
+          "bytes": 334603,
+          "downloaded_at": "2026-09-16T14:03:03+00:00"
+        },
+        {
+          "path": "toxcast_mea/assay_docs/AEID2540_CCTE_Shafer_MEA_acute_LDH.pdf",
+          "url": "https://clowder.edap-cluster.com/api/files/68a37c24e4b02565fc7b39d2/blob",
+          "sha256": "3a445de7f79744628108561485a29d63561b402e2034f7e59046bad05bea5933",
+          "bytes": 325047,
+          "downloaded_at": "2026-09-16T14:03:04+00:00"
+        },
+        {
+          "path": "toxcast_mea/assay_docs/AEID2541_CCTE_Shafer_MEA_acute_AB.pdf",
+          "url": "https://clowder.edap-cluster.com/api/files/68a37c24e4b02565fc7b388e/blob",
+          "sha256": "03e527259e8b81ef729e8a714f87100d20caeaf7e281341985009ce2c6b6667b",
+          "bytes": 326000,
+          "downloaded_at": "2026-09-16T14:03:05+00:00"
+        },
+        {
+          "path": "toxcast_mea/release/invitrodb_v4_3_release_note_21AUG2025.html",
+          "url": "https://clowder.edap-cluster.com/api/files/68ac7586e4b02565fc7c23c2/blob",
+          "sha256": "7dd695e855cd385ff9afe0a6b6f544418554bf87dd1ed774c96fb8b008c05d13",
+          "bytes": 2394678,
+          "downloaded_at": "2026-09-16T14:02:46+00:00"
+        },
+        {
+          "path": "toxcast_mea/summary/DB_release_README_SUMMARY.pdf",
+          "url": "https://clowder.edap-cluster.com/api/files/697b7530e4b0731a6170449e/blob",
+          "sha256": "fffa727f45f01a2e3593d93348aee527a03c5b1957bfe75b7567da7354d108af",
+          "bytes": 171736,
+          "downloaded_at": "2026-09-16T14:02:44+00:00"
+        },
+        {
+          "path": "toxcast_mea/summary/assay_annotations_invitrodb_v4_3_AUG2025.xlsx",
+          "url": "https://clowder.edap-cluster.com/api/files/68af6bd3e4b02565fc7c3aa8/blob",
+          "sha256": "eecbdac47fe4b4c3db765d412d15526331c269d36c7d79dde938f59ea60461f9",
+          "bytes": 1088201,
+          "downloaded_at": "2026-09-16T14:02:43+00:00"
+        },
+        {
+          "path": "toxcast_mea/summary/assay_target_mappings_invitrodb_v4_3_AUG2025.xlsx",
+          "url": "https://clowder.edap-cluster.com/api/files/68af6bd3e4b02565fc7c3aa0/blob",
+          "sha256": "bf45c47dc383c16aea9c4cf92993f7034a3141a252aa02d9f7aa7216ac84c394",
+          "bytes": 97652,
+          "downloaded_at": "2026-09-16T14:02:43+00:00"
+        },
+        {
+          "path": "toxcast_mea/summary/cytotox_invitrodb_v4_3_AUG2025.xlsx",
+          "url": "https://clowder.edap-cluster.com/api/files/68af6bd3e4b02565fc7c3aa4/blob",
+          "sha256": "3bc444f658c80e4ac9a1189f083c0120365b504e10d0aa4e0f07feda294c08dd",
+          "bytes": 943302,
+          "downloaded_at": "2026-09-16T14:02:44+00:00"
+        }
+      ]
+    }
+  }
+}

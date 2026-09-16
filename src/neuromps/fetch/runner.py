@@ -6,7 +6,6 @@ import traceback
 from collections.abc import Callable
 from pathlib import Path
 
-from neuromps.fetch.download import SourceBlocked
 from neuromps.fetch.manifest import Manifest, SourceRecord
 
 log = logging.getLogger("neuromps.fetch")
@@ -18,7 +17,7 @@ RAW_ROOT = REPO_ROOT / "data" / "raw"
 
 def registry() -> dict[str, tuple[Fetcher, dict[str, str]]]:
     """Map source name -> (fetch function, static metadata used if it is blocked)."""
-    from neuromps.fetch import axon_diode, iras_mea, toxcast_mea, kapucu2022
+    from neuromps.fetch import axon_diode, iras_mea, kapucu2022, toxcast_mea
 
     mods = [kapucu2022, toxcast_mea, iras_mea, axon_diode]
     return {m.SOURCE: (m.fetch, m.META) for m in mods}
@@ -35,13 +34,16 @@ def run_fetchers(
         log.info("[%s] fetching (full=%s)", name, full)
         try:
             record = fetch(raw_root, manifest, full)
-        except (SourceBlocked, Exception) as exc:  # noqa: BLE001 - record any failure
+        except Exception as exc:  # any failure (incl. SourceBlocked) is recorded, not fatal
             log.warning("[%s] BLOCKED: %s", name, exc)
             log.debug("".join(traceback.format_exception(exc)))
             previous = manifest.sources.get(name)
             record = SourceRecord(
-                name=name, status="blocked", note=f"{type(exc).__name__}: {exc}",
-                files=previous.files if previous else [], **meta,
+                name=name,
+                status="blocked",
+                note=f"{type(exc).__name__}: {exc}",
+                files=previous.files if previous else [],
+                **meta,
             )
             if record.files:
                 record.status = "partial"

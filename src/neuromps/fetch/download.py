@@ -52,9 +52,8 @@ def download_file(
     partial file and raise.
     """
     dest = Path(raw_root) / rel_path
-    if cached and cached.path == rel_path and dest.exists():
-        if sha256_file(dest) == cached.sha256:
-            return cached
+    if cached and cached.path == rel_path and dest.exists() and sha256_file(dest) == cached.sha256:
+        return cached
     dest.parent.mkdir(parents=True, exist_ok=True)
     part = dest.with_name(dest.name + ".part")
     sha, md5, n = hashlib.sha256(), hashlib.md5(), 0
