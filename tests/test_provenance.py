@@ -89,3 +89,20 @@ def test_ok_source_requires_files() -> None:
 def test_file_record_rejects_bad_hash() -> None:
     with pytest.raises(ValueError, match="sha256"):
         FileRecord(path="p", url="u", sha256="xyz", bytes=1, downloaded_at="t").validate()
+
+
+def test_excluded_sources_are_recorded_without_files(tmp_path: Path) -> None:
+    from neuromps.fetch import runner
+    from neuromps.fetch.excluded import EXCLUDED
+
+    runner_registry = runner.registry
+    runner.registry = lambda: {}  # no network: only exclusions are written
+    try:
+        m = runner.run_fetchers(raw_root=tmp_path)
+    finally:
+        runner.registry = runner_registry
+    for name in EXCLUDED:
+        assert m.sources[name].status == "skipped"
+        assert m.sources[name].files == []
+        assert name not in runner.registry()
+    assert json.loads((tmp_path / "MANIFEST.json").read_text())["sources"]["iras_mea"]["note"]

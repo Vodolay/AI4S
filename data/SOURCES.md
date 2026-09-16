@@ -6,9 +6,9 @@ This file records the human decisions behind each source.
 
 | Source key | What | License | Access | Status (2026-09-16) |
 |---|---|---|---|---|
-| `kapucu2022` | Kapucu et al. 2022 *Sci Data* 9:120: hPSC-derived vs rat cortical networks on 48-well MEA; development (DIV 2–77) + one pharmacology plate per species | CC-BY-4.0 (data, `Data/LICENSE.txt`); article CC-BY-4.0 | G-Node GIN, plain HTTPS, pinned commit `0f0f135` | arrived (quick tier) |
-| `toxcast_mea` | US EPA ToxCast invitrodb v4.3, `CCTE_Shafer_MEA_acute_*` (rat cortical, acute) and `CCTE_Shafer_MEA_dev_*` (network formation) | CC0-1.0 (figshare record 6062623 v14) | EPA Clowder API, anonymous | arrived (quick tier) |
-| `iras_mea` | Tukker et al. 2020 *Toxicol Sci* 178:71–87: hiPSC co-cultures vs rat cortical MEA, seizure-liability compounds; supplementary docx | **CC-BY-NC-4.0** | Europe PMC REST | arrived; optional |
+| `kapucu2022` | Kapucu et al. 2022 *Sci Data* 9:120: hPSC-derived vs rat cortical networks on 48-well MEA; development (DIV 2–77) + one pharmacology plate per species | CC-BY-4.0 (data, `Data/LICENSE.txt`); article CC-BY-4.0 | G-Node GIN, plain HTTPS, pinned commit `0f0f135` | arrived (full tier: 239 files, 1.2 GB) |
+| `toxcast_mea` | US EPA ToxCast invitrodb v4.3, `CCTE_Shafer_MEA_acute_*` (rat cortical, acute) and `CCTE_Shafer_MEA_dev_*` (network formation) | CC0-1.0 (figshare record 6062623 v14) | EPA Clowder API, anonymous | arrived (full tier: 42 files, 2.57 GB) |
+| `iras_mea` | Tukker et al. 2020 *Toxicol Sci* 178:71–87: hiPSC co-cultures vs rat cortical MEA, seizure-liability compounds | **CC-BY-NC-4.0** | Europe PMC REST | **excluded** (license); recorded as `skipped` in MANIFEST |
 | `axon_diode` | Asymmetric-microchannel chip papers (Renault 2015, Lassus 2018, Courte 2020): design parameters only | CC-BY-4.0 each (read from article XML) | Europe PMC REST | arrived |
 
 ## Decisions
@@ -29,13 +29,36 @@ This file records the human decisions behind each source.
   target-mapping tables, the release note and the 36 MEA assay description PDFs (all that Clowder lists).
   The full tier extracts only `mc5-6_winning_model_fits-flags_invitrodbv4_3_AUG2024.csv` (2.55 GB,
   ~661 MB compressed transfer) from the 7.5 GB `INVITRODB_SUMMARY.zip` via HTTP range requests; the
-  member's CRC32 is checked by `zipfile`. Filtering to MEA AEIDs (2454–2541) happens in ETL; the raw
-  file is not modified. mc5-6 holds curve fits and hit calls, not per-concentration responses.
-- **IRAS / Westerink (optional).** Article and supplement are CC BY-NC 4.0: non-commercial research
-  reuse is permitted. **Needs PI sign-off** before any derived table is redistributed, given the
-  competition has cash prizes. Vassallo et al. 2017 was not found as open access and is excluded.
+  member's CRC32 is checked by `zipfile`; extracted size matches the zip listing (2,550,615,005 bytes).
+  mc5-6 holds curve fits and hit calls, not per-concentration responses. The raw file is not modified.
+  - **Filter MEA rows by name (`aenm` starts with `CCTE_Shafer_MEA_`), never by AEID range.** AEIDs
+    2454–2541 also contain 11 unrelated assays (CCTE_Deisenroth_AIME_*, CCTE_GLTED_hDIO2/3). By name:
+    36 endpoints (17 acute, 19 dev), 20,375 rows, 808 chemicals, out of 3,527,285 rows in total.
+  - Clowder quirks (handled in `remote_zip.py`, with tests): suffix ranges return HTTP 500, and if
+    gzip is offered Clowder ignores the range and streams the whole file gzipped. Ranges near the end of
+    the 7.5 GB zip take minutes to start, so the full extraction took ~15 min.
+- **IRAS / Westerink: excluded (PI decision, 2026-09-16).** Tukker et al. 2020 was fetchable and its
+  license was verified from the article XML as CC BY-NC 4.0. We dropped it from the data asset anyway:
+  - The submission competes for cash prizes and is released under an open license (MIT). A
+    non-commercial term on an input dataset cannot be carried through to that license.
+  - The competition rules (Kaggle Rules tab, read 2026-09-16) do **not** keep submissions under the
+    entrant's own license. Ownership of submitted materials is held jointly by the team and the
+    Organizing Committee, and third-party datasets keep their original licensing. Kaggle's general
+    rules also require any open-source code used in the model to carry an OSI-approved license that
+    does not limit commercial use. The revisit condition (rules clearly keep submissions under our
+    own open license) is therefore **not met**.
+  - Implementation: the fetcher module was removed; `src/neuromps/fetch/excluded.py` writes a
+    `status="skipped"` record (no files, reason in `note`) on every fetch run, so the exclusion is
+    part of the provenance record, not just a missing entry. Local copies were deleted.
+  - Cost: we lose an independent hiPSC-vs-rat MEA pharmacology set with dose–response. The
+    rat→hPSC transfer study relies on Kapucu 2022 alone, which must be stated as a limitation.
+  - Vassallo et al. 2017 (rat cortical MEA, same lab) was not found as open access and was never fetched.
+- **License policy (applies to every source).** Accept only licenses that allow commercial reuse and
+  redistribution with attribution: CC0, CC BY, public domain, or OSI-approved software licenses. Exclude
+  NC, ND and unlicensed material even if it is publicly downloadable. Record every exclusion in
+  `excluded.py` and here.
 - **Axon-diode lineage.** Peyrin et al. 2011 *Lab Chip* (doi:10.1039/c1lc20014c) and Courte et al. 2018
   *Methods Cell Biol* (doi:10.1016/bs.mcb.2018.07.002) are not open access: cited only, never
   downloaded. Design parameters are taken from the open-access papers.
-- **Europe PMC supplementary zips** are assembled on request; their SHA256 may change between downloads
-  while contents are identical. If a hash changes, compare member lists before assuming upstream edits.
+- **Kapucu 2022 code** in the GIN `Codes/` folder is BSD-3 / GPL-3.0 (meaRtools, SpikeDetection-Toolbox).
+  We do not fetch or vendor it. If any of it is ever used, check GPL obligations against our MIT license first.

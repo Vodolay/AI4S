@@ -6,6 +6,7 @@ import traceback
 from collections.abc import Callable
 from pathlib import Path
 
+from neuromps.fetch.excluded import excluded_records
 from neuromps.fetch.manifest import Manifest, SourceRecord
 
 log = logging.getLogger("neuromps.fetch")
@@ -17,9 +18,9 @@ RAW_ROOT = REPO_ROOT / "data" / "raw"
 
 def registry() -> dict[str, tuple[Fetcher, dict[str, str]]]:
     """Map source name -> (fetch function, static metadata used if it is blocked)."""
-    from neuromps.fetch import axon_diode, iras_mea, kapucu2022, toxcast_mea
+    from neuromps.fetch import axon_diode, kapucu2022, toxcast_mea
 
-    mods = [kapucu2022, toxcast_mea, iras_mea, axon_diode]
+    mods = [kapucu2022, toxcast_mea, axon_diode]
     return {m.SOURCE: (m.fetch, m.META) for m in mods}
 
 
@@ -28,6 +29,12 @@ def run_fetchers(
 ) -> Manifest:
     """Run fetchers; a failing source is recorded as ``blocked`` and never aborts the rest."""
     manifest = Manifest.load(raw_root / "MANIFEST.json")
+    for record in excluded_records():
+        if record.name in registry():
+            raise RuntimeError(f"{record.name!r} is both registered and excluded")
+        manifest.upsert(record)
+        log.info("[%s] skipped (excluded, see data/SOURCES.md)", record.name)
+    manifest.save()
     for name, (fetch, meta) in registry().items():
         if names and name not in names:
             continue

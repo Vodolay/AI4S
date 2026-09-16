@@ -26,20 +26,41 @@ class HttpRangeFile(io.RawIOBase):
         self._iter = None
         self._stream_pos = -1
         self._buf = b""
-        tail = self._get(headers={"Range": "bytes=-1"})
-        total = tail.headers.get("Content-Range", "").rpartition("/")[2]
+        # Explicit range: EPA Clowder answers suffix ranges ("bytes=-1") with HTTP 500.
+        with self._get_range(0, 0) as probe:
+            total = probe.headers["Content-Range"].rpartition("/")[2]
         if not total.isdigit():
-            raise OSError(f"server does not support byte ranges: {url}")
+            raise OSError(f"unknown total size in Content-Range: {url}")
         self.size = int(total)
 
-    def _get(self, headers: dict[str, str], stream: bool = False) -> requests.Response:
+    def _get_range(self, start: int, end: int | None = None) -> requests.Response:
+        """Open a streaming range response and verify the server honoured the range.
+
+        ``Accept-Encoding: identity`` is required: when gzip is offered, EPA Clowder
+        replies 206 with a correct-looking Content-Range but streams the whole
+        file gzip-encoded from byte 0.
+        """
+        rng = f"bytes={start}-{'' if end is None else end}"
         r = requests.get(
             self.url,
-            headers={"User-Agent": USER_AGENT, **headers},
-            stream=stream,
+            headers={"User-Agent": USER_AGENT, "Range": rng, "Accept-Encoding": "identity"},
+            stream=True,
             timeout=self.timeout,
         )
         r.raise_for_status()
+        content_range = r.headers.get("Content-Range", "")
+        ok = (
+            r.status_code == 206
+            and content_range.startswith(f"bytes {start}-")
+            and r.headers.get("Content-Encoding", "identity") == "identity"
+        )
+        if not ok:
+            r.close()
+            raise OSError(
+                f"range {rng} not honoured: status={r.status_code} "
+                f"Content-Range={content_range!r} "
+                f"Content-Encoding={r.headers.get('Content-Encoding')}"
+            )
         return r
 
     def readable(self) -> bool:
@@ -59,7 +80,7 @@ class HttpRangeFile(io.RawIOBase):
     def _open_at(self, pos: int) -> None:
         if self._resp is not None:
             self._resp.close()
-        self._resp = self._get(headers={"Range": f"bytes={pos}-"}, stream=True)
+        self._resp = self._get_range(pos)
         self._iter = self._resp.iter_content(_CHUNK)
         self._stream_pos, self._buf = pos, b""
 

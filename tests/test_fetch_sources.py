@@ -1,5 +1,6 @@
 """Offline tests for source-specific fetch helpers."""
 
+import gzip
 import http.server
 import io
 import threading
@@ -47,11 +48,21 @@ class _RangeHandler(http.server.BaseHTTPRequestHandler):
         data, rng = self.payload, self.headers.get("Range")
         if rng:
             start_s, end_s = rng.removeprefix("bytes=").split("-")
-            if not start_s:  # suffix range: last N bytes
-                start, end = len(data) - int(end_s), len(data) - 1
-            else:
-                start = int(start_s)
-                end = int(end_s) if end_s else len(data) - 1
+            if not start_s:  # mimic EPA Clowder, which fails on suffix ranges
+                self.send_error(500)
+                return
+            if "gzip" in self.headers.get("Accept-Encoding", ""):
+                # mimic EPA Clowder: claims 206 but streams the whole file gzip-encoded
+                body = gzip.compress(data)
+                self.send_response(206)
+                self.send_header("Content-Range", f"bytes {start_s}-{end_s}/{len(data)}")
+                self.send_header("Content-Encoding", "gzip")
+                self.send_header("Content-Length", str(len(body)))
+                self.end_headers()
+                self.wfile.write(body)
+                return
+            start = int(start_s)
+            end = int(end_s) if end_s else len(data) - 1
             self.send_response(206)
             self.send_header("Content-Range", f"bytes {start}-{end}/{len(data)}")
             chunk = data[start : end + 1]
