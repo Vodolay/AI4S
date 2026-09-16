@@ -123,6 +123,44 @@ def test_traceable_accepts_examples_against_real_manifest() -> None:
         assert check_traceable(json.loads(path.read_text()), manifest) == [], path.name
 
 
+def test_traceable_accepts_duplicate_content_at_different_paths(tmp_path: Path) -> None:
+    """Two files can legitimately have identical content (e.g. per-phase noisy-electrode lists)."""
+    from neuromps.qc.schema import check_traceable
+
+    sha = "c" * 64
+    manifest = tmp_path / "MANIFEST.json"
+    manifest.write_text(
+        json.dumps(
+            {
+                "schema_version": 1,
+                "sources": {
+                    "s": {
+                        "name": "s",
+                        "status": "ok",
+                        "landing_url": "u",
+                        "license": "CC0-1.0",
+                        "license_url": "u",
+                        "citation": "c",
+                        "files": [
+                            {
+                                "path": f"s/{n}.csv",
+                                "url": "u",
+                                "sha256": sha,
+                                "bytes": 1,
+                                "downloaded_at": "t",
+                            }
+                            for n in ("a", "b")
+                        ],
+                    }
+                },
+            }
+        )
+    )
+    rec = _valid()
+    rec["provenance"]["source_files"] = [{"path": "s/b.csv", "sha256": sha}]
+    assert check_traceable(rec, manifest) == []
+
+
 def test_traceable_rejects_unknown_hash(tmp_path: Path) -> None:
     from neuromps.qc.schema import check_traceable
 

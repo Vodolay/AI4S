@@ -573,7 +573,8 @@
         },
         "n_concentrations": {
           "type": "integer",
-          "minimum": 2
+          "minimum": 1,
+          "description": "Concentrations in the fit. tcpl also reports single-concentration fits; those carry the incomplete_dose_series QC flag rather than being dropped."
         },
         "conc_min": {
           "type": [

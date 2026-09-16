@@ -109,6 +109,37 @@
   Direction matches disinhibition. ~0.25 s per well (16 electrodes, 1800 s).
   Aggregate across wells belongs in HD5 ETL, where it becomes a real, script-produced number.
 
-### Next first task (HD5)
-- ETL Kapucu pharmacology plates -> schema records -> `data/processed/neuromps.parquet`, pairing
-  baseline and exposure recordings per well, then the same for the other spike-time sources.
+## 2026-09-16: Phase 1, HD5
+
+### Done
+- `etl/kapucu.py`: pharmacology plates -> schema records (one per well per phase). Normalizes the
+  `D-AP5`/`DAP5` spellings and `30uM`-style doses, maps compounds to the mechanism vocabulary, turns
+  noisy-electrode lists and upstream `ExcludedWell` marks into QC flags.
+- `etl/toxcast_mea.py`: `build_curve_records()` for `fitted_curve` records.
+- `etl/build.py`: collect -> validate (schema **and** conformance level 2) -> write
+  `data/processed/{neuromps.parquet, neuromps_records.jsonl, provenance.json}` + metrics.
+  Nothing is written unless every record passes.
+- Wired into `run_all.py --stage data`.
+- **Gate met:** `python run_all.py --quick --stage data` rebuilds the asset from raw in ~44 s with
+  zero manual steps; 91 tests pass, ruff clean.
+
+### The asset (data/processed/provenance.json)
+- 20,663 records: 288 `spike_times` (Kapucu, 6 plates x 48 wells) + 20,375 `fitted_curve` (ToxCast).
+- Species: 144 human, 20,519 rat. Usable: 20,238; flagged unusable: 425.
+- QC flags in use: `excluded_well_upstream` (90), `noisy_electrodes_present`,
+  `too_few_active_electrodes`, `incomplete_dose_series`.
+
+### Three data problems the build caught (all fixed, with tests)
+1. 272 ToxCast rows are single-concentration fits. The schema now allows `n_concentrations` >= 1 and
+   these carry `incomplete_dose_series` + `usable: false` rather than being dropped.
+2. 309 ToxCast rows have no `chnm`: they are the assay's controls, named in `spid` - DMSO, ethanol,
+   acetic acid, HCl (vehicles) and **bicuculline** (reference GABA-A antagonist, which links to the
+   `screenneuropharm_bic` source). Now named and typed by role.
+3. Excluded wells have no spike rows at all, so 90 of them were silently absent from the asset,
+   contradicting STANDARD.md 5. Records are now built from the union of log and spike wells.
+- Also fixed: `check_traceable()` indexed by hash, so two files with identical content (per-phase
+  noisy-electrode lists) produced a false mismatch. It now compares by path first.
+
+### Next first task (HD6)
+- QC module proper: replicate divergence and outlier flags, then the data card. After that, ETL for
+  `sharf2022` / `screenneuropharm_bic` / `fofie2025`, which are fetched but not yet in the asset.

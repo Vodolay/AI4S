@@ -1,4 +1,35 @@
 {
+  "data_asset": {
+    "counts": {
+      "by_data_level": {
+        "fitted_curve": 20375,
+        "spike_times": 288
+      },
+      "by_mechanism_class": {
+        "gabaa_agonist_or_pam": 11,
+        "gabaa_antagonist": 28,
+        "glutamatergic_agonist": 11,
+        "glutamatergic_antagonist": 22,
+        "na_channel_blocker": 113,
+        "none": 20478
+      },
+      "by_source": {
+        "kapucu2022": 288,
+        "toxcast_mea": 20375
+      },
+      "by_species": {
+        "human": 144,
+        "rat": 20519
+      },
+      "by_usable": {
+        "False": 425,
+        "True": 20238
+      }
+    },
+    "generated_at": "2026-09-16T15:40:39+00:00",
+    "n_records": 20663,
+    "schema": "schema/neuromps_schema.json"
+  },
   "toxcast_mea_inventory": {
     "chemicals_acute": 508,
     "chemicals_dev": 463,

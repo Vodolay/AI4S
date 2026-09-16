@@ -48,15 +48,20 @@ def check_traceable(record: dict, manifest_path: Path | None = None) -> list[str
     from neuromps.fetch.manifest import Manifest
 
     path = manifest_path or REPO_ROOT / "data" / "raw" / "MANIFEST.json"
-    known = {f.sha256: f.path for f in Manifest.load(path).file_index().values()}
+    index = Manifest.load(path).file_index()
+    by_path = {f.path: f.sha256 for f in index.values()}
+    known_hashes = set(by_path.values())  # distinct files can share content, so compare by path
     errors = []
     for src in record.get("provenance", {}).get("source_files", []):
-        if src["sha256"] not in known:
-            errors.append(f"provenance: {src['path']} sha256 not found in {path.name}")
-        elif known[src["sha256"]] != src["path"]:
-            errors.append(
-                f"provenance: {src['path']} hash belongs to {known[src['sha256']]} in {path.name}"
-            )
+        expected = by_path.get(src["path"])
+        if expected is not None:
+            if expected != src["sha256"]:
+                errors.append(
+                    f"provenance: {src['path']} sha256 differs from {path.name} "
+                    f"({src['sha256'][:12]}... vs {expected[:12]}...)"
+                )
+        elif src["sha256"] not in known_hashes:
+            errors.append(f"provenance: {src['path']} not found in {path.name} by path or hash")
     return errors
 
 
