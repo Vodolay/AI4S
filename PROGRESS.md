@@ -47,8 +47,19 @@
   (approved) to read the EPA annotations; `signal_direction` alone was not enough, since all 32
   activity endpoints are annotated `bidirectional`.
 
+- **Three sources added (PI decision):** `sharf2022` (human iPSC organoid HD-MEA, diazepam
+  control/3/10/30/50 uM in 4 organoids, CC0), `fofie2025` (hiPSC nociceptors on Axion, CC0, compound
+  overlap incl. TTX/GABA/lidocaine/DNQX), `screenneuropharm_bic` (rat bicuculline series, MIT).
+  License policy widened to permissive OSI licenses; each fetcher now re-checks its source's license
+  at fetch time and blocks if it changed upstream. 34 tests pass.
+
 ### Blocked / open
-- Dataset search for a CC-BY/CC0 hiPSC MEA pharmacology set was running at session end.
+- `fofie2025` has total spike counts only: firing-rate features only, no bursts. `sharf2022` electrode
+  geometry (26,400 CMOS electrodes) is not comparable to 16-electrode Axion wells; the schema must
+  record the data *level* (spike times / per-well features / fitted curves) per record.
+- A near-perfect match for the two-compartment chip (Zenodo 14525182, compartmentalized asymmetric
+  microchannels) was rejected: Zenodo says CC BY 4.0, its own README says CC BY-NC-ND. Revisit only if
+  the authors clarify.
 
 ### Next first task (HD3)
 - Write `schema/neuromps_schema.json` + `STANDARD.md` from `schema/FEATURE_SET.md`.

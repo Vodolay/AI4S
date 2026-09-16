@@ -39,6 +39,18 @@ the ToxCast acute endpoint list, so the standard maps onto an existing regulator
 network-burst detector and Axion's. Report them as separate fields with the method recorded; never
 merge them into one column. This is exactly the harmonization gap the data standard should name.
 
+## The other three sources
+
+| Source | Level | What the core vector can use |
+|---|---|---|
+| `sharf2022` (human organoid, HD-MEA) | spike times per sorted unit | all features, but electrode geometry differs (26,400 CMOS electrodes vs 16 per Axion well): `active_electrodes` and synchrony are not comparable across platforms without an explicit rescaling, which the standard must record |
+| `fofie2025` (hiPSC nociceptors, Axion) | total spike counts per electrode and per well | `mfr_hz` only. No spike times, so no burst, network or ISI features |
+| `screenneuropharm_bic` (rat cortical/hippocampal, MCS 60-electrode) | spike trains | all features; 60-electrode single-well layout, 8-min recordings |
+
+This is the second harmonization gap worth naming in the standard: sources differ not only in features
+but in the **level** at which data is published (spike times → per-well features → fitted curves). A
+record in the asset must state its level, and comparisons are only valid within a level.
+
 ## Definitions to pin down in HD3/HD4
 - Burst detector: Kapucu used meaRtools (MaxInterval variants); ToxCast used Axion AxIS. We compute
   our own from spike times, so the standard must record `burst_method` per record.

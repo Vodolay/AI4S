@@ -15,11 +15,23 @@ def fetch_many(
     raw_root: Path,
     cached: dict[str, FileRecord],
     max_bytes: int | None = 2 << 30,
+    md5s: dict[str, str | None] | None = None,
 ) -> list[FileRecord]:
-    """Download ``(url, rel_path)`` pairs, reusing files whose hash matches the manifest."""
+    """Download ``(url, rel_path)`` pairs, reusing files whose hash matches the manifest.
+
+    ``md5s`` maps rel_path to an upstream-published MD5; when given, a mismatch
+    deletes the partial file and raises.
+    """
     records = []
     for i, (url, rel) in enumerate(items, 1):
-        rec = download_file(url, raw_root, rel, cached=cached.get(rel), max_bytes=max_bytes)
+        rec = download_file(
+            url,
+            raw_root,
+            rel,
+            cached=cached.get(rel),
+            max_bytes=max_bytes,
+            expected_md5=(md5s or {}).get(rel),
+        )
         status = "cached" if rec is cached.get(rel) else f"{rec.bytes / 1e6:.1f} MB"
         log.info("  [%d/%d] %s (%s)", i, len(items), rel, status)
         records.append(rec)

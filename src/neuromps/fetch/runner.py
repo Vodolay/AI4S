@@ -18,9 +18,16 @@ RAW_ROOT = REPO_ROOT / "data" / "raw"
 
 def registry() -> dict[str, tuple[Fetcher, dict[str, str]]]:
     """Map source name -> (fetch function, static metadata used if it is blocked)."""
-    from neuromps.fetch import axon_diode, kapucu2022, toxcast_mea
+    from neuromps.fetch import (
+        axon_diode,
+        fofie2025,
+        kapucu2022,
+        screenneuropharm_bic,
+        sharf2022,
+        toxcast_mea,
+    )
 
-    mods = [kapucu2022, toxcast_mea, axon_diode]
+    mods = [kapucu2022, toxcast_mea, sharf2022, fofie2025, screenneuropharm_bic, axon_diode]
     return {m.SOURCE: (m.fetch, m.META) for m in mods}
 
 
@@ -69,10 +76,10 @@ def main(argv: list[str] | None = None) -> int:
     args = p.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
     manifest = run_fetchers(names=args.only, full=args.full)
-    print(f"\n{'source':<16}{'status':<10}{'files':>6}{'MB':>10}  license")
+    print(f"\n{'source':<22}{'status':<10}{'files':>6}{'MB':>10}  license")
     for s in manifest.sources.values():
         mb = sum(f.bytes for f in s.files) / 1e6
-        print(f"{s.name:<16}{s.status:<10}{len(s.files):>6}{mb:>10.1f}  {s.license}")
+        print(f"{s.name:<22}{s.status:<10}{len(s.files):>6}{mb:>10.1f}  {s.license}")
     return 0
 
 

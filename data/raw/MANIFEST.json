@@ -34,6 +34,25 @@
         }
       ]
     },
+    "fofie2025": {
+      "name": "fofie2025",
+      "status": "ok",
+      "landing_url": "https://doi.org/10.6084/m9.figshare.28755155.v1",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "citation": "Fofie E, Granja-Vazquez R, Truong V, Walsh T, Price TJ, Biswas S, Dussor G, Pancrazio JJ, Kolber BJ. Raw data, Cell Reports Methods 2025. doi:10.6084/m9.figshare.28755155.v1",
+      "note": "hiPSC sensory neurons (RealDRG), Axion Maestro Pro 48- and 96-well; features only",
+      "checked_at": "2026-09-16T15:04:06+00:00",
+      "files": [
+        {
+          "path": "fofie2025/Fofie_et_al_Cell_Reports_2025_Raw_data.xlsx",
+          "url": "https://ndownloader.figshare.com/files/53513621",
+          "sha256": "50ba3e5a60d6337049a9e490082276cdff05ce81c7647f63ddf08a5ffce074ca",
+          "bytes": 1250757,
+          "downloaded_at": "2026-09-16T15:04:06+00:00"
+        }
+      ]
+    },
     "iras_mea": {
       "name": "iras_mea",
       "status": "skipped",
@@ -42,7 +61,7 @@
       "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
       "citation": "Tukker AM, Wijnolts FMJ, de Groot A, Westerink RHS. Toxicol Sci 178(1):71-87 (2020). doi:10.1093/toxsci/kfaa136",
       "note": "EXCLUDED 2026-09-16 (PI decision): non-commercial license is incompatible with a prize-bearing submission released under an open license. Revisit only if the competition rules clearly keep submissions under the entrant's own open license.",
-      "checked_at": "2026-09-16T14:31:22+00:00",
+      "checked_at": "2026-09-16T15:04:16+00:00",
       "files": []
     },
     "kapucu2022": {
@@ -1727,6 +1746,51 @@
           "sha256": "744e65e884beb7d0e1dc4f00c1ab42d96873e6a3e35779557c5219cd529e9a03",
           "bytes": 87146,
           "downloaded_at": "2026-09-16T14:02:41+00:00"
+        }
+      ]
+    },
+    "screenneuropharm_bic": {
+      "name": "screenneuropharm_bic",
+      "status": "ok",
+      "landing_url": "https://doi.org/10.5281/zenodo.7665283",
+      "license": "MIT",
+      "license_url": "https://github.com/ScreenNeuroPharm/Bicuculline/blob/main/LICENSE",
+      "citation": "ScreenNeuroPharm. Bicuculline (v1). Zenodo. doi:10.5281/zenodo.7665283. Source repository: github.com/ScreenNeuroPharm/Bicuculline (MIT License, 2023).",
+      "note": "tier=full; rat cortical (Cx) and hippocampal (Hp) cultures, 60-electrode MCS MEA, spike trains; MIT license verified in the source repository, not on Zenodo",
+      "checked_at": "2026-09-16T15:17:56+00:00",
+      "files": [
+        {
+          "path": "screenneuropharm_bic/Bicuculline-BIC_v1.zip",
+          "url": "https://zenodo.org/api/records/7665283/files/ScreenNeuroPharm/Bicuculline-BIC_v1.zip/content",
+          "sha256": "7f434d61f6ac1c5719c942ab7f377367a4a9b6e69c18a5ec328cea5f7945fa69",
+          "bytes": 581841834,
+          "downloaded_at": "2026-09-16T15:17:56+00:00"
+        }
+      ]
+    },
+    "sharf2022": {
+      "name": "sharf2022",
+      "status": "ok",
+      "landing_url": "https://doi.org/10.25349/D9031Z",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "citation": "Sharf T, van der Molen T, Glasauer SMK, et al. Functional neuronal circuitry and oscillatory dynamics in human brain organoids. Dataset: Extracellular Recordings from Human Brain Organoids Using High-density CMOS Arrays. doi:10.25349/D9031Z",
+      "note": "tier=full; Zenodo record 6578989; raw .h5 recordings (~60 GB) excluded by design; diazepam series control/3/10/30/50 uM in 4 organoids",
+      "checked_at": "2026-09-16T15:11:34+00:00",
+      "files": [
+        {
+          "path": "sharf2022/README_organoid_data.txt",
+          "url": "https://zenodo.org/api/records/6578989/files/README_organoid_data.txt/content",
+          "sha256": "6a123e0a3539243aab4e9fa75afecde72612ed5c1e7cf1e24259c41c5086dcb3",
+          "bytes": 4182,
+          "downloaded_at": "2026-09-16T15:04:03+00:00"
+        },
+        {
+          "path": "sharf2022/kilosort2.zip",
+          "url": "https://zenodo.org/api/records/6578989/files/kilosort2.zip/content",
+          "sha256": "b4d4c802937bc804e64c9e020358f7c92da1a272bc1014d3009a4fc3ad90ea99",
+          "bytes": 929469838,
+          "downloaded_at": "2026-09-16T15:11:34+00:00"
         }
       ]
     },

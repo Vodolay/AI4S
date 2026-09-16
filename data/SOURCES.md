@@ -9,6 +9,9 @@ This file records the human decisions behind each source.
 | `kapucu2022` | Kapucu et al. 2022 *Sci Data* 9:120: hPSC-derived vs rat cortical networks on 48-well MEA; development (DIV 2–77) + one pharmacology plate per species | CC-BY-4.0 (data, `Data/LICENSE.txt`); article CC-BY-4.0 | G-Node GIN, plain HTTPS, pinned commit `0f0f135` | arrived (full tier: 239 files, 1.2 GB) |
 | `toxcast_mea` | US EPA ToxCast invitrodb v4.3, `CCTE_Shafer_MEA_acute_*` (rat cortical, acute) and `CCTE_Shafer_MEA_dev_*` (network formation) | CC0-1.0 (figshare record 6062623 v14) | EPA Clowder API, anonymous | arrived (full tier: 42 files, 2.57 GB) |
 | `iras_mea` | Tukker et al. 2020 *Toxicol Sci* 178:71–87: hiPSC co-cultures vs rat cortical MEA, seizure-liability compounds | **CC-BY-NC-4.0** | Europe PMC REST | **excluded** (license); recorded as `skipped` in MANIFEST |
+| `sharf2022` | Sharf et al.: human iPSC brain organoid slices, MaxWell MaxOne HD-MEA (26,400 electrodes); **diazepam dose–response** control/3/10/30/50 µM in 4 organoids; Kilosort2 spike output | CC0-1.0 | Zenodo record 6578989 | arrived (full: kilosort2.zip) |
+| `fofie2025` | Fofie et al. 2025: hiPSC-derived **nociceptors** (RealDRG), Axion Maestro Pro 48/96-well; concentration–response for TTX, huwentoxin-IV, lidocaine, retigabine, DNQX, GABA and others | CC0-1.0 | figshare article 28755155 | arrived (1.25 MB xlsx) |
+| `screenneuropharm_bic` | ScreenNeuroPharm: rat cortical + hippocampal cultures, 60-electrode MCS MEA, **bicuculline** concentration series; spike trains | **MIT** (source repo) | Zenodo record 7665283 | arrived (full tier only) |
 | `axon_diode` | Asymmetric-microchannel chip papers (Renault 2015, Lassus 2018, Courte 2020): design parameters only | CC-BY-4.0 each (read from article XML) | Europe PMC REST | arrived |
 
 ## Decisions
@@ -54,9 +57,12 @@ This file records the human decisions behind each source.
     rat→hPSC transfer study relies on Kapucu 2022 alone, which must be stated as a limitation.
   - Vassallo et al. 2017 (rat cortical MEA, same lab) was not found as open access and was never fetched.
 - **License policy (applies to every source).** Accept only licenses that allow commercial reuse and
-  redistribution with attribution: CC0, CC BY, public domain, or OSI-approved software licenses. Exclude
-  NC, ND and unlicensed material even if it is publicly downloadable. Record every exclusion in
-  `excluded.py` and here.
+  redistribution with attribution: CC0, CC BY, public domain, or permissive OSI-approved licenses
+  (MIT, BSD, Apache-2.0) where a repository applies one to data. Exclude NC, ND and unlicensed
+  material even if it is publicly downloadable. Where repository metadata and the dataset's own
+  license file disagree, take the more restrictive one and record the conflict. Record every
+  exclusion in `excluded.py` and here. Each fetcher re-checks its source's license at fetch time and
+  blocks the source if it changed upstream.
 - **ToxCast MEA inventory (HD2, `python -m neuromps.etl.toxcast_mea`).** 36 endpoints: 17 acute
   (508 chemicals, 532 samples/endpoint) and 19 dev (463 chemicals). Same platform as Kapucu 2022
   (Axion Maestro, 48-well, 16 electrodes, 12.5 kHz), but the acute assay is a 40-min baseline vs
@@ -70,6 +76,34 @@ This file records the human decisions behind each source.
 - **No compound overlap between the two datasets.** None of kainic acid, CNQX, D-AP5, GABA, gabazine
   or TTX is among the ToxCast acute chemicals (TTX is its positive control). Cross-platform
   comparison must therefore be at the level of feature response patterns, not per-compound agreement.
+- **New sources added 2026-09-16 (PI decision), after the Tukker exclusion left a gap.**
+  - `sharf2022` supplies the human dose–response arm. Caveats: brain organoid slices, not 2D culture;
+    one organoid per array (no per-well replicates); HD-CMOS electrode geometry is not comparable to
+    the 16-electrode Axion wells, so electrode counts and synchrony measures need separate treatment.
+    Only `kilosort2.zip` (spike-sorted output) is fetched; the 36 raw .h5 files (~60 GB) are not.
+  - `fofie2025` gives the widest compound overlap (TTX, GABA, lidocaine, DNQX, retigabine) at 1.25 MB.
+    Caveats: **sensory neurons, not cortical**, so it supports mechanism-level comparison only; and the
+    workbook holds **total spike counts per electrode/well only**, so firing-rate features can be
+    derived but burst and network features cannot.
+  - `screenneuropharm_bic` gives a rat GABA-A antagonist concentration series to pair with Kapucu's
+    single gabazine condition. Licensed MIT in the source repository (Zenodo says only "other-open");
+    MIT on data is unusual but permissive and allows commercial reuse. Fetched with `--full` only.
+- **Verified in the downloaded archives (2026-09-16).**
+  - `sharf2022/kilosort2.zip`: 46 entries; drug arm has **19 files, not 20** — organoid 2957 has no
+    30 µM condition (control/3/10/50 µM only). Treat the diazepam series as complete for organoids
+    2950, 2953, 2954 and incomplete for 2957.
+  - `screenneuropharm_bic`: spike trains (`ptrain_*`) under `Data/<prep>/<Cx|Hp>/<array>/...`, for
+    cortical **and** hippocampal cultures, at bicuculline 1, 3, 10, 30, 100, 300 µM (plus a `BIC500`
+    label to check during ETL). A 6-point dose-response, far richer than Kapucu's single gabazine
+    condition. The archive also ships the authors' MATLAB/Python analysis code (MIT).
+- **Rejected in the same search (recorded for the report's data-selection story).**
+  - Zenodo 14525182 (Mateus & Aguiar), compartmentalized asymmetric-microchannel MEA — the closest
+    published analogue of our two-compartment chip: Zenodo metadata says CC BY 4.0 but the dataset's
+    own README says CC BY-NC-ND. Excluded on the conflict rule above.
+  - Carstens et al. 2025 (3D hiPSC BrainSphere HD-MEA) and a GABA-A seizure-liability study: data
+    "available upon reasonable request" — gated, so out of scope.
+  - Zenodo 14363732 (36 GB MEA recordings) and the IMI2-NeuroDeRisk comparison: CC BY-NC / CC BY-NC-ND.
+  - DANDI 001872 and 001336: human organoid MEA in NWB under CC-BY, but no pharmacology.
 - **Axon-diode lineage.** Peyrin et al. 2011 *Lab Chip* (doi:10.1039/c1lc20014c) and Courte et al. 2018
   *Methods Cell Biol* (doi:10.1016/bs.mcb.2018.07.002) are not open access: cited only, never
   downloaded. Design parameters are taken from the open-access papers.
