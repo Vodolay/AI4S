@@ -2,6 +2,10 @@
   "toxcast_mea_inventory": {
     "chemicals_acute": 508,
     "chemicals_dev": 463,
+    "direction_check_agreement": {
+      "acute": 0.924,
+      "dev": 0.991
+    },
     "endpoints_acute": 17,
     "endpoints_dev": 19,
     "endpoints_total": 36,

@@ -63,11 +63,10 @@ This file records the human decisions behind each source.
   40-min exposure comparison and the dev assay is a 12-day continuous exposure summarized as an AUC
   over DIV 5/7/9/12. Numbers in `outputs/metrics.json`, per-endpoint table in
   `outputs/tables/toxcast_mea_endpoints.csv`.
-- **OQ-1: ToxCast effect direction is unresolved.** tcpl normalizes each endpoint in its own fitting
-  direction, so the sign of `top` cannot be interpreted globally; a single global flip inverts the
-  cytotoxicity endpoints (LDH must rise when cells die). The ETL reports raw `top` plus hit counts by
-  sign. Resolve per-AEID from the EPA assay annotations before any claim about the direction of a
-  chemical's effect. See `schema/FEATURE_SET.md`.
+- **OQ-1 (resolved): ToxCast effect direction is per assay.** acute `activity_change = -top`,
+  dev `= +top`; positive means the measured quantity rose. Verified against cytotoxicity anchors and
+  re-checked on every ETL run (`check_direction_convention`, agreement acute 92.4%, dev 99.1%).
+  Details in `schema/FEATURE_SET.md`.
 - **No compound overlap between the two datasets.** None of kainic acid, CNQX, D-AP5, GABA, gabazine
   or TTX is among the ToxCast acute chemicals (TTX is its positive control). Cross-platform
   comparison must therefore be at the level of feature response patterns, not per-compound agreement.

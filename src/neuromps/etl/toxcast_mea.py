@@ -6,14 +6,19 @@ Two facts drive this module (both verified against the data, see data/SOURCES.md
 
 1. MEA rows must be selected by assay-endpoint name, not by AEID range: AEIDs
    2454-2541 also contain unrelated assays.
-2. The physical direction of ``top`` is NOT resolved yet. tcpl normalizes each
-   endpoint in its own stated fitting direction (``resp.pc`` with a positive or
-   negative control value), so the sign cannot be interpreted globally: a single
-   flip makes the cytotoxicity endpoints (LDH must rise when cells die) come out
-   backwards. Until the per-endpoint direction is read from the EPA assay
-   annotations, this module reports the raw ``top`` and counts hits by sign only.
-   Do not map ``top`` to "activity increased/decreased" downstream. See
-   data/SOURCES.md, open question OQ-1.
+2. The sign of ``top`` means opposite things in the two assays, so it is mapped
+   per assay (OQ-1, resolved). ``activity_change`` is the change in the measured
+   quantity: positive = the quantity went up.
+
+   - acute: ``-top``. Normalized against a positive control of -100, so +100
+     means activity was abolished.
+   - dev: ``+top``. Percent of control on AUC-based metrics, so -100 means every
+     metric collapsed to zero.
+
+   Derived from cytotoxicity anchors (chemicals that kill cells must reduce
+   electrical activity) over 16 acute and 221 dev chemicals, and re-checked on
+   every run by :func:`check_direction_convention`. The 4 viability endpoints
+   (LDH, AB) carry their own annotated direction and get no ``activity_change``.
 """
 
 import argparse
@@ -26,6 +31,16 @@ from neuromps.metrics import update_metrics
 
 MEA_PREFIX = "CCTE_Shafer_MEA_"
 HIT_THRESHOLD = 0.9
+VIABILITY_ENDPOINTS = ("LDH", "AB")
+# Multiplier taking `top` to a change in the measured quantity; see module docstring.
+ACTIVITY_SIGN = {"acute": -1, "dev": 1}
+# Endpoints where the measured quantity moves opposite to network activity
+# (longer intervals mean less activity), used only for reporting.
+INTERVAL_ENDPOINTS = (
+    "interburst_interval_mean",
+    "inter_network_spike_interval_mean",
+    "per_burst_interspike_interval",
+)
 REPO_ROOT = Path(__file__).resolve().parents[3]
 MC56_CSV = (
     REPO_ROOT
@@ -42,6 +57,9 @@ def select_mea(chunk: pd.DataFrame) -> pd.DataFrame:
     out["assay"] = out["aenm"].str.slice(len(MEA_PREFIX)).str.split("_").str[0]
     out["endpoint"] = out["aenm"].str.replace(f"{MEA_PREFIX}(acute|dev)_", "", regex=True)
     out["is_hit"] = out["hitc"] >= HIT_THRESHOLD
+    out["is_viability"] = out["endpoint"].isin(VIABILITY_ENDPOINTS)
+    sign = out["assay"].map(ACTIVITY_SIGN)
+    out["activity_change"] = (sign * out["top"]).where(~out["is_viability"])
     return out
 
 
@@ -51,11 +69,41 @@ def load_mc56(csv_path: Path = MC56_CSV, chunksize: int = 1_000_000) -> pd.DataF
     return pd.concat(chunks, ignore_index=True)
 
 
-def endpoint_summary(df: pd.DataFrame) -> pd.DataFrame:
-    """One row per assay endpoint: coverage, hit counts, and hit counts by sign of ``top``.
+def check_direction_convention(df: pd.DataFrame, min_agreement: float = 0.9) -> dict[str, float]:
+    """Re-derive the sign convention from cytotoxicity anchors; raise if it disagrees.
 
-    The sign is reported as-is; see the module docstring for why it is not
-    translated into "activity up/down" here.
+    Chemicals that are hits in a viability endpoint (LDH/AB) must show reduced
+    electrical activity. Interval endpoints are excluded: intervals lengthen as
+    activity dies. Returns the agreement fraction per assay.
+    """
+    agreement = {}
+    for assay, part in df.groupby("assay"):
+        cytotoxic = set(part.loc[part["is_viability"] & part["is_hit"], "chid"])
+        act = part[
+            ~part["is_viability"]
+            & ~part["endpoint"].isin(INTERVAL_ENDPOINTS)
+            & part["is_hit"]
+            & part["chid"].isin(cytotoxic)
+            & part["activity_change"].notna()
+        ]
+        if act.empty:
+            continue
+        frac = float((act["activity_change"] < 0).mean())
+        agreement[str(assay)] = round(frac, 3)
+        if frac < min_agreement:
+            raise ValueError(
+                f"{assay}: only {frac:.1%} of activity hits for cytotoxic chemicals show reduced "
+                f"activity (n={len(act)}); the ACTIVITY_SIGN mapping may be wrong"
+            )
+    return agreement
+
+
+def endpoint_summary(df: pd.DataFrame) -> pd.DataFrame:
+    """One row per assay endpoint: coverage, hit counts and direction of change.
+
+    ``hits_quantity_up``/``down`` count hits where the measured quantity rose or
+    fell. For interval endpoints a rise means *less* network activity.
+    For the viability endpoints both counts are 0 (no signed value).
     """
     g = df.groupby(["aeid", "assay", "endpoint"], as_index=False).agg(
         chemicals=("chid", "nunique"),
@@ -65,11 +113,11 @@ def endpoint_summary(df: pd.DataFrame) -> pd.DataFrame:
         conc_min=("conc_min", "median"),
         conc_max=("conc_max", "median"),
     )
-    hits = df[df["is_hit"]]
-    pos = hits[hits["top"] > 0].groupby("aeid").size().rename("hits_top_positive")
-    g = g.merge(pos, on="aeid", how="left")
-    g["hits_top_positive"] = g["hits_top_positive"].fillna(0).astype(int)
-    g["hits_top_negative"] = g["hits"] - g["hits_top_positive"]
+    hits = df[df["is_hit"] & df["activity_change"].notna()]
+    for name, mask in (("up", hits["activity_change"] > 0), ("down", hits["activity_change"] < 0)):
+        counts = hits[mask].groupby("aeid").size().rename(f"hits_quantity_{name}")
+        g = g.merge(counts, on="aeid", how="left")
+        g[f"hits_quantity_{name}"] = g[f"hits_quantity_{name}"].fillna(0).astype(int)
     g["hit_rate"] = (g["hits"] / g["samples"]).round(3)
     return g.sort_values(["assay", "endpoint"]).reset_index(drop=True)
 
@@ -83,6 +131,8 @@ def main(argv: list[str] | None = None) -> int:
     if not args.csv.exists():
         raise SystemExit(f"missing {args.csv}; run: python -m neuromps.fetch.runner --full")
     df = load_mc56(args.csv)
+    agreement = check_direction_convention(df)
+    log.info("direction check (cytotoxic chemicals with reduced activity): %s", agreement)
     INTERIM_PARQUET.parent.mkdir(parents=True, exist_ok=True)
     df.to_parquet(INTERIM_PARQUET, index=False)
     summary = endpoint_summary(df)
@@ -102,6 +152,7 @@ def main(argv: list[str] | None = None) -> int:
             "hits_acute": int(acute["is_hit"].sum()),
             "hits_dev": int(dev["is_hit"].sum()),
             "hit_threshold": HIT_THRESHOLD,
+            "direction_check_agreement": agreement,
         },
     )
     log.info(

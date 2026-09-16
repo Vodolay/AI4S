@@ -49,13 +49,16 @@ merge them into one column. This is exactly the harmonization gap the data stand
   limitation of the asset.
 
 ## Open questions
-- **OQ-1 (blocking for any ToxCast direction claim):** the physical direction of ToxCast `top` is
-  per-endpoint, not global. tcpl normalizes each endpoint in its own fitting direction, so the sign
-  cannot be read as "activity up/down" without the per-endpoint direction from the EPA assay
-  annotations. A global flip is demonstrably wrong: it inverts the cytotoxicity endpoints (LDH must
-  rise when cells die). `etl/toxcast_mea.py` therefore reports the raw `top` and hit counts by sign
-  only. Resolve by reading `analysis_direction` / normalization method per AEID from
-  `assay_annotations_invitrodb_v4_3_AUG2025.xlsx` (needs an xlsx reader, see PROGRESS.md).
+- **OQ-1 (resolved 2026-09-16).** The sign of ToxCast `top` means opposite things in the two assays,
+  so `etl/toxcast_mea.py` maps it per assay into `activity_change` (positive = the measured quantity
+  rose): acute uses `-top` (normalized against a positive control of -100, so +100 = activity
+  abolished), dev uses `+top` (percent of control on AUC metrics, so -100 = all metrics collapse to
+  zero). Derived from cytotoxicity anchors — chemicals that kill cells must reduce activity — over 16
+  acute and 221 dev chemicals; `check_direction_convention()` re-derives it on every run and raises
+  below 90% agreement (current: acute 92.4%, dev 99.1%, in `outputs/metrics.json`). The annotation
+  field `signal_direction` alone does not settle this: all 32 activity endpoints are `bidirectional`.
+  The 4 viability endpoints keep their annotated direction and get no `activity_change`.
+  Note for interval endpoints (interburst interval and similar): a rise means *less* activity.
 - **No compound overlap.** None of Kapucu's five drugs (kainic acid, CNQX, D-AP5, GABA, gabazine) nor
   TTX appear among the 508 acute-assay chemicals: TTX is the assay's positive control, not a test
   chemical. There is no shared compound for a direct cross-dataset check, so cross-platform

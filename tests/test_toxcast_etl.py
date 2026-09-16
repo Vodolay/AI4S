@@ -4,8 +4,9 @@ import json
 from pathlib import Path
 
 import pandas as pd
+import pytest
 
-from neuromps.etl.toxcast_mea import endpoint_summary, select_mea
+from neuromps.etl.toxcast_mea import check_direction_convention, endpoint_summary, select_mea
 from neuromps.metrics import update_metrics
 
 
@@ -35,11 +36,52 @@ def test_select_mea_tags_assay_and_endpoint() -> None:
     assert out.loc["s5", "assay"] == "dev"
 
 
-def test_no_unverified_direction_column() -> None:
-    """Direction is per-endpoint and unresolved (OQ-1): do not expose a signed column."""
-    out = select_mea(_frame())
-    assert "activity_change" not in out.columns
-    assert out.set_index("spid").loc["s2", "top"] == 99.0  # raw value preserved
+def test_activity_change_sign_is_per_assay() -> None:
+    """acute: +top means the quantity fell. dev: +top means it rose. OQ-1."""
+    out = select_mea(_frame()).set_index("spid")
+    assert out.loc["s2", "activity_change"] == -99.0  # acute, top=+99 -> fell
+    assert out.loc["s3", "activity_change"] == 169.0  # acute, top=-169 -> rose
+    assert out.loc["s5", "activity_change"] == -20.0  # dev, top=-20 -> fell
+
+
+def test_viability_endpoints_get_no_signed_value() -> None:
+    df = pd.DataFrame(
+        [(2540, "CCTE_Shafer_MEA_acute_LDH", 9, "s9", 1.0, 50.0, 5.3, 0.03, 40.0)],
+        columns=["aeid", "aenm", "chid", "spid", "hitc", "top", "coff", "conc_min", "conc_max"],
+    )
+    out = select_mea(df).iloc[0]
+    assert out["is_viability"]
+    assert pd.isna(out["activity_change"])
+
+
+def _anchor_frame(acute_sign: int) -> pd.DataFrame:
+    """One cytotoxic chemical: LDH hit plus firing-rate hits with the given raw sign."""
+    rows = [(2540, "CCTE_Shafer_MEA_acute_LDH", 7, "v1", 1.0, 50.0, 5.3, 0.03, 40.0)]
+    rows += [
+        (
+            2456,
+            "CCTE_Shafer_MEA_acute_firing_rate_mean",
+            7,
+            f"a{i}",
+            1.0,
+            acute_sign * 99.0,
+            70.97,
+            0.03,
+            40.0,
+        )
+        for i in range(10)
+    ]
+    cols = ["aeid", "aenm", "chid", "spid", "hitc", "top", "coff", "conc_min", "conc_max"]
+    return select_mea(pd.DataFrame(rows, columns=cols))
+
+
+def test_direction_check_passes_on_expected_convention() -> None:
+    assert check_direction_convention(_anchor_frame(+1)) == {"acute": 1.0}
+
+
+def test_direction_check_raises_when_convention_flips() -> None:
+    with pytest.raises(ValueError, match="ACTIVITY_SIGN"):
+        check_direction_convention(_anchor_frame(-1))
 
 
 def test_endpoint_summary_counts_hits_by_direction() -> None:
@@ -47,9 +89,20 @@ def test_endpoint_summary_counts_hits_by_direction() -> None:
     row = s.loc[2456]
     assert row["samples"] == 3
     assert row["hits"] == 2  # hitc 0.1 is not a hit
-    assert row["hits_top_positive"] == 1
-    assert row["hits_top_negative"] == 1
+    assert row["hits_quantity_up"] == 1
+    assert row["hits_quantity_down"] == 1
     assert row["chemicals"] == 3
+
+
+def test_viability_endpoints_are_not_counted_by_direction() -> None:
+    df = pd.DataFrame(
+        [(2540, "CCTE_Shafer_MEA_acute_LDH", 9, "s9", 1.0, 50.0, 5.3, 0.03, 40.0)],
+        columns=["aeid", "aenm", "chid", "spid", "hitc", "top", "coff", "conc_min", "conc_max"],
+    )
+    row = endpoint_summary(select_mea(df)).iloc[0]
+    assert row["hits"] == 1
+    assert row["hits_quantity_up"] == 0
+    assert row["hits_quantity_down"] == 0
 
 
 def test_update_metrics_merges_sections(tmp_path: Path) -> None:
