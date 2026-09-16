@@ -84,6 +84,31 @@
 - The schema has no compartmentalized-chip representation yet (per-compartment units + directed
   connectivity). That is the main planned extension and is needed for the digital twin.
 
-### Next first task (HD4)
-- `features/mea.py`: tests first on synthetic spike trains with known statistics, then the extractor
-  the twin will share.
+## 2026-09-16: Phase 1, HD4
+
+### Done
+- `src/neuromps/features/mea.py`: the single feature extractor (ETL and twin both call it).
+  Returns exactly the schema's `features` block; undefined features are `None`, never 0.0.
+  `FeatureParams.as_method_record()` emits the method names the schema requires.
+- 17 tests on synthetic trains with known statistics: exact burst counts/durations, ISI CV 0 for
+  regular and ~1 for Poisson, STTC 1.0 for identical trains and ~0 for independent ones, activity
+  threshold, no-active-electrode nulls, determinism, input not mutated, unsorted input, and a test
+  that feature keys match `schema/neuromps_schema.json` exactly (prevents schema/code drift).
+- **Assumption found and fixed:** a fixed participation threshold for network bursts counts chance
+  coincidences - 16 independent 5 Hz electrodes produced ~50 spurious network bursts/min. The
+  threshold is now chance-controlled (smallest participation whose expected false positives over the
+  recording stay < 0.05, electrodes modelled as independent Poisson). Two tests pin both directions:
+  independent electrodes give 0, and real synchrony on a 10 Hz background is still detected.
+- Definition made explicit in code, tests and STANDARD.md: the network-burst detector is
+  coincidence-based (Axion "network spike"-like), not rate-elevation; synchronous tonic firing counts.
+
+### Exploratory (not a report number; n=1 well pair, no script under src/ yet)
+- Smoke check on the real rat pharmacology plate, gabazine well A8 baseline -> exposure:
+  mfr 1.76 -> 2.67 Hz, burst rate 1.70 -> 9.90 /min, spikes in bursts 11.6 -> 58.2 %,
+  network bursts 0.0 -> 7.27 /min, STTC 0.045 -> 0.33; control well A3 flat (mfr 4.87 -> 4.64).
+  Direction matches disinhibition. ~0.25 s per well (16 electrodes, 1800 s).
+  Aggregate across wells belongs in HD5 ETL, where it becomes a real, script-produced number.
+
+### Next first task (HD5)
+- ETL Kapucu pharmacology plates -> schema records -> `data/processed/neuromps.parquet`, pairing
+  baseline and exposure recordings per well, then the same for the other spike-time sources.
