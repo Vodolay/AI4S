@@ -1,0 +1,54 @@
+{
+  "record_id": "example:fofie2025:96w-b3:ttx-1um",
+  "source": "fofie2025",
+  "license": "CC0-1.0",
+  "citation": "Fofie E, Granja-Vazquez R, Truong V, Walsh T, Price TJ, Biswas S, Dussor G, Pancrazio JJ, Kolber BJ. Raw data, Cell Reports Methods 2025. doi:10.6084/m9.figshare.28755155.v1",
+  "data_level": "per_well_features",
+  "cell_source": {
+    "species": "human",
+    "system": "hipsc_derived_nociceptor",
+    "line_or_strain": "Anatomic RealDRG"
+  },
+  "platform": {
+    "vendor": "Axion Biosystems",
+    "system": "Maestro Pro",
+    "plate_format": "96-well",
+    "electrodes_per_unit": 8,
+    "sampling_rate_hz": 12500
+  },
+  "unit_id": "B3",
+  "compound": {
+    "name": "tetrodotoxin",
+    "role": "test",
+    "mechanism_class": "na_channel_blocker",
+    "dose_value": 1.0,
+    "dose_unit": "uM"
+  },
+  "features": {
+    "mfr_hz": null,
+    "burst_rate_per_min": null
+  },
+  "feature_method": {
+    "computed_by": "publisher",
+    "spike_detection": "publisher: Axion AxIS (total spike counts)"
+  },
+  "qc": {
+    "usable": true,
+    "flags": [],
+    "note": "illustrative; source publishes total spike counts only, so burst features stay null"
+  },
+  "provenance": {
+    "source_files": [
+      {
+        "path": "fofie2025/Fofie_et_al_Cell_Reports_2025_Raw_data.xlsx",
+        "sha256": "50ba3e5a60d6337049a9e490082276cdff05ce81c7647f63ddf08a5ffce074ca"
+      }
+    ],
+    "transform": [
+      "read sheet 'Curves TTX-HWTX-Lidocaine'",
+      "spike count / duration -> mfr_hz"
+    ],
+    "generated_by": "schema/examples (illustrative)",
+    "generated_at": "2026-09-16T15:30:00+00:00"
+  }
+}

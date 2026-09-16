@@ -1,0 +1,56 @@
+{
+  "record_id": "example:toxcast_mea:aeid2456:fipronil",
+  "source": "toxcast_mea",
+  "license": "CC0-1.0",
+  "citation": "U.S. EPA Center for Computational Toxicology and Exposure. ToxCast Database: invitrodb version 4.3. doi:10.23645/epacomptox.6062623.v14",
+  "data_level": "fitted_curve",
+  "cell_source": {
+    "species": "rat",
+    "system": "primary_cortical"
+  },
+  "platform": {
+    "vendor": "Axion Biosystems",
+    "system": "Maestro 768-channel",
+    "plate_format": "48-well",
+    "electrodes_per_unit": 16,
+    "sampling_rate_hz": 12500
+  },
+  "unit_id": "aeid2456",
+  "compound": {
+    "name": "Fipronil",
+    "role": "test",
+    "mechanism_class": "gabaa_antagonist",
+    "cas": "120068-37-3",
+    "dose_unit": "uM"
+  },
+  "curve": {
+    "endpoint": "CCTE_Shafer_MEA_acute_firing_rate_mean",
+    "model": "hill",
+    "n_concentrations": 7,
+    "conc_min": 0.03,
+    "conc_max": 40.0,
+    "ac50": 9.11,
+    "top": 99.99,
+    "activity_change": -99.99,
+    "cutoff": 70.97,
+    "hitcall": 0.97
+  },
+  "qc": {
+    "usable": true,
+    "flags": []
+  },
+  "provenance": {
+    "source_files": [
+      {
+        "path": "toxcast_mea/summary/mc5-6_winning_model_fits-flags_invitrodbv4_3_AUG2024.csv",
+        "sha256": "f77d7528d77ccc4a4ed5525baab5f051fe2f292c24663d54ea6a4d53c4ca6e39"
+      }
+    ],
+    "transform": [
+      "select_mea()",
+      "activity_change = -top (acute)"
+    ],
+    "generated_by": "neuromps.etl.toxcast_mea",
+    "generated_at": "2026-09-16T15:30:00+00:00"
+  }
+}

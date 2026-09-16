@@ -61,5 +61,29 @@
   microchannels) was rejected: Zenodo says CC BY 4.0, its own README says CC BY-NC-ND. Revisit only if
   the authors clarify.
 
-### Next first task (HD3)
-- Write `schema/neuromps_schema.json` + `STANDARD.md` from `schema/FEATURE_SET.md`.
+## 2026-09-16: Phase 1, HD3
+
+### Done
+- `schema/neuromps_schema.json` (JSON Schema 2020-12): record = one unit, one condition, one data
+  level. Conditional rules per level; dose requires a unit; a synchrony value requires its named
+  method; provenance requires at least one hashed source file.
+- `schema/STANDARD.md` (draft v0.1): scope, terminology, the three data levels, technical
+  requirements, QC vocabulary with EPA-derived defaults (active electrode >= 5 spikes/min, well usable
+  with >= 10 active electrodes), provenance, 3 conformance levels, and known gaps.
+- `src/neuromps/qc/schema.py`: validator + `check_traceable()` (Level 2: hashes must match
+  MANIFEST.json) + CLI `python -m neuromps.qc.schema [--traceable] FILE...`.
+- `schema/examples/`: 5 records, one per data level and platform; all valid at Level 2. Feature values
+  are null by design until HD4 - they are not filled with plausible numbers.
+- 51 tests pass, ruff clean.
+
+### Decisions taken while the PI was away
+- Added `jsonschema==4.26.0` (MIT; already present transitively via sbi) so the standard is
+  machine-checkable rather than prose. Pinned in pyproject.
+- `culture_age_days` flattens organoid months (converted at 30 d/month) and DIV into one field; the
+  conversion is recorded in `provenance.transform`. Listed in STANDARD.md section 8 as a known gap.
+- The schema has no compartmentalized-chip representation yet (per-compartment units + directed
+  connectivity). That is the main planned extension and is needed for the digital twin.
+
+### Next first task (HD4)
+- `features/mea.py`: tests first on synthetic spike trains with known statistics, then the extractor
+  the twin will share.

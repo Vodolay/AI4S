@@ -1,0 +1,78 @@
+{
+  "record_id": "example:kapucu2022:rat-mea2pharma-a5:gabazine-30um",
+  "source": "kapucu2022",
+  "license": "CC-BY-4.0",
+  "citation": "Kapucu FE, Vinogradov A, Hyv\u00e4rinen T, Yl\u00e4-Outinen L, Narkilahti S. Comparative microelectrode array data of the functional development of hPSC-derived and rat neuronal networks. Sci Data 9, 120 (2022). doi:10.1038/s41597-022-01242-4",
+  "data_level": "spike_times",
+  "cell_source": {
+    "species": "rat",
+    "system": "primary_cortical",
+    "line_or_strain": "Wistar (postnatal cortex)"
+  },
+  "platform": {
+    "vendor": "Axion Biosystems",
+    "system": "Maestro 768-channel",
+    "plate_format": "48-well",
+    "electrodes_per_unit": 16,
+    "sampling_rate_hz": 12500
+  },
+  "plate_id": "MEA2Pharma",
+  "unit_id": "A5",
+  "culture_age_days": 22,
+  "compound": {
+    "name": "gabazine",
+    "role": "test",
+    "mechanism_class": "gabaa_antagonist",
+    "dose_value": 30.0,
+    "dose_unit": "uM",
+    "exposure_min": null
+  },
+  "recording": {
+    "duration_s": 300.0,
+    "phase": "exposure"
+  },
+  "features": {
+    "mfr_hz": null,
+    "burst_rate_per_min": null,
+    "burst_duration_s": null,
+    "spikes_per_burst": null,
+    "pct_spikes_in_bursts": null,
+    "network_burst_rate_per_min": null,
+    "synchrony_index": null,
+    "isi_cv": null,
+    "active_electrodes": null
+  },
+  "feature_method": {
+    "computed_by": "neuromps.features.mea",
+    "spike_detection": "publisher: authors' MATLAB detection (GIN Codes/)",
+    "burst_method": "neuromps maxinterval (HD4)",
+    "network_burst_method": "neuromps (HD4)",
+    "synchrony_method": "sttc",
+    "active_electrode_threshold_spikes_per_min": 5
+  },
+  "qc": {
+    "usable": true,
+    "flags": [],
+    "n_noisy_electrodes": 0,
+    "note": "illustrative record; feature values null until HD4"
+  },
+  "provenance": {
+    "source_files": [
+      {
+        "path": "kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2Pharma_DIV22/Rat_MEA2Pharma_DIV22_spikes_noise_explogs/Rat_50618_MEA2Pharma_DIV22_spikes.csv",
+        "sha256": "44a26d8dd7c9eb5510f04b856f983178d624b51a8edbcb2f187553f6a1dcef5b"
+      },
+      {
+        "path": "kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2Pharma_DIV22/Rat_MEA2Pharma_DIV22_spikes_noise_explogs/Rat_50618_MEA2Pharma_DIV22_expLog.csv",
+        "sha256": "c80d5585238da6263409511ec3e7244a920c2a560fa9c4e01ea773ec54a6c03f"
+      }
+    ],
+    "transform": [
+      "read spike csv",
+      "join expLog treatment",
+      "features/mea.py (HD4)"
+    ],
+    "generated_by": "schema/examples (illustrative)",
+    "generated_at": "2026-09-16T15:30:00+00:00"
+  }
+}

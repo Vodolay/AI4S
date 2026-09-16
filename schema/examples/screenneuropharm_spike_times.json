@@ -1,0 +1,60 @@
+{
+  "record_id": "example:screenneuropharm_bic:br11-cx-18331:bicuculline-30um",
+  "source": "screenneuropharm_bic",
+  "license": "MIT",
+  "citation": "ScreenNeuroPharm. Bicuculline (v1). Zenodo. doi:10.5281/zenodo.7665283. Source repository: github.com/ScreenNeuroPharm/Bicuculline (MIT License, 2023).",
+  "data_level": "spike_times",
+  "cell_source": {
+    "species": "rat",
+    "system": "primary_cortical",
+    "line_or_strain": "prep Br11"
+  },
+  "platform": {
+    "vendor": "Multi Channel Systems",
+    "system": "MEA60",
+    "plate_format": "single-well",
+    "electrodes_per_unit": 60,
+    "sampling_rate_hz": 10000
+  },
+  "plate_id": "18331",
+  "unit_id": "Br11-Cx-18331",
+  "culture_age_days": null,
+  "compound": {
+    "name": "bicuculline",
+    "role": "test",
+    "mechanism_class": "gabaa_antagonist",
+    "dose_value": 30.0,
+    "dose_unit": "uM"
+  },
+  "recording": {
+    "duration_s": 480.0,
+    "phase": "exposure"
+  },
+  "features": {
+    "mfr_hz": null
+  },
+  "feature_method": {
+    "computed_by": "neuromps.features.mea",
+    "spike_detection": "publisher: PeakDetection PLP2ms RP1ms",
+    "burst_method": "neuromps maxinterval (HD4)"
+  },
+  "qc": {
+    "usable": true,
+    "flags": [],
+    "note": "illustrative record"
+  },
+  "provenance": {
+    "source_files": [
+      {
+        "path": "screenneuropharm_bic/Bicuculline-BIC_v1.zip",
+        "sha256": "7f434d61f6ac1c5719c942ab7f377367a4a9b6e69c18a5ec328cea5f7945fa69"
+      }
+    ],
+    "transform": [
+      "extract ptrain_* for Br11/Cx/18331 at BIC30",
+      "features/mea.py (HD4)"
+    ],
+    "generated_by": "schema/examples (illustrative)",
+    "generated_at": "2026-09-16T15:30:00+00:00"
+  }
+}

@@ -1,0 +1,717 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/neuromps/neuromps/schema/neuromps_schema.json",
+  "title": "NeuroMPS record",
+  "description": "One observation from a neural microphysiological system: a recording unit (well, array or chip) under one condition, from one source, at one data level. Research decision-support only; this schema carries no efficacy, safety or clinical meaning.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "record_id",
+    "source",
+    "license",
+    "citation",
+    "data_level",
+    "cell_source",
+    "platform",
+    "unit_id",
+    "compound",
+    "provenance"
+  ],
+  "properties": {
+    "record_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9_.:-]{2,127}$",
+      "description": "Stable unique id, conventionally <source>:<unit>:<condition>."
+    },
+    "source": {
+      "type": "string",
+      "enum": [
+        "kapucu2022",
+        "toxcast_mea",
+        "sharf2022",
+        "fofie2025",
+        "screenneuropharm_bic"
+      ],
+      "description": "Source key; must match a source in data/raw/MANIFEST.json."
+    },
+    "license": {
+      "type": "string",
+      "enum": [
+        "CC0-1.0",
+        "CC-BY-4.0",
+        "MIT",
+        "BSD-3-Clause",
+        "Apache-2.0"
+      ],
+      "description": "SPDX id of the source's license. Non-commercial and no-derivatives licenses are not permitted in this asset (see data/SOURCES.md)."
+    },
+    "citation": {
+      "type": "string",
+      "minLength": 10
+    },
+    "data_level": {
+      "type": "string",
+      "enum": [
+        "spike_times",
+        "per_well_features",
+        "fitted_curve"
+      ],
+      "description": "Level at which the source publishes data. Records are only comparable within a level.",
+      "$comment": "spike_times: we compute features ourselves. per_well_features: publisher-computed features. fitted_curve: concentration-response fit over many wells."
+    },
+    "cell_source": {
+      "$ref": "#/$defs/cell_source"
+    },
+    "platform": {
+      "$ref": "#/$defs/platform"
+    },
+    "plate_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "unit_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Well, array or chip identifier within the source (e.g. 'A5', '2953')."
+    },
+    "culture_age_days": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 1000,
+      "description": "Days in vitro at recording. Organoid ages given in months are converted (30 days/month) and the conversion recorded in provenance.transform."
+    },
+    "compound": {
+      "$ref": "#/$defs/compound"
+    },
+    "recording": {
+      "$ref": "#/$defs/recording"
+    },
+    "features": {
+      "$ref": "#/$defs/features"
+    },
+    "feature_method": {
+      "$ref": "#/$defs/feature_method"
+    },
+    "curve": {
+      "$ref": "#/$defs/curve"
+    },
+    "qc": {
+      "$ref": "#/$defs/qc"
+    },
+    "provenance": {
+      "$ref": "#/$defs/provenance"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "data_level": {
+            "const": "spike_times"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "features",
+          "feature_method",
+          "recording",
+          "qc"
+        ],
+        "properties": {
+          "feature_method": {
+            "required": [
+              "spike_detection",
+              "burst_method"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "data_level": {
+            "const": "per_well_features"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "features",
+          "feature_method"
+        ],
+        "properties": {
+          "feature_method": {
+            "required": [
+              "spike_detection"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "data_level": {
+            "const": "fitted_curve"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "curve"
+        ]
+      }
+    },
+    {
+      "$comment": "A synchrony value is meaningless without its algorithm: STTC and Axion's synchrony index are different measures.",
+      "if": {
+        "type": "object",
+        "required": [
+          "features"
+        ],
+        "properties": {
+          "features": {
+            "required": [
+              "synchrony_index"
+            ],
+            "properties": {
+              "synchrony_index": {
+                "type": "number"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "feature_method"
+        ],
+        "properties": {
+          "feature_method": {
+            "required": [
+              "synchrony_method"
+            ],
+            "properties": {
+              "synchrony_method": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "cell_source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "species",
+        "system"
+      ],
+      "properties": {
+        "species": {
+          "type": "string",
+          "enum": [
+            "human",
+            "rat",
+            "mouse"
+          ]
+        },
+        "system": {
+          "type": "string",
+          "enum": [
+            "primary_cortical",
+            "primary_hippocampal",
+            "hpsc_derived_cortical",
+            "hipsc_derived_nociceptor",
+            "brain_organoid_slice"
+          ]
+        },
+        "line_or_strain": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "donor_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "differentiation_protocol": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "platform": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "vendor",
+        "system",
+        "electrodes_per_unit",
+        "sampling_rate_hz"
+      ],
+      "properties": {
+        "vendor": {
+          "type": "string",
+          "enum": [
+            "Axion Biosystems",
+            "MaxWell Biosystems",
+            "Multi Channel Systems",
+            "other"
+          ]
+        },
+        "system": {
+          "type": "string",
+          "minLength": 2
+        },
+        "plate_format": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "48-well",
+            "96-well",
+            "24-well",
+            "single-well",
+            null
+          ]
+        },
+        "electrodes_per_unit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100000
+        },
+        "electrode_pitch_um": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "exclusiveMinimum": 0
+        },
+        "sampling_rate_hz": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        }
+      },
+      "$comment": "Electrode count and pitch differ by orders of magnitude across platforms (16 per Axion well vs 26,400 CMOS electrodes). Electrode-count-dependent features are not comparable across platforms without explicit rescaling."
+    },
+    "compound": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "role"
+      ],
+      "dependentRequired": {
+        "dose_value": [
+          "dose_unit"
+        ]
+      },
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "role": {
+          "type": "string",
+          "enum": [
+            "test",
+            "vehicle_control",
+            "untreated_control",
+            "positive_control"
+          ]
+        },
+        "mechanism_class": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "gabaa_antagonist",
+            "gabaa_agonist_or_pam",
+            "glutamatergic_agonist",
+            "glutamatergic_antagonist",
+            "na_channel_blocker",
+            "k_channel_modulator",
+            "other",
+            "inactive",
+            null
+          ]
+        },
+        "cas": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[0-9]{2,7}-[0-9]{2}-[0-9]$"
+        },
+        "inchikey": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[A-Z]{14}-[A-Z]{10}-[A-Z]$"
+        },
+        "dose_value": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "dose_unit": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "uM",
+            "nM",
+            "mg_l",
+            null
+          ]
+        },
+        "exposure_min": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        }
+      }
+    },
+    "recording": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "duration_s"
+      ],
+      "properties": {
+        "duration_s": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "temperature_c": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "phase": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "baseline",
+            "exposure",
+            "washout",
+            null
+          ],
+          "description": "Acute designs record a baseline and an exposure phase for the same unit; pair them by unit_id."
+        }
+      }
+    },
+    "features": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Core feature vector. Every field is nullable: a source that cannot support a feature records null rather than a substitute.",
+      "properties": {
+        "mfr_hz": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "burst_rate_per_min": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "burst_duration_s": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "spikes_per_burst": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "pct_spikes_in_bursts": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 100
+        },
+        "network_burst_rate_per_min": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "synchrony_index": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "isi_cv": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "active_electrodes": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        }
+      }
+    },
+    "feature_method": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "computed_by"
+      ],
+      "description": "How the features were produced. Named methods are mandatory wherever the corresponding feature is present, because burst and synchrony measures are not interchangeable between algorithms.",
+      "properties": {
+        "computed_by": {
+          "type": "string",
+          "enum": [
+            "neuromps.features.mea",
+            "publisher"
+          ],
+          "description": "'publisher' means the numbers are the source's own and were not recomputed."
+        },
+        "spike_detection": {
+          "type": "string",
+          "minLength": 3
+        },
+        "burst_method": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "network_burst_method": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "synchrony_method": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "sttc",
+            "axion_synchrony_index",
+            "correlation_coefficient",
+            "mutual_information",
+            null
+          ]
+        },
+        "active_electrode_threshold_spikes_per_min": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        }
+      }
+    },
+    "curve": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "endpoint",
+        "n_concentrations",
+        "hitcall"
+      ],
+      "description": "Concentration-response fit, for sources that publish fits rather than recordings.",
+      "properties": {
+        "endpoint": {
+          "type": "string",
+          "minLength": 2
+        },
+        "model": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "n_concentrations": {
+          "type": "integer",
+          "minimum": 2
+        },
+        "conc_min": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "conc_max": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "ac50": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "top": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "activity_change": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "Change in the measured quantity, positive = the quantity rose. Sign already normalized per assay; see schema/FEATURE_SET.md OQ-1."
+        },
+        "cutoff": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "hitcall": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    },
+    "qc": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "usable"
+      ],
+      "properties": {
+        "usable": {
+          "type": "boolean"
+        },
+        "flags": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "too_few_active_electrodes",
+              "excluded_well_upstream",
+              "noisy_electrodes_present",
+              "short_recording",
+              "missing_baseline_pair",
+              "replicate_divergence",
+              "outlier_feature_value",
+              "incomplete_dose_series"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "n_noisy_electrodes": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "note": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_files",
+        "generated_by",
+        "generated_at"
+      ],
+      "properties": {
+        "source_files": {
+          "type": "array",
+          "minItems": 1,
+          "description": "Raw inputs this record derives from, hashed as recorded in data/raw/MANIFEST.json.",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "path",
+              "sha256"
+            ],
+            "properties": {
+              "path": {
+                "type": "string",
+                "minLength": 1
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              }
+            }
+          }
+        },
+        "transform": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Ordered transform chain from raw file to this record."
+        },
+        "generated_by": {
+          "type": "string",
+          "minLength": 3
+        },
+        "generated_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  }
+}

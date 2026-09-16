@@ -1,0 +1,64 @@
+{
+  "record_id": "example:sharf2022:organoid-2953:diazepam-50um",
+  "source": "sharf2022",
+  "license": "CC0-1.0",
+  "citation": "Sharf T, van der Molen T, Glasauer SMK, et al. Functional neuronal circuitry and oscillatory dynamics in human brain organoids. Dataset: Extracellular Recordings from Human Brain Organoids Using High-density CMOS Arrays. doi:10.25349/D9031Z",
+  "data_level": "spike_times",
+  "cell_source": {
+    "species": "human",
+    "system": "brain_organoid_slice",
+    "line_or_strain": "organoid L1 (array 2953)",
+    "differentiation_protocol": "cortical organoid, 500 um slice"
+  },
+  "platform": {
+    "vendor": "MaxWell Biosystems",
+    "system": "MaxOne HD-CMOS",
+    "plate_format": "single-well",
+    "electrodes_per_unit": 26400,
+    "electrode_pitch_um": 17.5,
+    "sampling_rate_hz": 20000
+  },
+  "unit_id": "2953",
+  "culture_age_days": 210,
+  "compound": {
+    "name": "diazepam",
+    "role": "test",
+    "mechanism_class": "gabaa_agonist_or_pam",
+    "dose_value": 50.0,
+    "dose_unit": "uM"
+  },
+  "recording": {
+    "duration_s": 300.0,
+    "phase": "exposure"
+  },
+  "features": {
+    "mfr_hz": null,
+    "active_electrodes": null
+  },
+  "feature_method": {
+    "computed_by": "neuromps.features.mea",
+    "spike_detection": "publisher: Kilosort2 (sorted units)",
+    "burst_method": "neuromps maxinterval (HD4)",
+    "synchrony_method": "sttc"
+  },
+  "qc": {
+    "usable": true,
+    "flags": [],
+    "note": "illustrative; organoid age converted from 7 months at 30 d/month"
+  },
+  "provenance": {
+    "source_files": [
+      {
+        "path": "sharf2022/kilosort2.zip",
+        "sha256": "b4d4c802937bc804e64c9e020358f7c92da1a272bc1014d3009a4fc3ad90ea99"
+      }
+    ],
+    "transform": [
+      "extract kilosort2/drug/kilosort2/diazepam50uM_2953.mat",
+      "months->days (x30)",
+      "features/mea.py (HD4)"
+    ],
+    "generated_by": "schema/examples (illustrative)",
+    "generated_at": "2026-09-16T15:30:00+00:00"
+  }
+}
