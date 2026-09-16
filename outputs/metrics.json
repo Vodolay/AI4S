@@ -1,0 +1,14 @@
+{
+  "toxcast_mea_inventory": {
+    "chemicals_acute": 508,
+    "chemicals_dev": 463,
+    "endpoints_acute": 17,
+    "endpoints_dev": 19,
+    "endpoints_total": 36,
+    "hit_threshold": 0.9,
+    "hits_acute": 2117,
+    "hits_dev": 3853,
+    "rows_mea": 20375,
+    "source_file": "mc5-6_winning_model_fits-flags_invitrodbv4_3_AUG2024.csv"
+  }
+}

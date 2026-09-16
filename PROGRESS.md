@@ -31,6 +31,23 @@
   per species, 5 single-concentration compounds). Consider searching for another CC BY / CC0
   hiPSC MEA pharmacology set (e.g. DANDI) during HD2.
 
-### Next first task (HD2)
-- Filter ToxCast mc5-6 by `aenm` prefix `CCTE_Shafer_MEA_` (not the AEID range, which includes 11 non-MEA
-  assays): 36 endpoints, 808 chemicals. Read the assay PDFs to pick the harmonized feature set.
+## 2026-09-16: Phase 0, HD2
+
+### Done
+- `src/neuromps/etl/toxcast_mea.py` + `src/neuromps/metrics.py`: MEA rows selected by name, written to
+  `data/interim/toxcast_mea_mc56.parquet` (20,375 rows), per-endpoint table in
+  `outputs/tables/toxcast_mea_endpoints.csv`, counts in `outputs/metrics.json`. 23 tests pass.
+- Read the EPA assay descriptions. Same MEA platform as Kapucu (Axion Maestro 48-well, 16 electrodes,
+  12.5 kHz); acute = 40 min baseline vs 40 min exposure; dev = 12-day exposure, AUC over DIV 5/7/9/12.
+- `schema/FEATURE_SET.md`: draft 9-feature core vector mapped to both meaRtools outputs and ToxCast
+  acute endpoints, with the non-interchangeable items (STTC vs Axion synchrony) called out.
+- Found: no compound overlap between Kapucu and ToxCast acute (TTX is ToxCast's positive control).
+
+### Blocked / open
+- **OQ-1:** ToxCast `top` sign is per-endpoint; needs `analysis_direction` per AEID from
+  `assay_annotations_invitrodb_v4_3_AUG2025.xlsx`. **Needs approval: add `openpyxl` to read it**
+  (alternative: a small stdlib xlsx reader, ~40 lines, no new dependency).
+- Dataset search for a CC-BY/CC0 hiPSC MEA pharmacology set was running at session end.
+
+### Next first task (HD3)
+- Write `schema/neuromps_schema.json` + `STANDARD.md` from `schema/FEATURE_SET.md`, then resolve OQ-1.

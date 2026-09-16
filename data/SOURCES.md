@@ -57,6 +57,20 @@ This file records the human decisions behind each source.
   redistribution with attribution: CC0, CC BY, public domain, or OSI-approved software licenses. Exclude
   NC, ND and unlicensed material even if it is publicly downloadable. Record every exclusion in
   `excluded.py` and here.
+- **ToxCast MEA inventory (HD2, `python -m neuromps.etl.toxcast_mea`).** 36 endpoints: 17 acute
+  (508 chemicals, 532 samples/endpoint) and 19 dev (463 chemicals). Same platform as Kapucu 2022
+  (Axion Maestro, 48-well, 16 electrodes, 12.5 kHz), but the acute assay is a 40-min baseline vs
+  40-min exposure comparison and the dev assay is a 12-day continuous exposure summarized as an AUC
+  over DIV 5/7/9/12. Numbers in `outputs/metrics.json`, per-endpoint table in
+  `outputs/tables/toxcast_mea_endpoints.csv`.
+- **OQ-1: ToxCast effect direction is unresolved.** tcpl normalizes each endpoint in its own fitting
+  direction, so the sign of `top` cannot be interpreted globally; a single global flip inverts the
+  cytotoxicity endpoints (LDH must rise when cells die). The ETL reports raw `top` plus hit counts by
+  sign. Resolve per-AEID from the EPA assay annotations before any claim about the direction of a
+  chemical's effect. See `schema/FEATURE_SET.md`.
+- **No compound overlap between the two datasets.** None of kainic acid, CNQX, D-AP5, GABA, gabazine
+  or TTX is among the ToxCast acute chemicals (TTX is its positive control). Cross-platform
+  comparison must therefore be at the level of feature response patterns, not per-compound agreement.
 - **Axon-diode lineage.** Peyrin et al. 2011 *Lab Chip* (doi:10.1039/c1lc20014c) and Courte et al. 2018
   *Methods Cell Biol* (doi:10.1016/bs.mcb.2018.07.002) are not open access: cited only, never
   downloaded. Design parameters are taken from the open-access papers.
