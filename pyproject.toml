@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "neuromps"
+version = "0.0.1"
+description = "Standardized neural MEA data asset and a calibrated two-compartment neural-chip digital twin (research decision-support only)."
+readme = "README.md"
+requires-python = ">=3.11,<3.12"
+license = { text = "MIT" }
+dependencies = [
+    "numpy==2.3.5",          # brian2 2.9.0 fails to import with numpy 2.4 (ndarray.ptp removed)
+    "pandas==3.0.5",
+    "pyarrow==25.0.1",
+    "scipy==1.17.1",
+    "scikit-learn==1.9.1",
+    "matplotlib==3.11.2",
+    "requests==2.34.2",
+    "brian2==2.9.0",
+    "sbi==0.27.0",
+    "torch==2.14.0",
+    "streamlit==1.64.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest==9.1.1", "ruff==0.16.7"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+markers = ["network: test requires internet access"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
