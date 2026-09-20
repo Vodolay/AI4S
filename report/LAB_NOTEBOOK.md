@@ -341,6 +341,38 @@ have been recorded as 5 uM — the number kept, the unit changed, no error raise
 
 ---
 
+### 2026-09-20 · Calibration and interval policy · `4cc93cf`
+Two gaps against PLAN.md HD9, closed before starting HD13.
+
+- **Calibration.** Expected calibration error over out-of-fold predictions, 10 confidence bins,
+  under the same grouped CV as everything else; confidence is the probability of the predicted class
+  (standard multiclass ECE). Value, interval and per-bin counts:
+  `metrics.mechanism_baselines.task1_within_platform.calibration`; diagram
+  `outputs/figures/task1_reliability_real.png`.
+- **Interval policy, applied everywhere from here on:** a **cluster bootstrap over culture groups**,
+  never over rows. Two conditions of one well share a baseline and a culture, so row resampling
+  treats them as independent evidence and reports intervals that are too narrow. Percentile
+  intervals; **1000 resamples, 200 under `--quick`**, and the count is written next to every
+  interval so a reader can tell which run produced a number.
+- Metrics carrying `*_ci95` from now on: Task 1 balanced accuracy per model, per-feature species
+  shift, feature subsets, leave-one-out, ECE.
+- `tests/test_metrics_contract.py` enforces this at two levels, so an interval cannot be dropped
+  silently by a later change.
+- **Consequence worth stating in the report:** several comparisons do not survive their own
+  intervals. `rate_only` (0.530 [0.396, 0.624]) and `all` (0.514 [0.398, 0.662]) overlap almost
+  entirely, and only one of nine species-shift features has an interval excluding zero. Point
+  estimates alone overstated both results.
+
+### 2026-09-20 · Quick-tier provenance bug · `4cc93cf`
+Running the whole pipeline end to end exposed a bug that had been invisible while stages were run
+individually: a `--quick` fetch marked the 582 MB ScreenNeuroPharm archive `skipped`, which removed
+its files from `MANIFEST.json`, and every record built from the cached features then failed the
+conformance-level-2 hash check. The quick tier now keeps files an earlier `--full` run left on disk,
+and re-hashes files that are on disk but missing from the manifest, so a quick run repairs
+provenance instead of degrading it. Regression test in `tests/test_new_sources.py`.
+
+---
+
 ---
 
 ## Tried and abandoned
@@ -385,6 +417,8 @@ have been recorded as 5 uM — the number kept, the unit changed, no error raise
 11. No hyperparameter search; no nested CV. The PLAN called for nested CV — **the implemented scheme
     is single-level grouped CV with fixed hyperparameters**, which is defensible only because nothing
     was tuned.
+11b. Intervals are percentile cluster bootstraps over a few dozen groups, so they are themselves
+    noisy; they bound a claim, they do not make one precise.
 12. Conformal calibration sets are tiny, so neighbouring α share a threshold.
 13. The external detection check has no negative controls of its own.
 14. The compartment tests have 5–6 devices per group and support an ordering, not an effect size.

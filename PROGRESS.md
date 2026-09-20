@@ -400,6 +400,43 @@ neurons synchronise almost perfectly. Notably the search then chose a near-zero 
 heterogeneity alone does not fix the over-synchrony; candidates for HD13+ are distance-dependent
 connectivity, short-term synaptic depression, and correlated background input.
 
+## 2026-09-20: calibration and intervals (PLAN gaps closed, before HD13)
+
+### Done (`4cc93cf`)
+- `models/calibration.py`: ECE + reliability diagram from out-of-fold predictions, same grouped CV.
+- `models/bootstrap.py`: cluster bootstrap resampling **cultures, not rows** - two conditions of one
+  well share a baseline, so row resampling would give intervals that are too narrow.
+- Every headline metric now carries `*_ci95` and its resample count: Task 1 balanced accuracy per
+  model, per-feature species shift, feature subsets, leave-one-out, and the ECE itself.
+- 1000 resamples, 200 in `--quick`, recorded in metrics.json either way.
+- `tests/test_metrics_contract.py` fails if any headline metric loses its interval - at the function
+  level and against the written metrics.json. 260 tests pass.
+
+### Task 1 calibration (`metrics.mechanism_baselines.task1_within_platform.calibration`)
+**ECE = 0.111, 95% CI [0.077, 0.256]** over 73 out-of-fold predictions, 10 bins.
+The model is over-confident at the top: the 4 predictions above 0.9 confidence were right 25% of the
+time. Figure: `outputs/figures/task1_reliability_real.png`.
+
+### Intervals that change how a result should be read
+| metric | point | 95% CI |
+|---|---|---|
+| Task 1 logistic regression | 0.537 | [0.422, 0.685] |
+| Task 1 gradient boosting | 0.398 | [0.276, 0.518] |
+| rate_only subset | 0.530 | [0.396, 0.624] |
+| all features | 0.514 | [0.398, 0.662] |
+
+**The subset comparison does not survive its intervals.** `rate_only` vs `all` overlap almost
+entirely, so "two features are as good as nine" is a suggestion, not a finding. Of the nine
+species-shift features, **only `network_burst_rate_per_min` has an interval excluding zero**
+(-4.91, CI [-9.79, -0.34]); `synchrony_index` at -4.18 [-5.74, +0.19] does not quite.
+
+### A pipeline bug the end-to-end run exposed
+A `--quick` fetch marked the 582 MB ScreenNeuroPharm archive `skipped`, which **erased its files from
+MANIFEST.json**; every record built from them then failed the conformance-level-2 hash check and the
+data stage aborted. The quick tier now keeps what an earlier `--full` run left on disk and re-hashes
+("adopts") files present on disk but missing from the manifest. Provenance heals instead of
+degrading. `run_all.py --quick` end to end: **280 s**.
+
 ### Next first task (HD13)
 - Drug perturbation knobs: confirm each of `gabaa_scale` / `ampa_scale` / `threshold_scale` moves
   simulated features in the direction the real pharmacology shows, as a qualitative validation table.
