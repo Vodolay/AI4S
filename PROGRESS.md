@@ -259,7 +259,42 @@ count and pitch (16 @ 200 um vs 60 @ 200 um vs HD-CMOS), recording duration (180
 culture age, and the chance-corrected network-burst threshold, which itself scales with electrode
 count.
 
-### Next first task (HD9)
-- Task 2 of Phase 2: rat -> hPSC transfer within Kapucu (train rat, test human), per-feature species
-  shift, and whether simple domain adaptation helps. Then the per-device statistical test of the
-  compartment asymmetry from the previous session.
+## 2026-09-20: Phase 2, HD9 - species transfer + compartment lag
+
+### Done
+- `models/transfer.py` and `models/asymmetry.py`, both in `run_all.py --stage models` (8.4 s).
+  179 tests pass, ruff clean. Figures: `species_shift.png`, `compartment_lag_by_device_type.png`.
+
+### Rat -> human transfer (Kapucu only: both species, one platform, one lab)
+| | balanced accuracy |
+|---|---|
+| rat -> human | **0.550** [0.400, 0.600], permutation p = 0.0002 |
+| human within-species (5x4 grouped CV) | 0.646 +/- 0.139 |
+| rat within-species (5x2 grouped CV) | 0.543 +/- 0.067 |
+| chance (5 shared classes) | 0.200 |
+
+- Training on rat costs little relative to what the rat data itself supports; human data is somewhat
+  more learnable. Transfer is real but modest, on 37 train / 32 test pairs.
+- **Domain adaptation hurts:** per-species standardization 0.408, CORAL 0.442. With 32 target
+  samples both estimate scale/covariance from noise. Reported as found, per PLAN.
+- Species-invariant features: `mfr_hz`, `pct_spikes_in_bursts`, `burst_rate_per_min`.
+  Most shifted: `synchrony_index`, `isi_cv`, `network_burst_rate_per_min` - **the same features that
+  failed across platforms in HD8**. Rate and burst-fraction measures are portable; synchrony and
+  network-burst measures are not, across either species or platform.
+
+### Compartment devices: the discriminator is lag, not asymmetry
+The pooled heterogeneous-vs-homogeneous split (p = 0.042) is an artefact of pooling - HpHp overlaps
+CxHp. Per device type, one value per device, magnitudes only:
+- median |lag|: **CxHp 11.25 ms vs CxCx 5.0 and HpHp 5.0**; Kruskal p = 0.0082; Holm pairwise
+  CxHp vs HpHp 0.026, CxHp vs CxCx 0.041, **CxCx vs HpHp 0.48** (internal control: the two
+  same-tissue types are indistinguishable).
+- peak coupling falls with heterogeneity: CxCx 0.96, HpHp 0.91, CxHp 0.82.
+- |asymmetry| separates CxHp from CxCx (Holm 0.04) but not from HpHp (0.33).
+
+n = 5-6 devices per group. This supports "these device types differ in lag", **not** a quotable
+effect size, and the twin should be asked to reproduce a lag difference of this order.
+
+### Next first task (HD10/Phase 3)
+- Phase 2 leftovers: conformal prediction sets on Task 1, feature-subset ablations.
+- Then Phase 3 HD11: the Brian2 two-compartment network, whose first target is now concrete -
+  reproduce ~5 ms inter-compartment lag for same-population chambers and ~11 ms for different ones.
