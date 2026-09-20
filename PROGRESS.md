@@ -320,7 +320,52 @@ coverage at alpha=0.1: 1.0 for control and both GABA-A classes, 0.50 for glutama
 - `run_all.py --stage models` runs all four analyses in 8.7 s; 5 figures; metrics.json has 7 sections.
 - 198 tests pass, ruff clean. **Phase 2 is complete.**
 
-### Next first task (Phase 3, HD11)
+## 2026-09-20: Phase 3, HD11 - two-compartment network
+
+### Done
+- `twin/network.py`: conductance-based LIF with adaptation, 80/20 E/I, two compartments, recurrent
+  within and a directed pathway between them (`forward_ratio` = the axon diode). Drug knobs
+  `gabaa_scale` / `ampa_scale` / `threshold_scale` wired to conductances and threshold.
+- `twin/validate.py` -> `outputs/twin/hd11_validation_simulated.json` + figure, both labelled
+  SIMULATED. 210 tests pass, ruff clean.
+
+### Spontaneous activity (simulated, 250 neurons/compartment, same features/mea.py as real data)
+| feature | simulated | real range | in range |
+|---|---|---|---|
+| mfr_hz | 2.26 | 1.0 - 6.5 | yes |
+| burst_rate_per_min | 12.7 | 1.5 - 15 | yes |
+| network_burst_rate_per_min | 27.0 | 0 - 25 | slightly high |
+| synchrony_index | 0.84 | 0.04 - 0.8 | slightly high |
+
+Bursts appear at plausible rates, so the HD11 gate is met; the network is a little too synchronous,
+which is what HD12 calibration is for.
+
+### Two modelling errors found while validating
+1. Connectivity was set by probability, so in-degree grew with network size and a calibration at 150
+   neurons did not hold at 250. Now set by **in-degree**, which makes the model size-invariant.
+2. The placeholder electrode mapping pooled every neuron into 16 electrodes, so per-electrode firing
+   rate scaled with network size. Each electrode now listens to a fixed number of neurons.
+
+### The caveat this phase produced (regression-tested)
+**Coupling asymmetry tracks the compartments' relative firing rate at least as much as the pathway.**
+At `forward_ratio` = 16, measured asymmetry runs from -0.07 (target appears to lead) to +0.83 (source
+leads) purely by changing the target's background drive - because a directed pathway also excites its
+target and makes it burst sooner.
+
+Checked against the real devices, where it does **not** bite:
+- chamber rate imbalance does not differ by device type (Kruskal p = 0.96)
+- rate imbalance does not correlate with measured |lag| (rho = -0.05, p = 0.85)
+- signed rate ratio does not predict signed asymmetry (rho = +0.04, p = 0.73)
+
+So the HD9 lag result stands, but **any inference of direction from coupling must control for firing
+rate**. That is now a requirement for HD14-16, not an afterthought.
+
+### Next first task (HD12)
+- MEA simulator proper: place electrodes spatially per compartment, then calibrate the network so
+  simulated features sit inside the real distributions (network burst rate and synchrony are the two
+  that are currently out). Record which parameters were tuned and against what.
+
+### Superseded plan note (kept for history)
 - Brian2 two-compartment network with directional inter-compartment projections. Concrete targets
   from the real data: inter-compartment lag ~5 ms for same-population chambers and ~11 ms for
   different ones; peak coupling 0.96 / 0.91 / 0.82 by device type; and bicuculline-like
