@@ -1,0 +1,1332 @@
+{
+  "label": "SIMULATED - calibration of a model, not measured data",
+  "targets_real": {
+    "reference": "screenneuropharm_bic chamber baselines",
+    "n_records": 48,
+    "by_feature": {
+      "mfr_hz": {
+        "median": 12.065,
+        "q25": 6.793,
+        "q75": 21.007,
+        "n": 48
+      },
+      "burst_rate_per_min": {
+        "median": 18.842,
+        "q25": 12.627,
+        "q75": 29.726,
+        "n": 48
+      },
+      "network_burst_rate_per_min": {
+        "median": 17.82,
+        "q25": 11.692,
+        "q75": 22.697,
+        "n": 48
+      },
+      "synchrony_index": {
+        "median": 0.725,
+        "q25": 0.678,
+        "q75": 0.843,
+        "n": 48
+      },
+      "pct_spikes_in_bursts": {
+        "median": 90.399,
+        "q25": 84.657,
+        "q75": 93.685,
+        "n": 48
+      }
+    }
+  },
+  "tuned_parameters": [
+    "background_weight",
+    "excitatory_weight",
+    "inhibitory_weight",
+    "adaptation_increment",
+    "threshold_spread",
+    "intra_in_degree",
+    "detection_radius_um"
+  ],
+  "search_space": {
+    "background_weight": [
+      0.035,
+      0.05
+    ],
+    "excitatory_weight": [
+      0.15,
+      0.45
+    ],
+    "inhibitory_weight": [
+      1.5,
+      5.0
+    ],
+    "adaptation_increment": [
+      0.5,
+      2.5
+    ],
+    "threshold_spread": [
+      0.0,
+      0.3
+    ],
+    "intra_in_degree": [
+      10.0,
+      35.0
+    ],
+    "detection_radius_um": [
+      100.0,
+      300.0
+    ]
+  },
+  "n_draws": 45,
+  "duration_s": 40.0,
+  "best": {
+    "draw": {
+      "background_weight": 0.0408,
+      "excitatory_weight": 0.2995,
+      "inhibitory_weight": 4.6446,
+      "adaptation_increment": 2.0537,
+      "threshold_spread": 0.0164,
+      "intra_in_degree": 17.6559,
+      "detection_radius_um": 281.2471
+    },
+    "stage": "refine",
+    "features_simulated": {
+      "mfr_hz": 6.4976562499999995,
+      "burst_rate_per_min": 22.484375,
+      "network_burst_rate_per_min": 29.25,
+      "synchrony_index": 0.913344832601267,
+      "pct_spikes_in_bursts": 90.45637199120623
+    },
+    "score": 0.0756,
+    "per_feature": {
+      "mfr_hz": 0.0445,
+      "burst_rate_per_min": 0.0,
+      "network_burst_rate_per_min": 0.2536,
+      "synchrony_index": 0.0801,
+      "pct_spikes_in_bursts": 0.0
+    }
+  },
+  "inside_real_band": {
+    "mfr_hz": false,
+    "burst_rate_per_min": true,
+    "network_burst_rate_per_min": false,
+    "synchrony_index": false,
+    "pct_spikes_in_bursts": true
+  },
+  "all_trials": [
+    {
+      "draw": {
+        "background_weight": 0.0408,
+        "excitatory_weight": 0.2995,
+        "inhibitory_weight": 4.6446,
+        "adaptation_increment": 2.0537,
+        "threshold_spread": 0.0164,
+        "intra_in_degree": 17.6559,
+        "detection_radius_um": 281.2471
+      },
+      "stage": "refine",
+      "features_simulated": {
+        "mfr_hz": 6.4976562499999995,
+        "burst_rate_per_min": 22.484375,
+        "network_burst_rate_per_min": 29.25,
+        "synchrony_index": 0.913344832601267,
+        "pct_spikes_in_bursts": 90.45637199120623
+      },
+      "score": 0.0756,
+      "per_feature": {
+        "mfr_hz": 0.0445,
+        "burst_rate_per_min": 0.0,
+        "network_burst_rate_per_min": 0.2536,
+        "synchrony_index": 0.0801,
+        "pct_spikes_in_bursts": 0.0
+      }
+    },
+    {
+      "draw": {
+        "background_weight": 0.0411,
+        "excitatory_weight": 0.265,
+        "inhibitory_weight": 4.8297,
+        "adaptation_increment": 2.0882,
+        "threshold_spread": 0.0408,
+        "intra_in_degree": 17.8569,
+        "detection_radius_um": 296.9093
+      },
+      "stage": "refine",
+      "features_simulated": {
+        "mfr_hz": 8.875,
+        "burst_rate_per_min": 28.6875,
+        "network_burst_rate_per_min": 34.5,
+        "synchrony_index": 0.8640896808572965,
+        "pct_spikes_in_bursts": 86.23349602022344
+      },
+      "score": 0.0887,
+      "per_feature": {
+        "mfr_hz": 0.0,
+        "burst_rate_per_min": 0.0,
+        "network_burst_rate_per_min": 0.4187,
+        "synchrony_index": 0.0247,
+        "pct_spikes_in_bursts": 0.0
+      }
+    },
+    {
+      "draw": {
+        "background_weight": 0.0398,
+        "excitatory_weight": 0.2942,
+        "inhibitory_weight": 5.0,
+        "adaptation_increment": 2.108,
+        "threshold_spread": 0.0484,
+        "intra_in_degree": 17.8049,
+        "detection_radius_um": 284.8201
+      },
+      "stage": "refine",
+      "features_simulated": {
+        "mfr_hz": 8.7109375,
+        "burst_rate_per_min": 31.28125,
+        "network_burst_rate_per_min": 33.0,
+        "synchrony_index": 0.9307014403966078,
+        "pct_spikes_in_bursts": 92.61996244637913
+      },
+      "score": 0.1048,
+      "per_feature": {
+        "mfr_hz": 0.0,
+        "burst_rate_per_min": 0.051,
+        "network_burst_rate_per_min": 0.3743,
+        "synchrony_index": 0.099,
+        "pct_spikes_in_bursts": 0.0
+      }
+    },
+    {
+      "draw": {
+        "background_weight": 0.0405,
+        "excitatory_weight": 0.306,
+        "inhibitory_weight": 4.3145,
+        "adaptation_increment": 2.2706,
+        "threshold_spread": 0.0302,
+        "intra_in_degree": 19.6795,
+        "detection_radius_um": 300.0
+      },
+      "stage": "refine",
+      "features_simulated": {
+        "mfr_hz": 8.827864583333334,
+        "burst_rate_per_min": 29.78125,
+        "network_burst_rate_per_min": 36.75,
+        "synchrony_index": 0.927853263530072,
+        "pct_spikes_in_bursts": 92.03217847327679
+      },
+      "score": 0.1159,
+      "per_feature": {
+        "mfr_hz": 0.0,
+        "burst_rate_per_min": 0.0019,
+        "network_burst_rate_per_min": 0.4819,
+        "synchrony_index": 0.0959,
+        "pct_spikes_in_bursts": 0.0
+      }
+    },
+    {
+      "draw": {
+        "background_weight": 0.0397,
+        "excitatory_weight": 0.3251,
+        "inhibitory_weight": 5.0,
+        "adaptation_increment": 2.3157,
+        "threshold_spread": 0.0205,
+        "intra_in_degree": 15.1397,
+        "detection_radius_um": 263.3364
+      },
+      "stage": "refine",
+      "features_simulated": {
+        "mfr_hz": 4.168489583333333,
+        "burst_rate_per_min": 16.21875,
+        "network_burst_rate_per_min": 18.0,
+        "synchrony_index": 0.9466337499497764,
+        "pct_spikes_in_bursts": 94.2554329412502
+      },
+      "score": 0.1221,
+      "per_feature": {
+        "mfr_hz": 0.4883,
+        "burst_rate_per_min": 0.0,
+        "network_burst_rate_per_min": 0.0,
+        "synchrony_index": 0.1159,
+        "pct_spikes_in_bursts": 0.0061
+      }
+    },
+    {
+      "draw": {
+        "background_weight": 0.0397,
+        "excitatory_weight": 0.2948,
+        "inhibitory_weight": 5.0,
+        "adaptation_increment": 1.9044,
+        "threshold_spread": 0.0543,
+        "intra_in_degree": 15.9126,
+        "detection_radius_um": 300.0
+      },
+      "stage": "refine",
+      "features_simulated": {
+        "mfr_hz": 10.445572916666666,
+        "burst_rate_per_min": 31.390625,
+        "network_burst_rate_per_min": 40.5,
+        "synchrony_index": 0.9202879494091949,
+        "pct_spikes_in_bursts": 91.55231864218969
+      },
+      "score": 0.1443,
+      "per_feature": {
+        "mfr_hz": 0.0,
+        "burst_rate_per_min": 0.0545,
+        "network_burst_rate_per_min": 0.5791,
+        "synchrony_index": 0.0877,
+        "pct_spikes_in_bursts": 0.0
+      }
+    },
+    {
+      "draw": {
+        "background_weight": 0.04,
+        "excitatory_weight": 0.2651,
+        "inhibitory_weight": 4.9186,
+        "adaptation_increment": 1.8582,
+        "threshold_spread": 0.0667,
+        "intra_in_degree": 20.0041,
+        "detection_radius_um": 266.7667
+      },
+      "stage": "refine",
+      "features_simulated": {
+        "mfr_hz": 8.427343749999999,
+        "burst_rate_per_min": 33.890625,
+        "network_burst_rate_per_min": 43.5,
+        "synchrony_index": 0.8720405557986319,
+        "pct_spikes_in_bursts": 86.89393780136388
+      },
+      "score": 0.1631,
+      "per_feature": {
+        "mfr_hz": 0.0,
+        "burst_rate_per_min": 0.1311,
+        "network_burst_rate_per_min": 0.6505,
+        "synchrony_index": 0.0339,
+        "pct_spikes_in_bursts": 0.0
+      }
+    },
+    {
+      "draw": {
+        "background_weight": 0.0409,
+        "excitatory_weight": 0.3166,
+        "inhibitory_weight": 4.8445,
+        "adaptation_increment": 2.2563,
+        "threshold_spread": 0.0278,
+        "intra_in_degree": 16.9443,
+        "detection_radius_um": 280.6925
+      },
+      "stage": "refine",
+      "features_simulated": {
+        "mfr_hz": 10.341145833333334,
+        "burst_rate_per_min": 35.875,
+        "network_burst_rate_per_min": 39.0,
+        "synchrony_index": 0.9476456762858396,
+        "pct_spikes_in_bursts": 94.70035991419786
+      },
+      "score": 0.1714,
+      "per_feature": {
+        "mfr_hz": 0.0,
+        "burst_rate_per_min": 0.188,
+        "network_burst_rate_per_min": 0.5413,
+        "synchrony_index": 0.117,
+        "pct_spikes_in_bursts": 0.0108
+      }
+    },
+    {
+      "draw": {
+        "background_weight": 0.0398,
+        "excitatory_weight": 0.3309,
+        "inhibitory_weight": 4.7226,
+        "adaptation_increment": 2.3395,
+        "threshold_spread": 0.071,
+        "intra_in_degree": 17.6878,
+        "detection_radius_um": 300.0
+      },
+      "stage": "refine",
+      "features_simulated": {
+        "mfr_hz": 13.805208333333335,
+        "burst_rate_per_min": 41.8125,
+        "network_burst_rate_per_min": 47.25,
+        "synchrony_index": 0.9284893444438208,
+        "pct_spikes_in_bursts": 92.51179801589053
+      },
+      "score": 0.2342,
+      "per_feature": {
+        "mfr_hz": 0.0,
+        "burst_rate_per_min": 0.3412,
+        "network_burst_rate_per_min": 0.7332,
+        "synchrony_index": 0.0966,
+        "pct_spikes_in_bursts": 0.0
+      }
+    },
+    {
+      "draw": {
+        "background_weight": 0.0406,
+        "excitatory_weight": 0.3183,
+        "inhibitory_weight": 5.0,
+        "adaptation_increment": 2.2799,
+        "threshold_spread": 0.0427,
+        "intra_in_degree": 20.803,
+        "detection_radius_um": 300.0
+      },
+      "stage": "refine",
+      "features_simulated": {
+        "mfr_hz": 13.289322916666666,
+        "burst_rate_per_min": 43.375,
+        "network_burst_rate_per_min": 46.5,
+        "synchrony_index": 0.9497153272883969,
+        "pct_spikes_in_bursts": 94.3624991740663
+      },
+      "score": 0.2443,
+      "per_feature": {
+        "mfr_hz": 0.0,
+        "burst_rate_per_min": 0.3779,
+        "network_burst_rate_per_min": 0.7172,
+        "synchrony_index": 0.1192,
+        "pct_spikes_in_bursts": 0.0072
+      }
+    },
+    {
+      "draw": {
+        "background_weight": 0.0402,
+        "excitatory_weight": 0.3058,
+        "inhibitory_weight": 5.0,
+        "adaptation_increment": 1.8906,
+        "threshold_spread": 0.0735,
+        "intra_in_degree": 17.0662,
+        "detection_radius_um": 276.0974
+      },
+      "stage": "refine",
+      "features_simulated": {
+        "mfr_hz": 12.311979166666667,
+        "burst_rate_per_min": 44.375,
+        "network_burst_rate_per_min": 48.75,
+        "synchrony_index": 0.9061384863391109,
+        "pct_spikes_in_bursts": 90.8232533745381
+      },
+      "score": 0.2475,
+      "per_feature": {
+        "mfr_hz": 0.0,
+        "burst_rate_per_min": 0.4007,
+        "network_burst_rate_per_min": 0.7645,
+        "synchrony_index": 0.0722,
+        "pct_spikes_in_bursts": 0.0
+      }
+    },
+    {
+      "draw": {
+        "background_weight": 0.0412,
+        "excitatory_weight": 0.3043,
+        "inhibitory_weight": 4.997,
+        "adaptation_increment": 1.9398,
+        "threshold_spread": 0.0614,
+        "intra_in_degree": 16.6675,
+        "detection_radius_um": 295.3641
+      },
+      "stage": "refine",
+      "features_simulated": {
+        "mfr_hz": 14.442708333333336,
+        "burst_rate_per_min": 44.17187500000001,
+        "network_burst_rate_per_min": 50.25,
+        "synchrony_index": 0.896265532657277,
+        "pct_spikes_in_bursts": 89.59175457421688
+      },
+      "score": 0.2504,
+      "per_feature": {
+        "mfr_hz": 0.0,
+        "burst_rate_per_min": 0.3961,
+        "network_burst_rate_per_min": 0.7948,
+        "synchrony_index": 0.0613,
+        "pct_spikes_in_bursts": 0.0
+      }
+    },
+    {
+      "draw": {
+        "background_weight": 0.0398,
+        "excitatory_weight": 0.3132,
+        "inhibitory_weight": 5.0,
+        "adaptation_increment": 2.0961,
+        "threshold_spread": 0.0757,
+        "intra_in_degree": 19.0647,
+        "detection_radius_um": 274.5163
+      },
+      "stage": "refine",
+      "features_simulated": {
+        "mfr_hz": 12.509895833333335,
+        "burst_rate_per_min": 47.109375,
+        "network_burst_rate_per_min": 49.5,
+        "synchrony_index": 0.9278400703564729,
+        "pct_spikes_in_bursts": 93.26478747650526
+      },
+      "score": 0.2672,
+      "per_feature": {
+        "mfr_hz": 0.0,
+        "burst_rate_per_min": 0.4604,
+        "network_burst_rate_per_min": 0.7797,
+        "synchrony_index": 0.0959,
+        "pct_spikes_in_bursts": 0.0
+      }
+    },
+    {
+      "draw": {
+        "background_weight": 0.0427,
+        "excitatory_weight": 0.2883,
+        "inhibitory_weight": 4.3567,
+        "adaptation_increment": 1.9995,
+        "threshold_spread": 0.0354,
+        "intra_in_degree": 17.2761,
+        "detection_radius_um": 285.6661
+      },
+      "stage": "refine",
+      "features_simulated": {
+        "mfr_hz": 14.303385416666668,
+        "burst_rate_per_min": 48.00000000000001,
+        "network_burst_rate_per_min": 50.25,
+        "synchrony_index": 0.8968537412979419,
+        "pct_spikes_in_bursts": 90.38004887224052
+      },
+      "score": 0.2672,
+      "per_feature": {
+        "mfr_hz": 0.0,
+        "burst_rate_per_min": 0.4792,
+        "network_burst_rate_per_min": 0.7948,
+        "synchrony_index": 0.0619,
+        "pct_spikes_in_bursts": 0.0
+      }
+    },
+    {
+      "draw": {
+        "background_weight": 0.0417,
+        "excitatory_weight": 0.2738,
+        "inhibitory_weight": 4.9404,
+        "adaptation_increment": 2.0631,
+        "threshold_spread": 0.0619,
+        "intra_in_degree": 19.758,
+        "detection_radius_um": 276.1938
+      },
+      "stage": "refine",
+      "features_simulated": {
+        "mfr_hz": 12.585677083333334,
+        "burst_rate_per_min": 48.4375,
+        "network_burst_rate_per_min": 56.25,
+        "synchrony_index": 0.8754609881131157,
+        "pct_spikes_in_bursts": 88.04612960493853
+      },
+      "score": 0.2867,
+      "per_feature": {
+        "mfr_hz": 0.0,
+        "burst_rate_per_min": 0.4883,
+        "network_burst_rate_per_min": 0.9076,
+        "synchrony_index": 0.0378,
+        "pct_spikes_in_bursts": 0.0
+      }
+    },
+    {
+      "draw": {
+        "background_weight": 0.0417,
+        "excitatory_weight": 0.3153,
+        "inhibitory_weight": 4.9873,
+        "adaptation_increment": 2.0693,
+        "threshold_spread": 0.0767,
+        "intra_in_degree": 15.2225,
+        "detection_radius_um": 295.241
+      },
+      "stage": "refine",
+      "features_simulated": {
+        "mfr_hz": 17.104947916666667,
+        "burst_rate_per_min": 51.625,
+        "network_burst_rate_per_min": 57.75,
+        "synchrony_index": 0.8935853222170066,
+        "pct_spikes_in_bursts": 90.14358035344182
+      },
+      "score": 0.3088,
+      "per_feature": {
+        "mfr_hz": 0.0,
+        "burst_rate_per_min": 0.552,
+        "network_burst_rate_per_min": 0.9339,
+        "synchrony_index": 0.0583,
+        "pct_spikes_in_bursts": 0.0
+      }
+    },
+    {
+      "draw": {
+        "background_weight": 0.0414,
+        "excitatory_weight": 0.2967,
+        "inhibitory_weight": 4.9176,
+        "adaptation_increment": 2.0514,
+        "threshold_spread": 0.0927,
+        "intra_in_degree": 16.7459,
+        "detection_radius_um": 272.624
+      },
+      "stage": "random",
+      "features_simulated": {
+        "mfr_hz": 15.003645833333334,
+        "burst_rate_per_min": 54.921875,
+        "network_burst_rate_per_min": 58.5,
+        "synchrony_index": 0.8769069758788566,
+        "pct_spikes_in_bursts": 89.33158807106724
+      },
+      "score": 0.32,
+      "per_feature": {
+        "mfr_hz": 0.0,
+        "burst_rate_per_min": 0.6139,
+        "network_burst_rate_per_min": 0.9468,
+        "synchrony_index": 0.0394,
+        "pct_spikes_in_bursts": 0.0
+      }
+    },
+    {
+      "draw": {
+        "background_weight": 0.0397,
+        "excitatory_weight": 0.2958,
+        "inhibitory_weight": 4.6132,
+        "adaptation_increment": 2.3681,
+        "threshold_spread": 0.1073,
+        "intra_in_degree": 24.2882,
+        "detection_radius_um": 164.3739
+      },
+      "stage": "random",
+      "features_simulated": {
+        "mfr_hz": 5.679427083333333,
+        "burst_rate_per_min": 32.71875,
+        "network_burst_rate_per_min": 67.5,
+        "synchrony_index": 0.8793715643917335,
+        "pct_spikes_in_bursts": 64.1277813052047
+      },
+      "score": 0.337,
+      "per_feature": {
+        "mfr_hz": 0.179,
+        "burst_rate_per_min": 0.0959,
+        "network_burst_rate_per_min": 1.0899,
+        "synchrony_index": 0.0422,
+        "pct_spikes_in_bursts": 0.2777
+      }
+    },
+    {
+      "draw": {
+        "background_weight": 0.0418,
+        "excitatory_weight": 0.3889,
+        "inhibitory_weight": 2.3072,
+        "adaptation_increment": 0.604,
+        "threshold_spread": 0.1214,
+        "intra_in_degree": 14.9628,
+        "detection_radius_um": 118.1506
+      },
+      "stage": "random",
+      "features_simulated": {
+        "mfr_hz": 22.423254654255317,
+        "burst_rate_per_min": 58.64960106382979,
+        "network_burst_rate_per_min": 61.5,
+        "synchrony_index": 0.9738515924167314,
+        "pct_spikes_in_bursts": 98.76271574520023
+      },
+      "score": 0.3877,
+      "per_feature": {
+        "mfr_hz": 0.0652,
+        "burst_rate_per_min": 0.6796,
+        "network_burst_rate_per_min": 0.9968,
+        "synchrony_index": 0.1443,
+        "pct_spikes_in_bursts": 0.0528
+      }
+    },
+    {
+      "draw": {
+        "background_weight": 0.0475,
+        "excitatory_weight": 0.3861,
+        "inhibitory_weight": 2.3378,
+        "adaptation_increment": 2.253,
+        "threshold_spread": 0.0176,
+        "intra_in_degree": 18.4029,
+        "detection_radius_um": 130.0559
+      },
+      "stage": "random",
+      "features_simulated": {
+        "mfr_hz": 8.652083333333334,
+        "burst_rate_per_min": 53.15625,
+        "network_burst_rate_per_min": 81.0,
+        "synchrony_index": 0.9122725590313832,
+        "pct_spikes_in_bursts": 80.04586203560146
+      },
+      "score": 0.3977,
+      "per_feature": {
+        "mfr_hz": 0.0,
+        "burst_rate_per_min": 0.5812,
+        "network_burst_rate_per_min": 1.2722,
+        "synchrony_index": 0.079,
+        "pct_spikes_in_bursts": 0.056
+      }
+    },
+    {
+      "draw": {
+        "background_weight": 0.0412,
+        "excitatory_weight": 0.3703,
+        "inhibitory_weight": 3.989,
+        "adaptation_increment": 2.3641,
+        "threshold_spread": 0.0345,
+        "intra_in_degree": 28.2254,
+        "detection_radius_um": 285.4848
+      },
+      "stage": "random",
+      "features_simulated": {
+        "mfr_hz": 18.252864583333334,
+        "burst_rate_per_min": 65.734375,
+        "network_burst_rate_per_min": 67.5,
+        "synchrony_index": 0.9850918540071472,
+        "pct_spikes_in_bursts": 98.2230149040782
+      },
+      "score": 0.4173,
+      "per_feature": {
+        "mfr_hz": 0.0,
+        "burst_rate_per_min": 0.7936,
+        "network_burst_rate_per_min": 1.0899,
+        "synchrony_index": 0.1558,
+        "pct_spikes_in_bursts": 0.0473
+      }
+    },
+    {
+      "draw": {
+        "background_weight": 0.0369,
+        "excitatory_weight": 0.3512,
+        "inhibitory_weight": 3.7652,
+        "adaptation_increment": 1.7308,
+        "threshold_spread": 0.1151,
+        "intra_in_degree": 34.9302,
+        "detection_radius_um": 296.1671
+      },
+      "stage": "random",
+      "features_simulated": {
+        "mfr_hz": 21.194270833333334,
+        "burst_rate_per_min": 73.359375,
+        "network_burst_rate_per_min": 75.0,
+        "synchrony_index": 0.9750061011883424,
+        "pct_spikes_in_bursts": 97.62821906798362
+      },
+      "score": 0.4588,
+      "per_feature": {
+        "mfr_hz": 0.0089,
+        "burst_rate_per_min": 0.9033,
+        "network_burst_rate_per_min": 1.1953,
+        "synchrony_index": 0.1455,
+        "pct_spikes_in_bursts": 0.0412
+      }
+    },
+    {
+      "draw": {
+        "background_weight": 0.0482,
+        "excitatory_weight": 0.3032,
+        "inhibitory_weight": 2.705,
+        "adaptation_increment": 2.4898,
+        "threshold_spread": 0.0948,
+        "intra_in_degree": 14.5678,
+        "detection_radius_um": 276.0196
+      },
+      "stage": "random",
+      "features_simulated": {
+        "mfr_hz": 23.13046875,
+        "burst_rate_per_min": 76.453125,
+        "network_burst_rate_per_min": 83.25,
+        "synchrony_index": 0.790232922329855,
+        "pct_spikes_in_bursts": 86.73841348051587
+      },
+      "score": 0.4681,
+      "per_feature": {
+        "mfr_hz": 0.0963,
+        "burst_rate_per_min": 0.9447,
+        "network_burst_rate_per_min": 1.2996,
+        "synchrony_index": 0.0,
+        "pct_spikes_in_bursts": 0.0
+      }
+    },
+    {
+      "draw": {
+        "background_weight": 0.0391,
+        "excitatory_weight": 0.3608,
+        "inhibitory_weight": 4.8033,
+        "adaptation_increment": 0.7536,
+        "threshold_spread": 0.2594,
+        "intra_in_degree": 11.4866,
+        "detection_radius_um": 176.1541
+      },
+      "stage": "random",
+      "features_simulated": {
+        "mfr_hz": 21.57291666666667,
+        "burst_rate_per_min": 81.65625,
+        "network_burst_rate_per_min": 86.25,
+        "synchrony_index": 0.8819263161025299,
+        "pct_spikes_in_bursts": 91.78896135887237
+      },
+      "score": 0.4834,
+      "per_feature": {
+        "mfr_hz": 0.0266,
+        "burst_rate_per_min": 1.0105,
+        "network_burst_rate_per_min": 1.335,
+        "synchrony_index": 0.0451,
+        "pct_spikes_in_bursts": 0.0
+      }
+    },
+    {
+      "draw": {
+        "background_weight": 0.0434,
+        "excitatory_weight": 0.2365,
+        "inhibitory_weight": 2.9451,
+        "adaptation_increment": 2.1362,
+        "threshold_spread": 0.188,
+        "intra_in_degree": 33.9769,
+        "detection_radius_um": 173.8809
+      },
+      "stage": "random",
+      "features_simulated": {
+        "mfr_hz": 8.67265625,
+        "burst_rate_per_min": 40.42187500000001,
+        "network_burst_rate_per_min": 114.0,
+        "synchrony_index": 0.7112228414113293,
+        "pct_spikes_in_bursts": 51.01327442631754
+      },
+      "score": 0.4856,
+      "per_feature": {
+        "mfr_hz": 0.0,
+        "burst_rate_per_min": 0.3073,
+        "network_burst_rate_per_min": 1.614,
+        "synchrony_index": 0.0,
+        "pct_spikes_in_bursts": 0.5065
+      }
+    },
+    {
+      "draw": {
+        "background_weight": 0.0371,
+        "excitatory_weight": 0.351,
+        "inhibitory_weight": 4.0012,
+        "adaptation_increment": 0.8341,
+        "threshold_spread": 0.1187,
+        "intra_in_degree": 32.7564,
+        "detection_radius_um": 212.2802
+      },
+      "stage": "random",
+      "features_simulated": {
+        "mfr_hz": 17.241145833333334,
+        "burst_rate_per_min": 87.203125,
+        "network_burst_rate_per_min": 96.0,
+        "synchrony_index": 0.9707744651884487,
+        "pct_spikes_in_bursts": 95.59992820128744
+      },
+      "score": 0.5359,
+      "per_feature": {
+        "mfr_hz": 0.0,
+        "burst_rate_per_min": 1.0762,
+        "network_burst_rate_per_min": 1.4421,
+        "synchrony_index": 0.1411,
+        "pct_spikes_in_bursts": 0.0202
+      }
+    },
+    {
+      "draw": {
+        "background_weight": 0.0444,
+        "excitatory_weight": 0.4281,
+        "inhibitory_weight": 3.0413,
+        "adaptation_increment": 2.4092,
+        "threshold_spread": 0.15,
+        "intra_in_degree": 20.6307,
+        "detection_radius_um": 224.0427
+      },
+      "stage": "random",
+      "features_simulated": {
+        "mfr_hz": 24.29557291666667,
+        "burst_rate_per_min": 85.671875,
+        "network_burst_rate_per_min": 89.25,
+        "synchrony_index": 0.9520465389659416,
+        "pct_spikes_in_bursts": 95.76014138993318
+      },
+      "score": 0.5433,
+      "per_feature": {
+        "mfr_hz": 0.1454,
+        "burst_rate_per_min": 1.0585,
+        "network_burst_rate_per_min": 1.3692,
+        "synchrony_index": 0.1216,
+        "pct_spikes_in_bursts": 0.0219
+      }
+    },
+    {
+      "draw": {
+        "background_weight": 0.0433,
+        "excitatory_weight": 0.3282,
+        "inhibitory_weight": 4.469,
+        "adaptation_increment": 0.7909,
+        "threshold_spread": 0.122,
+        "intra_in_degree": 32.749,
+        "detection_radius_um": 108.6134
+      },
+      "stage": "random",
+      "features_simulated": {
+        "mfr_hz": 7.923315602836878,
+        "burst_rate_per_min": 28.953125,
+        "network_burst_rate_per_min": 175.5,
+        "synchrony_index": 0.7801124334357732,
+        "pct_spikes_in_bursts": 38.359508091880414
+      },
+      "score": 0.5674,
+      "per_feature": {
+        "mfr_hz": 0.0,
+        "burst_rate_per_min": 0.0,
+        "network_burst_rate_per_min": 2.0454,
+        "synchrony_index": 0.0,
+        "pct_spikes_in_bursts": 0.7916
+      }
+    },
+    {
+      "draw": {
+        "background_weight": 0.0431,
+        "excitatory_weight": 0.2828,
+        "inhibitory_weight": 4.7586,
+        "adaptation_increment": 0.581,
+        "threshold_spread": 0.2196,
+        "intra_in_degree": 25.3593,
+        "detection_radius_um": 105.6731
+      },
+      "stage": "random",
+      "features_simulated": {
+        "mfr_hz": 8.879510195035461,
+        "burst_rate_per_min": 31.900265957446813,
+        "network_burst_rate_per_min": 185.25,
+        "synchrony_index": 0.6912613753646608,
+        "pct_spikes_in_bursts": 38.62318465583257
+      },
+      "score": 0.591,
+      "per_feature": {
+        "mfr_hz": 0.0,
+        "burst_rate_per_min": 0.0706,
+        "network_burst_rate_per_min": 2.0995,
+        "synchrony_index": 0.0,
+        "pct_spikes_in_bursts": 0.7848
+      }
+    },
+    {
+      "draw": {
+        "background_weight": 0.0437,
+        "excitatory_weight": 0.2396,
+        "inhibitory_weight": 3.852,
+        "adaptation_increment": 0.899,
+        "threshold_spread": 0.2826,
+        "intra_in_degree": 19.1278,
+        "detection_radius_um": 121.0991
+      },
+      "stage": "random",
+      "features_simulated": {
+        "mfr_hz": 6.971614583333333,
+        "burst_rate_per_min": 19.515625,
+        "network_burst_rate_per_min": 119.25,
+        "synchrony_index": 0.536004003106268,
+        "pct_spikes_in_bursts": 28.992573007009565
+      },
+      "score": 0.5931,
+      "per_feature": {
+        "mfr_hz": 0.0,
+        "burst_rate_per_min": 0.0,
+        "network_burst_rate_per_min": 1.659,
+        "synchrony_index": 0.235,
+        "pct_spikes_in_bursts": 1.0716
+      }
+    },
+    {
+      "draw": {
+        "background_weight": 0.0472,
+        "excitatory_weight": 0.3504,
+        "inhibitory_weight": 4.8544,
+        "adaptation_increment": 2.3514,
+        "threshold_spread": 0.2245,
+        "intra_in_degree": 31.5175,
+        "detection_radius_um": 149.4293
+      },
+      "stage": "random",
+      "features_simulated": {
+        "mfr_hz": 10.666666666666666,
+        "burst_rate_per_min": 51.8125,
+        "network_burst_rate_per_min": 168.0,
+        "synchrony_index": 0.806560061963735,
+        "pct_spikes_in_bursts": 52.496000038163025
+      },
+      "score": 0.607,
+      "per_feature": {
+        "mfr_hz": 0.0,
+        "burst_rate_per_min": 0.5556,
+        "network_burst_rate_per_min": 2.0017,
+        "synchrony_index": 0.0,
+        "pct_spikes_in_bursts": 0.4779
+      }
+    },
+    {
+      "draw": {
+        "background_weight": 0.0453,
+        "excitatory_weight": 0.3451,
+        "inhibitory_weight": 3.9096,
+        "adaptation_increment": 1.2778,
+        "threshold_spread": 0.0405,
+        "intra_in_degree": 28.0372,
+        "detection_radius_um": 205.0709
+      },
+      "stage": "random",
+      "features_simulated": {
+        "mfr_hz": 20.269791666666666,
+        "burst_rate_per_min": 116.09375,
+        "network_burst_rate_per_min": 132.75,
+        "synchrony_index": 0.9656471914176665,
+        "pct_spikes_in_bursts": 94.08527205949497
+      },
+      "score": 0.6537,
+      "per_feature": {
+        "mfr_hz": 0.0,
+        "burst_rate_per_min": 1.3624,
+        "network_burst_rate_per_min": 1.7662,
+        "synchrony_index": 0.1358,
+        "pct_spikes_in_bursts": 0.0043
+      }
+    },
+    {
+      "draw": {
+        "background_weight": 0.0483,
+        "excitatory_weight": 0.2178,
+        "inhibitory_weight": 1.9359,
+        "adaptation_increment": 1.0767,
+        "threshold_spread": 0.1758,
+        "intra_in_degree": 23.8523,
+        "detection_radius_um": 261.9422
+      },
+      "stage": "random",
+      "features_simulated": {
+        "mfr_hz": 27.78359375,
+        "burst_rate_per_min": 116.5625,
+        "network_burst_rate_per_min": 132.75,
+        "synchrony_index": 0.7056336349675764,
+        "pct_spikes_in_bursts": 88.25282145268213
+      },
+      "score": 0.6824,
+      "per_feature": {
+        "mfr_hz": 0.2796,
+        "burst_rate_per_min": 1.3664,
+        "network_burst_rate_per_min": 1.7662,
+        "synchrony_index": 0.0,
+        "pct_spikes_in_bursts": 0.0
+      }
+    },
+    {
+      "draw": {
+        "background_weight": 0.0473,
+        "excitatory_weight": 0.2746,
+        "inhibitory_weight": 4.4043,
+        "adaptation_increment": 0.5199,
+        "threshold_spread": 0.1095,
+        "intra_in_degree": 11.9658,
+        "detection_radius_um": 230.5229
+      },
+      "stage": "random",
+      "features_simulated": {
+        "mfr_hz": 33.928645833333334,
+        "burst_rate_per_min": 116.890625,
+        "network_burst_rate_per_min": 117.0,
+        "synchrony_index": 0.8221609763897131,
+        "pct_spikes_in_bursts": 92.3561063370666
+      },
+      "score": 0.6977,
+      "per_feature": {
+        "mfr_hz": 0.4794,
+        "burst_rate_per_min": 1.3692,
+        "network_burst_rate_per_min": 1.6399,
+        "synchrony_index": 0.0,
+        "pct_spikes_in_bursts": 0.0
+      }
+    },
+    {
+      "draw": {
+        "background_weight": 0.0439,
+        "excitatory_weight": 0.2514,
+        "inhibitory_weight": 2.8707,
+        "adaptation_increment": 2.2805,
+        "threshold_spread": 0.0681,
+        "intra_in_degree": 25.5797,
+        "detection_radius_um": 116.8031
+      },
+      "stage": "random",
+      "features_simulated": {
+        "mfr_hz": 3.5712821365248226,
+        "burst_rate_per_min": 8.49501329787234,
+        "network_burst_rate_per_min": 79.5,
+        "synchrony_index": 0.7466445860261168,
+        "pct_spikes_in_bursts": 23.212576429079192
+      },
+      "score": 0.7174,
+      "per_feature": {
+        "mfr_hz": 0.643,
+        "burst_rate_per_min": 0.3964,
+        "network_burst_rate_per_min": 1.2535,
+        "synchrony_index": 0.0,
+        "pct_spikes_in_bursts": 1.2939
+      }
+    },
+    {
+      "draw": {
+        "background_weight": 0.0499,
+        "excitatory_weight": 0.4347,
+        "inhibitory_weight": 3.1102,
+        "adaptation_increment": 2.0155,
+        "threshold_spread": 0.1492,
+        "intra_in_degree": 23.2328,
+        "detection_radius_um": 257.1571
+      },
+      "stage": "random",
+      "features_simulated": {
+        "mfr_hz": 43.21171875,
+        "burst_rate_per_min": 119.609375,
+        "network_burst_rate_per_min": 121.5,
+        "synchrony_index": 0.9556866769988148,
+        "pct_spikes_in_bursts": 97.18253698533942
+      },
+      "score": 0.7907,
+      "per_feature": {
+        "mfr_hz": 0.7213,
+        "burst_rate_per_min": 1.3922,
+        "network_burst_rate_per_min": 1.6777,
+        "synchrony_index": 0.1255,
+        "pct_spikes_in_bursts": 0.0367
+      }
+    },
+    {
+      "draw": {
+        "background_weight": 0.036,
+        "excitatory_weight": 0.2533,
+        "inhibitory_weight": 3.006,
+        "adaptation_increment": 2.4321,
+        "threshold_spread": 0.1687,
+        "intra_in_degree": 16.4716,
+        "detection_radius_um": 148.3351
+      },
+      "stage": "random",
+      "features_simulated": {
+        "mfr_hz": 2.0441988031914895,
+        "burst_rate_per_min": 5.0551861702127665,
+        "network_burst_rate_per_min": 33.75,
+        "synchrony_index": 0.5194710017046038,
+        "pct_spikes_in_bursts": 25.675293329752705
+      },
+      "score": 0.7945,
+      "per_feature": {
+        "mfr_hz": 1.2009,
+        "burst_rate_per_min": 0.9154,
+        "network_burst_rate_per_min": 0.3967,
+        "synchrony_index": 0.2663,
+        "pct_spikes_in_bursts": 1.1931
+      }
+    },
+    {
+      "draw": {
+        "background_weight": 0.0483,
+        "excitatory_weight": 0.3967,
+        "inhibitory_weight": 3.18,
+        "adaptation_increment": 0.9647,
+        "threshold_spread": 0.2406,
+        "intra_in_degree": 33.0883,
+        "detection_radius_um": 153.2261
+      },
+      "stage": "random",
+      "features_simulated": {
+        "mfr_hz": 25.946875,
+        "burst_rate_per_min": 138.921875,
+        "network_burst_rate_per_min": 192.0,
+        "synchrony_index": 0.9352529831025908,
+        "pct_spikes_in_bursts": 89.72496236714821
+      },
+      "score": 0.7984,
+      "per_feature": {
+        "mfr_hz": 0.2112,
+        "burst_rate_per_min": 1.5419,
+        "network_burst_rate_per_min": 2.1353,
+        "synchrony_index": 0.1039,
+        "pct_spikes_in_bursts": 0.0
+      }
+    },
+    {
+      "draw": {
+        "background_weight": 0.0459,
+        "excitatory_weight": 0.3131,
+        "inhibitory_weight": 4.7728,
+        "adaptation_increment": 2.1317,
+        "threshold_spread": 0.0008,
+        "intra_in_degree": 31.4351,
+        "detection_radius_um": 106.7171
+      },
+      "stage": "random",
+      "features_simulated": {
+        "mfr_hz": 4.251878324468085,
+        "burst_rate_per_min": 8.159242021276595,
+        "network_burst_rate_per_min": 128.25,
+        "synchrony_index": 0.750495737111993,
+        "pct_spikes_in_bursts": 18.473600872712254
+      },
+      "score": 0.8318,
+      "per_feature": {
+        "mfr_hz": 0.4685,
+        "burst_rate_per_min": 0.4367,
+        "network_burst_rate_per_min": 1.7317,
+        "synchrony_index": 0.0,
+        "pct_spikes_in_bursts": 1.5223
+      }
+    },
+    {
+      "draw": {
+        "background_weight": 0.0458,
+        "excitatory_weight": 0.1548,
+        "inhibitory_weight": 4.1528,
+        "adaptation_increment": 1.5255,
+        "threshold_spread": 0.2787,
+        "intra_in_degree": 11.6521,
+        "detection_radius_um": 268.2635
+      },
+      "stage": "random",
+      "features_simulated": {
+        "mfr_hz": 15.162760416666668,
+        "burst_rate_per_min": 69.8125,
+        "network_burst_rate_per_min": 95.25,
+        "synchrony_index": 0.11611197296527964,
+        "pct_spikes_in_bursts": 69.24248119368906
+      },
+      "score": 0.8507,
+      "per_feature": {
+        "mfr_hz": 0.0,
+        "burst_rate_per_min": 0.8538,
+        "network_burst_rate_per_min": 1.4343,
+        "synchrony_index": 1.7646,
+        "pct_spikes_in_bursts": 0.201
+      }
+    },
+    {
+      "draw": {
+        "background_weight": 0.0446,
+        "excitatory_weight": 0.2309,
+        "inhibitory_weight": 1.6434,
+        "adaptation_increment": 0.5331,
+        "threshold_spread": 0.244,
+        "intra_in_degree": 32.8189,
+        "detection_radius_um": 221.3272
+      },
+      "stage": "random",
+      "features_simulated": {
+        "mfr_hz": 39.65651041666666,
+        "burst_rate_per_min": 155.671875,
+        "network_burst_rate_per_min": 177.0,
+        "synchrony_index": 0.8784735794678333,
+        "pct_spikes_in_bursts": 94.86584057063457
+      },
+      "score": 0.8798,
+      "per_feature": {
+        "mfr_hz": 0.6354,
+        "burst_rate_per_min": 1.6557,
+        "network_burst_rate_per_min": 2.0539,
+        "synchrony_index": 0.0412,
+        "pct_spikes_in_bursts": 0.0125
+      }
+    },
+    {
+      "draw": {
+        "background_weight": 0.0495,
+        "excitatory_weight": 0.1544,
+        "inhibitory_weight": 4.5227,
+        "adaptation_increment": 2.4624,
+        "threshold_spread": 0.2872,
+        "intra_in_degree": 13.7191,
+        "detection_radius_um": 294.5258
+      },
+      "stage": "random",
+      "features_simulated": {
+        "mfr_hz": 18.80625,
+        "burst_rate_per_min": 84.12500000000001,
+        "network_burst_rate_per_min": 124.5,
+        "synchrony_index": 0.13323490038584057,
+        "pct_spikes_in_bursts": 81.3739371922493
+      },
+      "score": 0.8818,
+      "per_feature": {
+        "mfr_hz": 0.0,
+        "burst_rate_per_min": 1.0403,
+        "network_burst_rate_per_min": 1.7021,
+        "synchrony_index": 1.627,
+        "pct_spikes_in_bursts": 0.0396
+      }
+    },
+    {
+      "draw": {
+        "background_weight": 0.0459,
+        "excitatory_weight": 0.2027,
+        "inhibitory_weight": 4.5211,
+        "adaptation_increment": 1.5829,
+        "threshold_spread": 0.0899,
+        "intra_in_degree": 20.5672,
+        "detection_radius_um": 105.6639
+      },
+      "stage": "random",
+      "features_simulated": {
+        "mfr_hz": 3.024213209219858,
+        "burst_rate_per_min": 4.409574468085107,
+        "network_burst_rate_per_min": 66.0,
+        "synchrony_index": 0.5065712293695973,
+        "pct_spikes_in_bursts": 13.90695824765146
+      },
+      "score": 1.0053,
+      "per_feature": {
+        "mfr_hz": 0.8092,
+        "burst_rate_per_min": 1.0521,
+        "network_burst_rate_per_min": 1.0674,
+        "synchrony_index": 0.2915,
+        "pct_spikes_in_bursts": 1.8062
+      }
+    },
+    {
+      "draw": {
+        "background_weight": 0.0387,
+        "excitatory_weight": 0.3,
+        "inhibitory_weight": 5.0,
+        "adaptation_increment": 2.3392,
+        "threshold_spread": 0.0163,
+        "intra_in_degree": 17.8047,
+        "detection_radius_um": 297.025
+      },
+      "stage": "refine",
+      "features_simulated": {
+        "mfr_hz": 0.55859375,
+        "burst_rate_per_min": 1.5,
+        "network_burst_rate_per_min": 4.5,
+        "synchrony_index": 0.7611063316423292,
+        "pct_spikes_in_bursts": 72.86577944388031
+      },
+      "score": 1.1467,
+      "per_feature": {
+        "mfr_hz": 2.4982,
+        "burst_rate_per_min": 2.1304,
+        "network_burst_rate_per_min": 0.9548,
+        "synchrony_index": 0.0,
+        "pct_spikes_in_bursts": 0.15
+      }
+    },
+    {
+      "draw": {
+        "background_weight": 0.0386,
+        "excitatory_weight": 0.2858,
+        "inhibitory_weight": 4.6175,
+        "adaptation_increment": 2.2209,
+        "threshold_spread": 0.0175,
+        "intra_in_degree": 17.1492,
+        "detection_radius_um": 300.0
+      },
+      "stage": "refine",
+      "features_simulated": {
+        "mfr_hz": 0.1836442420681551,
+        "burst_rate_per_min": 0.0,
+        "network_burst_rate_per_min": 5.25,
+        "synchrony_index": 0.2213256908795538,
+        "pct_spikes_in_bursts": 0.0
+      },
+      "score": 2.3062,
+      "per_feature": {
+        "mfr_hz": 3.6106,
+        "burst_rate_per_min": 3.0,
+        "network_burst_rate_per_min": 0.8007,
+        "synchrony_index": 1.1195,
+        "pct_spikes_in_bursts": 3.0
+      }
+    }
+  ],
+  "note": "random search over 5 parameters; everything else held at its module default. detection_radius_um is a property of the virtual electrode, not of the culture."
+}

@@ -42,6 +42,12 @@ def main(argv: list[str] | None = None) -> int:
             run_transfer([])
             run_uncertainty([])
             run_asymmetry([])
+        elif stage == "twin":
+            from neuromps.twin.calibrate import main as calibrate_twin
+            from neuromps.twin.validate import main as validate_twin
+
+            validate_twin(["--quick"] if args.quick else [])
+            calibrate_twin(["--quick"] if args.quick else [])
         else:
             logging.info("stage %r not implemented yet (later phase) - skipping", stage)
     logging.info("run_all finished in %.1f s", time.time() - t0)

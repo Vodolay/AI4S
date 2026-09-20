@@ -60,6 +60,10 @@ class NetworkParams:
     # adaptation
     adaptation_increment: float = 1.5
     adaptation_tau_ms: float = 380.0
+    # Per-neuron threshold heterogeneity (fractional SD). Identical neurons
+    # synchronise almost perfectly, which no real culture does; excitability
+    # varies from cell to cell.
+    threshold_spread: float = 0.08
     # drug knobs
     gabaa_scale: float = 1.0
     ampa_scale: float = 1.0
@@ -179,7 +183,8 @@ def _build(params: NetworkParams):
         namespace=namespace,
     )
     neurons.v = "rand() * 0.5"
-    neurons.v_threshold = params.threshold_scale
+    spread = max(params.threshold_spread, 0.0)
+    neurons.v_threshold = f"{params.threshold_scale} * (1 + {spread} * randn())"
     network = b2.Network(neurons)
     network.add(_synapses(params, neurons, compartment, excitatory, b2))
     network.add(_background(params, neurons, compartment, b2))

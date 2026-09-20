@@ -825,6 +825,121 @@
     "finding": "coupling asymmetry tracks the compartments' relative firing rate as much as the pathway ratio: with equal drive a strongly directed pathway can read as reversed, because the target compartment also receives the pathway's excitation",
     "label": "SIMULATED - not measured data"
   },
+  "twin_hd12_calibration": {
+    "best": {
+      "draw": {
+        "adaptation_increment": 2.0537,
+        "background_weight": 0.0408,
+        "detection_radius_um": 281.2471,
+        "excitatory_weight": 0.2995,
+        "inhibitory_weight": 4.6446,
+        "intra_in_degree": 17.6559,
+        "threshold_spread": 0.0164
+      },
+      "features_simulated": {
+        "burst_rate_per_min": 22.484375,
+        "mfr_hz": 6.4976562499999995,
+        "network_burst_rate_per_min": 29.25,
+        "pct_spikes_in_bursts": 90.45637199120623,
+        "synchrony_index": 0.913344832601267
+      },
+      "per_feature": {
+        "burst_rate_per_min": 0.0,
+        "mfr_hz": 0.0445,
+        "network_burst_rate_per_min": 0.2536,
+        "pct_spikes_in_bursts": 0.0,
+        "synchrony_index": 0.0801
+      },
+      "score": 0.0756,
+      "stage": "refine"
+    },
+    "duration_s": 40.0,
+    "inside_real_band": {
+      "burst_rate_per_min": true,
+      "mfr_hz": false,
+      "network_burst_rate_per_min": false,
+      "pct_spikes_in_bursts": true,
+      "synchrony_index": false
+    },
+    "label": "SIMULATED - calibration of a model, not measured data",
+    "n_draws": 45,
+    "note": "random search over 5 parameters; everything else held at its module default. detection_radius_um is a property of the virtual electrode, not of the culture.",
+    "search_space": {
+      "adaptation_increment": [
+        0.5,
+        2.5
+      ],
+      "background_weight": [
+        0.035,
+        0.05
+      ],
+      "detection_radius_um": [
+        100.0,
+        300.0
+      ],
+      "excitatory_weight": [
+        0.15,
+        0.45
+      ],
+      "inhibitory_weight": [
+        1.5,
+        5.0
+      ],
+      "intra_in_degree": [
+        10.0,
+        35.0
+      ],
+      "threshold_spread": [
+        0.0,
+        0.3
+      ]
+    },
+    "targets_real": {
+      "by_feature": {
+        "burst_rate_per_min": {
+          "median": 18.842,
+          "n": 48,
+          "q25": 12.627,
+          "q75": 29.726
+        },
+        "mfr_hz": {
+          "median": 12.065,
+          "n": 48,
+          "q25": 6.793,
+          "q75": 21.007
+        },
+        "network_burst_rate_per_min": {
+          "median": 17.82,
+          "n": 48,
+          "q25": 11.692,
+          "q75": 22.697
+        },
+        "pct_spikes_in_bursts": {
+          "median": 90.399,
+          "n": 48,
+          "q25": 84.657,
+          "q75": 93.685
+        },
+        "synchrony_index": {
+          "median": 0.725,
+          "n": 48,
+          "q25": 0.678,
+          "q75": 0.843
+        }
+      },
+      "n_records": 48,
+      "reference": "screenneuropharm_bic chamber baselines"
+    },
+    "tuned_parameters": [
+      "background_weight",
+      "excitatory_weight",
+      "inhibitory_weight",
+      "adaptation_increment",
+      "threshold_spread",
+      "intra_in_degree",
+      "detection_radius_um"
+    ]
+  },
   "uncertainty_and_ablations": {
     "conformal_sweep": [
       {
