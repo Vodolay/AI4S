@@ -690,6 +690,141 @@
     "rows_mea": 20375,
     "source_file": "mc5-6_winning_model_fits-flags_invitrodbv4_3_AUG2024.csv"
   },
+  "twin_hd11_validation": {
+    "baseline": {
+      "coupling_simulated": {
+        "asymmetry": -0.06276529696652493,
+        "lag_ms": 0.0,
+        "peak_correlation": 0.9010461316616785
+      },
+      "features_simulated": {
+        "active_electrodes": 32,
+        "burst_duration_s": 0.029054074074074104,
+        "burst_rate_per_min": 12.65625,
+        "isi_cv": 1.8148709985017142,
+        "mfr_hz": 2.259375,
+        "network_burst_rate_per_min": 27.0,
+        "pct_spikes_in_bursts": 53.18118948824343,
+        "spikes_per_burst": 5.696296296296296,
+        "synchrony_index": 0.8371948844569553
+      },
+      "n_spikes": 2864,
+      "params": {
+        "adaptation_increment": 1.5,
+        "adaptation_tau_ms": 380.0,
+        "ampa_scale": 1.0,
+        "background_rate_hz": 10.0,
+        "background_scale_target": 1.0,
+        "background_synapses": 100,
+        "background_weight": 0.042,
+        "duration_s": 20.0,
+        "excitatory_fraction": 0.8,
+        "excitatory_weight": 0.25,
+        "forward_ratio": 1.0,
+        "gabaa_scale": 1.0,
+        "inhibitory_weight": 2.6,
+        "inter_delay_ms": 4.0,
+        "inter_in_degree": 10.0,
+        "intra_delay_ms": 1.5,
+        "intra_in_degree": 20.0,
+        "n_per_compartment": 250,
+        "seed": 0,
+        "threshold_scale": 1.0
+      },
+      "within_real_range": {
+        "burst_rate_per_min": true,
+        "mfr_hz": true,
+        "network_burst_rate_per_min": false,
+        "synchrony_index": false
+      }
+    },
+    "directionality_sweep": [
+      {
+        "asymmetry_mean": 0.01,
+        "background_scale_target": 1.0,
+        "forward_ratio": 1.0,
+        "lag_ms_mean": 0.0,
+        "n_seeds": 2,
+        "peak_correlation_mean": 0.752,
+        "rate_ratio_c1_over_c0": 0.85
+      },
+      {
+        "asymmetry_mean": 0.502,
+        "background_scale_target": 0.85,
+        "forward_ratio": 1.0,
+        "lag_ms_mean": 5.0,
+        "n_seeds": 2,
+        "peak_correlation_mean": 0.864,
+        "rate_ratio_c1_over_c0": 0.672
+      },
+      {
+        "asymmetry_mean": 0.678,
+        "background_scale_target": 0.7,
+        "forward_ratio": 1.0,
+        "lag_ms_mean": 5.0,
+        "n_seeds": 2,
+        "peak_correlation_mean": 0.769,
+        "rate_ratio_c1_over_c0": 0.584
+      },
+      {
+        "asymmetry_mean": -0.166,
+        "background_scale_target": 1.0,
+        "forward_ratio": 4.0,
+        "lag_ms_mean": 0.0,
+        "n_seeds": 2,
+        "peak_correlation_mean": 0.616,
+        "rate_ratio_c1_over_c0": 1.124
+      },
+      {
+        "asymmetry_mean": 0.545,
+        "background_scale_target": 0.85,
+        "forward_ratio": 4.0,
+        "lag_ms_mean": 5.0,
+        "n_seeds": 2,
+        "peak_correlation_mean": 0.859,
+        "rate_ratio_c1_over_c0": 0.811
+      },
+      {
+        "asymmetry_mean": 0.758,
+        "background_scale_target": 0.7,
+        "forward_ratio": 4.0,
+        "lag_ms_mean": 5.0,
+        "n_seeds": 2,
+        "peak_correlation_mean": 0.903,
+        "rate_ratio_c1_over_c0": 0.73
+      },
+      {
+        "asymmetry_mean": -0.067,
+        "background_scale_target": 1.0,
+        "forward_ratio": 16.0,
+        "lag_ms_mean": -5.0,
+        "n_seeds": 2,
+        "peak_correlation_mean": 0.659,
+        "rate_ratio_c1_over_c0": 1.497
+      },
+      {
+        "asymmetry_mean": 0.682,
+        "background_scale_target": 0.85,
+        "forward_ratio": 16.0,
+        "lag_ms_mean": 5.0,
+        "n_seeds": 2,
+        "peak_correlation_mean": 0.862,
+        "rate_ratio_c1_over_c0": 0.921
+      },
+      {
+        "asymmetry_mean": 0.825,
+        "background_scale_target": 0.7,
+        "forward_ratio": 16.0,
+        "lag_ms_mean": 5.0,
+        "n_seeds": 2,
+        "peak_correlation_mean": 0.935,
+        "rate_ratio_c1_over_c0": 0.817
+      }
+    ],
+    "duration_s": 20.0,
+    "finding": "coupling asymmetry tracks the compartments' relative firing rate as much as the pathway ratio: with equal drive a strongly directed pathway can read as reversed, because the target compartment also receives the pathway's excitation",
+    "label": "SIMULATED - not measured data"
+  },
   "uncertainty_and_ablations": {
     "conformal_sweep": [
       {

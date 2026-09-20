@@ -1,0 +1,135 @@
+{
+  "label": "SIMULATED - not measured data",
+  "duration_s": 20.0,
+  "baseline": {
+    "params": {
+      "n_per_compartment": 250,
+      "excitatory_fraction": 0.8,
+      "duration_s": 20.0,
+      "seed": 0,
+      "intra_in_degree": 20.0,
+      "inter_in_degree": 10.0,
+      "forward_ratio": 1.0,
+      "intra_delay_ms": 1.5,
+      "inter_delay_ms": 4.0,
+      "excitatory_weight": 0.25,
+      "inhibitory_weight": 2.6,
+      "background_synapses": 100,
+      "background_rate_hz": 10.0,
+      "background_weight": 0.042,
+      "background_scale_target": 1.0,
+      "adaptation_increment": 1.5,
+      "adaptation_tau_ms": 380.0,
+      "gabaa_scale": 1.0,
+      "ampa_scale": 1.0,
+      "threshold_scale": 1.0
+    },
+    "n_spikes": 2864,
+    "features_simulated": {
+      "mfr_hz": 2.259375,
+      "burst_rate_per_min": 12.65625,
+      "burst_duration_s": 0.029054074074074104,
+      "spikes_per_burst": 5.696296296296296,
+      "pct_spikes_in_bursts": 53.18118948824343,
+      "network_burst_rate_per_min": 27.0,
+      "synchrony_index": 0.8371948844569553,
+      "isi_cv": 1.8148709985017142,
+      "active_electrodes": 32
+    },
+    "coupling_simulated": {
+      "peak_correlation": 0.9010461316616785,
+      "lag_ms": 0.0,
+      "asymmetry": -0.06276529696652493
+    },
+    "within_real_range": {
+      "mfr_hz": true,
+      "burst_rate_per_min": true,
+      "network_burst_rate_per_min": false,
+      "synchrony_index": false
+    }
+  },
+  "directionality_sweep": [
+    {
+      "forward_ratio": 1.0,
+      "background_scale_target": 1.0,
+      "asymmetry_mean": 0.01,
+      "lag_ms_mean": 0.0,
+      "peak_correlation_mean": 0.752,
+      "rate_ratio_c1_over_c0": 0.85,
+      "n_seeds": 2
+    },
+    {
+      "forward_ratio": 1.0,
+      "background_scale_target": 0.85,
+      "asymmetry_mean": 0.502,
+      "lag_ms_mean": 5.0,
+      "peak_correlation_mean": 0.864,
+      "rate_ratio_c1_over_c0": 0.672,
+      "n_seeds": 2
+    },
+    {
+      "forward_ratio": 1.0,
+      "background_scale_target": 0.7,
+      "asymmetry_mean": 0.678,
+      "lag_ms_mean": 5.0,
+      "peak_correlation_mean": 0.769,
+      "rate_ratio_c1_over_c0": 0.584,
+      "n_seeds": 2
+    },
+    {
+      "forward_ratio": 4.0,
+      "background_scale_target": 1.0,
+      "asymmetry_mean": -0.166,
+      "lag_ms_mean": 0.0,
+      "peak_correlation_mean": 0.616,
+      "rate_ratio_c1_over_c0": 1.124,
+      "n_seeds": 2
+    },
+    {
+      "forward_ratio": 4.0,
+      "background_scale_target": 0.85,
+      "asymmetry_mean": 0.545,
+      "lag_ms_mean": 5.0,
+      "peak_correlation_mean": 0.859,
+      "rate_ratio_c1_over_c0": 0.811,
+      "n_seeds": 2
+    },
+    {
+      "forward_ratio": 4.0,
+      "background_scale_target": 0.7,
+      "asymmetry_mean": 0.758,
+      "lag_ms_mean": 5.0,
+      "peak_correlation_mean": 0.903,
+      "rate_ratio_c1_over_c0": 0.73,
+      "n_seeds": 2
+    },
+    {
+      "forward_ratio": 16.0,
+      "background_scale_target": 1.0,
+      "asymmetry_mean": -0.067,
+      "lag_ms_mean": -5.0,
+      "peak_correlation_mean": 0.659,
+      "rate_ratio_c1_over_c0": 1.497,
+      "n_seeds": 2
+    },
+    {
+      "forward_ratio": 16.0,
+      "background_scale_target": 0.85,
+      "asymmetry_mean": 0.682,
+      "lag_ms_mean": 5.0,
+      "peak_correlation_mean": 0.862,
+      "rate_ratio_c1_over_c0": 0.921,
+      "n_seeds": 2
+    },
+    {
+      "forward_ratio": 16.0,
+      "background_scale_target": 0.7,
+      "asymmetry_mean": 0.825,
+      "lag_ms_mean": 5.0,
+      "peak_correlation_mean": 0.935,
+      "rate_ratio_c1_over_c0": 0.817,
+      "n_seeds": 2
+    }
+  ],
+  "finding": "coupling asymmetry tracks the compartments' relative firing rate as much as the pathway ratio: with equal drive a strongly directed pathway can read as reversed, because the target compartment also receives the pathway's excitation"
+}
