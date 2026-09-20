@@ -689,5 +689,307 @@
     "hits_dev": 3853,
     "rows_mea": 20375,
     "source_file": "mc5-6_winning_model_fits-flags_invitrodbv4_3_AUG2024.csv"
+  },
+  "uncertainty_and_ablations": {
+    "conformal_sweep": [
+      {
+        "alpha": 0.05,
+        "coverage_by_class": {
+          "control": 1.0,
+          "gabaa_agonist_or_pam": 1.0,
+          "gabaa_antagonist": 1.0,
+          "glutamatergic_agonist": 0.5,
+          "glutamatergic_antagonist": 0.941,
+          "na_channel_blocker": 0.923
+        },
+        "empirical_coverage": 0.918,
+        "fraction_empty": 0.0,
+        "fraction_singleton": 0.0,
+        "mean_set_size": 4.562,
+        "mean_threshold": 0.019,
+        "n_splits": 4,
+        "n_test": 73,
+        "target_coverage": 0.95
+      },
+      {
+        "alpha": 0.1,
+        "coverage_by_class": {
+          "control": 1.0,
+          "gabaa_agonist_or_pam": 1.0,
+          "gabaa_antagonist": 1.0,
+          "glutamatergic_agonist": 0.5,
+          "glutamatergic_antagonist": 0.941,
+          "na_channel_blocker": 0.923
+        },
+        "empirical_coverage": 0.918,
+        "fraction_empty": 0.0,
+        "fraction_singleton": 0.0,
+        "mean_set_size": 4.562,
+        "mean_threshold": 0.019,
+        "n_splits": 4,
+        "n_test": 73,
+        "target_coverage": 0.9
+      },
+      {
+        "alpha": 0.2,
+        "coverage_by_class": {
+          "control": 1.0,
+          "gabaa_agonist_or_pam": 1.0,
+          "gabaa_antagonist": 1.0,
+          "glutamatergic_agonist": 0.333,
+          "glutamatergic_antagonist": 0.941,
+          "na_channel_blocker": 0.692
+        },
+        "empirical_coverage": 0.822,
+        "fraction_empty": 0.0,
+        "fraction_singleton": 0.068,
+        "mean_set_size": 3.014,
+        "mean_threshold": 0.101,
+        "n_splits": 4,
+        "n_test": 73,
+        "target_coverage": 0.8
+      },
+      {
+        "alpha": 0.3,
+        "coverage_by_class": {
+          "control": 1.0,
+          "gabaa_agonist_or_pam": 1.0,
+          "gabaa_antagonist": 0.9,
+          "glutamatergic_agonist": 0.0,
+          "glutamatergic_antagonist": 0.765,
+          "na_channel_blocker": 0.615
+        },
+        "empirical_coverage": 0.712,
+        "fraction_empty": 0.0,
+        "fraction_singleton": 0.151,
+        "mean_set_size": 2.315,
+        "mean_threshold": 0.156,
+        "n_splits": 4,
+        "n_test": 73,
+        "target_coverage": 0.7
+      }
+    ],
+    "feature_subsets": {
+      "all": {
+        "balanced_accuracy_mean": 0.514,
+        "balanced_accuracy_sd": 0.107,
+        "features": [
+          "mfr_hz",
+          "burst_rate_per_min",
+          "burst_duration_s",
+          "spikes_per_burst",
+          "pct_spikes_in_bursts",
+          "network_burst_rate_per_min",
+          "synchrony_index",
+          "isi_cv",
+          "active_electrodes"
+        ],
+        "n_features": 9
+      },
+      "burst_only": {
+        "balanced_accuracy_mean": 0.411,
+        "balanced_accuracy_sd": 0.11,
+        "features": [
+          "burst_rate_per_min",
+          "burst_duration_s",
+          "spikes_per_burst",
+          "pct_spikes_in_bursts"
+        ],
+        "n_features": 4
+      },
+      "mfr_only": {
+        "balanced_accuracy_mean": 0.442,
+        "balanced_accuracy_sd": 0.098,
+        "features": [
+          "mfr_hz"
+        ],
+        "n_features": 1
+      },
+      "network_only": {
+        "balanced_accuracy_mean": 0.417,
+        "balanced_accuracy_sd": 0.084,
+        "features": [
+          "network_burst_rate_per_min",
+          "synchrony_index"
+        ],
+        "n_features": 2
+      },
+      "rate_only": {
+        "balanced_accuracy_mean": 0.53,
+        "balanced_accuracy_sd": 0.04,
+        "features": [
+          "mfr_hz",
+          "active_electrodes"
+        ],
+        "n_features": 2
+      },
+      "species_invariant": {
+        "balanced_accuracy_mean": 0.516,
+        "balanced_accuracy_sd": 0.099,
+        "features": [
+          "mfr_hz",
+          "pct_spikes_in_bursts",
+          "burst_rate_per_min"
+        ],
+        "n_features": 3
+      },
+      "synchrony_only": {
+        "balanced_accuracy_mean": 0.455,
+        "balanced_accuracy_sd": 0.089,
+        "features": [
+          "synchrony_index"
+        ],
+        "n_features": 1
+      }
+    },
+    "leave_one_out": {
+      "active_electrodes": {
+        "balanced_accuracy_mean": 0.503,
+        "balanced_accuracy_sd": 0.117,
+        "delta_vs_all": -0.011,
+        "features": [
+          "mfr_hz",
+          "burst_rate_per_min",
+          "burst_duration_s",
+          "spikes_per_burst",
+          "pct_spikes_in_bursts",
+          "network_burst_rate_per_min",
+          "synchrony_index",
+          "isi_cv"
+        ],
+        "n_features": 8
+      },
+      "burst_duration_s": {
+        "balanced_accuracy_mean": 0.514,
+        "balanced_accuracy_sd": 0.107,
+        "delta_vs_all": 0.0,
+        "features": [
+          "mfr_hz",
+          "burst_rate_per_min",
+          "spikes_per_burst",
+          "pct_spikes_in_bursts",
+          "network_burst_rate_per_min",
+          "synchrony_index",
+          "isi_cv",
+          "active_electrodes"
+        ],
+        "n_features": 8
+      },
+      "burst_rate_per_min": {
+        "balanced_accuracy_mean": 0.514,
+        "balanced_accuracy_sd": 0.107,
+        "delta_vs_all": 0.0,
+        "features": [
+          "mfr_hz",
+          "burst_duration_s",
+          "spikes_per_burst",
+          "pct_spikes_in_bursts",
+          "network_burst_rate_per_min",
+          "synchrony_index",
+          "isi_cv",
+          "active_electrodes"
+        ],
+        "n_features": 8
+      },
+      "isi_cv": {
+        "balanced_accuracy_mean": 0.508,
+        "balanced_accuracy_sd": 0.101,
+        "delta_vs_all": -0.006,
+        "features": [
+          "mfr_hz",
+          "burst_rate_per_min",
+          "burst_duration_s",
+          "spikes_per_burst",
+          "pct_spikes_in_bursts",
+          "network_burst_rate_per_min",
+          "synchrony_index",
+          "active_electrodes"
+        ],
+        "n_features": 8
+      },
+      "mfr_hz": {
+        "balanced_accuracy_mean": 0.464,
+        "balanced_accuracy_sd": 0.08,
+        "delta_vs_all": -0.05,
+        "features": [
+          "burst_rate_per_min",
+          "burst_duration_s",
+          "spikes_per_burst",
+          "pct_spikes_in_bursts",
+          "network_burst_rate_per_min",
+          "synchrony_index",
+          "isi_cv",
+          "active_electrodes"
+        ],
+        "n_features": 8
+      },
+      "network_burst_rate_per_min": {
+        "balanced_accuracy_mean": 0.521,
+        "balanced_accuracy_sd": 0.11,
+        "delta_vs_all": 0.007,
+        "features": [
+          "mfr_hz",
+          "burst_rate_per_min",
+          "burst_duration_s",
+          "spikes_per_burst",
+          "pct_spikes_in_bursts",
+          "synchrony_index",
+          "isi_cv",
+          "active_electrodes"
+        ],
+        "n_features": 8
+      },
+      "pct_spikes_in_bursts": {
+        "balanced_accuracy_mean": 0.524,
+        "balanced_accuracy_sd": 0.11,
+        "delta_vs_all": 0.01,
+        "features": [
+          "mfr_hz",
+          "burst_rate_per_min",
+          "burst_duration_s",
+          "spikes_per_burst",
+          "network_burst_rate_per_min",
+          "synchrony_index",
+          "isi_cv",
+          "active_electrodes"
+        ],
+        "n_features": 8
+      },
+      "spikes_per_burst": {
+        "balanced_accuracy_mean": 0.514,
+        "balanced_accuracy_sd": 0.107,
+        "delta_vs_all": 0.0,
+        "features": [
+          "mfr_hz",
+          "burst_rate_per_min",
+          "burst_duration_s",
+          "pct_spikes_in_bursts",
+          "network_burst_rate_per_min",
+          "synchrony_index",
+          "isi_cv",
+          "active_electrodes"
+        ],
+        "n_features": 8
+      },
+      "synchrony_index": {
+        "balanced_accuracy_mean": 0.5,
+        "balanced_accuracy_sd": 0.104,
+        "delta_vs_all": -0.014,
+        "features": [
+          "mfr_hz",
+          "burst_rate_per_min",
+          "burst_duration_s",
+          "spikes_per_burst",
+          "pct_spikes_in_bursts",
+          "network_burst_rate_per_min",
+          "isi_cv",
+          "active_electrodes"
+        ],
+        "n_features": 8
+      }
+    },
+    "n_classes": 6,
+    "n_pairs": 73,
+    "note": "with 73 pairs the calibration set is small, so neighbouring alphas can share a threshold; set size, not coverage, is the informative quantity here"
   }
 }

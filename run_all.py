@@ -34,11 +34,13 @@ def main(argv: list[str] | None = None) -> int:
             build_data(["--full"] if args.full else [])
         elif stage == "models":
             from neuromps.models.asymmetry import main as run_asymmetry
+            from neuromps.models.conformal import main as run_uncertainty
             from neuromps.models.mechanism import main as run_models
             from neuromps.models.transfer import main as run_transfer
 
             run_models([])
             run_transfer([])
+            run_uncertainty([])
             run_asymmetry([])
         else:
             logging.info("stage %r not implemented yet (later phase) - skipping", stage)
