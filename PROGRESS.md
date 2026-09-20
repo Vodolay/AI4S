@@ -294,7 +294,35 @@ CxHp. Per device type, one value per device, magnitudes only:
 n = 5-6 devices per group. This supports "these device types differ in lag", **not** a quotable
 effect size, and the twin should be asked to reproduce a lag difference of this order.
 
-### Next first task (HD10/Phase 3)
-- Phase 2 leftovers: conformal prediction sets on Task 1, feature-subset ablations.
-- Then Phase 3 HD11: the Brian2 two-compartment network, whose first target is now concrete -
-  reproduce ~5 ms inter-compartment lag for same-population chambers and ~11 ms for different ones.
+## 2026-09-20: Phase 2 tail - uncertainty and ablations (Phase 2 complete)
+
+### Conformal prediction sets (Kapucu, 73 pairs, 6 classes)
+| alpha | target | empirical coverage | mean set size | singletons |
+|---|---|---|---|---|
+| 0.10 | 0.90 | 0.918 | **4.56 of 6** | 0.00 |
+| 0.20 | 0.80 | 0.822 | 3.01 | 0.07 |
+| 0.30 | 0.70 | 0.712 | 2.32 | 0.15 |
+
+Coverage tracks the target, so the method is working. **The set size is the result:** to be right
+90% of the time the model must name 4.6 of the 6 mechanisms and never commits to one. Per-class
+coverage at alpha=0.1: 1.0 for control and both GABA-A classes, 0.50 for glutamatergic agonists
+(n=6). This is what should be reported, not the 0.55 balanced accuracy on its own.
+
+### Feature ablations (same grouped CV)
+- `rate_only` (mfr_hz + active_electrodes, 2 features) **0.530 +/- 0.040** - as good as all nine
+  (0.514). `species_invariant` 0.516. `burst_only` 0.411, `network_only` 0.417.
+- Leave-one-out: only `mfr_hz` clearly matters (-0.050 when dropped). Dropping
+  `pct_spikes_in_bursts` (+0.010) or `network_burst_rate_per_min` (+0.007) slightly *helps* - they
+  are noise at this sample size.
+- Consistent with HD8/HD9: the portable signal is rate, not synchrony or network bursts.
+
+### State
+- `run_all.py --stage models` runs all four analyses in 8.7 s; 5 figures; metrics.json has 7 sections.
+- 198 tests pass, ruff clean. **Phase 2 is complete.**
+
+### Next first task (Phase 3, HD11)
+- Brian2 two-compartment network with directional inter-compartment projections. Concrete targets
+  from the real data: inter-compartment lag ~5 ms for same-population chambers and ~11 ms for
+  different ones; peak coupling 0.96 / 0.91 / 0.82 by device type; and bicuculline-like
+  disinhibition should reproduce the rat dose-response (network bursts 0.31x, burst rate 0.57x,
+  STTC 1.17x at 300 uM).
