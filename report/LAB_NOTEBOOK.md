@@ -373,6 +373,25 @@ provenance instead of degrading it. Regression test in `tests/test_new_sources.p
 
 ---
 
+### 2026-09-20 · Drug-knob validation design · `66e650e`
+- The real direction for each mechanism is **computed from the asset**, not asserted: median log2
+  change of that mechanism's real pairs, with a cluster bootstrap over cultures.
+- **A feature is scored only if the real interval excludes zero.** Of 24 knob-feature comparisons, 8
+  were left unscored on this rule. Agreeing with a direction the data cannot resolve would be a free
+  pass, and half the twin's "agreements" would have been with noise.
+- Silence convention: a knob that stops all firing gives rate-like features of zero rather than
+  undefined, so the ratio floors at log2(0.05) = -4.32 — the same floor `models/dataset.py` applies
+  to an abolished real well. Before this, the sodium block produced only missing values and scored
+  0/0.
+- Known asymmetry in the comparison: each mechanism's real reference comes from whichever source has
+  that drug (bicuculline from 60-electrode MCS chambers; TTX and the glutamatergic drugs from
+  16-electrode Axion wells), and HD8 showed deltas do not transfer unchanged across platforms.
+  **Agreement here is evidence about direction, not magnitude.**
+- Result and the one disagreement: `metrics.twin_hd13_perturbation`, figure
+  `outputs/twin/hd13_drug_knob_validation_simulated.png`.
+
+---
+
 ---
 
 ## Tried and abandoned
@@ -428,7 +447,13 @@ provenance instead of degrading it. Regression test in `tests/test_new_sources.p
     calibration is HD12's job.
 16. The electrode mapping is a placeholder with no geometry.
 17. Coupling asymmetry confounds connectivity with relative excitability (see above).
-18. Twin parameters were tuned by hand against feature ranges; no formal fit yet.
+18. Twin parameters were tuned by hand in HD11, then by seeded random search in HD12; no formal fit
+    (likelihood or posterior) yet - that is HD14.
+19. The twin over-responds in rate: under disinhibition it raises firing where the real data show it
+    flat or slightly down. Bursting reorganises correctly. Same direction of error as the HD12
+    over-synchrony.
+20. Each drug knob is compared against a real reference from a different platform, so knob agreement
+    supports direction, not magnitude.
 
 ---
 

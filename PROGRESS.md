@@ -437,10 +437,44 @@ data stage aborted. The quick tier now keeps what an earlier `--full` run left o
 ("adopts") files present on disk but missing from the manifest. Provenance heals instead of
 degrading. `run_all.py --quick` end to end: **280 s**.
 
-### Next first task (HD13)
-- Drug perturbation knobs: confirm each of `gabaa_scale` / `ampa_scale` / `threshold_scale` moves
-  simulated features in the direction the real pharmacology shows, as a qualitative validation table.
-  The bicuculline dose-response in the asset is the reference for the GABA-A direction.
+## 2026-09-20: Phase 3, HD13 - drug knobs validated against real pharmacology
+
+### Done (`66e650e`)
+- `twin/perturbation.py`: each knob's simulated feature change vs the **real** direction for that
+  mechanism, read from the asset (median log2 change of real exposure/baseline pairs, cluster
+  bootstrap over cultures). A real direction counts only if its interval excludes zero; otherwise the
+  feature is "not established" and is neither credited nor penalised.
+- `--stage twin` now runs validation, calibration and the knob table. 270 tests pass, ruff clean.
+
+### Qualitative validation table (`metrics.twin_hd13_perturbation`)
+| knob | mechanism | real pairs | scored | agree |
+|---|---|---|---|---|
+| gabaa_block (gabaa_scale 0.2) | gabaa_antagonist | 507 | 5 | **4** |
+| gabaa_potentiate (gabaa_scale 2.0) | gabaa_agonist_or_pam | 17 | 4 | **3** |
+| ampa_block (ampa_scale 0.4) | glutamatergic_antagonist | 17 | 4 | **4** |
+| sodium_block (threshold_scale 1.6) | na_channel_blocker | 26 | 3 | **3** |
+
+Figure: `outputs/twin/hd13_drug_knob_validation_simulated.png`.
+
+### The one substantive disagreement
+Under disinhibition the twin **raises per-electrode firing sharply (+2.87 log2)** while the real
+bicuculline/gabazine data show it **slightly falling (-0.34)**. Everything else about the
+reorganisation agrees: burst rate, network burst rate and burst participation all move the same way.
+So the twin captures the pattern and overstates the rate response - the same over-excitability that
+appeared as over-synchrony in HD12. Candidate causes: no short-term depression, no synaptic
+saturation, and a background drive that does not adapt.
+
+### Convention added
+A knob that silences the network now yields rate-like features of **zero, not undefined**, so the
+ratio floors at log2(0.05) = -4.32, exactly as the real ETL already does for an abolished well.
+Without it the sodium block scored 0/0, because every simulated feature came back missing.
+
+### Next first task (HD14)
+- Simulation-based inference with `sbi`: prior over forward/backward ratio, inter-compartment
+  strength and the three drug knobs; simulate, train a posterior estimator, cache to disk.
+  **Carry the HD11 caveat into the design**: coupling asymmetry tracks relative firing rate, so the
+  posterior must be conditioned on rate-controlled summaries or it will infer direction from
+  excitability.
 
 ### Superseded plan note (kept for history)
 - Brian2 two-compartment network with directional inter-compartment projections. Concrete targets
