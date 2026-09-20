@@ -230,6 +230,36 @@ counterpart of the twin's asymmetric connectivity, in a dataset we acquired for 
   authors confirm the mapping, the labels can be filled in and the direction becomes interpretable as
   cortical->hippocampal or the reverse.
 
-### Next first task (HD8)
-- Phase 2 baselines: mechanism classification from feature deltas vs baseline, grouped CV by
-  unit/culture. Then a proper statistical test of the compartment asymmetry above.
+## 2026-09-20: Phase 2, HD8 - mechanism baselines
+
+### Done
+- `models/dataset.py`: 583 pairs (exposure vs that unit's own baseline), log2 feature ratios,
+  `group` = source:species:unit so a culture never straddles a CV split.
+- `models/mechanism.py`: three tasks + figures, wired into `run_all.py --stage models`.
+- 160 tests pass, ruff clean.
+
+### Results (all in outputs/metrics.json, figures in outputs/figures/)
+1. **Within-platform multiclass** (Kapucu, 73 pairs / 50 groups, 6 classes, chance 0.167):
+   logistic regression **0.537 +/- 0.102** balanced accuracy, gradient boosting 0.398,
+   dummy 0.167. Real but modest; n is small and classes are unbalanced (4-26 per class).
+2. **External detection** (fit on Kapucu, applied to other labs): bicuculline detected in only
+   **37%** of pairs, rising 0.18 -> 0.48 with dose. Diazepam (opposite mechanism) detected in 8%,
+   probability falling with dose (rho -0.80) - the negative control behaves. Specificity is not
+   reported: those datasets have no vehicle controls, so it is undefined.
+3. **Platform contrast** (same mechanism, >=30 uM): 5 of 9 features agree in sign across platforms,
+   4 disagree - including mean firing rate and network burst rate. Gabazine *raises* network bursts
+   on 16-electrode Axion wells; bicuculline *lowers* them on 60-electrode MCS arrays.
+
+### What result 3 means
+Feature deltas do not transfer unchanged across platforms, so a classifier trained on one lab's MEA
+does not simply work on another's. This is the harmonization limit the standard warns about, now
+measured rather than asserted, and it is the strongest argument for the twin: a mechanistic model can
+bridge platforms where raw feature deltas cannot. Candidate causes to separate in Phase 3: electrode
+count and pitch (16 @ 200 um vs 60 @ 200 um vs HD-CMOS), recording duration (1800 s vs 480 s),
+culture age, and the chance-corrected network-burst threshold, which itself scales with electrode
+count.
+
+### Next first task (HD9)
+- Task 2 of Phase 2: rat -> hPSC transfer within Kapucu (train rat, test human), per-feature species
+  shift, and whether simple domain adaptation helps. Then the per-device statistical test of the
+  compartment asymmetry from the previous session.
