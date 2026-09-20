@@ -13,7 +13,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from neuromps.etl import kapucu, screenneuropharm
+from neuromps.etl import kapucu, screenneuropharm, sharf
 from neuromps.etl.toxcast_mea import (
     INTERIM_PARQUET,
     MC56_CSV,
@@ -63,6 +63,7 @@ def collect_records(raw_root: Path = RAW_ROOT, full: bool = False) -> list[dict]
         records += built
     records += _toxcast_records(hashes, full)
     records += _screenneuropharm_records(hashes, raw_root, full)
+    records += _archive_records(sharf, hashes, raw_root, full)
     add_cross_record_flags(records)  # replicate divergence, outliers, unpaired exposures
     return records
 
@@ -91,6 +92,17 @@ def _screenneuropharm_records(hashes: dict[str, str], raw_root: Path, full: bool
         archive, hashes, cache_path=screenneuropharm.CACHE, rebuild=full
     )
     log.info("screenneuropharm: %d records", len(built))
+    return built
+
+
+def _archive_records(module, hashes: dict[str, str], raw_root: Path, full: bool) -> list[dict]:
+    """Records from an archive-backed source with a feature cache."""
+    archive = raw_root / module.SOURCE / module.ARCHIVE_NAME
+    if not archive.exists():
+        log.warning("%s archive absent, skipping (run: fetch.runner --full)", module.SOURCE)
+        return []
+    built = module.build_records(archive, hashes, cache_path=module.CACHE, rebuild=full)
+    log.info("%s: %d records", module.SOURCE, len(built))
     return built
 
 

@@ -12,9 +12,9 @@
   },
   "platform": {
     "vendor": "MaxWell Biosystems",
-    "system": "MaxOne HD-CMOS",
+    "system": "MaxOne HD-CMOS (26,400-electrode array, 1,020 recorded)",
     "plate_format": "single-well",
-    "electrodes_per_unit": 26400,
+    "electrodes_per_unit": 1020,
     "electrode_pitch_um": 17.5,
     "sampling_rate_hz": 20000
   },
@@ -37,7 +37,7 @@
   },
   "feature_method": {
     "computed_by": "neuromps.features.mea",
-    "spike_detection": "publisher: Kilosort2 (sorted units)",
+    "spike_detection": "publisher: Kilosort2 sorted units, merged onto their peak electrode",
     "burst_method": "neuromps maxinterval (HD4)",
     "synchrony_method": "sttc"
   },
