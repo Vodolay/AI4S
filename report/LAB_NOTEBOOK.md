@@ -476,7 +476,7 @@ time, not correctness.
 ---
 
 
-### 2026-09-20 — HD15: applying the posterior to real recordings, and a geometry mismatch (`3fd9bfe`, `HD15_COMMIT`)
+### 2026-09-20 — HD15: applying the posterior to real recordings, and a geometry mismatch (`3fd9bfe`, `8a07bd3`)
 
 **Decision: match the simulated electrode layout to the real chambers.** The inference simulator ran
 on a 4x6 grid (24 electrodes per compartment), chosen for speed in HD14, while HD12 calibrated the
