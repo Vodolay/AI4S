@@ -136,3 +136,11 @@ def test_provenance_hashes_files_absent_from_the_manifest(plate_dir: Path) -> No
     rec = build_plate_records(plate_dir, PHARMACOLOGY_PLATES[0], hashes={})[0]
     hashes = {f["sha256"] for f in rec["provenance"]["source_files"]}
     assert all(len(h) == 64 and h.strip("0123456789abcdef") == "" for h in hashes)
+
+
+def test_millimolar_doses_are_rescaled_to_micromolar() -> None:
+    """A mM dose must become uM x1000, not a relabelled uM (regression)."""
+    log = EXPLOG + "Rat,50618,MEA2Pharma,DIV22,C7,Gabazine,,5mM,\n"
+    row = parse_explog(log.splitlines(keepends=True)).set_index("well").loc["C7"]
+    assert row["dose_value"] == 5000.0
+    assert row["dose_unit"] == "uM"

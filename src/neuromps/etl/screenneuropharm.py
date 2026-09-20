@@ -21,6 +21,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
+from neuromps.etl.units import normalize_dose
 from neuromps.features.coupling import CouplingParams, directed_coupling
 from neuromps.features.mea import FeatureParams, extract_features
 from neuromps.fetch.manifest import utc_now
@@ -89,12 +90,12 @@ def parse_condition(condition_dir: str) -> dict:
             "dose_value": None,
             "dose_unit": None,
         }
-    unit = {"nm": "nM", "um": "uM", "mm": "uM"}[match.group(2).lower()]
+    value, unit = normalize_dose(float(match.group(1)), match.group(2))
     return {
         "name": "bicuculline",
         "role": "test",
         "mechanism_class": "gabaa_antagonist",
-        "dose_value": float(match.group(1)),
+        "dose_value": value,
         "dose_unit": unit,
     }
 

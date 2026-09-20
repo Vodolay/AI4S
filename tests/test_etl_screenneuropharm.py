@@ -109,3 +109,10 @@ def test_feature_cache_is_reused(archive: Path, tmp_path: Path) -> None:
     cached.to_parquet(cache, index=False)
     again = build_records(archive, hashes={}, cache_path=cache)
     assert all(r["features"]["mfr_hz"] == 99.0 for r in again)
+
+
+def test_millimolar_condition_is_rescaled_to_micromolar() -> None:
+    """A mM folder label must become uM x1000, not a relabelled uM (regression)."""
+    condition = parse_condition("ptrain_20092022_01_09_BIC5mM")
+    assert condition["dose_value"] == 5000.0
+    assert condition["dose_unit"] == "uM"

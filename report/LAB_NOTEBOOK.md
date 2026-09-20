@@ -325,6 +325,22 @@ by a script under `src/`** and must be before they enter the report:
 
 Consequence for Phase 3: **any inference of direction from coupling must control for firing rate.**
 
+### 2026-09-20 · Dose-unit normalization centralised, mM bug fixed · `a1ac499`
+Writing this notebook surfaced a latent bug: `etl/kapucu.py` and `etl/screenneuropharm.py` each
+mapped a `mM` dose suffix to `uM` **without multiplying the value by 1000**, so a 5 mM exposure would
+have been recorded as 5 uM — the number kept, the unit changed, no error raised.
+
+- The conversion now lives in one place, `src/neuromps/etl/units.py`, because the same wrong mapping
+  had been written twice and would have drifted again.
+- An unknown unit now raises rather than being guessed.
+- **No current record was affected**: the asset holds only `uM`, `nM` and null doses, and rebuilding
+  produced byte-identical counts (21,272 records; uM 20,927 / nM 123 / null 222). This was verified
+  by rebuilding, not assumed.
+- Regression tests at both levels (the helper, and each ETL's own parser) were confirmed to fail
+  against the old mapping before the fix was applied.
+
+---
+
 ---
 
 ## Tried and abandoned
@@ -399,8 +415,4 @@ Consequence for Phase 3: **any inference of direction from coupling must control
 5. **Would CI pass?** The workflow has never run; there is no remote.
 6. **Does the asymmetry measure need replacing for inference?** Given the excitability confound, HD14
    may need a rate-controlled statistic rather than the current one.
-7. **A latent dose-unit bug, verified but unfixed.** Both `src/neuromps/etl/kapucu.py` (line 109) and
-   `src/neuromps/etl/screenneuropharm.py` (line 92) map a `mM` suffix to `uM` **without multiplying
-   the value by 1000**. The asset contains only `uM` (20,927), `nM` (123) and null (222) doses, so no
-   current record is affected, but the mapping is wrong and will silently mis-scale any future source
-   that uses millimolar. Fix before adding a source, and add a test.
+7. ~~A latent dose-unit bug.~~ **Fixed** on 2026-09-20, see the entry above. No further action.

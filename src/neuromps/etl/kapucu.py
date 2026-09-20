@@ -14,6 +14,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
+from neuromps.etl.units import normalize_dose
 from neuromps.features.mea import FeatureParams, extract_features
 from neuromps.fetch.manifest import utc_now
 from neuromps.qc.provenance import sha256_file
@@ -106,7 +107,7 @@ def parse_dose(raw: object) -> tuple[float | None, str | None]:
     m = _DOSE.match(str(raw))
     if not m:
         return None, None
-    return float(m.group(1)), {"um": "uM", "nm": "nM", "mm": "uM"}[m.group(2).lower()]
+    return normalize_dose(float(m.group(1)), m.group(2))
 
 
 def parse_explog(lines: Iterable[str] | Path) -> pd.DataFrame:
