@@ -8,6 +8,10 @@ in the report.
 Entries marked **[UNCERTAIN]** are ones I could not fully verify from the repository or the session
 record; treat them as needing a check before they enter the report.
 
+Commit hashes here are read back from `git log` after the fact, not written from memory. One entry
+originally cited a hash that amending had invalidated; that was caught with `git cat-file -t` and
+corrected in `20c038d`. Any hash in this file can be checked the same way.
+
 Sessions ran on 2026-09-16 (HD1–HD5) and 2026-09-20 (HD6–HD11). Commit dates are authoritative;
 where a decision was taken during a session but committed later, the commit is still what is cited.
 
@@ -450,6 +454,27 @@ provenance instead of degrading it. Regression test in `tests/test_new_sources.p
 
 ---
 
+### 2026-09-20 · Pipeline shape and measured budgets · `efb9142`
+What `run_all.py` actually runs, recorded because the report claims one-command reproduction.
+
+| stage | steps | notes |
+|---|---|---|
+| `fetch` | 6 sources | quick tier skips large archives but keeps and re-hashes what is on disk |
+| `data` | ETL → validate (schema + conformance level 2) → asset → QC flags → data card | nothing written unless every record passes |
+| `models` | mechanism baselines, transfer, uncertainty/ablations, compartment asymmetry | ~16 s at 1000 resamples |
+| `twin` | HD11 validation, HD12 calibration, HD13 knob table, HD14 inference | simulation and feature caches under `data/interim/` |
+
+**Measured `run_all.py --quick` end to end: 280 s**, inside the 10-minute budget the project set
+itself. `--quick` lowers bootstrap resamples to 200, shortens simulated recordings and reduces
+calibration draws; every affected output records which mode produced it, so a quick-mode number
+cannot be mistaken for a full one.
+
+Caches are regenerable derived data, not provenance: `data/interim/` holds the ToxCast MEA subset,
+per-source feature tables, the compartment records and the 4342 SBI simulations. Deleting them costs
+time, not correctness.
+
+---
+
 ---
 
 ## Tried and abandoned
@@ -521,6 +546,13 @@ provenance instead of degrading it. Regression test in `tests/test_new_sources.p
     be quoted as calibrated.
 22. Simulated recordings are 10 s against real recordings of 480 s, which plausibly limits every
     burst- and synchrony-derived summary the inference depends on.
+23. `--quick` writes to the same `metrics.json` as a full run. Each affected entry records its
+    resample count and mode, but a reader who ignores those fields can mistake a 200-resample
+    interval for a 1000-resample one.
+24. Feature and simulation caches are keyed by file path, not by a hash of the code that produced
+    them: changing a feature definition without deleting `data/interim/` would silently reuse stale
+    features. The SBI cache is the exception - it stores its summary names and refuses to load under
+    a different definition.
 
 ---
 
