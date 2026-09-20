@@ -82,6 +82,12 @@ def build_card(processed: Path = PROCESSED, raw_root: Path = RAW_ROOT) -> str:
     manifest = Manifest.load(raw_root / "MANIFEST.json")
     provenance = json.loads((processed / "provenance.json").read_text())
     skipped = [s for s in manifest.sources.values() if s.status == "skipped"]
+    in_asset = set(df["source"].unique())
+    fetched_only = [
+        s
+        for s in manifest.sources.values()
+        if s.status in ("ok", "partial") and s.name not in in_asset and s.files
+    ]
     flags = flag_counts(df)
     return "\n".join(
         [
@@ -114,6 +120,14 @@ def build_card(processed: Path = PROCESSED, raw_root: Path = RAW_ROOT) -> str:
             "",
             *(f"- **{s.name}** ({s.license}): {s.note}" for s in skipped),
             "" if skipped else "_None._",
+            "",
+            "## Fetched but not yet in the asset",
+            "",
+            *(
+                f"- **{s.name}** ({s.license}, {len(s.files)} files): see data/SOURCES.md"
+                for s in fetched_only
+            ),
+            "" if fetched_only else "_None._",
             "",
             "## Limitations",
             "",

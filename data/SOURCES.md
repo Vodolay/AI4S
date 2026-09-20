@@ -96,6 +96,17 @@ This file records the human decisions behind each source.
     cortical **and** hippocampal cultures, at bicuculline 1, 3, 10, 30, 100, 300 µM (plus a `BIC500`
     label to check during ETL). A 6-point dose-response, far richer than Kapucu's single gabazine
     condition. The archive also ships the authors' MATLAB/Python analysis code (MIT).
+- **`fofie2025` fetched but NOT converted (decision 2026-09-20).** The workbook is parseable in
+  structure - 10-row blocks with a condition label in column A, electrodes as columns, timepoints as
+  rows - but **the dose units appear nowhere in the file**; labels read `TTX 10`, `TTX 30`, and the
+  units live only in the paper (TTX 30 nM, HWTX 20 nM, lidocaine 500 µM, per doi:10.1016/j.crmeth.2025.101051).
+  Worse, the sheet named `Curves TTX-HWTX-Lidocaine` contains only TTX-labelled blocks: sheet titles
+  and content disagree, so the other compounds cannot be mapped without reading the figures. Rather
+  than guess a unit or a compound, the source stays fetched and out of the asset. It is a useful
+  illustration for the report: a CC0 dataset can be unusable on its own when the units live in the
+  paper, which is exactly what the standard's `dose_value` + `dose_unit` requirement prevents.
+  To convert it later, transcribe the compound/dose map from the paper into a small CSV under
+  `src/neuromps/etl/` and cite it per row.
 - **Rejected in the same search (recorded for the report's data-selection story).**
   - Zenodo 14525182 (Mateus & Aguiar), compartmentalized asymmetric-microchannel MEA — the closest
     published analogue of our two-compartment chip: Zenodo metadata says CC BY 4.0 but the dataset's

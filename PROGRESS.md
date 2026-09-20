@@ -168,3 +168,39 @@
 ### Next first task (HD7)
 - ETL for `sharf2022` / `screenneuropharm_bic` / `fofie2025` (fetched, not yet in the asset), then
   Phase 2 baselines.
+
+## 2026-09-20: Phase 1, HD7
+
+### Done
+- `etl/screenneuropharm.py`: 203 records. Rat E18 cortical + hippocampal, 23 arrays, MCS 60-electrode,
+  8 min at 10 kHz, basal + bicuculline 100 nM - 300 uM. Species confirmed from the paper's methods.
+- `etl/sharf.py`: 29 records. Human iPSC organoid slices on MaxWell HD-CMOS, ~180 s at 20 kHz;
+  diazepam control/3/10/30/50 uM across 4 organoids, six 7-month organoids, one at 5-8 months.
+  Sorted units merged onto their peak electrode, coincidences within 1 ms collapsed.
+- Feature caches under `data/interim/` (first build 272 s / 29 s; cached rebuild ~55 s total).
+- Data card now lists sources fetched but not in the asset.
+- Asset: **20,895 records across 4 sources**. 119 tests pass, ruff clean.
+
+### Dose-responses now in the asset (both normalized to each unit's own control)
+- Rat, bicuculline (GABA-A antagonist), n=23 arrays: network bursts 0.31x, burst rate 0.57x,
+  STTC 1.17x at 300 uM, firing rate flat.
+- Human organoid, diazepam (GABA-A positive modulator), n=4: firing 0.57x at 50 uM, network bursts
+  ~1.7x. Opposite modulation of the same receptor, in two species - a good spine for Phase 2.
+
+### Decision: `fofie2025` fetched but not converted
+The workbook has no dose units anywhere (they are only in the paper), and the sheet named
+`Curves TTX-HWTX-Lidocaine` contains only TTX-labelled blocks, so compounds cannot be mapped from the
+file alone. Converting it would mean guessing a unit or a compound. Rationale and a route to convert
+it later are in data/SOURCES.md. It is also a clean illustration of why the standard requires
+`dose_value` + `dose_unit` together.
+
+### Open for Phase 3
+- The ScreenNeuroPharm archive holds **16 two-compartment devices** (CxCx, CxHp, HpHp; "Joint"
+  recordings with Gray/Green/Red electrode groups). These are real two-compartment MEA recordings
+  with a bicuculline dose-response - the natural validation set for the twin - and are skipped only
+  because the schema has no per-compartment unit or directed connectivity yet. Extending the schema
+  for compartments is now the highest-value schema work.
+
+### Next first task (HD8)
+- Phase 2 baselines: mechanism classification from feature deltas vs baseline, grouped CV by
+  unit/culture.
