@@ -32,6 +32,10 @@ def main(argv: list[str] | None = None) -> int:
             from neuromps.etl.build import main as build_data
 
             build_data(["--full"] if args.full else [])
+        elif stage == "models":
+            from neuromps.models.mechanism import main as run_models
+
+            run_models([])
         else:
             logging.info("stage %r not implemented yet (later phase) - skipping", stage)
     logging.info("run_all finished in %.1f s", time.time() - t0)

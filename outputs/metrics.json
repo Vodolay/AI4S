@@ -44,6 +44,184 @@
     "records": 21272,
     "usable": 20831
   },
+  "mechanism_baselines": {
+    "task1_within_platform": {
+      "chance_balanced_accuracy": 0.167,
+      "class_counts": {
+        "control": 10,
+        "gabaa_agonist_or_pam": 4,
+        "gabaa_antagonist": 10,
+        "glutamatergic_agonist": 6,
+        "glutamatergic_antagonist": 17,
+        "na_channel_blocker": 26
+      },
+      "models": {
+        "dummy_most_frequent": {
+          "balanced_accuracy_mean": 0.167,
+          "balanced_accuracy_sd": 0.0,
+          "macro_f1_mean": 0.087,
+          "per_fold_balanced_accuracy": [
+            0.167,
+            0.167,
+            0.167,
+            0.167
+          ]
+        },
+        "gradient_boosting": {
+          "balanced_accuracy_mean": 0.398,
+          "balanced_accuracy_sd": 0.089,
+          "macro_f1_mean": 0.363,
+          "per_fold_balanced_accuracy": [
+            0.313,
+            0.53,
+            0.319,
+            0.431
+          ]
+        },
+        "logistic_regression": {
+          "balanced_accuracy_mean": 0.537,
+          "balanced_accuracy_sd": 0.102,
+          "macro_f1_mean": 0.438,
+          "per_fold_balanced_accuracy": [
+            0.364,
+            0.631,
+            0.569,
+            0.583
+          ]
+        }
+      },
+      "n_groups": 50,
+      "n_pairs": 73,
+      "n_splits": 4
+    },
+    "task2_external_detection": {
+      "screenneuropharm_bicuculline": {
+        "by_dose": [
+          {
+            "detection_rate": 0.179,
+            "dose_uM": 0.1,
+            "mean_probability": 0.374,
+            "n": 67
+          },
+          {
+            "detection_rate": 0.304,
+            "dose_uM": 0.3,
+            "mean_probability": 0.436,
+            "n": 56
+          },
+          {
+            "detection_rate": 0.366,
+            "dose_uM": 1.0,
+            "mean_probability": 0.405,
+            "n": 71
+          },
+          {
+            "detection_rate": 0.386,
+            "dose_uM": 3.0,
+            "mean_probability": 0.402,
+            "n": 70
+          },
+          {
+            "detection_rate": 0.424,
+            "dose_uM": 10.0,
+            "mean_probability": 0.438,
+            "n": 66
+          },
+          {
+            "detection_rate": 0.426,
+            "dose_uM": 30.0,
+            "mean_probability": 0.423,
+            "n": 61
+          },
+          {
+            "detection_rate": 0.48,
+            "dose_uM": 100.0,
+            "mean_probability": 0.493,
+            "n": 50
+          },
+          {
+            "detection_rate": 0.467,
+            "dose_uM": 300.0,
+            "mean_probability": 0.46,
+            "n": 45
+          },
+          {
+            "detection_rate": 0.091,
+            "dose_uM": 500.0,
+            "mean_probability": 0.12,
+            "n": 11
+          }
+        ],
+        "detection_rate": 0.366,
+        "dose_spearman": 0.014,
+        "dose_spearman_p": 0.751,
+        "mean_probability": 0.418,
+        "n": 497,
+        "positive_class": "gabaa_antagonist"
+      },
+      "sharf_diazepam_negative_control": {
+        "detection_rate": 0.077,
+        "dose_spearman": -0.799,
+        "dose_spearman_p": 0.00104,
+        "mean_probability": 0.21,
+        "n": 13,
+        "positive_class": "gabaa_antagonist"
+      }
+    },
+    "task3_platform_contrast": {
+      "by_source": {
+        "kapucu2022": {
+          "compounds": [
+            "gabazine"
+          ],
+          "median_delta": {
+            "active_electrodes": 0.0,
+            "burst_duration_s": 0.203,
+            "burst_rate_per_min": -0.277,
+            "isi_cv": 0.573,
+            "mfr_hz": 0.348,
+            "network_burst_rate_per_min": 1.536,
+            "pct_spikes_in_bursts": 0.476,
+            "spikes_per_burst": 0.635,
+            "synchrony_index": 1.743
+          },
+          "n": 10
+        },
+        "screenneuropharm_bic": {
+          "compounds": [
+            "bicuculline"
+          ],
+          "median_delta": {
+            "active_electrodes": 0.0,
+            "burst_duration_s": 0.086,
+            "burst_rate_per_min": -0.915,
+            "isi_cv": -0.127,
+            "mfr_hz": -0.684,
+            "network_burst_rate_per_min": -0.92,
+            "pct_spikes_in_bursts": 0.05,
+            "spikes_per_burst": 0.314,
+            "synchrony_index": 0.148
+          },
+          "n": 167
+        }
+      },
+      "features_agreeing_in_sign": [
+        "burst_duration_s",
+        "burst_rate_per_min",
+        "pct_spikes_in_bursts",
+        "spikes_per_burst",
+        "synchrony_index"
+      ],
+      "features_disagreeing_in_sign": [
+        "active_electrodes",
+        "isi_cv",
+        "mfr_hz",
+        "network_burst_rate_per_min"
+      ],
+      "mechanism": "gabaa_antagonist",
+      "min_dose_uM": 30.0
+    }
+  },
   "toxcast_mea_inventory": {
     "chemicals_acute": 508,
     "chemicals_dev": 463,

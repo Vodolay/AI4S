@@ -1,0 +1,124 @@
+"""Turn the asset into a modelling table: exposure recordings paired with their baselines.
+
+A pair is one recording unit (well, array or compartment) measured before and
+during exposure, described by the log2 ratio of each feature. Ratios rather than
+absolute values, because absolute firing rates differ by platform and culture far
+more than drug effects do, and the label is a drug mechanism.
+
+Each pair carries a ``group`` (source + species + unit) so cross-validation can
+keep a culture on one side of the split: two conditions of the same well are not
+independent samples.
+"""
+
+import logging
+from pathlib import Path
+
+import numpy as np
+import pandas as pd
+
+log = logging.getLogger("neuromps.models")
+REPO_ROOT = Path(__file__).resolve().parents[3]
+ASSET = REPO_ROOT / "data" / "processed" / "neuromps.parquet"
+DELTA_FEATURES = (
+    "mfr_hz",
+    "burst_rate_per_min",
+    "burst_duration_s",
+    "spikes_per_burst",
+    "pct_spikes_in_bursts",
+    "network_burst_rate_per_min",
+    "synchrony_index",
+    "isi_cv",
+    "active_electrodes",
+)
+FLOOR = 0.05  # counts a silent recording as this fraction of its baseline, not as -inf
+CONTROL = "control"
+
+
+def delta_columns() -> list[str]:
+    """Column names of the delta feature block."""
+    return [f"delta.{f}" for f in DELTA_FEATURES]
+
+
+def log_ratio(exposure: float | None, baseline: float | None) -> float:
+    """log2(exposure / baseline).
+
+    A silent exposure is floored at ``FLOOR`` of its baseline instead of running
+    to -inf, so "activity abolished" stays a finite, comparable number. A zero or
+    missing baseline gives NaN: the ratio is genuinely undefined, and inventing a
+    value here would put a fabricated effect size into the model.
+    """
+    if exposure is None or baseline is None:
+        return float("nan")
+    exposure, baseline = float(exposure), float(baseline)
+    if np.isnan(exposure) or np.isnan(baseline) or baseline <= 0:
+        return float("nan")
+    return float(np.log2(max(exposure, FLOOR * baseline) / baseline))
+
+
+def _pair_key(row: pd.Series) -> tuple:
+    """Identity of the culture unit, independent of the recording phase."""
+    plate = str(row.get("plate_id") or "")
+    for phase_word in ("Baseline", "Pharma", "TTX"):
+        plate = plate.replace(phase_word, "")
+    compartment = row.get("device.compartment_id")
+    return (
+        row["source"],
+        row["cell_source.species"],
+        row["unit_id"],
+        plate,
+        compartment if isinstance(compartment, str) else "",
+    )
+
+
+def build_pairs(records: pd.DataFrame, usable_only: bool = True) -> pd.DataFrame:
+    """Pair each exposure recording with the baseline of the same unit.
+
+    Args:
+        records: the flattened asset (spike-time records only are used).
+        usable_only: drop pairs where either recording failed QC.
+
+    Returns:
+        One row per pair: identity, label, dose and ``delta.<feature>`` columns.
+    """
+    df = records[records["data_level"] == "spike_times"].copy()
+    if usable_only:
+        df = df[df["qc.usable"].astype(bool)]
+    df["_key"] = df.apply(_pair_key, axis=1)
+    baselines = {row["_key"]: row for _, row in df[df["recording.phase"] == "baseline"].iterrows()}
+    rows = []
+    for _, exposure in df[df["recording.phase"] == "exposure"].iterrows():
+        baseline = baselines.get(exposure["_key"])
+        if baseline is None:
+            continue
+        rows.append(_pair_row(exposure, baseline))
+    if not rows:
+        return pd.DataFrame(columns=["pair_id", "group", "label", *delta_columns()])
+    return pd.DataFrame(rows)
+
+
+def _pair_row(exposure: pd.Series, baseline: pd.Series) -> dict:
+    """One modelling row from an exposure/baseline pair."""
+    label = exposure.get("compound.mechanism_class")
+    label = CONTROL if not isinstance(label, str) or not label else label
+    deltas = {
+        f"delta.{f}": log_ratio(exposure.get(f"features.{f}"), baseline.get(f"features.{f}"))
+        for f in DELTA_FEATURES
+    }
+    return {
+        "pair_id": f"{exposure['record_id']}|{baseline['record_id']}",
+        "group": f"{exposure['source']}:{exposure['cell_source.species']}:{exposure['unit_id']}",
+        "source": exposure["source"],
+        "species": exposure["cell_source.species"],
+        "system": exposure["cell_source.system"],
+        "unit_id": exposure["unit_id"],
+        "compound": exposure.get("compound.name"),
+        "dose_value": exposure.get("compound.dose_value"),
+        "dose_unit": exposure.get("compound.dose_unit"),
+        "label": label,
+        **deltas,
+    }
+
+
+def load_pairs(asset: Path = ASSET, usable_only: bool = True) -> pd.DataFrame:
+    """Build the modelling table straight from the built asset."""
+    return build_pairs(pd.read_parquet(asset), usable_only=usable_only)
