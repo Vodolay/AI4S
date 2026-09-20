@@ -360,10 +360,50 @@ Checked against the real devices, where it does **not** bite:
 So the HD9 lag result stands, but **any inference of direction from coupling must control for firing
 rate**. That is now a requirement for HD14-16, not an afterthought.
 
-### Next first task (HD12)
-- MEA simulator proper: place electrodes spatially per compartment, then calibrate the network so
-  simulated features sit inside the real distributions (network burst rate and synchrony are the two
-  that are currently out). Record which parameters were tuned and against what.
+## 2026-09-20: Phase 3, HD12 - MEA simulator and calibration
+
+### Done
+- `twin/mea.py`: neurons and electrodes placed in space. Each chamber is 1.6 x 1.2 mm with a 6x8
+  electrode grid at 200 um pitch (48 per chamber, matching the real device); an electrode hears
+  somata within `detection_radius_um`. The interface electrodes over the microchannel region are
+  **not modelled** - their signals are axonal, not somatic - and are excluded rather than faked.
+- `twin/calibrate.py`: targets computed from the asset at run time (ScreenNeuroPharm chamber
+  baselines, n=48), compared **per compartment** because that is how a real chamber record is
+  defined. Seeded random search over 7 parameters, last 40% of the budget refining around the best
+  draw; all 45 trials kept in `outputs/twin/hd12_calibration_simulated.json`.
+- `run_all.py --stage twin` runs validation then calibration. 241 tests pass, ruff clean.
+
+### Calibration result (`metrics.twin_hd12_calibration`)
+Best score **0.076**, from 2.31 at the worst draw.
+
+| feature | simulated | real band | inside |
+|---|---|---|---|
+| mfr_hz | 6.50 | 6.79 - 21.01 | 4% under |
+| burst_rate_per_min | 22.48 | 12.63 - 29.73 | yes |
+| network_burst_rate_per_min | 29.25 | 11.69 - 22.70 | 29% over |
+| synchrony_index | 0.91 | 0.68 - 0.84 | 8% over |
+| pct_spikes_in_bursts | 90.46 | 84.66 - 93.69 | yes |
+
+**Tuned:** background_weight, excitatory_weight, inhibitory_weight, adaptation_increment,
+threshold_spread, intra_in_degree, detection_radius_um. Everything else at module default. The
+searched ranges are recorded next to the result.
+
+### What the residual mismatch means
+The twin reproduces burst-level statistics and **over-synchronises**. The two features still outside
+the band - network burst rate and synchrony - are exactly the two that HD8 found do not transfer
+across platforms and HD9 found shift most between species. Three independent routes now point at the
+same conclusion: rate and burst-fraction measures are portable and reproducible; synchrony and
+network-burst measures are neither.
+
+A model change was made while calibrating: **per-neuron threshold heterogeneity**, because identical
+neurons synchronise almost perfectly. Notably the search then chose a near-zero spread (0.016), so
+heterogeneity alone does not fix the over-synchrony; candidates for HD13+ are distance-dependent
+connectivity, short-term synaptic depression, and correlated background input.
+
+### Next first task (HD13)
+- Drug perturbation knobs: confirm each of `gabaa_scale` / `ampa_scale` / `threshold_scale` moves
+  simulated features in the direction the real pharmacology shows, as a qualitative validation table.
+  The bicuculline dose-response in the asset is the reference for the GABA-A direction.
 
 ### Superseded plan note (kept for history)
 - Brian2 two-compartment network with directional inter-compartment projections. Concrete targets
