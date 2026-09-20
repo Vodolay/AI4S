@@ -17,9 +17,9 @@ from pathlib import Path
 
 import numpy as np
 
-from neuromps.features.coupling import directed_coupling
 from neuromps.features.mea import extract_features
 from neuromps.metrics import update_metrics
+from neuromps.twin.mea import electrode_coupling
 from neuromps.twin.network import NetworkParams, simulate
 
 log = logging.getLogger("neuromps.twin")
@@ -72,11 +72,9 @@ def electrode_spikes(
 def simulated_features(params: NetworkParams) -> dict:
     """Features of one simulated recording, from the shared extractor."""
     result = simulate(params)
-    features = extract_features(electrode_spikes(result), result.duration_s)
-    spikes = result.spikes_by_compartment()
-    coupling = directed_coupling(
-        {"p": np.sort(spikes[0])}, {"p": np.sort(spikes[1])}, result.duration_s
-    )
+    heard = electrode_spikes(result)
+    features = extract_features(heard, result.duration_s)
+    coupling = electrode_coupling(heard, result.duration_s)
     return {
         "params": params.as_record(),
         "n_spikes": int(result.spike_times.size),
@@ -112,10 +110,8 @@ def directionality_sweep(
                     background_scale_target=scale,
                 )
                 result = simulate(params)
+                out = electrode_coupling(electrode_spikes(result), result.duration_s)
                 spikes = result.spikes_by_compartment()
-                out = directed_coupling(
-                    {"p": np.sort(spikes[0])}, {"p": np.sort(spikes[1])}, result.duration_s
-                )
                 rates = {
                     c: len(t) / params.n_per_compartment / duration_s for c, t in spikes.items()
                 }

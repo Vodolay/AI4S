@@ -22,9 +22,14 @@ from pathlib import Path
 
 import numpy as np
 
-from neuromps.features.coupling import directed_coupling
 from neuromps.features.mea import extract_features
-from neuromps.twin.mea import ElectrodeLayout, electrode_positions, place_neurons, record_electrodes
+from neuromps.twin.mea import (
+    ElectrodeLayout,
+    electrode_coupling,
+    electrode_positions,
+    place_neurons,
+    record_electrodes,
+)
 from neuromps.twin.network import NetworkParams, simulate
 
 log = logging.getLogger("neuromps.twin")
@@ -170,10 +175,7 @@ def simulate_summary(
         )
         for c in (0, 1)
     }
-    spikes = result.spikes_by_compartment()
-    coupling = directed_coupling(
-        {"p": np.sort(spikes[0])}, {"p": np.sort(spikes[1])}, result.duration_s
-    )
+    coupling = electrode_coupling(heard, result.duration_s)
     return summary_vector(features, coupling)
 
 
@@ -197,6 +199,7 @@ def save_simulations(path: Path, theta: np.ndarray, x: np.ndarray, metadata: dic
     metadata = {
         **metadata,
         "electrodes_per_compartment": default_layout().electrodes_per_compartment,
+        "summary_pipeline_sha256": summary_pipeline_fingerprint(),
     }
     np.savez_compressed(
         path,
@@ -220,6 +223,37 @@ def load_simulations(path: Path) -> dict:
         }
 
 
+def summary_pipeline_fingerprint() -> str:
+    """Hash of the source of every function that decides what a summary vector means.
+
+    Summary *names* guard the meaning of each dimension and the electrode count
+    guards their scale, but neither notices a changed definition: HD16 changed
+    coupling from all-neuron to electrode-heard spikes without either guard
+    firing. This is deliberately conservative - reformatting one of these
+    functions invalidates the cache - because a stale cache is a silent wrong
+    answer while a needless resimulation only costs time.
+    """
+    import hashlib
+    import inspect
+
+    from neuromps.features import coupling as coupling_module
+    from neuromps.features import mea as mea_module
+    from neuromps.twin import mea as twin_mea
+
+    sources = [
+        inspect.getsource(f)
+        for f in (
+            simulate_summary,
+            summary_vector,
+            twin_mea.electrode_coupling,
+            twin_mea.record_electrodes,
+            mea_module.extract_features,
+            coupling_module.directed_coupling,
+        )
+    ]
+    return hashlib.sha256("".join(sources).encode()).hexdigest()[:16]
+
+
 def check_cache_matches_code(cached: dict) -> None:
     """Refuse a cache produced under different summaries or a different layout.
 
@@ -236,6 +270,13 @@ def check_cache_matches_code(cached: dict) -> None:
         raise SystemExit(
             f"cached simulations used {cached_electrodes} electrodes per compartment, "
             f"the current layout has {expected}; rerun with --rebuild"
+        )
+    cached_fingerprint = cached["metadata"].get("summary_pipeline_sha256")
+    current = summary_pipeline_fingerprint()
+    if cached_fingerprint != current:
+        raise SystemExit(
+            f"cached simulations were produced by summary code {cached_fingerprint}, "
+            f"the current code is {current}; rerun with --rebuild"
         )
 
 

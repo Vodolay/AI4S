@@ -148,3 +148,21 @@ def simulate_recording(params, layout: ElectrodeLayout | None = None, seed: int 
         "params": params.as_record(),
         "result": result,
     }
+
+
+def electrode_coupling(heard: dict[str, np.ndarray], duration_s: float) -> dict:
+    """Directed coupling between compartments, from what the electrodes heard.
+
+    The real ETL measures coupling from the per-electrode spike trains a device
+    detects (`etl/screenneuropharm.py`). Measuring the simulated coupling from
+    every neuron instead would give the twin a cleaner population rate than any
+    MEA can record, and would make the measure independent of electrode count -
+    the one variable an electrode-count experiment has to vary. Same function,
+    same input contract as the real recordings.
+    """
+    from neuromps.features.coupling import directed_coupling
+
+    per_compartment = {
+        c: {k: v for k, v in heard.items() if k.startswith(f"c{c}_")} for c in (0, 1)
+    }
+    return directed_coupling(per_compartment[0], per_compartment[1], duration_s)

@@ -188,9 +188,15 @@ def test_default_layout_matches_the_real_chamber_electrode_count() -> None:
 
 def test_a_cache_from_a_different_layout_is_refused() -> None:
     """Summary names alone do not pin down what the numbers mean; geometry does too."""
-    from neuromps.twin.inference import check_cache_matches_code
+    from neuromps.twin.inference import check_cache_matches_code, summary_pipeline_fingerprint
 
-    good = {"summary_names": list(SUMMARY_NAMES), "metadata": {"electrodes_per_compartment": 48}}
+    good = {
+        "summary_names": list(SUMMARY_NAMES),
+        "metadata": {
+            "electrodes_per_compartment": 48,
+            "summary_pipeline_sha256": summary_pipeline_fingerprint(),
+        },
+    }
     check_cache_matches_code(good)  # does not raise
     for bad in ({"electrodes_per_compartment": 24}, {}):
         with pytest.raises(SystemExit, match="electrodes per compartment"):
@@ -201,3 +207,19 @@ def test_saving_records_the_layout_that_produced_the_summaries(tmp_path: Path) -
     path = tmp_path / "sims.npz"
     save_simulations(path, np.zeros((2, 5)), np.zeros((2, len(SUMMARY_NAMES))), metadata={})
     assert load_simulations(path)["metadata"]["electrodes_per_compartment"] == 48
+
+
+def test_a_cache_from_different_summary_code_is_refused() -> None:
+    """HD16 changed what coupling means without any guard noticing; this is that guard."""
+    from neuromps.twin.inference import check_cache_matches_code, summary_pipeline_fingerprint
+
+    assert summary_pipeline_fingerprint() == summary_pipeline_fingerprint()  # stable
+    stale = {
+        "summary_names": list(SUMMARY_NAMES),
+        "metadata": {
+            "electrodes_per_compartment": 48,
+            "summary_pipeline_sha256": "0000000000000000",
+        },
+    }
+    with pytest.raises(SystemExit, match="summary code"):
+        check_cache_matches_code(stale)

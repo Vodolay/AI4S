@@ -129,3 +129,39 @@ def test_layout_is_recorded_for_provenance() -> None:
     assert record["rows"] == 3
     assert record["detection_radius_um"] == 150.0
     assert "pitch_um" in record
+
+
+def test_coupling_is_measured_from_electrodes_not_from_every_neuron() -> None:
+    """A real device hears a subsample; the twin must be held to the same contract."""
+    import numpy as np
+
+    from neuromps.features.coupling import directed_coupling
+    from neuromps.twin.mea import electrode_coupling
+
+    rng = np.random.default_rng(0)
+    base = np.sort(rng.uniform(0, 10.0, 400))
+    heard = {
+        "c0_e0": base,
+        "c0_e1": base + 0.001,
+        "c1_e0": base + 0.01,  # compartment 1 lags compartment 0
+    }
+    out = electrode_coupling(heard, 10.0)
+    expected = directed_coupling(
+        {"c0_e0": heard["c0_e0"], "c0_e1": heard["c0_e1"]}, {"c1_e0": heard["c1_e0"]}, 10.0
+    )
+    assert out == expected
+    assert out["lag_ms"] is not None
+
+
+def test_dropping_electrodes_changes_the_measured_coupling() -> None:
+    """If coupling ignored the electrode subsample, an electrode sweep would be vacuous."""
+    import numpy as np
+
+    from neuromps.twin.mea import electrode_coupling
+
+    rng = np.random.default_rng(1)
+    shared = np.sort(rng.uniform(0, 10.0, 300))
+    noise = np.sort(rng.uniform(0, 10.0, 300))
+    full = {"c0_e0": shared, "c0_e1": noise, "c1_e0": shared + 0.01}
+    fewer = {"c0_e0": shared, "c1_e0": shared + 0.01}
+    assert electrode_coupling(full, 10.0) != electrode_coupling(fewer, 10.0)

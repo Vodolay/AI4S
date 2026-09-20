@@ -45,6 +45,7 @@ def main(argv: list[str] | None = None) -> int:
             run_asymmetry([])
         elif stage == "twin":
             from neuromps.twin.calibrate import main as calibrate_twin
+            from neuromps.twin.directionality import main as run_directionality
             from neuromps.twin.inference import main as run_inference
             from neuromps.twin.perturbation import main as run_knobs
             from neuromps.twin.real_inference import main as run_real_inference
@@ -56,6 +57,7 @@ def main(argv: list[str] | None = None) -> int:
             run_knobs(quick)
             run_inference(quick)
             run_real_inference(quick)
+            run_directionality(quick)
         else:
             logging.info("stage %r not implemented yet (later phase) - skipping", stage)
     logging.info("run_all finished in %.1f s", time.time() - t0)
