@@ -325,7 +325,7 @@ by a script under `src/`** and must be before they enter the report:
 
 Consequence for Phase 3: **any inference of direction from coupling must control for firing rate.**
 
-### 2026-09-20 · Dose-unit normalization centralised, mM bug fixed · `a1ac499`
+### 2026-09-20 · Dose-unit normalization centralised, mM bug fixed · `f821bb4`
 Writing this notebook surfaced a latent bug: `etl/kapucu.py` and `etl/screenneuropharm.py` each
 mapped a `mM` dose suffix to `uM` **without multiplying the value by 1000**, so a 5 mM exposure would
 have been recorded as 5 uM — the number kept, the unit changed, no error raised.
