@@ -1,0 +1,4716 @@
+{
+  "label": "posterior trained on SIMULATIONS, applied to REAL recordings",
+  "n_recordings": 113,
+  "distribution_check": {
+    "n_real": 113,
+    "mean_fraction_inside": 0.903,
+    "outside_dimensions": [
+      "c0_active_electrodes",
+      "c1_active_electrodes"
+    ],
+    "by_dimension": {
+      "c0_mfr_hz": {
+        "fraction_inside": 0.991,
+        "simulated_range": [
+          0.0,
+          32.098
+        ],
+        "real_median": 9.581
+      },
+      "c0_burst_rate_per_min": {
+        "fraction_inside": 1.0,
+        "simulated_range": [
+          0.0,
+          54.25
+        ],
+        "real_median": 9.765
+      },
+      "c0_pct_spikes_in_bursts": {
+        "fraction_inside": 1.0,
+        "simulated_range": [
+          0.0,
+          100.0
+        ],
+        "real_median": 92.009
+      },
+      "c0_network_burst_rate_per_min": {
+        "fraction_inside": 1.0,
+        "simulated_range": [
+          0.0,
+          138.0
+        ],
+        "real_median": 9.754
+      },
+      "c0_synchrony_index": {
+        "fraction_inside": 1.0,
+        "simulated_range": [
+          -0.013,
+          1.0
+        ],
+        "real_median": 0.749
+      },
+      "c0_isi_cv": {
+        "fraction_inside": 1.0,
+        "simulated_range": [
+          0.0,
+          9.455
+        ],
+        "real_median": 3.761
+      },
+      "c0_active_electrodes": {
+        "fraction_inside": 0.106,
+        "simulated_range": [
+          0.0,
+          24.0
+        ],
+        "real_median": 44.0
+      },
+      "c1_mfr_hz": {
+        "fraction_inside": 0.991,
+        "simulated_range": [
+          0.0,
+          44.213
+        ],
+        "real_median": 6.132
+      },
+      "c1_burst_rate_per_min": {
+        "fraction_inside": 1.0,
+        "simulated_range": [
+          0.0,
+          68.295
+        ],
+        "real_median": 10.263
+      },
+      "c1_pct_spikes_in_bursts": {
+        "fraction_inside": 1.0,
+        "simulated_range": [
+          0.0,
+          100.0
+        ],
+        "real_median": 88.112
+      },
+      "c1_network_burst_rate_per_min": {
+        "fraction_inside": 1.0,
+        "simulated_range": [
+          0.0,
+          144.0
+        ],
+        "real_median": 9.879
+      },
+      "c1_synchrony_index": {
+        "fraction_inside": 1.0,
+        "simulated_range": [
+          -0.013,
+          1.0
+        ],
+        "real_median": 0.772
+      },
+      "c1_isi_cv": {
+        "fraction_inside": 1.0,
+        "simulated_range": [
+          0.0,
+          10.881
+        ],
+        "real_median": 3.776
+      },
+      "c1_active_electrodes": {
+        "fraction_inside": 0.115,
+        "simulated_range": [
+          0.0,
+          24.0
+        ],
+        "real_median": 42.0
+      },
+      "log_rate_ratio": {
+        "fraction_inside": 1.0,
+        "simulated_range": [
+          -6.658,
+          6.658
+        ],
+        "real_median": 0.263
+      },
+      "peak_correlation": {
+        "fraction_inside": 0.973,
+        "simulated_range": [
+          -0.002,
+          0.985
+        ],
+        "real_median": 0.89
+      },
+      "lag_ms": {
+        "fraction_inside": 0.973,
+        "simulated_range": [
+          -37.95,
+          78.85
+        ],
+        "real_median": 0.0
+      },
+      "asymmetry": {
+        "fraction_inside": 1.0,
+        "simulated_range": [
+          -1.0,
+          1.0
+        ],
+        "real_median": -0.012
+      },
+      "coupling_measured": {
+        "fraction_inside": 1.0,
+        "simulated_range": [
+          0.0,
+          1.0
+        ],
+        "real_median": 1.0
+      }
+    }
+  },
+  "gabaa_scale_dose_trend": {
+    "spearman_rho": -0.197,
+    "naive_p_value": 0.0361,
+    "n_recordings": 113,
+    "direction": "falls with dose",
+    "spearman_rho_ci95": [
+      -0.4442,
+      0.1026
+    ],
+    "n_devices": 16,
+    "bootstrap_resamples": 1000,
+    "excludes_zero": false
+  },
+  "gabaa_scale_dose_trend_without_ood_dimensions": {
+    "spearman_rho": -0.028,
+    "naive_p_value": 0.7691,
+    "n_recordings": 113,
+    "direction": "falls with dose",
+    "spearman_rho_ci95": [
+      -0.3098,
+      0.2962
+    ],
+    "n_devices": 16,
+    "bootstrap_resamples": 1000,
+    "excludes_zero": false
+  },
+  "expected": "a GABA-A antagonist should lower gabaa_scale, and lower it further with dose",
+  "per_recording": [
+    {
+      "device_id": "Br18-CxCx-24544",
+      "dose_uM": 1.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.1275,
+        "ci90": [
+          0.01,
+          0.3808
+        ]
+      },
+      "inter_in_degree": {
+        "median": 9.5484,
+        "ci90": [
+          4.0519,
+          15.3516
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.339,
+        "ci90": [
+          0.1374,
+          0.6714
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.566,
+        "ci90": [
+          0.4551,
+          0.7275
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8708,
+        "ci90": [
+          0.8523,
+          0.9075
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxCx-24544",
+      "dose_uM": 3.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.119,
+        "ci90": [
+          0.0112,
+          0.4192
+        ]
+      },
+      "inter_in_degree": {
+        "median": 9.4054,
+        "ci90": [
+          3.8704,
+          15.0497
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.3568,
+        "ci90": [
+          0.1432,
+          0.6719
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5788,
+        "ci90": [
+          0.453,
+          0.7425
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8687,
+        "ci90": [
+          0.8511,
+          0.9033
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxCx-24544",
+      "dose_uM": 10.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.1189,
+        "ci90": [
+          0.0098,
+          0.3776
+        ]
+      },
+      "inter_in_degree": {
+        "median": 9.6175,
+        "ci90": [
+          3.9683,
+          15.8653
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.3682,
+        "ci90": [
+          0.1331,
+          0.6637
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.579,
+        "ci90": [
+          0.4536,
+          0.7384
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8696,
+        "ci90": [
+          0.8525,
+          0.9049
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxCx-24544",
+      "dose_uM": 30.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.1159,
+        "ci90": [
+          0.0083,
+          0.3855
+        ]
+      },
+      "inter_in_degree": {
+        "median": 9.3226,
+        "ci90": [
+          3.6669,
+          15.4082
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.354,
+        "ci90": [
+          0.1456,
+          0.6698
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5406,
+        "ci90": [
+          0.4365,
+          0.7069
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8709,
+        "ci90": [
+          0.8524,
+          0.9046
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxCx-24544",
+      "dose_uM": 0.0,
+      "phase": "baseline",
+      "log10_forward_ratio": {
+        "median": 0.5799,
+        "ci90": [
+          0.1612,
+          1.0108
+        ]
+      },
+      "inter_in_degree": {
+        "median": 12.9005,
+        "ci90": [
+          5.8839,
+          18.8782
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.4097,
+        "ci90": [
+          0.1563,
+          0.7437
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5017,
+        "ci90": [
+          0.4097,
+          0.6728
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8801,
+        "ci90": [
+          0.8547,
+          0.922
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxCx-24549",
+      "dose_uM": 1.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.3683,
+        "ci90": [
+          0.0543,
+          0.8378
+        ]
+      },
+      "inter_in_degree": {
+        "median": 10.8265,
+        "ci90": [
+          4.312,
+          16.9899
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.4288,
+        "ci90": [
+          0.1531,
+          0.7674
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.4942,
+        "ci90": [
+          0.4129,
+          0.653
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8935,
+        "ci90": [
+          0.8603,
+          0.9303
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxCx-24549",
+      "dose_uM": 3.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.4601,
+        "ci90": [
+          0.0765,
+          0.9294
+        ]
+      },
+      "inter_in_degree": {
+        "median": 10.9056,
+        "ci90": [
+          4.5698,
+          17.7692
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.4488,
+        "ci90": [
+          0.1778,
+          0.8457
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.4945,
+        "ci90": [
+          0.409,
+          0.6717
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.9026,
+        "ci90": [
+          0.8679,
+          0.9453
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxCx-24549",
+      "dose_uM": 10.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.4303,
+        "ci90": [
+          0.0651,
+          0.9226
+        ]
+      },
+      "inter_in_degree": {
+        "median": 10.9082,
+        "ci90": [
+          4.3195,
+          17.6877
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.4327,
+        "ci90": [
+          0.158,
+          0.8448
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.4882,
+        "ci90": [
+          0.4063,
+          0.6771
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.9056,
+        "ci90": [
+          0.8697,
+          0.9415
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxCx-24549",
+      "dose_uM": 30.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.4154,
+        "ci90": [
+          0.0789,
+          0.8355
+        ]
+      },
+      "inter_in_degree": {
+        "median": 9.9963,
+        "ci90": [
+          4.103,
+          16.6742
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.4367,
+        "ci90": [
+          0.1641,
+          0.8051
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.4962,
+        "ci90": [
+          0.4088,
+          0.6643
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.9102,
+        "ci90": [
+          0.8757,
+          0.9474
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxCx-24549",
+      "dose_uM": 0.1,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.4374,
+        "ci90": [
+          0.0685,
+          0.8841
+        ]
+      },
+      "inter_in_degree": {
+        "median": 10.1736,
+        "ci90": [
+          4.1144,
+          17.8235
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.4029,
+        "ci90": [
+          0.1575,
+          0.7634
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.4833,
+        "ci90": [
+          0.4081,
+          0.6723
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.9125,
+        "ci90": [
+          0.8818,
+          0.9503
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxCx-24549",
+      "dose_uM": 100.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.3899,
+        "ci90": [
+          0.0637,
+          0.83
+        ]
+      },
+      "inter_in_degree": {
+        "median": 9.8674,
+        "ci90": [
+          3.8796,
+          16.9818
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.4488,
+        "ci90": [
+          0.1611,
+          0.8561
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.4971,
+        "ci90": [
+          0.4101,
+          0.6777
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.9136,
+        "ci90": [
+          0.8788,
+          0.9513
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxCx-24549",
+      "dose_uM": 300.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.3814,
+        "ci90": [
+          0.063,
+          0.8633
+        ]
+      },
+      "inter_in_degree": {
+        "median": 10.068,
+        "ci90": [
+          3.6724,
+          16.9544
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.468,
+        "ci90": [
+          0.1789,
+          0.8668
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.4988,
+        "ci90": [
+          0.411,
+          0.6749
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.9252,
+        "ci90": [
+          0.891,
+          0.9693
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxCx-24549",
+      "dose_uM": 500.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.4118,
+        "ci90": [
+          0.0704,
+          0.9246
+        ]
+      },
+      "inter_in_degree": {
+        "median": 10.1754,
+        "ci90": [
+          3.5178,
+          17.1186
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.4713,
+        "ci90": [
+          0.1733,
+          0.8661
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5154,
+        "ci90": [
+          0.415,
+          0.7244
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.9289,
+        "ci90": [
+          0.8912,
+          0.9728
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxCx-24549",
+      "dose_uM": 0.0,
+      "phase": "baseline",
+      "log10_forward_ratio": {
+        "median": 0.31,
+        "ci90": [
+          0.0539,
+          0.6962
+        ]
+      },
+      "inter_in_degree": {
+        "median": 9.4984,
+        "ci90": [
+          3.7512,
+          15.8399
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.3162,
+        "ci90": [
+          0.1379,
+          0.5479
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5604,
+        "ci90": [
+          0.4454,
+          0.7369
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.9108,
+        "ci90": [
+          0.878,
+          0.943
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxCx-24550",
+      "dose_uM": 1.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.5811,
+        "ci90": [
+          0.1416,
+          1.0508
+        ]
+      },
+      "inter_in_degree": {
+        "median": 12.2466,
+        "ci90": [
+          4.4246,
+          18.5639
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.5045,
+        "ci90": [
+          0.2042,
+          0.9345
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5088,
+        "ci90": [
+          0.4154,
+          0.6962
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8966,
+        "ci90": [
+          0.8618,
+          0.9443
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxCx-24550",
+      "dose_uM": 3.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.6899,
+        "ci90": [
+          0.2206,
+          1.1526
+        ]
+      },
+      "inter_in_degree": {
+        "median": 12.2718,
+        "ci90": [
+          4.7692,
+          18.6247
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.4911,
+        "ci90": [
+          0.1555,
+          0.9443
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5094,
+        "ci90": [
+          0.4165,
+          0.7084
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.9015,
+        "ci90": [
+          0.8646,
+          0.9456
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxCx-24550",
+      "dose_uM": 10.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.6597,
+        "ci90": [
+          0.1425,
+          1.1479
+        ]
+      },
+      "inter_in_degree": {
+        "median": 12.0897,
+        "ci90": [
+          4.6327,
+          18.3568
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.5089,
+        "ci90": [
+          0.1917,
+          0.965
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5184,
+        "ci90": [
+          0.4111,
+          0.7085
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.902,
+        "ci90": [
+          0.8649,
+          0.9458
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxCx-24550",
+      "dose_uM": 30.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.6638,
+        "ci90": [
+          0.2098,
+          1.1273
+        ]
+      },
+      "inter_in_degree": {
+        "median": 11.4207,
+        "ci90": [
+          3.6128,
+          18.8224
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.5075,
+        "ci90": [
+          0.1528,
+          0.9308
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5135,
+        "ci90": [
+          0.4115,
+          0.6984
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8948,
+        "ci90": [
+          0.8623,
+          0.935
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxCx-24550",
+      "dose_uM": 0.0,
+      "phase": "baseline",
+      "log10_forward_ratio": {
+        "median": 0.6588,
+        "ci90": [
+          0.2123,
+          1.1084
+        ]
+      },
+      "inter_in_degree": {
+        "median": 12.4975,
+        "ci90": [
+          5.2054,
+          18.9121
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.457,
+        "ci90": [
+          0.1584,
+          0.8496
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.4999,
+        "ci90": [
+          0.4127,
+          0.7057
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8992,
+        "ci90": [
+          0.8628,
+          0.9442
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxCx-34632",
+      "dose_uM": 1.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.4808,
+        "ci90": [
+          0.111,
+          0.8748
+        ]
+      },
+      "inter_in_degree": {
+        "median": 10.2942,
+        "ci90": [
+          4.1833,
+          17.3457
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.3337,
+        "ci90": [
+          0.1257,
+          0.6568
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5289,
+        "ci90": [
+          0.4183,
+          0.7354
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.9114,
+        "ci90": [
+          0.8789,
+          0.9504
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxCx-34632",
+      "dose_uM": 3.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.4758,
+        "ci90": [
+          0.08,
+          0.8817
+        ]
+      },
+      "inter_in_degree": {
+        "median": 10.1149,
+        "ci90": [
+          3.9246,
+          17.0465
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.3582,
+        "ci90": [
+          0.1464,
+          0.6771
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5438,
+        "ci90": [
+          0.4249,
+          0.7236
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.9221,
+        "ci90": [
+          0.8949,
+          0.9566
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxCx-34632",
+      "dose_uM": 10.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.5193,
+        "ci90": [
+          0.1306,
+          0.9957
+        ]
+      },
+      "inter_in_degree": {
+        "median": 10.2897,
+        "ci90": [
+          4.1554,
+          17.7005
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.3992,
+        "ci90": [
+          0.1689,
+          0.7184
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5115,
+        "ci90": [
+          0.417,
+          0.6867
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.9182,
+        "ci90": [
+          0.8892,
+          0.9536
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxCx-34632",
+      "dose_uM": 30.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.5247,
+        "ci90": [
+          0.1344,
+          0.9502
+        ]
+      },
+      "inter_in_degree": {
+        "median": 11.16,
+        "ci90": [
+          4.9983,
+          18.2097
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.383,
+        "ci90": [
+          0.1572,
+          0.7154
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5226,
+        "ci90": [
+          0.4157,
+          0.7088
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.9232,
+        "ci90": [
+          0.8914,
+          0.9558
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxCx-34632",
+      "dose_uM": 0.0,
+      "phase": "baseline",
+      "log10_forward_ratio": {
+        "median": 0.4284,
+        "ci90": [
+          0.1077,
+          0.8118
+        ]
+      },
+      "inter_in_degree": {
+        "median": 10.2483,
+        "ci90": [
+          4.0039,
+          16.2219
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.2875,
+        "ci90": [
+          0.1262,
+          0.5399
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5757,
+        "ci90": [
+          0.4593,
+          0.7627
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.9153,
+        "ci90": [
+          0.8855,
+          0.953
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxCx-34633",
+      "dose_uM": 1.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.6837,
+        "ci90": [
+          0.2068,
+          1.164
+        ]
+      },
+      "inter_in_degree": {
+        "median": 12.5914,
+        "ci90": [
+          5.9078,
+          18.4097
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.3738,
+        "ci90": [
+          0.1455,
+          0.6969
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5548,
+        "ci90": [
+          0.4252,
+          0.7539
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.9204,
+        "ci90": [
+          0.8854,
+          0.9661
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxCx-34633",
+      "dose_uM": 3.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.7074,
+        "ci90": [
+          0.2653,
+          1.1571
+        ]
+      },
+      "inter_in_degree": {
+        "median": 12.5128,
+        "ci90": [
+          5.694,
+          18.6108
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.3709,
+        "ci90": [
+          0.1446,
+          0.7022
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5622,
+        "ci90": [
+          0.4312,
+          0.7705
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.9168,
+        "ci90": [
+          0.8845,
+          0.9618
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxCx-34633",
+      "dose_uM": 10.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.6989,
+        "ci90": [
+          0.2583,
+          1.1201
+        ]
+      },
+      "inter_in_degree": {
+        "median": 13.2398,
+        "ci90": [
+          5.3773,
+          18.9293
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.4138,
+        "ci90": [
+          0.1447,
+          0.8035
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5477,
+        "ci90": [
+          0.4328,
+          0.771
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.9173,
+        "ci90": [
+          0.8791,
+          0.9651
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxCx-34633",
+      "dose_uM": 30.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.7648,
+        "ci90": [
+          0.2819,
+          1.1973
+        ]
+      },
+      "inter_in_degree": {
+        "median": 13.2848,
+        "ci90": [
+          6.4284,
+          18.9498
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.3974,
+        "ci90": [
+          0.1546,
+          0.747
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5481,
+        "ci90": [
+          0.4242,
+          0.7333
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.9197,
+        "ci90": [
+          0.8785,
+          0.9618
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxCx-34633",
+      "dose_uM": 0.0,
+      "phase": "baseline",
+      "log10_forward_ratio": {
+        "median": 0.6925,
+        "ci90": [
+          0.2138,
+          1.1257
+        ]
+      },
+      "inter_in_degree": {
+        "median": 12.2766,
+        "ci90": [
+          5.6157,
+          18.0871
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.3608,
+        "ci90": [
+          0.155,
+          0.6631
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5381,
+        "ci90": [
+          0.4167,
+          0.7396
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.9309,
+        "ci90": [
+          0.8962,
+          0.9679
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxHp-34544",
+      "dose_uM": 1.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 1.0623,
+        "ci90": [
+          0.6768,
+          1.2768
+        ]
+      },
+      "inter_in_degree": {
+        "median": 8.0946,
+        "ci90": [
+          2.9984,
+          14.1192
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.2525,
+        "ci90": [
+          0.1178,
+          0.4592
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5471,
+        "ci90": [
+          0.4148,
+          0.826
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.9507,
+        "ci90": [
+          0.9077,
+          0.998
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxHp-34544",
+      "dose_uM": 3.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 1.1216,
+        "ci90": [
+          0.7516,
+          1.2855
+        ]
+      },
+      "inter_in_degree": {
+        "median": 8.9862,
+        "ci90": [
+          3.8141,
+          15.3498
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.1831,
+        "ci90": [
+          0.1055,
+          0.33
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.6923,
+        "ci90": [
+          0.4362,
+          1.0635
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.9748,
+        "ci90": [
+          0.9045,
+          1.0439
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxHp-34544",
+      "dose_uM": 0.1,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.5578,
+        "ci90": [
+          0.1661,
+          0.9926
+        ]
+      },
+      "inter_in_degree": {
+        "median": 11.8972,
+        "ci90": [
+          5.2215,
+          18.0953
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.4241,
+        "ci90": [
+          0.1898,
+          0.7285
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5734,
+        "ci90": [
+          0.4603,
+          0.7319
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8669,
+        "ci90": [
+          0.8514,
+          0.8975
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxHp-34544",
+      "dose_uM": 0.3,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.9918,
+        "ci90": [
+          0.5628,
+          1.2608
+        ]
+      },
+      "inter_in_degree": {
+        "median": 12.1539,
+        "ci90": [
+          4.7799,
+          18.364
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.3677,
+        "ci90": [
+          0.1478,
+          0.6441
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5359,
+        "ci90": [
+          0.4253,
+          0.7107
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8709,
+        "ci90": [
+          0.8526,
+          0.909
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxHp-34544",
+      "dose_uM": 0.0,
+      "phase": "baseline",
+      "log10_forward_ratio": {
+        "median": 0.701,
+        "ci90": [
+          0.2431,
+          1.1314
+        ]
+      },
+      "inter_in_degree": {
+        "median": 14.4817,
+        "ci90": [
+          6.2843,
+          19.2683
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.5399,
+        "ci90": [
+          0.2302,
+          0.9046
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5697,
+        "ci90": [
+          0.4414,
+          0.7396
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8595,
+        "ci90": [
+          0.8508,
+          0.8833
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxHp-34633",
+      "dose_uM": 1.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.177,
+        "ci90": [
+          0.0205,
+          0.4802
+        ]
+      },
+      "inter_in_degree": {
+        "median": 7.5817,
+        "ci90": [
+          2.8353,
+          13.1786
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.3312,
+        "ci90": [
+          0.1298,
+          0.6487
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.4989,
+        "ci90": [
+          0.4174,
+          0.6412
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8866,
+        "ci90": [
+          0.8581,
+          0.9213
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxHp-34633",
+      "dose_uM": 3.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.1749,
+        "ci90": [
+          0.0129,
+          0.5246
+        ]
+      },
+      "inter_in_degree": {
+        "median": 6.6717,
+        "ci90": [
+          2.6715,
+          12.3744
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.3445,
+        "ci90": [
+          0.1309,
+          0.6665
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.4976,
+        "ci90": [
+          0.4105,
+          0.6346
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8893,
+        "ci90": [
+          0.857,
+          0.9277
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxHp-34633",
+      "dose_uM": 10.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.1247,
+        "ci90": [
+          0.0083,
+          0.3992
+        ]
+      },
+      "inter_in_degree": {
+        "median": 4.14,
+        "ci90": [
+          2.1097,
+          8.1686
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.3413,
+        "ci90": [
+          0.1209,
+          0.6582
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.57,
+        "ci90": [
+          0.434,
+          0.6931
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.9121,
+        "ci90": [
+          0.8775,
+          0.9456
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxHp-34633",
+      "dose_uM": 30.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.125,
+        "ci90": [
+          0.0121,
+          0.4836
+        ]
+      },
+      "inter_in_degree": {
+        "median": 4.6224,
+        "ci90": [
+          2.2811,
+          9.4134
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.2894,
+        "ci90": [
+          0.1156,
+          0.623
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.7984,
+        "ci90": [
+          0.6352,
+          0.9794
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.94,
+        "ci90": [
+          0.8895,
+          0.9873
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxHp-34633",
+      "dose_uM": 0.1,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.3561,
+        "ci90": [
+          0.0644,
+          0.7338
+        ]
+      },
+      "inter_in_degree": {
+        "median": 11.7905,
+        "ci90": [
+          5.544,
+          18.0507
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.3646,
+        "ci90": [
+          0.1508,
+          0.6232
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.605,
+        "ci90": [
+          0.4745,
+          0.7748
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8632,
+        "ci90": [
+          0.8511,
+          0.8909
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxHp-34633",
+      "dose_uM": 100.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.1147,
+        "ci90": [
+          0.0086,
+          0.3539
+        ]
+      },
+      "inter_in_degree": {
+        "median": 5.54,
+        "ci90": [
+          2.3215,
+          11.8691
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.221,
+        "ci90": [
+          0.1106,
+          0.4219
+        ]
+      },
+      "ampa_scale": {
+        "median": 1.0826,
+        "ci90": [
+          0.8684,
+          1.2674
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.9564,
+        "ci90": [
+          0.8813,
+          1.03
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxHp-34633",
+      "dose_uM": 0.3,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.2698,
+        "ci90": [
+          0.0223,
+          0.6382
+        ]
+      },
+      "inter_in_degree": {
+        "median": 10.1552,
+        "ci90": [
+          4.5559,
+          16.8794
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.3244,
+        "ci90": [
+          0.1375,
+          0.6122
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5587,
+        "ci90": [
+          0.4569,
+          0.7097
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8693,
+        "ci90": [
+          0.8517,
+          0.8962
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxHp-34633",
+      "dose_uM": 0.0,
+      "phase": "baseline",
+      "log10_forward_ratio": {
+        "median": 0.9609,
+        "ci90": [
+          0.5214,
+          1.2649
+        ]
+      },
+      "inter_in_degree": {
+        "median": 12.2257,
+        "ci90": [
+          5.0515,
+          18.7461
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.4166,
+        "ci90": [
+          0.1533,
+          0.7136
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5077,
+        "ci90": [
+          0.4165,
+          0.6771
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8604,
+        "ci90": [
+          0.8509,
+          0.8887
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxHp-39173",
+      "dose_uM": 1.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.4003,
+        "ci90": [
+          0.0688,
+          0.9124
+        ]
+      },
+      "inter_in_degree": {
+        "median": 12.4968,
+        "ci90": [
+          5.1071,
+          18.9553
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.9768,
+        "ci90": [
+          0.5129,
+          1.538
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.4371,
+        "ci90": [
+          0.4021,
+          0.5123
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.871,
+        "ci90": [
+          0.8529,
+          0.9037
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxHp-39173",
+      "dose_uM": 3.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.7016,
+        "ci90": [
+          0.118,
+          1.184
+        ]
+      },
+      "inter_in_degree": {
+        "median": 6.1203,
+        "ci90": [
+          2.361,
+          13.3858
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.8353,
+        "ci90": [
+          0.2915,
+          1.6286
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.4495,
+        "ci90": [
+          0.4038,
+          0.5471
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.9362,
+        "ci90": [
+          0.9198,
+          0.9544
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxHp-39173",
+      "dose_uM": 10.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 1.2241,
+        "ci90": [
+          0.9628,
+          1.2933
+        ]
+      },
+      "inter_in_degree": {
+        "median": 12.6976,
+        "ci90": [
+          4.5719,
+          18.6418
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.146,
+        "ci90": [
+          0.1034,
+          0.2784
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.7973,
+        "ci90": [
+          0.4392,
+          1.3106
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.9371,
+        "ci90": [
+          0.859,
+          1.0621
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxHp-39173",
+      "dose_uM": 0.1,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.3851,
+        "ci90": [
+          0.0631,
+          0.7915
+        ]
+      },
+      "inter_in_degree": {
+        "median": 9.5389,
+        "ci90": [
+          3.3862,
+          16.0865
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.4014,
+        "ci90": [
+          0.163,
+          0.6415
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.6242,
+        "ci90": [
+          0.4894,
+          0.818
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8635,
+        "ci90": [
+          0.8512,
+          0.8947
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxHp-39173",
+      "dose_uM": 0.3,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.4882,
+        "ci90": [
+          0.0838,
+          0.9592
+        ]
+      },
+      "inter_in_degree": {
+        "median": 12.8418,
+        "ci90": [
+          5.5448,
+          18.8793
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.5224,
+        "ci90": [
+          0.1931,
+          0.9357
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.4741,
+        "ci90": [
+          0.4072,
+          0.6183
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8619,
+        "ci90": [
+          0.8512,
+          0.8886
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxHp-39173",
+      "dose_uM": 0.0,
+      "phase": "baseline",
+      "log10_forward_ratio": {
+        "median": 0.7455,
+        "ci90": [
+          0.2926,
+          1.1509
+        ]
+      },
+      "inter_in_degree": {
+        "median": 9.8929,
+        "ci90": [
+          3.3926,
+          16.3304
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.3553,
+        "ci90": [
+          0.1705,
+          0.5688
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.6686,
+        "ci90": [
+          0.5363,
+          0.8605
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.864,
+        "ci90": [
+          0.8514,
+          0.9033
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxHp-39180",
+      "dose_uM": 1.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.4868,
+        "ci90": [
+          0.1153,
+          0.9626
+        ]
+      },
+      "inter_in_degree": {
+        "median": 8.4507,
+        "ci90": [
+          3.1356,
+          15.198
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.3485,
+        "ci90": [
+          0.142,
+          0.6426
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5189,
+        "ci90": [
+          0.4279,
+          0.6704
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8589,
+        "ci90": [
+          0.8505,
+          0.8833
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxHp-39180",
+      "dose_uM": 3.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.4275,
+        "ci90": [
+          0.0849,
+          0.8728
+        ]
+      },
+      "inter_in_degree": {
+        "median": 7.9903,
+        "ci90": [
+          2.9385,
+          14.5889
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.3056,
+        "ci90": [
+          0.1375,
+          0.5667
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.4841,
+        "ci90": [
+          0.4123,
+          0.6001
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8633,
+        "ci90": [
+          0.8511,
+          0.8914
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxHp-39180",
+      "dose_uM": 10.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.1679,
+        "ci90": [
+          0.014,
+          0.4456
+        ]
+      },
+      "inter_in_degree": {
+        "median": 5.2512,
+        "ci90": [
+          2.3899,
+          10.3709
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.2654,
+        "ci90": [
+          0.1158,
+          0.5587
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5222,
+        "ci90": [
+          0.4205,
+          0.6629
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8699,
+        "ci90": [
+          0.8525,
+          0.9052
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxHp-39180",
+      "dose_uM": 30.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.176,
+        "ci90": [
+          0.0152,
+          0.6548
+        ]
+      },
+      "inter_in_degree": {
+        "median": 4.9315,
+        "ci90": [
+          2.3125,
+          10.6909
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.3417,
+        "ci90": [
+          0.1309,
+          0.74
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5242,
+        "ci90": [
+          0.4172,
+          0.6784
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.9305,
+        "ci90": [
+          0.8875,
+          0.9689
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxHp-39180",
+      "dose_uM": 0.1,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.3148,
+        "ci90": [
+          0.0436,
+          0.7682
+        ]
+      },
+      "inter_in_degree": {
+        "median": 11.36,
+        "ci90": [
+          4.874,
+          17.6252
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.3871,
+        "ci90": [
+          0.1531,
+          0.679
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5654,
+        "ci90": [
+          0.4453,
+          0.6996
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8558,
+        "ci90": [
+          0.8505,
+          0.8708
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxHp-39180",
+      "dose_uM": 0.3,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.2534,
+        "ci90": [
+          0.0297,
+          0.6244
+        ]
+      },
+      "inter_in_degree": {
+        "median": 9.5732,
+        "ci90": [
+          3.5826,
+          15.6492
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.3374,
+        "ci90": [
+          0.138,
+          0.5865
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5734,
+        "ci90": [
+          0.4534,
+          0.7167
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8569,
+        "ci90": [
+          0.8505,
+          0.873
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxHp-39180",
+      "dose_uM": 0.0,
+      "phase": "baseline",
+      "log10_forward_ratio": {
+        "median": 0.4321,
+        "ci90": [
+          0.0901,
+          0.9046
+        ]
+      },
+      "inter_in_degree": {
+        "median": 13.2557,
+        "ci90": [
+          5.2403,
+          18.6334
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.4185,
+        "ci90": [
+          0.192,
+          0.6469
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.7329,
+        "ci90": [
+          0.5858,
+          0.8867
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8563,
+        "ci90": [
+          0.8506,
+          0.8742
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxHp-39181",
+      "dose_uM": 1.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.4363,
+        "ci90": [
+          0.0899,
+          0.828
+        ]
+      },
+      "inter_in_degree": {
+        "median": 12.1448,
+        "ci90": [
+          5.2735,
+          18.2723
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.3695,
+        "ci90": [
+          0.1458,
+          0.6713
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.4956,
+        "ci90": [
+          0.4119,
+          0.6695
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8977,
+        "ci90": [
+          0.8671,
+          0.936
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxHp-39181",
+      "dose_uM": 3.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.2986,
+        "ci90": [
+          0.0468,
+          0.6684
+        ]
+      },
+      "inter_in_degree": {
+        "median": 10.1829,
+        "ci90": [
+          3.6585,
+          16.6163
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.4414,
+        "ci90": [
+          0.179,
+          0.7859
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5017,
+        "ci90": [
+          0.4156,
+          0.6713
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.9131,
+        "ci90": [
+          0.8805,
+          0.9536
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxHp-39181",
+      "dose_uM": 10.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.3585,
+        "ci90": [
+          0.0683,
+          0.774
+        ]
+      },
+      "inter_in_degree": {
+        "median": 9.9383,
+        "ci90": [
+          3.5482,
+          16.2836
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.4135,
+        "ci90": [
+          0.1548,
+          0.7964
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5333,
+        "ci90": [
+          0.4181,
+          0.7458
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.9238,
+        "ci90": [
+          0.8917,
+          0.9625
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxHp-39181",
+      "dose_uM": 30.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.3654,
+        "ci90": [
+          0.0576,
+          0.8246
+        ]
+      },
+      "inter_in_degree": {
+        "median": 7.4069,
+        "ci90": [
+          2.6289,
+          14.2828
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.533,
+        "ci90": [
+          0.1957,
+          0.9348
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.4885,
+        "ci90": [
+          0.4064,
+          0.6484
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.9151,
+        "ci90": [
+          0.8767,
+          0.9516
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxHp-39181",
+      "dose_uM": 0.1,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.81,
+        "ci90": [
+          0.4391,
+          1.1755
+        ]
+      },
+      "inter_in_degree": {
+        "median": 12.1291,
+        "ci90": [
+          4.8842,
+          18.7465
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.3676,
+        "ci90": [
+          0.1685,
+          0.5769
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.7065,
+        "ci90": [
+          0.5624,
+          0.8952
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8669,
+        "ci90": [
+          0.8507,
+          0.8996
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxHp-39181",
+      "dose_uM": 100.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.5544,
+        "ci90": [
+          0.1135,
+          1.0338
+        ]
+      },
+      "inter_in_degree": {
+        "median": 6.6258,
+        "ci90": [
+          2.433,
+          11.8866
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.5467,
+        "ci90": [
+          0.1852,
+          0.9879
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5113,
+        "ci90": [
+          0.4191,
+          0.6109
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.9331,
+        "ci90": [
+          0.913,
+          0.9502
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxHp-39181",
+      "dose_uM": 0.3,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.5031,
+        "ci90": [
+          0.1231,
+          0.9489
+        ]
+      },
+      "inter_in_degree": {
+        "median": 11.0604,
+        "ci90": [
+          4.7173,
+          17.6392
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.333,
+        "ci90": [
+          0.1498,
+          0.5869
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5482,
+        "ci90": [
+          0.4305,
+          0.741
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.9177,
+        "ci90": [
+          0.8857,
+          0.9526
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxHp-39181",
+      "dose_uM": 300.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.5693,
+        "ci90": [
+          0.1259,
+          1.0578
+        ]
+      },
+      "inter_in_degree": {
+        "median": 7.9173,
+        "ci90": [
+          2.9026,
+          14.1313
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.6011,
+        "ci90": [
+          0.1976,
+          1.1971
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.619,
+        "ci90": [
+          0.4488,
+          0.7909
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.9862,
+        "ci90": [
+          0.9631,
+          1.0079
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxHp-39181",
+      "dose_uM": 0.0,
+      "phase": "baseline",
+      "log10_forward_ratio": {
+        "median": 0.6575,
+        "ci90": [
+          0.2334,
+          1.1235
+        ]
+      },
+      "inter_in_degree": {
+        "median": 12.7636,
+        "ci90": [
+          5.2846,
+          18.4779
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.4312,
+        "ci90": [
+          0.1936,
+          0.6851
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.6955,
+        "ci90": [
+          0.5482,
+          0.8922
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8599,
+        "ci90": [
+          0.8507,
+          0.8879
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxHp-39184",
+      "dose_uM": 1.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.8504,
+        "ci90": [
+          0.3844,
+          1.2114
+        ]
+      },
+      "inter_in_degree": {
+        "median": 14.8166,
+        "ci90": [
+          7.1794,
+          19.6328
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.4471,
+        "ci90": [
+          0.166,
+          0.7835
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5011,
+        "ci90": [
+          0.4135,
+          0.6575
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.866,
+        "ci90": [
+          0.8515,
+          0.8982
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxHp-39184",
+      "dose_uM": 3.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.716,
+        "ci90": [
+          0.183,
+          1.1745
+        ]
+      },
+      "inter_in_degree": {
+        "median": 13.6232,
+        "ci90": [
+          5.957,
+          19.1089
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.493,
+        "ci90": [
+          0.1761,
+          0.878
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.4859,
+        "ci90": [
+          0.4094,
+          0.6346
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8771,
+        "ci90": [
+          0.853,
+          0.9137
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxHp-39184",
+      "dose_uM": 10.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.8042,
+        "ci90": [
+          0.2572,
+          1.1936
+        ]
+      },
+      "inter_in_degree": {
+        "median": 13.7604,
+        "ci90": [
+          6.0609,
+          19.0397
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.6845,
+        "ci90": [
+          0.2937,
+          1.1331
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.4733,
+        "ci90": [
+          0.407,
+          0.6037
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8913,
+        "ci90": [
+          0.8564,
+          0.9286
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxHp-39184",
+      "dose_uM": 30.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.4828,
+        "ci90": [
+          0.0872,
+          0.9414
+        ]
+      },
+      "inter_in_degree": {
+        "median": 12.5076,
+        "ci90": [
+          5.3558,
+          18.6538
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.8783,
+        "ci90": [
+          0.4008,
+          1.4152
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.4736,
+        "ci90": [
+          0.4096,
+          0.5867
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.943,
+        "ci90": [
+          0.921,
+          0.9687
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxHp-39184",
+      "dose_uM": 0.1,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.6919,
+        "ci90": [
+          0.239,
+          1.1248
+        ]
+      },
+      "inter_in_degree": {
+        "median": 13.5786,
+        "ci90": [
+          6.2281,
+          19.0103
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.517,
+        "ci90": [
+          0.2146,
+          0.8323
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.7001,
+        "ci90": [
+          0.5567,
+          0.8874
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8588,
+        "ci90": [
+          0.8507,
+          0.881
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxHp-39184",
+      "dose_uM": 100.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.31,
+        "ci90": [
+          0.0362,
+          0.8309
+        ]
+      },
+      "inter_in_degree": {
+        "median": 5.6838,
+        "ci90": [
+          2.4743,
+          12.0186
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.3826,
+        "ci90": [
+          0.1275,
+          0.8285
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5687,
+        "ci90": [
+          0.4307,
+          0.7358
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.9787,
+        "ci90": [
+          0.9482,
+          1.0097
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxHp-39184",
+      "dose_uM": 0.3,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.8129,
+        "ci90": [
+          0.3,
+          1.172
+        ]
+      },
+      "inter_in_degree": {
+        "median": 13.6197,
+        "ci90": [
+          6.0486,
+          19.3331
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.4597,
+        "ci90": [
+          0.1857,
+          0.7595
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.6289,
+        "ci90": [
+          0.5059,
+          0.7921
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8598,
+        "ci90": [
+          0.851,
+          0.8834
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxHp-39184",
+      "dose_uM": 300.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.5074,
+        "ci90": [
+          0.0868,
+          1.0831
+        ]
+      },
+      "inter_in_degree": {
+        "median": 6.3704,
+        "ci90": [
+          2.7078,
+          12.9335
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.482,
+        "ci90": [
+          0.1537,
+          1.0148
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5411,
+        "ci90": [
+          0.4308,
+          0.6597
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.9753,
+        "ci90": [
+          0.9459,
+          1.0022
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-CxHp-39184",
+      "dose_uM": 0.0,
+      "phase": "baseline",
+      "log10_forward_ratio": {
+        "median": 0.7181,
+        "ci90": [
+          0.2337,
+          1.1263
+        ]
+      },
+      "inter_in_degree": {
+        "median": 14.0002,
+        "ci90": [
+          6.389,
+          19.2093
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.5823,
+        "ci90": [
+          0.2404,
+          0.9678
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.6438,
+        "ci90": [
+          0.5032,
+          0.832
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8563,
+        "ci90": [
+          0.8504,
+          0.8768
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-HpHp-24549",
+      "dose_uM": 1.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.9044,
+        "ci90": [
+          0.368,
+          1.2375
+        ]
+      },
+      "inter_in_degree": {
+        "median": 14.4638,
+        "ci90": [
+          6.4679,
+          19.2583
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.7445,
+        "ci90": [
+          0.3162,
+          1.2472
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.474,
+        "ci90": [
+          0.4071,
+          0.6253
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8988,
+        "ci90": [
+          0.8687,
+          0.9367
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-HpHp-24549",
+      "dose_uM": 3.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.7145,
+        "ci90": [
+          0.1893,
+          1.154
+        ]
+      },
+      "inter_in_degree": {
+        "median": 11.7147,
+        "ci90": [
+          4.3743,
+          18.7215
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.8736,
+        "ci90": [
+          0.3929,
+          1.425
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.4731,
+        "ci90": [
+          0.4076,
+          0.6049
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.9256,
+        "ci90": [
+          0.903,
+          0.9547
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-HpHp-24549",
+      "dose_uM": 10.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.3959,
+        "ci90": [
+          0.0655,
+          0.8021
+        ]
+      },
+      "inter_in_degree": {
+        "median": 10.2884,
+        "ci90": [
+          4.2081,
+          16.79
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.5724,
+        "ci90": [
+          0.1855,
+          1.0012
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.6501,
+        "ci90": [
+          0.4801,
+          0.7978
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.0051,
+        "ci90": [
+          0.9858,
+          1.0244
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-HpHp-24549",
+      "dose_uM": 0.1,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.7901,
+        "ci90": [
+          0.2899,
+          1.1985
+        ]
+      },
+      "inter_in_degree": {
+        "median": 13.7124,
+        "ci90": [
+          5.8493,
+          19.4822
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.69,
+        "ci90": [
+          0.2441,
+          1.2337
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.4778,
+        "ci90": [
+          0.4092,
+          0.6138
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8695,
+        "ci90": [
+          0.853,
+          0.9075
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-HpHp-24549",
+      "dose_uM": 0.3,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.8291,
+        "ci90": [
+          0.3318,
+          1.214
+        ]
+      },
+      "inter_in_degree": {
+        "median": 13.7778,
+        "ci90": [
+          5.9383,
+          19.2906
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.7144,
+        "ci90": [
+          0.2515,
+          1.1769
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.4647,
+        "ci90": [
+          0.4071,
+          0.6175
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8794,
+        "ci90": [
+          0.8536,
+          0.9159
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-HpHp-24549",
+      "dose_uM": 0.0,
+      "phase": "baseline",
+      "log10_forward_ratio": {
+        "median": 0.8441,
+        "ci90": [
+          0.3959,
+          1.2375
+        ]
+      },
+      "inter_in_degree": {
+        "median": 12.8996,
+        "ci90": [
+          5.1745,
+          19.01
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.7756,
+        "ci90": [
+          0.2758,
+          1.2788
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.4673,
+        "ci90": [
+          0.4089,
+          0.6067
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8684,
+        "ci90": [
+          0.8523,
+          0.9068
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-HpHp-35882",
+      "dose_uM": 1.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.263,
+        "ci90": [
+          0.0349,
+          0.6824
+        ]
+      },
+      "inter_in_degree": {
+        "median": 11.5732,
+        "ci90": [
+          4.0339,
+          17.9915
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.4068,
+        "ci90": [
+          0.1436,
+          0.7672
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5269,
+        "ci90": [
+          0.4227,
+          0.7113
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8686,
+        "ci90": [
+          0.8518,
+          0.9008
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-HpHp-35882",
+      "dose_uM": 3.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.7052,
+        "ci90": [
+          0.2996,
+          1.0859
+        ]
+      },
+      "inter_in_degree": {
+        "median": 11.1946,
+        "ci90": [
+          5.0795,
+          17.3905
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.2607,
+        "ci90": [
+          0.1224,
+          0.4769
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5657,
+        "ci90": [
+          0.4448,
+          0.7411
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8782,
+        "ci90": [
+          0.8529,
+          0.9133
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-HpHp-35882",
+      "dose_uM": 10.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.7582,
+        "ci90": [
+          0.3553,
+          1.1662
+        ]
+      },
+      "inter_in_degree": {
+        "median": 11.8081,
+        "ci90": [
+          5.0059,
+          18.3265
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.2081,
+        "ci90": [
+          0.1084,
+          0.3875
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.6828,
+        "ci90": [
+          0.52,
+          0.899
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8679,
+        "ci90": [
+          0.8515,
+          0.909
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-HpHp-35882",
+      "dose_uM": 30.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.7505,
+        "ci90": [
+          0.2929,
+          1.1595
+        ]
+      },
+      "inter_in_degree": {
+        "median": 12.499,
+        "ci90": [
+          5.4553,
+          18.3759
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.2771,
+        "ci90": [
+          0.125,
+          0.544
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5452,
+        "ci90": [
+          0.4356,
+          0.7257
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8698,
+        "ci90": [
+          0.8518,
+          0.9038
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-HpHp-35882",
+      "dose_uM": 0.1,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.3667,
+        "ci90": [
+          0.0334,
+          0.8153
+        ]
+      },
+      "inter_in_degree": {
+        "median": 12.1573,
+        "ci90": [
+          5.0811,
+          18.4413
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.5291,
+        "ci90": [
+          0.1957,
+          0.9352
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5108,
+        "ci90": [
+          0.4188,
+          0.6757
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8635,
+        "ci90": [
+          0.8512,
+          0.8914
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-HpHp-35882",
+      "dose_uM": 100.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.6657,
+        "ci90": [
+          0.2338,
+          1.0503
+        ]
+      },
+      "inter_in_degree": {
+        "median": 12.2291,
+        "ci90": [
+          4.7436,
+          18.6245
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.2892,
+        "ci90": [
+          0.1203,
+          0.5549
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5814,
+        "ci90": [
+          0.4345,
+          0.7761
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8677,
+        "ci90": [
+          0.8517,
+          0.9066
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-HpHp-35882",
+      "dose_uM": 0.3,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.268,
+        "ci90": [
+          0.0377,
+          0.6723
+        ]
+      },
+      "inter_in_degree": {
+        "median": 11.8026,
+        "ci90": [
+          4.5844,
+          17.8545
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.4687,
+        "ci90": [
+          0.1691,
+          0.8619
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5265,
+        "ci90": [
+          0.4202,
+          0.6769
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8632,
+        "ci90": [
+          0.8512,
+          0.891
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-HpHp-35882",
+      "dose_uM": 300.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.2277,
+        "ci90": [
+          0.0214,
+          0.5916
+        ]
+      },
+      "inter_in_degree": {
+        "median": 10.5627,
+        "ci90": [
+          4.0638,
+          16.9444
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.3707,
+        "ci90": [
+          0.1361,
+          0.7296
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5433,
+        "ci90": [
+          0.4289,
+          0.7274
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8789,
+        "ci90": [
+          0.8533,
+          0.9192
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-HpHp-35882",
+      "dose_uM": 0.0,
+      "phase": "baseline",
+      "log10_forward_ratio": {
+        "median": 0.6484,
+        "ci90": [
+          0.1714,
+          1.1056
+        ]
+      },
+      "inter_in_degree": {
+        "median": 13.0255,
+        "ci90": [
+          4.9354,
+          19.1606
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.6179,
+        "ci90": [
+          0.2115,
+          1.0959
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.4905,
+        "ci90": [
+          0.4087,
+          0.6564
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8746,
+        "ci90": [
+          0.8528,
+          0.916
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-HpHp-38991",
+      "dose_uM": 1.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.5546,
+        "ci90": [
+          0.1314,
+          0.995
+        ]
+      },
+      "inter_in_degree": {
+        "median": 10.5409,
+        "ci90": [
+          4.5156,
+          16.8341
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.4794,
+        "ci90": [
+          0.1562,
+          0.9549
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.7344,
+        "ci90": [
+          0.4641,
+          1.0189
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.9978,
+        "ci90": [
+          0.9633,
+          1.0361
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-HpHp-38991",
+      "dose_uM": 3.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.5706,
+        "ci90": [
+          0.1514,
+          1.0103
+        ]
+      },
+      "inter_in_degree": {
+        "median": 10.5372,
+        "ci90": [
+          4.235,
+          16.7441
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.2894,
+        "ci90": [
+          0.1345,
+          0.5816
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.638,
+        "ci90": [
+          0.4323,
+          0.8837
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.0478,
+        "ci90": [
+          1.02,
+          1.077
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-HpHp-38991",
+      "dose_uM": 10.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.8035,
+        "ci90": [
+          0.3086,
+          1.2265
+        ]
+      },
+      "inter_in_degree": {
+        "median": 11.8719,
+        "ci90": [
+          4.5771,
+          18.5939
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.6461,
+        "ci90": [
+          0.2306,
+          1.0508
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.46,
+        "ci90": [
+          0.4052,
+          0.5943
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.9125,
+        "ci90": [
+          0.8789,
+          0.9502
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-HpHp-38991",
+      "dose_uM": 30.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.6984,
+        "ci90": [
+          0.2205,
+          1.1011
+        ]
+      },
+      "inter_in_degree": {
+        "median": 6.685,
+        "ci90": [
+          2.6382,
+          12.2688
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.3924,
+        "ci90": [
+          0.1333,
+          0.735
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.6155,
+        "ci90": [
+          0.4609,
+          0.7794
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.0106,
+        "ci90": [
+          0.9907,
+          1.0319
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-HpHp-38991",
+      "dose_uM": 0.1,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.8513,
+        "ci90": [
+          0.3665,
+          1.207
+        ]
+      },
+      "inter_in_degree": {
+        "median": 11.0837,
+        "ci90": [
+          4.4251,
+          18.307
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.6074,
+        "ci90": [
+          0.2793,
+          0.9909
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.4647,
+        "ci90": [
+          0.4076,
+          0.603
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8969,
+        "ci90": [
+          0.87,
+          0.9271
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-HpHp-38991",
+      "dose_uM": 0.3,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.6437,
+        "ci90": [
+          0.19,
+          1.0965
+        ]
+      },
+      "inter_in_degree": {
+        "median": 11.5122,
+        "ci90": [
+          3.9944,
+          17.8656
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.5572,
+        "ci90": [
+          0.1825,
+          1.0244
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5559,
+        "ci90": [
+          0.4218,
+          0.7949
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.9464,
+        "ci90": [
+          0.9092,
+          0.9905
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-HpHp-38991",
+      "dose_uM": 0.0,
+      "phase": "baseline",
+      "log10_forward_ratio": {
+        "median": 0.9814,
+        "ci90": [
+          0.5322,
+          1.2611
+        ]
+      },
+      "inter_in_degree": {
+        "median": 12.1787,
+        "ci90": [
+          4.2284,
+          18.8644
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.8547,
+        "ci90": [
+          0.4276,
+          1.3897
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.4475,
+        "ci90": [
+          0.4054,
+          0.5569
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8646,
+        "ci90": [
+          0.8516,
+          0.8915
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-HpHp-38992",
+      "dose_uM": 1.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.5684,
+        "ci90": [
+          0.1312,
+          1.0085
+        ]
+      },
+      "inter_in_degree": {
+        "median": 11.8681,
+        "ci90": [
+          4.9445,
+          18.6613
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.4674,
+        "ci90": [
+          0.1653,
+          0.8449
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.4952,
+        "ci90": [
+          0.4144,
+          0.6551
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8661,
+        "ci90": [
+          0.8517,
+          0.8986
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-HpHp-38992",
+      "dose_uM": 3.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.562,
+        "ci90": [
+          0.1442,
+          1.0592
+        ]
+      },
+      "inter_in_degree": {
+        "median": 11.739,
+        "ci90": [
+          5.5418,
+          18.5519
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.4048,
+        "ci90": [
+          0.1521,
+          0.7455
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5061,
+        "ci90": [
+          0.4156,
+          0.6503
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8803,
+        "ci90": [
+          0.8537,
+          0.9201
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-HpHp-38992",
+      "dose_uM": 10.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.6408,
+        "ci90": [
+          0.1924,
+          1.0973
+        ]
+      },
+      "inter_in_degree": {
+        "median": 12.1975,
+        "ci90": [
+          5.1867,
+          18.4851
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.407,
+        "ci90": [
+          0.1573,
+          0.7363
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.4901,
+        "ci90": [
+          0.4121,
+          0.6455
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8792,
+        "ci90": [
+          0.8532,
+          0.919
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-HpHp-38992",
+      "dose_uM": 30.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.6045,
+        "ci90": [
+          0.1152,
+          1.0126
+        ]
+      },
+      "inter_in_degree": {
+        "median": 11.9849,
+        "ci90": [
+          4.9974,
+          18.5969
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.419,
+        "ci90": [
+          0.1478,
+          0.7761
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.4937,
+        "ci90": [
+          0.4103,
+          0.6577
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8914,
+        "ci90": [
+          0.8587,
+          0.9328
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-HpHp-38992",
+      "dose_uM": 0.1,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.686,
+        "ci90": [
+          0.2017,
+          1.0994
+        ]
+      },
+      "inter_in_degree": {
+        "median": 10.8743,
+        "ci90": [
+          3.7424,
+          18.3458
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.5508,
+        "ci90": [
+          0.2053,
+          0.9164
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5384,
+        "ci90": [
+          0.4257,
+          0.6973
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8605,
+        "ci90": [
+          0.8509,
+          0.887
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-HpHp-38992",
+      "dose_uM": 100.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.5198,
+        "ci90": [
+          0.1065,
+          0.9773
+        ]
+      },
+      "inter_in_degree": {
+        "median": 12.0969,
+        "ci90": [
+          5.3421,
+          18.4763
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.4382,
+        "ci90": [
+          0.1468,
+          0.8178
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.4923,
+        "ci90": [
+          0.4107,
+          0.659
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8976,
+        "ci90": [
+          0.8651,
+          0.9402
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-HpHp-38992",
+      "dose_uM": 0.3,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.6373,
+        "ci90": [
+          0.1905,
+          1.1119
+        ]
+      },
+      "inter_in_degree": {
+        "median": 13.0205,
+        "ci90": [
+          5.3325,
+          19.2261
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.526,
+        "ci90": [
+          0.1931,
+          0.9346
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5056,
+        "ci90": [
+          0.4092,
+          0.6489
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.865,
+        "ci90": [
+          0.8511,
+          0.8977
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-HpHp-38992",
+      "dose_uM": 300.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.4721,
+        "ci90": [
+          0.0873,
+          0.9561
+        ]
+      },
+      "inter_in_degree": {
+        "median": 11.8436,
+        "ci90": [
+          5.012,
+          18.1073
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.4595,
+        "ci90": [
+          0.1508,
+          0.8065
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.4877,
+        "ci90": [
+          0.4085,
+          0.6428
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8945,
+        "ci90": [
+          0.8629,
+          0.9332
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-HpHp-38992",
+      "dose_uM": 0.0,
+      "phase": "baseline",
+      "log10_forward_ratio": {
+        "median": 0.83,
+        "ci90": [
+          0.3549,
+          1.1905
+        ]
+      },
+      "inter_in_degree": {
+        "median": 11.8665,
+        "ci90": [
+          4.2584,
+          18.5489
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.6047,
+        "ci90": [
+          0.235,
+          0.983
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5969,
+        "ci90": [
+          0.4628,
+          0.7793
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8577,
+        "ci90": [
+          0.8506,
+          0.8823
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-HpHp-39183",
+      "dose_uM": 1.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.501,
+        "ci90": [
+          0.1107,
+          0.9456
+        ]
+      },
+      "inter_in_degree": {
+        "median": 13.1283,
+        "ci90": [
+          6.7238,
+          18.6494
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.4757,
+        "ci90": [
+          0.1567,
+          0.8161
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5165,
+        "ci90": [
+          0.4232,
+          0.6668
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.859,
+        "ci90": [
+          0.8507,
+          0.8801
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-HpHp-39183",
+      "dose_uM": 3.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.4556,
+        "ci90": [
+          0.0854,
+          0.9139
+        ]
+      },
+      "inter_in_degree": {
+        "median": 13.5696,
+        "ci90": [
+          6.3709,
+          18.8755
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.4124,
+        "ci90": [
+          0.1458,
+          0.7746
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5217,
+        "ci90": [
+          0.4228,
+          0.6756
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8603,
+        "ci90": [
+          0.8508,
+          0.8881
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-HpHp-39183",
+      "dose_uM": 10.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.3623,
+        "ci90": [
+          0.0691,
+          0.7782
+        ]
+      },
+      "inter_in_degree": {
+        "median": 11.7344,
+        "ci90": [
+          5.579,
+          17.9295
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.338,
+        "ci90": [
+          0.1432,
+          0.6777
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.54,
+        "ci90": [
+          0.4351,
+          0.7025
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8669,
+        "ci90": [
+          0.8516,
+          0.9016
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-HpHp-39183",
+      "dose_uM": 30.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.4443,
+        "ci90": [
+          0.069,
+          0.8556
+        ]
+      },
+      "inter_in_degree": {
+        "median": 12.8901,
+        "ci90": [
+          6.0497,
+          18.4063
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.3424,
+        "ci90": [
+          0.1373,
+          0.6265
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5301,
+        "ci90": [
+          0.4177,
+          0.677
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8674,
+        "ci90": [
+          0.852,
+          0.9018
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-HpHp-39183",
+      "dose_uM": 0.1,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.7245,
+        "ci90": [
+          0.2187,
+          1.1391
+        ]
+      },
+      "inter_in_degree": {
+        "median": 12.9943,
+        "ci90": [
+          5.0104,
+          18.9894
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.5293,
+        "ci90": [
+          0.1914,
+          0.9301
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5016,
+        "ci90": [
+          0.4131,
+          0.6534
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.858,
+        "ci90": [
+          0.8508,
+          0.88
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-HpHp-39183",
+      "dose_uM": 100.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.4316,
+        "ci90": [
+          0.0601,
+          0.8373
+        ]
+      },
+      "inter_in_degree": {
+        "median": 12.6373,
+        "ci90": [
+          6.1525,
+          18.3986
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.3271,
+        "ci90": [
+          0.1365,
+          0.5927
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5262,
+        "ci90": [
+          0.4229,
+          0.6796
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8728,
+        "ci90": [
+          0.8525,
+          0.9067
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-HpHp-39183",
+      "dose_uM": 0.3,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.5632,
+        "ci90": [
+          0.1231,
+          1.0091
+        ]
+      },
+      "inter_in_degree": {
+        "median": 13.3353,
+        "ci90": [
+          5.6643,
+          18.8786
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.4633,
+        "ci90": [
+          0.1733,
+          0.859
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5288,
+        "ci90": [
+          0.4242,
+          0.6838
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8575,
+        "ci90": [
+          0.8506,
+          0.8801
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-HpHp-39183",
+      "dose_uM": 300.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.4043,
+        "ci90": [
+          0.078,
+          0.7869
+        ]
+      },
+      "inter_in_degree": {
+        "median": 11.3799,
+        "ci90": [
+          4.6323,
+          17.5828
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.2965,
+        "ci90": [
+          0.1298,
+          0.5677
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5419,
+        "ci90": [
+          0.4369,
+          0.706
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.8794,
+        "ci90": [
+          0.8537,
+          0.9154
+        ]
+      }
+    },
+    {
+      "device_id": "Br18-HpHp-39183",
+      "dose_uM": 0.0,
+      "phase": "baseline",
+      "log10_forward_ratio": {
+        "median": 0.8807,
+        "ci90": [
+          0.3318,
+          1.2421
+        ]
+      },
+      "inter_in_degree": {
+        "median": 13.3998,
+        "ci90": [
+          5.7255,
+          19.2665
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.663,
+        "ci90": [
+          0.2736,
+          1.1489
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.4806,
+        "ci90": [
+          0.4103,
+          0.6149
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.861,
+        "ci90": [
+          0.8508,
+          0.8924
+        ]
+      }
+    }
+  ],
+  "caveat": "HD14 found gabaa_scale only weakly identified (contraction 0.34) and no parameter passing the rank-uniformity check, so these medians are directional evidence at best"
+}

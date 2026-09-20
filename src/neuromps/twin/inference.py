@@ -107,6 +107,21 @@ def params_from_vector(
     )
 
 
+def default_layout() -> ElectrodeLayout:
+    """The layout the twin was calibrated on, so simulated and real geometry match.
+
+    An earlier version used a smaller 4x6 grid for speed; the real chambers have
+    48 electrodes with 42-44 typically active, which put the electrode-count
+    summaries outside the simulated range and made the posterior extrapolate on
+    them. Geometry has to match the data it will be applied to.
+    """
+    from neuromps.twin.calibrate import calibrated_params
+
+    tuned = calibrated_params()
+    keys = set(ElectrodeLayout().as_record())
+    return ElectrodeLayout(**{k: v for k, v in tuned.items() if k in keys})
+
+
 def summary_vector(features_by_compartment: dict, coupling: dict) -> np.ndarray:
     """Fixed-length, finite summary of one recording."""
     values = []
@@ -138,7 +153,7 @@ def simulate_summary(
 ) -> np.ndarray:
     """Run one simulation and summarise it exactly as a real recording would be."""
     params = params_from_vector(theta, n_per_compartment, duration_s, seed)
-    layout = layout or ElectrodeLayout(rows=4, cols=6)
+    layout = layout or default_layout()
     result = simulate(params)
     positions, compartment = place_neurons(params, layout, seed=seed)
     heard = record_electrodes(
@@ -177,8 +192,12 @@ def within_prior(theta: np.ndarray) -> np.ndarray:
 
 
 def save_simulations(path: Path, theta: np.ndarray, x: np.ndarray, metadata: dict) -> None:
-    """Cache simulations with the names they were generated under."""
+    """Cache simulations with the names and geometry they were generated under."""
     Path(path).parent.mkdir(parents=True, exist_ok=True)
+    metadata = {
+        **metadata,
+        "electrodes_per_compartment": default_layout().electrodes_per_compartment,
+    }
     np.savez_compressed(
         path,
         theta=np.asarray(theta, dtype=float),
@@ -199,6 +218,25 @@ def load_simulations(path: Path) -> dict:
             "summary_names": [str(n) for n in data["summary_names"]],
             "metadata": json.loads(str(data["metadata"])),
         }
+
+
+def check_cache_matches_code(cached: dict) -> None:
+    """Refuse a cache produced under different summaries or a different layout.
+
+    The summary names guard the meaning of each dimension; the electrode count
+    guards their scale. HD15 found the second one the hard way: a posterior
+    trained on a 24-electrode layout extrapolated when shown real 48-electrode
+    chambers.
+    """
+    if list(cached["summary_names"]) != list(SUMMARY_NAMES):
+        raise SystemExit("cached simulations use different summaries; rerun with --rebuild")
+    cached_electrodes = cached["metadata"].get("electrodes_per_compartment")
+    expected = default_layout().electrodes_per_compartment
+    if cached_electrodes != expected:
+        raise SystemExit(
+            f"cached simulations used {cached_electrodes} electrodes per compartment, "
+            f"the current layout has {expected}; rerun with --rebuild"
+        )
 
 
 def _simulate_job(args) -> np.ndarray:
@@ -346,8 +384,7 @@ def main(argv: list[str] | None = None) -> int:
 
     if SIMULATION_CACHE.exists() and not args.rebuild:
         cached = load_simulations(SIMULATION_CACHE)
-        if list(cached["summary_names"]) != list(SUMMARY_NAMES):
-            raise SystemExit("cached simulations use different summaries; rerun with --rebuild")
+        check_cache_matches_code(cached)
         theta, x = cached["theta"], cached["x"]
         inside = within_prior(theta)
         if not inside.all():

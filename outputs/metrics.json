@@ -1794,6 +1794,200 @@
       "coupling_measured"
     ]
   },
+  "twin_hd15_real_inference": {
+    "caveat": "HD14 found gabaa_scale only weakly identified (contraction 0.34) and no parameter passing the rank-uniformity check, so these medians are directional evidence at best",
+    "distribution_check": {
+      "by_dimension": {
+        "asymmetry": {
+          "fraction_inside": 1.0,
+          "real_median": -0.012,
+          "simulated_range": [
+            -1.0,
+            1.0
+          ]
+        },
+        "c0_active_electrodes": {
+          "fraction_inside": 0.106,
+          "real_median": 44.0,
+          "simulated_range": [
+            0.0,
+            24.0
+          ]
+        },
+        "c0_burst_rate_per_min": {
+          "fraction_inside": 1.0,
+          "real_median": 9.765,
+          "simulated_range": [
+            0.0,
+            54.25
+          ]
+        },
+        "c0_isi_cv": {
+          "fraction_inside": 1.0,
+          "real_median": 3.761,
+          "simulated_range": [
+            0.0,
+            9.455
+          ]
+        },
+        "c0_mfr_hz": {
+          "fraction_inside": 0.991,
+          "real_median": 9.581,
+          "simulated_range": [
+            0.0,
+            32.098
+          ]
+        },
+        "c0_network_burst_rate_per_min": {
+          "fraction_inside": 1.0,
+          "real_median": 9.754,
+          "simulated_range": [
+            0.0,
+            138.0
+          ]
+        },
+        "c0_pct_spikes_in_bursts": {
+          "fraction_inside": 1.0,
+          "real_median": 92.009,
+          "simulated_range": [
+            0.0,
+            100.0
+          ]
+        },
+        "c0_synchrony_index": {
+          "fraction_inside": 1.0,
+          "real_median": 0.749,
+          "simulated_range": [
+            -0.013,
+            1.0
+          ]
+        },
+        "c1_active_electrodes": {
+          "fraction_inside": 0.115,
+          "real_median": 42.0,
+          "simulated_range": [
+            0.0,
+            24.0
+          ]
+        },
+        "c1_burst_rate_per_min": {
+          "fraction_inside": 1.0,
+          "real_median": 10.263,
+          "simulated_range": [
+            0.0,
+            68.295
+          ]
+        },
+        "c1_isi_cv": {
+          "fraction_inside": 1.0,
+          "real_median": 3.776,
+          "simulated_range": [
+            0.0,
+            10.881
+          ]
+        },
+        "c1_mfr_hz": {
+          "fraction_inside": 0.991,
+          "real_median": 6.132,
+          "simulated_range": [
+            0.0,
+            44.213
+          ]
+        },
+        "c1_network_burst_rate_per_min": {
+          "fraction_inside": 1.0,
+          "real_median": 9.879,
+          "simulated_range": [
+            0.0,
+            144.0
+          ]
+        },
+        "c1_pct_spikes_in_bursts": {
+          "fraction_inside": 1.0,
+          "real_median": 88.112,
+          "simulated_range": [
+            0.0,
+            100.0
+          ]
+        },
+        "c1_synchrony_index": {
+          "fraction_inside": 1.0,
+          "real_median": 0.772,
+          "simulated_range": [
+            -0.013,
+            1.0
+          ]
+        },
+        "coupling_measured": {
+          "fraction_inside": 1.0,
+          "real_median": 1.0,
+          "simulated_range": [
+            0.0,
+            1.0
+          ]
+        },
+        "lag_ms": {
+          "fraction_inside": 0.973,
+          "real_median": 0.0,
+          "simulated_range": [
+            -37.95,
+            78.85
+          ]
+        },
+        "log_rate_ratio": {
+          "fraction_inside": 1.0,
+          "real_median": 0.263,
+          "simulated_range": [
+            -6.658,
+            6.658
+          ]
+        },
+        "peak_correlation": {
+          "fraction_inside": 0.973,
+          "real_median": 0.89,
+          "simulated_range": [
+            -0.002,
+            0.985
+          ]
+        }
+      },
+      "mean_fraction_inside": 0.903,
+      "n_real": 113,
+      "outside_dimensions": [
+        "c0_active_electrodes",
+        "c1_active_electrodes"
+      ]
+    },
+    "expected": "a GABA-A antagonist should lower gabaa_scale, and lower it further with dose",
+    "gabaa_scale_dose_trend": {
+      "bootstrap_resamples": 1000,
+      "direction": "falls with dose",
+      "excludes_zero": false,
+      "n_devices": 16,
+      "n_recordings": 113,
+      "naive_p_value": 0.0361,
+      "spearman_rho": -0.197,
+      "spearman_rho_ci95": [
+        -0.4442,
+        0.1026
+      ]
+    },
+    "gabaa_scale_dose_trend_without_ood_dimensions": {
+      "bootstrap_resamples": 1000,
+      "direction": "falls with dose",
+      "excludes_zero": false,
+      "n_devices": 16,
+      "n_recordings": 113,
+      "naive_p_value": 0.7691,
+      "spearman_rho": -0.028,
+      "spearman_rho_ci95": [
+        -0.3098,
+        0.2962
+      ]
+    },
+    "label": "posterior trained on SIMULATIONS, applied to REAL recordings",
+    "n_recordings": 113
+  },
   "uncertainty_and_ablations": {
     "conformal_sweep": [
       {

@@ -1,0 +1,86 @@
+2026-09-20 14:59:22,669 INFO distribution check: 90% of real values inside the simulated range; outside: ['c0_active_electrodes', 'c1_active_electrodes']
+2026-09-20 14:59:31,945 WARNING Only 0.010% proposal samples are
+                    accepted. It may take a long time to collect the remaining
+                    499 samples. You can prevent very long runtimes by
+                    setting `max_sampling_time` to limit runtime, or disabling
+                    rejection sampling (e.g. via `reject_outside_prior=False` in
+                    `posterior.sample()` when available).Alternatively, consider interrupting (Ctrl-C)
+                    and switching to `build_posterior(..., sample_with='mcmc')`.
+2026-09-20 15:13:07,355 WARNING Only 0.086% proposal samples are
+                    accepted. It may take a long time to collect the remaining
+                    491 samples. You can prevent very long runtimes by
+                    setting `max_sampling_time` to limit runtime, or disabling
+                    rejection sampling (e.g. via `reject_outside_prior=False` in
+                    `posterior.sample()` when available).Alternatively, consider interrupting (Ctrl-C)
+                    and switching to `build_posterior(..., sample_with='mcmc')`.
+2026-09-20 15:13:21,880 WARNING Only 0.305% proposal samples are
+                    accepted. It may take a long time to collect the remaining
+                    468 samples. You can prevent very long runtimes by
+                    setting `max_sampling_time` to limit runtime, or disabling
+                    rejection sampling (e.g. via `reject_outside_prior=False` in
+                    `posterior.sample()` when available).Alternatively, consider interrupting (Ctrl-C)
+                    and switching to `build_posterior(..., sample_with='mcmc')`.
+2026-09-20 15:13:26,978 WARNING Only 0.010% proposal samples are
+                    accepted. It may take a long time to collect the remaining
+                    499 samples. You can prevent very long runtimes by
+                    setting `max_sampling_time` to limit runtime, or disabling
+                    rejection sampling (e.g. via `reject_outside_prior=False` in
+                    `posterior.sample()` when available).Alternatively, consider interrupting (Ctrl-C)
+                    and switching to `build_posterior(..., sample_with='mcmc')`.
+2026-09-20 15:13:58,122 WARNING Only 0.810% proposal samples are
+                    accepted. It may take a long time to collect the remaining
+                    415 samples. You can prevent very long runtimes by
+                    setting `max_sampling_time` to limit runtime, or disabling
+                    rejection sampling (e.g. via `reject_outside_prior=False` in
+                    `posterior.sample()` when available).Alternatively, consider interrupting (Ctrl-C)
+                    and switching to `build_posterior(..., sample_with='mcmc')`.
+2026-09-20 15:14:14,832 WARNING Only 0.438% proposal samples are
+                    accepted. It may take a long time to collect the remaining
+                    454 samples. You can prevent very long runtimes by
+                    setting `max_sampling_time` to limit runtime, or disabling
+                    rejection sampling (e.g. via `reject_outside_prior=False` in
+                    `posterior.sample()` when available).Alternatively, consider interrupting (Ctrl-C)
+                    and switching to `build_posterior(..., sample_with='mcmc')`.
+2026-09-20 15:14:20,764 WARNING Only 0.000% proposal samples are
+                    accepted. It may take a long time to collect the remaining
+                    500 samples. You can prevent very long runtimes by
+                    setting `max_sampling_time` to limit runtime, or disabling
+                    rejection sampling (e.g. via `reject_outside_prior=False` in
+                    `posterior.sample()` when available).Alternatively, consider interrupting (Ctrl-C)
+                    and switching to `build_posterior(..., sample_with='mcmc')`.
+{
+  "distribution_check": {
+    "n_real": 113,
+    "mean_fraction_inside": 0.903,
+    "outside_dimensions": [
+      "c0_active_electrodes",
+      "c1_active_electrodes"
+    ]
+  },
+  "gabaa_scale_dose_trend": {
+    "spearman_rho": -0.197,
+    "naive_p_value": 0.0361,
+    "n_recordings": 113,
+    "direction": "falls with dose",
+    "spearman_rho_ci95": [
+      -0.4442,
+      0.1026
+    ],
+    "n_devices": 16,
+    "bootstrap_resamples": 1000,
+    "excludes_zero": false
+  },
+  "gabaa_scale_dose_trend_without_ood_dimensions": {
+    "spearman_rho": -0.028,
+    "naive_p_value": 0.7691,
+    "n_recordings": 113,
+    "direction": "falls with dose",
+    "spearman_rho_ci95": [
+      -0.3098,
+      0.2962
+    ],
+    "n_devices": 16,
+    "bootstrap_resamples": 1000,
+    "excludes_zero": false
+  }
+}

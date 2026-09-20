@@ -177,3 +177,27 @@ def test_rank_uniformity_reports_a_statistic_not_only_a_p_value() -> None:
         assert {"ks_statistic", "ks_p", "n_evaluated"} <= set(out[name])
         assert 0.0 <= out[name]["ks_statistic"] <= 1.0
         assert out[name]["n_evaluated"] == 200
+
+
+def test_default_layout_matches_the_real_chamber_electrode_count() -> None:
+    """Simulated and real geometry must agree, or electrode-count summaries go OOD."""
+    from neuromps.twin.inference import default_layout
+
+    assert default_layout().electrodes_per_compartment == 48
+
+
+def test_a_cache_from_a_different_layout_is_refused() -> None:
+    """Summary names alone do not pin down what the numbers mean; geometry does too."""
+    from neuromps.twin.inference import check_cache_matches_code
+
+    good = {"summary_names": list(SUMMARY_NAMES), "metadata": {"electrodes_per_compartment": 48}}
+    check_cache_matches_code(good)  # does not raise
+    for bad in ({"electrodes_per_compartment": 24}, {}):
+        with pytest.raises(SystemExit, match="electrodes per compartment"):
+            check_cache_matches_code({"summary_names": list(SUMMARY_NAMES), "metadata": bad})
+
+
+def test_saving_records_the_layout_that_produced_the_summaries(tmp_path: Path) -> None:
+    path = tmp_path / "sims.npz"
+    save_simulations(path, np.zeros((2, 5)), np.zeros((2, len(SUMMARY_NAMES))), metadata={})
+    assert load_simulations(path)["metadata"]["electrodes_per_compartment"] == 48
