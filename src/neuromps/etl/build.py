@@ -13,7 +13,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from neuromps.etl import kapucu
+from neuromps.etl import kapucu, screenneuropharm
 from neuromps.etl.toxcast_mea import (
     INTERIM_PARQUET,
     MC56_CSV,
@@ -62,6 +62,7 @@ def collect_records(raw_root: Path = RAW_ROOT, full: bool = False) -> list[dict]
         log.info("kapucu %s: %d records", plate.directory, len(built))
         records += built
     records += _toxcast_records(hashes, full)
+    records += _screenneuropharm_records(hashes, raw_root, full)
     add_cross_record_flags(records)  # replicate divergence, outliers, unpaired exposures
     return records
 
@@ -77,6 +78,19 @@ def _toxcast_records(hashes: dict[str, str], full: bool) -> list[dict]:
         return []
     built = build_curve_records(df, hashes, source_file=MC56_CSV.name)
     log.info("toxcast: %d records", len(built))
+    return built
+
+
+def _screenneuropharm_records(hashes: dict[str, str], raw_root: Path, full: bool) -> list[dict]:
+    """Bicuculline dose-response records; features are cached (~1 s per recording)."""
+    archive = raw_root / screenneuropharm.SOURCE / screenneuropharm.ARCHIVE_NAME
+    if not archive.exists():
+        log.warning("screenneuropharm archive absent, skipping (run: fetch.runner --full)")
+        return []
+    built = screenneuropharm.build_records(
+        archive, hashes, cache_path=screenneuropharm.CACHE, rebuild=full
+    )
+    log.info("screenneuropharm: %d records", len(built))
     return built
 
 

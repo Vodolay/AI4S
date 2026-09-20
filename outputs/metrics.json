@@ -3,31 +3,32 @@
     "counts": {
       "by_data_level": {
         "fitted_curve": 20375,
-        "spike_times": 288
+        "spike_times": 491
       },
       "by_mechanism_class": {
         "gabaa_agonist_or_pam": 11,
-        "gabaa_antagonist": 28,
+        "gabaa_antagonist": 208,
         "glutamatergic_agonist": 11,
         "glutamatergic_antagonist": 22,
         "na_channel_blocker": 113,
-        "none": 20478
+        "none": 20501
       },
       "by_source": {
         "kapucu2022": 288,
+        "screenneuropharm_bic": 203,
         "toxcast_mea": 20375
       },
       "by_species": {
         "human": 144,
-        "rat": 20519
+        "rat": 20722
       },
       "by_usable": {
-        "False": 425,
-        "True": 20238
+        "False": 429,
+        "True": 20437
       }
     },
-    "generated_at": "2026-09-20T13:45:58+00:00",
-    "n_records": 20663,
+    "generated_at": "2026-09-20T13:55:18+00:00",
+    "n_records": 20866,
     "schema": "schema/neuromps_schema.json"
   },
   "data_card": {
@@ -35,12 +36,12 @@
       "excluded_well_upstream": 90,
       "incomplete_dose_series": 272,
       "noisy_electrodes_present": 11,
-      "outlier_feature_value": 35,
-      "replicate_divergence": 35,
-      "too_few_active_electrodes": 153
+      "outlier_feature_value": 44,
+      "replicate_divergence": 44,
+      "too_few_active_electrodes": 157
     },
-    "records": 20663,
-    "usable": 20238
+    "records": 20866,
+    "usable": 20437
   },
   "toxcast_mea_inventory": {
     "chemicals_acute": 508,
