@@ -201,6 +201,35 @@ it later are in data/SOURCES.md. It is also a clean illustration of why the stan
   because the schema has no per-compartment unit or directed connectivity yet. Extending the schema
   for compartments is now the highest-value schema work.
 
+## 2026-09-20: compartment schema extension (done before Phase 2, at PI request)
+
+### Done
+- Schema: `device` block (device_id, layout, compartment_id, compartment_role, microchannel
+  geometry) and `coupling` block (peak_correlation, lag_ms, asymmetry, method). A compartment_id
+  requires a device_id. `cell_source.system` accepts `unknown` **only with a note**.
+- `features/coupling.py`: directed coupling from cross-correlated population rates, with two guards
+  found by testing - direction is null below a 5-sigma noise floor, and the correlation is FFT-based
+  (a per-lag loop made one test run take 28 s; now 2 s).
+- ETL: 377 compartment records from 16 devices (5 CxCx, 5 HpHp, 6 CxHp), full bicuculline series
+  each; compartment extraction is cached under `data/interim/`.
+- STANDARD.md 5.2 documents all of it, including that coupling is descriptive, not causal.
+- Asset: **21,272 records**. 140 tests pass, ruff clean. `--full` rebuild ~13 min, cached ~50 s.
+
+### The result that makes this worth having
+Per-device median asymmetry red->green (exploratory, n=6 devices, no statistical test yet):
+- `CxCx` (same tissue both chambers): -0.05 at **0 ms** lag
+- `HpHp`: -0.09 at -5 ms
+- `CxHp` (cortical + hippocampal): **+0.10 at +10 ms**, 4 of 6 devices leading the same way,
+  1 opposite.
+So heterogeneous devices show directional coupling where homogeneous ones do not. This is the real
+counterpart of the twin's asymmetric connectivity, in a dataset we acquired for another reason.
+**Do not report this without a proper test** (per-device bootstrap or rank test, script under src/).
+
+### Open
+- `CxHp` colour-to-region mapping is unknown, so those records carry `system: unknown` + note. If the
+  authors confirm the mapping, the labels can be filled in and the direction becomes interpretable as
+  cortical->hippocampal or the reverse.
+
 ### Next first task (HD8)
 - Phase 2 baselines: mechanism classification from feature deltas vs baseline, grouped CV by
-  unit/culture.
+  unit/culture. Then a proper statistical test of the compartment asymmetry above.
