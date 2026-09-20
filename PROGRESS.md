@@ -568,8 +568,14 @@ on a shifted baseline, and there is no trend to measure - see
    caption now quotes the clustered interval and the device count, which is what a reader should see.
 
 ### Blocked / open
-- `--quick` caps the stage at 30 recordings (74 s) to stay inside the `run_all` budget; the full
-  stage is 113 recordings and ~5.5 min. Both record `n_recordings` and `subsampled`.
+- `--quick` caps the stage at 30 recordings (74 s standalone) to stay inside the `run_all` budget;
+  the full stage is 113 recordings and ~5.5 min. Both record `n_recordings` and `subsampled`.
+- **Budget: `run_all.py --quick` now takes 523 s of the 600 s limit** (`outputs/logs/hd15_run_all_quick.log`),
+  up from 280 s at HD12. The largest items are the HD11 twin validation (135 s), the source
+  license re-checks (111 s of network calls) and posterior training (74 s); HD15 itself adds ~15 s.
+  The next stage that needs quick-mode time has to trim one of those first, not just add to the end.
+- A `--quick` run overwrites `outputs/` with quick-mode values, so the timing run above was reverted
+  with `git checkout -- outputs/` to keep the committed artefacts at full-run values (limitation 23).
 - The four unsupported dimensions are the twin's known weak spot (burst structure), the same place
   HD12's residual mismatch sits. Fixing the simulator's burst statistics is the prerequisite for any
   real-data inference claim, not more simulations.

@@ -12,3 +12,4 @@ data/processed/*
 outputs/**/*.png
 outputs/**/*.pdf
 .ipynb_checkpoints/
+sbi-logs/
