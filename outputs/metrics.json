@@ -1086,6 +1086,609 @@
       "detection_radius_um"
     ]
   },
+  "twin_hd13_perturbation": {
+    "bootstrap_resamples": 1000,
+    "knobs": [
+      {
+        "agreement": {
+          "burst_rate_per_min": {
+            "agrees": true,
+            "real_delta": -0.548,
+            "real_direction": "down",
+            "real_established": true,
+            "simulated_delta": -0.721,
+            "simulated_direction": "down"
+          },
+          "isi_cv": {
+            "agrees": null,
+            "real_delta": 0.038,
+            "real_direction": "up",
+            "real_established": false,
+            "simulated_delta": 1.863,
+            "simulated_direction": "up"
+          },
+          "mfr_hz": {
+            "agrees": false,
+            "real_delta": -0.335,
+            "real_direction": "down",
+            "real_established": true,
+            "simulated_delta": 2.873,
+            "simulated_direction": "up"
+          },
+          "network_burst_rate_per_min": {
+            "agrees": true,
+            "real_delta": -0.66,
+            "real_direction": "down",
+            "real_established": true,
+            "simulated_delta": -0.778,
+            "simulated_direction": "down"
+          },
+          "pct_spikes_in_bursts": {
+            "agrees": true,
+            "real_delta": 0.037,
+            "real_direction": "up",
+            "real_established": true,
+            "simulated_delta": 0.032,
+            "simulated_direction": "up"
+          },
+          "synchrony_index": {
+            "agrees": true,
+            "real_delta": 0.11,
+            "real_direction": "up",
+            "real_established": true,
+            "simulated_delta": 0.02,
+            "simulated_direction": "up"
+          }
+        },
+        "knob": "gabaa_block",
+        "mechanism": "gabaa_antagonist",
+        "n_features_agreeing": 4,
+        "n_features_scored": 5,
+        "parameter": "gabaa_scale",
+        "reads_as": "GABA-A antagonist (bicuculline, gabazine): inhibition removed",
+        "real_reference": {
+          "bootstrap_resamples": 1000,
+          "by_feature": {
+            "burst_rate_per_min": {
+              "ci95": [
+                -0.7034,
+                -0.3537
+              ],
+              "established": true,
+              "median_delta": -0.548,
+              "n": 507
+            },
+            "isi_cv": {
+              "ci95": [
+                -0.1241,
+                0.1822
+              ],
+              "established": false,
+              "median_delta": 0.038,
+              "n": 507
+            },
+            "mfr_hz": {
+              "ci95": [
+                -0.5372,
+                -0.0728
+              ],
+              "established": true,
+              "median_delta": -0.335,
+              "n": 507
+            },
+            "network_burst_rate_per_min": {
+              "ci95": [
+                -1.0192,
+                -0.3797
+              ],
+              "established": true,
+              "median_delta": -0.66,
+              "n": 454
+            },
+            "pct_spikes_in_bursts": {
+              "ci95": [
+                0.0184,
+                0.0696
+              ],
+              "established": true,
+              "median_delta": 0.037,
+              "n": 507
+            },
+            "synchrony_index": {
+              "ci95": [
+                0.0672,
+                0.1425
+              ],
+              "established": true,
+              "median_delta": 0.11,
+              "n": 507
+            }
+          },
+          "mechanism": "gabaa_antagonist",
+          "n_pairs": 507,
+          "sources": [
+            "kapucu2022",
+            "screenneuropharm_bic"
+          ]
+        },
+        "simulated_delta": {
+          "burst_rate_per_min": -0.721,
+          "isi_cv": 1.863,
+          "mfr_hz": 2.873,
+          "network_burst_rate_per_min": -0.778,
+          "pct_spikes_in_bursts": 0.032,
+          "synchrony_index": 0.02
+        },
+        "value": 0.2
+      },
+      {
+        "agreement": {
+          "burst_rate_per_min": {
+            "agrees": false,
+            "real_delta": -0.353,
+            "real_direction": "down",
+            "real_established": true,
+            "simulated_delta": 0.041,
+            "simulated_direction": "up"
+          },
+          "isi_cv": {
+            "agrees": true,
+            "real_delta": -0.231,
+            "real_direction": "down",
+            "real_established": true,
+            "simulated_delta": -0.113,
+            "simulated_direction": "down"
+          },
+          "mfr_hz": {
+            "agrees": true,
+            "real_delta": -0.471,
+            "real_direction": "down",
+            "real_established": true,
+            "simulated_delta": -0.178,
+            "simulated_direction": "down"
+          },
+          "network_burst_rate_per_min": {
+            "agrees": null,
+            "real_delta": 0.06,
+            "real_direction": "up",
+            "real_established": false,
+            "simulated_delta": 0.143,
+            "simulated_direction": "up"
+          },
+          "pct_spikes_in_bursts": {
+            "agrees": true,
+            "real_delta": -0.282,
+            "real_direction": "down",
+            "real_established": true,
+            "simulated_delta": -0.031,
+            "simulated_direction": "down"
+          },
+          "synchrony_index": {
+            "agrees": null,
+            "real_delta": 0.062,
+            "real_direction": "up",
+            "real_established": false,
+            "simulated_delta": -0.009,
+            "simulated_direction": "down"
+          }
+        },
+        "knob": "gabaa_potentiate",
+        "mechanism": "gabaa_agonist_or_pam",
+        "n_features_agreeing": 3,
+        "n_features_scored": 4,
+        "parameter": "gabaa_scale",
+        "reads_as": "GABA-A positive modulator (diazepam): inhibition strengthened",
+        "real_reference": {
+          "bootstrap_resamples": 1000,
+          "by_feature": {
+            "burst_rate_per_min": {
+              "ci95": [
+                -1.9537,
+                -0.0562
+              ],
+              "established": true,
+              "median_delta": -0.353,
+              "n": 17
+            },
+            "isi_cv": {
+              "ci95": [
+                -1.3963,
+                -0.1252
+              ],
+              "established": true,
+              "median_delta": -0.231,
+              "n": 17
+            },
+            "mfr_hz": {
+              "ci95": [
+                -1.111,
+                -0.1324
+              ],
+              "established": true,
+              "median_delta": -0.471,
+              "n": 17
+            },
+            "network_burst_rate_per_min": {
+              "ci95": [
+                -4.3219,
+                0.682
+              ],
+              "established": false,
+              "median_delta": 0.06,
+              "n": 17
+            },
+            "pct_spikes_in_bursts": {
+              "ci95": [
+                -2.0956,
+                -0.0658
+              ],
+              "established": true,
+              "median_delta": -0.282,
+              "n": 17
+            },
+            "synchrony_index": {
+              "ci95": [
+                -2.8839,
+                0.1062
+              ],
+              "established": false,
+              "median_delta": 0.062,
+              "n": 17
+            }
+          },
+          "mechanism": "gabaa_agonist_or_pam",
+          "n_pairs": 17,
+          "sources": [
+            "kapucu2022",
+            "sharf2022"
+          ]
+        },
+        "simulated_delta": {
+          "burst_rate_per_min": 0.041,
+          "isi_cv": -0.113,
+          "mfr_hz": -0.178,
+          "network_burst_rate_per_min": 0.143,
+          "pct_spikes_in_bursts": -0.031,
+          "synchrony_index": -0.009
+        },
+        "value": 2.0
+      },
+      {
+        "agreement": {
+          "burst_rate_per_min": {
+            "agrees": true,
+            "real_delta": -2.683,
+            "real_direction": "down",
+            "real_established": true,
+            "simulated_delta": -4.322,
+            "simulated_direction": "down"
+          },
+          "isi_cv": {
+            "agrees": null,
+            "real_delta": -0.459,
+            "real_direction": "down",
+            "real_established": false,
+            "simulated_delta": -2.036,
+            "simulated_direction": "down"
+          },
+          "mfr_hz": {
+            "agrees": true,
+            "real_delta": -1.769,
+            "real_direction": "down",
+            "real_established": true,
+            "simulated_delta": -4.322,
+            "simulated_direction": "down"
+          },
+          "network_burst_rate_per_min": {
+            "agrees": null,
+            "real_delta": -4.322,
+            "real_direction": "down",
+            "real_established": false,
+            "simulated_delta": -4.322,
+            "simulated_direction": "down"
+          },
+          "pct_spikes_in_bursts": {
+            "agrees": true,
+            "real_delta": -1.702,
+            "real_direction": "down",
+            "real_established": true,
+            "simulated_delta": -4.322,
+            "simulated_direction": "down"
+          },
+          "synchrony_index": {
+            "agrees": true,
+            "real_delta": -4.322,
+            "real_direction": "down",
+            "real_established": true,
+            "simulated_delta": -3.592,
+            "simulated_direction": "down"
+          }
+        },
+        "knob": "ampa_block",
+        "mechanism": "glutamatergic_antagonist",
+        "n_features_agreeing": 4,
+        "n_features_scored": 4,
+        "parameter": "ampa_scale",
+        "reads_as": "glutamatergic antagonist (CNQX, D-AP5): excitation reduced",
+        "real_reference": {
+          "bootstrap_resamples": 1000,
+          "by_feature": {
+            "burst_rate_per_min": {
+              "ci95": [
+                -4.0125,
+                -1.5979
+              ],
+              "established": true,
+              "median_delta": -2.683,
+              "n": 17
+            },
+            "isi_cv": {
+              "ci95": [
+                -1.3058,
+                0.0902
+              ],
+              "established": false,
+              "median_delta": -0.459,
+              "n": 17
+            },
+            "mfr_hz": {
+              "ci95": [
+                -2.1847,
+                -1.5055
+              ],
+              "established": true,
+              "median_delta": -1.769,
+              "n": 17
+            },
+            "network_burst_rate_per_min": {
+              "ci95": [
+                -4.3219,
+                2.4594
+              ],
+              "established": false,
+              "median_delta": -4.322,
+              "n": 16
+            },
+            "pct_spikes_in_bursts": {
+              "ci95": [
+                -2.6586,
+                -0.9437
+              ],
+              "established": true,
+              "median_delta": -1.702,
+              "n": 17
+            },
+            "synchrony_index": {
+              "ci95": [
+                -4.3219,
+                -0.1432
+              ],
+              "established": true,
+              "median_delta": -4.322,
+              "n": 17
+            }
+          },
+          "mechanism": "glutamatergic_antagonist",
+          "n_pairs": 17,
+          "sources": [
+            "kapucu2022"
+          ]
+        },
+        "simulated_delta": {
+          "burst_rate_per_min": -4.322,
+          "isi_cv": -2.036,
+          "mfr_hz": -4.322,
+          "network_burst_rate_per_min": -4.322,
+          "pct_spikes_in_bursts": -4.322,
+          "synchrony_index": -3.592
+        },
+        "value": 0.4
+      },
+      {
+        "agreement": {
+          "burst_rate_per_min": {
+            "agrees": true,
+            "real_delta": -1.737,
+            "real_direction": "down",
+            "real_established": true,
+            "simulated_delta": -4.322,
+            "simulated_direction": "down"
+          },
+          "isi_cv": {
+            "agrees": null,
+            "real_delta": -0.041,
+            "real_direction": "down",
+            "real_established": false,
+            "simulated_delta": null,
+            "simulated_direction": null
+          },
+          "mfr_hz": {
+            "agrees": true,
+            "real_delta": -0.795,
+            "real_direction": "down",
+            "real_established": true,
+            "simulated_delta": -4.322,
+            "simulated_direction": "down"
+          },
+          "network_burst_rate_per_min": {
+            "agrees": null,
+            "real_delta": -4.322,
+            "real_direction": "down",
+            "real_established": false,
+            "simulated_delta": -4.322,
+            "simulated_direction": "down"
+          },
+          "pct_spikes_in_bursts": {
+            "agrees": true,
+            "real_delta": -1.188,
+            "real_direction": "down",
+            "real_established": true,
+            "simulated_delta": -4.322,
+            "simulated_direction": "down"
+          },
+          "synchrony_index": {
+            "agrees": null,
+            "real_delta": -1.932,
+            "real_direction": "down",
+            "real_established": false,
+            "simulated_delta": null,
+            "simulated_direction": null
+          }
+        },
+        "knob": "sodium_block",
+        "mechanism": "na_channel_blocker",
+        "n_features_agreeing": 3,
+        "n_features_scored": 3,
+        "parameter": "threshold_scale",
+        "reads_as": "sodium-channel blocker (TTX): spike threshold raised",
+        "real_reference": {
+          "bootstrap_resamples": 1000,
+          "by_feature": {
+            "burst_rate_per_min": {
+              "ci95": [
+                -2.7971,
+                -0.4373
+              ],
+              "established": true,
+              "median_delta": -1.737,
+              "n": 26
+            },
+            "isi_cv": {
+              "ci95": [
+                -0.6669,
+                0.3675
+              ],
+              "established": false,
+              "median_delta": -0.041,
+              "n": 26
+            },
+            "mfr_hz": {
+              "ci95": [
+                -1.2444,
+                -0.2148
+              ],
+              "established": true,
+              "median_delta": -0.795,
+              "n": 26
+            },
+            "network_burst_rate_per_min": {
+              "ci95": [
+                -4.3219,
+                0.349
+              ],
+              "established": false,
+              "median_delta": -4.322,
+              "n": 18
+            },
+            "pct_spikes_in_bursts": {
+              "ci95": [
+                -2.2074,
+                -0.0028
+              ],
+              "established": true,
+              "median_delta": -1.188,
+              "n": 26
+            },
+            "synchrony_index": {
+              "ci95": [
+                -4.1723,
+                0.6357
+              ],
+              "established": false,
+              "median_delta": -1.932,
+              "n": 26
+            }
+          },
+          "mechanism": "na_channel_blocker",
+          "n_pairs": 26,
+          "sources": [
+            "kapucu2022"
+          ]
+        },
+        "simulated_delta": {
+          "burst_rate_per_min": -4.322,
+          "isi_cv": null,
+          "mfr_hz": -4.322,
+          "network_burst_rate_per_min": -4.322,
+          "pct_spikes_in_bursts": -4.322,
+          "synchrony_index": null
+        },
+        "value": 1.6
+      }
+    ],
+    "label": "SIMULATED twin vs REAL pharmacology (directions only)",
+    "simulation": {
+      "baseline_features_simulated": {
+        "active_electrodes": 48.0,
+        "burst_duration_s": 0.016957411598510178,
+        "burst_rate_per_min": 34.625,
+        "isi_cv": 3.5533996885754613,
+        "mfr_hz": 7.8934895833333325,
+        "network_burst_rate_per_min": 36.0,
+        "pct_spikes_in_bursts": 97.75489908549426,
+        "spikes_per_burst": 13.364624576771043,
+        "synchrony_index": 0.9856474655889574
+      },
+      "calibrated_parameters_used": true,
+      "duration_s": 40.0,
+      "layout": {
+        "cols": 8,
+        "detection_radius_um": 248.9754,
+        "gap_um": 600.0,
+        "margin_um": 100.0,
+        "pitch_um": 200.0,
+        "rows": 6
+      },
+      "n_per_compartment": 250,
+      "treated_features_simulated": {
+        "ampa_block": {
+          "active_electrodes": 42.5,
+          "burst_duration_s": null,
+          "burst_rate_per_min": 0.0,
+          "isi_cv": 0.8663492461651128,
+          "mfr_hz": 0.29761705685618733,
+          "network_burst_rate_per_min": 0.75,
+          "pct_spikes_in_bursts": 0.0,
+          "spikes_per_burst": null,
+          "synchrony_index": 0.08171495737493706
+        },
+        "gabaa_block": {
+          "active_electrodes": 48.0,
+          "burst_duration_s": 0.03998035714285719,
+          "burst_rate_per_min": 21.0,
+          "isi_cv": 12.927378677591953,
+          "mfr_hz": 57.830468749999994,
+          "network_burst_rate_per_min": 21.0,
+          "pct_spikes_in_bursts": 99.97254396286073,
+          "spikes_per_burst": 165.18526785714286,
+          "synchrony_index": 0.9997160189581088
+        },
+        "gabaa_potentiate": {
+          "active_electrodes": 48.0,
+          "burst_duration_s": 0.014841964818414499,
+          "burst_rate_per_min": 35.625,
+          "isi_cv": 3.284735423632148,
+          "mfr_hz": 6.975,
+          "network_burst_rate_per_min": 39.75,
+          "pct_spikes_in_bursts": 95.69419700882538,
+          "spikes_per_burst": 11.245199099289824,
+          "synchrony_index": 0.979779947623037
+        },
+        "sodium_block": {
+          "active_electrodes": 0.0,
+          "burst_duration_s": null,
+          "burst_rate_per_min": 0.0,
+          "isi_cv": null,
+          "mfr_hz": 0.0,
+          "network_burst_rate_per_min": 0.0,
+          "pct_spikes_in_bursts": 0.0,
+          "silent": true,
+          "spikes_per_burst": null,
+          "synchrony_index": null
+        }
+      }
+    }
+  },
   "uncertainty_and_ablations": {
     "conformal_sweep": [
       {

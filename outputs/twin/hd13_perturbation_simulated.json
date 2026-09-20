@@ -1,0 +1,603 @@
+{
+  "label": "SIMULATED twin vs REAL pharmacology (directions only)",
+  "simulation": {
+    "calibrated_parameters_used": true,
+    "baseline_features_simulated": {
+      "mfr_hz": 7.8934895833333325,
+      "burst_rate_per_min": 34.625,
+      "burst_duration_s": 0.016957411598510178,
+      "spikes_per_burst": 13.364624576771043,
+      "pct_spikes_in_bursts": 97.75489908549426,
+      "network_burst_rate_per_min": 36.0,
+      "synchrony_index": 0.9856474655889574,
+      "isi_cv": 3.5533996885754613,
+      "active_electrodes": 48.0
+    },
+    "treated_features_simulated": {
+      "gabaa_block": {
+        "mfr_hz": 57.830468749999994,
+        "burst_rate_per_min": 21.0,
+        "burst_duration_s": 0.03998035714285719,
+        "spikes_per_burst": 165.18526785714286,
+        "pct_spikes_in_bursts": 99.97254396286073,
+        "network_burst_rate_per_min": 21.0,
+        "synchrony_index": 0.9997160189581088,
+        "isi_cv": 12.927378677591953,
+        "active_electrodes": 48.0
+      },
+      "gabaa_potentiate": {
+        "mfr_hz": 6.975,
+        "burst_rate_per_min": 35.625,
+        "burst_duration_s": 0.014841964818414499,
+        "spikes_per_burst": 11.245199099289824,
+        "pct_spikes_in_bursts": 95.69419700882538,
+        "network_burst_rate_per_min": 39.75,
+        "synchrony_index": 0.979779947623037,
+        "isi_cv": 3.284735423632148,
+        "active_electrodes": 48.0
+      },
+      "ampa_block": {
+        "mfr_hz": 0.29761705685618733,
+        "burst_rate_per_min": 0.0,
+        "burst_duration_s": null,
+        "spikes_per_burst": null,
+        "pct_spikes_in_bursts": 0.0,
+        "network_burst_rate_per_min": 0.75,
+        "synchrony_index": 0.08171495737493706,
+        "isi_cv": 0.8663492461651128,
+        "active_electrodes": 42.5
+      },
+      "sodium_block": {
+        "mfr_hz": 0.0,
+        "burst_rate_per_min": 0.0,
+        "burst_duration_s": null,
+        "spikes_per_burst": null,
+        "pct_spikes_in_bursts": 0.0,
+        "network_burst_rate_per_min": 0.0,
+        "synchrony_index": null,
+        "isi_cv": null,
+        "active_electrodes": 0.0,
+        "silent": true
+      }
+    },
+    "layout": {
+      "rows": 6,
+      "cols": 8,
+      "pitch_um": 200.0,
+      "detection_radius_um": 248.9754,
+      "gap_um": 600.0,
+      "margin_um": 100.0
+    },
+    "duration_s": 40.0,
+    "n_per_compartment": 250
+  },
+  "knobs": [
+    {
+      "knob": "gabaa_block",
+      "parameter": "gabaa_scale",
+      "value": 0.2,
+      "mechanism": "gabaa_antagonist",
+      "reads_as": "GABA-A antagonist (bicuculline, gabazine): inhibition removed",
+      "real_reference": {
+        "mechanism": "gabaa_antagonist",
+        "n_pairs": 507,
+        "sources": [
+          "kapucu2022",
+          "screenneuropharm_bic"
+        ],
+        "bootstrap_resamples": 1000,
+        "by_feature": {
+          "mfr_hz": {
+            "median_delta": -0.335,
+            "ci95": [
+              -0.5372,
+              -0.0728
+            ],
+            "established": true,
+            "n": 507
+          },
+          "burst_rate_per_min": {
+            "median_delta": -0.548,
+            "ci95": [
+              -0.7034,
+              -0.3537
+            ],
+            "established": true,
+            "n": 507
+          },
+          "pct_spikes_in_bursts": {
+            "median_delta": 0.037,
+            "ci95": [
+              0.0184,
+              0.0696
+            ],
+            "established": true,
+            "n": 507
+          },
+          "network_burst_rate_per_min": {
+            "median_delta": -0.66,
+            "ci95": [
+              -1.0192,
+              -0.3797
+            ],
+            "established": true,
+            "n": 454
+          },
+          "synchrony_index": {
+            "median_delta": 0.11,
+            "ci95": [
+              0.0672,
+              0.1425
+            ],
+            "established": true,
+            "n": 507
+          },
+          "isi_cv": {
+            "median_delta": 0.038,
+            "ci95": [
+              -0.1241,
+              0.1822
+            ],
+            "established": false,
+            "n": 507
+          }
+        }
+      },
+      "simulated_delta": {
+        "mfr_hz": 2.873,
+        "burst_rate_per_min": -0.721,
+        "pct_spikes_in_bursts": 0.032,
+        "network_burst_rate_per_min": -0.778,
+        "synchrony_index": 0.02,
+        "isi_cv": 1.863
+      },
+      "agreement": {
+        "mfr_hz": {
+          "real_delta": -0.335,
+          "real_direction": "down",
+          "real_established": true,
+          "simulated_delta": 2.873,
+          "simulated_direction": "up",
+          "agrees": false
+        },
+        "burst_rate_per_min": {
+          "real_delta": -0.548,
+          "real_direction": "down",
+          "real_established": true,
+          "simulated_delta": -0.721,
+          "simulated_direction": "down",
+          "agrees": true
+        },
+        "pct_spikes_in_bursts": {
+          "real_delta": 0.037,
+          "real_direction": "up",
+          "real_established": true,
+          "simulated_delta": 0.032,
+          "simulated_direction": "up",
+          "agrees": true
+        },
+        "network_burst_rate_per_min": {
+          "real_delta": -0.66,
+          "real_direction": "down",
+          "real_established": true,
+          "simulated_delta": -0.778,
+          "simulated_direction": "down",
+          "agrees": true
+        },
+        "synchrony_index": {
+          "real_delta": 0.11,
+          "real_direction": "up",
+          "real_established": true,
+          "simulated_delta": 0.02,
+          "simulated_direction": "up",
+          "agrees": true
+        },
+        "isi_cv": {
+          "real_delta": 0.038,
+          "real_direction": "up",
+          "real_established": false,
+          "simulated_delta": 1.863,
+          "simulated_direction": "up",
+          "agrees": null
+        }
+      },
+      "n_features_scored": 5,
+      "n_features_agreeing": 4
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "parameter": "gabaa_scale",
+      "value": 2.0,
+      "mechanism": "gabaa_agonist_or_pam",
+      "reads_as": "GABA-A positive modulator (diazepam): inhibition strengthened",
+      "real_reference": {
+        "mechanism": "gabaa_agonist_or_pam",
+        "n_pairs": 17,
+        "sources": [
+          "kapucu2022",
+          "sharf2022"
+        ],
+        "bootstrap_resamples": 1000,
+        "by_feature": {
+          "mfr_hz": {
+            "median_delta": -0.471,
+            "ci95": [
+              -1.111,
+              -0.1324
+            ],
+            "established": true,
+            "n": 17
+          },
+          "burst_rate_per_min": {
+            "median_delta": -0.353,
+            "ci95": [
+              -1.9537,
+              -0.0562
+            ],
+            "established": true,
+            "n": 17
+          },
+          "pct_spikes_in_bursts": {
+            "median_delta": -0.282,
+            "ci95": [
+              -2.0956,
+              -0.0658
+            ],
+            "established": true,
+            "n": 17
+          },
+          "network_burst_rate_per_min": {
+            "median_delta": 0.06,
+            "ci95": [
+              -4.3219,
+              0.682
+            ],
+            "established": false,
+            "n": 17
+          },
+          "synchrony_index": {
+            "median_delta": 0.062,
+            "ci95": [
+              -2.8839,
+              0.1062
+            ],
+            "established": false,
+            "n": 17
+          },
+          "isi_cv": {
+            "median_delta": -0.231,
+            "ci95": [
+              -1.3963,
+              -0.1252
+            ],
+            "established": true,
+            "n": 17
+          }
+        }
+      },
+      "simulated_delta": {
+        "mfr_hz": -0.178,
+        "burst_rate_per_min": 0.041,
+        "pct_spikes_in_bursts": -0.031,
+        "network_burst_rate_per_min": 0.143,
+        "synchrony_index": -0.009,
+        "isi_cv": -0.113
+      },
+      "agreement": {
+        "mfr_hz": {
+          "real_delta": -0.471,
+          "real_direction": "down",
+          "real_established": true,
+          "simulated_delta": -0.178,
+          "simulated_direction": "down",
+          "agrees": true
+        },
+        "burst_rate_per_min": {
+          "real_delta": -0.353,
+          "real_direction": "down",
+          "real_established": true,
+          "simulated_delta": 0.041,
+          "simulated_direction": "up",
+          "agrees": false
+        },
+        "pct_spikes_in_bursts": {
+          "real_delta": -0.282,
+          "real_direction": "down",
+          "real_established": true,
+          "simulated_delta": -0.031,
+          "simulated_direction": "down",
+          "agrees": true
+        },
+        "network_burst_rate_per_min": {
+          "real_delta": 0.06,
+          "real_direction": "up",
+          "real_established": false,
+          "simulated_delta": 0.143,
+          "simulated_direction": "up",
+          "agrees": null
+        },
+        "synchrony_index": {
+          "real_delta": 0.062,
+          "real_direction": "up",
+          "real_established": false,
+          "simulated_delta": -0.009,
+          "simulated_direction": "down",
+          "agrees": null
+        },
+        "isi_cv": {
+          "real_delta": -0.231,
+          "real_direction": "down",
+          "real_established": true,
+          "simulated_delta": -0.113,
+          "simulated_direction": "down",
+          "agrees": true
+        }
+      },
+      "n_features_scored": 4,
+      "n_features_agreeing": 3
+    },
+    {
+      "knob": "ampa_block",
+      "parameter": "ampa_scale",
+      "value": 0.4,
+      "mechanism": "glutamatergic_antagonist",
+      "reads_as": "glutamatergic antagonist (CNQX, D-AP5): excitation reduced",
+      "real_reference": {
+        "mechanism": "glutamatergic_antagonist",
+        "n_pairs": 17,
+        "sources": [
+          "kapucu2022"
+        ],
+        "bootstrap_resamples": 1000,
+        "by_feature": {
+          "mfr_hz": {
+            "median_delta": -1.769,
+            "ci95": [
+              -2.1847,
+              -1.5055
+            ],
+            "established": true,
+            "n": 17
+          },
+          "burst_rate_per_min": {
+            "median_delta": -2.683,
+            "ci95": [
+              -4.0125,
+              -1.5979
+            ],
+            "established": true,
+            "n": 17
+          },
+          "pct_spikes_in_bursts": {
+            "median_delta": -1.702,
+            "ci95": [
+              -2.6586,
+              -0.9437
+            ],
+            "established": true,
+            "n": 17
+          },
+          "network_burst_rate_per_min": {
+            "median_delta": -4.322,
+            "ci95": [
+              -4.3219,
+              2.4594
+            ],
+            "established": false,
+            "n": 16
+          },
+          "synchrony_index": {
+            "median_delta": -4.322,
+            "ci95": [
+              -4.3219,
+              -0.1432
+            ],
+            "established": true,
+            "n": 17
+          },
+          "isi_cv": {
+            "median_delta": -0.459,
+            "ci95": [
+              -1.3058,
+              0.0902
+            ],
+            "established": false,
+            "n": 17
+          }
+        }
+      },
+      "simulated_delta": {
+        "mfr_hz": -4.322,
+        "burst_rate_per_min": -4.322,
+        "pct_spikes_in_bursts": -4.322,
+        "network_burst_rate_per_min": -4.322,
+        "synchrony_index": -3.592,
+        "isi_cv": -2.036
+      },
+      "agreement": {
+        "mfr_hz": {
+          "real_delta": -1.769,
+          "real_direction": "down",
+          "real_established": true,
+          "simulated_delta": -4.322,
+          "simulated_direction": "down",
+          "agrees": true
+        },
+        "burst_rate_per_min": {
+          "real_delta": -2.683,
+          "real_direction": "down",
+          "real_established": true,
+          "simulated_delta": -4.322,
+          "simulated_direction": "down",
+          "agrees": true
+        },
+        "pct_spikes_in_bursts": {
+          "real_delta": -1.702,
+          "real_direction": "down",
+          "real_established": true,
+          "simulated_delta": -4.322,
+          "simulated_direction": "down",
+          "agrees": true
+        },
+        "network_burst_rate_per_min": {
+          "real_delta": -4.322,
+          "real_direction": "down",
+          "real_established": false,
+          "simulated_delta": -4.322,
+          "simulated_direction": "down",
+          "agrees": null
+        },
+        "synchrony_index": {
+          "real_delta": -4.322,
+          "real_direction": "down",
+          "real_established": true,
+          "simulated_delta": -3.592,
+          "simulated_direction": "down",
+          "agrees": true
+        },
+        "isi_cv": {
+          "real_delta": -0.459,
+          "real_direction": "down",
+          "real_established": false,
+          "simulated_delta": -2.036,
+          "simulated_direction": "down",
+          "agrees": null
+        }
+      },
+      "n_features_scored": 4,
+      "n_features_agreeing": 4
+    },
+    {
+      "knob": "sodium_block",
+      "parameter": "threshold_scale",
+      "value": 1.6,
+      "mechanism": "na_channel_blocker",
+      "reads_as": "sodium-channel blocker (TTX): spike threshold raised",
+      "real_reference": {
+        "mechanism": "na_channel_blocker",
+        "n_pairs": 26,
+        "sources": [
+          "kapucu2022"
+        ],
+        "bootstrap_resamples": 1000,
+        "by_feature": {
+          "mfr_hz": {
+            "median_delta": -0.795,
+            "ci95": [
+              -1.2444,
+              -0.2148
+            ],
+            "established": true,
+            "n": 26
+          },
+          "burst_rate_per_min": {
+            "median_delta": -1.737,
+            "ci95": [
+              -2.7971,
+              -0.4373
+            ],
+            "established": true,
+            "n": 26
+          },
+          "pct_spikes_in_bursts": {
+            "median_delta": -1.188,
+            "ci95": [
+              -2.2074,
+              -0.0028
+            ],
+            "established": true,
+            "n": 26
+          },
+          "network_burst_rate_per_min": {
+            "median_delta": -4.322,
+            "ci95": [
+              -4.3219,
+              0.349
+            ],
+            "established": false,
+            "n": 18
+          },
+          "synchrony_index": {
+            "median_delta": -1.932,
+            "ci95": [
+              -4.1723,
+              0.6357
+            ],
+            "established": false,
+            "n": 26
+          },
+          "isi_cv": {
+            "median_delta": -0.041,
+            "ci95": [
+              -0.6669,
+              0.3675
+            ],
+            "established": false,
+            "n": 26
+          }
+        }
+      },
+      "simulated_delta": {
+        "mfr_hz": -4.322,
+        "burst_rate_per_min": -4.322,
+        "pct_spikes_in_bursts": -4.322,
+        "network_burst_rate_per_min": -4.322,
+        "synchrony_index": null,
+        "isi_cv": null
+      },
+      "agreement": {
+        "mfr_hz": {
+          "real_delta": -0.795,
+          "real_direction": "down",
+          "real_established": true,
+          "simulated_delta": -4.322,
+          "simulated_direction": "down",
+          "agrees": true
+        },
+        "burst_rate_per_min": {
+          "real_delta": -1.737,
+          "real_direction": "down",
+          "real_established": true,
+          "simulated_delta": -4.322,
+          "simulated_direction": "down",
+          "agrees": true
+        },
+        "pct_spikes_in_bursts": {
+          "real_delta": -1.188,
+          "real_direction": "down",
+          "real_established": true,
+          "simulated_delta": -4.322,
+          "simulated_direction": "down",
+          "agrees": true
+        },
+        "network_burst_rate_per_min": {
+          "real_delta": -4.322,
+          "real_direction": "down",
+          "real_established": false,
+          "simulated_delta": -4.322,
+          "simulated_direction": "down",
+          "agrees": null
+        },
+        "synchrony_index": {
+          "real_delta": -1.932,
+          "real_direction": "down",
+          "real_established": false,
+          "simulated_delta": null,
+          "simulated_direction": null,
+          "agrees": null
+        },
+        "isi_cv": {
+          "real_delta": -0.041,
+          "real_direction": "down",
+          "real_established": false,
+          "simulated_delta": null,
+          "simulated_direction": null,
+          "agrees": null
+        }
+      },
+      "n_features_scored": 3,
+      "n_features_agreeing": 3
+    }
+  ],
+  "bootstrap_resamples": 1000
+}
