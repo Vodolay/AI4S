@@ -1689,6 +1689,111 @@
       }
     }
   },
+  "twin_hd14_inference": {
+    "contraction": {
+      "ampa_scale": {
+        "contraction": 0.423,
+        "posterior_sd": 0.1666,
+        "prior_sd": 0.2887
+      },
+      "gabaa_scale": {
+        "contraction": 0.338,
+        "posterior_sd": 0.3629,
+        "prior_sd": 0.5485
+      },
+      "inter_in_degree": {
+        "contraction": 0.273,
+        "posterior_sd": 3.7761,
+        "prior_sd": 5.1962
+      },
+      "log10_forward_ratio": {
+        "contraction": 0.281,
+        "posterior_sd": 0.27,
+        "prior_sd": 0.3753
+      },
+      "threshold_scale": {
+        "contraction": 0.786,
+        "posterior_sd": 0.0185,
+        "prior_sd": 0.0866
+      }
+    },
+    "fraction_silent_simulations": 0.207,
+    "label": "SIMULATED - inference trained on simulations only",
+    "n_holdout": 434,
+    "n_simulations": 4342,
+    "n_train": 3908,
+    "posterior_samples": 200,
+    "prior_bounds": {
+      "ampa_scale": [
+        0.4,
+        1.4
+      ],
+      "gabaa_scale": [
+        0.1,
+        2.0
+      ],
+      "inter_in_degree": [
+        2.0,
+        20.0
+      ],
+      "log10_forward_ratio": [
+        0.0,
+        1.3
+      ],
+      "threshold_scale": [
+        0.85,
+        1.15
+      ]
+    },
+    "rank_uniformity_ks_p": {
+      "ampa_scale": {
+        "ks_p": 0.0482,
+        "ks_statistic": 0.0651,
+        "n_evaluated": 434
+      },
+      "gabaa_scale": {
+        "ks_p": 0.0009,
+        "ks_statistic": 0.0935,
+        "n_evaluated": 434
+      },
+      "inter_in_degree": {
+        "ks_p": 0.0062,
+        "ks_statistic": 0.0812,
+        "n_evaluated": 434
+      },
+      "log10_forward_ratio": {
+        "ks_p": 0.0131,
+        "ks_statistic": 0.0757,
+        "n_evaluated": 434
+      },
+      "threshold_scale": {
+        "ks_p": 0.0013,
+        "ks_statistic": 0.0914,
+        "n_evaluated": 434
+      }
+    },
+    "summary_names": [
+      "c0_mfr_hz",
+      "c0_burst_rate_per_min",
+      "c0_pct_spikes_in_bursts",
+      "c0_network_burst_rate_per_min",
+      "c0_synchrony_index",
+      "c0_isi_cv",
+      "c0_active_electrodes",
+      "c1_mfr_hz",
+      "c1_burst_rate_per_min",
+      "c1_pct_spikes_in_bursts",
+      "c1_network_burst_rate_per_min",
+      "c1_synchrony_index",
+      "c1_isi_cv",
+      "c1_active_electrodes",
+      "log_rate_ratio",
+      "peak_correlation",
+      "lag_ms",
+      "asymmetry",
+      "coupling_measured"
+    ]
+  },
   "uncertainty_and_ablations": {
     "conformal_sweep": [
       {

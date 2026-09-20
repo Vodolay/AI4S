@@ -49,9 +49,12 @@ def main(argv: list[str] | None = None) -> int:
             from neuromps.twin.validate import main as validate_twin
 
             quick = ["--quick"] if args.quick else []
+            from neuromps.twin.inference import main as run_inference
+
             validate_twin(quick)
             calibrate_twin(quick)
             run_knobs(quick)
+            run_inference(quick)
         else:
             logging.info("stage %r not implemented yet (later phase) - skipping", stage)
     logging.info("run_all finished in %.1f s", time.time() - t0)

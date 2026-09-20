@@ -1,0 +1,113 @@
+[
+  {
+    "n_train": 300,
+    "contraction": {
+      "log10_forward_ratio": {
+        "prior_sd": 0.3753,
+        "posterior_sd": 0.3031,
+        "contraction": 0.192
+      },
+      "inter_in_degree": {
+        "prior_sd": 5.1962,
+        "posterior_sd": 4.1197,
+        "contraction": 0.207
+      },
+      "gabaa_scale": {
+        "prior_sd": 0.5485,
+        "posterior_sd": 0.3706,
+        "contraction": 0.324
+      },
+      "ampa_scale": {
+        "prior_sd": 0.2887,
+        "posterior_sd": 0.1737,
+        "contraction": 0.398
+      },
+      "threshold_scale": {
+        "prior_sd": 0.0866,
+        "posterior_sd": 0.019,
+        "contraction": 0.78
+      }
+    },
+    "rank_uniformity_ks_p": {
+      "log10_forward_ratio": 0.0,
+      "inter_in_degree": 0.0049,
+      "gabaa_scale": 0.1695,
+      "ampa_scale": 0.0043,
+      "threshold_scale": 0.0055
+    }
+  },
+  {
+    "n_train": 600,
+    "contraction": {
+      "log10_forward_ratio": {
+        "prior_sd": 0.3753,
+        "posterior_sd": 0.3012,
+        "contraction": 0.197
+      },
+      "inter_in_degree": {
+        "prior_sd": 5.1962,
+        "posterior_sd": 4.1345,
+        "contraction": 0.204
+      },
+      "gabaa_scale": {
+        "prior_sd": 0.5485,
+        "posterior_sd": 0.3565,
+        "contraction": 0.35
+      },
+      "ampa_scale": {
+        "prior_sd": 0.2887,
+        "posterior_sd": 0.1646,
+        "contraction": 0.43
+      },
+      "threshold_scale": {
+        "prior_sd": 0.0866,
+        "posterior_sd": 0.0183,
+        "contraction": 0.788
+      }
+    },
+    "rank_uniformity_ks_p": {
+      "log10_forward_ratio": 0.0001,
+      "inter_in_degree": 0.0091,
+      "gabaa_scale": 0.0928,
+      "ampa_scale": 0.0183,
+      "threshold_scale": 0.0145
+    }
+  },
+  {
+    "n_train": 1200,
+    "contraction": {
+      "log10_forward_ratio": {
+        "prior_sd": 0.3753,
+        "posterior_sd": 0.2528,
+        "contraction": 0.326
+      },
+      "inter_in_degree": {
+        "prior_sd": 5.1962,
+        "posterior_sd": 3.719,
+        "contraction": 0.284
+      },
+      "gabaa_scale": {
+        "prior_sd": 0.5485,
+        "posterior_sd": 0.3519,
+        "contraction": 0.358
+      },
+      "ampa_scale": {
+        "prior_sd": 0.2887,
+        "posterior_sd": 0.181,
+        "contraction": 0.373
+      },
+      "threshold_scale": {
+        "prior_sd": 0.0866,
+        "posterior_sd": 0.0189,
+        "contraction": 0.782
+      }
+    },
+    "rank_uniformity_ks_p": {
+      "log10_forward_ratio": 0.0013,
+      "inter_in_degree": 0.0476,
+      "gabaa_scale": 0.0115,
+      "ampa_scale": 0.0703,
+      "threshold_scale": 0.1837
+    }
+  }
+]
