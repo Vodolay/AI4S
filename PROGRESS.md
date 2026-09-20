@@ -469,7 +469,50 @@ A knob that silences the network now yields rate-like features of **zero, not un
 ratio floors at log2(0.05) = -4.32, exactly as the real ETL already does for an abolished well.
 Without it the sodium block scored 0/0, because every simulated feature came back missing.
 
-### Next first task (HD14)
+## 2026-09-20: Phase 3, HD14 - simulation-based inference
+
+### Done (`efb9142`)
+- `twin/inference.py`: 5-parameter prior, simulator summarised exactly like a real recording,
+  parallel sweep with an on-disk cache (**4342 simulations**, ~0.5 s each on 16 processes), NPE
+  training, and posterior checks (rank statistics + prior-to-posterior contraction).
+- Summary vector carries `log_rate_ratio` by design, per the HD11 caveat.
+- `--stage twin` now also trains the posterior. 280 tests pass, ruff clean.
+
+### Two diagnostics that changed the design
+1. **Excitability cliff.** The first prior let `threshold_scale` reach 1.5, where the network is
+   silent in 98% of draws; **64% of the first simulation budget was degenerate**. Bound tightened to
+   1.15, cached draws outside it reused by rejection rather than rerun. Silent fraction 64% -> 21%
+   and every contraction improved.
+2. **P-values are not comparable across evaluation sets.** Growing the holdout from 134 to 434 made
+   the rank-test p-values look worse for unchanged posteriors, because the test gained power. The KS
+   **statistic** is now reported beside the p-value and is what to compare.
+
+### Result (`metrics.twin_hd14_inference`) - the honest part
+| parameter | contraction | KS statistic | KS p |
+|---|---|---|---|
+| threshold_scale | **0.786** | 0.091 | 0.0013 |
+| ampa_scale | 0.423 | 0.065 | 0.0482 |
+| gabaa_scale | 0.338 | 0.093 | 0.0009 |
+| log10_forward_ratio | **0.281** | 0.076 | 0.0131 |
+| inter_in_degree | 0.273 | 0.081 | 0.0062 |
+
+Only excitability is well recovered. **The connectivity parameters - including the
+forward/backward ratio the twin exists to infer - are weak, and no parameter passes the
+rank-uniformity test at 434 holdout points.** A learning curve at 300/600/1200 training simulations
+(`outputs/twin/hd14_learning_curve_simulated.json`) shows connectivity contraction still rising with
+sample size, but tripling the simulations moved it only 0.28 -> 0.30. More simulations alone will
+not fix this.
+
+### What to try in HD15/HD16
+- **Better summaries, not more simulations.** The rate cross-correlation is the measure HD11 showed
+  is confounded by excitability; candidates are burst-onset lag per compartment, first-spike order
+  within network events, and per-event participation ratios.
+- Longer simulated recordings (10 s now; real chamber recordings are 480 s).
+- If directionality stays unrecoverable, that is itself the Phase 3 result: it would say MEA summary
+  features cannot identify chip connectivity at this recording length, which the report should state
+  plainly rather than bury.
+
+### Next first task (HD15)
 - Simulation-based inference with `sbi`: prior over forward/backward ratio, inter-compartment
   strength and the three drug knobs; simulate, train a posterior estimator, cache to disk.
   **Carry the HD11 caveat into the design**: coupling asymmetry tracks relative firing rate, so the

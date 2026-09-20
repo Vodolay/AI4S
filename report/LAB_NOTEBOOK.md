@@ -427,6 +427,29 @@ provenance instead of degrading it. Regression test in `tests/test_new_sources.p
 
 ---
 
+### 2026-09-20 · Inference design and its two corrections · `efb9142`
+- **Inferred parameters (5):** `log10_forward_ratio` (sampled in log space so ratio 1 and ratio 20
+  are equally reachable), `inter_in_degree`, `gabaa_scale`, `ampa_scale`, `threshold_scale`.
+- **Summaries:** per-compartment features plus coupling, and `log_rate_ratio` **deliberately
+  included** so the estimator can condition on rate imbalance instead of confusing it with
+  connectivity (HD11 caveat). Missing measurements are explicit sentinels with a
+  `coupling_measured` indicator, never NaN.
+- **Simulator settings:** 150 neurons per compartment, 10 s, 4x6 electrodes, on top of the HD12
+  calibration. Chosen for a ~0.5 s wall-clock cost per draw on 16 processes; the real chamber
+  recordings are 480 s, so the simulated recordings are far shorter than the data they model.
+- **Correction 1, prior:** `threshold_scale` originally ran to 1.5, past an excitability cliff where
+  98% of draws are silent; 64% of the first budget was wasted on degenerate summaries. Bounded at
+  1.15, with cached draws outside the new box reused by rejection.
+- **Correction 2, diagnostics:** rank-test p-values were being compared across evaluation sets of
+  different size, which reads a power increase as a quality drop. The KS statistic is now reported
+  and is the comparable quantity.
+- **Result:** `metrics.twin_hd14_inference`, ranks figure
+  `outputs/twin/hd14_posterior_ranks_simulated.png`, learning curve
+  `outputs/twin/hd14_learning_curve_simulated.json`. Only excitability is well identified; the
+  connectivity parameters are not, and tripling the simulation budget barely moved them.
+
+---
+
 ---
 
 ## Tried and abandoned
@@ -492,6 +515,12 @@ provenance instead of degrading it. Regression test in `tests/test_new_sources.p
     over-synchrony.
 20. Each drug knob is compared against a real reference from a different platform, so knob agreement
     supports direction, not magnitude.
+21. The posterior identifies excitability (`threshold_scale`, contraction 0.79) but **not
+    connectivity** (`log10_forward_ratio` 0.28, `inter_in_degree` 0.27), and no parameter passes the
+    rank-uniformity check at 434 holdout points. Posterior intervals from this estimator should not
+    be quoted as calibrated.
+22. Simulated recordings are 10 s against real recordings of 480 s, which plausibly limits every
+    burst- and synchrony-derived summary the inference depends on.
 
 ---
 
