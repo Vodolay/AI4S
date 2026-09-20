@@ -107,6 +107,23 @@ consumer can re-apply their own thresholds.
 Upstream exclusions are preserved, not silently dropped: Kapucu's `ExcludedWell` rows and
 noisy-electrode lists become `excluded_well_upstream` and `noisy_electrodes_present`.
 
+### 5.1 Cross-record flags
+
+Three flags need context a single record lacks, so they are applied as a pass over the whole asset
+(`neuromps.qc.flags`):
+
+- `replicate_divergence` / `outlier_feature_value`: a well whose feature value is more than 3.5
+  robust (median/MAD) z-scores from its replicate group — same source, plate, phase, compound and
+  dose. Groups smaller than 3 are never flagged. Where more than half a group shares a value exactly
+  the MAD is zero, so the mean absolute deviation is used as the scale instead; otherwise the single
+  divergent well would be invisible.
+- `missing_baseline_pair`: an exposure recording whose well has no baseline recording.
+
+**Flags are informational and never change `qc.usable` by themselves.** `qc.note` names the diverging
+feature and its z-score, because a well can sit at the group median for one feature and diverge on
+another. In near-silent conditions (a TTX plate) the flag fires on wells that are still firing; that
+is intended, since it identifies a failed drug application.
+
 ## 6. Provenance
 
 Every record traces to hashed raw files: source URL, license, SHA256, size and download time live in

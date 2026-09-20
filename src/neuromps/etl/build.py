@@ -22,6 +22,7 @@ from neuromps.etl.toxcast_mea import (
 )
 from neuromps.fetch.manifest import Manifest, utc_now
 from neuromps.metrics import update_metrics
+from neuromps.qc.flags import add_cross_record_flags
 from neuromps.qc.schema import check_traceable, validate_records
 
 log = logging.getLogger("neuromps.etl")
@@ -61,6 +62,7 @@ def collect_records(raw_root: Path = RAW_ROOT, full: bool = False) -> list[dict]
         log.info("kapucu %s: %d records", plate.directory, len(built))
         records += built
     records += _toxcast_records(hashes, full)
+    add_cross_record_flags(records)  # replicate divergence, outliers, unpaired exposures
     return records
 
 
@@ -145,6 +147,9 @@ def main(argv: list[str] | None = None) -> int:
         raise SystemExit("no records built; run: python -m neuromps.fetch.runner --full")
     summary = build_asset(records)
     update_metrics("data_asset", summary)
+    from neuromps.qc.data_card import main as write_card
+
+    write_card([])
     log.info("wrote %s records to %s", summary["n_records"], PROCESSED_DIR)
     print(json.dumps(summary["counts"], indent=2))
     return 0

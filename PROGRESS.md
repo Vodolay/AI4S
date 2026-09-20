@@ -140,6 +140,31 @@
 - Also fixed: `check_traceable()` indexed by hash, so two files with identical content (per-phase
   noisy-electrode lists) produced a false mismatch. It now compares by path first.
 
-### Next first task (HD6)
-- QC module proper: replicate divergence and outlier flags, then the data card. After that, ETL for
-  `sharf2022` / `screenneuropharm_bic` / `fofie2025`, which are fetched but not yet in the asset.
+## 2026-09-20: Phase 1, HD6
+
+### Done
+- `qc/flags.py`: cross-record QC applied over the whole asset - `replicate_divergence` /
+  `outlier_feature_value` (robust z > 3.5 against the well's replicate group, groups < 3 skipped) and
+  `missing_baseline_pair`. Flags are informational and never change `qc.usable`; `qc.note` names the
+  diverging feature and its z-score.
+- `qc/data_card.py` -> `outputs/DATA_CARD.md`, generated from the asset and MANIFEST: per-source
+  records/levels/species/licenses, feature coverage, flag counts, excluded sources, limitations.
+- Both wired into `run_all.py --stage data`. 103 tests pass, ruff clean.
+
+### Two fixes found by testing
+- Robust z-scores collapsed when more than half a replicate group shared a value exactly (MAD = 0),
+  hiding the one divergent well. Falls back to the mean absolute deviation as the scale.
+- The flag did not say which feature diverged, so a well at the group median for firing rate looked
+  wrongly flagged (it had diverged on synchrony). `qc.note` now records feature and z-score.
+
+### Flags on the real asset (outputs/DATA_CARD.md)
+- kapucu2022: 153 `too_few_active_electrodes` (incl. the 90 excluded wells), 90
+  `excluded_well_upstream`, 35 `replicate_divergence`, 11 `noisy_electrodes_present`.
+- toxcast_mea: 272 `incomplete_dose_series`. No `missing_baseline_pair`: every exposure plate pairs
+  with its baseline.
+- Spot check: 23 of the 35 divergences are TTX wells still firing after the blocker - e.g. rat well
+  C8 goes 4.32 -> 5.24 Hz, a failed application. The flag is doing its job.
+
+### Next first task (HD7)
+- ETL for `sharf2022` / `screenneuropharm_bic` / `fofie2025` (fetched, not yet in the asset), then
+  Phase 2 baselines.

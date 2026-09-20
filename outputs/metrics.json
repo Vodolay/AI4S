@@ -26,9 +26,21 @@
         "True": 20238
       }
     },
-    "generated_at": "2026-09-16T15:40:39+00:00",
+    "generated_at": "2026-09-20T13:45:58+00:00",
     "n_records": 20663,
     "schema": "schema/neuromps_schema.json"
+  },
+  "data_card": {
+    "flag_counts": {
+      "excluded_well_upstream": 90,
+      "incomplete_dose_series": 272,
+      "noisy_electrodes_present": 11,
+      "outlier_feature_value": 35,
+      "replicate_divergence": 35,
+      "too_few_active_electrodes": 153
+    },
+    "records": 20663,
+    "usable": 20238
   },
   "toxcast_mea_inventory": {
     "chemicals_acute": 508,
