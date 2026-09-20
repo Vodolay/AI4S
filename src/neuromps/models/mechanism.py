@@ -28,6 +28,7 @@ from sklearn.model_selection import StratifiedGroupKFold
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 
+from neuromps.models.bootstrap import group_bootstrap_metric, resample_count
 from neuromps.models.dataset import delta_columns
 
 log = logging.getLogger("neuromps.models")
@@ -77,7 +78,33 @@ def grouped_scores(pairs: pd.DataFrame, model: Pipeline, n_splits: int = 5, seed
     }
 
 
-def summarize(pairs: pd.DataFrame, n_splits: int = 5, seed: int = 0) -> dict:
+def out_of_fold_predictions(pairs: pd.DataFrame, model: Pipeline, n_splits: int, seed: int):
+    """Truth and prediction for every pair, each scored by a model that never saw its culture."""
+    x = pairs[delta_columns()].to_numpy()
+    y = pairs["label"].to_numpy()
+    groups = pairs["group"].to_numpy()
+    predicted = np.empty(len(y), dtype=object)
+    splitter = StratifiedGroupKFold(n_splits=n_splits, shuffle=True, random_state=seed)
+    for train_idx, test_idx in splitter.split(x, y, groups):
+        fitted = model.fit(x[train_idx], y[train_idx])
+        predicted[test_idx] = fitted.predict(x[test_idx])
+    return y, predicted.astype(str), groups
+
+
+def balanced_accuracy_ci(
+    truth: np.ndarray, predicted: np.ndarray, groups: np.ndarray, n_resamples: int, seed: int = 0
+) -> dict:
+    """Cluster-bootstrap interval for balanced accuracy, resampling cultures."""
+
+    def metric(idx: np.ndarray) -> float:
+        if len(set(truth[idx])) < 2:
+            return float("nan")
+        return balanced_accuracy_score(truth[idx], predicted[idx])
+
+    return group_bootstrap_metric(metric, groups, n_resamples=n_resamples, seed=seed)
+
+
+def summarize(pairs: pd.DataFrame, n_splits: int = 5, seed: int = 0, quick: bool = False) -> dict:
     """Run every baseline model and collect comparable metrics."""
     counts = pairs["label"].value_counts().to_dict()
     n_splits = min(n_splits, int(min(counts.values())))
@@ -89,11 +116,17 @@ def summarize(pairs: pd.DataFrame, n_splits: int = 5, seed: int = 0) -> dict:
         "chance_balanced_accuracy": round(1 / len(counts), 3),
         "models": {},
     }
+    n_resamples = resample_count(quick)
+    out["bootstrap_resamples"] = n_resamples
     for name, model in MODELS.items():
         scores = grouped_scores(pairs, model, n_splits=n_splits, seed=seed)
+        truth, predicted, groups = out_of_fold_predictions(pairs, model, n_splits, seed)
+        interval = balanced_accuracy_ci(truth, predicted, groups, n_resamples, seed)
         out["models"][name] = {
             "balanced_accuracy_mean": round(float(np.mean(scores["balanced_accuracy"])), 3),
             "balanced_accuracy_sd": round(float(np.std(scores["balanced_accuracy"])), 3),
+            "balanced_accuracy_ci95": interval["ci95"],
+            "bootstrap_resamples": interval["n_resamples"],
             "macro_f1_mean": round(float(np.mean(scores["macro_f1"])), 3),
             "per_fold_balanced_accuracy": [round(s, 3) for s in scores["balanced_accuracy"]],
         }
@@ -262,6 +295,7 @@ def main(argv: list[str] | None = None) -> int:
 
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--seed", type=int, default=0)
+    p.add_argument("--quick", action="store_true", help="fewer bootstrap resamples")
     args = p.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
     repo_root = Path(__file__).resolve().parents[3]
@@ -270,7 +304,25 @@ def main(argv: list[str] | None = None) -> int:
 
     pairs = load_pairs()
     kapucu = pairs[pairs["source"] == "kapucu2022"]
-    results = {"task1_within_platform": summarize(kapucu, seed=args.seed)}
+    from neuromps.models.bootstrap import resample_count
+    from neuromps.models.calibration import calibration_report, plot_reliability
+
+    results = {"task1_within_platform": summarize(kapucu, seed=args.seed, quick=args.quick)}
+    splits_for_calibration = results["task1_within_platform"]["n_splits"]
+    calibration = calibration_report(
+        kapucu,
+        n_splits=splits_for_calibration,
+        seed=args.seed,
+        n_resamples=resample_count(args.quick),
+    )
+    results["task1_within_platform"]["calibration"] = calibration
+    plot_reliability(
+        calibration["bins"],
+        calibration["ece"],
+        figures / "task1_reliability_real.png",
+        "Task 1 calibration on real data (Kapucu 2022, out-of-fold)\n"
+        "logistic regression, cross-validation grouped by culture",
+    )
     matrix, labels = confusion(
         kapucu, "logistic_regression", results["task1_within_platform"]["n_splits"], args.seed
     )

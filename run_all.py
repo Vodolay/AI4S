@@ -38,9 +38,10 @@ def main(argv: list[str] | None = None) -> int:
             from neuromps.models.mechanism import main as run_models
             from neuromps.models.transfer import main as run_transfer
 
-            run_models([])
-            run_transfer([])
-            run_uncertainty([])
+            quick = ["--quick"] if args.quick else []
+            run_models(quick)
+            run_transfer(quick)
+            run_uncertainty(quick)
             run_asymmetry([])
         elif stage == "twin":
             from neuromps.twin.calibrate import main as calibrate_twin

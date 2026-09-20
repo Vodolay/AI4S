@@ -150,6 +150,7 @@ def main(argv: list[str] | None = None) -> int:
 
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--seed", type=int, default=0)
+    p.add_argument("--quick", action="store_true", help="fewer bootstrap resamples")
     args = p.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
     repo_root = Path(__file__).resolve().parents[3]
@@ -163,8 +164,8 @@ def main(argv: list[str] | None = None) -> int:
         "n_pairs": int(len(kapucu)),
         "n_classes": int(kapucu["label"].nunique()),
         "conformal_sweep": sweep,
-        "feature_subsets": ablate(kapucu, seed=args.seed),
-        "leave_one_out": leave_one_out(kapucu, seed=args.seed),
+        "feature_subsets": ablate(kapucu, seed=args.seed, quick=args.quick),
+        "leave_one_out": leave_one_out(kapucu, seed=args.seed, quick=args.quick),
         "note": (
             "with 73 pairs the calibration set is small, so neighbouring alphas can share a "
             "threshold; set size, not coverage, is the informative quantity here"

@@ -17,6 +17,7 @@ from scipy import linalg
 from sklearn.metrics import balanced_accuracy_score
 from sklearn.model_selection import StratifiedGroupKFold
 
+from neuromps.models.bootstrap import group_bootstrap_metric, resample_count
 from neuromps.models.dataset import delta_columns
 from neuromps.models.mechanism import MODELS
 
@@ -45,20 +46,28 @@ def coral(source: np.ndarray, target: np.ndarray, epsilon: float = 1e-6) -> np.n
     return (whitened @ linalg.sqrtm(ct).real) + target.mean(0)
 
 
-def species_shift(pairs: pd.DataFrame) -> dict:
-    """Per-feature difference between species, and which features shift least."""
+def species_shift(pairs: pd.DataFrame, quick: bool = False, seed: int = 0) -> dict:
+    """Per-feature difference between species, and which features shift least.
+
+    Each difference carries a cluster-bootstrap interval: cultures are resampled
+    within each species, so the interval reflects how few cultures there are.
+    """
     rat = pairs[pairs["species"] == "rat"]
     human = pairs[pairs["species"] == "human"]
+    n_resamples = resample_count(quick)
     by_feature = {}
     for column in delta_columns():
         name = column.removeprefix("delta.")
         a, b = rat[column].dropna(), human[column].dropna()
         pooled = np.sqrt((a.var(ddof=1) + b.var(ddof=1)) / 2) if len(a) > 1 and len(b) > 1 else 0.0
         difference = float(human[column].median() - rat[column].median())
+        interval = _difference_ci(pairs, column, n_resamples, seed)
         by_feature[name] = {
             "rat_median": round(float(a.median()), 3) if len(a) else None,
             "human_median": round(float(b.median()), 3) if len(b) else None,
             "difference": round(difference, 3),
+            "difference_ci95": interval["ci95"],
+            "bootstrap_resamples": interval["n_resamples"],
             "standardized_difference": round(float(difference / pooled), 3) if pooled else None,
         }
     ranked = sorted(
@@ -68,10 +77,29 @@ def species_shift(pairs: pd.DataFrame) -> dict:
     return {
         "n_rat": int(len(rat)),
         "n_human": int(len(human)),
+        "bootstrap_resamples": n_resamples,
         "by_feature": by_feature,
         "most_invariant_features": ranked[:3],
         "most_shifted_features": list(reversed(ranked))[:3],
     }
+
+
+def _difference_ci(pairs: pd.DataFrame, column: str, n_resamples: int, seed: int) -> dict:
+    """Interval for the human-minus-rat median difference, resampling cultures."""
+    values = pairs[column].to_numpy(dtype=float)
+    species = pairs["species"].to_numpy()
+    groups = pairs["group"].to_numpy()
+
+    def metric(idx: np.ndarray) -> float:
+        drawn_species, drawn_values = species[idx], values[idx]
+        rat = drawn_values[drawn_species == "rat"]
+        human = drawn_values[drawn_species == "human"]
+        rat, human = rat[np.isfinite(rat)], human[np.isfinite(human)]
+        if not rat.size or not human.size:
+            return float("nan")
+        return float(np.median(human) - np.median(rat))
+
+    return group_bootstrap_metric(metric, groups, n_resamples=n_resamples, seed=seed)
 
 
 def _bootstrap_ci(truth: np.ndarray, predicted: np.ndarray, seed: int) -> list[float]:
@@ -226,6 +254,7 @@ def main(argv: list[str] | None = None) -> int:
 
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--seed", type=int, default=0)
+    p.add_argument("--quick", action="store_true", help="fewer bootstrap resamples")
     args = p.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
     repo_root = Path(__file__).resolve().parents[3]
@@ -234,7 +263,7 @@ def main(argv: list[str] | None = None) -> int:
 
     pairs = load_pairs()
     kapucu = pairs[pairs["source"] == "kapucu2022"]
-    shift = species_shift(kapucu)
+    shift = species_shift(kapucu, quick=args.quick, seed=args.seed)
     results = {
         "source": "kapucu2022",
         "species_shift": shift,

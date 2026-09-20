@@ -300,7 +300,7 @@
         "True": 20831
       }
     },
-    "generated_at": "2026-09-20T16:17:51+00:00",
+    "generated_at": "2026-09-20T17:02:34+00:00",
     "n_records": 21272,
     "schema": "schema/neuromps_schema.json"
   },
@@ -318,6 +318,90 @@
   },
   "mechanism_baselines": {
     "task1_within_platform": {
+      "bootstrap_resamples": 1000,
+      "calibration": {
+        "bins": [
+          {
+            "accuracy": null,
+            "confidence": null,
+            "count": 0,
+            "lower": 0.0,
+            "upper": 0.1
+          },
+          {
+            "accuracy": null,
+            "confidence": null,
+            "count": 0,
+            "lower": 0.1,
+            "upper": 0.2
+          },
+          {
+            "accuracy": 0.0,
+            "confidence": 0.2969,
+            "count": 1,
+            "lower": 0.2,
+            "upper": 0.3
+          },
+          {
+            "accuracy": 0.2727,
+            "confidence": 0.3485,
+            "count": 11,
+            "lower": 0.3,
+            "upper": 0.4
+          },
+          {
+            "accuracy": 0.4,
+            "confidence": 0.457,
+            "count": 15,
+            "lower": 0.4,
+            "upper": 0.5
+          },
+          {
+            "accuracy": 0.6087,
+            "confidence": 0.5474,
+            "count": 23,
+            "lower": 0.5,
+            "upper": 0.6
+          },
+          {
+            "accuracy": 0.6667,
+            "confidence": 0.6381,
+            "count": 9,
+            "lower": 0.6,
+            "upper": 0.7
+          },
+          {
+            "accuracy": 0.6667,
+            "confidence": 0.7491,
+            "count": 9,
+            "lower": 0.7,
+            "upper": 0.8
+          },
+          {
+            "accuracy": 0.0,
+            "confidence": 0.8386,
+            "count": 1,
+            "lower": 0.8,
+            "upper": 0.9
+          },
+          {
+            "accuracy": 0.25,
+            "confidence": 0.9753,
+            "count": 4,
+            "lower": 0.9,
+            "upper": 1.0
+          }
+        ],
+        "bootstrap_resamples": 1000,
+        "ece": 0.1114,
+        "ece_ci95": [
+          0.0773,
+          0.2557
+        ],
+        "model": "logistic_regression",
+        "n": 73,
+        "n_bins": 10
+      },
       "chance_balanced_accuracy": 0.167,
       "class_counts": {
         "control": 10,
@@ -329,8 +413,13 @@
       },
       "models": {
         "dummy_most_frequent": {
+          "balanced_accuracy_ci95": [
+            0.1667,
+            0.1667
+          ],
           "balanced_accuracy_mean": 0.167,
           "balanced_accuracy_sd": 0.0,
+          "bootstrap_resamples": 1000,
           "macro_f1_mean": 0.087,
           "per_fold_balanced_accuracy": [
             0.167,
@@ -340,8 +429,13 @@
           ]
         },
         "gradient_boosting": {
+          "balanced_accuracy_ci95": [
+            0.2762,
+            0.5178
+          ],
           "balanced_accuracy_mean": 0.398,
           "balanced_accuracy_sd": 0.089,
+          "bootstrap_resamples": 1000,
           "macro_f1_mean": 0.363,
           "per_fold_balanced_accuracy": [
             0.313,
@@ -351,8 +445,13 @@
           ]
         },
         "logistic_regression": {
+          "balanced_accuracy_ci95": [
+            0.4216,
+            0.6845
+          ],
           "balanced_accuracy_mean": 0.537,
           "balanced_accuracy_sd": 0.102,
+          "bootstrap_resamples": 1000,
           "macro_f1_mean": 0.438,
           "per_fold_balanced_accuracy": [
             0.364,
@@ -497,57 +596,103 @@
   "species_transfer": {
     "source": "kapucu2022",
     "species_shift": {
+      "bootstrap_resamples": 1000,
       "by_feature": {
         "active_electrodes": {
+          "bootstrap_resamples": 1000,
           "difference": 0.093,
+          "difference_ci95": [
+            -0.0931,
+            0.1995
+          ],
           "human_median": 0.0,
           "rat_median": -0.093,
           "standardized_difference": 0.713
         },
         "burst_duration_s": {
+          "bootstrap_resamples": 1000,
           "difference": -0.688,
+          "difference_ci95": [
+            -0.9852,
+            0.3301
+          ],
           "human_median": -0.791,
           "rat_median": -0.103,
           "standardized_difference": -1.107
         },
         "burst_rate_per_min": {
+          "bootstrap_resamples": 1000,
           "difference": 1.04,
+          "difference_ci95": [
+            -0.6659,
+            2.4688
+          ],
           "human_median": -0.519,
           "rat_median": -1.558,
           "standardized_difference": 0.636
         },
         "isi_cv": {
+          "bootstrap_resamples": 1000,
           "difference": -1.233,
+          "difference_ci95": [
+            -1.6738,
+            0.15
+          ],
           "human_median": -1.262,
           "rat_median": -0.029,
           "standardized_difference": -1.63
         },
         "mfr_hz": {
+          "bootstrap_resamples": 1000,
           "difference": -0.323,
+          "difference_ci95": [
+            -0.9123,
+            1.1416
+          ],
           "human_median": -0.764,
           "rat_median": -0.442,
           "standardized_difference": -0.321
         },
         "network_burst_rate_per_min": {
+          "bootstrap_resamples": 1000,
           "difference": -4.907,
+          "difference_ci95": [
+            -9.7879,
+            -0.3389
+          ],
           "human_median": -4.322,
           "rat_median": 0.585,
           "standardized_difference": -1.291
         },
         "pct_spikes_in_bursts": {
+          "bootstrap_resamples": 1000,
           "difference": -0.75,
+          "difference_ci95": [
+            -1.7065,
+            1.1071
+          ],
           "human_median": -0.881,
           "rat_median": -0.131,
           "standardized_difference": -0.51
         },
         "spikes_per_burst": {
+          "bootstrap_resamples": 1000,
           "difference": -1.12,
+          "difference_ci95": [
+            -1.5399,
+            0.3574
+          ],
           "human_median": -1.151,
           "rat_median": -0.031,
           "standardized_difference": -1.193
         },
         "synchrony_index": {
+          "bootstrap_resamples": 1000,
           "difference": -4.179,
+          "difference_ci95": [
+            -5.7435,
+            0.1868
+          ],
           "human_median": -4.322,
           "rat_median": -0.143,
           "standardized_difference": -1.8
@@ -693,22 +838,22 @@
   "twin_hd11_validation": {
     "baseline": {
       "coupling_simulated": {
-        "asymmetry": -0.06276529696652493,
+        "asymmetry": -0.06283243343701955,
         "lag_ms": 0.0,
-        "peak_correlation": 0.9010461316616785
+        "peak_correlation": 0.8126866472482088
       },
       "features_simulated": {
         "active_electrodes": 32,
-        "burst_duration_s": 0.029054074074074104,
-        "burst_rate_per_min": 12.65625,
-        "isi_cv": 1.8148709985017142,
-        "mfr_hz": 2.259375,
-        "network_burst_rate_per_min": 27.0,
-        "pct_spikes_in_bursts": 53.18118948824343,
-        "spikes_per_burst": 5.696296296296296,
-        "synchrony_index": 0.8371948844569553
+        "burst_duration_s": 0.02887327935222669,
+        "burst_rate_per_min": 23.15625,
+        "isi_cv": 1.7250967018352894,
+        "mfr_hz": 4.5484375,
+        "network_burst_rate_per_min": 57.0,
+        "pct_spikes_in_bursts": 48.84919271727929,
+        "spikes_per_burst": 5.757085020242915,
+        "synchrony_index": 0.8347191489179113
       },
-      "n_spikes": 2864,
+      "n_spikes": 5762,
       "params": {
         "adaptation_increment": 1.5,
         "adaptation_tau_ms": 380.0,
@@ -729,10 +874,11 @@
         "intra_in_degree": 20.0,
         "n_per_compartment": 250,
         "seed": 0,
-        "threshold_scale": 1.0
+        "threshold_scale": 1.0,
+        "threshold_spread": 0.08
       },
       "within_real_range": {
-        "burst_rate_per_min": true,
+        "burst_rate_per_min": false,
         "mfr_hz": true,
         "network_burst_rate_per_min": false,
         "synchrony_index": false
@@ -740,85 +886,85 @@
     },
     "directionality_sweep": [
       {
-        "asymmetry_mean": 0.01,
+        "asymmetry_mean": 0.166,
         "background_scale_target": 1.0,
         "forward_ratio": 1.0,
-        "lag_ms_mean": 0.0,
+        "lag_ms_mean": 2.5,
         "n_seeds": 2,
-        "peak_correlation_mean": 0.752,
-        "rate_ratio_c1_over_c0": 0.85
+        "peak_correlation_mean": 0.743,
+        "rate_ratio_c1_over_c0": 1.0
       },
       {
-        "asymmetry_mean": 0.502,
+        "asymmetry_mean": 0.454,
         "background_scale_target": 0.85,
         "forward_ratio": 1.0,
         "lag_ms_mean": 5.0,
         "n_seeds": 2,
-        "peak_correlation_mean": 0.864,
-        "rate_ratio_c1_over_c0": 0.672
+        "peak_correlation_mean": 0.78,
+        "rate_ratio_c1_over_c0": 0.732
       },
       {
-        "asymmetry_mean": 0.678,
+        "asymmetry_mean": 0.64,
         "background_scale_target": 0.7,
         "forward_ratio": 1.0,
-        "lag_ms_mean": 5.0,
+        "lag_ms_mean": 10.0,
         "n_seeds": 2,
-        "peak_correlation_mean": 0.769,
-        "rate_ratio_c1_over_c0": 0.584
+        "peak_correlation_mean": 0.793,
+        "rate_ratio_c1_over_c0": 0.569
       },
       {
-        "asymmetry_mean": -0.166,
+        "asymmetry_mean": 0.023,
         "background_scale_target": 1.0,
         "forward_ratio": 4.0,
         "lag_ms_mean": 0.0,
         "n_seeds": 2,
-        "peak_correlation_mean": 0.616,
-        "rate_ratio_c1_over_c0": 1.124
+        "peak_correlation_mean": 0.687,
+        "rate_ratio_c1_over_c0": 1.247
       },
       {
-        "asymmetry_mean": 0.545,
+        "asymmetry_mean": 0.544,
         "background_scale_target": 0.85,
         "forward_ratio": 4.0,
         "lag_ms_mean": 5.0,
         "n_seeds": 2,
-        "peak_correlation_mean": 0.859,
-        "rate_ratio_c1_over_c0": 0.811
+        "peak_correlation_mean": 0.842,
+        "rate_ratio_c1_over_c0": 0.92
       },
       {
-        "asymmetry_mean": 0.758,
+        "asymmetry_mean": 0.815,
         "background_scale_target": 0.7,
         "forward_ratio": 4.0,
         "lag_ms_mean": 5.0,
         "n_seeds": 2,
-        "peak_correlation_mean": 0.903,
-        "rate_ratio_c1_over_c0": 0.73
+        "peak_correlation_mean": 0.858,
+        "rate_ratio_c1_over_c0": 0.756
       },
       {
-        "asymmetry_mean": -0.067,
+        "asymmetry_mean": 0.105,
         "background_scale_target": 1.0,
         "forward_ratio": 16.0,
-        "lag_ms_mean": -5.0,
+        "lag_ms_mean": 5.0,
         "n_seeds": 2,
-        "peak_correlation_mean": 0.659,
-        "rate_ratio_c1_over_c0": 1.497
+        "peak_correlation_mean": 0.591,
+        "rate_ratio_c1_over_c0": 1.49
       },
       {
-        "asymmetry_mean": 0.682,
+        "asymmetry_mean": 0.514,
         "background_scale_target": 0.85,
         "forward_ratio": 16.0,
         "lag_ms_mean": 5.0,
         "n_seeds": 2,
-        "peak_correlation_mean": 0.862,
-        "rate_ratio_c1_over_c0": 0.921
+        "peak_correlation_mean": 0.77,
+        "rate_ratio_c1_over_c0": 0.992
       },
       {
-        "asymmetry_mean": 0.825,
+        "asymmetry_mean": 0.834,
         "background_scale_target": 0.7,
         "forward_ratio": 16.0,
         "lag_ms_mean": 5.0,
         "n_seeds": 2,
-        "peak_correlation_mean": 0.935,
-        "rate_ratio_c1_over_c0": 0.817
+        "peak_correlation_mean": 0.868,
+        "rate_ratio_c1_over_c0": 0.898
       }
     ],
     "duration_s": 20.0,
@@ -828,41 +974,41 @@
   "twin_hd12_calibration": {
     "best": {
       "draw": {
-        "adaptation_increment": 2.0537,
-        "background_weight": 0.0408,
-        "detection_radius_um": 281.2471,
-        "excitatory_weight": 0.2995,
-        "inhibitory_weight": 4.6446,
-        "intra_in_degree": 17.6559,
-        "threshold_spread": 0.0164
+        "adaptation_increment": 2.3311,
+        "background_weight": 0.0378,
+        "detection_radius_um": 248.9754,
+        "excitatory_weight": 0.3594,
+        "inhibitory_weight": 3.7831,
+        "intra_in_degree": 33.9757,
+        "threshold_spread": 0.0508
       },
       "features_simulated": {
-        "burst_rate_per_min": 22.484375,
-        "mfr_hz": 6.4976562499999995,
-        "network_burst_rate_per_min": 29.25,
-        "pct_spikes_in_bursts": 90.45637199120623,
-        "synchrony_index": 0.913344832601267
+        "burst_rate_per_min": 37.4375,
+        "mfr_hz": 8.703125,
+        "network_burst_rate_per_min": 39.0,
+        "pct_spikes_in_bursts": 98.055659391798,
+        "synchrony_index": 0.988012154404017
       },
       "per_feature": {
-        "burst_rate_per_min": 0.0,
-        "mfr_hz": 0.0445,
-        "network_burst_rate_per_min": 0.2536,
-        "pct_spikes_in_bursts": 0.0,
-        "synchrony_index": 0.0801
+        "burst_rate_per_min": 0.2307,
+        "mfr_hz": 0.0,
+        "network_burst_rate_per_min": 0.5413,
+        "pct_spikes_in_bursts": 0.0456,
+        "synchrony_index": 0.1587
       },
-      "score": 0.0756,
+      "score": 0.1953,
       "stage": "refine"
     },
-    "duration_s": 40.0,
+    "duration_s": 20.0,
     "inside_real_band": {
-      "burst_rate_per_min": true,
-      "mfr_hz": false,
+      "burst_rate_per_min": false,
+      "mfr_hz": true,
       "network_burst_rate_per_min": false,
-      "pct_spikes_in_bursts": true,
+      "pct_spikes_in_bursts": false,
       "synchrony_index": false
     },
     "label": "SIMULATED - calibration of a model, not measured data",
-    "n_draws": 45,
+    "n_draws": 8,
     "note": "random search over 5 parameters; everything else held at its module default. detection_radius_um is a property of the virtual electrode, not of the culture.",
     "search_space": {
       "adaptation_increment": [
@@ -1021,8 +1167,13 @@
     ],
     "feature_subsets": {
       "all": {
+        "balanced_accuracy_ci95": [
+          0.3983,
+          0.6619
+        ],
         "balanced_accuracy_mean": 0.514,
         "balanced_accuracy_sd": 0.107,
+        "bootstrap_resamples": 1000,
         "features": [
           "mfr_hz",
           "burst_rate_per_min",
@@ -1037,8 +1188,13 @@
         "n_features": 9
       },
       "burst_only": {
+        "balanced_accuracy_ci95": [
+          0.313,
+          0.5512
+        ],
         "balanced_accuracy_mean": 0.411,
         "balanced_accuracy_sd": 0.11,
+        "bootstrap_resamples": 1000,
         "features": [
           "burst_rate_per_min",
           "burst_duration_s",
@@ -1048,16 +1204,26 @@
         "n_features": 4
       },
       "mfr_only": {
+        "balanced_accuracy_ci95": [
+          0.3332,
+          0.569
+        ],
         "balanced_accuracy_mean": 0.442,
         "balanced_accuracy_sd": 0.098,
+        "bootstrap_resamples": 1000,
         "features": [
           "mfr_hz"
         ],
         "n_features": 1
       },
       "network_only": {
+        "balanced_accuracy_ci95": [
+          0.2983,
+          0.5573
+        ],
         "balanced_accuracy_mean": 0.417,
         "balanced_accuracy_sd": 0.084,
+        "bootstrap_resamples": 1000,
         "features": [
           "network_burst_rate_per_min",
           "synchrony_index"
@@ -1065,8 +1231,13 @@
         "n_features": 2
       },
       "rate_only": {
+        "balanced_accuracy_ci95": [
+          0.3964,
+          0.6235
+        ],
         "balanced_accuracy_mean": 0.53,
         "balanced_accuracy_sd": 0.04,
+        "bootstrap_resamples": 1000,
         "features": [
           "mfr_hz",
           "active_electrodes"
@@ -1074,8 +1245,13 @@
         "n_features": 2
       },
       "species_invariant": {
+        "balanced_accuracy_ci95": [
+          0.371,
+          0.6295
+        ],
         "balanced_accuracy_mean": 0.516,
         "balanced_accuracy_sd": 0.099,
+        "bootstrap_resamples": 1000,
         "features": [
           "mfr_hz",
           "pct_spikes_in_bursts",
@@ -1084,8 +1260,13 @@
         "n_features": 3
       },
       "synchrony_only": {
+        "balanced_accuracy_ci95": [
+          0.3554,
+          0.586
+        ],
         "balanced_accuracy_mean": 0.455,
         "balanced_accuracy_sd": 0.089,
+        "bootstrap_resamples": 1000,
         "features": [
           "synchrony_index"
         ],
@@ -1094,8 +1275,13 @@
     },
     "leave_one_out": {
       "active_electrodes": {
+        "balanced_accuracy_ci95": [
+          0.3868,
+          0.6326
+        ],
         "balanced_accuracy_mean": 0.503,
         "balanced_accuracy_sd": 0.117,
+        "bootstrap_resamples": 1000,
         "delta_vs_all": -0.011,
         "features": [
           "mfr_hz",
@@ -1110,8 +1296,13 @@
         "n_features": 8
       },
       "burst_duration_s": {
+        "balanced_accuracy_ci95": [
+          0.3983,
+          0.6619
+        ],
         "balanced_accuracy_mean": 0.514,
         "balanced_accuracy_sd": 0.107,
+        "bootstrap_resamples": 1000,
         "delta_vs_all": 0.0,
         "features": [
           "mfr_hz",
@@ -1126,8 +1317,13 @@
         "n_features": 8
       },
       "burst_rate_per_min": {
+        "balanced_accuracy_ci95": [
+          0.3983,
+          0.6619
+        ],
         "balanced_accuracy_mean": 0.514,
         "balanced_accuracy_sd": 0.107,
+        "bootstrap_resamples": 1000,
         "delta_vs_all": 0.0,
         "features": [
           "mfr_hz",
@@ -1142,8 +1338,13 @@
         "n_features": 8
       },
       "isi_cv": {
+        "balanced_accuracy_ci95": [
+          0.3918,
+          0.6537
+        ],
         "balanced_accuracy_mean": 0.508,
         "balanced_accuracy_sd": 0.101,
+        "bootstrap_resamples": 1000,
         "delta_vs_all": -0.006,
         "features": [
           "mfr_hz",
@@ -1158,8 +1359,13 @@
         "n_features": 8
       },
       "mfr_hz": {
+        "balanced_accuracy_ci95": [
+          0.3549,
+          0.6109
+        ],
         "balanced_accuracy_mean": 0.464,
         "balanced_accuracy_sd": 0.08,
+        "bootstrap_resamples": 1000,
         "delta_vs_all": -0.05,
         "features": [
           "burst_rate_per_min",
@@ -1174,8 +1380,13 @@
         "n_features": 8
       },
       "network_burst_rate_per_min": {
+        "balanced_accuracy_ci95": [
+          0.4089,
+          0.667
+        ],
         "balanced_accuracy_mean": 0.521,
         "balanced_accuracy_sd": 0.11,
+        "bootstrap_resamples": 1000,
         "delta_vs_all": 0.007,
         "features": [
           "mfr_hz",
@@ -1190,8 +1401,13 @@
         "n_features": 8
       },
       "pct_spikes_in_bursts": {
+        "balanced_accuracy_ci95": [
+          0.4067,
+          0.6712
+        ],
         "balanced_accuracy_mean": 0.524,
         "balanced_accuracy_sd": 0.11,
+        "bootstrap_resamples": 1000,
         "delta_vs_all": 0.01,
         "features": [
           "mfr_hz",
@@ -1206,8 +1422,13 @@
         "n_features": 8
       },
       "spikes_per_burst": {
+        "balanced_accuracy_ci95": [
+          0.3983,
+          0.6619
+        ],
         "balanced_accuracy_mean": 0.514,
         "balanced_accuracy_sd": 0.107,
+        "bootstrap_resamples": 1000,
         "delta_vs_all": 0.0,
         "features": [
           "mfr_hz",
@@ -1222,8 +1443,13 @@
         "n_features": 8
       },
       "synchrony_index": {
+        "balanced_accuracy_ci95": [
+          0.3763,
+          0.6493
+        ],
         "balanced_accuracy_mean": 0.5,
         "balanced_accuracy_sd": 0.104,
+        "bootstrap_resamples": 1000,
         "delta_vs_all": -0.014,
         "features": [
           "mfr_hz",

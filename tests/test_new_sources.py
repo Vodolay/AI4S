@@ -64,3 +64,46 @@ def test_screenneuropharm_quick_tier_skips_large_archive(tmp_path: Path, monkeyp
 
 def test_all_new_sources_are_registered() -> None:
     assert {"sharf2022", "fofie2025", "screenneuropharm_bic"} <= set(registry())
+
+
+def test_quick_tier_keeps_files_from_an_earlier_full_fetch(tmp_path: Path, monkeypatch) -> None:
+    """A quick run must not drop already-downloaded files from the manifest.
+
+    Marking the source "skipped" would erase its file records, and every record
+    already built from them would fail the conformance-level-2 hash check.
+    """
+    from neuromps.fetch.manifest import FileRecord, SourceRecord
+    from neuromps.qc.provenance import sha256_file
+
+    archive = tmp_path / screenneuropharm_bic.SOURCE / "Bicuculline-BIC_v1.zip"
+    archive.parent.mkdir(parents=True)
+    archive.write_bytes(b"pretend archive")
+    manifest = Manifest.load(tmp_path / "MANIFEST.json")
+    manifest.upsert(
+        SourceRecord(
+            name=screenneuropharm_bic.SOURCE,
+            status="ok",
+            landing_url="u",
+            license="MIT",
+            license_url="u",
+            citation="c",
+            files=[
+                FileRecord(
+                    path=f"{screenneuropharm_bic.SOURCE}/Bicuculline-BIC_v1.zip",
+                    url="u",
+                    sha256=sha256_file(archive),
+                    bytes=archive.stat().st_size,
+                    downloaded_at="t",
+                )
+            ],
+        )
+    )
+    monkeypatch.setattr(
+        screenneuropharm_bic.zenodo,
+        "record",
+        lambda _id: {"metadata": {"license": {"id": "other-open"}}, "files": []},
+    )
+    out = screenneuropharm_bic.fetch(tmp_path, manifest, full=False)
+    assert out.status == "ok"
+    assert len(out.files) == 1
+    assert "kept files" in out.note

@@ -15,6 +15,7 @@ import pandas as pd
 from sklearn.metrics import balanced_accuracy_score
 from sklearn.model_selection import StratifiedGroupKFold
 
+from neuromps.models.bootstrap import group_bootstrap_metric, resample_count
 from neuromps.models.dataset import DELTA_FEATURES
 from neuromps.models.mechanism import MODELS
 
@@ -37,8 +38,14 @@ FEATURE_SUBSETS: dict[str, tuple[str, ...]] = {
 }
 
 
-def _score(pairs: pd.DataFrame, features: tuple[str, ...], seed: int, n_splits: int = 4) -> dict:
-    """Grouped cross-validated balanced accuracy for one feature subset."""
+def _score(
+    pairs: pd.DataFrame,
+    features: tuple[str, ...],
+    seed: int,
+    n_splits: int = 4,
+    n_resamples: int | None = None,
+) -> dict:
+    """Grouped cross-validated balanced accuracy for one feature subset, with an interval."""
     counts = pairs["label"].value_counts()
     n_splits = max(2, min(n_splits, int(counts.min())))
     columns = [f"delta.{f}" for f in features]
@@ -47,29 +54,49 @@ def _score(pairs: pd.DataFrame, features: tuple[str, ...], seed: int, n_splits: 
     groups = pairs["group"].to_numpy()
     splitter = StratifiedGroupKFold(n_splits=n_splits, shuffle=True, random_state=seed)
     scores = []
+    predicted = np.empty(len(y), dtype=object)
     for train_idx, test_idx in splitter.split(x, y, groups):
         fitted = MODELS["logistic_regression"].fit(x[train_idx], y[train_idx])
-        scores.append(balanced_accuracy_score(y[test_idx], fitted.predict(x[test_idx])))
+        fold = fitted.predict(x[test_idx])
+        predicted[test_idx] = fold
+        scores.append(balanced_accuracy_score(y[test_idx], fold))
+    predicted = predicted.astype(str)
+
+    def metric(idx: np.ndarray) -> float:
+        if len(set(y[idx])) < 2:
+            return float("nan")
+        return balanced_accuracy_score(y[idx], predicted[idx])
+
+    interval = group_bootstrap_metric(
+        metric, groups, n_resamples=n_resamples or resample_count(False), seed=seed
+    )
     return {
         "n_features": len(features),
         "features": list(features),
         "balanced_accuracy_mean": round(float(np.mean(scores)), 3),
         "balanced_accuracy_sd": round(float(np.std(scores)), 3),
+        "balanced_accuracy_ci95": interval["ci95"],
+        "bootstrap_resamples": interval["n_resamples"],
     }
 
 
-def ablate(pairs: pd.DataFrame, seed: int = 0) -> dict:
+def ablate(pairs: pd.DataFrame, seed: int = 0, quick: bool = False) -> dict:
     """Score every named feature subset."""
-    return {name: _score(pairs, features, seed) for name, features in FEATURE_SUBSETS.items()}
+    n_resamples = resample_count(quick)
+    return {
+        name: _score(pairs, features, seed, n_resamples=n_resamples)
+        for name, features in FEATURE_SUBSETS.items()
+    }
 
 
-def leave_one_out(pairs: pd.DataFrame, seed: int = 0) -> dict:
+def leave_one_out(pairs: pd.DataFrame, seed: int = 0, quick: bool = False) -> dict:
     """Score the full vector minus each feature, against the full vector."""
-    full = _score(pairs, DELTA_FEATURES, seed)["balanced_accuracy_mean"]
+    n_resamples = resample_count(quick)
+    full = _score(pairs, DELTA_FEATURES, seed, n_resamples=n_resamples)["balanced_accuracy_mean"]
     out = {}
     for feature in DELTA_FEATURES:
         remaining = tuple(f for f in DELTA_FEATURES if f != feature)
-        result = _score(pairs, remaining, seed)
+        result = _score(pairs, remaining, seed, n_resamples=n_resamples)
         result["delta_vs_all"] = round(result["balanced_accuracy_mean"] - full, 3)
         out[feature] = result
     return out
