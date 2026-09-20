@@ -106,24 +106,43 @@ def real_summaries(records: pd.DataFrame) -> pd.DataFrame:
 
 
 def distribution_check(real_x: np.ndarray, simulated_x: np.ndarray) -> dict:
-    """Per dimension, the share of real values inside the simulated 1-99 percentile range.
+    """Per dimension, how well the simulations actually cover the real values.
 
-    Model misspecification shows up here: a dimension the simulator never
-    produces means the posterior is extrapolating for every real recording.
+    Two tests, because they fail differently. `fraction_inside` asks whether the
+    real values fall in the simulated 1-99 percentile *range*; a dimension the
+    simulator never produces means the posterior extrapolates for every real
+    recording. `simulated_support_in_real_iqr` asks whether simulated draws are
+    actually *dense* where the real values sit: a bimodal simulated dimension
+    (silent networks at 0, saturated ones at the electrode count) passes the
+    range test while leaving the real values in an empty gap between the modes.
     """
     low = np.percentile(simulated_x, 1, axis=0)
     high = np.percentile(simulated_x, 99, axis=0)
     by_dimension = {}
     for i, name in enumerate(SUMMARY_NAMES):
         inside = (real_x[:, i] >= low[i]) & (real_x[:, i] <= high[i])
+        real_low, real_high = np.percentile(real_x[:, i], [25, 75])
+        support = np.mean((simulated_x[:, i] >= real_low) & (simulated_x[:, i] <= real_high))
         by_dimension[name] = {
             "fraction_inside": round(float(inside.mean()), 3),
+            "simulated_support_in_real_iqr": round(float(support), 3),
             "simulated_range": [round(float(low[i]), 3), round(float(high[i]), 3)],
             "real_median": round(float(np.median(real_x[:, i])), 3),
         }
     outside = [n for n, v in by_dimension.items() if v["fraction_inside"] < 0.5]
+    unsupported = [
+        n
+        for n, v in by_dimension.items()
+        if n not in outside and v["simulated_support_in_real_iqr"] < 0.05
+    ]
     return {
         "n_real": int(len(real_x)),
+        "unsupported_dimensions": unsupported,
+        "support_note": (
+            "unsupported_dimensions pass the range test but fewer than 5% of simulated draws "
+            "land in the real interquartile range, so the posterior is still interpolating "
+            "across a gap there"
+        ),
         "mean_fraction_inside": round(
             float(np.mean([v["fraction_inside"] for v in by_dimension.values()])), 3
         ),
@@ -196,8 +215,49 @@ def sensitivity_without_dimensions(
     return infer_parameters(posterior, patched, n_samples=n_samples)
 
 
-def infer_parameters(posterior, x: np.ndarray, n_samples: int = 500) -> list[dict]:
-    """Posterior median and 90% interval per parameter, for each real recording."""
+def prior_acceptance(posterior, x: np.ndarray, n_draws: int = 2000) -> dict:
+    """Share of raw posterior draws that land inside the prior box, per recording.
+
+    This is a misspecification diagnostic, not a tuning knob. The posterior is
+    only trained where the prior has support, so a low acceptance rate means the
+    density estimator, shown a real recording, wants to put its mass outside the
+    region it was ever trained on. Everything downstream is then a truncated
+    tail of that density, and the medians must be read with that in mind.
+    """
+    import torch
+
+    rates = []
+    for observation in x:
+        raw = posterior.sample(
+            (n_draws,),
+            x=torch.as_tensor(observation, dtype=torch.float32),
+            show_progress_bars=False,
+            reject_outside_prior=False,
+        )
+        raw = raw.detach().numpy() if hasattr(raw, "detach") else np.asarray(raw)
+        rates.append(float(within_prior(raw).mean()))
+    return {
+        "median_acceptance": round(float(np.median(rates)), 5),
+        "min_acceptance": round(float(np.min(rates)), 5),
+        "max_acceptance": round(float(np.max(rates)), 5),
+        "fraction_below_1_percent": round(float(np.mean(np.array(rates) < 0.01)), 3),
+        "n_draws_per_recording": int(n_draws),
+        "note": (
+            "share of raw posterior draws inside the prior box; low values mean the "
+            "posterior is extrapolating outside its training region for real inputs"
+        ),
+    }
+
+
+def infer_parameters(
+    posterior, x: np.ndarray, n_samples: int = 500, max_seconds: float = 15.0
+) -> list[dict]:
+    """Posterior median and 90% interval per parameter, for each real recording.
+
+    Sampling is time-capped: when the posterior mass sits largely outside the
+    prior (see :func:`prior_acceptance`) rejection sampling can run for minutes
+    per recording, and a partial sample is more honest than an unbounded wait.
+    """
     import torch
 
     out = []
@@ -206,20 +266,84 @@ def infer_parameters(posterior, x: np.ndarray, n_samples: int = 500) -> list[dic
             (n_samples,),
             x=torch.as_tensor(observation, dtype=torch.float32),
             show_progress_bars=False,
-        ).numpy()
-        out.append(
-            {
-                name: {
-                    "median": round(float(np.median(samples[:, i])), 4),
-                    "ci90": [
-                        round(float(np.percentile(samples[:, i], 5)), 4),
-                        round(float(np.percentile(samples[:, i], 95)), 4),
-                    ],
-                }
-                for i, name in enumerate(PARAMETER_NAMES)
-            }
+            max_sampling_time=max_seconds,
+            return_partial_on_timeout=True,
         )
+        samples = samples.detach().numpy() if hasattr(samples, "detach") else np.asarray(samples)
+        row = {
+            name: {
+                "median": round(float(np.median(samples[:, i])), 4),
+                "ci90": [
+                    round(float(np.percentile(samples[:, i], 5)), 4),
+                    round(float(np.percentile(samples[:, i], 95)), 4),
+                ],
+            }
+            for i, name in enumerate(PARAMETER_NAMES)
+        }
+        row["n_effective_samples"] = int(len(samples))
+        out.append(row)
     return out
+
+
+def baseline_offset(
+    values: np.ndarray,
+    doses: np.ndarray,
+    groups: np.ndarray | None = None,
+    n_resamples: int = 1000,
+    seed: int = 0,
+) -> dict:
+    """Where the posterior puts an *untreated* recording, which must be near 1.
+
+    An untreated chip has no drug applied, so a well-behaved posterior should
+    return the knob to its neutral value. If untreated recordings infer a value
+    far from 1, the parameter is absorbing general model mismatch, and any dose
+    trend measured on top of that offset is measured on a shifted baseline.
+    """
+    from neuromps.models.bootstrap import ci95, group_bootstrap_indices
+
+    untreated = np.asarray(doses) <= 0
+    if untreated.sum() < 3:
+        return {"median": None, "note": "too few untreated recordings"}
+    baseline_values = np.asarray(values)[untreated]
+    median = float(np.median(baseline_values))
+    out = {
+        "median": round(median, 4),
+        "n_untreated": int(untreated.sum()),
+        "neutral_value": 1.0,
+    }
+    if groups is not None:
+        base_groups = np.asarray(groups)[untreated]
+        draws = [
+            float(np.median(baseline_values[idx]))
+            for idx in group_bootstrap_indices(
+                base_groups, np.random.default_rng(seed), n_resamples
+            )
+        ]
+        low, high = ci95(np.array(draws))
+        out["median_ci95"] = [round(low, 4), round(high, 4)]
+        out["includes_neutral"] = bool(low <= 1.0 <= high)
+        out["bootstrap_resamples"] = int(n_resamples)
+        out["n_devices"] = int(len(set(base_groups.tolist())))
+    return out
+
+
+def trend_caption(trend: dict) -> str:
+    """One line describing the trend by its clustered interval, not a naive p-value.
+
+    The p-value across recordings treats 113 recordings from 16 devices as
+    independent, so it is not what a reader should be shown on a figure.
+    """
+    rho = trend.get("spearman_rho")
+    if rho is None:
+        return "no trend estimated: " + str(trend.get("note", ""))
+    low, high = trend.get("spearman_rho_ci95", (None, None))
+    if low is None:
+        return f"Spearman rho = {rho} (no cluster interval)"
+    verdict = "excludes zero" if trend.get("excludes_zero") else "includes zero"
+    return (
+        f"Spearman rho = {rho}, 95% CI [{low}, {high}] over "
+        f"{trend.get('n_devices')} devices - {verdict}"
+    )
 
 
 def plot_dose_response(doses, values, trend: dict, path, title: str) -> None:
@@ -236,8 +360,10 @@ def plot_dose_response(doses, values, trend: dict, path, title: str) -> None:
     ax.set_xscale("log")
     ax.set_xlabel("bicuculline (uM, baseline plotted at 0.03)")
     ax.set_ylabel("inferred gabaa_scale (posterior median)")
-    rho = trend.get("spearman_rho")
-    ax.set_title(f"{title}\nSpearman rho = {rho}, p = {trend.get('p_value')}", fontsize=9)
+    import textwrap
+
+    wrapped = "\n".join(textwrap.wrap(title, 72))
+    ax.set_title(f"{wrapped}\n{trend_caption(trend)}", fontsize=8)
     ax.legend(fontsize=8)
     ax.grid(alpha=0.3)
     fig.tight_layout()
@@ -252,8 +378,16 @@ def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--quick", action="store_true", help="fewer posterior samples")
     p.add_argument("--asset", type=Path, default=ASSET)
+    p.add_argument("--seed", type=int, default=0, help="seeds posterior sampling, which is random")
+    p.add_argument(
+        "--max-recordings",
+        type=int,
+        default=None,
+        help="subsample recordings (quick mode uses 30 to stay inside the run_all budget)",
+    )
     args = p.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+    torch.manual_seed(args.seed)  # posterior sampling is stochastic; without this, rho drifts
     if not POSTERIOR_FILE.exists():
         log.warning("no trained posterior at %s; run neuromps.twin.inference first", POSTERIOR_FILE)
         return 0
@@ -263,29 +397,44 @@ def main(argv: list[str] | None = None) -> int:
     if summaries.empty:
         log.warning("no two-chamber recordings in the asset")
         return 0
+    limit = args.max_recordings or (30 if args.quick else None)
+    if limit and len(summaries) > limit:
+        step = len(summaries) // limit
+        summaries = summaries.iloc[::step].head(limit).reset_index(drop=True)
+        log.info("quick mode: using %d of the available recordings", len(summaries))
     real_x = summaries[list(SUMMARY_NAMES)].to_numpy(dtype=float)
     cached = load_simulations(SIMULATION_CACHE)
     inside = within_prior(cached["theta"])
     check = distribution_check(real_x, cached["x"][inside])
+    suspect = check["outside_dimensions"] + check["unsupported_dimensions"]
     log.info(
-        "distribution check: %.0f%% of real values inside the simulated range; outside: %s",
+        "distribution check: %.0f%% inside the simulated range; outside: %s; unsupported: %s",
         100 * check["mean_fraction_inside"],
         check["outside_dimensions"],
+        check["unsupported_dimensions"],
     )
 
     posterior = torch.load(POSTERIOR_FILE, weights_only=False)
+    acceptance = prior_acceptance(posterior, real_x, n_draws=500 if args.quick else 2000)
+    log.info(
+        "prior acceptance: median %.4f%%, %.0f%% of recordings below 1%%",
+        100 * acceptance["median_acceptance"],
+        100 * acceptance["fraction_below_1_percent"],
+    )
     inferred = infer_parameters(posterior, real_x, n_samples=200 if args.quick else 500)
     gabaa = np.array([row["gabaa_scale"]["median"] for row in inferred])
     doses = summaries["dose_value"].fillna(0.0).to_numpy(dtype=float)
     units = summaries["dose_unit"].fillna("uM").to_numpy()
     doses_um = np.where(units == "nM", doses / 1000.0, doses)
     devices = summaries["device_id"].to_numpy()
-    trend = dose_trend(doses_um, gabaa, groups=devices, n_resamples=200 if args.quick else 1000)
+    resamples = 200 if args.quick else 1000
+    trend = dose_trend(doses_um, gabaa, groups=devices, n_resamples=resamples)
+    baseline = baseline_offset(gabaa, doses_um, groups=devices, n_resamples=resamples)
     patched = sensitivity_without_dimensions(
         posterior,
         real_x,
         cached["x"][inside],
-        check["outside_dimensions"],
+        suspect,
         n_samples=200 if args.quick else 500,
     )
     gabaa_patched = np.array([row["gabaa_scale"]["median"] for row in patched])
@@ -296,9 +445,14 @@ def main(argv: list[str] | None = None) -> int:
     results = {
         "label": "posterior trained on SIMULATIONS, applied to REAL recordings",
         "n_recordings": int(len(summaries)),
+        "subsampled": bool(limit),
+        "seed": int(args.seed),
         "distribution_check": check,
+        "prior_acceptance": acceptance,
         "gabaa_scale_dose_trend": trend,
+        "gabaa_scale_at_baseline": baseline,
         "gabaa_scale_dose_trend_without_ood_dimensions": trend_patched,
+        "neutralised_dimensions": suspect,
         "expected": "a GABA-A antagonist should lower gabaa_scale, and lower it further with dose",
         "per_recording": [
             {
@@ -329,9 +483,17 @@ def main(argv: list[str] | None = None) -> int:
         json.dumps(
             {
                 "distribution_check": {
-                    k: check[k] for k in ("n_real", "mean_fraction_inside", "outside_dimensions")
+                    k: check[k]
+                    for k in (
+                        "n_real",
+                        "mean_fraction_inside",
+                        "outside_dimensions",
+                        "unsupported_dimensions",
+                    )
                 },
+                "prior_acceptance": acceptance,
                 "gabaa_scale_dose_trend": trend,
+                "gabaa_scale_at_baseline": baseline,
                 "gabaa_scale_dose_trend_without_ood_dimensions": trend_patched,
             },
             indent=2,

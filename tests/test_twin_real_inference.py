@@ -137,7 +137,7 @@ def test_sensitivity_replaces_only_the_named_dimensions() -> None:
     captured = {}
 
     class _StubPosterior:
-        def sample(self, shape, x, show_progress_bars=False):  # noqa: ARG002
+        def sample(self, shape, x, show_progress_bars=False, **kwargs):  # noqa: ARG002
             import torch
 
             captured["x"] = np.asarray(x)
@@ -155,3 +155,113 @@ def test_dose_trend_needs_enough_distinct_doses() -> None:
     out = dose_trend(np.array([1.0, 1.0]), np.array([0.5, 0.4]))
     assert out["spearman_rho"] is None
     assert "too few" in out["note"]
+
+
+def test_a_bimodal_dimension_passes_the_range_test_but_is_flagged_unsupported() -> None:
+    """Silent-or-saturated simulations bracket the real values without covering them."""
+    simulated = np.zeros((400, len(SUMMARY_NAMES)))
+    index = SUMMARY_NAMES.index("c0_active_electrodes")
+    simulated[:, index] = np.repeat([0.0, 48.0], 200)  # two modes, nothing between
+    real = np.zeros((20, len(SUMMARY_NAMES)))
+    real[:, index] = 43.0  # inside [0, 48], but where no simulation lands
+    out = distribution_check(real, simulated)
+    assert out["by_dimension"]["c0_active_electrodes"]["fraction_inside"] == 1.0
+    assert out["by_dimension"]["c0_active_electrodes"]["simulated_support_in_real_iqr"] == 0.0
+    assert "c0_active_electrodes" not in out["outside_dimensions"]
+    assert "c0_active_electrodes" in out["unsupported_dimensions"]
+
+
+class _RecordingPosterior:
+    """Stub that returns draws half inside and half outside the prior box."""
+
+    def __init__(self) -> None:
+        self.calls: list[dict] = []
+
+    def sample(self, shape, x, show_progress_bars=False, **kwargs):  # noqa: ARG002
+        import torch
+
+        from neuromps.twin.inference import PRIOR_BOUNDS
+
+        self.calls.append(kwargs)
+        n = shape[0]
+        inside = np.array([[np.mean(PRIOR_BOUNDS[k]) for k in PRIOR_BOUNDS]] * (n // 2))
+        outside = np.array([[PRIOR_BOUNDS[k][1] + 10.0 for k in PRIOR_BOUNDS]] * (n - n // 2))
+        return torch.as_tensor(np.vstack([inside, outside]), dtype=torch.float32)
+
+
+def test_prior_acceptance_measures_draws_landing_inside_the_prior() -> None:
+    from neuromps.twin.real_inference import prior_acceptance
+
+    posterior = _RecordingPosterior()
+    out = prior_acceptance(posterior, np.zeros((3, len(SUMMARY_NAMES))), n_draws=100)
+    assert out["median_acceptance"] == pytest.approx(0.5)
+    assert out["n_draws_per_recording"] == 100
+    assert all(call.get("reject_outside_prior") is False for call in posterior.calls)
+
+
+def test_inference_is_time_capped_and_records_how_many_samples_it_got() -> None:
+    """An unbounded rejection sampler can hang for minutes on a misspecified input."""
+    from neuromps.twin.real_inference import infer_parameters
+
+    posterior = _RecordingPosterior()
+    rows = infer_parameters(posterior, np.zeros((2, len(SUMMARY_NAMES))), n_samples=50)
+    assert rows[0]["n_effective_samples"] == 50
+    assert all(call.get("max_sampling_time") is not None for call in posterior.calls)
+    assert all(call.get("return_partial_on_timeout") is True for call in posterior.calls)
+
+
+def test_the_figure_caption_quotes_the_cluster_interval_not_the_naive_p() -> None:
+    """113 recordings from 16 devices: the naive p must not be what a reader sees."""
+    from neuromps.twin.real_inference import trend_caption
+
+    doses = np.tile([0.0, 1.0, 10.0, 100.0], 4)
+    values = np.tile([1.0, 0.8, 0.6, 0.4], 4)
+    groups = np.repeat(["d1", "d2", "d3", "d4"], 4)
+    caption = trend_caption(dose_trend(doses, values, groups=groups, n_resamples=200))
+    assert "95% CI" in caption
+    assert "devices" in caption
+    assert "p =" not in caption
+    assert "None" not in trend_caption(dose_trend(np.array([1.0, 1.0]), np.array([0.5, 0.4])))
+
+
+def test_baseline_offset_flags_an_untreated_value_away_from_neutral() -> None:
+    """Untreated chips must infer a knob near 1, or the knob is absorbing mismatch."""
+    from neuromps.twin.real_inference import baseline_offset
+
+    doses = np.tile([0.0, 0.0, 10.0, 100.0], 4)
+    values = np.tile([0.4, 0.45, 0.4, 0.4], 4)
+    groups = np.repeat(["d1", "d2", "d3", "d4"], 4)
+    out = baseline_offset(values, doses, groups=groups, n_resamples=200)
+    assert out["n_untreated"] == 8
+    assert out["median"] == pytest.approx(0.425, abs=0.05)
+    assert out["includes_neutral"] is False  # 1.0 well outside the interval
+
+
+def test_baseline_offset_accepts_a_posterior_that_returns_to_neutral() -> None:
+    from neuromps.twin.real_inference import baseline_offset
+
+    rng = np.random.default_rng(0)
+    doses = np.tile([0.0, 0.0, 10.0], 8)
+    values = np.concatenate(
+        [[1.0 + rng.normal(0, 0.1), 1.0 + rng.normal(0, 0.1), 0.5] for _ in range(8)]
+    )
+    groups = np.repeat([f"d{i}" for i in range(8)], 3)
+    out = baseline_offset(values, doses, groups=groups, n_resamples=200)
+    assert out["includes_neutral"] is True
+
+
+def test_posterior_sampling_is_seeded_so_reruns_agree() -> None:
+    """Unseeded sampling moved the reported rho between runs of the same code."""
+    import torch
+
+    from neuromps.twin.real_inference import infer_parameters
+
+    class _NoisyPosterior:
+        def sample(self, shape, x, show_progress_bars=False, **kwargs):  # noqa: ARG002
+            return torch.rand((shape[0], 5))
+
+    torch.manual_seed(7)
+    first = infer_parameters(_NoisyPosterior(), np.zeros((2, len(SUMMARY_NAMES))), n_samples=64)
+    torch.manual_seed(7)
+    second = infer_parameters(_NoisyPosterior(), np.zeros((2, len(SUMMARY_NAMES))), n_samples=64)
+    assert first == second

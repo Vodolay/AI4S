@@ -525,3 +525,56 @@ not fix this.
   different ones; peak coupling 0.96 / 0.91 / 0.82 by device type; and bicuculline-like
   disinhibition should reproduce the rat dose-response (network bursts 0.31x, burst rate 0.57x,
   STTC 1.17x at 300 uM).
+
+## 2026-09-20: Phase 3, HD15 - the posterior meets real recordings
+
+### Done
+- `src/neuromps/twin/real_inference.py` + 17 tests: build simulator-shaped summary vectors from the
+  real two-chamber recordings (red -> c0, green -> c1), apply the HD14/HD15 posterior, and test
+  whether the inferred `gabaa_scale` tracks bicuculline dose. Wired into `run_all.py --stage twin`.
+- **Geometry fix.** The inference simulator used a 4x6 grid (24 electrodes per compartment) while the
+  real chambers carry 48 with 43-44 active, and HD12 calibrated against 48. Re-simulated 3500 draws
+  on the calibrated layout (20 min wall, `outputs/logs/hd15_resimulate.log`) and retrained.
+  `check_cache_matches_code` now refuses a cache whose electrode count differs from the current
+  layout, so summary names *and* geometry are both guarded.
+- Retrained posterior (`metrics.twin_hd14_inference`): every contraction improved slightly and
+  `threshold_scale` now passes rank uniformity (KS 0.045, p = 0.46) where it failed in HD14.
+  Connectivity stays weak: `log10_forward_ratio` 0.319, `inter_in_degree` 0.305.
+
+### Result (`metrics.twin_hd15_real_inference`) - negative, and the useful part is *why*
+| check | value |
+|---|---|
+| real values inside the simulated range | 99% (no dimension outside) |
+| dimensions with <5% simulated draws in the real IQR | burst rate and active electrodes, both chambers |
+| inferred `gabaa_scale` vs dose | rho = 0.004, 95% CI [-0.290, +0.337] over 16 devices |
+| inferred `gabaa_scale` for **untreated** recordings | **0.425, CI [0.360, 0.498]** - excludes 1.0 |
+| posterior draws landing inside the prior | median 53%, 3.5% of recordings below 1% |
+
+**The twin's posterior does not recover drug-knob direction from real recordings.** The baseline
+check says why: drug-free chips infer a GABA-A scale of 0.42, so the knob is absorbing general model
+mismatch rather than tracking the compound. A dose trend measured on top of that offset is measured
+on a shifted baseline, and there is no trend to measure - see
+`outputs/twin/hd15_real_dose_response.png`.
+
+### Three things the first pass got wrong, all fixed in code
+1. **Pseudo-replication.** 113 recordings come from 16 devices; the first pass reported rho = -0.197,
+   p = 0.036 across recordings as if independent. `dose_trend` now takes `groups` and reports a
+   cluster bootstrap over devices. That interval included zero even for the original number.
+2. **Range containment is not density containment.** Once the layout matched, every dimension passed
+   the 1-99 percentile test - while the simulated electrode counts were bimodal (0 when silent, 48
+   when saturated) and almost no simulated draw landed near the real 43-44. `distribution_check` now
+   also reports `simulated_support_in_real_iqr` and flags such dimensions as `unsupported`.
+3. **A naive p-value on the figure.** The plot printed `p = None` from a key that never existed. The
+   caption now quotes the clustered interval and the device count, which is what a reader should see.
+
+### Blocked / open
+- `--quick` caps the stage at 30 recordings (74 s) to stay inside the `run_all` budget; the full
+  stage is 113 recordings and ~5.5 min. Both record `n_recordings` and `subsampled`.
+- The four unsupported dimensions are the twin's known weak spot (burst structure), the same place
+  HD12's residual mismatch sits. Fixing the simulator's burst statistics is the prerequisite for any
+  real-data inference claim, not more simulations.
+
+### Next first task (HD16)
+- Directionality experiment on simulated data, where ground truth exists: can inference distinguish
+  symmetric from asymmetric connectivity, and how many electrodes and how long a recording does it
+  need? HD15 says not to attempt the same on real data until the burst statistics match.

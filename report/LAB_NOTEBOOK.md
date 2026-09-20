@@ -475,6 +475,54 @@ time, not correctness.
 
 ---
 
+
+### 2026-09-20 — HD15: applying the posterior to real recordings, and a geometry mismatch (`3fd9bfe`, `HD15_COMMIT`)
+
+**Decision: match the simulated electrode layout to the real chambers.** The inference simulator ran
+on a 4x6 grid (24 electrodes per compartment), chosen for speed in HD14, while HD12 calibrated the
+twin against a 6x8 grid and the real red/green chamber records carry 48 electrodes per unit with a
+median of 43-44 active. (The 24-electrode records in the asset are the `gray` connecting region,
+which `real_summaries` does not use.) `inference.default_layout()` now reads the calibrated layout,
+and 3500 draws were re-simulated on it (20 min wall, `outputs/logs/hd15_resimulate.log`). Guarding
+the invariant rather than the instance: `check_cache_matches_code` refuses any cache whose electrode
+count differs from the current layout, the same way summary names were already guarded. Real chamber
+geometry is heterogeneous (48 for 218 of 246 compartment records, 36 for 14, 60 for 14), so one
+simulated layout matches most chambers, not all — recorded as limitation 27.
+
+**Decision: report dose trends by a cluster bootstrap over devices, never by a p-value across
+recordings.** The first pass reported rho = -0.197, p = 0.036 for inferred `gabaa_scale` against
+bicuculline dose. 113 recordings come from 16 devices, so that p-value treats pseudo-replicates as
+independent. `dose_trend` gained a `groups` argument; the clustered interval included zero even for
+that original estimate, and the figure caption now quotes the interval and the device count instead
+of a p-value (it had been printing `p = None` from a key that never existed).
+
+**Decision: check simulated *density*, not only simulated range, before trusting a posterior on real
+inputs.** With the layout matched, every dimension passed the 1-99 percentile containment test. That
+test is too weak: the simulated electrode counts are bimodal (0 for silent networks, 48 for
+saturated ones) and almost no simulated draw lands near the real 43-44.
+`distribution_check` now also reports `simulated_support_in_real_iqr` and flags a dimension as
+`unsupported` below 5%. Four dimensions are flagged — burst rate and active electrodes in both
+chambers — and `sensitivity_without_dimensions` neutralises them before re-testing any conclusion.
+
+**Decision: record the posterior's prior acceptance rate as a misspecification metric.** Rejection
+sampling logged acceptance rates as low as 0.02% for some real recordings, meaning the density
+estimator wanted to place its mass outside the region it was trained on. Measured across all 113
+recordings the median is 53% and only 3.5% fall below 1%, so this is severe for a minority of
+recordings rather than for the set — which is exactly why it needed measuring instead of reading one
+log line. Sampling is now time-capped with partial returns, and `n_effective_samples` is recorded per
+recording (no recording hit the cap in the full run).
+
+**Decision: check where the posterior puts an *untreated* recording.** Prompted by the figure: the
+drug-free recordings sit at 0.2-0.8, not near 1. `baseline_offset` makes this a number with a
+clustered interval. It is the finding that explains the negative result, so it is a reported metric
+rather than an observation about a plot.
+
+Results in `metrics.twin_hd15_real_inference` (dose trend, baseline offset, acceptance, distribution
+check) and the retrained posterior in `metrics.twin_hd14_inference`; figure
+`outputs/twin/hd15_real_dose_response.png`. The honest summary: **the twin's posterior does not
+recover drug-knob direction from real recordings**, because `gabaa_scale` absorbs general model
+mismatch (untreated chips infer 0.425, interval excluding 1.0) rather than tracking the compound.
+
 ---
 
 ## Tried and abandoned
@@ -551,8 +599,20 @@ time, not correctness.
     interval for a 1000-resample one.
 24. Feature and simulation caches are keyed by file path, not by a hash of the code that produced
     them: changing a feature definition without deleting `data/interim/` would silently reuse stale
-    features. The SBI cache is the exception - it stores its summary names and refuses to load under
-    a different definition.
+    features. The SBI cache is the exception - it stores its summary names and its electrode count,
+    and refuses to load under a different definition (the electrode guard was added in HD15, after
+    a layout mismatch went unnoticed for a full half-day).
+25. **`gabaa_scale` absorbs model mismatch.** Untreated real recordings infer 0.425 (CI [0.360,
+    0.498]), where a well-behaved posterior would return ~1.0. Any inferred drug parameter from this
+    estimator is measured on a shifted baseline and must not be read as a compound effect.
+26. Four summary dimensions - burst rate and active electrodes in both chambers - have under 5% of
+    simulated draws inside the real interquartile range. The twin's burst statistics are the
+    blocking defect for real-data inference, the same weakness HD12 found in its residuals.
+27. One simulated electrode layout (48 per compartment) is used for chambers that in the asset carry
+    48, 36 or 60 electrodes per unit. It matches 218 of 246 compartment records; the other 28 are
+    inferred under a geometry that is not theirs.
+28. For 3.5% of real recordings, under 1% of raw posterior draws fall inside the prior box. Their
+    reported medians are a truncated tail of a density that wanted to sit elsewhere.
 
 ---
 
@@ -574,3 +634,9 @@ time, not correctness.
 6. **Does the asymmetry measure need replacing for inference?** Given the excitability confound, HD14
    may need a rate-controlled statistic rather than the current one.
 7. ~~A latent dose-unit bug.~~ **Fixed** on 2026-09-20, see the entry above. No further action.
+8. **Would fixing the twin's burst statistics make real-data inference work?** HD15 traces the
+   negative result to four unsupported summary dimensions, all burst-related. Whether matching them
+   is enough, or whether `gabaa_scale` would still absorb mismatch, is untested.
+9. **Does the baseline offset of 0.42 have one cause or several?** Candidates are the 10 s vs 480 s
+   recording length, the missing burst structure, and the single fixed layout used for chambers with
+   36 or 60 electrodes. None has been varied on its own.
