@@ -30,6 +30,7 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 RAW_ROOT = REPO_ROOT / "data" / "raw"
 PROCESSED_DIR = REPO_ROOT / "data" / "processed"
 NESTED_ONLY = ("provenance",)
+COMPARTMENT_CACHE = REPO_ROOT / "data" / "interim" / "screenneuropharm_compartments.json"
 
 
 def manifest_hashes(raw_root: Path = RAW_ROOT) -> dict[str, str]:
@@ -45,8 +46,17 @@ def flatten_records(records: list[dict]) -> pd.DataFrame:
     )
     for column in flat.columns:
         if flat[column].map(lambda v: isinstance(v, list)).any():
-            flat[column] = flat[column].map(lambda v: ";".join(v) if isinstance(v, list) else v)
+            flat[column] = flat[column].map(_flatten_list)
     return flat
+
+
+def _flatten_list(value: object) -> object:
+    """Lists of strings become 'a;b'; structured lists (coupling) become JSON."""
+    if not isinstance(value, list):
+        return value
+    if all(isinstance(v, str) for v in value):
+        return ";".join(value)
+    return json.dumps(value, default=str)
 
 
 def collect_records(raw_root: Path = RAW_ROOT, full: bool = False) -> list[dict]:
@@ -91,8 +101,20 @@ def _screenneuropharm_records(hashes: dict[str, str], raw_root: Path, full: bool
     built = screenneuropharm.build_records(
         archive, hashes, cache_path=screenneuropharm.CACHE, rebuild=full
     )
-    log.info("screenneuropharm: %d records", len(built))
-    return built
+    log.info("screenneuropharm single-chamber: %d records", len(built))
+    compartments = _cached_compartments(archive, hashes, full)
+    log.info("screenneuropharm compartments: %d records", len(compartments))
+    return built + compartments
+
+
+def _cached_compartments(archive: Path, hashes: dict[str, str], full: bool) -> list[dict]:
+    """Compartment records, cached: extraction plus coupling costs several minutes."""
+    if COMPARTMENT_CACHE.exists() and not full:
+        return json.loads(COMPARTMENT_CACHE.read_text())
+    records = screenneuropharm.build_compartment_records(archive, hashes)
+    COMPARTMENT_CACHE.parent.mkdir(parents=True, exist_ok=True)
+    COMPARTMENT_CACHE.write_text(json.dumps(records, default=str))
+    return records
 
 
 def _archive_records(module, hashes: dict[str, str], raw_root: Path, full: bool) -> list[dict]:

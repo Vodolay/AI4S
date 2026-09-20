@@ -1,0 +1,91 @@
+{
+  "record_id": "example:screenneuropharm_bic:br18-cxcx-24544-red:bicuculline-30um",
+  "source": "screenneuropharm_bic",
+  "license": "MIT",
+  "citation": "ScreenNeuroPharm. Bicuculline (v1). Zenodo. doi:10.5281/zenodo.7665283. Source repository: github.com/ScreenNeuroPharm/Bicuculline (MIT License, 2023).",
+  "data_level": "spike_times",
+  "cell_source": {
+    "species": "rat",
+    "system": "primary_cortical",
+    "line_or_strain": "E18 rat embryo, preparation Br18"
+  },
+  "platform": {
+    "vendor": "Multi Channel Systems",
+    "system": "MEA120 (12 x 12, 200 um pitch)",
+    "plate_format": "single-well",
+    "electrodes_per_unit": 48,
+    "electrode_pitch_um": 200.0,
+    "sampling_rate_hz": 10000.0
+  },
+  "device": {
+    "device_id": "Br18-CxCx-24544",
+    "layout": "three_chamber_microchannel",
+    "compartment_id": "red",
+    "compartment_role": "chamber",
+    "n_compartments": 3,
+    "microchannel_count": 28,
+    "microchannel_length_um": 250.0,
+    "microchannel_width_um": 10.0
+  },
+  "plate_id": "24544",
+  "unit_id": "Br18-CxCx-24544-red",
+  "culture_age_days": null,
+  "compound": {
+    "name": "bicuculline",
+    "role": "test",
+    "mechanism_class": "gabaa_antagonist",
+    "dose_value": 30.0,
+    "dose_unit": "uM"
+  },
+  "recording": {
+    "duration_s": 479.9,
+    "phase": "exposure"
+  },
+  "features": {
+    "mfr_hz": null,
+    "active_electrodes": null
+  },
+  "feature_method": {
+    "computed_by": "neuromps.features.mea",
+    "spike_detection": "publisher: PeakDetection PLP2ms RP1ms (MCS, 10 kHz)",
+    "burst_method": "maxinterval_simple(isi<=0.1s,>=5spikes)",
+    "synchrony_method": "sttc",
+    "coupling_method": "binned_cross_correlation(bin=0.005s,max_lag=0.2s)"
+  },
+  "coupling": [
+    {
+      "to_compartment": "green",
+      "method": "binned_cross_correlation(bin=0.005s,max_lag=0.2s)",
+      "peak_correlation": null,
+      "lag_ms": null,
+      "asymmetry": null
+    },
+    {
+      "to_compartment": "gray",
+      "method": "binned_cross_correlation(bin=0.005s,max_lag=0.2s)",
+      "peak_correlation": null,
+      "lag_ms": null,
+      "asymmetry": null
+    }
+  ],
+  "qc": {
+    "usable": true,
+    "flags": [],
+    "note": "illustrative record; feature and coupling values null until the ETL runs"
+  },
+  "provenance": {
+    "source_files": [
+      {
+        "path": "screenneuropharm_bic/Bicuculline-BIC_v1.zip",
+        "sha256": "7f434d61f6ac1c5719c942ab7f377367a4a9b6e69c18a5ec328cea5f7945fa69"
+      }
+    ],
+    "transform": [
+      "extract Joint condition folders",
+      "group electrodes by compartment",
+      "features/mea.py + features/coupling.py"
+    ],
+    "generated_by": "schema/examples (illustrative)",
+    "generated_at": "2026-09-20T12:00:00+00:00"
+  }
+}

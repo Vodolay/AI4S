@@ -105,6 +105,16 @@
     },
     "provenance": {
       "$ref": "#/$defs/provenance"
+    },
+    "device": {
+      "$ref": "#/$defs/device"
+    },
+    "coupling": {
+      "type": "array",
+      "description": "Measured directed coupling from this compartment to others in the same device.",
+      "items": {
+        "$ref": "#/$defs/coupling"
+      }
     }
   },
   "allOf": [
@@ -206,6 +216,73 @@
           }
         }
       }
+    },
+    {
+      "$comment": "A compartment is only meaningful as part of a named device.",
+      "if": {
+        "type": "object",
+        "required": [
+          "device"
+        ],
+        "properties": {
+          "device": {
+            "required": [
+              "compartment_id"
+            ],
+            "properties": {
+              "compartment_id": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "device": {
+            "required": [
+              "device_id",
+              "compartment_id"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "$comment": "An unknown cell system must be justified, not merely asserted.",
+      "if": {
+        "type": "object",
+        "required": [
+          "cell_source"
+        ],
+        "properties": {
+          "cell_source": {
+            "properties": {
+              "system": {
+                "const": "unknown"
+              }
+            },
+            "required": [
+              "system"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "cell_source": {
+            "required": [
+              "note"
+            ],
+            "properties": {
+              "note": {
+                "type": "string",
+                "minLength": 10
+              }
+            }
+          }
+        }
+      }
     }
   ],
   "$defs": {
@@ -232,7 +309,8 @@
             "primary_hippocampal",
             "hpsc_derived_cortical",
             "hipsc_derived_nociceptor",
-            "brain_organoid_slice"
+            "brain_organoid_slice",
+            "unknown"
           ]
         },
         "line_or_strain": {
@@ -252,8 +330,15 @@
             "string",
             "null"
           ]
+        },
+        "note": {
+          "type": [
+            "string",
+            "null"
+          ]
         }
-      }
+      },
+      "description": "'unknown' is allowed only with a note saying why the system could not be determined; it exists so that a genuinely unlabelled preparation is recorded as such instead of being guessed."
     },
     "platform": {
       "type": "object",
@@ -548,6 +633,12 @@
             "null"
           ],
           "minimum": 0
+        },
+        "coupling_method": {
+          "type": [
+            "string",
+            "null"
+          ]
         }
       }
     },
@@ -711,6 +802,120 @@
         "generated_at": {
           "type": "string",
           "format": "date-time"
+        }
+      }
+    },
+    "device": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "device_id",
+        "layout"
+      ],
+      "description": "Multi-compartment devices: a record describes ONE compartment, and records sharing a device_id describe the same physical chip. Single-chamber recordings omit this block.",
+      "properties": {
+        "device_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "layout": {
+          "type": "string",
+          "enum": [
+            "single_chamber",
+            "two_chamber_microchannel",
+            "three_chamber_microchannel",
+            "other"
+          ]
+        },
+        "compartment_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "compartment_role": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "chamber",
+            "interface",
+            "unknown",
+            null
+          ],
+          "description": "'interface' is the electrode group over the connecting region, whose signals belong to neither chamber exclusively."
+        },
+        "n_compartments": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "microchannel_count": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "microchannel_length_um": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "exclusiveMinimum": 0
+        },
+        "microchannel_width_um": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "exclusiveMinimum": 0
+        }
+      }
+    },
+    "coupling": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "to_compartment",
+        "method"
+      ],
+      "description": "Descriptive, not causal: common drive to both compartments produces correlation without any projection between them.",
+      "properties": {
+        "to_compartment": {
+          "type": "string",
+          "minLength": 1
+        },
+        "method": {
+          "type": "string",
+          "minLength": 3
+        },
+        "peak_correlation": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": -1,
+          "maximum": 1
+        },
+        "lag_ms": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "Positive: this compartment leads the other."
+        },
+        "asymmetry": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": -1,
+          "maximum": 1,
+          "description": "+1 all influence outward, -1 all inward, 0 symmetric. Null when the peak correlation does not clear the noise floor: no coupling to apportion."
         }
       }
     }

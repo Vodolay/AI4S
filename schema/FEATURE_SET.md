@@ -51,6 +51,13 @@ This is the second harmonization gap worth naming in the standard: sources diffe
 but in the **level** at which data is published (spike times → per-well features → fitted curves). A
 record in the asset must state its level, and comparisons are only valid within a level.
 
+## Cross-compartment features (added for multi-compartment devices)
+
+`features/coupling.py` adds, per ordered compartment pair: `peak_correlation`, `lag_ms` and
+`asymmetry`, from the cross-correlation of binned population rates (5 ms bins, ±200 ms). These are
+device-level quantities, stored in the record's `coupling` block rather than the per-unit feature
+vector, and they are the quantities the two-compartment twin must reproduce.
+
 ## Definitions to pin down in HD3/HD4
 - Burst detector: Kapucu used meaRtools (MaxInterval variants); ToxCast used Axion AxIS. We compute
   our own from spike times, so the standard must record `burst_method` per record.

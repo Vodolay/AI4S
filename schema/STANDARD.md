@@ -124,6 +124,41 @@ feature and its z-score, because a well can sit at the group median for one feat
 another. In near-silent conditions (a TTX plate) the flag fires on wells that are still firing; that
 is intended, since it identifies a failed drug application.
 
+## 5.2 Multi-compartment devices
+
+A compartmentalized chip (two or three chambers joined by microchannels) is described as **one record
+per compartment**. Records of the same chip share a `device.device_id`; `device.compartment_id` names
+the compartment and `device.compartment_role` distinguishes a `chamber` from the `interface` strip of
+electrodes over the connecting region, whose signals belong to neither chamber exclusively. Channel
+geometry (`microchannel_count`, `microchannel_length_um`, `microchannel_width_um`) is recorded because
+it is the physical parameter a connectivity model needs.
+
+Measured coupling between compartments lives in `coupling`, one entry per other compartment:
+
+| Field | Meaning |
+|---|---|
+| `peak_correlation` | strength of co-variation at the best lag |
+| `lag_ms` | lag of that peak; **positive means this compartment leads** |
+| `asymmetry` | +1 all influence outward, −1 inward, 0 symmetric |
+| `method` | the named algorithm, as everywhere else in this standard |
+
+Two rules keep this honest:
+
+1. **Coupling is descriptive, not causal.** Common drive to both compartments produces correlation
+   with no projection between them, and the measure cannot separate a direct projection from a shared
+   input that reaches one compartment first.
+2. **No direction without evidence.** `lag_ms` and `asymmetry` are null unless the peak correlation
+   clears a noise floor of 5 standard errors; otherwise uncorrelated compartments would yield a
+   confident direction computed from noise.
+
+### `unknown` cell systems
+
+`cell_source.system` accepts `unknown`, but **only with a `cell_source.note` explaining why**. It
+exists so an unlabelled preparation is recorded as unlabelled rather than guessed. The current case:
+cortical–hippocampal devices whose dataset never records which electrode group holds which
+population. Their compartment asymmetry is still measurable, so the records are kept and the label is
+not invented.
+
 ## 6. Provenance
 
 Every record traces to hashed raw files: source URL, license, SHA256, size and download time live in

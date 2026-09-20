@@ -30,6 +30,7 @@ import scipy.io as sio
 
 from neuromps.features.mea import FeatureParams, extract_features
 from neuromps.fetch.manifest import utc_now
+from neuromps.qc.provenance import sha256_file
 
 log = logging.getLogger("neuromps.etl")
 SOURCE = "sharf2022"
@@ -162,7 +163,7 @@ def build_records(
     """Build one record per organoid recording."""
     p = params or FeatureParams()
     table = _feature_table(Path(archive_path), cache_path, p, rebuild)
-    sha = (hashes or {}).get(Path(archive_path).name, "")
+    sha = (hashes or {}).get(Path(archive_path).name) or sha256_file(Path(archive_path))
     feature_keys = [
         "mfr_hz",
         "burst_rate_per_min",

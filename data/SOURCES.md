@@ -107,6 +107,18 @@ This file records the human decisions behind each source.
   paper, which is exactly what the standard's `dose_value` + `dose_unit` requirement prevents.
   To convert it later, transcribe the compound/dose map from the paper into a small CSV under
   `src/neuromps/etl/` and cite it per row.
+- **Two/three-compartment devices converted (2026-09-20).** 16 devices in the ScreenNeuroPharm
+  archive are multi-chamber: 5 `CxCx`, 5 `HpHp` and 6 `CxHp`, each with the full bicuculline series.
+  Device geometry (28 microchannels, 10 µm wide x 250 µm long, on a 12x12 200 µm-pitch MEA) is from
+  Brofiga et al. 2022, doi:10.3390/mi13081212. Electrode groups: Red = columns 1-5, Green = columns
+  8-12, Gray = columns 6-7 over the connecting region (recorded as `compartment_role: interface`).
+  - For `CxHp` the dataset and its code never say which colour holds cortical and which hippocampal
+    cells, so `cell_source.system` is `unknown` **with a required note**, rather than guessed. Their
+    asymmetry is still measurable, which is the point of keeping them.
+  - Exploratory (n=6 devices, not a report number, no test yet): per-device median asymmetry
+    red->green is +0.10 with a +10 ms lag for `CxHp` versus about -0.05 at 0 ms for `CxCx`; 4 of 6
+    `CxHp` devices lead in the same direction, 1 runs the other way. A proper statistical comparison
+    belongs in Phase 2/3, with the twin as the model of what asymmetry should look like.
 - **Rejected in the same search (recorded for the report's data-selection story).**
   - Zenodo 14525182 (Mateus & Aguiar), compartmentalized asymmetric-microchannel MEA — the closest
     published analogue of our two-compartment chip: Zenodo metadata says CC BY 4.0 but the dataset's

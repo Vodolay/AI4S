@@ -76,6 +76,29 @@ def flag_counts(df: pd.DataFrame) -> pd.DataFrame:
     return pd.crosstab(exploded["flag"], exploded["source"])
 
 
+def ptypes(counts: pd.Series) -> dict[str, int]:
+    """Plain-int dict so the card does not render numpy repr."""
+    return {str(k): int(v) for k, v in counts.items()}
+
+
+def _device_lines(df: pd.DataFrame) -> list[str]:
+    """Summary of multi-compartment devices, when the asset contains any."""
+    if "device.compartment_id" not in df.columns:
+        return []
+    comp = df[df["device.compartment_id"].notna()]
+    if comp.empty:
+        return []
+    return [
+        "## Multi-compartment devices",
+        "",
+        f"- {len(comp):,} compartment records from {comp['device.device_id'].nunique()} devices; "
+        f"roles: {ptypes(comp['device.compartment_role'].value_counts())}",
+        "- Coupling between compartments is in each record's `coupling` block "
+        "(`peak_correlation`, `lag_ms`, `asymmetry`); see `schema/STANDARD.md` section 5.2.",
+        "",
+    ]
+
+
 def build_card(processed: Path = PROCESSED, raw_root: Path = RAW_ROOT) -> str:
     """Render the data card as markdown."""
     df = pd.read_parquet(processed / "neuromps.parquet")
@@ -101,6 +124,7 @@ def build_card(processed: Path = PROCESSED, raw_root: Path = RAW_ROOT) -> str:
             f"- Usable: **{int(df['qc.usable'].sum()):,}**; flagged unusable: "
             f"{int((~df['qc.usable'].astype(bool)).sum()):,}",
             "",
+            *_device_lines(df),
             "## Sources",
             "",
             _table(source_table(df, manifest)),

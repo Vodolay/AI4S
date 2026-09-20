@@ -168,3 +168,63 @@ def test_traceable_rejects_unknown_hash(tmp_path: Path) -> None:
     manifest.write_text(json.dumps({"schema_version": 1, "sources": {}}))
     rec = _valid()
     assert check_traceable(rec, manifest)
+
+
+def _compartment_record() -> dict:
+    rec = json.loads((EXAMPLES_DIR / "screenneuropharm_compartment.json").read_text())
+    return rec
+
+
+def test_compartment_example_validates() -> None:
+    assert validate_record(_compartment_record()) == []
+
+
+def test_compartment_id_requires_a_device_id() -> None:
+    """Compartments are only meaningful as parts of a named device."""
+    rec = _compartment_record()
+    del rec["device"]["device_id"]
+    assert any("device_id" in e for e in validate_record(rec))
+
+
+def test_device_layout_is_a_closed_vocabulary() -> None:
+    rec = _compartment_record()
+    rec["device"]["layout"] = "some_custom_chip"
+    assert validate_record(rec)
+
+
+def test_coupling_entries_need_method_and_target() -> None:
+    rec = _compartment_record()
+    del rec["coupling"][0]["to_compartment"]
+    assert any("to_compartment" in e for e in validate_record(rec))
+    rec = _compartment_record()
+    del rec["coupling"][0]["method"]
+    assert any("method" in e for e in validate_record(rec))
+
+
+def test_coupling_asymmetry_is_bounded() -> None:
+    rec = _compartment_record()
+    rec["coupling"][0]["asymmetry"] = 1.4
+    assert validate_record(rec)
+
+
+def test_coupling_may_report_no_direction() -> None:
+    """Below the noise floor the measure reports a correlation but no direction."""
+    rec = _compartment_record()
+    rec["coupling"][0]["asymmetry"] = None
+    rec["coupling"][0]["lag_ms"] = None
+    assert validate_record(rec) == []
+
+
+def test_single_chamber_records_need_no_device_block() -> None:
+    rec = json.loads((EXAMPLES_DIR / "kapucu_spike_times.json").read_text())
+    assert "device" not in rec
+    assert validate_record(rec) == []
+
+
+def test_unknown_cell_system_requires_a_note() -> None:
+    """'unknown' must be justified, so it cannot become a silent default."""
+    rec = _compartment_record()
+    rec["cell_source"]["system"] = "unknown"
+    assert any("note" in e for e in validate_record(rec))
+    rec["cell_source"]["note"] = "cortical/hippocampal device; colour-to-region map not recorded"
+    assert validate_record(rec) == []
