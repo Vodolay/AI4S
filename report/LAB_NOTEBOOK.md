@@ -325,6 +325,41 @@ by a script under `src/`** and must be before they enter the report:
 
 Consequence for Phase 3: **any inference of direction from coupling must control for firing rate.**
 
+### 2026-09-20 · Virtual MEA geometry · `8e371f1`
+`twin/mea.py` replaces the HD11 placeholder, where electrodes listened to an arbitrary fixed set of
+neurons and per-electrode firing rate therefore scaled with network size.
+
+- Each compartment is a 1.6 x 1.2 mm chamber with a 6x8 electrode grid at 200 um pitch (48 per
+  chamber), matching the real device; an electrode hears somata within `detection_radius_um`.
+- **The interface electrodes over the microchannel region are not modelled.** Their signals are
+  axonal, and a soma-distance model cannot represent that, so the real interface strip is excluded
+  from comparison rather than approximated.
+- Geometry is not cosmetic: electrode count, pitch and detection radius jointly set how many neurons
+  one electrode pools, which drives rate, synchrony and network-burst counts.
+
+### 2026-09-20 · Calibration protocol · `8e371f1`
+- **Reference:** the ScreenNeuroPharm *chamber* baselines (n=48), the geometry the twin models.
+  Targets are computed from the asset at run time, never hard-coded, so an ETL change does not
+  silently invalidate them.
+- **Comparison is per compartment**, because that is how a real chamber record's features are
+  defined.
+- **Tuned (7):** `background_weight`, `excitatory_weight`, `inhibitory_weight`,
+  `adaptation_increment`, `threshold_spread`, `intra_in_degree`, and `detection_radius_um`. The last
+  is a property of the virtual electrode rather than of the culture, which is a different kind of
+  claim and is flagged as such in the module. Everything else was held at its default.
+- **Method:** seeded random search, with the last 40% of the budget refining in a shrunken box
+  around the best draw; pure random search covers seven dimensions poorly at 45 draws. All trials,
+  the searched ranges and the achieved distance are written out so the fit can be audited.
+- **Score:** 0 inside the real interquartile band, log-ratio distance outside; a missing feature
+  takes the worst penalty so a parameter set that silences the network cannot win by producing
+  nothing to compare.
+- **Model change made during calibration:** per-neuron threshold heterogeneity, added because
+  identical neurons synchronise almost perfectly. The search then chose a near-zero spread, so it did
+  **not** solve the over-synchrony; the parameter stays, with that result recorded rather than the
+  intention.
+- Result and residual mismatch: `metrics.twin_hd12_calibration`, figure
+  `outputs/twin/hd12_calibration_simulated.png`.
+
 ### 2026-09-20 · Dose-unit normalization centralised, mM bug fixed · `f821bb4`
 Writing this notebook surfaced a latent bug: `etl/kapucu.py` and `etl/screenneuropharm.py` each
 mapped a `mM` dose suffix to `uM` **without multiplying the value by 1000**, so a 5 mM exposure would
@@ -411,6 +446,9 @@ provenance instead of degrading it. Regression test in `tests/test_new_sources.p
 | Connectivity by probability in the twin | In-degree grew with network size; replaced by in-degree | `944a689` |
 | Pooling all neurons into 16 virtual electrodes | Per-electrode rate scaled with network size | `944a689` |
 | brian2 `cython` code generation | Compile cost per run; needs a compiler in CI | `944a689` |
+| Per-neuron heterogeneity as the fix for over-synchrony | Added for that purpose; the search then chose ~0 spread, so it did not help | `8e371f1` |
+| Pure random search for calibration | Covers 7 dimensions poorly at this budget; replaced by random draws plus local refinement | `8e371f1` |
+| Scoring a knob against every feature | 8 of 24 real directions have intervals including zero; scoring them would credit agreement with noise | `66e650e` |
 
 ---
 
