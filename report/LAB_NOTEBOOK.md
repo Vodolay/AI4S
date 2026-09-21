@@ -713,7 +713,7 @@ filters on the chamber *names* `red` and `green`; a source that happened to use 
 have joined it silently, so that scope is now pinned by a test too.
 
 
-### 2026-09-21 — HD19: what a warm tree was hiding (`HD19`)
+### 2026-09-21 — HD19: what a warm tree was hiding (`11decc4`)
 
 A fresh clone installs and runs end to end with no errors, and the app opens on the committed
 full-run results in 1.5 s. Two things only a cold clone could show:
