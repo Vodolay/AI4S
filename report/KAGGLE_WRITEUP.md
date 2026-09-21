@@ -60,6 +60,18 @@ on 24 electrodes per compartment
 <!-- metrics.json: twin_hd16_directionality.cheapest_configuration.free_rate_residualized.electrodes_per_compartment -->.
 A second arm that adjusted drive to match rates reports a higher number on fewer electrodes and
 fails its own validity check; we report it as inconclusive rather than as the result.
+
+**And that result does not reproduce on real devices.** A late-arriving dataset — hippocampal
+cultures on straight against asymmetric microchannels, with the geometry fabricated into the chip —
+lets the same question be asked of 26 real devices
+<!-- metrics.json: microchannel_directionality.n_chips -->. Propagation asymmetry does not separate
+the geometries (Kruskal p = 0.64
+<!-- metrics.json: microchannel_directionality.comparison.kruskal_p -->), and the statistic is
+confounded with how many events a chip produced (Spearman −0.494
+<!-- metrics.json: microchannel_directionality.event_count_confound.spearman_rho -->). Counting
+*recordings* instead of chips would have produced an effect; the same pseudo-replication that
+dissolved our earlier dose trend. The sample is too small to call this a refutation of the simulated
+result, and too directly aimed to leave out.
 Read as a contrast between two wiring regimes, not as a measurement: the same summaries give a
 posterior contraction of only 0.311
 <!-- metrics.json: twin_hd14_inference.contraction.log10_forward_ratio.contraction --> for the
@@ -86,7 +98,8 @@ trust. Three specific mechanisms keep this one honest:
   mis-anchored citations in our own draft.
 - **Intervals resample groups, never rows.** Cultures contribute many correlated records; a
   row bootstrap would have halved every interval. An earlier apparent dose trend (ρ = −0.197,
-  p = 0.036) dissolved once 113 recordings were recognised as coming from 16 devices.
+  p = 0.036) dissolved once 113 recordings were recognised as coming from 16 devices, and a
+  geometry effect dissolved once 57 recordings were recognised as coming from 26 chips.
 - **Caches refuse to be reused across a change in meaning.** The simulation cache stores its summary
   names, electrode count and a hash of the source of every function that defines a summary — added
   after a real defect where the twin measured coupling from every neuron while real recordings

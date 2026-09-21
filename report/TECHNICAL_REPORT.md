@@ -48,10 +48,16 @@ The results that matter are as much negative as positive, and the report leads w
    well-spaced wiring classes, not as a measurement of a continuous ratio (§7.6). A second arm,
    which adjusted drive to match rates, reaches a higher AUC at fewer electrodes and **fails its own
    validity check**; it is reported as inconclusive rather than as the result.
+5. **That result does not reproduce on real devices.** On 26 chips whose microchannel geometry was
+   fabricated rather than assumed, propagation asymmetry does not separate straight channels from
+   three asymmetric designs (Kruskal p = 0.64
+   <!-- metrics.json: microchannel_directionality.comparison.kruskal_p -->), and the statistic is
+   confounded with how many events a chip produced (§7.7). The sample is too small to call that a
+   refutation of the simulated result, and too directly aimed to omit.
 
 The honest summary of the twin is therefore: it reproduces baseline features and most drug
-directions, it can tell two wiring regimes apart in simulation, and it cannot yet read pharmacology
-off a real chip.
+directions, it can tell two wiring regimes apart in simulation, it cannot yet read pharmacology off
+a real chip, and the one real-data test of its directionality claim is null.
 
 ---
 
@@ -182,6 +188,27 @@ an entrant's own license, so the non-commercial condition cannot be guaranteed d
 recorded as `skipped` in the manifest with that reason rather than dropped silently. The cost is
 real: without it, the rat→human transfer study rests on one source.
 
+### 4.2 A licence conflict, resolved rather than avoided
+
+Zenodo 14525182 (Mateus et al. 2024) is the closest published analogue of the chip the twin models:
+hippocampal cultures on straight against asymmetric microchannels, 57 spike-data recordings, with the
+geometry fabricated into the device. It was **rejected on 2026-09-16** because the deposit
+contradicts itself — the Zenodo metadata licence field says `cc-by-4.0` and the record is open
+access, while the README inside says, in capitals, CC BY-NC-ND. Under NoDerivatives, publishing
+derived features would not have been permitted, which is the whole of what this project does with a
+recording.
+
+On 2026-09-21 the corresponding author confirmed by email that the metadata governs and the README
+line was an unintentional default. The source is included on that basis, and the reasoning is
+recorded where a reader can check it: both halves of the contradiction are public, the fetcher
+blocks if the metadata licence ever moves, and it reads the README on every fetch and writes
+whatever licence claim it finds into `data/raw/MANIFEST.json`. **The resolution itself is private
+correspondence, which a reader cannot verify**; `data/SOURCES.md` says so in those words. This is the
+one source in the asset whose licence rests on anything other than a public record.
+
+Its recordings are analysed in §7.7. They are not yet part of the built asset, so the counts above
+do not include them.
+
 ---
 
 ## 5. Methods
@@ -226,7 +253,7 @@ Logistic regression beats chance with an interval that excludes it. Its interval
 boosting's overlap heavily, so the gap between the two models is within noise; with 73 pairs the
 simpler model is the one to prefer, not the one shown to be better.
 
-![Task 1 confusion matrix, REAL data: out-of-fold predictions from grouped cross-validation over 73 treated/baseline pairs. Errors concentrate between the two GABA-A classes.](../outputs/figures/mechanism_confusion.png){width=82%}
+![Task 1 confusion matrix, REAL data: out-of-fold predictions from grouped cross-validation over 73 treated/baseline pairs. Errors concentrate between the two GABA-A classes.](../outputs/figures/mechanism_confusion.png){width=70%}
 
 
 **Calibration.** Expected calibration error on out-of-fold predictions is 0.1114
@@ -236,7 +263,7 @@ simpler model is the one to prefer, not the one shown to be better.
 probabilities should be read as ordering, not as calibrated risk — and not even as ordering above
 0.8 confidence, where observed accuracy falls rather than rises, on a handful of predictions.
 
-![Reliability diagram, REAL data: predicted probability against observed frequency for the mechanism classifier, out-of-fold. Bin counts are small, which is why the calibration interval is wide.](../outputs/figures/task1_reliability_real.png){width=72%}
+![Reliability diagram, REAL data: predicted probability against observed frequency for the mechanism classifier, out-of-fold. Bin counts are small, which is why the calibration interval is wide.](../outputs/figures/task1_reliability_real.png){width=58%}
 
 
 **Conformal sets.** At a 95% target the empirical coverage is 0.918
@@ -245,7 +272,7 @@ size of 4.562 <!-- metrics.json: uncertainty_and_ablations.conformal_sweep.0.mea
 out of six — honest coverage at the cost of sets too large to act on. That is the correct reading of
 73 calibration points, not a defect to tune away.
 
-![Conformal set size against target coverage, REAL data. Honest coverage costs sets of four to five classes out of six.](../outputs/figures/conformal_set_size.png){width=72%}
+![Conformal set size against target coverage, REAL data. Honest coverage costs sets of four to five classes out of six.](../outputs/figures/conformal_set_size.png){width=60%}
 
 
 ### 6.2 Task 2 — external detection and its negative control
@@ -338,7 +365,7 @@ is named invariant while carrying a median difference of 1.04
 <!-- metrics.json: species_transfer.species_shift.by_feature.burst_rate_per_min.difference --> log2
 units, a two-fold shift whose interval also spans zero.
 
-![Per-feature species shift, REAL data: rat against human baseline distributions, with cluster-bootstrap intervals. Rate and burst-fraction features move least; synchrony moves most.](../outputs/figures/species_shift.png){width=74%}
+![Per-feature species shift, REAL data: rat against human baseline distributions, with cluster-bootstrap intervals. Rate and burst-fraction features move least; synchrony moves most.](../outputs/figures/species_shift.png){width=66%}
 
 
 ### 6.6 Ablations: the feature set is mostly one feature
@@ -447,7 +474,7 @@ that reads direction off coupling must control for rate first.
 Three checks on the real devices confirmed the confound does not obviously bite there (firing-rate
 imbalance does not differ by device type), which is why §6.6 survives as a hypothesis.
 
-![SIMULATED: measured coupling asymmetry against the forward/backward wiring ratio, at three levels of drive to the receiving chamber. Drive moves the measure further than wiring does.](../outputs/twin/hd11_directionality_simulated.png){width=85%}
+![SIMULATED: measured coupling asymmetry against the forward/backward wiring ratio, at three levels of drive to the receiving chamber. Drive moves the measure further than wiring does.](../outputs/twin/hd11_directionality_simulated.png){width=76%}
 
 
 ### 7.3 Calibration
@@ -596,6 +623,60 @@ Classifying is a far weaker demand than estimating.
 ![SIMULATED: telling symmetric from asymmetric wiring, by recording length and electrode count. Top row leaves drive alone; the bottom row adjusts drive to match rates and does so imperfectly, which is why that arm is reported as inconclusive. The rate-residualised columns are the controlled comparison, and the rightmost column is the validity check itself.](../outputs/twin/hd16_directionality_simulated.png){width=92%}
 
 
+### 7.7 The same question on real devices, and a null
+
+§7.6 could only ask its question in simulation, where the ground truth is something we set. The
+Mateus deposit (§4.2) has it fabricated into the device: straight `control` microchannels against
+`arrows`, `rams` and `tesla`-valve geometries, 57 recordings
+<!-- metrics.json: microchannel_directionality.n_recordings --> from 26 chips
+<!-- metrics.json: microchannel_directionality.n_chips -->.
+
+The deposit publishes spike times and the measurement but not the electrode map it was computed on,
+so the geometry is recovered with the authors' own criterion — an event on all five electrodes of a
+microchannel with at most 1 ms between consecutive electrodes. That finds 10–15 channels per chip in
+a single row band, which is what the published five-electrode design predicts. Direction is reported
+as a magnitude: the deposit does not record how each device was seated on the array, so |asymmetry|
+says how one-sided propagation is, not which way it points.
+
+![REAL data: propagation asymmetry per chip by microchannel geometry. One point per chip, bars are medians. The control group spans almost the whole range on its own.](../outputs/figures/microchannel_asymmetry_real.png){width=76%}
+
+**The unit decides the answer.** A chip recorded at DIV 12, 17 and 21 supplies three recordings and
+one device. Counting recordings, median |asymmetry| runs from 0.339
+<!-- metrics.json: microchannel_directionality.per_recording_naive.by_condition.control.median_abs_asymmetry -->
+for control to 0.854
+<!-- metrics.json: microchannel_directionality.per_recording_naive.by_condition.rams.median_abs_asymmetry -->
+for rams, which looks like a geometry effect. Counting chips, it is 0.617
+<!-- metrics.json: microchannel_directionality.comparison.by_condition.control.median_abs_asymmetry -->
+against 0.875
+<!-- metrics.json: microchannel_directionality.comparison.by_condition.rams.median_abs_asymmetry -->
+with Kruskal p = 0.64
+<!-- metrics.json: microchannel_directionality.comparison.kruskal_p --> and every Holm-adjusted
+comparison against control at 1.0
+<!-- metrics.json: microchannel_directionality.comparison.vs_reference_holm.rams -->. Both are kept
+in `metrics.json`, the per-recording one labelled as the wrong unit, because the gap between them is
+the result. This is the pseudo-replication of §7.5 a third time, on a different dataset.
+
+**The statistic is also confounded with sampling.** |asymmetry| is a ratio of counts, so a chip with
+few propagation events looks one-sided by chance; across chips the correlation between event count
+and |asymmetry| is −0.494
+<!-- metrics.json: microchannel_directionality.event_count_confound.spearman_rho -->, p = 0.010
+<!-- metrics.json: microchannel_directionality.event_count_confound.p_value -->. Restricting to the
+better-sampled half leaves 13 chips
+<!-- metrics.json: microchannel_directionality.well_sampled_half.n_chips --> and p = 0.086
+<!-- metrics.json: microchannel_directionality.well_sampled_half.kruskal_p -->, which is not a
+result either.
+
+**What this does not say.** It does not contradict the deposit's own paper: those authors had the
+electrode map, measured per-channel propagation velocities, and asked a different question. The
+claim here is narrower — *this* statistic, aggregated per chip, does not separate these geometries,
+on 26 chips in five groups of three to eight, with control chips confined to experiments 9–11 so
+that condition is confounded with culture batch by the deposit's design.
+
+**What it says about the twin.** §7.6's directionality result is simulation-only, and this is the
+first time that question has been put to devices whose asymmetry was fabricated rather than
+simulated. It does not reproduce. The sample is too small and too confounded to call that a
+refutation, and too directly aimed to leave out.
+
 ---
 
 ## 8. Limitations
@@ -620,6 +701,12 @@ mismatch (§7.5). Simulated recordings are 10 s against real recordings of 480 s
 is one fixed geometry while real chambers carry 48, 36 or 60 electrodes. HD16's positive result is
 identifiability *under a correct model*, since the same simulator generated both classes, and its
 rate controls remove only linear rate dependence.
+
+**The real-device test.** The §7.7 null rests on 26 chips in five groups, with condition confounded
+with culture batch by the deposit's design, an unanchored direction, and a statistic that varies with
+how many propagation events a chip produced. It bounds the effect rather than excluding it. The
+microchannel geometry is also recovered from the spike times rather than read from a map the deposit
+does not publish, so it approximates the authors' own analysis rather than reproducing it.
 
 **Process.** A CI workflow is configured and the work described here has been pushed to it, but no
 CI result has been observed from the environment these results were produced in; treat CI as
@@ -692,8 +779,6 @@ license endpoints respond — which is the main reason the budget headroom is no
 its standard, mechanism prediction with a conformal set beside the transfer results, and the twin
 with its posterior and what it does on real recordings.
 
-![The demo's third tab: a SIMULATED twin grid with its posterior marginals, above the HD15 result on REAL recordings and the SIMULATED HD16 directionality panel.](../outputs/figures/app_tab3.png){width=62%}
-
 The design constraint was that an interaction must never wait on a simulator.
 `run_all.py --stage demo` precomputes a grid of 75
 <!-- metrics.json: demo_precompute.n_grid_points --> twin simulations spanning the prior, with
@@ -704,7 +789,8 @@ samples for all 113 real two-chamber recordings
 harness, every interaction lands between 0.6 and 0.9 s; the one exception is a button that runs a
 single Brian2 simulation at the current slider values in about 4.5 s, which exists so that the twin
 is verifiably a simulator rather than a lookup table. Timings and the tab-by-tab description are in
-`app/README.md`; screenshots of all three tabs are in `outputs/figures/app_tab*.png`.
+`app/README.md`; screenshots of all three tabs are in `outputs/figures/app_tab*.png`, and are
+reproduced in the competition write-up rather than here.
 
 The app reads `outputs/metrics.json` and `outputs/demo/` and recomputes nothing, so it cannot
 disagree with this report.
@@ -760,26 +846,3 @@ figure carries `simulated` in its filename unless it plots **real** recordings u
 simulation-trained model — `hd15_real_dose_response.png` is the one such hybrid, and its caption
 names both sides. The rule that matters is that no simulated output is ever presented as
 measurement, and that is enforced in the captions, not the filenames.
-
-## Appendix B. Reading the negative results
-
-Three results in this report are negative, and each is reported because the alternative would have
-been to quote a number that does not mean what it appears to mean.
-
-**An apparent dose trend that was not one.** The first pass at §7.5 gave Spearman ρ = −0.197 with
-p = 0.036. Two things were wrong: 113 recordings come from 16 devices, so a p-value across
-recordings treats replicates as independent; and the posterior was extrapolating on summary
-dimensions the simulator cannot produce. After a cluster bootstrap over devices and a sensitivity
-check that neutralises those dimensions, nothing remained.
-
-**A discrimination that was reading firing rate.** In §7.6 the full feature set separates wiring
-classes at AUC 0.98 — and so do three firing-rate features alone. Two attempts to fix this by
-matching the drive both failed, each trading one rate mismatch for another. Residualising features
-against both chambers' rates is what worked, and it carries a validity check: rate features, after
-residualising, score no better than chance.
-
-**A calibration that misses exactly the features that do not transfer.** The twin's residual
-mismatch in §7.3 is burst fraction and synchrony — the same group that shifts most between species
-in §6.5 and contributes nothing in the ablations of §6.6. Three analyses, arrived at separately,
-agree about species. The platform contrast in §6.4 points the other way, and that is why the
-portability claim in this report is restricted to species.
