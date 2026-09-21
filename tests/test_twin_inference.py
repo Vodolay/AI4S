@@ -223,3 +223,15 @@ def test_a_cache_from_different_summary_code_is_refused() -> None:
     }
     with pytest.raises(SystemExit, match="summary code"):
         check_cache_matches_code(stale)
+
+
+def test_training_is_seeded_before_the_posterior_is_built() -> None:
+    """An unseeded run moved a reported p-value from 0.46 to 0.01 between runs."""
+    import inspect
+
+    from neuromps.twin.inference import main
+
+    source = inspect.getsource(main)
+    seed_line = source.index("torch.manual_seed(args.seed)")
+    train_line = source.index("train_posterior(")
+    assert seed_line < train_line, "the seed must be set before training"

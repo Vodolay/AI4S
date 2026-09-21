@@ -1,0 +1,75 @@
+2026-09-20 21:47:22,439 INFO distribution check: 99% inside the simulated range; outside: []; unsupported: ['c0_burst_rate_per_min', 'c0_active_electrodes', 'c1_burst_rate_per_min', 'c1_active_electrodes']
+2026-09-20 21:47:51,330 INFO prior acceptance: median 60.8500%, 1% of recordings below 1%
+2026-09-20 21:48:03,971 WARNING Only 0.971% proposal samples are
+                    accepted. It may take a long time to collect the remaining
+                    398 samples. You can prevent very long runtimes by
+                    setting `max_sampling_time` to limit runtime, or disabling
+                    rejection sampling (e.g. via `reject_outside_prior=False` in
+                    `posterior.sample()` when available).Alternatively, consider interrupting (Ctrl-C)
+                    and switching to `build_posterior(..., sample_with='mcmc')`.
+2026-09-20 21:48:49,757 WARNING Only 0.581% proposal samples are
+                    accepted. It may take a long time to collect the remaining
+                    439 samples. You can prevent very long runtimes by
+                    setting `max_sampling_time` to limit runtime, or disabling
+                    rejection sampling (e.g. via `reject_outside_prior=False` in
+                    `posterior.sample()` when available).Alternatively, consider interrupting (Ctrl-C)
+                    and switching to `build_posterior(..., sample_with='mcmc')`.
+{
+  "distribution_check": {
+    "n_real": 113,
+    "mean_fraction_inside": 0.992,
+    "outside_dimensions": [],
+    "unsupported_dimensions": [
+      "c0_burst_rate_per_min",
+      "c0_active_electrodes",
+      "c1_burst_rate_per_min",
+      "c1_active_electrodes"
+    ]
+  },
+  "prior_acceptance": {
+    "median_acceptance": 0.6085,
+    "min_acceptance": 0.0095,
+    "max_acceptance": 0.926,
+    "fraction_below_1_percent": 0.009,
+    "n_draws_per_recording": 2000,
+    "note": "share of raw posterior draws inside the prior box; low values mean the posterior is extrapolating outside its training region for real inputs"
+  },
+  "gabaa_scale_dose_trend": {
+    "spearman_rho": 0.118,
+    "naive_p_value": 0.2118,
+    "n_recordings": 113,
+    "direction": "rises with dose",
+    "spearman_rho_ci95": [
+      -0.168,
+      0.419
+    ],
+    "n_devices": 16,
+    "bootstrap_resamples": 1000,
+    "excludes_zero": false
+  },
+  "gabaa_scale_at_baseline": {
+    "median": 0.3781,
+    "n_untreated": 16,
+    "neutral_value": 1.0,
+    "median_ci95": [
+      0.3149,
+      0.4677
+    ],
+    "includes_neutral": false,
+    "bootstrap_resamples": 1000,
+    "n_devices": 16
+  },
+  "gabaa_scale_dose_trend_without_ood_dimensions": {
+    "spearman_rho": 0.258,
+    "naive_p_value": 0.0059,
+    "n_recordings": 113,
+    "direction": "rises with dose",
+    "spearman_rho_ci95": [
+      0.0037,
+      0.5205
+    ],
+    "n_devices": 16,
+    "bootstrap_resamples": 1000,
+    "excludes_zero": true
+  }
+}

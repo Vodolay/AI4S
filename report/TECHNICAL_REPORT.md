@@ -34,7 +34,7 @@ The results that matter are as much negative as positive, and the report leads w
 2. **Coupling asymmetry tracks relative firing rate, not pathway direction.** At fixed wiring,
    changing one chamber's drive swings the measured asymmetry across most of its range (§7.2).
 3. **The twin's posterior does not recover drug-knob direction from real recordings.** The inferred
-   GABA-A scale shows no bicuculline dose trend, and untreated chips already infer 0.4149
+   GABA-A scale shows no bicuculline dose trend, and untreated chips already infer 0.3781
    <!-- metrics.json: twin_hd15_real_inference.gabaa_scale_at_baseline.median -->, so the parameter
    is absorbing model mismatch rather than tracking the compound (§7.5).
 4. **Direction *is* recoverable from simulated features once rate is controlled for** — AUC 0.9784
@@ -417,15 +417,24 @@ A neural posterior estimator was trained on 3,500 simulations
 
 | parameter | posterior contraction | KS statistic |
 |------------------------|-----------------------|--------------|
-| `threshold_scale` | 0.816 <!-- metrics.json: twin_hd14_inference.contraction.threshold_scale.contraction --> | 0.045 <!-- metrics.json: twin_hd14_inference.rank_uniformity_ks_p.threshold_scale.ks_statistic --> |
-| `ampa_scale` | 0.445 <!-- metrics.json: twin_hd14_inference.contraction.ampa_scale.contraction --> | 0.061 <!-- metrics.json: twin_hd14_inference.rank_uniformity_ks_p.ampa_scale.ks_statistic --> |
-| `gabaa_scale` | 0.327 <!-- metrics.json: twin_hd14_inference.contraction.gabaa_scale.contraction --> | 0.104 <!-- metrics.json: twin_hd14_inference.rank_uniformity_ks_p.gabaa_scale.ks_statistic --> |
-| `inter_in_degree` | 0.32 <!-- metrics.json: twin_hd14_inference.contraction.inter_in_degree.contraction --> | 0.114 <!-- metrics.json: twin_hd14_inference.rank_uniformity_ks_p.inter_in_degree.ks_statistic --> |
-| `log10_forward_ratio` | 0.295 <!-- metrics.json: twin_hd14_inference.contraction.log10_forward_ratio.contraction --> | 0.086 <!-- metrics.json: twin_hd14_inference.rank_uniformity_ks_p.log10_forward_ratio.ks_statistic --> |
+| `threshold_scale` | 0.8 <!-- metrics.json: twin_hd14_inference.contraction.threshold_scale.contraction --> | 0.0571 <!-- metrics.json: twin_hd14_inference.rank_uniformity_ks_p.threshold_scale.ks_statistic --> |
+| `ampa_scale` | 0.443 <!-- metrics.json: twin_hd14_inference.contraction.ampa_scale.contraction --> | 0.0871 <!-- metrics.json: twin_hd14_inference.rank_uniformity_ks_p.ampa_scale.ks_statistic --> |
+| `gabaa_scale` | 0.323 <!-- metrics.json: twin_hd14_inference.contraction.gabaa_scale.contraction --> | 0.1093 <!-- metrics.json: twin_hd14_inference.rank_uniformity_ks_p.gabaa_scale.ks_statistic --> |
+| `inter_in_degree` | 0.32 <!-- metrics.json: twin_hd14_inference.contraction.inter_in_degree.contraction --> | 0.1029 <!-- metrics.json: twin_hd14_inference.rank_uniformity_ks_p.inter_in_degree.ks_statistic --> |
+| `log10_forward_ratio` | 0.311 <!-- metrics.json: twin_hd14_inference.contraction.log10_forward_ratio.contraction --> | 0.0957 <!-- metrics.json: twin_hd14_inference.rank_uniformity_ks_p.log10_forward_ratio.ks_statistic --> |
 
 Only excitability is well identified, and only `threshold_scale` passes a rank-uniformity check
-(p = 0.4644 <!-- metrics.json: twin_hd14_inference.rank_uniformity_ks_p.threshold_scale.ks_p -->).
-**Posterior intervals from this estimator should not be quoted as calibrated.** A learning curve
+(p = 0.1956 <!-- metrics.json: twin_hd14_inference.rank_uniformity_ks_p.threshold_scale.ks_p -->;
+every other parameter is below 0.01). **Posterior intervals from this estimator should not be quoted
+as calibrated.**
+
+That statement is weaker than it looks, and the reason is worth recording. Posterior *training* was
+unseeded until this report was being built: rerunning identical code on the identical simulation
+cache moved contraction by about 0.02 and moved this p-value between 0.46, 0.0092 and 0.1956 — on
+one of those runs `threshold_scale` failed the check that it passes here. Training is now seeded and
+verified to reproduce across processes, but the run-to-run spread is the honest measure of how much
+weight a single rank-uniformity p-value can carry. Contraction was stable across the same runs; the
+rank test was not. A learning curve
 showed connectivity contraction still rising with training-set size but only slightly: more
 simulations alone will not fix it.
 
@@ -437,14 +446,14 @@ simulations alone will not fix it.
 summary values inside the simulated range
 <!-- metrics.json: twin_hd15_real_inference.distribution_check.mean_fraction_inside -->:
 
-- The inferred GABA-A scale shows **no dose trend**: Spearman 0.083
+- The inferred GABA-A scale shows **no dose trend**: Spearman 0.118
   <!-- metrics.json: twin_hd15_real_inference.gabaa_scale_dose_trend.spearman_rho -->,
-  95% CI [−0.2275, 0.4305]
+  95% CI [−0.168, 0.419]
   <!-- metrics.json: twin_hd15_real_inference.gabaa_scale_dose_trend.spearman_rho_ci95 -->,
   clustered over devices.
-- **Untreated recordings already infer 0.4149**
+- **Untreated recordings already infer 0.3781**
   <!-- metrics.json: twin_hd15_real_inference.gabaa_scale_at_baseline.median -->,
-  CI [0.3692, 0.4693]
+  CI [0.3149, 0.4677]
   <!-- metrics.json: twin_hd15_real_inference.gabaa_scale_at_baseline.median_ci95 -->, excluding the
   neutral value of 1.0. The knob is absorbing general model mismatch.
 - Four summary dimensions — burst rate and active electrodes in both chambers —
@@ -488,7 +497,7 @@ on 6 electrodes per compartment
 <!-- metrics.json: twin_hd16_directionality.cheapest_configuration.rate_matched_residualized.electrodes_per_compartment -->.
 
 **Read this as a contrast, not a measurement.** The same summaries that classify two well-spaced
-wiring regimes at 0.98 give a posterior contraction of only 0.295 for the continuous ratio (§7.5).
+wiring regimes at 0.98 give a posterior contraction of only 0.311 for the continuous ratio (§7.5).
 Classifying is a far weaker demand than estimating.
 
 ![SIMULATED: telling symmetric from asymmetric wiring, by recording length and electrode count. Top row leaves drive alone; bottom row matches rates. The rate-residualised panel is the controlled comparison.](../outputs/twin/hd16_directionality_simulated.png){width=100%}

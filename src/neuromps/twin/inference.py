@@ -421,6 +421,12 @@ def main(argv: list[str] | None = None) -> int:
     args = p.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
     TWIN_DIR.mkdir(parents=True, exist_ok=True)
+    # Training a neural posterior estimator is stochastic: weight initialisation,
+    # batching and the train/validation split all draw from torch's global RNG.
+    # Without this seed, rerunning the same code on the same cache moved the
+    # reported contraction by ~0.02 and the rank-uniformity p-value for
+    # threshold_scale from 0.46 to 0.01 - enough to flip a stated conclusion.
+    torch.manual_seed(args.seed)
     n_simulations = args.simulations or (150 if args.quick else 3000)
 
     if SIMULATION_CACHE.exists() and not args.rebuild:
@@ -457,6 +463,7 @@ def main(argv: list[str] | None = None) -> int:
         "n_simulations": int(len(theta)),
         "n_train": int(len(train_theta)),
         "n_holdout": int(holdout),
+        "seed": int(args.seed),
         "posterior_samples": n_samples,
         "fraction_silent_simulations": round(silent, 3),
         "contraction": shrink,

@@ -41,11 +41,11 @@ direction has to control for rate first — the single most useful negative resu
 
 **The twin does not yet recover pharmacology from a real chip.** Applied to 113 real two-chamber
 recordings <!-- metrics.json: twin_hd15_real_inference.n_recordings -->, the inferred GABA-A scale
-shows no bicuculline dose trend (Spearman 0.083
+shows no bicuculline dose trend (Spearman 0.118
 <!-- metrics.json: twin_hd15_real_inference.gabaa_scale_dose_trend.spearman_rho -->, 95% CI
-[−0.2275, 0.4305]
+[−0.168, 0.419]
 <!-- metrics.json: twin_hd15_real_inference.gabaa_scale_dose_trend.spearman_rho_ci95 -->, clustered
-over devices), and **untreated chips already infer 0.4149**
+over devices), and **untreated chips already infer 0.3781**
 <!-- metrics.json: twin_hd15_real_inference.gabaa_scale_at_baseline.median --> where a neutral value
 is 1.0 — the parameter is absorbing model mismatch rather than tracking the compound.
 
@@ -58,7 +58,7 @@ from a 10 s recording
 on 6 electrodes per compartment
 <!-- metrics.json: twin_hd16_directionality.cheapest_configuration.rate_matched_residualized.electrodes_per_compartment -->.
 Read as a contrast between two wiring regimes, not as a measurement: the same summaries give a
-posterior contraction of only 0.295
+posterior contraction of only 0.311
 <!-- metrics.json: twin_hd14_inference.contraction.log10_forward_ratio.contraction --> for the
 continuous forward/backward ratio.
 
