@@ -729,16 +729,24 @@ python run_all.py --quick     # every figure and metric, reduced settings
 python run_all.py             # full run
 ```
 
-- `--quick` completes in about 470 s on CPU against a 600 s budget, and each run records its own
-  per-stage timings under `metrics.run_all_timings_quick`; the full twin stage takes roughly 2,000 s
+- `--quick` completes in **401 s on a fresh clone** of this repository — install, download, build,
+  model, twin and demo — against a 600 s budget, and each run records its own per-stage timings
+  under `metrics.run_all_timings_quick`. Most of the variable part is downloading: the same clone
+  measured 52 s and 133 s for the fetch stage on two runs; the full twin stage takes roughly 2,000 s
   and records `metrics.run_all_timings_full`. Both are logged under `outputs/logs/` as well.
-- **`--quick` reproduces every figure and metric except the §7.6 directionality sweep.** At reduced
-  settings that sweep has too few simulations per cell to fit a discriminator, so every
-  `cheapest_configuration` entry is written as `null` and the validity check is not meaningful; the
-  §7.6 numbers need `python run_all.py --stage twin` at full settings. `metrics.json` records which
-  mode produced the stored value (`twin_hd16_directionality.quick`), and the quick run also
-  evaluates 60 of the 350 posterior holdout points rather than all of them, recording the count it
-  used.
+- **`--quick` is a path test, not a reproduction of the report.** Measured on a fresh clone, it
+  fetches the small-tier sources only and therefore builds a much smaller asset than the one this
+  report describes; it produces 8 of the 14 figures and omits six `metrics.json` entries —
+  `toxcast_mea_inventory`, `twin_hd12_calibration`, `twin_hd15_real_inference`,
+  `compartment_asymmetry`, `microchannel_directionality` and the full-run timings. The analyses
+  behind those either need a full-tier download (the 109 MB microchannel archive, the ToxCast
+  release) or need compartment records the small-tier asset does not contain, and each skips itself
+  with a logged reason rather than failing. The §7.6 sweep additionally has too few simulations per
+  cell to fit a discriminator, so its `cheapest_configuration` entries are written as `null`.
+- **Reproducing the numbers in this report takes the full path**: `python run_all.py` after a
+  full-tier fetch. `metrics.json` records which mode produced each stored value, and quick and full
+  runs write to separate roots (`outputs/` against `outputs/quick/`) so neither can overwrite the
+  other.
 - Dependencies are pinned in `pyproject.toml`; numpy is held at 2.3.5 because brian2 2.9.0 does not
   import against 2.4.
 - Every number in this report is produced by a script under `src/` and written to
@@ -750,12 +758,9 @@ python run_all.py             # full run
 
 ### 9.1 Where the time goes
 
-Each run writes its own stage timings, so this table is generated rather than transcribed: see
-`metrics.run_all_timings_quick.by_stage_s` for the quick run and `run_all_timings_full` for a full
-one. In the runs behind this report the quick pipeline spends most of its time in the twin stage
-(validation, calibration, drug knobs, inference, real-data inference, directionality) and in the
-demo precomputation, with fetch varying by about a minute between runs depending on how quickly the
-license endpoints respond — which is the main reason the budget headroom is not stable.
+Each run writes its own stage timings, so this is generated rather than transcribed: see
+`metrics.run_all_timings_quick.by_stage_s` and `run_all_timings_full`. On the fresh-clone run above,
+the twin stage dominates, then downloading, then the asset build.
 
 ### 9.2 What the repository enforces, rather than documents
 
@@ -781,21 +786,18 @@ license endpoints respond — which is the main reason the budget headroom is no
 its standard, mechanism prediction with a conformal set beside the transfer results, and the twin
 with its posterior and what it does on real recordings.
 
-The design constraint was that an interaction must never wait on a simulator.
-`run_all.py --stage demo` precomputes a grid of 75
-<!-- metrics.json: demo_precompute.n_grid_points --> twin simulations spanning the prior, with
-posterior samples per point, posterior
-samples for all 113 real two-chamber recordings
+No interaction waits on a simulator: `run_all.py --stage demo` precomputes a grid of 75
+<!-- metrics.json: demo_precompute.n_grid_points --> twin simulations spanning the prior with
+posterior samples per point, posterior samples for all 113 real two-chamber recordings
 <!-- metrics.json: demo_precompute.n_real_recordings -->, and a classifier fitted once, in 85.1 s
-<!-- metrics.json: run_all_timings_full.by_stage_s.demo -->. Measured through Streamlit's own test
-harness, every interaction lands between 0.6 and 0.9 s; the one exception is a button that runs a
-single Brian2 simulation at the current slider values in about 4.5 s, which exists so that the twin
-is verifiably a simulator rather than a lookup table. Timings and the tab-by-tab description are in
-`app/README.md`; screenshots of all three tabs are in `outputs/figures/app_tab*.png`, and are
-reproduced in the competition write-up rather than here.
+<!-- metrics.json: run_all_timings_full.by_stage_s.demo -->. Through Streamlit's own test harness
+every interaction lands between 0.6 and 0.9 s; the exception is a button running one Brian2
+simulation at the current slider values in about 4.5 s, so the twin is verifiably a simulator rather
+than a lookup table. The app reads `outputs/metrics.json` and `outputs/demo/` and recomputes
+nothing, so it cannot disagree with this report. Tab-by-tab detail is in `app/README.md`;
+screenshots are in `outputs/figures/app_tab*.png` and in the write-up.
 
-The app reads `outputs/metrics.json` and `outputs/demo/` and recomputes nothing, so it cannot
-disagree with this report.
+---
 
 ## 11. AI assistance disclosure
 
@@ -843,8 +845,7 @@ Every number in this report comes from a key in `outputs/metrics.json`, written 
 | posterior applied to real recordings | `twin_hd15_real_inference` | `neuromps.twin.real_inference` |
 | directionality experiment | `twin_hd16_directionality` | `neuromps.twin.directionality` |
 
-Figures are written to `outputs/figures/` (real data) and `outputs/twin/` (twin output). A twin
-figure carries `simulated` in its filename unless it plots **real** recordings under a
-simulation-trained model — `hd15_real_dose_response.png` is the one such hybrid, and its caption
-names both sides. The rule that matters is that no simulated output is ever presented as
-measurement, and that is enforced in the captions, not the filenames.
+Figures are written to `outputs/figures/` (real data) and `outputs/twin/` (twin output), the latter
+carrying `simulated` in the filename except for `hd15_real_dose_response.png`, which plots real
+recordings under a simulation-trained model and says so in its caption. The rule is enforced in the
+captions, not the filenames: no simulated output is presented as measurement.

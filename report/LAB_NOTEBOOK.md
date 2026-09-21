@@ -712,6 +712,26 @@ cortical/hippocampal device types without any error. It is now scoped to its sou
 filters on the chamber *names* `red` and `green`; a source that happened to use those names would
 have joined it silently, so that scope is now pinned by a test too.
 
+
+### 2026-09-21 — HD19: what a warm tree was hiding (`HD19`)
+
+A fresh clone installs and runs end to end with no errors, and the app opens on the committed
+full-run results in 1.5 s. Two things only a cold clone could show:
+
+**The quick path was over its budget by half.** 914 s against 600 s, because the warm tree had the
+downloads cached and the SBI simulation cache sitting in gitignored `data/interim/`. The fix that
+mattered was not algorithmic: one source publishes 169 separate files, and fetching them one at a
+time cost 349 s of a 914 s run. A six-thread pool brings that to 133 s for the same files and
+hashes, with request order preserved so the manifest cannot depend on which download finished first.
+Trimming the quick tier's simulation work took the rest, and a fully cold clone now runs in 401 s.
+
+**The reproducibility claim was wrong in a way only measurement would catch.** §9 said `--quick`
+reproduces every figure and metric except one sweep. It produces 8 of 14 figures and omits six
+metrics entries, because the quick tier fetches the small-tier sources only and several analyses
+have nothing to run on. Each skips with a logged reason rather than failing, which is why the claim
+survived: nothing ever went red. The report now states what the quick path is - a test that the
+path runs - and that reproducing its numbers needs the full one.
+
 ---
 
 ## Tried and abandoned

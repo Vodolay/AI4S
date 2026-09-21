@@ -1021,3 +1021,37 @@ missing and each was added rather than worked around:
 ### Report
 Five sources in §4, the new counts throughout, and §4.2 now states the records are in the asset.
 22 pages, 169 citations verified across the three documents.
+
+## 2026-09-21: HD19 — fresh-environment reproducibility
+
+### The check
+Cloned the pushed repository into a clean directory, created a new Python 3.11 venv, installed with
+`uv pip install -e ".[dev]"`, ran `python run_all.py --quick`, then launched the app. **No errors at
+any step.** The app loads in 1.5 s with zero exceptions and shows the full committed results, because
+`outputs/` is tracked; where a component comes from the quick run instead, the app says so.
+
+### What it found, and what was fixed
+**The quick path took 914 s on a cold clone against a 600 s budget.** The warm tree had hidden it:
+downloads were cached and the SBI simulation cache lives in gitignored `data/interim/`. Two fixes,
+both measured in the fresh clone:
+- **Downloads run on a six-thread pool.** One source publishes 169 separate files and fetching them
+  serially dominated the cold run: 349 s to 133 s, same files, same hashes, request order preserved.
+- **The quick tier simulates less**: 70 posterior draws rather than 150, one HD11 seed at 12 s
+  rather than two at 20 s, 40 posterior samples over 8 recordings in the demo precomputation. None
+  of these numbers is ever reported.
+
+**A fully cold clone now runs in 401 s** (fetch 52, data 41, models 11, twin 265, demo 33). Fetch is
+the variable part: the same clone measured 52 s and 133 s on two runs.
+
+### A claim that was wrong, now corrected
+§9 said `--quick` reproduces every figure and metric except the HD16 sweep. Measured, it produces
+**8 of 14 figures** and omits six `metrics.json` entries — `toxcast_mea_inventory`,
+`twin_hd12_calibration`, `twin_hd15_real_inference`, `compartment_asymmetry`,
+`microchannel_directionality`, and the full-run timings. The quick tier fetches small-tier sources
+only, so the asset it builds is 288 records rather than 21,380, and the analyses needing full-tier
+data or compartment records skip themselves with a logged reason. The report now says this, and says
+that reproducing its numbers takes the full path.
+
+### Still open
+- The demo video (below).
+- `RESULTS_DRAFT.md` overlaps the report and should be retired or folded in.
