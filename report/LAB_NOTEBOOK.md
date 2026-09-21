@@ -592,7 +592,7 @@ beyond firing rate, and cheaply** — but in the twin's own model, where the sam
 both classes, and against HD15's finding that these summaries do not transfer to real recordings.
 
 
-### 2026-09-21 — `mateus2024`: reversing a licence rejection, and what that rests on (`8a1b260`)
+### 2026-09-21 — `mateus2024`: reversing a licence rejection, and what that rests on (`a2a2866`)
 
 **Decision: include Zenodo 14525182 under CC BY 4.0.** It was rejected on 2026-09-16 under the
 conflict rule, because the deposit contradicts itself — metadata licence `cc-by-4.0`, README text
