@@ -653,7 +653,7 @@ confound is in the deposit's design and cannot be analysed away; it belongs next
 source produces.
 
 
-### 2026-09-21 — `mateus2024` step 3: a real-data directionality test that comes out null (`STEP3`)
+### 2026-09-21 — `mateus2024` step 3: a real-data directionality test that comes out null (`2e53d48`)
 
 **Decision: recover the microchannels with the deposit's own criterion rather than a layout guess.**
 An event must appear on all five electrodes of a channel with <=1 ms between consecutive electrodes;
