@@ -648,6 +648,15 @@ parameter, and the report should say exactly that rather than lead with either n
 - Only ratios 3 and 10 against 1 were tested; the weak-asymmetry regime is untested.
 - The same simulator generated both classes, so this measures identifiability under a correct model.
 
+### Gate check (Phase 3)
+- `run_all.py --stage twin` full: **1956 s** (`outputs/logs/hd16_twin_full.log`), every twin metric
+  regenerated under the corrected coupling.
+- `run_all.py --quick`: **463 s** of the 600 s limit (`outputs/logs/hd16_run_all_quick.log`), with
+  HD16 adding about 26 s. The HD15 measurement of 523 s was inflated by slower license re-checks on
+  the network (111 s then, 50 s now), so the budget headroom moves by about a minute between runs
+  for reasons outside the code. The HD11 twin validation remains the largest single item at 134 s.
+- **Phase 3 gate met.**
+
 ### Next first task (Phase 4, HD17)
 - Streamlit app: browse the asset with QC flags and provenance; mechanism prediction with conformal
   set; twin sliders. The twin tab should show the HD16 identifiability result and the HD15 negative

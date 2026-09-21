@@ -1,0 +1,1024 @@
+2026-09-20 20:01:22,520 INFO [iras_mea] skipped (excluded, see data/SOURCES.md)
+2026-09-20 20:01:22,523 INFO [kapucu2022] fetching (full=False)
+2026-09-20 20:01:22,523 INFO   [1/169] kapucu2022/datacite.yml (cached)
+2026-09-20 20:01:22,523 INFO   [2/169] kapucu2022/Data/LICENSE.txt (cached)
+2026-09-20 20:01:22,523 INFO   [3/169] kapucu2022/Data/PCA/PCA_table.xlsx (cached)
+2026-09-20 20:01:22,523 INFO   [4/169] kapucu2022/Data/PCA/Rat_MEA1_PCA/Rat_MEA1_PCA_meaRtools_output/Rat_190617_MEA1_STTC.csv (cached)
+2026-09-20 20:01:22,523 INFO   [5/169] kapucu2022/Data/PCA/Rat_MEA1_PCA/Rat_MEA1_PCA_meaRtools_output/Rat_190617_MEA1_bursts_per_min.csv (cached)
+2026-09-20 20:01:22,523 INFO   [6/169] kapucu2022/Data/PCA/Rat_MEA1_PCA/Rat_MEA1_PCA_meaRtools_output/Rat_190617_MEA1_mean_dur.csv (cached)
+2026-09-20 20:01:22,524 INFO   [7/169] kapucu2022/Data/PCA/Rat_MEA1_PCA/Rat_MEA1_PCA_meaRtools_output/Rat_190617_MEA1_mean_freq_in_burst.csv (cached)
+2026-09-20 20:01:22,524 INFO   [8/169] kapucu2022/Data/PCA/Rat_MEA1_PCA/Rat_MEA1_PCA_meaRtools_output/Rat_190617_MEA1_mean_spikes_in_burst.csv (cached)
+2026-09-20 20:01:22,524 INFO   [9/169] kapucu2022/Data/PCA/Rat_MEA1_PCA/Rat_MEA1_PCA_meaRtools_output/Rat_190617_MEA1_meanfiringrate_by_active_electordes.csv (cached)
+2026-09-20 20:01:22,524 INFO   [10/169] kapucu2022/Data/PCA/Rat_MEA1_PCA/Rat_MEA1_PCA_meaRtools_output/Rat_190617_MEA1_nae.csv (cached)
+2026-09-20 20:01:22,524 INFO   [11/169] kapucu2022/Data/PCA/Rat_MEA1_PCA/Rat_MEA1_PCA_meaRtools_output/Rat_190617_MEA1_per_spikes_in_burst.csv (cached)
+2026-09-20 20:01:22,524 INFO   [12/169] kapucu2022/Data/PCA/Rat_MEA1_PCA/Rat_MEA1_PCA_spikes_noise_explogs/PCAnoisy_electrodes_Rat_MEA1.csv (cached)
+2026-09-20 20:01:22,524 INFO   [13/169] kapucu2022/Data/PCA/Rat_MEA1_PCA/Rat_MEA1_PCA_spikes_noise_explogs/Rat_190617_MEA1_DIV21_PCAexpLog.csv (cached)
+2026-09-20 20:01:22,524 INFO   [14/169] kapucu2022/Data/PCA/Rat_MEA3_PCA/Rat_MEA3_PCA_meaRtools_output/Rat_250417_MEA3_STTC.csv (cached)
+2026-09-20 20:01:22,524 INFO   [15/169] kapucu2022/Data/PCA/Rat_MEA3_PCA/Rat_MEA3_PCA_meaRtools_output/Rat_250417_MEA3_bursts_per_min.csv (cached)
+2026-09-20 20:01:22,524 INFO   [16/169] kapucu2022/Data/PCA/Rat_MEA3_PCA/Rat_MEA3_PCA_meaRtools_output/Rat_250417_MEA3_mean_dur.csv (cached)
+2026-09-20 20:01:22,524 INFO   [17/169] kapucu2022/Data/PCA/Rat_MEA3_PCA/Rat_MEA3_PCA_meaRtools_output/Rat_250417_MEA3_mean_freq_in_burst.csv (cached)
+2026-09-20 20:01:22,524 INFO   [18/169] kapucu2022/Data/PCA/Rat_MEA3_PCA/Rat_MEA3_PCA_meaRtools_output/Rat_250417_MEA3_mean_spikes_in_burst.csv (cached)
+2026-09-20 20:01:22,524 INFO   [19/169] kapucu2022/Data/PCA/Rat_MEA3_PCA/Rat_MEA3_PCA_meaRtools_output/Rat_250417_MEA3_meanfiringrate_by_active_electordes.csv (cached)
+2026-09-20 20:01:22,524 INFO   [20/169] kapucu2022/Data/PCA/Rat_MEA3_PCA/Rat_MEA3_PCA_meaRtools_output/Rat_250417_MEA3_nae.csv (cached)
+2026-09-20 20:01:22,524 INFO   [21/169] kapucu2022/Data/PCA/Rat_MEA3_PCA/Rat_MEA3_PCA_meaRtools_output/Rat_250417_MEA3_per_spikes_in_burst.csv (cached)
+2026-09-20 20:01:22,524 INFO   [22/169] kapucu2022/Data/PCA/Rat_MEA3_PCA/Rat_MEA3_PCA_spikes_noise_explogs/Rat_250417_MEA3_DIV21_expLog.csv (cached)
+2026-09-20 20:01:22,524 INFO   [23/169] kapucu2022/Data/PCA/Rat_MEA3_PCA/Rat_MEA3_PCA_spikes_noise_explogs/noisy_electrodes_Rat_MEA3.csv (cached)
+2026-09-20 20:01:22,524 INFO   [24/169] kapucu2022/Data/PCA/Rat_MEA4_PCA/Rat_MEA4_PCA_meaRtools_output/Rat_31017_MEA4_STTC.csv (cached)
+2026-09-20 20:01:22,524 INFO   [25/169] kapucu2022/Data/PCA/Rat_MEA4_PCA/Rat_MEA4_PCA_meaRtools_output/Rat_31017_MEA4_bursts_per_min.csv (cached)
+2026-09-20 20:01:22,524 INFO   [26/169] kapucu2022/Data/PCA/Rat_MEA4_PCA/Rat_MEA4_PCA_meaRtools_output/Rat_31017_MEA4_mean_dur.csv (cached)
+2026-09-20 20:01:22,524 INFO   [27/169] kapucu2022/Data/PCA/Rat_MEA4_PCA/Rat_MEA4_PCA_meaRtools_output/Rat_31017_MEA4_mean_freq_in_burst.csv (cached)
+2026-09-20 20:01:22,524 INFO   [28/169] kapucu2022/Data/PCA/Rat_MEA4_PCA/Rat_MEA4_PCA_meaRtools_output/Rat_31017_MEA4_mean_spikes_in_burst.csv (cached)
+2026-09-20 20:01:22,524 INFO   [29/169] kapucu2022/Data/PCA/Rat_MEA4_PCA/Rat_MEA4_PCA_meaRtools_output/Rat_31017_MEA4_meanfiringrate_by_active_electordes.csv (cached)
+2026-09-20 20:01:22,524 INFO   [30/169] kapucu2022/Data/PCA/Rat_MEA4_PCA/Rat_MEA4_PCA_meaRtools_output/Rat_31017_MEA4_nae.csv (cached)
+2026-09-20 20:01:22,524 INFO   [31/169] kapucu2022/Data/PCA/Rat_MEA4_PCA/Rat_MEA4_PCA_meaRtools_output/Rat_31017_MEA4_per_spikes_in_burst.csv (cached)
+2026-09-20 20:01:22,524 INFO   [32/169] kapucu2022/Data/PCA/Rat_MEA4_PCA/Rat_MEA4_PCA_spikes_noise_explogs/Rat_31017_MEA4_DIV24_expLog.csv (cached)
+2026-09-20 20:01:22,524 INFO   [33/169] kapucu2022/Data/PCA/Rat_MEA4_PCA/Rat_MEA4_PCA_spikes_noise_explogs/noisy_electrodes_Rat_MEA4.csv (cached)
+2026-09-20 20:01:22,524 INFO   [34/169] kapucu2022/Data/PCA/hPSC_MEA1_PCA/hPSC_MEA1_PCA_meaRtools_output/hPSC_20517_MEA1_STTC.csv (cached)
+2026-09-20 20:01:22,524 INFO   [35/169] kapucu2022/Data/PCA/hPSC_MEA1_PCA/hPSC_MEA1_PCA_meaRtools_output/hPSC_20517_MEA1_bursts_per_min.csv (cached)
+2026-09-20 20:01:22,524 INFO   [36/169] kapucu2022/Data/PCA/hPSC_MEA1_PCA/hPSC_MEA1_PCA_meaRtools_output/hPSC_20517_MEA1_mean_dur.csv (cached)
+2026-09-20 20:01:22,524 INFO   [37/169] kapucu2022/Data/PCA/hPSC_MEA1_PCA/hPSC_MEA1_PCA_meaRtools_output/hPSC_20517_MEA1_mean_freq_in_burst.csv (cached)
+2026-09-20 20:01:22,525 INFO   [38/169] kapucu2022/Data/PCA/hPSC_MEA1_PCA/hPSC_MEA1_PCA_meaRtools_output/hPSC_20517_MEA1_mean_spikes_in_burst.csv (cached)
+2026-09-20 20:01:22,525 INFO   [39/169] kapucu2022/Data/PCA/hPSC_MEA1_PCA/hPSC_MEA1_PCA_meaRtools_output/hPSC_20517_MEA1_meanfiringrate_by_active_electordes.csv (cached)
+2026-09-20 20:01:22,525 INFO   [40/169] kapucu2022/Data/PCA/hPSC_MEA1_PCA/hPSC_MEA1_PCA_meaRtools_output/hPSC_20517_MEA1_nae.csv (cached)
+2026-09-20 20:01:22,525 INFO   [41/169] kapucu2022/Data/PCA/hPSC_MEA1_PCA/hPSC_MEA1_PCA_meaRtools_output/hPSC_20517_MEA1_per_spikes_in_burst.csv (cached)
+2026-09-20 20:01:22,525 INFO   [42/169] kapucu2022/Data/PCA/hPSC_MEA1_PCA/hPSC_MEA1_PCA_spikes_noise_explogs/PCAnoisy_electrodes_hPSC_MEA1.csv (cached)
+2026-09-20 20:01:22,525 INFO   [43/169] kapucu2022/Data/PCA/hPSC_MEA1_PCA/hPSC_MEA1_PCA_spikes_noise_explogs/hPSC_20517_MEA1_DIV21_PCAexpLog.csv (cached)
+2026-09-20 20:01:22,525 INFO   [44/169] kapucu2022/Data/PCA/hPSC_MEA2_PCA/hPSC_MEA2_PCA_meaRtools_output/hPSC_20517_MEA2_STTC.csv (cached)
+2026-09-20 20:01:22,525 INFO   [45/169] kapucu2022/Data/PCA/hPSC_MEA2_PCA/hPSC_MEA2_PCA_meaRtools_output/hPSC_20517_MEA2_bursts_per_min.csv (cached)
+2026-09-20 20:01:22,525 INFO   [46/169] kapucu2022/Data/PCA/hPSC_MEA2_PCA/hPSC_MEA2_PCA_meaRtools_output/hPSC_20517_MEA2_mean_dur.csv (cached)
+2026-09-20 20:01:22,525 INFO   [47/169] kapucu2022/Data/PCA/hPSC_MEA2_PCA/hPSC_MEA2_PCA_meaRtools_output/hPSC_20517_MEA2_mean_freq_in_burst.csv (cached)
+2026-09-20 20:01:22,525 INFO   [48/169] kapucu2022/Data/PCA/hPSC_MEA2_PCA/hPSC_MEA2_PCA_meaRtools_output/hPSC_20517_MEA2_mean_spikes_in_burst.csv (cached)
+2026-09-20 20:01:22,525 INFO   [49/169] kapucu2022/Data/PCA/hPSC_MEA2_PCA/hPSC_MEA2_PCA_meaRtools_output/hPSC_20517_MEA2_meanfiringrate_by_active_electordes.csv (cached)
+2026-09-20 20:01:22,525 INFO   [50/169] kapucu2022/Data/PCA/hPSC_MEA2_PCA/hPSC_MEA2_PCA_meaRtools_output/hPSC_20517_MEA2_nae.csv (cached)
+2026-09-20 20:01:22,525 INFO   [51/169] kapucu2022/Data/PCA/hPSC_MEA2_PCA/hPSC_MEA2_PCA_meaRtools_output/hPSC_20517_MEA2_per_spikes_in_burst.csv (cached)
+2026-09-20 20:01:22,525 INFO   [52/169] kapucu2022/Data/PCA/hPSC_MEA2_PCA/hPSC_MEA2_PCA_spikes_noise_explogs/PCAnoisy_electrodes_hPSC_MEA2.csv (cached)
+2026-09-20 20:01:22,525 INFO   [53/169] kapucu2022/Data/PCA/hPSC_MEA2_PCA/hPSC_MEA2_PCA_spikes_noise_explogs/hPSC_20517_MEA2_DIV21_PCAexpLog.csv (cached)
+2026-09-20 20:01:22,525 INFO   [54/169] kapucu2022/Data/PCA/hPSC_MEA4_PCA/hPSC_MEA4_PCA_meaRtools_output/hPSC_171017_MEA4_STTC.csv (cached)
+2026-09-20 20:01:22,525 INFO   [55/169] kapucu2022/Data/PCA/hPSC_MEA4_PCA/hPSC_MEA4_PCA_meaRtools_output/hPSC_171017_MEA4_bursts_per_min.csv (cached)
+2026-09-20 20:01:22,525 INFO   [56/169] kapucu2022/Data/PCA/hPSC_MEA4_PCA/hPSC_MEA4_PCA_meaRtools_output/hPSC_171017_MEA4_mean_dur.csv (cached)
+2026-09-20 20:01:22,525 INFO   [57/169] kapucu2022/Data/PCA/hPSC_MEA4_PCA/hPSC_MEA4_PCA_meaRtools_output/hPSC_171017_MEA4_mean_freq_in_burst.csv (cached)
+2026-09-20 20:01:22,525 INFO   [58/169] kapucu2022/Data/PCA/hPSC_MEA4_PCA/hPSC_MEA4_PCA_meaRtools_output/hPSC_171017_MEA4_mean_spikes_in_burst.csv (cached)
+2026-09-20 20:01:22,525 INFO   [59/169] kapucu2022/Data/PCA/hPSC_MEA4_PCA/hPSC_MEA4_PCA_meaRtools_output/hPSC_171017_MEA4_meanfiringrate_by_active_electordes.csv (cached)
+2026-09-20 20:01:22,525 INFO   [60/169] kapucu2022/Data/PCA/hPSC_MEA4_PCA/hPSC_MEA4_PCA_meaRtools_output/hPSC_171017_MEA4_nae.csv (cached)
+2026-09-20 20:01:22,525 INFO   [61/169] kapucu2022/Data/PCA/hPSC_MEA4_PCA/hPSC_MEA4_PCA_meaRtools_output/hPSC_171017_MEA4_per_spikes_in_burst.csv (cached)
+2026-09-20 20:01:22,525 INFO   [62/169] kapucu2022/Data/PCA/hPSC_MEA4_PCA/hPSC_MEA4_PCA_spikes_noise_explogs/hPSC_171017_MEA4_DIV21_expLog.csv (cached)
+2026-09-20 20:01:22,525 INFO   [63/169] kapucu2022/Data/PCA/hPSC_MEA4_PCA/hPSC_MEA4_PCA_spikes_noise_explogs/noisy_electrodes_hPSC_MEA4.csv (cached)
+2026-09-20 20:01:22,525 INFO   [64/169] kapucu2022/Data/PCA/hPSC_MEA5_PCA/hPSC_MEA5_PCA_meaRtools_output/hPSC_21018_MEA5_STTC.csv (cached)
+2026-09-20 20:01:22,525 INFO   [65/169] kapucu2022/Data/PCA/hPSC_MEA5_PCA/hPSC_MEA5_PCA_meaRtools_output/hPSC_21018_MEA5_bursts_per_min.csv (cached)
+2026-09-20 20:01:22,525 INFO   [66/169] kapucu2022/Data/PCA/hPSC_MEA5_PCA/hPSC_MEA5_PCA_meaRtools_output/hPSC_21018_MEA5_mean_dur.csv (cached)
+2026-09-20 20:01:22,525 INFO   [67/169] kapucu2022/Data/PCA/hPSC_MEA5_PCA/hPSC_MEA5_PCA_meaRtools_output/hPSC_21018_MEA5_mean_freq_in_burst.csv (cached)
+2026-09-20 20:01:22,525 INFO   [68/169] kapucu2022/Data/PCA/hPSC_MEA5_PCA/hPSC_MEA5_PCA_meaRtools_output/hPSC_21018_MEA5_mean_spikes_in_burst.csv (cached)
+2026-09-20 20:01:22,525 INFO   [69/169] kapucu2022/Data/PCA/hPSC_MEA5_PCA/hPSC_MEA5_PCA_meaRtools_output/hPSC_21018_MEA5_meanfiringrate_by_active_electordes.csv (cached)
+2026-09-20 20:01:22,526 INFO   [70/169] kapucu2022/Data/PCA/hPSC_MEA5_PCA/hPSC_MEA5_PCA_meaRtools_output/hPSC_21018_MEA5_nae.csv (cached)
+2026-09-20 20:01:22,526 INFO   [71/169] kapucu2022/Data/PCA/hPSC_MEA5_PCA/hPSC_MEA5_PCA_meaRtools_output/hPSC_21018_MEA5_per_spikes_in_burst.csv (cached)
+2026-09-20 20:01:22,526 INFO   [72/169] kapucu2022/Data/PCA/hPSC_MEA5_PCA/hPSC_MEA5_PCA_spikes_noise_explogs/hPSC_21018_MEA5_DIV70_expLog.csv (cached)
+2026-09-20 20:01:22,526 INFO   [73/169] kapucu2022/Data/PCA/hPSC_MEA5_PCA/hPSC_MEA5_PCA_spikes_noise_explogs/noisy_electrodes_hPSC_MEA5.csv (cached)
+2026-09-20 20:01:22,526 INFO   [74/169] kapucu2022/Data/Rat_MEA1/Rat_MEA1_meaRtools_output/Rat_190617_MEA1_STTC.csv (cached)
+2026-09-20 20:01:22,526 INFO   [75/169] kapucu2022/Data/Rat_MEA1/Rat_MEA1_meaRtools_output/Rat_190617_MEA1_bursts_per_min.csv (cached)
+2026-09-20 20:01:22,526 INFO   [76/169] kapucu2022/Data/Rat_MEA1/Rat_MEA1_meaRtools_output/Rat_190617_MEA1_mean_dur.csv (cached)
+2026-09-20 20:01:22,526 INFO   [77/169] kapucu2022/Data/Rat_MEA1/Rat_MEA1_meaRtools_output/Rat_190617_MEA1_mean_freq_in_burst.csv (cached)
+2026-09-20 20:01:22,526 INFO   [78/169] kapucu2022/Data/Rat_MEA1/Rat_MEA1_meaRtools_output/Rat_190617_MEA1_mean_spikes_in_burst.csv (cached)
+2026-09-20 20:01:22,526 INFO   [79/169] kapucu2022/Data/Rat_MEA1/Rat_MEA1_meaRtools_output/Rat_190617_MEA1_meanfiringrate_by_active_electordes.csv (cached)
+2026-09-20 20:01:22,526 INFO   [80/169] kapucu2022/Data/Rat_MEA1/Rat_MEA1_meaRtools_output/Rat_190617_MEA1_nae.csv (cached)
+2026-09-20 20:01:22,526 INFO   [81/169] kapucu2022/Data/Rat_MEA1/Rat_MEA1_meaRtools_output/Rat_190617_MEA1_per_spikes_in_burst.csv (cached)
+2026-09-20 20:01:22,526 INFO   [82/169] kapucu2022/Data/Rat_MEA1/Rat_MEA1_spikes_noise_explogs/Rat_190617_MEA1_DIV2_expLog.csv (cached)
+2026-09-20 20:01:22,526 INFO   [83/169] kapucu2022/Data/Rat_MEA1/Rat_MEA1_spikes_noise_explogs/noisy_electrodes_Rat_MEA1.csv (cached)
+2026-09-20 20:01:22,526 INFO   [84/169] kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2Baseline_DIV22/Rat_MEA2Baseline_DIV22_meaRtools_output/Rat_50618_MEA2Baseline_STTC.csv (cached)
+2026-09-20 20:01:22,526 INFO   [85/169] kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2Baseline_DIV22/Rat_MEA2Baseline_DIV22_meaRtools_output/Rat_50618_MEA2Baseline_bursts_per_min.csv (cached)
+2026-09-20 20:01:22,526 INFO   [86/169] kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2Baseline_DIV22/Rat_MEA2Baseline_DIV22_meaRtools_output/Rat_50618_MEA2Baseline_mean_dur.csv (cached)
+2026-09-20 20:01:22,526 INFO   [87/169] kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2Baseline_DIV22/Rat_MEA2Baseline_DIV22_meaRtools_output/Rat_50618_MEA2Baseline_mean_freq_in_burst.csv (cached)
+2026-09-20 20:01:22,526 INFO   [88/169] kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2Baseline_DIV22/Rat_MEA2Baseline_DIV22_meaRtools_output/Rat_50618_MEA2Baseline_mean_spikes_in_burst.csv (cached)
+2026-09-20 20:01:22,526 INFO   [89/169] kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2Baseline_DIV22/Rat_MEA2Baseline_DIV22_meaRtools_output/Rat_50618_MEA2Baseline_meanfiringrate_by_active_electordes.csv (cached)
+2026-09-20 20:01:22,526 INFO   [90/169] kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2Baseline_DIV22/Rat_MEA2Baseline_DIV22_meaRtools_output/Rat_50618_MEA2Baseline_nae.csv (cached)
+2026-09-20 20:01:22,526 INFO   [91/169] kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2Baseline_DIV22/Rat_MEA2Baseline_DIV22_meaRtools_output/Rat_50618_MEA2Baseline_per_spikes_in_burst.csv (cached)
+2026-09-20 20:01:22,526 INFO   [92/169] kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2Baseline_DIV22/Rat_MEA2Baseline_DIV22_spikes_noise_explogs/Rat_50618_MEA2Baseline_DIV22_expLog.csv (cached)
+2026-09-20 20:01:22,567 INFO   [93/169] kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2Baseline_DIV22/Rat_MEA2Baseline_DIV22_spikes_noise_explogs/Rat_50618_MEA2Baseline_DIV22_spikes.csv (cached)
+2026-09-20 20:01:22,567 INFO   [94/169] kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2Baseline_DIV22/Rat_MEA2Baseline_DIV22_spikes_noise_explogs/noisy_electrodes_Rat_MEA2Baseline_DIV22.csv (cached)
+2026-09-20 20:01:22,567 INFO   [95/169] kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2Pharma_DIV22/Rat_MEA2Pharma_DIV22_meaRtools_output/Rat_50618_MEA2Pharma_STTC.csv (cached)
+2026-09-20 20:01:22,567 INFO   [96/169] kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2Pharma_DIV22/Rat_MEA2Pharma_DIV22_meaRtools_output/Rat_50618_MEA2Pharma_bursts_per_min.csv (cached)
+2026-09-20 20:01:22,567 INFO   [97/169] kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2Pharma_DIV22/Rat_MEA2Pharma_DIV22_meaRtools_output/Rat_50618_MEA2Pharma_mean_dur.csv (cached)
+2026-09-20 20:01:22,567 INFO   [98/169] kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2Pharma_DIV22/Rat_MEA2Pharma_DIV22_meaRtools_output/Rat_50618_MEA2Pharma_mean_freq_in_burst.csv (cached)
+2026-09-20 20:01:22,567 INFO   [99/169] kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2Pharma_DIV22/Rat_MEA2Pharma_DIV22_meaRtools_output/Rat_50618_MEA2Pharma_mean_spikes_in_burst.csv (cached)
+2026-09-20 20:01:22,567 INFO   [100/169] kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2Pharma_DIV22/Rat_MEA2Pharma_DIV22_meaRtools_output/Rat_50618_MEA2Pharma_meanfiringrate_by_active_electordes.csv (cached)
+2026-09-20 20:01:22,567 INFO   [101/169] kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2Pharma_DIV22/Rat_MEA2Pharma_DIV22_meaRtools_output/Rat_50618_MEA2Pharma_nae.csv (cached)
+2026-09-20 20:01:22,567 INFO   [102/169] kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2Pharma_DIV22/Rat_MEA2Pharma_DIV22_meaRtools_output/Rat_50618_MEA2Pharma_per_spikes_in_burst.csv (cached)
+2026-09-20 20:01:22,567 INFO   [103/169] kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2Pharma_DIV22/Rat_MEA2Pharma_DIV22_spikes_noise_explogs/Rat_50618_MEA2Pharma_DIV22_expLog.csv (cached)
+2026-09-20 20:01:22,587 INFO   [104/169] kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2Pharma_DIV22/Rat_MEA2Pharma_DIV22_spikes_noise_explogs/Rat_50618_MEA2Pharma_DIV22_spikes.csv (cached)
+2026-09-20 20:01:22,588 INFO   [105/169] kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2Pharma_DIV22/Rat_MEA2Pharma_DIV22_spikes_noise_explogs/noisy_electrodes_Rat_MEA2Pharma_DIV22.csv (cached)
+2026-09-20 20:01:22,588 INFO   [106/169] kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2TTX_DIV22/Rat_MEA2TTX_DIV22_meaRtools_output/Rat_50618_MEA2TTX_STTC.csv (cached)
+2026-09-20 20:01:22,588 INFO   [107/169] kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2TTX_DIV22/Rat_MEA2TTX_DIV22_meaRtools_output/Rat_50618_MEA2TTX_bursts_per_min.csv (cached)
+2026-09-20 20:01:22,588 INFO   [108/169] kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2TTX_DIV22/Rat_MEA2TTX_DIV22_meaRtools_output/Rat_50618_MEA2TTX_mean_dur.csv (cached)
+2026-09-20 20:01:22,588 INFO   [109/169] kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2TTX_DIV22/Rat_MEA2TTX_DIV22_meaRtools_output/Rat_50618_MEA2TTX_mean_freq_in_burst.csv (cached)
+2026-09-20 20:01:22,588 INFO   [110/169] kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2TTX_DIV22/Rat_MEA2TTX_DIV22_meaRtools_output/Rat_50618_MEA2TTX_mean_spikes_in_burst.csv (cached)
+2026-09-20 20:01:22,588 INFO   [111/169] kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2TTX_DIV22/Rat_MEA2TTX_DIV22_meaRtools_output/Rat_50618_MEA2TTX_meanfiringrate_by_active_electordes.csv (cached)
+2026-09-20 20:01:22,588 INFO   [112/169] kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2TTX_DIV22/Rat_MEA2TTX_DIV22_meaRtools_output/Rat_50618_MEA2TTX_nae.csv (cached)
+2026-09-20 20:01:22,588 INFO   [113/169] kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2TTX_DIV22/Rat_MEA2TTX_DIV22_meaRtools_output/Rat_50618_MEA2TTX_per_spikes_in_burst.csv (cached)
+2026-09-20 20:01:22,588 INFO   [114/169] kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2TTX_DIV22/Rat_MEA2TTX_DIV22_spikes_noise_explogs/Rat_50618_MEA2TTX_DIV22_expLog.csv (cached)
+2026-09-20 20:01:22,591 INFO   [115/169] kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2TTX_DIV22/Rat_MEA2TTX_DIV22_spikes_noise_explogs/Rat_50618_MEA2TTX_DIV22_spikes.csv (cached)
+2026-09-20 20:01:22,591 INFO   [116/169] kapucu2022/Data/Rat_MEA2_Pharmacology/Rat_MEA2TTX_DIV22/Rat_MEA2TTX_DIV22_spikes_noise_explogs/noisy_electrodes_Rat_MEA2TTX_DIV22.csv (cached)
+2026-09-20 20:01:22,591 INFO   [117/169] kapucu2022/Data/hPSC_MEA1/hPSC_MEA1_meaRtools_output/hPSC_20517_MEA1_STTC.csv (cached)
+2026-09-20 20:01:22,591 INFO   [118/169] kapucu2022/Data/hPSC_MEA1/hPSC_MEA1_meaRtools_output/hPSC_20517_MEA1_bursts_per_min.csv (cached)
+2026-09-20 20:01:22,591 INFO   [119/169] kapucu2022/Data/hPSC_MEA1/hPSC_MEA1_meaRtools_output/hPSC_20517_MEA1_mean_dur.csv (cached)
+2026-09-20 20:01:22,592 INFO   [120/169] kapucu2022/Data/hPSC_MEA1/hPSC_MEA1_meaRtools_output/hPSC_20517_MEA1_mean_freq_in_burst.csv (cached)
+2026-09-20 20:01:22,592 INFO   [121/169] kapucu2022/Data/hPSC_MEA1/hPSC_MEA1_meaRtools_output/hPSC_20517_MEA1_mean_spikes_in_burst.csv (cached)
+2026-09-20 20:01:22,592 INFO   [122/169] kapucu2022/Data/hPSC_MEA1/hPSC_MEA1_meaRtools_output/hPSC_20517_MEA1_meanfiringrate_by_active_electordes.csv (cached)
+2026-09-20 20:01:22,592 INFO   [123/169] kapucu2022/Data/hPSC_MEA1/hPSC_MEA1_meaRtools_output/hPSC_20517_MEA1_nae.csv (cached)
+2026-09-20 20:01:22,592 INFO   [124/169] kapucu2022/Data/hPSC_MEA1/hPSC_MEA1_meaRtools_output/hPSC_20517_MEA1_per_spikes_in_burst.csv (cached)
+2026-09-20 20:01:22,592 INFO   [125/169] kapucu2022/Data/hPSC_MEA1/hPSC_MEA1_spikes_noise_explogs/hPSC_20517_MEA1_DIV3_expLog.csv (cached)
+2026-09-20 20:01:22,592 INFO   [126/169] kapucu2022/Data/hPSC_MEA1/hPSC_MEA1_spikes_noise_explogs/noisy_electrodes_hPSC_MEA1.csv (cached)
+2026-09-20 20:01:22,592 INFO   [127/169] kapucu2022/Data/hPSC_MEA2/hPSC_MEA2_meaRtools_output/hPSC_20517_MEA2_STTC.csv (cached)
+2026-09-20 20:01:22,592 INFO   [128/169] kapucu2022/Data/hPSC_MEA2/hPSC_MEA2_meaRtools_output/hPSC_20517_MEA2_bursts_per_min.csv (cached)
+2026-09-20 20:01:22,592 INFO   [129/169] kapucu2022/Data/hPSC_MEA2/hPSC_MEA2_meaRtools_output/hPSC_20517_MEA2_mean_dur.csv (cached)
+2026-09-20 20:01:22,592 INFO   [130/169] kapucu2022/Data/hPSC_MEA2/hPSC_MEA2_meaRtools_output/hPSC_20517_MEA2_mean_freq_in_burst.csv (cached)
+2026-09-20 20:01:22,592 INFO   [131/169] kapucu2022/Data/hPSC_MEA2/hPSC_MEA2_meaRtools_output/hPSC_20517_MEA2_mean_spikes_in_burst.csv (cached)
+2026-09-20 20:01:22,592 INFO   [132/169] kapucu2022/Data/hPSC_MEA2/hPSC_MEA2_meaRtools_output/hPSC_20517_MEA2_meanfiringrate_by_active_electordes.csv (cached)
+2026-09-20 20:01:22,592 INFO   [133/169] kapucu2022/Data/hPSC_MEA2/hPSC_MEA2_meaRtools_output/hPSC_20517_MEA2_nae.csv (cached)
+2026-09-20 20:01:22,592 INFO   [134/169] kapucu2022/Data/hPSC_MEA2/hPSC_MEA2_meaRtools_output/hPSC_20517_MEA2_per_spikes_in_burst.csv (cached)
+2026-09-20 20:01:22,592 INFO   [135/169] kapucu2022/Data/hPSC_MEA2/hPSC_MEA2_spikes_noise_explogs/hPSC_20517_MEA2_DIV3_expLog.csv (cached)
+2026-09-20 20:01:22,592 INFO   [136/169] kapucu2022/Data/hPSC_MEA2/hPSC_MEA2_spikes_noise_explogs/noisy_electrodes_hPSC_MEA2.csv (cached)
+2026-09-20 20:01:22,592 INFO   [137/169] kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Baseline_DIV29/hPSC_MEA3Baseline_DIV29_meaRtools_output/hPSC_120618_MEA3Baseline_STTC.csv (cached)
+2026-09-20 20:01:22,592 INFO   [138/169] kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Baseline_DIV29/hPSC_MEA3Baseline_DIV29_meaRtools_output/hPSC_120618_MEA3Baseline_bursts_per_min.csv (cached)
+2026-09-20 20:01:22,592 INFO   [139/169] kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Baseline_DIV29/hPSC_MEA3Baseline_DIV29_meaRtools_output/hPSC_120618_MEA3Baseline_mean_dur.csv (cached)
+2026-09-20 20:01:22,592 INFO   [140/169] kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Baseline_DIV29/hPSC_MEA3Baseline_DIV29_meaRtools_output/hPSC_120618_MEA3Baseline_mean_freq_in_burst.csv (cached)
+2026-09-20 20:01:22,592 INFO   [141/169] kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Baseline_DIV29/hPSC_MEA3Baseline_DIV29_meaRtools_output/hPSC_120618_MEA3Baseline_mean_spikes_in_burst.csv (cached)
+2026-09-20 20:01:22,592 INFO   [142/169] kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Baseline_DIV29/hPSC_MEA3Baseline_DIV29_meaRtools_output/hPSC_120618_MEA3Baseline_meanfiringrate_by_active_electordes.csv (cached)
+2026-09-20 20:01:22,592 INFO   [143/169] kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Baseline_DIV29/hPSC_MEA3Baseline_DIV29_meaRtools_output/hPSC_120618_MEA3Baseline_nae.csv (cached)
+2026-09-20 20:01:22,592 INFO   [144/169] kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Baseline_DIV29/hPSC_MEA3Baseline_DIV29_meaRtools_output/hPSC_120618_MEA3Baseline_per_spikes_in_burst.csv (cached)
+2026-09-20 20:01:22,592 INFO   [145/169] kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Baseline_DIV29/hPSC_MEA3Baseline_DIV29_spikes_noise_explogs/hPSC_120618_MEA3Baseline_DIV29_expLog.csv (cached)
+2026-09-20 20:01:22,635 INFO   [146/169] kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Baseline_DIV29/hPSC_MEA3Baseline_DIV29_spikes_noise_explogs/hPSC_120618_MEA3Baseline_DIV29_spikes.csv (cached)
+2026-09-20 20:01:22,635 INFO   [147/169] kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Baseline_DIV29/hPSC_MEA3Baseline_DIV29_spikes_noise_explogs/noisy_electrodes_hPSC_MEA3Baseline_DIV29.csv (cached)
+2026-09-20 20:01:22,635 INFO   [148/169] kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Pharma_DIV29/hPSC_MEA3Pharma_DIV29_meaRtools_output/hPSC_120618_MEA3Pharma_STTC.csv (cached)
+2026-09-20 20:01:22,635 INFO   [149/169] kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Pharma_DIV29/hPSC_MEA3Pharma_DIV29_meaRtools_output/hPSC_120618_MEA3Pharma_bursts_per_min.csv (cached)
+2026-09-20 20:01:22,635 INFO   [150/169] kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Pharma_DIV29/hPSC_MEA3Pharma_DIV29_meaRtools_output/hPSC_120618_MEA3Pharma_mean_dur.csv (cached)
+2026-09-20 20:01:22,635 INFO   [151/169] kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Pharma_DIV29/hPSC_MEA3Pharma_DIV29_meaRtools_output/hPSC_120618_MEA3Pharma_mean_freq_in_burst.csv (cached)
+2026-09-20 20:01:22,635 INFO   [152/169] kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Pharma_DIV29/hPSC_MEA3Pharma_DIV29_meaRtools_output/hPSC_120618_MEA3Pharma_mean_spikes_in_burst.csv (cached)
+2026-09-20 20:01:22,635 INFO   [153/169] kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Pharma_DIV29/hPSC_MEA3Pharma_DIV29_meaRtools_output/hPSC_120618_MEA3Pharma_meanfiringrate_by_active_electordes.csv (cached)
+2026-09-20 20:01:22,635 INFO   [154/169] kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Pharma_DIV29/hPSC_MEA3Pharma_DIV29_meaRtools_output/hPSC_120618_MEA3Pharma_nae.csv (cached)
+2026-09-20 20:01:22,635 INFO   [155/169] kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Pharma_DIV29/hPSC_MEA3Pharma_DIV29_meaRtools_output/hPSC_120618_MEA3Pharma_per_spikes_in_burst.csv (cached)
+2026-09-20 20:01:22,635 INFO   [156/169] kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Pharma_DIV29/hPSC_MEA3Pharma_DIV29_spikes_noise_explogs/hPSC_120618_MEA3Pharma_DIV29_expLog.csv (cached)
+2026-09-20 20:01:22,660 INFO   [157/169] kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Pharma_DIV29/hPSC_MEA3Pharma_DIV29_spikes_noise_explogs/hPSC_120618_MEA3Pharma_DIV29_spikes.csv (cached)
+2026-09-20 20:01:22,660 INFO   [158/169] kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3Pharma_DIV29/hPSC_MEA3Pharma_DIV29_spikes_noise_explogs/noisy_electrodes_hPSC_MEA3Pharma_DIV29.csv (cached)
+2026-09-20 20:01:22,660 INFO   [159/169] kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3TTX_DIV29/hPSC_MEA3TTX_DIV29_meaRtools_output/hPSC_120618_MEA3TTX_STTC.csv (cached)
+2026-09-20 20:01:22,661 INFO   [160/169] kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3TTX_DIV29/hPSC_MEA3TTX_DIV29_meaRtools_output/hPSC_120618_MEA3TTX_bursts_per_min.csv (cached)
+2026-09-20 20:01:22,661 INFO   [161/169] kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3TTX_DIV29/hPSC_MEA3TTX_DIV29_meaRtools_output/hPSC_120618_MEA3TTX_mean_dur.csv (cached)
+2026-09-20 20:01:22,661 INFO   [162/169] kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3TTX_DIV29/hPSC_MEA3TTX_DIV29_meaRtools_output/hPSC_120618_MEA3TTX_mean_freq_in_burst.csv (cached)
+2026-09-20 20:01:22,661 INFO   [163/169] kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3TTX_DIV29/hPSC_MEA3TTX_DIV29_meaRtools_output/hPSC_120618_MEA3TTX_mean_spikes_in_burst.csv (cached)
+2026-09-20 20:01:22,661 INFO   [164/169] kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3TTX_DIV29/hPSC_MEA3TTX_DIV29_meaRtools_output/hPSC_120618_MEA3TTX_meanfiringrate_by_active_electordes.csv (cached)
+2026-09-20 20:01:22,661 INFO   [165/169] kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3TTX_DIV29/hPSC_MEA3TTX_DIV29_meaRtools_output/hPSC_120618_MEA3TTX_nae.csv (cached)
+2026-09-20 20:01:22,661 INFO   [166/169] kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3TTX_DIV29/hPSC_MEA3TTX_DIV29_meaRtools_output/hPSC_120618_MEA3TTX_per_spikes_in_burst.csv (cached)
+2026-09-20 20:01:22,661 INFO   [167/169] kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3TTX_DIV29/hPSC_MEA3TTX_DIV29_spikes_noise_explogs/hPSC_120618_MEA3TTX_DIV29_expLog.csv (cached)
+2026-09-20 20:01:22,665 INFO   [168/169] kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3TTX_DIV29/hPSC_MEA3TTX_DIV29_spikes_noise_explogs/hPSC_120618_MEA3TTX_DIV29_spikes.csv (cached)
+2026-09-20 20:01:22,665 INFO   [169/169] kapucu2022/Data/hPSC_MEA3_Pharmacology/hPSC_MEA3TTX_DIV29/hPSC_MEA3TTX_DIV29_spikes_noise_explogs/noisy_electrodes_hPSC_MEA3TTX_DIV29.csv (cached)
+2026-09-20 20:01:32,332 INFO   [1/1] kapucu2022/paper/PMC8969177.xml (cached)
+2026-09-20 20:01:33,008 INFO [kapucu2022] status=ok files=239 bytes=1200940329
+2026-09-20 20:01:33,008 INFO [toxcast_mea] fetching (full=False)
+2026-09-20 20:01:33,902 INFO   [1/41] toxcast_mea/summary/assay_annotations_invitrodb_v4_3_AUG2025.xlsx (cached)
+2026-09-20 20:01:33,902 INFO   [2/41] toxcast_mea/summary/assay_target_mappings_invitrodb_v4_3_AUG2025.xlsx (cached)
+2026-09-20 20:01:33,902 INFO   [3/41] toxcast_mea/summary/cytotox_invitrodb_v4_3_AUG2025.xlsx (cached)
+2026-09-20 20:01:33,902 INFO   [4/41] toxcast_mea/summary/DB_release_README_SUMMARY.pdf (cached)
+2026-09-20 20:01:33,904 INFO   [5/41] toxcast_mea/release/invitrodb_v4_3_release_note_21AUG2025.html (cached)
+2026-09-20 20:01:33,904 INFO   [6/41] toxcast_mea/assay_docs/AEID2454_CCTE_Shafer_MEA_acute_spike_number.pdf (cached)
+2026-09-20 20:01:33,904 INFO   [7/41] toxcast_mea/assay_docs/AEID2456_CCTE_Shafer_MEA_acute_firing_rate_mean.pdf (cached)
+2026-09-20 20:01:33,905 INFO   [8/41] toxcast_mea/assay_docs/AEID2458_CCTE_Shafer_MEA_acute_burst_number.pdf (cached)
+2026-09-20 20:01:33,905 INFO   [9/41] toxcast_mea/assay_docs/AEID2460_CCTE_Shafer_MEA_acute_burst_duration_mean.pdf (cached)
+2026-09-20 20:01:33,905 INFO   [10/41] toxcast_mea/assay_docs/AEID2462_CCTE_Shafer_MEA_acute_per_burst_spike_number_mean.pdf (cached)
+2026-09-20 20:01:33,905 INFO   [11/41] toxcast_mea/assay_docs/AEID2464_CCTE_Shafer_MEA_acute_interburst_interval_mean.pdf (cached)
+2026-09-20 20:01:33,905 INFO   [12/41] toxcast_mea/assay_docs/AEID2466_CCTE_Shafer_MEA_acute_burst_percentage_mean.pdf (cached)
+2026-09-20 20:01:33,906 INFO   [13/41] toxcast_mea/assay_docs/AEID2468_CCTE_Shafer_MEA_acute_burst_percentage_std.pdf (cached)
+2026-09-20 20:01:33,906 INFO   [14/41] toxcast_mea/assay_docs/AEID2470_CCTE_Shafer_MEA_acute_per_network_burst_spike_number_mean.pdf (cached)
+2026-09-20 20:01:33,906 INFO   [15/41] toxcast_mea/assay_docs/AEID2472_CCTE_Shafer_MEA_acute_per_network_burst_spike_number_std.pdf (cached)
+2026-09-20 20:01:33,906 INFO   [16/41] toxcast_mea/assay_docs/AEID2474_CCTE_Shafer_MEA_acute_per_network_burst_electrodes_number_mean.pdf (cached)
+2026-09-20 20:01:33,906 INFO   [17/41] toxcast_mea/assay_docs/AEID2476_CCTE_Shafer_MEA_acute_network_burst_percentage.pdf (cached)
+2026-09-20 20:01:33,906 INFO   [18/41] toxcast_mea/assay_docs/AEID2478_CCTE_Shafer_MEA_acute_cross_correlation_area.pdf (cached)
+2026-09-20 20:01:33,907 INFO   [19/41] toxcast_mea/assay_docs/AEID2480_CCTE_Shafer_MEA_acute_cross_correlation_HWHM.pdf (cached)
+2026-09-20 20:01:33,907 INFO   [20/41] toxcast_mea/assay_docs/AEID2482_CCTE_Shafer_MEA_acute_synchrony_index.pdf (cached)
+2026-09-20 20:01:33,907 INFO   [21/41] toxcast_mea/assay_docs/AEID2494_CCTE_Shafer_MEA_dev_firing_rate_mean.pdf (cached)
+2026-09-20 20:01:33,907 INFO   [22/41] toxcast_mea/assay_docs/AEID2496_CCTE_Shafer_MEA_dev_burst_rate.pdf (cached)
+2026-09-20 20:01:33,907 INFO   [23/41] toxcast_mea/assay_docs/AEID2498_CCTE_Shafer_MEA_dev_active_electrodes_number.pdf (cached)
+2026-09-20 20:01:33,908 INFO   [24/41] toxcast_mea/assay_docs/AEID2500_CCTE_Shafer_MEA_dev_bursting_electrodes_number.pdf (cached)
+2026-09-20 20:01:33,908 INFO   [25/41] toxcast_mea/assay_docs/AEID2502_CCTE_Shafer_MEA_dev_per_burst_interspike_interval.pdf (cached)
+2026-09-20 20:01:33,908 INFO   [26/41] toxcast_mea/assay_docs/AEID2504_CCTE_Shafer_MEA_dev_per_burst_spike_percent.pdf (cached)
+2026-09-20 20:01:33,908 INFO   [27/41] toxcast_mea/assay_docs/AEID2506_CCTE_Shafer_MEA_dev_burst_duration_mean.pdf (cached)
+2026-09-20 20:01:33,908 INFO   [28/41] toxcast_mea/assay_docs/AEID2508_CCTE_Shafer_MEA_dev_interburst_interval_mean.pdf (cached)
+2026-09-20 20:01:33,909 INFO   [29/41] toxcast_mea/assay_docs/AEID2510_CCTE_Shafer_MEA_dev_network_spike_number.pdf (cached)
+2026-09-20 20:01:33,909 INFO   [30/41] toxcast_mea/assay_docs/AEID2512_CCTE_Shafer_MEA_dev_network_spike_peak.pdf (cached)
+2026-09-20 20:01:33,909 INFO   [31/41] toxcast_mea/assay_docs/AEID2514_CCTE_Shafer_MEA_dev_spike_duration_mean.pdf (cached)
+2026-09-20 20:01:33,909 INFO   [32/41] toxcast_mea/assay_docs/AEID2516_CCTE_Shafer_MEA_dev_network_spike_duration_std.pdf (cached)
+2026-09-20 20:01:33,909 INFO   [33/41] toxcast_mea/assay_docs/AEID2518_CCTE_Shafer_MEA_dev_inter_network_spike_interval_mean.pdf (cached)
+2026-09-20 20:01:33,910 INFO   [34/41] toxcast_mea/assay_docs/AEID2520_CCTE_Shafer_MEA_dev_per_network_spike_spike_number_mean.pdf (cached)
+2026-09-20 20:01:33,910 INFO   [35/41] toxcast_mea/assay_docs/AEID2522_CCTE_Shafer_MEA_dev_per_network_spike_spike_percent.pdf (cached)
+2026-09-20 20:01:33,910 INFO   [36/41] toxcast_mea/assay_docs/AEID2524_CCTE_Shafer_MEA_dev_correlation_coefficient_mean.pdf (cached)
+2026-09-20 20:01:33,910 INFO   [37/41] toxcast_mea/assay_docs/AEID2526_CCTE_Shafer_MEA_dev_mutual_information_norm.pdf (cached)
+2026-09-20 20:01:33,910 INFO   [38/41] toxcast_mea/assay_docs/AEID2529_CCTE_Shafer_MEA_dev_LDH.pdf (cached)
+2026-09-20 20:01:33,911 INFO   [39/41] toxcast_mea/assay_docs/AEID2530_CCTE_Shafer_MEA_dev_AB.pdf (cached)
+2026-09-20 20:01:33,911 INFO   [40/41] toxcast_mea/assay_docs/AEID2540_CCTE_Shafer_MEA_acute_LDH.pdf (cached)
+2026-09-20 20:01:33,911 INFO   [41/41] toxcast_mea/assay_docs/AEID2541_CCTE_Shafer_MEA_acute_AB.pdf (cached)
+2026-09-20 20:01:35,086 INFO [toxcast_mea] status=ok files=42 bytes=2567256049
+2026-09-20 20:01:35,086 INFO [sharf2022] fetching (full=False)
+2026-09-20 20:01:40,196 INFO   [1/1] sharf2022/README_organoid_data.txt (cached)
+2026-09-20 20:01:40,660 INFO [sharf2022] status=ok files=2 bytes=929474020
+2026-09-20 20:01:40,660 INFO [fofie2025] fetching (full=False)
+2026-09-20 20:01:41,234 INFO   [1/1] fofie2025/Fofie_et_al_Cell_Reports_2025_Raw_data.xlsx (cached)
+2026-09-20 20:01:41,240 INFO [fofie2025] status=ok files=1 bytes=1250757
+2026-09-20 20:01:41,240 INFO [screenneuropharm_bic] fetching (full=False)
+2026-09-20 20:01:42,868 INFO [screenneuropharm_bic] status=ok files=1 bytes=581841834
+2026-09-20 20:01:42,868 INFO [axon_diode] fetching (full=False)
+2026-09-20 20:01:51,978 INFO   [1/1] axon_diode/PMC4406441.xml (cached)
+2026-09-20 20:02:12,189 INFO   [1/1] axon_diode/PMC6265304.xml (cached)
+2026-09-20 20:02:17,325 INFO   [1/1] axon_diode/PMC7078319.xml (cached)
+2026-09-20 20:02:17,330 INFO [axon_diode] status=ok files=3 bytes=330435
+2026-09-20 20:02:22,910 INFO kapucu Rat_MEA2_Pharmacology/Rat_MEA2Pharma_DIV22: 48 records
+2026-09-20 20:02:36,260 INFO kapucu Rat_MEA2_Pharmacology/Rat_MEA2Baseline_DIV22: 48 records
+2026-09-20 20:02:36,824 INFO kapucu Rat_MEA2_Pharmacology/Rat_MEA2TTX_DIV22: 48 records
+2026-09-20 20:02:44,511 INFO kapucu hPSC_MEA3_Pharmacology/hPSC_MEA3Pharma_DIV29: 48 records
+2026-09-20 20:02:56,031 INFO kapucu hPSC_MEA3_Pharmacology/hPSC_MEA3Baseline_DIV29: 48 records
+2026-09-20 20:02:57,476 INFO kapucu hPSC_MEA3_Pharmacology/hPSC_MEA3TTX_DIV29: 48 records
+2026-09-20 20:02:57,861 INFO toxcast: 20375 records
+2026-09-20 20:02:57,879 INFO screenneuropharm single-chamber: 203 records
+2026-09-20 20:02:57,884 INFO screenneuropharm compartments: 377 records
+2026-09-20 20:02:57,891 INFO sharf2022: 29 records
+2026-09-20 20:03:09,360 INFO wrote /home/lacsi/AI4S/outputs/DATA_CARD.md (61 lines)
+2026-09-20 20:03:09,360 INFO wrote 21272 records to /home/lacsi/AI4S/data/processed
+2026-09-20 20:03:11,670 INFO wrote metrics and /home/lacsi/AI4S/outputs/figures/mechanism_confusion.png
+2026-09-20 20:03:18,089 INFO wrote metrics and /home/lacsi/AI4S/outputs/figures/species_shift.png
+{
+  "by_source": {
+    "kapucu2022": 288,
+    "screenneuropharm_bic": 580,
+    "sharf2022": 29,
+    "toxcast_mea": 20375
+  },
+  "by_data_level": {
+    "fitted_curve": 20375,
+    "spike_times": 897
+  },
+  "by_species": {
+    "human": 173,
+    "rat": 21099
+  },
+  "by_mechanism_class": {
+    "gabaa_agonist_or_pam": 26,
+    "gabaa_antagonist": 537,
+    "glutamatergic_agonist": 11,
+    "glutamatergic_antagonist": 22,
+    "na_channel_blocker": 113,
+    "none": 20563
+  },
+  "by_usable": {
+    "False": 441,
+    "True": 20831
+  }
+}
+{
+  "task1_within_platform": {
+    "n_pairs": 73,
+    "n_groups": 50,
+    "n_splits": 4,
+    "class_counts": {
+      "na_channel_blocker": 26,
+      "glutamatergic_antagonist": 17,
+      "control": 10,
+      "gabaa_antagonist": 10,
+      "glutamatergic_agonist": 6,
+      "gabaa_agonist_or_pam": 4
+    },
+    "chance_balanced_accuracy": 0.167,
+    "models": {
+      "dummy_most_frequent": {
+        "balanced_accuracy_mean": 0.167,
+        "balanced_accuracy_sd": 0.0,
+        "balanced_accuracy_ci95": [
+          0.1667,
+          0.1667
+        ],
+        "bootstrap_resamples": 200,
+        "macro_f1_mean": 0.087,
+        "per_fold_balanced_accuracy": [
+          0.167,
+          0.167,
+          0.167,
+          0.167
+        ]
+      },
+      "logistic_regression": {
+        "balanced_accuracy_mean": 0.537,
+        "balanced_accuracy_sd": 0.102,
+        "balanced_accuracy_ci95": [
+          0.427,
+          0.6837
+        ],
+        "bootstrap_resamples": 200,
+        "macro_f1_mean": 0.438,
+        "per_fold_balanced_accuracy": [
+          0.364,
+          0.631,
+          0.569,
+          0.583
+        ]
+      },
+      "gradient_boosting": {
+        "balanced_accuracy_mean": 0.398,
+        "balanced_accuracy_sd": 0.089,
+        "balanced_accuracy_ci95": [
+          0.2833,
+          0.5071
+        ],
+        "bootstrap_resamples": 200,
+        "macro_f1_mean": 0.363,
+        "per_fold_balanced_accuracy": [
+          0.313,
+          0.53,
+          0.319,
+          0.431
+        ]
+      }
+    },
+    "bootstrap_resamples": 200,
+    "calibration": {
+      "ece": 0.1114,
+      "n_bins": 10,
+      "n": 73,
+      "bins": [
+        {
+          "lower": 0.0,
+          "upper": 0.1,
+          "count": 0,
+          "confidence": null,
+          "accuracy": null
+        },
+        {
+          "lower": 0.1,
+          "upper": 0.2,
+          "count": 0,
+          "confidence": null,
+          "accuracy": null
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.3,
+          "count": 1,
+          "confidence": 0.2969,
+          "accuracy": 0.0
+        },
+        {
+          "lower": 0.3,
+          "upper": 0.4,
+          "count": 11,
+          "confidence": 0.3485,
+          "accuracy": 0.2727
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.5,
+          "count": 15,
+          "confidence": 0.457,
+          "accuracy": 0.4
+        },
+        {
+          "lower": 0.5,
+          "upper": 0.6,
+          "count": 23,
+          "confidence": 0.5474,
+          "accuracy": 0.6087
+        },
+        {
+          "lower": 0.6,
+          "upper": 0.7,
+          "count": 9,
+          "confidence": 0.6381,
+          "accuracy": 0.6667
+        },
+        {
+          "lower": 0.7,
+          "upper": 0.8,
+          "count": 9,
+          "confidence": 0.7491,
+          "accuracy": 0.6667
+        },
+        {
+          "lower": 0.8,
+          "upper": 0.9,
+          "count": 1,
+          "confidence": 0.8386,
+          "accuracy": 0.0
+        },
+        {
+          "lower": 0.9,
+          "upper": 1.0,
+          "count": 4,
+          "confidence": 0.9753,
+          "accuracy": 0.25
+        }
+      ],
+      "model": "logistic_regression",
+      "ece_ci95": [
+        0.075,
+        0.2518
+      ],
+      "bootstrap_resamples": 200
+    }
+  },
+  "task2_external_detection": {
+    "screenneuropharm_bicuculline": {
+      "n": 497,
+      "positive_class": "gabaa_antagonist",
+      "detection_rate": 0.366,
+      "mean_probability": 0.418,
+      "dose_spearman": 0.014,
+      "dose_spearman_p": 0.751,
+      "by_dose": [
+        {
+          "dose_uM": 0.1,
+          "n": 67,
+          "detection_rate": 0.179,
+          "mean_probability": 0.374
+        },
+        {
+          "dose_uM": 0.3,
+          "n": 56,
+          "detection_rate": 0.304,
+          "mean_probability": 0.436
+        },
+        {
+          "dose_uM": 1.0,
+          "n": 71,
+          "detection_rate": 0.366,
+          "mean_probability": 0.405
+        },
+        {
+          "dose_uM": 3.0,
+          "n": 70,
+          "detection_rate": 0.386,
+          "mean_probability": 0.402
+        },
+        {
+          "dose_uM": 10.0,
+          "n": 66,
+          "detection_rate": 0.424,
+          "mean_probability": 0.438
+        },
+        {
+          "dose_uM": 30.0,
+          "n": 61,
+          "detection_rate": 0.426,
+          "mean_probability": 0.423
+        },
+        {
+          "dose_uM": 100.0,
+          "n": 50,
+          "detection_rate": 0.48,
+          "mean_probability": 0.493
+        },
+        {
+          "dose_uM": 300.0,
+          "n": 45,
+          "detection_rate": 0.467,
+          "mean_probability": 0.46
+        },
+        {
+          "dose_uM": 500.0,
+          "n": 11,
+          "detection_rate": 0.091,
+          "mean_probability": 0.12
+        }
+      ]
+    },
+    "sharf_diazepam_negative_control": {
+      "n": 13,
+      "positive_class": "gabaa_antagonist",
+      "detection_rate": 0.077,
+      "mean_probability": 0.21,
+      "dose_spearman": -0.799,
+      "dose_spearman_p": 0.00104
+    }
+  },
+  "task3_platform_contrast": {
+    "mechanism": "gabaa_antagonist",
+    "min_dose_uM": 30.0,
+    "by_source": {
+      "kapucu2022": {
+        "n": 10,
+        "compounds": [
+          "gabazine"
+        ],
+        "median_delta": {
+          "mfr_hz": 0.348,
+          "burst_rate_per_min": -0.277,
+          "burst_duration_s": 0.203,
+          "spikes_per_burst": 0.635,
+          "pct_spikes_in_bursts": 0.476,
+          "network_burst_rate_per_min": 1.536,
+          "synchrony_index": 1.743,
+          "isi_cv": 0.573,
+          "active_electrodes": 0.0
+        }
+      },
+      "screenneuropharm_bic": {
+        "n": 167,
+        "compounds": [
+          "bicuculline"
+        ],
+        "median_delta": {
+          "mfr_hz": -0.684,
+          "burst_rate_per_min": -0.915,
+          "burst_duration_s": 0.086,
+          "spikes_per_burst": 0.314,
+          "pct_spikes_in_bursts": 0.05,
+          "network_burst_rate_per_min": -0.92,
+          "synchrony_index": 0.148,
+          "isi_cv": -0.127,
+          "active_electrodes": 0.0
+        }
+      }
+    },
+    "features_agreeing_in_sign": [
+      "burst_duration_s",
+      "burst_rate_per_min",
+      "pct_spikes_in_bursts",
+      "spikes_per_burst",
+      "synchrony_index"
+    ],
+    "features_disagreeing_in_sign": [
+      "active_electrodes",
+      "isi_cv",
+      "mfr_hz",
+      "network_burst_rate_per_min"
+    ]
+  }
+}
+{
+  "none": {
+    "adaptation": "none",
+    "shared_labels": [
+      "control",
+      "gabaa_antagonist",
+      "glutamatergic_agonist",
+      "glutamatergic_antagonist",
+      "na_channel_blocker"
+    ],
+    "chance_balanced_accuracy": 0.2,
+    "rat_to_human": {
+      "balanced_accuracy": 0.55,
+      "balanced_accuracy_ci95": [
+        0.4,
+        0.6
+      ],
+      "permutation_p": 0.0002,
+      "n_train": 37,
+      "n_test": 32
+    },
+    "human_within": {
+      "balanced_accuracy": 0.646,
+      "balanced_accuracy_sd": 0.139,
+      "n": 32,
+      "n_splits": 4,
+      "repeats": 5
+    },
+    "rat_within": {
+      "balanced_accuracy": 0.543,
+      "balanced_accuracy_sd": 0.067,
+      "n": 37,
+      "n_splits": 2,
+      "repeats": 5
+    }
+  },
+  "standardize": {
+    "adaptation": "standardize",
+    "shared_labels": [
+      "control",
+      "gabaa_antagonist",
+      "glutamatergic_agonist",
+      "glutamatergic_antagonist",
+      "na_channel_blocker"
+    ],
+    "chance_balanced_accuracy": 0.2,
+    "rat_to_human": {
+      "balanced_accuracy": 0.408,
+      "balanced_accuracy_ci95": [
+        0.246,
+        0.56
+      ],
+      "permutation_p": 0.0054,
+      "n_train": 37,
+      "n_test": 32
+    },
+    "human_within": {
+      "balanced_accuracy": 0.646,
+      "balanced_accuracy_sd": 0.139,
+      "n": 32,
+      "n_splits": 4,
+      "repeats": 5
+    },
+    "rat_within": {
+      "balanced_accuracy": 0.543,
+      "balanced_accuracy_sd": 0.067,
+      "n": 37,
+      "n_splits": 2,
+      "repeats": 5
+    }
+  },
+  "coral": {
+    "adaptation": "coral",
+    "shared_labels": [
+      "control",
+      "gabaa_antagonist",
+      "glutamatergic_agonist",
+      "glutamatergic_antagonist",
+      "na_channel_blocker"
+    ],
+    "chance_balanced_accuracy": 0.2,
+    "rat_to_human": {
+      "balanced_accuracy": 0.442,
+      "balanced_accuracy_ci95": [
+        0.28,
+        0.597
+      ],
+      "permutation_p": 0.002,
+      "n_train": 37,
+      "n_test": 32
+    },
+    "human_within": {
+      "balanced_accuracy": 0.646,
+      "balanced_accuracy_sd": 0.139,
+      "n": 32,
+      "n_splits": 4,
+      "repeats": 5
+    },
+    "rat_within": {
+      "balanced_accuracy": 0.543,
+      "balanced_accuracy_sd": 0.067,
+      "n": 37,
+      "n_splits": 2,
+      "repeats": 5
+    }
+  }
+}2026-09-20 20:03:19,667 INFO wrote metrics and /home/lacsi/AI4S/outputs/figures/conformal_set_size.png
+2026-09-20 20:03:19,773 INFO wrote metrics and /home/lacsi/AI4S/outputs/figures/compartment_lag_by_device_type.png
+2026-09-20 20:03:28,394 INFO simulated baseline features: {'mfr_hz': 4.5484375, 'burst_rate_per_min': 23.15625, 'burst_duration_s': 0.02887327935222669, 'spikes_per_burst': 5.757085020242915, 'pct_spikes_in_bursts': 48.84919271727929, 'network_burst_rate_per_min': 57.0, 'synchrony_index': 0.8347191489179113, 'isi_cv': 1.7250967018352894, 'active_electrodes': 32}
+2026-09-20 20:05:42,965 INFO wrote /home/lacsi/AI4S/outputs/twin/hd11_validation_simulated.json
+2026-09-20 20:05:42,977 INFO calibrating against screenneuropharm_bic chamber baselines (n=48 records)
+2026-09-20 20:05:51,693 INFO   draw 1/8 (random) score 0.865
+2026-09-20 20:05:59,883 INFO   draw 2/8 (random) score 0.820
+2026-09-20 20:06:08,081 INFO   draw 3/8 (random) score 0.998
+2026-09-20 20:06:16,480 INFO   draw 4/8 (random) score 0.457
+2026-09-20 20:06:25,110 INFO   draw 5/8 (random) score 0.655
+2026-09-20 20:06:33,473 INFO   draw 6/8 (refine) score 0.403
+2026-09-20 20:06:41,942 INFO   draw 7/8 (refine) score 0.253
+2026-09-20 20:06:50,132 INFO   draw 8/8 (refine) score 0.195
+2026-09-20 20:06:50,258 INFO best score 0.195 with {'background_weight': 0.0378, 'excitatory_weight': 0.3594, 'inhibitory_weight': 3.7831, 'adaptation_increment': 2.3311, 'threshold_spread': 0.0508, 'intra_in_degree': 33.9757, 'detection_radius_um': 248.9754}
+2026-09-20 20:06:58,489 INFO simulated untreated baseline: mfr 8.70 Hz
+2026-09-20 20:07:07,623 INFO   gabaa_block (gabaa_scale=0.2) done
+2026-09-20 20:07:15,801 INFO   gabaa_potentiate (gabaa_scale=2.0) done
+2026-09-20 20:07:24,105 INFO   ampa_block (ampa_scale=0.4) done
+2026-09-20 20:07:32,332 INFO   sodium_block (threshold_scale=1.6) done
+2026-09-20 20:07:33,525 INFO reusing 3500 cached simulations
+2026-09-20 20:08:39,525 INFO quick mode: using 30 of the available recordings
+2026-09-20 20:08:39,534 INFO distribution check: 99% inside the simulated range; outside: []; unsupported: ['c0_burst_rate_per_min', 'c0_active_electrodes', 'c1_burst_rate_per_min', 'c1_active_electrodes']
+2026-09-20 20:08:42,467 INFO prior acceptance: median 72.0000%, 0% of recordings below 1%
+2026-09-20 20:08:48,873 INFO rate-matching drives: {1.0: {'background_rate_hz': 10.0, 'background_scale_target': 1.0}, 3.0: {'background_rate_hz': 10.0, 'background_scale_target': 1.0}, 10.0: {'background_rate_hz': 10.0, 'background_scale_target': 1.0}}
+2026-09-20 20:08:48,875 INFO simulating 12 networks on 16 processes
+
+{
+  "most_invariant_features": [
+    "mfr_hz",
+    "pct_spikes_in_bursts",
+    "burst_rate_per_min"
+  ],
+  "most_shifted_features": [
+    "synchrony_index",
+    "isi_cv",
+    "network_burst_rate_per_min"
+  ]
+}
+{
+  "conformal_sweep": [
+    {
+      "alpha": 0.05,
+      "target_coverage": 0.95,
+      "n_splits": 4,
+      "mean_threshold": 0.019,
+      "n_test": 73,
+      "empirical_coverage": 0.918,
+      "mean_set_size": 4.562,
+      "fraction_singleton": 0.0,
+      "fraction_empty": 0.0,
+      "coverage_by_class": {
+        "control": 1.0,
+        "gabaa_agonist_or_pam": 1.0,
+        "gabaa_antagonist": 1.0,
+        "glutamatergic_agonist": 0.5,
+        "glutamatergic_antagonist": 0.941,
+        "na_channel_blocker": 0.923
+      }
+    },
+    {
+      "alpha": 0.1,
+      "target_coverage": 0.9,
+      "n_splits": 4,
+      "mean_threshold": 0.019,
+      "n_test": 73,
+      "empirical_coverage": 0.918,
+      "mean_set_size": 4.562,
+      "fraction_singleton": 0.0,
+      "fraction_empty": 0.0,
+      "coverage_by_class": {
+        "control": 1.0,
+        "gabaa_agonist_or_pam": 1.0,
+        "gabaa_antagonist": 1.0,
+        "glutamatergic_agonist": 0.5,
+        "glutamatergic_antagonist": 0.941,
+        "na_channel_blocker": 0.923
+      }
+    },
+    {
+      "alpha": 0.2,
+      "target_coverage": 0.8,
+      "n_splits": 4,
+      "mean_threshold": 0.101,
+      "n_test": 73,
+      "empirical_coverage
+{
+  "column": "median_abs_lag_ms",
+  "by_type": {
+    "CxCx": {
+      "n_devices": 5,
+      "median": 5.0,
+      "min": 0.0,
+      "max": 10.0
+    },
+    "CxHp": {
+      "n_devices": 6,
+      "median": 11.25,
+      "min": 7.5,
+      "max": 22.5
+    },
+    "HpHp": {
+      "n_devices": 5,
+      "median": 5.0,
+      "min": 5.0,
+      "max": 7.5
+    }
+  },
+  "kruskal_p": 0.0082,
+  "kruskal_statistic": 9.61,
+  "pairwise": {
+    "CxCx_vs_CxHp": 0.0207,
+    "CxCx_vs_HpHp": 0.4785,
+    "CxHp_vs_HpHp": 0.0086
+  },
+  "pairwise_holm": {
+    "CxHp_vs_HpHp": 0.0257,
+    "CxCx_vs_CxHp": 0.0413,
+    "CxCx_vs_HpHp": 0.4785
+  }
+}
+{
+  "baseline_features": {
+    "mfr_hz": 4.5484375,
+    "burst_rate_per_min": 23.15625,
+    "burst_duration_s": 0.02887327935222669,
+    "spikes_per_burst": 5.757085020242915,
+    "pct_spikes_in_bursts": 48.84919271727929,
+    "network_burst_rate_per_min": 57.0,
+    "synchrony_index": 0.8347191489179113,
+    "isi_cv": 1.7250967018352894,
+    "active_electrodes": 32
+  },
+  "within_real_range": {
+    "mfr_hz": true,
+    "burst_rate_per_min": false,
+    "network_burst_rate_per_min": false,
+    "synchrony_index": false
+  }
+}
+  ratio   1.0 drive   1.0 -> asym 0.244, lag 2.5 ms, rate ratio 1.0
+  ratio   1.0 drive  0.85 -> asym 0.501, lag 5.0 ms, rate ratio 0.732
+  ratio   1.0 drive   0.7 -> asym 0.656, lag 10.0 ms, rate ratio 0.569
+  ratio   4.0 drive   1.0 -> asym 0.109, lag 0.0 ms, rate ratio 1.247
+  ratio   4.0 drive  0.85 -> asym 0.612, lag 5.0 ms, rate ratio 0.92
+  ratio   4.0 drive   0.7 -> asym 0.867, lag 5.0 ms, rate ratio 0.756
+  ratio  16.0 drive   1.0 -> asym 0.105, lag 5.0 ms, rate ratio 1.49
+  ratio  16.0 drive  0.85 -> asym 0.541, lag 5.0 ms, rate ratio 0.992
+  ratio  16.0 drive   0.7 -> asym 0.87, lag 5.0 ms, rate ratio 0.898
+{
+  "best": {
+    "draw": {
+      "background_weight": 0.0378,
+      "excitatory_weight": 0.3594,
+      "inhibitory_weight": 3.7831,
+      "adaptation_increment": 2.3311,
+      "threshold_spread": 0.0508,
+      "intra_in_degree": 33.9757,
+      "detection_radius_um": 248.9754
+    },
+    "stage": "refine",
+    "features_simulated": {
+      "mfr_hz": 8.703125,
+      "burst_rate_per_min": 37.4375,
+      "network_burst_rate_per_min": 39.0,
+      "synchrony_index": 0.988012154404017,
+      "pct_spikes_in_bursts": 98.055659391798
+    },
+    "score": 0.1953,
+    "per_feature": {
+      "mfr_hz": 0.0,
+      "burst_rate_per_min": 0.2307,
+      "network_burst_rate_per_min": 0.5413,
+      "synchrony_index": 0.1587,
+      "pct_spikes_in_bursts": 0.0456
+    }
+  },
+  "inside_real_band": {
+    "mfr_hz": true,
+    "burst_rate_per_min": false,
+    "network_burst_rate_per_min": false,
+    "synchrony_index": false,
+    "pct_spikes_in_bursts": false
+  }
+}
+gabaa_block        4/5 features agree  (GABA-A antagonist (bicuculline, gabazine): inhibition removed)
+gabaa_potentiate   3/4 features agree  (GABA-A positive modulator (diazepam): inhibition strengthened)
+ampa_block         4/4 features agree  (glutamatergic antagonist (CNQX, D-AP5): excitation reduced)
+sodium_block       3/3 features agree  (sodium-channel blocker (TTX): spike threshold raised)
+ Training neural network. Epochs trained: 1 Training neural network. Epochs trained: 2 Training neural network. Epochs trained: 3 Training neural network. Epochs trained: 4 Training neural network. Epochs trained: 5 Training neural network. Epochs trained: 6{
+  "n_simulations": 3500,
+  "fraction_silent_simulations": 0.201,
+  "contraction": {
+    "log10_forward_ratio": {
+      "prior_sd": 0.3753,
+      "posterior_sd": 0.2942,
+      "contraction": 0.216
+    },
+    "inter_in_degree": {
+      "prior_sd": 5.1962,
+      "posterior_sd": 4.0614,
+      "contraction": 0.218
+    },
+    "gabaa_scale": {
+      "prior_sd": 0.5485,
+      "posterior_sd": 0.4322,
+      "contraction": 0.212
+    },
+    "ampa_scale": {
+      "prior_sd": 0.2887,
+      "posterior_sd": 0.2218,
+      "contraction": 0.232
+    },
+    "threshold_scale": {
+      "prior_sd": 0.0866,
+      "posterior_sd": 0.0469,
+      "contraction": 0.458
+    }
+  },
+  "rank_uniformity_ks_p": {
+    "log10_forward_ratio": {
+      "ks_statistic": 0.1043,
+      "ks_p": 0.0009,
+      "n_evaluated": 350
+    },
+    "inter_in_degree": {
+      "ks_statistic": 0.1271,
+      "ks_p": 0.0,
+      "n_evaluated": 350
+    },
+    "gabaa_scale": {
+      "ks_statistic": 0.1514,
+      "ks_p": 0.0,
+      "n_evaluated": 350
+    },
+    "ampa_scale": {
+      "ks_statistic": 0.0943,
+      "ks_p": 0.0037,
+      "n_evaluated": 350
+    },
+    "threshold_scale": {
+      "ks_statistic": 0.0429,
+      "ks_p": 0.5271,
+      "n_evaluated": 350
+    }
+  }
+}
+{
+  "distribution_check": {
+    "n_real": 30,
+    "mean_fraction_inside": 0.989,
+    "outside_dimensions": [],
+    "unsupported_dimensions": [
+      "c0_burst_rate_per_min",
+      "c0_active_electrodes",
+      "c1_burst_rate_per_min",
+      "c1_active_electrodes"
+    ]
+  },
+  "prior_acceptance": {
+    "median_acceptance": 0.72,
+    "min_acceptance": 0.496,
+    "max_acceptance": 0.79,
+    "fraction_below_1_percent": 0.0,
+    "n_draws_per_recording": 500,
+    "note": "share of raw posterior draws inside the prior box; low values mean the posterior is extrapolating outside its training region for real inputs"
+  },
+  "gabaa_scale_dose_trend": {
+    "spearman_rho": -0.22,
+    "naive_p_value": 0.2425,
+    "n_recordings": 30,
+    "direction": "falls with dose",
+    "spearman_rho_ci95": [
+      -0.6008,
+      0.1735
+    ],
+    "n_devices": 13,
+    "bootstrap_resamples": 200,
+    "excludes_zero": false
+  },
+  "gabaa_scale_at_baseline": {
+    "median": 0.9997,
+    "n_untreated": 7,
+    "neutral_value": 1.0,
+    "median_ci95": [
+      0.9871,
+      1.026
+    ],
+    "includes_neutral": true,
+    "bootstrap_resamples": 200,
+    "n_devices": 7
+  },
+  "gabaa_scale_dose_trend_without_ood_dimensions": {
+    "spearman_rho": -0.055,
+    "naive_p_value": 0.7737,
+    "n_recordings": 30,
+    "direction": "falls with dose",
+    "spearman_rho_ci95": [
+      -0.472,
+      0.3397
+    ],
+    "n_devices": 13,
+    "bootstrap_resamples": 200,
+    "excludes_zero": false
+  }
+}
+2026-09-20 20:08:55,510 INFO simulating 12 networks on 16 processes
+2026-09-20 20:09:05,713 INFO run_all finished in 463.2 s
+{
+  "n_networks": 12,
+  "rate_imbalance_by_arm": {
+    "free_rate": {
+      "1.0": -0.0031,
+      "3.0": -0.2224,
+      "10.0": -0.4695
+    },
+    "rate_matched": {
+      "1.0": -0.0031,
+      "3.0": -0.2224,
+      "10.0": -0.4695
+    }
+  },
+  "matching_quality": {
+    "free_rate": {
+      "worst_relative_rate_gap": 0.1891,
+      "relative_rate_gap_by_ratio": {
+        "3.0": {
+          "c0_mfr_hz": 0.1422,
+          "c1_mfr_hz": 0.1036
+        },
+        "10.0": {
+          "c0_mfr_hz": 0.1482,
+          "c1_mfr_hz": 0.1891
+        }
+      }
+    },
+    "rate_matched": {
+      "worst_relative_rate_gap": 0.1891,
+      "relative_rate_gap_by_ratio": {
+        "3.0": {
+          "c0_mfr_hz": 0.1422,
+          "c1_mfr_hz": 0.1036
+        },
+        "10.0": {
+          "c0_mfr_hz": 0.1482,
+          "c1_mfr_hz": 0.1891
+        }
+      }
+    }
+  },
+  "cheapest_configuration": {
+    "rate_matched_residualized": null,
+    "free_rate_residualized": null,
+    "free_rate_all_features": null
+  },
+  "validity_check_rate_only_residualized": [
+    {
+      "arm": "free_rate",
+      "duration_s": 10.0,
+      "auc": 0.125,
+      "better_than_chance": false
+    },
+    {
+      "arm": "rate_matched",
+      "duration_s": 10.0,
+      "auc": 0.125,
+      "better_than_chance": false
+    }
+  ]
+}
+TOTAL 465.99 s

@@ -9,7 +9,7 @@
       "license_url": "https://creativecommons.org/licenses/by/4.0/",
       "citation": "Renault et al. 2015 PLoS One, doi:10.1371/journal.pone.0120680; Lassus et al. 2018 Sci Rep, doi:10.1038/s41598-018-35802-9; Courte et al. 2020 Sci Rep, doi:10.1038/s41598-020-61757-x",
       "note": "licenses verified from XML: PMC4406441: http://creativecommons.org/licenses/by/4.0/; PMC6265304: https://creativecommons.org/licenses/by/4.0/; PMC7078319: https://creativecommons.org/licenses/by/4.0/ | not open access, cited only: Peyrin 2011 Lab Chip doi:10.1039/c1lc20014c; Courte 2018 Methods Cell Biol doi:10.1016/bs.mcb.2018.07.002",
-      "checked_at": "2026-09-20T21:12:13+00:00",
+      "checked_at": "2026-09-21T00:02:17+00:00",
       "files": [
         {
           "path": "axon_diode/PMC4406441.xml",
@@ -42,7 +42,7 @@
       "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
       "citation": "Fofie E, Granja-Vazquez R, Truong V, Walsh T, Price TJ, Biswas S, Dussor G, Pancrazio JJ, Kolber BJ. Raw data, Cell Reports Methods 2025. doi:10.6084/m9.figshare.28755155.v1",
       "note": "hiPSC sensory neurons (RealDRG), Axion Maestro Pro 48- and 96-well; features only",
-      "checked_at": "2026-09-20T21:10:55+00:00",
+      "checked_at": "2026-09-21T00:01:41+00:00",
       "files": [
         {
           "path": "fofie2025/Fofie_et_al_Cell_Reports_2025_Raw_data.xlsx",
@@ -72,7 +72,7 @@
       "license_url": "https://creativecommons.org/licenses/by/4.0/",
       "citation": "Kapucu FE, Vinogradov A, Hyv\u00e4rinen T, Yl\u00e4-Outinen L, Narkilahti S. Comparative microelectrode array data of the functional development of hPSC-derived and rat neuronal networks. Sci Data 9, 120 (2022). doi:10.1038/s41597-022-01242-4",
       "note": "tier=quick; GIN commit 0f0f13517bf6cfc382b5f3c3f9219f13d76d798a; raw .h5 excluded by design",
-      "checked_at": "2026-09-20T21:10:43+00:00",
+      "checked_at": "2026-09-21T00:01:33+00:00",
       "files": [
         {
           "path": "kapucu2022/Data/LICENSE.txt",
@@ -1757,7 +1757,7 @@
       "license_url": "https://github.com/ScreenNeuroPharm/Bicuculline/blob/main/LICENSE",
       "citation": "ScreenNeuroPharm. Bicuculline (v1). Zenodo. doi:10.5281/zenodo.7665283. Source repository: github.com/ScreenNeuroPharm/Bicuculline (MIT License, 2023).",
       "note": "tier=quick: kept files from an earlier --full fetch; nothing re-downloaded",
-      "checked_at": "2026-09-20T21:10:56+00:00",
+      "checked_at": "2026-09-21T00:01:42+00:00",
       "files": [
         {
           "path": "screenneuropharm_bic/Bicuculline-BIC_v1.zip",
@@ -1776,7 +1776,7 @@
       "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
       "citation": "Sharf T, van der Molen T, Glasauer SMK, et al. Functional neuronal circuitry and oscillatory dynamics in human brain organoids. Dataset: Extracellular Recordings from Human Brain Organoids Using High-density CMOS Arrays. doi:10.25349/D9031Z",
       "note": "tier=quick; Zenodo record 6578989; raw .h5 recordings (~60 GB) excluded by design; diazepam series control/3/10/30/50 uM in 4 organoids",
-      "checked_at": "2026-09-20T21:10:54+00:00",
+      "checked_at": "2026-09-21T00:01:40+00:00",
       "files": [
         {
           "path": "sharf2022/README_organoid_data.txt",
@@ -1802,7 +1802,7 @@
       "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
       "citation": "U.S. EPA Center for Computational Toxicology and Exposure. ToxCast Database: invitrodb version 4.3. doi:10.23645/epacomptox.6062623.v14",
       "note": "tier=quick; invitrodb v4.3 via EPA Clowder",
-      "checked_at": "2026-09-20T21:10:52+00:00",
+      "checked_at": "2026-09-21T00:01:35+00:00",
       "files": [
         {
           "path": "toxcast_mea/assay_docs/AEID2454_CCTE_Shafer_MEA_acute_spike_number.pdf",
