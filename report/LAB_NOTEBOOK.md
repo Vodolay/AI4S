@@ -524,7 +524,7 @@ recover drug-knob direction from real recordings**, because `gabaa_scale` absorb
 mismatch (untreated chips infer 0.415, interval excluding 1.0) rather than tracking the compound.
 
 
-### 2026-09-20 — HD16: the coupling input contract, and whether direction is recoverable (`a627a8c`, `HD16_COMMIT`)
+### 2026-09-20 — HD16: the coupling input contract, and whether direction is recoverable (`a627a8c`, `518c55a`)
 
 **Defect: the twin measured coupling from every neuron.** `simulate_summary` passed
 `result.spikes_by_compartment()` — all 150 neurons per chamber — to `directed_coupling`, while the
