@@ -792,3 +792,60 @@ were already in `outputs/`.
 ### Still open
 - The PDF is at **22 pages of the 14-22 range**, so the next addition will fail the CI check.
 - CI has still not been observed to pass.
+
+## 2026-09-21: `--quick` gets its own run root
+
+Two problems, found by running `.venv/bin/python run_all.py --quick` on a clean `data/`.
+
+### 1. A quick run crashed on the asset it had just built
+
+`--quick` fetches only the small-tier sources, so the ScreenNeuroPharm two-chamber archive (582 MB,
+`--full` only) is absent and the asset has no compartment records. Because the flattened table only
+grows a column when some record carries the block, `device.compartment_id` was *missing*, not null,
+and four modules indexed it unconditionally. `models/asymmetry.py` raised `KeyError`, ending the run
+before the twin and demo stages.
+
+`src/neuromps/asset.py` is now the single reader: `compartment_records(df)` returns the compartment
+rows, or an empty **column-complete** frame, so callers keep their own filters and skip instead of
+raising. `asymmetry`, `calibrate`, `real_inference`, `demo/precompute` and `qc/data_card` all go
+through it, and each logs which `--full` source it is missing. `twin/calibrate.py` gained a real
+skip: with zero chamber baselines it would not have crashed, it would have fit against NaN bands and
+overwritten `hd12_calibration_simulated.json` with the result.
+
+### 2. A quick run overwrote the full run it cannot reproduce
+
+The deeper problem: `--quick` wrote to `outputs/` and `data/processed/`, so the CI path replaced the
+artifacts the report cites (`data_asset.n_records` 21,272 → 288) and left `metrics.json` describing
+an asset no longer on disk.
+
+`src/neuromps/paths.py` now resolves every path **at call time** from `NEUROMPS_RUN_MODE`:
+
+| run | results | data asset | manifest | sbi cache |
+|---|---|---|---|---|
+| `--full`, and a bare `run_all.py` | `outputs/` | `data/processed/` | `data/raw/MANIFEST.json` | `data/interim/` |
+| `--quick` | `outputs/quick/` | `data/processed/quick/` | `data/raw/MANIFEST.quick.json` | `data/interim/quick/` |
+
+`run_all.py` is the only caller of `set_run_mode` — a module setting it from its own `--quick` flag
+would change where every later import writes, and in a test session would outlive the call. Reads
+fall back: a quick stage that needs an artifact it has not produced (the posterior, for
+`--stage demo --quick`) takes the full run's copy and logs that it did. The sbi simulation cache is
+deliberately **outside** that fallback: 150 quick draws left where a full run looks for 3000 would
+train the next posterior on them with nothing in the output saying so.
+
+The app shows the full run and falls back per path to the quick one, naming on the page what fell
+back. CI now asserts `git diff --exit-code` after the smoke run, so an import-time path constant
+fails the build instead of quietly clobbering a tracked figure.
+
+### Verified
+
+- Full `--quick` from a clean state: **exit 0**, and `git status` byte-identical before and after
+  (checked with md5sum over `metrics.json`, `DATA_CARD.md`, `MANIFEST.json`, every tracked figure).
+- `pytest`: the 7 report-number and schema failures that the earlier clobbering caused are gone.
+  Still failing, both pre-existing and unrelated: 10 `test_app_smoke.py` (circular import between
+  `app/app.py` and the `app` package — the demo does not start) and `test_report_build.py`
+  (missing LaTeX `caption` package).
+
+### Next
+- The app circular import: `streamlit run app/app.py` is broken, which blocks HD19.
+- `data/processed/neuromps.parquet` on this machine is a leftover 288-record quick asset sitting in
+  the full root. Only a `--full` run replaces it correctly.

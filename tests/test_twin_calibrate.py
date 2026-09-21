@@ -136,9 +136,9 @@ def test_calibrated_params_are_read_back(tmp_path) -> None:
 
 def test_calibrated_values_are_inside_the_search_space_they_came_from() -> None:
     """Guards against a stale calibration file written under a different space."""
-    from neuromps.twin.calibrate import CALIBRATION_FILE, calibrated_params
+    from neuromps.twin.calibrate import calibrated_params, calibration_file
 
-    values = calibrated_params(CALIBRATION_FILE)
+    values = calibrated_params(calibration_file())
     for name, value in values.items():
         low, high = SEARCH_SPACE[name]
         assert low <= value <= high, name

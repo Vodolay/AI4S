@@ -29,13 +29,13 @@ from neuromps.features.mea import extract_features
 from neuromps.metrics import update_metrics
 from neuromps.models.bootstrap import group_bootstrap_metric, resample_count
 from neuromps.models.dataset import DELTA_FEATURES, load_pairs, log_ratio
+from neuromps.paths import twin_dir
 from neuromps.twin.calibrate import calibrated_params
 from neuromps.twin.mea import ElectrodeLayout, electrode_positions, place_neurons, record_electrodes
 from neuromps.twin.network import NetworkParams, simulate
 
 log = logging.getLogger("neuromps.twin")
 REPO_ROOT = Path(__file__).resolve().parents[3]
-TWIN_DIR = REPO_ROOT / "outputs" / "twin"
 # Features bounded below by zero: if the network falls silent these are 0, not
 # undefined, so a ratio against the baseline still means "abolished". The real
 # ETL already floors such a ratio at log2(0.05) = -4.32; using the same
@@ -254,7 +254,7 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--seed", type=int, default=0)
     args = p.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
-    TWIN_DIR.mkdir(parents=True, exist_ok=True)
+    twin_dir().mkdir(parents=True, exist_ok=True)
     duration = 20.0 if args.quick else 40.0
     n_resamples = resample_count(args.quick)
 
@@ -285,10 +285,12 @@ def main(argv: list[str] | None = None) -> int:
         "knobs": rows,
         "bootstrap_resamples": n_resamples,
     }
-    (TWIN_DIR / "hd13_perturbation_simulated.json").write_text(json.dumps(results, indent=2) + "\n")
+    (twin_dir() / "hd13_perturbation_simulated.json").write_text(
+        json.dumps(results, indent=2) + "\n"
+    )
     plot_validation(
         rows,
-        TWIN_DIR / "hd13_drug_knob_validation_simulated.png",
+        twin_dir() / "hd13_drug_knob_validation_simulated.png",
         "SIMULATED drug knobs vs REAL pharmacology direction\n"
         "'n/e' = the real direction is not established (interval includes zero)",
     )

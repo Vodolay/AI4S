@@ -31,6 +31,7 @@ import pandas as pd
 
 from neuromps.fetch.manifest import utc_now
 from neuromps.metrics import update_metrics
+from neuromps.paths import outputs_dir
 
 SOURCE = "toxcast_mea"
 MEA_PREFIX = "CCTE_Shafer_MEA_"
@@ -51,7 +52,7 @@ MC56_CSV = (
     / "data/raw/toxcast_mea/summary/mc5-6_winning_model_fits-flags_invitrodbv4_3_AUG2024.csv"
 )
 INTERIM_PARQUET = REPO_ROOT / "data/interim/toxcast_mea_mc56.parquet"
-ENDPOINT_TABLE = REPO_ROOT / "outputs/tables/toxcast_mea_endpoints.csv"
+
 log = logging.getLogger("neuromps.etl")
 CITATION = (
     "U.S. EPA Center for Computational Toxicology and Exposure. ToxCast Database: invitrodb "
@@ -151,8 +152,9 @@ def main(argv: list[str] | None = None) -> int:
     INTERIM_PARQUET.parent.mkdir(parents=True, exist_ok=True)
     df.to_parquet(INTERIM_PARQUET, index=False)
     summary = endpoint_summary(df)
-    ENDPOINT_TABLE.parent.mkdir(parents=True, exist_ok=True)
-    summary.to_csv(ENDPOINT_TABLE, index=False)
+    endpoint_table = outputs_dir() / "tables" / "toxcast_mea_endpoints.csv"
+    endpoint_table.parent.mkdir(parents=True, exist_ok=True)
+    summary.to_csv(endpoint_table, index=False)
     acute, dev = (df[df["assay"] == a] for a in ("acute", "dev"))
     update_metrics(
         "toxcast_mea_inventory",
@@ -173,7 +175,7 @@ def main(argv: list[str] | None = None) -> int:
     log.info(
         "wrote %s, %s and metrics section 'toxcast_mea_inventory'",
         INTERIM_PARQUET.relative_to(REPO_ROOT),
-        ENDPOINT_TABLE.relative_to(REPO_ROOT),
+        endpoint_table.relative_to(REPO_ROOT),
     )
     print(summary.to_string(index=False))
     return 0

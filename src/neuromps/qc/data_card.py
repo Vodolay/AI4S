@@ -14,12 +14,12 @@ import pandas as pd
 from neuromps.asset import compartment_records
 from neuromps.fetch.manifest import Manifest
 from neuromps.metrics import update_metrics
+from neuromps.paths import data_card_path, manifest_path, processed_dir
 
 log = logging.getLogger("neuromps.qc")
 REPO_ROOT = Path(__file__).resolve().parents[3]
-PROCESSED = REPO_ROOT / "data" / "processed"
 RAW_ROOT = REPO_ROOT / "data" / "raw"
-CARD_PATH = REPO_ROOT / "outputs" / "DATA_CARD.md"
+
 FEATURE_COLUMNS = [
     "features.mfr_hz",
     "features.burst_rate_per_min",
@@ -98,10 +98,11 @@ def _device_lines(df: pd.DataFrame) -> list[str]:
     ]
 
 
-def build_card(processed: Path = PROCESSED, raw_root: Path = RAW_ROOT) -> str:
-    """Render the data card as markdown."""
+def build_card(processed: Path | None = None, raw_root: Path = RAW_ROOT) -> str:
+    """Render the data card as markdown, from the active run's asset by default."""
+    processed = Path(processed) if processed is not None else processed_dir()
     df = pd.read_parquet(processed / "neuromps.parquet")
-    manifest = Manifest.load(raw_root / "MANIFEST.json")
+    manifest = Manifest.load(manifest_path(raw_root))
     provenance = json.loads((processed / "provenance.json").read_text())
     skipped = [s for s in manifest.sources.values() if s.status == "skipped"]
     in_asset = set(df["source"].unique())
@@ -168,13 +169,14 @@ def build_card(processed: Path = PROCESSED, raw_root: Path = RAW_ROOT) -> str:
 def main(argv: list[str] | None = None) -> int:
     """Write the data card and record its headline counts in metrics.json."""
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument("--out", type=Path, default=CARD_PATH)
+    p.add_argument("--out", type=Path, default=None)
     args = p.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+    out = args.out or data_card_path()
     card = build_card()
-    args.out.parent.mkdir(parents=True, exist_ok=True)
-    args.out.write_text(card)
-    df = pd.read_parquet(PROCESSED / "neuromps.parquet")
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(card)
+    df = pd.read_parquet(processed_dir() / "neuromps.parquet")
     flags = flag_counts(df)
     update_metrics(
         "data_card",

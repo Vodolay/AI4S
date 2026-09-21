@@ -22,20 +22,21 @@ from neuromps.etl.toxcast_mea import (
 )
 from neuromps.fetch.manifest import Manifest, utc_now
 from neuromps.metrics import update_metrics
+from neuromps.paths import manifest_path, processed_dir
 from neuromps.qc.flags import add_cross_record_flags
 from neuromps.qc.schema import check_traceable, validate_records
 
 log = logging.getLogger("neuromps.etl")
 REPO_ROOT = Path(__file__).resolve().parents[3]
 RAW_ROOT = REPO_ROOT / "data" / "raw"
-PROCESSED_DIR = REPO_ROOT / "data" / "processed"
+
 NESTED_ONLY = ("provenance",)
 COMPARTMENT_CACHE = REPO_ROOT / "data" / "interim" / "screenneuropharm_compartments.json"
 
 
 def manifest_hashes(raw_root: Path = RAW_ROOT) -> dict[str, str]:
     """Map file name -> SHA256 from data/raw/MANIFEST.json."""
-    manifest = Manifest.load(raw_root / "MANIFEST.json")
+    manifest = Manifest.load(manifest_path(raw_root))
     return {Path(rec.path).name: rec.sha256 for rec in manifest.file_index().values()}
 
 
@@ -130,7 +131,7 @@ def _archive_records(module, hashes: dict[str, str], raw_root: Path, full: bool)
 
 def build_asset(
     records: list[dict],
-    out_dir: Path = PROCESSED_DIR,
+    out_dir: Path | None = None,
     check_hashes: bool = True,
     manifest_path: Path | None = None,
 ) -> dict:
@@ -152,7 +153,7 @@ def build_asset(
         raise ValueError(
             f"{len(errors)}/{len(records)} records failed schema validation, e.g. {sample}"
         )
-    out_dir = Path(out_dir)
+    out_dir = Path(out_dir) if out_dir is not None else processed_dir()
     out_dir.mkdir(parents=True, exist_ok=True)
     flat = flatten_records(records)
     flat.to_parquet(out_dir / "neuromps.parquet", index=False)
@@ -198,7 +199,7 @@ def main(argv: list[str] | None = None) -> int:
     from neuromps.qc.data_card import main as write_card
 
     write_card([])
-    log.info("wrote %s records to %s", summary["n_records"], PROCESSED_DIR)
+    log.info("wrote %s records to %s", summary["n_records"], processed_dir())
     print(json.dumps(summary["counts"], indent=2))
     return 0
 

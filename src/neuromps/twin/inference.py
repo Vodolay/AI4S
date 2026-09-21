@@ -23,6 +23,7 @@ from pathlib import Path
 import numpy as np
 
 from neuromps.features.mea import extract_features
+from neuromps.paths import simulation_cache, twin_dir
 from neuromps.twin.mea import (
     ElectrodeLayout,
     electrode_coupling,
@@ -34,9 +35,7 @@ from neuromps.twin.network import NetworkParams, simulate
 
 log = logging.getLogger("neuromps.twin")
 REPO_ROOT = Path(__file__).resolve().parents[3]
-INTERIM = REPO_ROOT / "data" / "interim"
-TWIN_DIR = REPO_ROOT / "outputs" / "twin"
-SIMULATION_CACHE = INTERIM / "sbi_simulations.npz"
+POSTERIOR_NAME = "hd14_posterior_simulated.pt"
 
 PARAMETER_NAMES = (
     "log10_forward_ratio",
@@ -420,7 +419,7 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--seed", type=int, default=0)
     args = p.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
-    TWIN_DIR.mkdir(parents=True, exist_ok=True)
+    twin_dir().mkdir(parents=True, exist_ok=True)
     # Training a neural posterior estimator is stochastic: weight initialisation,
     # batching and the train/validation split all draw from torch's global RNG.
     # Without this seed, rerunning the same code on the same cache moved the
@@ -429,8 +428,8 @@ def main(argv: list[str] | None = None) -> int:
     torch.manual_seed(args.seed)
     n_simulations = args.simulations or (150 if args.quick else 3000)
 
-    if SIMULATION_CACHE.exists() and not args.rebuild:
-        cached = load_simulations(SIMULATION_CACHE)
+    if simulation_cache().exists() and not args.rebuild:
+        cached = load_simulations(simulation_cache())
         check_cache_matches_code(cached)
         theta, x = cached["theta"], cached["x"]
         inside = within_prior(theta)
@@ -446,7 +445,7 @@ def main(argv: list[str] | None = None) -> int:
         theta, x = run_simulations(
             n_simulations, duration_s=5.0 if args.quick else 10.0, seed=args.seed
         )
-        save_simulations(SIMULATION_CACHE, theta, x, metadata={"n_requested": n_simulations})
+        save_simulations(simulation_cache(), theta, x, metadata={"n_requested": n_simulations})
 
     holdout = max(20, int(0.1 * len(theta)))
     train_theta, train_x = theta[:-holdout], x[:-holdout]
@@ -459,7 +458,7 @@ def main(argv: list[str] | None = None) -> int:
         # many points it saw (`n_evaluated`).
         test_theta, test_x = test_theta[:60], test_x[:60]
     posterior = train_posterior(train_theta, train_x, max_epochs=5 if args.quick else None)
-    torch.save(posterior, TWIN_DIR / "hd14_posterior_simulated.pt")
+    torch.save(posterior, twin_dir() / POSTERIOR_NAME)
 
     n_samples = 100 if args.quick else 200
     ranks = posterior_ranks(posterior, test_theta, test_x, n_samples=n_samples)
@@ -481,7 +480,7 @@ def main(argv: list[str] | None = None) -> int:
     plot_ranks(
         ranks,
         n_samples,
-        TWIN_DIR / "hd14_posterior_ranks_simulated.png",
+        twin_dir() / "hd14_posterior_ranks_simulated.png",
         "SIMULATED posterior calibration: rank of the true value among posterior samples\n"
         "flat = calibrated, U-shaped = over-confident, humped = too wide",
     )

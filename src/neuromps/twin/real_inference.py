@@ -27,9 +27,10 @@ from scipy.stats import spearmanr
 
 from neuromps.asset import compartment_records
 from neuromps.metrics import update_metrics
+from neuromps.paths import asset_path, for_reading, simulation_cache, twin_dir
 from neuromps.twin.inference import (
     PARAMETER_NAMES,
-    SIMULATION_CACHE,
+    POSTERIOR_NAME,
     SUMMARY_NAMES,
     load_simulations,
     within_prior,
@@ -37,9 +38,13 @@ from neuromps.twin.inference import (
 
 log = logging.getLogger("neuromps.twin")
 REPO_ROOT = Path(__file__).resolve().parents[3]
-ASSET = REPO_ROOT / "data" / "processed" / "neuromps.parquet"
-TWIN_DIR = REPO_ROOT / "outputs" / "twin"
-POSTERIOR_FILE = TWIN_DIR / "hd14_posterior_simulated.pt"
+
+
+def posterior_file() -> Path:
+    """The trained posterior this run should use, its own or the full run's."""
+    return for_reading(twin_dir() / POSTERIOR_NAME)
+
+
 CHAMBERS = ("red", "green")  # red -> compartment 0, green -> compartment 1
 FEATURE_KEYS = (
     "mfr_hz",
@@ -384,7 +389,7 @@ def main(argv: list[str] | None = None) -> int:
 
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--quick", action="store_true", help="fewer posterior samples")
-    p.add_argument("--asset", type=Path, default=ASSET)
+    p.add_argument("--asset", type=Path, default=None)
     p.add_argument("--seed", type=int, default=0, help="seeds posterior sampling, which is random")
     p.add_argument(
         "--max-recordings",
@@ -395,12 +400,13 @@ def main(argv: list[str] | None = None) -> int:
     args = p.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
     torch.manual_seed(args.seed)  # posterior sampling is stochastic; without this, rho drifts
-    if not POSTERIOR_FILE.exists():
-        log.warning("no trained posterior at %s; run neuromps.twin.inference first", POSTERIOR_FILE)
+    posterior_path = posterior_file()  # resolved once: it may log a fallback
+    if not posterior_path.exists():
+        log.warning("no trained posterior at %s; run neuromps.twin.inference first", posterior_path)
         return 0
-    TWIN_DIR.mkdir(parents=True, exist_ok=True)
+    twin_dir().mkdir(parents=True, exist_ok=True)
 
-    summaries = real_summaries(pd.read_parquet(args.asset))
+    summaries = real_summaries(pd.read_parquet(args.asset or for_reading(asset_path())))
     if summaries.empty:
         log.warning("no two-chamber recordings in the asset")
         return 0
@@ -410,7 +416,10 @@ def main(argv: list[str] | None = None) -> int:
         summaries = summaries.iloc[::step].head(limit).reset_index(drop=True)
         log.info("quick mode: using %d of the available recordings", len(summaries))
     real_x = summaries[list(SUMMARY_NAMES)].to_numpy(dtype=float)
-    cached = load_simulations(SIMULATION_CACHE)
+    if not simulation_cache().exists():
+        log.warning("no simulations at %s; run neuromps.twin.inference first", simulation_cache())
+        return 0
+    cached = load_simulations(simulation_cache())
     inside = within_prior(cached["theta"])
     check = distribution_check(real_x, cached["x"][inside])
     suspect = check["outside_dimensions"] + check["unsupported_dimensions"]
@@ -421,7 +430,7 @@ def main(argv: list[str] | None = None) -> int:
         check["unsupported_dimensions"],
     )
 
-    posterior = torch.load(POSTERIOR_FILE, weights_only=False)
+    posterior = torch.load(posterior_path, weights_only=False)
     acceptance = prior_acceptance(posterior, real_x, n_draws=500 if args.quick else 2000)
     log.info(
         "prior acceptance: median %.4f%%, %.0f%% of recordings below 1%%",
@@ -475,12 +484,12 @@ def main(argv: list[str] | None = None) -> int:
             "passing the rank-uniformity check, so these medians are directional evidence at best"
         ),
     }
-    (TWIN_DIR / "hd15_real_inference.json").write_text(json.dumps(results, indent=2) + "\n")
+    (twin_dir() / "hd15_real_inference.json").write_text(json.dumps(results, indent=2) + "\n")
     plot_dose_response(
         doses_um,
         gabaa,
         trend,
-        TWIN_DIR / "hd15_real_dose_response.png",
+        twin_dir() / "hd15_real_dose_response.png",
         "Inferred GABA-A scale for REAL bicuculline recordings (posterior trained on simulations)",
     )
     update_metrics(

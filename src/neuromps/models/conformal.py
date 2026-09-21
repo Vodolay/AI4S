@@ -142,19 +142,18 @@ def main(argv: list[str] | None = None) -> int:
     """Conformal sweep plus feature ablations, to metrics and a figure."""
     import argparse
     import json
-    from pathlib import Path
 
     from neuromps.metrics import update_metrics
     from neuromps.models.ablation import ablate, leave_one_out
     from neuromps.models.dataset import load_pairs
+    from neuromps.paths import figures_dir
 
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--seed", type=int, default=0)
     p.add_argument("--quick", action="store_true", help="fewer bootstrap resamples")
     args = p.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
-    repo_root = Path(__file__).resolve().parents[3]
-    figures = repo_root / "outputs" / "figures"
+    figures = figures_dir()
     figures.mkdir(parents=True, exist_ok=True)
 
     pairs = load_pairs()

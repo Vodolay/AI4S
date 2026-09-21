@@ -31,13 +31,12 @@ import pandas as pd
 from neuromps.asset import compartment_records
 from neuromps.features.mea import extract_features
 from neuromps.metrics import update_metrics
+from neuromps.paths import asset_path, for_reading, twin_dir
 from neuromps.twin.mea import ElectrodeLayout, electrode_positions, place_neurons, record_electrodes
 from neuromps.twin.network import NetworkParams, simulate
 
 log = logging.getLogger("neuromps.twin")
 REPO_ROOT = Path(__file__).resolve().parents[3]
-ASSET = REPO_ROOT / "data" / "processed" / "neuromps.parquet"
-TWIN_DIR = REPO_ROOT / "outputs" / "twin"
 REFERENCE_SOURCE = "screenneuropharm_bic"
 CALIBRATION_FEATURES = (
     "mfr_hz",
@@ -57,7 +56,12 @@ SEARCH_SPACE = {
 }
 
 
-CALIBRATION_FILE = TWIN_DIR / "hd12_calibration_simulated.json"
+CALIBRATION_NAME = "hd12_calibration_simulated.json"
+
+
+def calibration_file() -> Path:
+    """Where the active run keeps its calibration."""
+    return twin_dir() / CALIBRATION_NAME
 
 
 def calibrated_params(path: Path | None = None) -> dict:
@@ -66,7 +70,7 @@ def calibrated_params(path: Path | None = None) -> dict:
     Returns an empty dict if no calibration has been run, so callers fall back to
     module defaults rather than failing; the caller should record which it used.
     """
-    path = path or CALIBRATION_FILE
+    path = Path(path) if path is not None else for_reading(calibration_file())
     if not Path(path).exists():
         log.warning("no calibration at %s; using module defaults", path)
         return {}
@@ -265,17 +269,18 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--seed", type=int, default=0)
     args = p.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
-    TWIN_DIR.mkdir(parents=True, exist_ok=True)
+    twin_dir().mkdir(parents=True, exist_ok=True)
 
-    targets = real_targets(pd.read_parquet(ASSET))
+    asset = for_reading(asset_path())
+    targets = real_targets(pd.read_parquet(asset))
     if not targets["n_records"]:
         log.warning(
             "no %s chamber baselines in %s; skipping calibration (that source is fetched "
             "with --full). The existing %s, if any, is from an earlier run and is what the "
             "rest of the twin will use.",
             REFERENCE_SOURCE,
-            ASSET,
-            CALIBRATION_FILE.name,
+            asset,
+            calibration_file().name,
         )
         return 0
     n_draws = args.draws or (8 if args.quick else 40)
@@ -302,11 +307,13 @@ def main(argv: list[str] | None = None) -> int:
             "detection_radius_um is a property of the virtual electrode, not of the culture."
         ),
     }
-    (TWIN_DIR / "hd12_calibration_simulated.json").write_text(json.dumps(results, indent=2) + "\n")
+    (twin_dir() / "hd12_calibration_simulated.json").write_text(
+        json.dumps(results, indent=2) + "\n"
+    )
     plot_calibration(
         best,
         targets,
-        TWIN_DIR / "hd12_calibration_simulated.png",
+        twin_dir() / "hd12_calibration_simulated.png",
         "SIMULATED twin after calibration vs real chamber baselines\n"
         "ScreenNeuroPharm rat two-chamber devices, baseline recordings",
     )

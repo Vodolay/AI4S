@@ -16,9 +16,10 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
+from neuromps.paths import asset_path, for_reading
+
 log = logging.getLogger("neuromps.models")
 REPO_ROOT = Path(__file__).resolve().parents[3]
-ASSET = REPO_ROOT / "data" / "processed" / "neuromps.parquet"
 DELTA_FEATURES = (
     "mfr_hz",
     "burst_rate_per_min",
@@ -119,6 +120,10 @@ def _pair_row(exposure: pd.Series, baseline: pd.Series) -> dict:
     }
 
 
-def load_pairs(asset: Path = ASSET, usable_only: bool = True) -> pd.DataFrame:
-    """Build the modelling table straight from the built asset."""
+def load_pairs(asset: Path | None = None, usable_only: bool = True) -> pd.DataFrame:
+    """Build the modelling table straight from the built asset.
+
+    Reads the active run's asset by default; see :mod:`neuromps.paths`.
+    """
+    asset = Path(asset) if asset is not None else for_reading(asset_path())
     return build_pairs(pd.read_parquet(asset), usable_only=usable_only)

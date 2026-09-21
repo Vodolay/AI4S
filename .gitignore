@@ -11,8 +11,10 @@ data/processed/*
 !data/**/.gitkeep
 # Figures are tracked, not ignored: the technical report embeds them, so they
 # have to travel with the source that cites them and be visible in a diff when a
-# run changes them. A --quick run therefore shows up as a modified figure rather
-# than silently leaving one that disagrees with outputs/metrics.json.
+# run changes them. Only the full run writes there; a --quick run writes to
+# outputs/quick/, which is ignored, so the CI path cannot quietly replace a
+# figure with one that disagrees with outputs/metrics.json.
+outputs/quick/
 outputs/**/*.pdf
 .ipynb_checkpoints/
 sbi-logs/

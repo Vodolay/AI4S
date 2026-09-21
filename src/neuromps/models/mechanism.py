@@ -288,18 +288,17 @@ def plot_confusion(matrix: np.ndarray, labels: list[str], path, title: str) -> N
 def main(argv: list[str] | None = None) -> int:
     """Run both tasks, write metrics and the confusion figure."""
     import argparse
-    from pathlib import Path
 
     from neuromps.metrics import update_metrics
     from neuromps.models.dataset import load_pairs
+    from neuromps.paths import figures_dir
 
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--seed", type=int, default=0)
     p.add_argument("--quick", action="store_true", help="fewer bootstrap resamples")
     args = p.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
-    repo_root = Path(__file__).resolve().parents[3]
-    figures = repo_root / "outputs" / "figures"
+    figures = figures_dir()
     figures.mkdir(parents=True, exist_ok=True)
 
     pairs = load_pairs()

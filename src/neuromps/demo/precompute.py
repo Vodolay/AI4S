@@ -29,6 +29,7 @@ import pandas as pd
 
 from neuromps.features.mea import extract_features
 from neuromps.metrics import update_metrics
+from neuromps.paths import asset_path, demo_dir, for_reading
 from neuromps.twin.inference import (
     PARAMETER_NAMES,
     PRIOR_BOUNDS,
@@ -44,13 +45,16 @@ from neuromps.twin.mea import (
     record_electrodes,
 )
 from neuromps.twin.network import simulate
+from neuromps.twin.real_inference import posterior_file
 
 log = logging.getLogger("neuromps.demo")
 REPO_ROOT = Path(__file__).resolve().parents[3]
-DEMO_DIR = REPO_ROOT / "outputs" / "demo"
-RUNS_DIR = DEMO_DIR / "runs"
-POSTERIOR_FILE = REPO_ROOT / "outputs" / "twin" / "hd14_posterior_simulated.pt"
-ASSET = REPO_ROOT / "data" / "processed" / "neuromps.parquet"
+
+
+def runs_dir() -> Path:
+    """Per-grid-point simulation files of the active run."""
+    return demo_dir() / "runs"
+
 
 RASTER_SECONDS = 2.0
 FIXED_IN_DEGREE = 9.0
@@ -257,12 +261,13 @@ def real_posteriors(posterior, quick: bool, n_samples: int) -> dict:
     """
     from neuromps.twin.real_inference import real_summaries
 
-    summaries = real_summaries(pd.read_parquet(ASSET))
+    asset = for_reading(asset_path())
+    summaries = real_summaries(pd.read_parquet(asset))
     if quick and len(summaries) > 12:
         summaries = summaries.iloc[:: len(summaries) // 12].head(12).reset_index(drop=True)
     x = summaries[list(SUMMARY_NAMES)].to_numpy(dtype=float)
     if not len(x):  # no two-chamber source in the asset: it is fetched with --full
-        log.warning("no two-chamber recordings in %s; the demo ships a simulated grid only", ASSET)
+        log.warning("no two-chamber recordings in %s; the demo ships a simulated grid only", asset)
         return {
             "samples": np.empty((0, n_samples, len(PARAMETER_NAMES))),
             "records": summaries.drop(columns=list(SUMMARY_NAMES)),
@@ -284,9 +289,10 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--seed", type=int, default=0)
     args = p.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
-    RUNS_DIR.mkdir(parents=True, exist_ok=True)
-    if not POSTERIOR_FILE.exists():
-        log.warning("no trained posterior at %s; run the twin stage first", POSTERIOR_FILE)
+    runs_dir().mkdir(parents=True, exist_ok=True)
+    posterior_path = posterior_file()  # resolved once: it may log a fallback
+    if not posterior_path.exists():
+        log.warning("no trained posterior at %s; run the twin stage first", posterior_path)
         return 0
 
     timings: dict[str, float] = {}
@@ -301,7 +307,7 @@ def main(argv: list[str] | None = None) -> int:
     entries = run_grid(points, duration_s, n_per_compartment, args.seed)
     timings["simulate_grid_s"] = round(time.time() - started, 1)
 
-    posterior = torch.load(POSTERIOR_FILE, weights_only=False)
+    posterior = torch.load(posterior_path, weights_only=False)
     torch.manual_seed(args.seed)
     started = time.time()
     rows = []
@@ -309,7 +315,7 @@ def main(argv: list[str] | None = None) -> int:
         if entry.get("summary") is None:
             continue
         samples = sample_posterior(posterior, entry["summary"], n_grid_samples)
-        path = RUNS_DIR / f"run_{index:03d}.npz"
+        path = runs_dir() / f"run_{index:03d}.npz"
         save_run(path, entry, samples)
         rows.append(
             {
@@ -321,19 +327,19 @@ def main(argv: list[str] | None = None) -> int:
             }
         )
     timings["grid_posteriors_s"] = round(time.time() - started, 1)
-    pd.DataFrame(rows).to_parquet(DEMO_DIR / "grid.parquet", index=False)
+    pd.DataFrame(rows).to_parquet(demo_dir() / "grid.parquet", index=False)
 
     started = time.time()
     real = real_posteriors(posterior, args.quick, n_real_samples)
-    np.savez_compressed(DEMO_DIR / "real_posteriors.npz", samples=real["samples"])
-    real["records"].to_parquet(DEMO_DIR / "real_records.parquet", index=False)
+    np.savez_compressed(demo_dir() / "real_posteriors.npz", samples=real["samples"])
+    real["records"].to_parquet(demo_dir() / "real_records.parquet", index=False)
     timings["real_posteriors_s"] = round(time.time() - started, 1)
 
     started = time.time()
     fitted = fit_mechanism_model(load_pairs())
     # pickle, not joblib: joblib arrives only as a scikit-learn dependency and is
     # not declared in pyproject.toml, and this object is small.
-    (DEMO_DIR / "mechanism_model.pkl").write_bytes(pickle.dumps(fitted))
+    (demo_dir() / "mechanism_model.pkl").write_bytes(pickle.dumps(fitted))
     timings["fit_classifier_s"] = round(time.time() - started, 1)
 
     results = {
@@ -350,12 +356,12 @@ def main(argv: list[str] | None = None) -> int:
             "inter_in_degree": FIXED_IN_DEGREE,
             "threshold_scale": FIXED_THRESHOLD,
         },
-        "posterior_file": str(POSTERIOR_FILE.relative_to(REPO_ROOT)),
+        "posterior_file": str(posterior_path.relative_to(REPO_ROOT)),
         "conformal_alpha": fitted["alpha"],
         "timings_s": timings,
         "quick": bool(args.quick),
     }
-    (DEMO_DIR / "meta.json").write_text(json.dumps(results, indent=2) + "\n")
+    (demo_dir() / "meta.json").write_text(json.dumps(results, indent=2) + "\n")
     update_metrics("demo_precompute", results)
     print(
         json.dumps(

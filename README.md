@@ -22,6 +22,19 @@ uv pip install --python .venv/bin/python -e ".[dev]"
 .venv/bin/python run_all.py --full      # complete run, larger downloads
 ```
 
+The two runs write to separate roots, so the CI path cannot overwrite the run
+the report cites:
+
+| run | results | data asset |
+|---|---|---|
+| `--full` (and a bare `run_all.py`) | `outputs/` | `data/processed/` |
+| `--quick` | `outputs/quick/` | `data/processed/quick/` |
+
+`--quick` fetches only the small-tier sources, so analyses that need a
+`--full`-only source log what they skipped and leave that section of
+`outputs/quick/metrics.json` unwritten. The app shows the full run where it
+exists and says so on the page when it is showing a quick one instead.
+
 Fetch data only:
 
 ```bash
@@ -30,6 +43,13 @@ Fetch data only:
 
 Downloads land in `data/raw/<source>/`. Every file's URL, license, SHA256, size and download time are recorded in
 `data/raw/MANIFEST.json`. Source decisions are in [data/SOURCES.md](data/SOURCES.md).
+
+`run_all.py` is the only thing that picks a run root. A stage module run on its
+own follows the environment, so the quick root is reachable from anywhere:
+
+```bash
+NEUROMPS_RUN_MODE=quick .venv/bin/python -m neuromps.twin.calibrate --quick
+```
 
 ## Documents
 

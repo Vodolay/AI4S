@@ -205,14 +205,14 @@ def main(argv: list[str] | None = None) -> int:
 
     from neuromps.asset import compartment_records
     from neuromps.metrics import update_metrics
+    from neuromps.paths import asset_path, figures_dir, for_reading
 
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--asset", type=Path, default=None)
     args = p.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
-    repo_root = Path(__file__).resolve().parents[3]
-    asset = args.asset or repo_root / "data" / "processed" / "neuromps.parquet"
-    figures = repo_root / "outputs" / "figures"
+    asset = args.asset or for_reading(asset_path())
+    figures = figures_dir()
     figures.mkdir(parents=True, exist_ok=True)
 
     records = pd.read_parquet(asset)

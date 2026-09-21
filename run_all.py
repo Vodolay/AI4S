@@ -1,13 +1,19 @@
 """One command: data -> features -> models -> twin -> figures.
 
 Usage: python run_all.py [--quick | --full] [--stage fetch|data|models|twin|all]
-Stages beyond ``fetch`` are implemented in later phases (see PLAN.md).
+
+``--quick`` is the CI path: the small-tier sources, fewer draws, under ten
+minutes on CPU. It writes to its own run root (``outputs/quick/`` and
+``data/processed/quick/``) so that running it cannot overwrite the full run
+whose numbers the report cites. See :mod:`neuromps.paths`.
 """
 
 import argparse
 import logging
 import sys
 import time
+
+from neuromps.paths import FULL, QUICK, outputs_dir, processed_dir, set_run_mode
 
 STAGES = ["fetch", "data", "models", "twin", "demo"]
 
@@ -16,11 +22,22 @@ def main(argv: list[str] | None = None) -> int:
     """Run the requested pipeline stages in order."""
     p = argparse.ArgumentParser(description=__doc__)
     mode = p.add_mutually_exclusive_group()
-    mode.add_argument("--quick", action="store_true", help="CI path, <10 min on CPU (default)")
-    mode.add_argument("--full", action="store_true", help="complete run incl. large raw data")
+    mode.add_argument(
+        "--quick",
+        action="store_true",
+        help="CI path, <10 min on CPU; writes to outputs/quick/ and data/processed/quick/",
+    )
+    mode.add_argument(
+        "--full",
+        action="store_true",
+        help="complete run incl. large raw data; writes to outputs/ and data/processed/",
+    )
     p.add_argument("--stage", choices=[*STAGES, "all"], default="all")
     args = p.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+    # Before any stage module is imported, so every writer resolves the same root.
+    set_run_mode(QUICK if args.quick else FULL)
+    logging.info("writing this run to %s and %s", outputs_dir(), processed_dir())
     stages = STAGES if args.stage == "all" else [args.stage]
     t0 = time.time()
     timings: dict[str, float] = {}
@@ -68,7 +85,7 @@ def main(argv: list[str] | None = None) -> int:
             logging.info("stage %r not implemented yet (later phase) - skipping", stage)
         timings[stage] = round(time.time() - stage_started, 1)
     elapsed = round(time.time() - t0, 1)
-    logging.info("run_all finished in %.1f s", elapsed)
+    logging.info("run_all finished in %.1f s; results in %s", elapsed, outputs_dir())
     _record_timings(timings, elapsed, quick=args.quick, stages=stages)
     return 0
 

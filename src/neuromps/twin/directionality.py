@@ -32,6 +32,7 @@ import pandas as pd
 
 from neuromps.features.mea import extract_features
 from neuromps.metrics import update_metrics
+from neuromps.paths import twin_dir
 from neuromps.twin.inference import SUMMARY_NAMES, default_layout, summary_vector
 from neuromps.twin.mea import (
     electrode_coupling,
@@ -43,9 +44,8 @@ from neuromps.twin.network import NetworkParams, simulate
 
 log = logging.getLogger("neuromps.twin")
 REPO_ROOT = Path(__file__).resolve().parents[3]
-TWIN_DIR = REPO_ROOT / "outputs" / "twin"
-GRID_FILE = TWIN_DIR / "hd16_directionality_simulated.parquet"
-QUICK_GRID_FILE = TWIN_DIR / "hd16_directionality_simulated_quick.parquet"
+GRID_FILE = twin_dir() / "hd16_directionality_simulated.parquet"
+QUICK_GRID_FILE = twin_dir() / "hd16_directionality_simulated_quick.parquet"
 
 SYMMETRIC_RATIO = 1.0
 ASYMMETRIC_RATIOS = (3.0, 10.0)
@@ -617,7 +617,7 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--seed", type=int, default=0)
     args = p.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
-    TWIN_DIR.mkdir(parents=True, exist_ok=True)
+    twin_dir().mkdir(parents=True, exist_ok=True)
 
     n_reps = args.reps or (4 if args.quick else 40)
     durations = (10.0,) if args.quick else DURATIONS_S
@@ -694,7 +694,7 @@ def main(argv: list[str] | None = None) -> int:
     }
     plot_sweep(
         rows,
-        TWIN_DIR / "hd16_directionality_simulated.png",
+        twin_dir() / "hd16_directionality_simulated.png",
         "SIMULATED: telling symmetric from asymmetric wiring, by recording length\n"
         "top row: drive left alone; bottom row: drive adjusted to match rates, imperfectly\n"
         "(see matching_quality); rate_residualized is the controlled comparison\n"

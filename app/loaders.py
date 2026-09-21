@@ -1,10 +1,15 @@
 """Cached readers for everything the demo app shows.
 
-Nothing here computes a result: the numbers come from `outputs/metrics.json` and
-the precomputed `outputs/demo/` directory, written by `run_all.py --stage demo`.
-The one exception is `live_simulation`, which the user asks for explicitly by
-pressing a button, and which is cached on its parameter tuple so a repeat press
-is instant.
+Nothing here computes a result: the numbers come from `metrics.json` and the
+precomputed `demo/` directory, written by `run_all.py --stage demo`. The one
+exception is `live_simulation`, which the user asks for explicitly by pressing
+a button, and which is cached on its parameter tuple so a repeat press is
+instant.
+
+The app shows the full run. On a machine where only `--quick` has been run -
+a fresh clone following the README - the full run's files are absent, so each
+path falls back to the quick run's copy and `run_root_note()` says which is on
+screen. Resolution happens at import: a run finishes before the app starts.
 """
 
 from __future__ import annotations
@@ -17,14 +22,46 @@ import numpy as np
 import pandas as pd
 import streamlit as st
 
+from neuromps import paths
+
 REPO_ROOT = Path(__file__).resolve().parents[1]
-DEMO_DIR = REPO_ROOT / "outputs" / "demo"
-METRICS = REPO_ROOT / "outputs" / "metrics.json"
-ASSET = REPO_ROOT / "data" / "processed" / "neuromps.parquet"
-PROVENANCE = REPO_ROOT / "data" / "processed" / "provenance.json"
+
+
+def _shown(full: Path, quick: Path) -> Path:
+    """The full run's file, or the quick run's when only that one exists."""
+    return full if full.exists() or not quick.exists() else quick
+
+
+DEMO_DIR = _shown(paths.OUTPUTS_ROOT / "demo", paths.OUTPUTS_ROOT / paths.QUICK / "demo")
+METRICS = _shown(
+    paths.OUTPUTS_ROOT / "metrics.json", paths.OUTPUTS_ROOT / paths.QUICK / "metrics.json"
+)
+ASSET = _shown(
+    paths.PROCESSED_ROOT / "neuromps.parquet",
+    paths.PROCESSED_ROOT / paths.QUICK / "neuromps.parquet",
+)
+PROVENANCE = ASSET.parent / "provenance.json"
 SCHEMA = REPO_ROOT / "schema" / "neuromps_schema.json"
-FIGURES = REPO_ROOT / "outputs" / "figures"
-TWIN_FIGURES = REPO_ROOT / "outputs" / "twin"
+FIGURES = _shown(paths.OUTPUTS_ROOT / "figures", paths.OUTPUTS_ROOT / paths.QUICK / "figures")
+TWIN_FIGURES = _shown(paths.OUTPUTS_ROOT / "twin", paths.OUTPUTS_ROOT / paths.QUICK / "twin")
+SHOWN_PATHS = (DEMO_DIR, METRICS, ASSET, FIGURES, TWIN_FIGURES)
+
+
+def run_root_note() -> str:
+    """One line for the app when any of this came from a quick run, not the full one.
+
+    A machine can hold a mixture - the full run's figures beside a quick run's
+    asset - so this names what fell back rather than claiming the whole page did.
+    """
+    quick = sorted({p.name for p in SHOWN_PATHS if paths.QUICK in p.parts})
+    if not quick:
+        return ""
+    return (
+        f"Showing a `--quick` run for: {', '.join(quick)}. That run uses the small-tier "
+        "sources with fewer draws. Run `python run_all.py --full` for the numbers the "
+        "report cites."
+    )
+
 
 MISSING_DEMO = (
     "The demo inputs are missing. Run `python run_all.py --quick` (or "
@@ -110,7 +147,7 @@ def load_pairs(_stamp_value: float = 0.0) -> pd.DataFrame:
     """Treated/baseline pairs, the rows the mechanism classifier is defined on."""
     from neuromps.models.dataset import load_pairs as build
 
-    return build() if ASSET.exists() else pd.DataFrame()
+    return build(ASSET) if ASSET.exists() else pd.DataFrame()
 
 
 @st.cache_resource(show_spinner=False)
@@ -125,11 +162,12 @@ def load_posterior_estimator():
     """The trained `sbi` posterior, for the optional live run."""
     import torch
 
-    from neuromps.demo.precompute import POSTERIOR_FILE
+    from neuromps.twin.real_inference import POSTERIOR_NAME
 
-    if not POSTERIOR_FILE.exists():
+    posterior = TWIN_FIGURES / POSTERIOR_NAME  # TWIN_FIGURES is the twin output dir
+    if not posterior.exists():
         return None
-    return torch.load(POSTERIOR_FILE, weights_only=False)
+    return torch.load(posterior, weights_only=False)
 
 
 @st.cache_data(show_spinner=False)

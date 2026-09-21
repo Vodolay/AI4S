@@ -30,6 +30,13 @@ jobs:
           key: raw-${{ hashFiles('src/neuromps/fetch/**') }}
       - name: Smoke run (quick)
         run: timeout 600 python run_all.py --quick
+      - name: The quick run must not have touched the full run's outputs
+        # --quick writes to outputs/quick/ and data/processed/quick/. If this
+        # step ever fails, some writer resolved its path at import time instead
+        # of through neuromps.paths.
+        run: |
+          git status --porcelain
+          git diff --exit-code
 
   report:
     # The PDF is a deliverable, so its build is checked on every push rather

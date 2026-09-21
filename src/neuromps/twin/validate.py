@@ -19,12 +19,12 @@ import numpy as np
 
 from neuromps.features.mea import extract_features
 from neuromps.metrics import update_metrics
+from neuromps.paths import twin_dir
 from neuromps.twin.mea import electrode_coupling
 from neuromps.twin.network import NetworkParams, simulate
 
 log = logging.getLogger("neuromps.twin")
 REPO_ROOT = Path(__file__).resolve().parents[3]
-TWIN_DIR = REPO_ROOT / "outputs" / "twin"
 ELECTRODES_PER_COMPARTMENT = 16
 
 # Ranges the real recordings occupy, for orientation (not fitted here; HD12 calibrates).
@@ -184,7 +184,7 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--seed", type=int, default=0)
     args = p.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
-    TWIN_DIR.mkdir(parents=True, exist_ok=True)
+    twin_dir().mkdir(parents=True, exist_ok=True)
     duration = 20.0 if args.quick else 60.0
     seeds = (0, 1) if args.quick else (0, 1, 2)
 
@@ -208,15 +208,15 @@ def main(argv: list[str] | None = None) -> int:
             "because the target compartment also receives the pathway's excitation"
         ),
     }
-    (TWIN_DIR / "hd11_validation_simulated.json").write_text(json.dumps(results, indent=2) + "\n")
+    (twin_dir() / "hd11_validation_simulated.json").write_text(json.dumps(results, indent=2) + "\n")
     plot_sweep(
         sweep,
-        TWIN_DIR / "hd11_directionality_simulated.png",
+        twin_dir() / "hd11_directionality_simulated.png",
         "SIMULATED two-compartment network: coupling asymmetry tracks drive, not wiring\n"
         "at fixed wiring, drive moves the measure further than the pathway ratio does",
     )
     update_metrics("twin_hd11_validation", results)
-    log.info("wrote %s", TWIN_DIR / "hd11_validation_simulated.json")
+    log.info("wrote %s", twin_dir() / "hd11_validation_simulated.json")
     print(
         json.dumps(
             {

@@ -10,12 +10,15 @@ prediction and what transfers between species, and the digital twin with its inf
 
 ```bash
 pip install -e .
-python run_all.py --quick        # writes the asset, the metrics and outputs/demo/
+python run_all.py --quick        # writes outputs/quick/ and data/processed/quick/
 streamlit run app/app.py
 ```
 
 `--quick` is enough to open every tab. A full `python run_all.py` gives the same app with the full
 5 × 5 × 3 twin grid and all 113 real recordings instead of the reduced quick versions.
+
+The app shows the full run's files (`outputs/`, `data/processed/`) and falls back to the quick
+run's where the full ones are absent, with a line on the page naming what it fell back to.
 
 `?tab=1`, `?tab=2` or `?tab=3` opens one tab on its own — useful for a link into a specific result,
 and how the screenshots in `outputs/figures/app_tab*.png` are taken.

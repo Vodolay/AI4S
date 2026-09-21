@@ -46,8 +46,9 @@ def validate_records(records: Iterable[dict]) -> dict[str, list[str]]:
 def check_traceable(record: dict, manifest_path: Path | None = None) -> list[str]:
     """Conformance Level 2: every provenance hash must match an entry in MANIFEST.json."""
     from neuromps.fetch.manifest import Manifest
+    from neuromps.paths import manifest_path as active_manifest_path
 
-    path = manifest_path or REPO_ROOT / "data" / "raw" / "MANIFEST.json"
+    path = manifest_path or active_manifest_path()
     index = Manifest.load(path).file_index()
     by_path = {f.path: f.sha256 for f in index.values()}
     known_hashes = set(by_path.values())  # distinct files can share content, so compare by path

@@ -8,6 +8,7 @@ from pathlib import Path
 
 from neuromps.fetch.excluded import excluded_records
 from neuromps.fetch.manifest import Manifest, SourceRecord
+from neuromps.paths import manifest_path
 
 log = logging.getLogger("neuromps.fetch")
 
@@ -35,7 +36,7 @@ def run_fetchers(
     raw_root: Path = RAW_ROOT, names: list[str] | None = None, full: bool = False
 ) -> Manifest:
     """Run fetchers; a failing source is recorded as ``blocked`` and never aborts the rest."""
-    manifest = Manifest.load(raw_root / "MANIFEST.json")
+    manifest = Manifest.load(manifest_path(raw_root))
     for record in excluded_records():
         if record.name in registry():
             raise RuntimeError(f"{record.name!r} is both registered and excluded")

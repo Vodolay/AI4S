@@ -4,8 +4,10 @@ Run with `streamlit run app/app.py`, after `python run_all.py --quick` has
 written the asset, the metrics and the precomputed demo inputs.
 
 Nothing here computes a reported number. Everything shown comes from
-`outputs/metrics.json` or from `outputs/demo/`, both produced by scripts under
-`src/`, so the app and the technical report cannot disagree. The single
+`metrics.json` or from `demo/`, both produced by scripts under `src/`, so the
+app and the technical report cannot disagree. Those are the full run's files
+where they exist, and a `--quick` run's otherwise, with a line on the page
+saying which. The single
 exception is the "Run one live simulation" button in Tab 3, which is there to
 show that the twin is a real simulator and not a lookup table.
 """
@@ -51,6 +53,9 @@ def main() -> None:
         "calibrated on it."
     )
     st.warning(BANNER)
+
+    if note := loaders.run_root_note():
+        st.info(note)
 
     stamps = loaders.stamps()
     if stamps["demo"] == 0.0:
