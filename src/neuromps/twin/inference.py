@@ -451,6 +451,13 @@ def main(argv: list[str] | None = None) -> int:
     holdout = max(20, int(0.1 * len(theta)))
     train_theta, train_x = theta[:-holdout], x[:-holdout]
     test_theta, test_x = theta[-holdout:], x[-holdout:]
+    if args.quick:
+        # Coverage checking costs two posterior samples per holdout point, and
+        # rejection sampling is slow whenever the estimator puts mass outside the
+        # prior. The full run evaluates every holdout point; --quick evaluates a
+        # subset to stay inside the run_all budget, and the rank test records how
+        # many points it saw (`n_evaluated`).
+        test_theta, test_x = test_theta[:60], test_x[:60]
     posterior = train_posterior(train_theta, train_x, max_epochs=5 if args.quick else None)
     torch.save(posterior, TWIN_DIR / "hd14_posterior_simulated.pt")
 

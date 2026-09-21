@@ -14,7 +14,12 @@ from neuromps.report.verify import (
     lookup,
 )
 
-REPORTS = sorted(REPORT_DIR.glob("*.md"))
+# REVIEW.md is an external critique of these documents, not one of their claims:
+# it quotes numbers in order to dispute them and names clinical vocabulary in
+# order to report that the reports avoid it. Holding it to the project's own
+# citation and language rules would be a category error.
+EXTERNAL = {"REVIEW.md", "CONTEXT_FROM_CHAT.md"}
+REPORTS = sorted(p for p in REPORT_DIR.glob("*.md") if p.name not in EXTERNAL)
 
 
 @pytest.mark.parametrize("document", REPORTS, ids=lambda p: p.name)

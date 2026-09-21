@@ -9,7 +9,7 @@ import logging
 import sys
 import time
 
-STAGES = ["fetch", "data", "models", "twin"]
+STAGES = ["fetch", "data", "models", "twin", "demo"]
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -58,6 +58,10 @@ def main(argv: list[str] | None = None) -> int:
             run_inference(quick)
             run_real_inference(quick)
             run_directionality(quick)
+        elif stage == "demo":
+            from neuromps.demo.precompute import main as precompute_demo
+
+            precompute_demo(["--quick"] if args.quick else [])
         else:
             logging.info("stage %r not implemented yet (later phase) - skipping", stage)
     logging.info("run_all finished in %.1f s", time.time() - t0)

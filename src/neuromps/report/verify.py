@@ -170,7 +170,10 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("paths", nargs="*", type=Path, default=None)
     args = p.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
-    paths = args.paths or sorted(REPORT_DIR.glob("*.md"))
+    # An external review quotes these documents' numbers in order to dispute
+    # them; it is not one of their claims and is not held to their rules.
+    external = {"REVIEW.md", "CONTEXT_FROM_CHAT.md"}
+    paths = args.paths or sorted(p for p in REPORT_DIR.glob("*.md") if p.name not in external)
     found = check_documents(paths)
     total = 0
     for document, problems in found.items():

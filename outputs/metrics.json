@@ -316,6 +316,56 @@
     "records": 21272,
     "usable": 20831
   },
+  "demo_precompute": {
+    "conformal_alpha": 0.1,
+    "fixed_parameters": {
+      "inter_in_degree": 9.0,
+      "threshold_scale": 1.0
+    },
+    "grid": {
+      "ampa_scale": [
+        0.4,
+        0.9,
+        1.4
+      ],
+      "forward_backward_ratio": [
+        1.0,
+        2.11,
+        4.47,
+        9.44,
+        19.95
+      ],
+      "gabaa_scale": [
+        0.1,
+        0.575,
+        1.05,
+        1.525,
+        2.0
+      ]
+    },
+    "label": "precomputed demo inputs; simulated grid plus real-recording posteriors",
+    "n_grid_points": 75,
+    "n_grid_usable": 75,
+    "n_per_compartment": 150,
+    "n_real_recordings": 113,
+    "parameter_names": [
+      "log10_forward_ratio",
+      "inter_in_degree",
+      "gabaa_scale",
+      "ampa_scale",
+      "threshold_scale"
+    ],
+    "posterior_file": "outputs/twin/hd14_posterior_simulated.pt",
+    "posterior_samples_per_point": 200,
+    "quick": false,
+    "simulated_duration_s": 10.0,
+    "timings_s": {
+      "fit_classifier_s": 0.1,
+      "grid_posteriors_s": 21.2,
+      "real_posteriors_s": 34.2,
+      "simulate_grid_s": 28.6
+    }
+  },
   "mechanism_baselines": {
     "task1_within_platform": {
       "bootstrap_resamples": 1000,

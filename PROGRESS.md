@@ -698,3 +698,49 @@ visible rather than assumed fine.
 
 ### Next first task
 - HD17: the Streamlit app, with the twin tab showing HD16's positive and HD15's negative together.
+
+## 2026-09-20: Phase 4, HD17 - the Streamlit demo
+
+### Done
+- `app/app.py` plus `app/loaders.py` and one module per tab; `app/README.md` documents how to run it,
+  what each tab shows and the measured timings. `?tab=N` opens one tab on its own, which is what
+  makes a result linkable and the screenshots reproducible.
+- `run_all.py --stage demo` (`src/neuromps/demo/precompute.py`): a 5x5x3 grid over
+  forward/backward ratio, GABA-A scale and AMPA scale spanning the prior, each point storing its
+  simulated MEA features (through the same `features/mea.py`), a 2 s raster per compartment and
+  posterior samples; posterior samples for all 113 real two-chamber recordings; and a mechanism
+  classifier with its conformal threshold fitted once. Full run 86.7 s, `--quick` (3x3x2) 18.5 s,
+  sizes and timings in `metrics.demo_precompute`.
+- 12 `AppTest` smoke tests: every tab renders without raising, the widgets each tab is built around
+  exist, the banner is present, and an interaction stays inside the one-second budget.
+- Screenshots `outputs/figures/app_tab{1,2,3}.png`, captured from the running app.
+
+### Measured interaction timings (`AppTest`, this machine)
+| action | time |
+|---|---|
+| cold load | 1.9 s |
+| warm rerun | 0.65 s |
+| twin slider | 0.64-0.85 s |
+| real-recording selector | 0.84 s |
+| feature slider to new prediction | 0.62 s |
+| live Brian2 run (button) | 4.5 s, then cached |
+
+### Four bugs the build found
+1. **Brian2 cannot be imported in Streamlit's thread.** It registers a SIGINT handler, and
+   `signal.signal` only works in a main thread; a spawned multiprocessing child re-imports the app
+   script and hangs. The live run now shells out to `python -m neuromps.demo.simulate_one`.
+2. **QC badges counted characters.** `qc.flags` is a semicolon-separated string, so iterating it
+   produced "e: 1275, r: 566". Found by reading the first screenshot.
+3. **Three delta features had NaN slider bounds**, because `np.percentile` propagates NaN from the
+   sources that publish no burst statistics; the slider then had equal ends and Streamlit raised.
+4. **Query parameters arrive as a list in `AppTest` and a string in the server**, so the deep link
+   worked in neither until both were handled.
+
+### Budget
+- `run_all.py --quick` hit **668 s**, over the 600 s limit, and the demo stage was not the cause:
+  posterior *evaluation* had grown to 192 s because the reseeded estimator has lower acceptance and
+  rejection sampling slowed. Quick mode now evaluates 60 holdout points instead of 350 (44.8 s), and
+  records how many it saw.
+
+### Next first task
+- Work through `report/REVIEW.md`.

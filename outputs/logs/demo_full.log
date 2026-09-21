@@ -1,0 +1,13 @@
+2026-09-20 21:58:14,158 INFO simulating 75 grid points on 16 processes
+2026-09-20 21:59:39,412 INFO run_all finished in 86.7 s
+{
+  "n_grid_points": 75,
+  "n_grid_usable": 75,
+  "n_real_recordings": 113,
+  "timings_s": {
+    "simulate_grid_s": 28.8,
+    "grid_posteriors_s": 21.8,
+    "real_posteriors_s": 34.0,
+    "fit_classifier_s": 0.1
+  }
+}
