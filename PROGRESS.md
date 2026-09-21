@@ -1055,3 +1055,27 @@ that reproducing its numbers takes the full path.
 ### Still open
 - The demo video (below).
 - `RESULTS_DRAFT.md` overlaps the report and should be retired or folded in.
+
+## 2026-09-21: the demo video (option B — captioned, no narration)
+
+### Built
+- `src/neuromps/video/shots.py` — the shot list, with every quoted number read from
+  `outputs/metrics.json` at build time, so a caption cannot disagree with the report.
+- `src/neuromps/video/build.py` — renders each shot to a 1920x1080 frame (screenshot or card,
+  caption bar, section label) and encodes with ffmpeg. `make video`.
+- 9 tests: the running time fits the five-minute limit, every still exists and every crop lies
+  inside its image, the plan's five sections are covered, the research-use framing is on screen, and
+  building against metrics that lack a cited key raises rather than inventing a value.
+
+### The video
+**21 shots, 276 s (4:36), 1920x1080 H.264, 3.4 MB.** Structure follows PLAN's budget: problem 35 s,
+data asset and standard 55 s, transfer 60 s, twin and inference 90 s, reproducibility 36 s.
+
+The app shots are real captures of the running app, taken over the DevTools protocol — including a
+genuine click on the live-simulation button, so the frame shows **"Simulated 6 s in 3.82 s of wall
+clock"** with the raster it produced. Nothing in the video is mocked.
+
+### What it is not
+There is no narration, and the captions carry the argument instead. This is the fallback artefact;
+when we record option A, the same shot list is the script, and the app should be driven live rather
+than shown as stills.
