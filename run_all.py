@@ -100,14 +100,27 @@ def _record_timings(timings: dict, elapsed: float, quick: bool, stages: list[str
     The reproducibility section quoted a stage table that existed only in a log
     file, in a report whose opening paragraph promises every number has a key.
     """
-    from neuromps.metrics import update_metrics
+    import json
 
+    from neuromps.metrics import update_metrics
+    from neuromps.paths import metrics_path
+
+    # Merge rather than replace: `--stage models` must not erase the timing the
+    # demo stage recorded on its own run, which the report cites.
+    key = "run_all_timings_quick" if quick else "run_all_timings_full"
+    previous = (
+        json.loads(metrics_path().read_text()).get(key, {}) if metrics_path().exists() else {}
+    )
+    merged = {**previous.get("by_stage_s", {}), **timings}
     update_metrics(
-        "run_all_timings_quick" if quick else "run_all_timings_full",
+        key,
         {
-            "label": f"wall-clock seconds per stage, {'--quick' if quick else 'full'} run",
+            "label": (
+                f"wall-clock seconds per stage, most recent "
+                f"{'--quick' if quick else 'full'} run of each"
+            ),
             "total_s": elapsed,
-            "by_stage_s": timings,
+            "by_stage_s": merged,
             "stages_run": list(stages),
         },
     )

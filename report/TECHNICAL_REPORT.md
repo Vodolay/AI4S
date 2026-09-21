@@ -19,7 +19,7 @@ prose. The decision record behind these results, including what was tried and ab
 Two layers were built:
 
 **(A) A standardized, provenance-tracked data asset** of public neural microelectrode-array (MEA)
-recordings: 21,272 records <!-- metrics.json: data_asset.n_records --> from four sources, each
+recordings: 21,380 records <!-- metrics.json: data_asset.n_records --> from five sources, each
 record carrying its source URL, license, SHA256 and download time, validated against a JSON Schema
 at a conformance level that requires every provenance hash to match the download manifest.
 
@@ -91,7 +91,7 @@ that records carry an explicit **data level**, and that records only compare wit
 
 | level | meaning | records |
 |---|---|---|
-| `spike_times` | per-electrode spike trains; our feature vector is computable | 897 <!-- metrics.json: data_asset.counts.by_data_level.spike_times --> |
+| `spike_times` | per-electrode spike trains; our feature vector is computable | 1,005 <!-- metrics.json: data_asset.counts.by_data_level.spike_times --> |
 | `fitted_curve` | published concentration-response fits only | 20,375 <!-- metrics.json: data_asset.counts.by_data_level.fitted_curve --> |
 | `per_well_features` | vendor feature tables without spike times | — |
 
@@ -116,9 +116,9 @@ a downstream analysis can make its own decision.
 | flag | records | what it means |
 |----------------------------|-------|--------------------------------------------|
 | `incomplete_dose_series` | 272 <!-- metrics.json: data_card.flag_counts.incomplete_dose_series --> | the compound's dose series is missing points |
-| `too_few_active_electrodes` | 169 <!-- metrics.json: data_card.flag_counts.too_few_active_electrodes --> | under 10 electrodes cleared 5 spikes/min |
-| `replicate_divergence` | 151 <!-- metrics.json: data_card.flag_counts.replicate_divergence --> | one replicate departs from its group |
-| `outlier_feature_value` | 151 <!-- metrics.json: data_card.flag_counts.outlier_feature_value --> | a feature sits far outside its source's distribution |
+| `too_few_active_electrodes` | 184 <!-- metrics.json: data_card.flag_counts.too_few_active_electrodes --> | under 10 electrodes cleared 5 spikes/min |
+| `replicate_divergence` | 161 <!-- metrics.json: data_card.flag_counts.replicate_divergence --> | one replicate departs from its group |
+| `outlier_feature_value` | 161 <!-- metrics.json: data_card.flag_counts.outlier_feature_value --> | a feature sits far outside its source's distribution |
 | `excluded_well_upstream` | 90 <!-- metrics.json: data_card.flag_counts.excluded_well_upstream --> | the source's own log excluded the well |
 | `noisy_electrodes_present` | 11 <!-- metrics.json: data_card.flag_counts.noisy_electrodes_present --> | the source marked electrodes as noisy |
 
@@ -170,10 +170,11 @@ disagreement reported in §6.4, and that remains untested.
 | `screenneuropharm_bic` | 580 <!-- metrics.json: data_asset.counts.by_source.screenneuropharm_bic --> | spike_times | rat | MIT |
 | `kapucu2022` | 288 <!-- metrics.json: data_asset.counts.by_source.kapucu2022 --> | spike_times | human, rat | CC-BY-4.0 |
 | `sharf2022` | 29 <!-- metrics.json: data_asset.counts.by_source.sharf2022 --> | spike_times | human | CC0-1.0 |
+| `mateus2024` | 108 <!-- metrics.json: data_asset.counts.by_source.mateus2024 --> | spike_times | rat | CC-BY-4.0 |
 
-Totals: 21,272 records <!-- metrics.json: data_asset.n_records -->, of which 20,831 are marked usable
-<!-- metrics.json: data_asset.counts.by_usable.True --> and 441 are not
-<!-- metrics.json: data_asset.counts.by_usable.False -->. By species, 21,099 records are rat
+Totals: 21,380 records <!-- metrics.json: data_asset.n_records -->, of which 20,924 are marked usable
+<!-- metrics.json: data_asset.counts.by_usable.True --> and 456 are not
+<!-- metrics.json: data_asset.counts.by_usable.False -->. By species, 21,207 records are rat
 <!-- metrics.json: data_asset.counts.by_species.rat --> and 173 are human
 <!-- metrics.json: data_asset.counts.by_species.human -->.
 
@@ -206,8 +207,9 @@ whatever licence claim it finds into `data/raw/MANIFEST.json`. **The resolution 
 correspondence, which a reader cannot verify**; `data/SOURCES.md` says so in those words. This is the
 one source in the asset whose licence rests on anything other than a public record.
 
-Its recordings are analysed in §7.7. They are not yet part of the built asset, so the counts above
-do not include them.
+Its 108 records <!-- metrics.json: data_asset.counts.by_source.mateus2024 --> are in the asset:
+two chambers per recording, split at the microchannel band recovered from the spike times, with
+features from the same extractor as every other source. They are analysed in §7.7.
 
 ---
 
@@ -784,7 +786,7 @@ The design constraint was that an interaction must never wait on a simulator.
 <!-- metrics.json: demo_precompute.n_grid_points --> twin simulations spanning the prior, with
 posterior samples per point, posterior
 samples for all 113 real two-chamber recordings
-<!-- metrics.json: demo_precompute.n_real_recordings -->, and a classifier fitted once, in 85.4 s
+<!-- metrics.json: demo_precompute.n_real_recordings -->, and a classifier fitted once, in 85.1 s
 <!-- metrics.json: run_all_timings_full.by_stage_s.demo -->. Measured through Streamlit's own test
 harness, every interaction lands between 0.6 and 0.9 s; the one exception is a button that runs a
 single Brian2 simulation at the current slider values in about 4.5 s, which exists so that the twin

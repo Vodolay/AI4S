@@ -275,7 +275,7 @@
     "counts": {
       "by_data_level": {
         "fitted_curve": 20375,
-        "spike_times": 897
+        "spike_times": 1005
       },
       "by_mechanism_class": {
         "gabaa_agonist_or_pam": 26,
@@ -283,25 +283,26 @@
         "glutamatergic_agonist": 11,
         "glutamatergic_antagonist": 22,
         "na_channel_blocker": 113,
-        "none": 20563
+        "none": 20671
       },
       "by_source": {
         "kapucu2022": 288,
+        "mateus2024": 108,
         "screenneuropharm_bic": 580,
         "sharf2022": 29,
         "toxcast_mea": 20375
       },
       "by_species": {
         "human": 173,
-        "rat": 21099
+        "rat": 21207
       },
       "by_usable": {
-        "False": 441,
-        "True": 20831
+        "False": 456,
+        "True": 20924
       }
     },
-    "generated_at": "2026-09-20T17:02:34+00:00",
-    "n_records": 21272,
+    "generated_at": "2026-09-21T20:59:44+00:00",
+    "n_records": 21380,
     "schema": "schema/neuromps_schema.json"
   },
   "data_card": {
@@ -309,12 +310,13 @@
       "excluded_well_upstream": 90,
       "incomplete_dose_series": 272,
       "noisy_electrodes_present": 11,
-      "outlier_feature_value": 151,
-      "replicate_divergence": 151,
-      "too_few_active_electrodes": 169
+      "outlier_feature_value": 161,
+      "replicate_divergence": 161,
+      "too_few_active_electrodes": 184,
+      "unreadable_channels": 2
     },
-    "records": 21272,
-    "usable": 20831
+    "records": 21380,
+    "usable": 20924
   },
   "demo_precompute": {
     "conformal_alpha": 0.1,
@@ -361,8 +363,8 @@
     "simulated_duration_s": 10.0,
     "timings_s": {
       "fit_classifier_s": 0.1,
-      "grid_posteriors_s": 20.5,
-      "real_posteriors_s": 33.7,
+      "grid_posteriors_s": 20.9,
+      "real_posteriors_s": 34.0,
       "simulate_grid_s": 28.4
     }
   },
@@ -839,13 +841,14 @@
   },
   "run_all_timings_full": {
     "by_stage_s": {
-      "demo": 85.4
+      "demo": 85.1,
+      "models": 16.5
     },
-    "label": "wall-clock seconds per stage, full run",
+    "label": "wall-clock seconds per stage, most recent full run of each",
     "stages_run": [
       "demo"
     ],
-    "total_s": 85.4
+    "total_s": 85.1
   },
   "species_transfer": {
     "source": "kapucu2022",

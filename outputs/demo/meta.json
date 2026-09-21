@@ -42,8 +42,8 @@
   "conformal_alpha": 0.1,
   "timings_s": {
     "simulate_grid_s": 28.4,
-    "grid_posteriors_s": 20.5,
-    "real_posteriors_s": 33.7,
+    "grid_posteriors_s": 20.9,
+    "real_posteriors_s": 34.0,
     "fit_classifier_s": 0.1
   },
   "quick": false

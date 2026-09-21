@@ -30,7 +30,8 @@
         "toxcast_mea",
         "sharf2022",
         "fofie2025",
-        "screenneuropharm_bic"
+        "screenneuropharm_bic",
+        "mateus2024"
       ],
       "description": "Source key; must match a source in data/raw/MANIFEST.json."
     },
@@ -736,8 +737,10 @@
               "missing_baseline_pair",
               "replicate_divergence",
               "outlier_feature_value",
-              "incomplete_dose_series"
-            ]
+              "incomplete_dose_series",
+              "unreadable_channels"
+            ],
+            "description": "'unreadable_channels': channel datasets in the source file that could not be decoded, so the recording is kept with fewer channels than the array carries."
           },
           "uniqueItems": true
         },
@@ -873,6 +876,28 @@
             "null"
           ],
           "exclusiveMinimum": 0
+        },
+        "microchannel_geometry": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Named microchannel design, as the source names it (e.g. 'control' for straight channels, 'tesla' for a Tesla valve). Free text because designs are not standardised."
+        },
+        "asymmetric_microchannels": {
+          "type": [
+            "boolean",
+            "null"
+          ],
+          "description": "Whether the connecting channels are geometrically asymmetric, which is the property a directional claim rests on. Null when the source does not say."
+        },
+        "n_in_channel_electrodes": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0,
+          "description": "Electrodes sitting inside the connecting channels rather than in either chamber. They belong to no compartment and are excluded from both chambers' features."
         }
       }
     },

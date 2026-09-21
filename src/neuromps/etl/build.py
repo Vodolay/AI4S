@@ -75,8 +75,31 @@ def collect_records(raw_root: Path = RAW_ROOT, full: bool = False) -> list[dict]
     records += _toxcast_records(hashes, full)
     records += _screenneuropharm_records(hashes, raw_root, full)
     records += _archive_records(sharf, hashes, raw_root, full)
+    records += _mateus_records(hashes, raw_root)
     add_cross_record_flags(records)  # replicate divergence, outliers, unpaired exposures
     return records
+
+
+def _mateus_records(hashes: dict[str, str], raw_root: Path) -> list[dict]:
+    """Two chamber records per Mateus recording; absent unless the archive was fetched.
+
+    The archive is a full-tier download, so a quick run simply has no records
+    from this source rather than a partial version of them.
+    """
+    from neuromps.etl.mateus2024_records import build_records
+    from neuromps.paths import interim_dir
+
+    archive = raw_root / "mateus2024" / "1_MEA_Recordings.zip"
+    if not archive.exists():
+        log.info("mateus2024 archive not fetched; skipping")
+        return []
+    built = build_records(
+        archive,
+        sha=hashes.get(archive.name),
+        cache_path=interim_dir() / "mateus2024_records.json",
+    )
+    log.info("mateus2024: %d records", len(built))
+    return built
 
 
 def _toxcast_records(hashes: dict[str, str], full: bool) -> list[dict]:

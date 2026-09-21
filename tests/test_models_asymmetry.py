@@ -126,3 +126,15 @@ def test_main_skips_an_asset_built_without_the_two_chamber_source(tmp_path) -> N
     asset = tmp_path / "neuromps.parquet"
     pd.DataFrame([{"source": "kapucu2022", "features.mfr_hz": 1.0}]).to_parquet(asset)
     assert main(["--asset", str(asset)]) == 0
+
+
+def test_the_analysis_is_scoped_to_one_device_family() -> None:
+    """Another source's compartments must not be pooled into this comparison."""
+    from pathlib import Path
+
+    from neuromps.models.asymmetry import DEVICE_FAMILY, main
+
+    assert DEVICE_FAMILY == "screenneuropharm_bic"
+    source = (Path(__file__).resolve().parents[1] / "src/neuromps/models/asymmetry.py").read_text()
+    assert 'compartments["source"] == DEVICE_FAMILY' in source
+    assert main is not None

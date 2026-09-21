@@ -684,6 +684,34 @@ ground truth. This is the first time the question has been put to real devices w
 fabricated rather than assumed, and it does not reproduce. The sample is too small and too
 confounded to call that a refutation, and too directly aimed to leave out.
 
+
+### 2026-09-21 — `mateus2024` step 4: extending the standard to admit a source (`STEP4`)
+
+**The schema rejected the new records, and that was the point.** All 108 failed validation on the
+first build: an unknown source, three device fields with nowhere to live, a QC flag outside the
+vocabulary, and missing required method and provenance fields. Each was added to
+`schema/neuromps_schema.json` deliberately — `device.microchannel_geometry`,
+`device.asymmetric_microchannels` and `device.n_in_channel_electrodes` describe the property a
+directional claim rests on and the electrodes that belong to neither chamber; `unreadable_channels`
+names a real condition that `noisy_electrodes_present` would have misdescribed. Loosening the schema
+instead would have been faster and would have cost the standard its meaning.
+
+**Decision: record whose spike detection this is.** The deposit publishes spikes, not traces, so
+`feature_method.spike_detection` says "publisher: 200 Hz high-pass, 5x SD threshold, 3 ms dead time
+(Mateus et al. 2024 methods)". Our own burst, network-burst and synchrony methods sit beside it. A
+reader can then see that two of the three feature families are ours and the detection is theirs.
+
+**Decision: a recording with no detected microchannel band yields no records.** Three of 57 produce
+nothing rather than a chamber split guessed from a default row. An asset that contains invented
+geometry is worse than one that is three recordings smaller.
+
+**A silent-change hazard, found by looking for it.** `models/asymmetry.py` selected every compartment
+record in the asset, so a second two-chamber family would have been pooled into a comparison about
+cortical/hippocampal device types without any error. It is now scoped to its source with a test, and
+§6.7's numbers are unchanged. HD15's real-data inference turned out to be safe only because it
+filters on the chamber *names* `red` and `green`; a source that happened to use those names would
+have joined it silently, so that scope is now pinned by a test too.
+
 ---
 
 ## Tried and abandoned

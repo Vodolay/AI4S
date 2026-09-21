@@ -18,11 +18,11 @@ exist in `outputs/`, the text says `[MISSING: ...]` instead of estimating.
 **A single schema-validated asset holds 21,272 records from four openly licensed sources, but it is
 dominated by one source and by one data level, and the two levels cannot be compared.**
 
-The build produces 21,272 records <!-- metrics.json: data_asset.n_records --> validated against
+The build produces 21,380 records <!-- metrics.json: data_asset.n_records --> validated against
 `schema/neuromps_schema.json` at conformance level 2 (every provenance hash matches
-`data/raw/MANIFEST.json`), generated 2026-09-20T17:02:34+00:00
-<!-- metrics.json: data_asset.generated_at -->. Of these, 20,831 are marked usable
-<!-- metrics.json: data_asset.counts.by_usable.True --> and 441 are not
+`data/raw/MANIFEST.json`), generated 2026-09-21T20:59:44+00:00
+<!-- metrics.json: data_asset.generated_at -->. Of these, 20,924 are marked usable
+<!-- metrics.json: data_asset.counts.by_usable.True --> and 456 are not
 <!-- metrics.json: data_asset.counts.by_usable.False -->.
 
 Composition by source:
@@ -35,11 +35,11 @@ Composition by source:
 | `sharf2022` | 29 <!-- metrics.json: data_asset.counts.by_source.sharf2022 --> | spike_times | human | CC0-1.0 <!-- outputs/DATA_CARD.md, Sources table, license column --> |
 
 The imbalance is the first thing to state plainly. Of 21,272 records, 20,375
-<!-- metrics.json: data_asset.counts.by_data_level.fitted_curve --> are ToxCast curve fits, leaving 897 records at
+<!-- metrics.json: data_asset.counts.by_data_level.fitted_curve --> are ToxCast curve fits, leaving 1005 records at
 `spike_times` level <!-- metrics.json: data_asset.counts.by_data_level.spike_times --> — the only
-records from which our own feature vector can be computed. By species, 21,099 records are rat
+records from which our own feature vector can be computed. By species, 21,207 records are rat
 <!-- metrics.json: data_asset.counts.by_species.rat --> and 173 are human
-<!-- metrics.json: data_asset.counts.by_species.human -->. By mechanism class, 20,563 records carry
+<!-- metrics.json: data_asset.counts.by_species.human -->. By mechanism class, 20,671 records carry
 no mechanism label <!-- metrics.json: data_asset.counts.by_mechanism_class.none -->; the labelled
 classes are GABA-A antagonist 537 <!-- metrics.json: data_asset.counts.by_mechanism_class.gabaa_antagonist -->,
 Na-channel blocker 113 <!-- metrics.json: data_asset.counts.by_mechanism_class.na_channel_blocker -->,
@@ -55,9 +55,9 @@ interface records <!-- outputs/DATA_CARD.md, "Multi-compartment devices" section
 basis of §5.
 
 Cross-record QC flagged, across the whole asset: 272 `incomplete_dose_series`
-<!-- metrics.json: data_card.flag_counts.incomplete_dose_series -->, 169
+<!-- metrics.json: data_card.flag_counts.incomplete_dose_series -->, 184
 `too_few_active_electrodes` <!-- metrics.json: data_card.flag_counts.too_few_active_electrodes -->,
-151 `replicate_divergence` <!-- metrics.json: data_card.flag_counts.replicate_divergence -->, 151
+161 `replicate_divergence` <!-- metrics.json: data_card.flag_counts.replicate_divergence -->, 161
 `outlier_feature_value` <!-- metrics.json: data_card.flag_counts.outlier_feature_value -->, 90
 `excluded_well_upstream` <!-- metrics.json: data_card.flag_counts.excluded_well_upstream --> and 11
 `noisy_electrodes_present` <!-- metrics.json: data_card.flag_counts.noisy_electrodes_present -->.
@@ -240,7 +240,7 @@ a GABA-A antagonist in 0.077 of 13 pairs
 <!-- metrics.json: mechanism_baselines.task2_external_detection.sharf_diazepam_negative_control.detection_rate and .n -->
 at mean probability 0.210
 <!-- metrics.json: mechanism_baselines.task2_external_detection.sharf_diazepam_negative_control.mean_probability -->,
-with probability falling as dose rises: ρ = −0.799
+with probability falling as dose rises: ρ = −-0.799
 <!-- metrics.json: mechanism_baselines.task2_external_detection.sharf_diazepam_negative_control.dose_spearman -->,
 p = 0.00104
 <!-- metrics.json: mechanism_baselines.task2_external_detection.sharf_diazepam_negative_control.dose_spearman_p -->.
@@ -527,13 +527,13 @@ the portable features" survives its own test, in the weak sense that dropping th
 costs nothing.
 
 Leave-one-out confirms this from the other direction. Only `mfr_hz` clearly matters: dropping it
-changes balanced accuracy by −0.050
+changes balanced accuracy by −-0.05
 <!-- metrics.json: uncertainty_and_ablations.leave_one_out.mfr_hz.delta_vs_all -->. Dropping
-`synchrony_index` changes it by −0.014
+`synchrony_index` changes it by −-0.014
 <!-- metrics.json: uncertainty_and_ablations.leave_one_out.synchrony_index.delta_vs_all -->,
-`active_electrodes` by −0.011
+`active_electrodes` by −-0.011
 <!-- metrics.json: uncertainty_and_ablations.leave_one_out.active_electrodes.delta_vs_all -->, and
-`isi_cv` by −0.006
+`isi_cv` by −-0.006
 <!-- metrics.json: uncertainty_and_ablations.leave_one_out.isi_cv.delta_vs_all -->. Dropping
 `burst_rate_per_min`, `burst_duration_s` or `spikes_per_burst` changes nothing at all (0.000)
 <!-- metrics.json: uncertainty_and_ablations.leave_one_out.{burst_rate_per_min,burst_duration_s,spikes_per_burst}.delta_vs_all -->,
@@ -553,7 +553,7 @@ conformal figure exists for this subsection.]
 
 Stated plainly, because several of the results above are weak or negative:
 
-- The asset and standard are the solid part. 21,272 validated, hash-traceable records
+- The asset and standard are the solid part. 21,380 validated, hash-traceable records
   <!-- metrics.json: data_asset.n_records -->, four sources, explicit data levels, and a coverage
   table that shows the gaps instead of hiding them.
 - Mechanism information is present in MEA feature deltas within one platform (0.537 vs 0.167 chance)

@@ -980,3 +980,44 @@ refutation of it — and it is the honest counterweight to a simulation-only cla
 
 ### Next
 Report, writeup and metrics updates now that the numbers exist.
+
+## 2026-09-21: `mateus2024` step 4 — into the asset, and the standard it needed
+
+### Done
+- `src/neuromps/etl/mateus2024_records.py` + 11 tests: two records per recording, one per chamber,
+  split at the microchannel band recovered in step 3. Features from `features/mea.py` and coupling
+  from `features/coupling.py`, the same functions every other source uses. **108 records** from 54
+  recordings (3 had no detectable band and yield nothing rather than an invented split), 25 devices,
+  93 usable.
+- The asset is now **21,380 records** across five sources, `spike_times` up from 897 to 1,005 - a
+  12% increase in the records the nine-feature pipeline can actually be computed on.
+
+### The schema had to be extended, deliberately
+The build refused all 108 records on first attempt, which is the standard working. Four things were
+missing and each was added rather than worked around:
+- `mateus2024` in the source enum.
+- `device.microchannel_geometry`, `device.asymmetric_microchannels`, `device.n_in_channel_electrodes`
+  — the geometry a directional claim rests on, and the electrodes that belong to neither chamber.
+- `qc.flags: unreadable_channels` — a distinct condition (datasets in the deposit that fail to
+  decode) that would otherwise have been mislabelled as `noisy_electrodes_present`.
+- The required `feature_method` and `provenance` fields. `spike_detection` records that the spikes
+  are **the depositors'**, detected before publication, since the deposit carries no raw traces.
+
+### Two silent-change hazards, one real
+- **`models/asymmetry.py` took every compartment record with no source filter.** Adding a second
+  two-chamber family would have pooled cortical/hippocampal devices with microchannel chips into a
+  comparison whose conclusion is about device type. It is now scoped to `screenneuropharm_bic` with
+  a test; §6.7's numbers are unchanged (16 devices, p = 0.042, lag p = 0.0082).
+- **HD15's real-data inference was safe by luck**: it filters on chamber names (`red`, `green`), and
+  the new records use `source`/`target`. A future source naming chambers red/green would have joined
+  the analysis silently. A test now pins that scope.
+
+### Also fixed
+- `run_all.py` stage timings replaced the whole map, so `--stage models` erased the demo timing the
+  report cites. They merge now.
+- A bulk number-refresh script of mine rewrote "92.4%" as "0.924%". The citation verifier caught it
+  in the same run that introduced it.
+
+### Report
+Five sources in §4, the new counts throughout, and §4.2 now states the records are in the asset.
+22 pages, 169 citations verified across the three documents.

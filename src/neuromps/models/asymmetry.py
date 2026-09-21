@@ -30,6 +30,7 @@ from scipy.stats import kruskal, mannwhitneyu
 log = logging.getLogger("neuromps.models")
 CHAMBERS = ("red", "green")
 HETEROGENEOUS = ("CxHp",)
+DEVICE_FAMILY = "screenneuropharm_bic"
 MIN_PER_GROUP = 3
 
 
@@ -217,6 +218,11 @@ def main(argv: list[str] | None = None) -> int:
 
     records = pd.read_parquet(asset)
     compartments = compartment_records(records)
+    # This analysis is about one device family - the cortical/hippocampal
+    # three-chamber devices whose chamber contents the device_id encodes. Other
+    # two-chamber sources carry compartments too, and pooling them here would
+    # silently answer a different question with the same words.
+    compartments = compartments[compartments["source"] == DEVICE_FAMILY]
     if compartments.empty:
         log.warning(
             "no compartment records in %s; skipping (the two-chamber source is fetched "

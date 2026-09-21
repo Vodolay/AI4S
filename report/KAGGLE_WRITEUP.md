@@ -8,8 +8,8 @@
 
 Two things, built to be reproduced by one command:
 
-1. **A standardized data asset** of public neural microelectrode-array recordings — 21,272 records
-   <!-- metrics.json: data_asset.n_records --> from four sources — where every record carries the
+1. **A standardized data asset** of public neural microelectrode-array recordings — 21,380 records
+   <!-- metrics.json: data_asset.n_records --> from five sources — where every record carries the
    URL, license, SHA256 and download time of the file it came from, and the build refuses to emit an
    asset if any provenance hash fails to match the download manifest.
 
