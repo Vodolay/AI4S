@@ -661,3 +661,40 @@ parameter, and the report should say exactly that rather than lead with either n
 - Streamlit app: browse the asset with QC flags and provenance; mechanism prediction with conformal
   set; twin sliders. The twin tab should show the HD16 identifiability result and the HD15 negative
   side by side, since together they are the honest story.
+
+## 2026-09-20: Phase 4, HD18 - the technical report (HD17 skipped for now)
+
+### Done
+- `report/TECHNICAL_REPORT.md` (11 sections per PLAN): problem, data standard, data asset, methods,
+  model results, twin results, limitations, reproducibility, AI-assistance disclosure, sources.
+  109 citations, 106 verified against live metrics, 3 pointers to structured fields.
+- `report/KAGGLE_WRITEUP.md`: the competition summary, 13 citations, all verified.
+- `src/neuromps/report/verify.py` + 20 tests: every number in a report cites the
+  `outputs/metrics.json` key that produced it, and the checker re-reads each citation and fails on
+  disagreement. This is the enforcement of the "no hand-written numbers" rule.
+- `src/neuromps/report/attribution.py`: `CITATIONS.md` generated from `data/raw/MANIFEST.json` and
+  `THIRD_PARTY.md` from installed package metadata, with a drift test. `LICENSE` (MIT) added, noting
+  that downloaded data keep their own licenses.
+- README now indexes the documents and how to check them.
+
+### What the checker caught immediately
+- A **stale asset timestamp** in `RESULTS_DRAFT.md` (16:17:51 against the live 17:02:34) - exactly
+  the drift the rule exists to prevent.
+- **Three citations anchored to the wrong number**, where prose put a different figure closest to
+  the comment, and four where a magnitude was written for a negative delta.
+- **Two transcription slips of my own** while writing the report (0.3872 for 0.3869).
+
+The checker needed fixing too, each time against a real document: typographic minus signs read as
+positive, a number separated from its citation by words skipped *silently*, and structured metric
+values crashing it. It now separates verified citations from pointers, so an unchecked claim is
+visible rather than assumed fine.
+
+### Open
+- **HD17 (Streamlit app) is not built.** The report and writeup say so explicitly rather than
+  describing it in the present tense. The app skeleton in `app/` is untouched.
+- The demo video (HD19) and the Kaggle submission links (HD20) remain.
+- `RESULTS_DRAFT.md` overlaps the technical report and should either be folded in or marked as
+  superseded before submission.
+
+### Next first task
+- HD17: the Streamlit app, with the twin tab showing HD16's positive and HD15's negative together.
