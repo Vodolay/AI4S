@@ -20,7 +20,7 @@ dominated by one source and by one data level, and the two levels cannot be comp
 
 The build produces 21,272 records <!-- metrics.json: data_asset.n_records --> validated against
 `schema/neuromps_schema.json` at conformance level 2 (every provenance hash matches
-`data/raw/MANIFEST.json`), generated 2026-09-20T16:17:51+00:00
+`data/raw/MANIFEST.json`), generated 2026-09-20T17:02:34+00:00
 <!-- metrics.json: data_asset.generated_at -->. Of these, 20,831 are marked usable
 <!-- metrics.json: data_asset.counts.by_usable.True --> and 441 are not
 <!-- metrics.json: data_asset.counts.by_usable.False -->.
@@ -34,8 +34,8 @@ Composition by source:
 | `kapucu2022` | 288 <!-- metrics.json: data_asset.counts.by_source.kapucu2022 --> | spike_times | human, rat | CC-BY-4.0 <!-- outputs/DATA_CARD.md, Sources table, license column --> |
 | `sharf2022` | 29 <!-- metrics.json: data_asset.counts.by_source.sharf2022 --> | spike_times | human | CC0-1.0 <!-- outputs/DATA_CARD.md, Sources table, license column --> |
 
-The imbalance is the first thing to state plainly. 20,375 of 21,272 records are ToxCast curve fits
-<!-- metrics.json: data_asset.counts.by_data_level.fitted_curve -->, leaving 897 records at
+The imbalance is the first thing to state plainly. Of 21,272 records, 20,375
+<!-- metrics.json: data_asset.counts.by_data_level.fitted_curve --> are ToxCast curve fits, leaving 897 records at
 `spike_times` level <!-- metrics.json: data_asset.counts.by_data_level.spike_times --> — the only
 records from which our own feature vector can be computed. By species, 21,099 records are rat
 <!-- metrics.json: data_asset.counts.by_species.rat --> and 173 are human
@@ -166,8 +166,11 @@ Gradient boosting underperforms logistic regression by 0.139 balanced accuracy
 which at this sample size is the expected direction: the flexible model has nothing to fit but noise.
 
 **Two estimates exist for the same nominal model and must be reconciled before publication.** The
-classification script reports 0.537 ± 0.102 for logistic regression on all nine features
-<!-- metrics.json: mechanism_baselines.task1_within_platform.models.logistic_regression.balanced_accuracy_mean -->,
+classification script reports 0.537
+<!-- metrics.json: mechanism_baselines.task1_within_platform.models.logistic_regression.balanced_accuracy_mean -->
+± 0.102
+<!-- metrics.json: mechanism_baselines.task1_within_platform.models.logistic_regression.balanced_accuracy_sd -->
+for logistic regression on all nine features,
 while the ablation script reports 0.514 ± 0.107 for the `all` feature subset
 <!-- metrics.json: uncertainty_and_ablations.feature_subsets.all.balanced_accuracy_mean and .balanced_accuracy_sd -->,
 on the same 73 pairs <!-- metrics.json: uncertainty_and_ablations.n_pairs --> and the same 6 classes
@@ -524,13 +527,13 @@ the portable features" survives its own test, in the weak sense that dropping th
 costs nothing.
 
 Leave-one-out confirms this from the other direction. Only `mfr_hz` clearly matters: dropping it
-costs 0.050 balanced accuracy
+changes balanced accuracy by −0.050
 <!-- metrics.json: uncertainty_and_ablations.leave_one_out.mfr_hz.delta_vs_all -->. Dropping
-`synchrony_index` costs 0.014
+`synchrony_index` changes it by −0.014
 <!-- metrics.json: uncertainty_and_ablations.leave_one_out.synchrony_index.delta_vs_all -->,
-`active_electrodes` 0.011
+`active_electrodes` by −0.011
 <!-- metrics.json: uncertainty_and_ablations.leave_one_out.active_electrodes.delta_vs_all -->, and
-`isi_cv` 0.006
+`isi_cv` by −0.006
 <!-- metrics.json: uncertainty_and_ablations.leave_one_out.isi_cv.delta_vs_all -->. Dropping
 `burst_rate_per_min`, `burst_duration_s` or `spikes_per_burst` changes nothing at all (0.000)
 <!-- metrics.json: uncertainty_and_ablations.leave_one_out.{burst_rate_per_min,burst_duration_s,spikes_per_burst}.delta_vs_all -->,

@@ -2181,6 +2181,96 @@
       }
     },
     "rate_only_is_the_validity_check": "in the rate-matched arm the rate_only AUC should fall towards chance; if it does not, the matching failed and that arm says nothing about direction",
+    "summary_by_feature_set": {
+      "free_rate": {
+        "all": {
+          "all_better_than_chance": true,
+          "max": 0.9863,
+          "min": 0.9219,
+          "n_cells": 12
+        },
+        "all_nonlinear": {
+          "all_better_than_chance": true,
+          "max": 0.9937,
+          "min": 0.8813,
+          "n_cells": 12
+        },
+        "all_rate_residualized": {
+          "all_better_than_chance": false,
+          "max": 0.9728,
+          "min": 0.5575,
+          "n_cells": 12
+        },
+        "coupling_only": {
+          "all_better_than_chance": true,
+          "max": 0.9434,
+          "min": 0.8684,
+          "n_cells": 12
+        },
+        "coupling_only_rate_residualized": {
+          "all_better_than_chance": true,
+          "max": 0.9616,
+          "min": 0.6675,
+          "n_cells": 12
+        },
+        "rate_only": {
+          "all_better_than_chance": true,
+          "max": 0.9841,
+          "min": 0.8644,
+          "n_cells": 12
+        },
+        "rate_only_rate_residualized": {
+          "all_better_than_chance": false,
+          "max": 0.5969,
+          "min": 0.3869,
+          "n_cells": 12
+        }
+      },
+      "rate_matched": {
+        "all": {
+          "all_better_than_chance": true,
+          "max": 1.0,
+          "min": 1.0,
+          "n_cells": 12
+        },
+        "all_nonlinear": {
+          "all_better_than_chance": true,
+          "max": 1.0,
+          "min": 0.9681,
+          "n_cells": 12
+        },
+        "all_rate_residualized": {
+          "all_better_than_chance": true,
+          "max": 1.0,
+          "min": 0.8662,
+          "n_cells": 12
+        },
+        "coupling_only": {
+          "all_better_than_chance": true,
+          "max": 1.0,
+          "min": 0.9903,
+          "n_cells": 12
+        },
+        "coupling_only_rate_residualized": {
+          "all_better_than_chance": true,
+          "max": 0.9844,
+          "min": 0.755,
+          "n_cells": 12
+        },
+        "rate_only": {
+          "all_better_than_chance": true,
+          "max": 0.9859,
+          "min": 0.8587,
+          "n_cells": 12
+        },
+        "rate_only_rate_residualized": {
+          "all_better_than_chance": false,
+          "max": 0.5953,
+          "min": 0.4941,
+          "n_cells": 12
+        }
+      }
+    },
     "sweep": [
       {
         "arm": "free_rate",

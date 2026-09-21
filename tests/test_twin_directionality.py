@@ -331,3 +331,23 @@ def test_every_scored_combination_is_labelled_distinctly() -> None:
         for n, k, r in SCORED
     }
     assert len(labels) == len(SCORED)
+
+
+def test_summary_spans_every_cell_of_each_feature_set() -> None:
+    """The report cites ranges, so they must come from a key, not from positions."""
+    from neuromps.twin.directionality import summary_by_feature_set
+
+    rows = [
+        {"arm": "free_rate", "feature_set": "all", "auc": 0.9, "better_than_chance": True},
+        {"arm": "free_rate", "feature_set": "all", "auc": 0.7, "better_than_chance": True},
+        {"arm": "free_rate", "feature_set": "rate_only", "auc": 0.6, "better_than_chance": False},
+        {"arm": "free_rate", "feature_set": "all", "auc": None},
+    ]
+    out = summary_by_feature_set(rows)
+    assert out["free_rate"]["all"] == {
+        "min": 0.7,
+        "max": 0.9,
+        "n_cells": 2,
+        "all_better_than_chance": True,
+    }
+    assert out["free_rate"]["rate_only"]["all_better_than_chance"] is False

@@ -342,6 +342,28 @@ def rate_imbalance_by_arm(frame: pd.DataFrame) -> dict:
     return out
 
 
+def summary_by_feature_set(rows: list[dict]) -> dict:
+    """Range of AUC across configurations, per arm and feature set.
+
+    The report's claims are of the form "rate alone reaches 0.86-0.98", which
+    needs a stable key to cite; the per-cell rows are positional and would break
+    the moment the grid changes.
+    """
+    out: dict[str, dict[str, dict]] = {}
+    for row in rows:
+        if row.get("auc") is None:
+            continue
+        arm = out.setdefault(row.get("arm", "free_rate"), {})
+        cell = arm.setdefault(row["feature_set"], {"min": 1.0, "max": 0.0, "n_cells": 0})
+        cell["min"] = round(min(cell["min"], row["auc"]), 4)
+        cell["max"] = round(max(cell["max"], row["auc"]), 4)
+        cell["n_cells"] += 1
+        cell["all_better_than_chance"] = bool(
+            cell.get("all_better_than_chance", True) and row["better_than_chance"]
+        )
+    return out
+
+
 def cheapest_configuration(
     rows: list[dict],
     target: float = AUC_TARGET,
@@ -651,6 +673,7 @@ def main(argv: list[str] | None = None) -> int:
         "fraction_silent": round(silent, 3),
         "auc_target": AUC_TARGET,
         "cheapest_configuration": cheapest,
+        "summary_by_feature_set": summary_by_feature_set(rows),
         "rate_imbalance_by_arm": rate_imbalance_by_arm(frame),
         "matching_quality": matching_quality(frame),
         "rate_only_is_the_validity_check": (
@@ -682,6 +705,7 @@ def main(argv: list[str] | None = None) -> int:
                 "rate_imbalance_by_arm": results["rate_imbalance_by_arm"],
                 "matching_quality": results["matching_quality"],
                 "cheapest_configuration": cheapest,
+                "summary_by_feature_set": summary_by_feature_set(rows),
                 "validity_check_rate_only_residualized": [
                     {k: r[k] for k in ("arm", "duration_s", "auc", "better_than_chance")}
                     for r in rows
