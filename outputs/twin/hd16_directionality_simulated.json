@@ -1,0 +1,35 @@
+{
+  "n_reps": 40,
+  "ratios": [
+    1.0,
+    3.0,
+    10.0
+  ],
+  "durations_s": [
+    10.0,
+    30.0,
+    60.0
+  ],
+  "electrode_counts": [
+    6,
+    12,
+    24,
+    48
+  ],
+  "n_per_compartment": 150,
+  "rate_matched_drives": {
+    "1.0": {
+      "background_rate_hz": 10.0,
+      "background_scale_target": 1.0
+    },
+    "3.0": {
+      "background_rate_hz": 11.0,
+      "background_scale_target": 0.75
+    },
+    "10.0": {
+      "background_rate_hz": 11.0,
+      "background_scale_target": 0.65
+    }
+  },
+  "summary_pipeline_sha256": "060b0231a0b795dd"
+}

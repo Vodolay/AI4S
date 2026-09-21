@@ -507,7 +507,7 @@ chambers — and `sensitivity_without_dimensions` neutralises them before re-tes
 **Decision: record the posterior's prior acceptance rate as a misspecification metric.** Rejection
 sampling logged acceptance rates as low as 0.02% for some real recordings, meaning the density
 estimator wanted to place its mass outside the region it was trained on. Measured across all 113
-recordings the median is 53% and only 3.5% fall below 1%, so this is severe for a minority of
+recordings the median is 67% and only 1.8% fall below 1%, so this is severe for a minority of
 recordings rather than for the set — which is exactly why it needed measuring instead of reading one
 log line. Sampling is now time-capped with partial returns, and `n_effective_samples` is recorded per
 recording (no recording hit the cap in the full run).
@@ -521,7 +521,75 @@ Results in `metrics.twin_hd15_real_inference` (dose trend, baseline offset, acce
 check) and the retrained posterior in `metrics.twin_hd14_inference`; figure
 `outputs/twin/hd15_real_dose_response.png`. The honest summary: **the twin's posterior does not
 recover drug-knob direction from real recordings**, because `gabaa_scale` absorbs general model
-mismatch (untreated chips infer 0.425, interval excluding 1.0) rather than tracking the compound.
+mismatch (untreated chips infer 0.415, interval excluding 1.0) rather than tracking the compound.
+
+
+### 2026-09-20 — HD16: the coupling input contract, and whether direction is recoverable (`a627a8c`, `HD16_COMMIT`)
+
+**Defect: the twin measured coupling from every neuron.** `simulate_summary` passed
+`result.spikes_by_compartment()` — all 150 neurons per chamber — to `directed_coupling`, while the
+real ETL passes the per-electrode dict a device detects. Same shared function, different input
+contract, which is the same failure the "one feature extractor" rule exists to prevent. It gave the
+simulator a population rate no MEA can record and made coupling independent of electrode count, so
+an electrode-count experiment would have measured nothing. Fixed in `twin/mea.electrode_coupling`,
+used by `inference` and `validate`; the HD14 cache was rebuilt under it.
+
+**Decision: hash the summary definition, not just its names.** Neither existing guard fired on that
+change — summary names and electrode count were unchanged. `summary_pipeline_fingerprint()` hashes
+the source of `simulate_summary`, `summary_vector`, `electrode_coupling`, `record_electrodes`,
+`extract_features` and `directed_coupling`, and the cache refuses to load across a change. It is
+deliberately conservative: reformatting one of those functions forces a 20-minute resimulation,
+which is cheaper than a silent wrong answer. This closes the second half of limitation 24.
+
+**Design: vary one thing at a time.** Electrode count is varied by subsampling an evenly spaced
+sub-grid of one fixed 6x8 array rather than by shrinking the grid, which would also shrink the
+chamber and move the neurons; recording length is varied by truncating one simulation, so the 10 s
+and 60 s rows describe the same network. A nonlinear classifier is scored beside the linear one so
+that a linear failure is not read as "the features carry nothing".
+
+**Finding: the obvious version of this experiment is confounded.** With drive left alone, the full
+feature set separates symmetric from asymmetric wiring at AUC 0.92-0.99 — and three firing-rate
+features alone reach 0.86-0.98. An asymmetric pathway adds excitation to the chamber it targets, so
+the classes differ in rate before they differ in anything directional. This is HD11's caveat
+deciding a whole experiment.
+
+**Two failed controls, both kept in the record.** Matching the rate *ratio* by lowering the target
+chamber's drive left the absolute rates shifted, which is equally readable: every cell went to AUC
+1.00 with `rate_only` still at 0.94-1.00. Matching both chambers' absolute rates over a finer
+two-knob grid overcorrected — the ratio-3 imbalance flipped from -0.276 to +0.312 — and left a worst
+relative rate gap of 0.26, against 0.22 for doing nothing. Drive-matching trades one mismatch for
+another, and a classifier with 120 simulations reads whatever is left. `matching_quality` reports
+the per-ratio gaps so neither arm can be quoted as clean.
+
+**Decision: control by residualising features against both firing rates.** No intervention in the
+simulation, deterministic, and it carries its own validity check: rate features residualised against
+the rates must fall to chance, and do (0.41-0.57, never better than chance, both arms). Writing it
+exposed a defect in the method itself — a feature the rates explain exactly leaves floating-point
+dust that a standardising classifier rescales to unit variance and separates perfectly, so residuals
+below 1e-8 of the original scale are now set to zero, with a regression test.
+
+**Decision: a design recommendation needs its interval to clear the target.** With 120 simulations
+per cell the AUC estimate wanders by about 0.1, so `cheapest_configuration` requires the CI lower
+bound to reach 0.8, not the point estimate.
+
+**The HD11 caveat survives the definition change.** Re-running the HD11 sweep under
+electrode-measured coupling moved every asymmetry value by at most 0.06: at fixed wiring, lowering
+the target chamber's drive still swings asymmetry from 0.11 to 0.68, while at fixed drive, changing
+the forward ratio from 1 to 16 moves it from 0.109 to 0.143. Coupling asymmetry tracks drive, not
+pathway direction, whichever spikes it is measured from - which is independently why HD16 needed the
+residualised control.
+
+**Reconciling HD14 and HD16.** Retraining the posterior under the corrected coupling left
+connectivity contraction at 0.295 (`log10_forward_ratio`) and 0.320 (`inter_in_degree`), while HD16
+separates ratio 1 from ratios 3 and 10 at AUC 0.98 from the same summaries. There is no
+contradiction: classifying two well-spaced wiring classes is a far weaker demand than estimating a
+continuous ratio across the prior, jointly with four other parameters. The claim the twin can
+support is a contrast, not a measurement.
+
+Results in `metrics.twin_hd16_directionality`; figure
+`outputs/twin/hd16_directionality_simulated.png`. **Direction is recoverable from MEA summaries
+beyond firing rate, and cheaply** — but in the twin's own model, where the same simulator generated
+both classes, and against HD15's finding that these summaries do not transfer to real recordings.
 
 ---
 
@@ -602,8 +670,8 @@ mismatch (untreated chips infer 0.425, interval excluding 1.0) rather than track
     features. The SBI cache is the exception - it stores its summary names and its electrode count,
     and refuses to load under a different definition (the electrode guard was added in HD15, after
     a layout mismatch went unnoticed for a full half-day).
-25. **`gabaa_scale` absorbs model mismatch.** Untreated real recordings infer 0.425 (CI [0.360,
-    0.498]), where a well-behaved posterior would return ~1.0. Any inferred drug parameter from this
+25. **`gabaa_scale` absorbs model mismatch.** Untreated real recordings infer 0.415 (CI [0.369,
+    0.469]), where a well-behaved posterior would return ~1.0. Any inferred drug parameter from this
     estimator is measured on a shifted baseline and must not be read as a compound effect.
 26. Four summary dimensions - burst rate and active electrodes in both chambers - have under 5% of
     simulated draws inside the real interquartile range. The twin's burst statistics are the
@@ -613,6 +681,20 @@ mismatch (untreated chips infer 0.425, interval excluding 1.0) rather than track
     inferred under a geometry that is not theirs.
 28. For 3.5% of real recordings, under 1% of raw posterior draws fall inside the prior box. Their
     reported medians are a truncated tail of a density that wanted to sit elsewhere.
+29. **Every twin result before 2026-09-20 used coupling measured from all neurons** rather than from
+    electrode-detected spikes. HD11-HD15 numbers produced before `a627a8c` are not comparable with
+    those after it; the affected metrics were regenerated.
+30. HD16's positive result is identifiability *under a correct model*: the same simulator generated
+    both the symmetric and asymmetric classes. It says the summaries can carry direction, not that
+    they carry it for a real device - HD15 is the evidence on that side.
+31. The HD16 rate controls are imperfect. Drive-matching leaves a 21-26% relative rate gap, and
+    residualising removes only the linear dependence on rate. A curved rate-feature relation would
+    survive both.
+32. The residualised AUC is unstable across cells in the free-rate arm (0.56-0.97, non-monotonic in
+    duration and electrode count), so the electrode and duration figures are orders of magnitude,
+    not specifications.
+33. Only forward ratios 3 and 10 were tested against 1. Where the detection threshold lies for
+    weaker asymmetries is unmeasured, and a real chip's asymmetry is unknown.
 
 ---
 
@@ -637,6 +719,11 @@ mismatch (untreated chips infer 0.425, interval excluding 1.0) rather than track
 8. **Would fixing the twin's burst statistics make real-data inference work?** HD15 traces the
    negative result to four unsupported summary dimensions, all burst-related. Whether matching them
    is enough, or whether `gabaa_scale` would still absorb mismatch, is untested.
-9. **Does the baseline offset of 0.42 have one cause or several?** Candidates are the 10 s vs 480 s
+9. **Where is the weak-asymmetry detection limit?** HD16 tested ratios 3 and 10; the interesting
+   question for a real chip is the smallest asymmetry that is still visible at 10 s.
+10. **Would HD16's result survive a model mismatch?** Training the discriminator on one simulator
+    and testing it on a perturbed one would say whether the direction signal is a property of MEA
+    summaries or of this network model.
+11. **Does the baseline offset of 0.41 have one cause or several?** Candidates are the 10 s vs 480 s
    recording length, the missing burst structure, and the single fixed layout used for chambers with
    36 or 60 electrodes. None has been varied on its own.

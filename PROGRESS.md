@@ -542,16 +542,17 @@ not fix this.
   Connectivity stays weak: `log10_forward_ratio` 0.319, `inter_in_degree` 0.305.
 
 ### Result (`metrics.twin_hd15_real_inference`) - negative, and the useful part is *why*
+*Numbers regenerated 2026-09-20 under the HD16 coupling fix (`a627a8c`); the conclusion is unchanged.*
 | check | value |
 |---|---|
-| real values inside the simulated range | 99% (no dimension outside) |
+| real values inside the simulated range | 99.2% (no dimension outside) |
 | dimensions with <5% simulated draws in the real IQR | burst rate and active electrodes, both chambers |
-| inferred `gabaa_scale` vs dose | rho = 0.004, 95% CI [-0.290, +0.337] over 16 devices |
-| inferred `gabaa_scale` for **untreated** recordings | **0.425, CI [0.360, 0.498]** - excludes 1.0 |
-| posterior draws landing inside the prior | median 53%, 3.5% of recordings below 1% |
+| inferred `gabaa_scale` vs dose | rho = 0.083, 95% CI [-0.228, +0.431] over 16 devices |
+| inferred `gabaa_scale` for **untreated** recordings | **0.415, CI [0.369, 0.469]** - excludes 1.0 |
+| posterior draws landing inside the prior | median 67%, 1.8% of recordings below 1% |
 
 **The twin's posterior does not recover drug-knob direction from real recordings.** The baseline
-check says why: drug-free chips infer a GABA-A scale of 0.42, so the knob is absorbing general model
+check says why: drug-free chips infer a GABA-A scale of 0.41, so the knob is absorbing general model
 mismatch rather than tracking the compound. A dose trend measured on top of that offset is measured
 on a shifted baseline, and there is no trend to measure - see
 `outputs/twin/hd15_real_dose_response.png`.
@@ -584,3 +585,70 @@ on a shifted baseline, and there is no trend to measure - see
 - Directionality experiment on simulated data, where ground truth exists: can inference distinguish
   symmetric from asymmetric connectivity, and how many electrodes and how long a recording does it
   need? HD15 says not to attempt the same on real data until the burst statistics match.
+
+## 2026-09-20: Phase 3, HD16 - can features tell direction at all?
+
+### A defect found first, in the twin's own summaries
+The twin measured inter-compartment coupling from **every neuron** in a compartment, while the real
+ETL measures it from the **per-electrode** spike trains a device detects. That gave the simulator a
+cleaner population rate than any MEA can record, and made coupling independent of electrode count -
+the one variable HD16 exists to vary. `twin/mea.electrode_coupling` now applies the real pipeline's
+input contract; `inference` and `validate` both call it, and the HD14 simulation cache was rebuilt
+(3500 draws, 20 min, `outputs/logs/hd16_resimulate.log`).
+
+No existing guard caught this: summary names and electrode count were both unchanged.
+`summary_pipeline_fingerprint()` hashes the source of every function that decides what a summary
+means, and the cache now refuses to load across a change in any of them.
+
+### The experiment (`metrics.twin_hd16_directionality`)
+120 networks per arm, ground-truth wiring known: symmetric (forward ratio 1) vs asymmetric (3, 10).
+Electrode count is varied by subsampling an evenly spaced sub-grid of one fixed 6x8 array, and
+recording length by truncating one simulation, so neither varies the culture.
+
+**The free-rate arm is confounded, exactly as HD11 predicted.** `all` reaches AUC 0.92-0.99, but
+`rate_only` - three firing-rate features - reaches 0.86-0.98 on its own and beats `coupling_only`.
+An asymmetric pathway adds excitation to the chamber it targets, so the classes differ in rate
+before they differ in anything directional.
+
+**Matching the drive did not fix it, twice.** Matching the rate *ratio* left the absolute rates
+shifted, which is just as readable (every cell went to AUC 1.00). Matching both chambers' absolute
+rates over a finer grid overcorrected instead: the ratio-3 imbalance flipped from -0.28 to +0.31 and
+the worst relative rate gap stayed at 0.21-0.26. Both arms are reported with their gaps
+(`matching_quality`) so neither is read as clean.
+
+**Residualising the features against both firing rates is the control that works**, and needs no
+intervention in the simulation. The validity check is built in: `rate_only` after residualising
+scores 0.41-0.57 and is never better than chance, in either arm.
+
+| result | AUC | 95% CI |
+|---|---|---|
+| direction from residualised features, 10 s, **6 electrodes** (rate-matched arm) | 0.978 | [0.948, 0.998] |
+| direction from residualised features, 10 s, 24 electrodes (free-rate arm) | 0.936 | [0.893, 0.974] |
+| validity check: rate features after residualising | 0.41-0.57 | never above chance |
+
+**Direction is recoverable from MEA summaries beyond firing rate, and cheaply - 10 s and 6
+electrodes per compartment suffice in simulation.** This is the first clean positive in Phase 3, and
+it is a statement about identifiability in the twin's own model, not about real devices: HD15 showed
+these same summaries do not transfer to real recordings.
+
+### HD14 and HD16 disagree only in appearance
+Regenerating the posterior under the corrected coupling left connectivity as weak as before
+(`log10_forward_ratio` contraction 0.295, `inter_in_degree` 0.320, `threshold_scale` 0.816, the only
+parameter passing rank uniformity at KS 0.045, p = 0.46). So the features separate two *well-spaced
+wiring classes* at AUC 0.98 while the posterior cannot *estimate the ratio* across the prior range.
+Both are true: direction is detectable as a contrast and poorly identified as a continuous
+parameter, and the report should say exactly that rather than lead with either number alone.
+
+### Blocked / open
+- The residualised AUC is unstable across cells in the free-rate arm (0.56-0.97, non-monotonic in
+  both duration and electrode count). The cheapest-configuration figure is an order of magnitude,
+  not a specification; `cheapest_configuration` therefore requires the CI lower bound to clear the
+  target, not the point estimate.
+- Residualising removes *linear* rate dependence only.
+- Only ratios 3 and 10 against 1 were tested; the weak-asymmetry regime is untested.
+- The same simulator generated both classes, so this measures identifiability under a correct model.
+
+### Next first task (Phase 4, HD17)
+- Streamlit app: browse the asset with QC flags and provenance; mechanism prediction with conformal
+  set; twin sliders. The twin tab should show the HD16 identifiability result and the HD15 negative
+  side by side, since together they are the honest story.

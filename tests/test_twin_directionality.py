@@ -2,6 +2,7 @@
 
 import numpy as np
 import pandas as pd
+import pytest
 
 from neuromps.twin.directionality import (
     FEATURE_SETS,
@@ -9,6 +10,7 @@ from neuromps.twin.directionality import (
     discriminate,
     subsample_electrodes,
     summarise,
+    sweep,
     truncate,
 )
 from neuromps.twin.inference import SUMMARY_NAMES
@@ -120,50 +122,53 @@ def test_discrimination_needs_both_classes() -> None:
     assert discriminate(frame, FEATURE_SETS["all"])["auc"] is None
 
 
+def _cell(duration_s, electrodes, auc, half_width=0.05, feature_set="all", arm="rate_matched"):
+    """One sweep row, with an interval around the point estimate."""
+    return {
+        "feature_set": feature_set,
+        "arm": arm,
+        "duration_s": duration_s,
+        "electrodes_per_compartment": electrodes,
+        "auc": auc,
+        "auc_ci95": [round(auc - half_width, 3), round(min(auc + half_width, 1.0), 3)],
+        "better_than_chance": auc - half_width > 0.5,
+    }
+
+
 def test_cheapest_configuration_prefers_shorter_recordings_over_fewer_electrodes() -> None:
+    rows = [_cell(60.0, 6, 0.95), _cell(10.0, 48, 0.90)]
+    assert cheapest_configuration(rows, feature_set="all")["duration_s"] == 10.0
+
+
+def test_cheapest_configuration_needs_the_interval_to_clear_the_target() -> None:
+    """A point estimate over the target with a loose interval is not a design rule."""
+    rows = [_cell(10.0, 6, 0.85, half_width=0.14)]  # lower bound 0.71, below target
+    assert cheapest_configuration(rows, feature_set="all") is None
+    assert cheapest_configuration([_cell(10.0, 6, 0.85, half_width=0.02)], feature_set="all")
+
+
+def test_cheapest_configuration_ignores_cells_that_do_not_reach_the_target() -> None:
+    assert cheapest_configuration([_cell(60.0, 48, 0.61)], feature_set="all") is None
+
+
+def test_cheapest_configuration_reads_the_residualized_set_by_default() -> None:
+    """The raw sets can be won by rate imbalance alone, so they are not the headline."""
     rows = [
-        {
-            "feature_set": "all",
-            "duration_s": 60.0,
-            "electrodes_per_compartment": 6,
-            "auc": 0.9,
-            "better_than_chance": True,
-        },
-        {
-            "feature_set": "all",
-            "duration_s": 10.0,
-            "electrodes_per_compartment": 48,
-            "auc": 0.85,
-            "better_than_chance": True,
-        },
+        _cell(10.0, 6, 0.99, feature_set="all"),
+        _cell(60.0, 48, 0.90, feature_set="all_rate_residualized"),
     ]
-    assert cheapest_configuration(rows)["duration_s"] == 10.0
+    chosen = cheapest_configuration(rows)
+    assert chosen["feature_set"] == "all_rate_residualized"
+    assert chosen["duration_s"] == 60.0
 
 
-def test_cheapest_configuration_ignores_cells_whose_interval_touches_chance() -> None:
+def test_cheapest_configuration_reads_the_rate_matched_arm_by_default() -> None:
     rows = [
-        {
-            "feature_set": "all",
-            "duration_s": 10.0,
-            "electrodes_per_compartment": 6,
-            "auc": 0.82,
-            "better_than_chance": False,
-        },
+        _cell(10.0, 6, 0.99, feature_set="all_rate_residualized", arm="free_rate"),
+        _cell(60.0, 48, 0.90, feature_set="all_rate_residualized", arm="rate_matched"),
     ]
-    assert cheapest_configuration(rows) is None
-
-
-def test_cheapest_configuration_returns_none_when_nothing_reaches_the_target() -> None:
-    rows = [
-        {
-            "feature_set": "all",
-            "duration_s": 60.0,
-            "electrodes_per_compartment": 48,
-            "auc": 0.61,
-            "better_than_chance": True,
-        },
-    ]
-    assert cheapest_configuration(rows) is None
+    assert cheapest_configuration(rows)["arm"] == "rate_matched"
+    assert cheapest_configuration(rows, arm="free_rate")["duration_s"] == 10.0
 
 
 def test_a_grid_built_for_a_different_question_is_not_reused(tmp_path) -> None:
@@ -186,3 +191,143 @@ def test_a_grid_without_its_configuration_is_not_reused(tmp_path) -> None:
     path = tmp_path / "grid.parquet"
     pd.DataFrame({"a": [1]}).to_parquet(path, index=False)
     assert cached_grid(path, grid_config(4, (10.0,), (12,), 80)) is None
+
+
+def test_the_nonlinear_ceiling_is_scored_alongside_the_linear_baseline() -> None:
+    """A linear model failing must not be reported as "the features lack direction"."""
+    from neuromps.twin.directionality import SCORED
+
+    assert ("all", "nonlinear", False) in SCORED
+    assert ("all", "linear", False) in SCORED
+
+
+def test_a_nonlinear_rule_is_found_where_a_linear_one_fails() -> None:
+    """Both classes centred at zero, differing only in spread: linear cannot separate."""
+    rng = np.random.default_rng(0)
+    rows = []
+    for i in range(120):
+        symmetric = i % 2 == 0
+        row = {name: float(rng.normal(0, 1)) for name in SUMMARY_NAMES}
+        row["asymmetry"] = float(rng.normal(0, 0.2 if symmetric else 2.0))
+        rows.append({**row, "symmetric": symmetric})
+    frame = pd.DataFrame(rows)
+    linear = discriminate(frame, FEATURE_SETS["coupling_only"], n_resamples=200, kind="linear")
+    nonlinear = discriminate(
+        frame, FEATURE_SETS["coupling_only"], n_resamples=200, kind="nonlinear"
+    )
+    assert linear["auc"] < 0.65
+    assert nonlinear["auc"] > linear["auc"]
+
+
+def test_rate_imbalance_is_reported_per_arm() -> None:
+    from neuromps.twin.directionality import rate_imbalance_by_arm
+
+    frame = pd.DataFrame(
+        {
+            "arm": ["free_rate"] * 4 + ["rate_matched"] * 4,
+            "forward_ratio": [1.0, 1.0, 10.0, 10.0] * 2,
+            "log_rate_ratio": [0.0, 0.0, -2.0, -2.0, 0.0, 0.0, -0.1, -0.1],
+        }
+    )
+    out = rate_imbalance_by_arm(frame)
+    assert out["free_rate"]["10.0"] == pytest.approx(-2.0)
+    assert out["rate_matched"]["10.0"] == pytest.approx(-0.1)
+
+
+def test_sweep_scores_each_arm_separately() -> None:
+    frame = pd.concat(
+        [_frame(4.0).assign(arm="free_rate"), _frame(0.0).assign(arm="rate_matched")],
+        ignore_index=True,
+    )
+    rows = sweep(frame, n_resamples=100)
+    arms = {r["arm"] for r in rows}
+    assert arms == {"free_rate", "rate_matched"}
+
+
+def test_matching_quality_reports_the_worst_rate_gap_per_arm() -> None:
+    """A matched arm whose rates still differ must be visibly dismissable."""
+    from neuromps.twin.directionality import matching_quality
+
+    frame = pd.DataFrame(
+        {
+            "arm": ["free_rate"] * 4 + ["rate_matched"] * 4,
+            "forward_ratio": [1.0, 1.0, 10.0, 10.0] * 2,
+            "c0_mfr_hz": [4.0, 4.0, 2.0, 2.0, 4.0, 4.0, 3.96, 3.96],
+            "c1_mfr_hz": [4.0, 4.0, 8.0, 8.0, 4.0, 4.0, 4.04, 4.04],
+        }
+    )
+    out = matching_quality(frame)
+    assert out["free_rate"]["worst_relative_rate_gap"] == pytest.approx(1.0)  # 8 vs 4
+    assert out["rate_matched"]["worst_relative_rate_gap"] < 0.02
+
+
+def test_matching_search_returns_both_drive_knobs() -> None:
+    """Matching only the target scale shifts absolute rates, which is equally readable."""
+    from neuromps.twin.directionality import rate_matching_drives
+
+    drives = rate_matching_drives(
+        (1.0, 3.0),
+        global_rates=(10.0,),
+        target_scales=(1.0, 0.85),
+        n_reps=1,
+        duration_s=1.0,
+        n_per_compartment=40,
+    )
+    assert set(drives) == {1.0, 3.0}
+    for drive in drives.values():
+        assert set(drive) == {"background_rate_hz", "background_scale_target"}
+
+
+def test_residualizing_removes_what_the_rates_explain() -> None:
+    """A feature that is a linear function of the rates must carry nothing afterwards."""
+    from neuromps.twin.directionality import residualize
+
+    rng = np.random.default_rng(0)
+    c0 = rng.uniform(1, 5, 80)
+    c1 = rng.uniform(1, 5, 80)
+    frame = pd.DataFrame({"c0_mfr_hz": c0, "c1_mfr_hz": c1, "asymmetry": 0.3 * c0 - 0.7 * c1})
+    out = residualize(frame, ("asymmetry",))
+    assert np.allclose(out["asymmetry"], 0.0, atol=1e-8)
+
+
+def test_residualizing_keeps_information_the_rates_do_not_explain() -> None:
+    from neuromps.twin.directionality import residualize
+
+    rng = np.random.default_rng(1)
+    frame = pd.DataFrame(
+        {
+            "c0_mfr_hz": rng.uniform(1, 5, 80),
+            "c1_mfr_hz": rng.uniform(1, 5, 80),
+            "asymmetry": rng.normal(0, 1, 80),
+        }
+    )
+    out = residualize(frame, ("asymmetry",))
+    assert np.std(out["asymmetry"]) > 0.5 * np.std(frame["asymmetry"])
+
+
+def test_rate_features_residualized_against_themselves_carry_nothing() -> None:
+    """The built-in sanity check: rate_only after residualizing must be at chance."""
+    frame = _frame(4.0)
+    frame["c0_mfr_hz"] = np.where(frame["symmetric"], 2.0, 6.0)
+    frame["c1_mfr_hz"] = np.where(frame["symmetric"], 3.0, 1.0)
+    raw = discriminate(frame, FEATURE_SETS["rate_only"], n_resamples=100)
+    from neuromps.twin.directionality import residualize
+
+    cleaned = discriminate(
+        residualize(frame, FEATURE_SETS["rate_only"]), FEATURE_SETS["rate_only"], n_resamples=100
+    )
+    assert raw["auc"] > 0.95
+    # With no signal left, the point estimate wanders either side of chance on 60
+    # samples; what must hold is that it is never reported as better than chance.
+    assert cleaned["better_than_chance"] is False
+    assert cleaned["auc_ci95"][1] < 0.95
+
+
+def test_every_scored_combination_is_labelled_distinctly() -> None:
+    from neuromps.twin.directionality import SCORED
+
+    labels = {
+        (f"{n}_{k}" if k != "linear" else n) + ("_rate_residualized" if r else "")
+        for n, k, r in SCORED
+    }
+    assert len(labels) == len(SCORED)

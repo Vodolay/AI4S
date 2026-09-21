@@ -838,22 +838,22 @@
   "twin_hd11_validation": {
     "baseline": {
       "coupling_simulated": {
-        "asymmetry": -0.06283243343701955,
+        "asymmetry": -0.017715572443229202,
         "lag_ms": 0.0,
-        "peak_correlation": 0.8126866472482088
+        "peak_correlation": 0.7833447691602572
       },
       "features_simulated": {
         "active_electrodes": 32,
-        "burst_duration_s": 0.02887327935222669,
-        "burst_rate_per_min": 23.15625,
-        "isi_cv": 1.7250967018352894,
-        "mfr_hz": 4.5484375,
-        "network_burst_rate_per_min": 57.0,
-        "pct_spikes_in_bursts": 48.84919271727929,
-        "spikes_per_burst": 5.757085020242915,
-        "synchrony_index": 0.8347191489179113
+        "burst_duration_s": 0.02679556103575831,
+        "burst_rate_per_min": 25.34375,
+        "isi_cv": 1.7101395601151226,
+        "mfr_hz": 4.477604166666667,
+        "network_burst_rate_per_min": 53.0,
+        "pct_spikes_in_bursts": 54.64696987321159,
+        "spikes_per_burst": 5.79284833538841,
+        "synchrony_index": 0.8298518265897853
       },
-      "n_spikes": 5762,
+      "n_spikes": 16942,
       "params": {
         "adaptation_increment": 1.5,
         "adaptation_tau_ms": 380.0,
@@ -862,7 +862,7 @@
         "background_scale_target": 1.0,
         "background_synapses": 100,
         "background_weight": 0.042,
-        "duration_s": 20.0,
+        "duration_s": 60.0,
         "excitatory_fraction": 0.8,
         "excitatory_weight": 0.25,
         "forward_ratio": 1.0,
@@ -886,129 +886,129 @@
     },
     "directionality_sweep": [
       {
-        "asymmetry_mean": 0.166,
+        "asymmetry_mean": 0.109,
         "background_scale_target": 1.0,
         "forward_ratio": 1.0,
-        "lag_ms_mean": 2.5,
-        "n_seeds": 2,
-        "peak_correlation_mean": 0.743,
-        "rate_ratio_c1_over_c0": 1.0
+        "lag_ms_mean": 1.667,
+        "n_seeds": 3,
+        "peak_correlation_mean": 0.681,
+        "rate_ratio_c1_over_c0": 0.978
       },
       {
-        "asymmetry_mean": 0.454,
+        "asymmetry_mean": 0.494,
         "background_scale_target": 0.85,
         "forward_ratio": 1.0,
         "lag_ms_mean": 5.0,
-        "n_seeds": 2,
-        "peak_correlation_mean": 0.78,
-        "rate_ratio_c1_over_c0": 0.732
+        "n_seeds": 3,
+        "peak_correlation_mean": 0.731,
+        "rate_ratio_c1_over_c0": 0.692
       },
       {
-        "asymmetry_mean": 0.64,
+        "asymmetry_mean": 0.681,
         "background_scale_target": 0.7,
         "forward_ratio": 1.0,
-        "lag_ms_mean": 10.0,
-        "n_seeds": 2,
-        "peak_correlation_mean": 0.793,
-        "rate_ratio_c1_over_c0": 0.569
+        "lag_ms_mean": 8.333,
+        "n_seeds": 3,
+        "peak_correlation_mean": 0.721,
+        "rate_ratio_c1_over_c0": 0.599
       },
       {
-        "asymmetry_mean": 0.023,
+        "asymmetry_mean": 0.005,
         "background_scale_target": 1.0,
         "forward_ratio": 4.0,
         "lag_ms_mean": 0.0,
-        "n_seeds": 2,
-        "peak_correlation_mean": 0.687,
-        "rate_ratio_c1_over_c0": 1.247
+        "n_seeds": 3,
+        "peak_correlation_mean": 0.582,
+        "rate_ratio_c1_over_c0": 1.225
       },
       {
-        "asymmetry_mean": 0.544,
+        "asymmetry_mean": 0.535,
         "background_scale_target": 0.85,
         "forward_ratio": 4.0,
         "lag_ms_mean": 5.0,
-        "n_seeds": 2,
-        "peak_correlation_mean": 0.842,
-        "rate_ratio_c1_over_c0": 0.92
+        "n_seeds": 3,
+        "peak_correlation_mean": 0.752,
+        "rate_ratio_c1_over_c0": 0.895
       },
       {
-        "asymmetry_mean": 0.815,
+        "asymmetry_mean": 0.759,
         "background_scale_target": 0.7,
         "forward_ratio": 4.0,
         "lag_ms_mean": 5.0,
-        "n_seeds": 2,
-        "peak_correlation_mean": 0.858,
-        "rate_ratio_c1_over_c0": 0.756
+        "n_seeds": 3,
+        "peak_correlation_mean": 0.795,
+        "rate_ratio_c1_over_c0": 0.762
       },
       {
-        "asymmetry_mean": 0.105,
+        "asymmetry_mean": 0.143,
         "background_scale_target": 1.0,
         "forward_ratio": 16.0,
         "lag_ms_mean": 5.0,
-        "n_seeds": 2,
-        "peak_correlation_mean": 0.591,
-        "rate_ratio_c1_over_c0": 1.49
+        "n_seeds": 3,
+        "peak_correlation_mean": 0.576,
+        "rate_ratio_c1_over_c0": 1.474
       },
       {
-        "asymmetry_mean": 0.514,
+        "asymmetry_mean": 0.502,
         "background_scale_target": 0.85,
         "forward_ratio": 16.0,
         "lag_ms_mean": 5.0,
-        "n_seeds": 2,
-        "peak_correlation_mean": 0.77,
-        "rate_ratio_c1_over_c0": 0.992
+        "n_seeds": 3,
+        "peak_correlation_mean": 0.722,
+        "rate_ratio_c1_over_c0": 0.997
       },
       {
-        "asymmetry_mean": 0.834,
+        "asymmetry_mean": 0.83,
         "background_scale_target": 0.7,
         "forward_ratio": 16.0,
         "lag_ms_mean": 5.0,
-        "n_seeds": 2,
-        "peak_correlation_mean": 0.868,
-        "rate_ratio_c1_over_c0": 0.898
+        "n_seeds": 3,
+        "peak_correlation_mean": 0.808,
+        "rate_ratio_c1_over_c0": 0.859
       }
     ],
-    "duration_s": 20.0,
+    "duration_s": 60.0,
     "finding": "coupling asymmetry tracks the compartments' relative firing rate as much as the pathway ratio: with equal drive a strongly directed pathway can read as reversed, because the target compartment also receives the pathway's excitation",
     "label": "SIMULATED - not measured data"
   },
   "twin_hd12_calibration": {
     "best": {
       "draw": {
-        "adaptation_increment": 2.3311,
-        "background_weight": 0.0378,
-        "detection_radius_um": 248.9754,
-        "excitatory_weight": 0.3594,
-        "inhibitory_weight": 3.7831,
-        "intra_in_degree": 33.9757,
-        "threshold_spread": 0.0508
+        "adaptation_increment": 1.8862,
+        "background_weight": 0.0395,
+        "detection_radius_um": 295.8724,
+        "excitatory_weight": 0.33,
+        "inhibitory_weight": 4.8445,
+        "intra_in_degree": 17.6161,
+        "threshold_spread": 0.0259
       },
       "features_simulated": {
-        "burst_rate_per_min": 37.4375,
-        "mfr_hz": 8.703125,
-        "network_burst_rate_per_min": 39.0,
-        "pct_spikes_in_bursts": 98.055659391798,
-        "synchrony_index": 0.988012154404017
+        "burst_rate_per_min": 21.015625,
+        "mfr_hz": 6.927604166666667,
+        "network_burst_rate_per_min": 22.5,
+        "pct_spikes_in_bursts": 96.1964616421526,
+        "synchrony_index": 0.9642643440800385
       },
       "per_feature": {
-        "burst_rate_per_min": 0.2307,
+        "burst_rate_per_min": 0.0,
         "mfr_hz": 0.0,
-        "network_burst_rate_per_min": 0.5413,
-        "pct_spikes_in_bursts": 0.0456,
-        "synchrony_index": 0.1587
+        "network_burst_rate_per_min": 0.0,
+        "pct_spikes_in_bursts": 0.0265,
+        "synchrony_index": 0.1344
       },
-      "score": 0.1953,
+      "score": 0.0322,
       "stage": "refine"
     },
-    "duration_s": 20.0,
+    "duration_s": 40.0,
     "inside_real_band": {
-      "burst_rate_per_min": false,
+      "burst_rate_per_min": true,
       "mfr_hz": true,
-      "network_burst_rate_per_min": false,
+      "network_burst_rate_per_min": true,
       "pct_spikes_in_bursts": false,
       "synchrony_index": false
     },
     "label": "SIMULATED - calibration of a model, not measured data",
-    "n_draws": 8,
+    "n_draws": 40,
     "note": "random search over 5 parameters; everything else held at its module default. detection_radius_um is a property of the virtual electrode, not of the culture.",
     "search_space": {
       "adaptation_increment": [
@@ -1096,7 +1096,7 @@
             "real_delta": -0.548,
             "real_direction": "down",
             "real_established": true,
-            "simulated_delta": -0.721,
+            "simulated_delta": -0.221,
             "simulated_direction": "down"
           },
           "isi_cv": {
@@ -1104,7 +1104,7 @@
             "real_delta": 0.038,
             "real_direction": "up",
             "real_established": false,
-            "simulated_delta": 1.863,
+            "simulated_delta": 1.221,
             "simulated_direction": "up"
           },
           "mfr_hz": {
@@ -1112,7 +1112,7 @@
             "real_delta": -0.335,
             "real_direction": "down",
             "real_established": true,
-            "simulated_delta": 2.873,
+            "simulated_delta": 2.058,
             "simulated_direction": "up"
           },
           "network_burst_rate_per_min": {
@@ -1120,7 +1120,7 @@
             "real_delta": -0.66,
             "real_direction": "down",
             "real_established": true,
-            "simulated_delta": -0.778,
+            "simulated_delta": -0.322,
             "simulated_direction": "down"
           },
           "pct_spikes_in_bursts": {
@@ -1128,7 +1128,7 @@
             "real_delta": 0.037,
             "real_direction": "up",
             "real_established": true,
-            "simulated_delta": 0.032,
+            "simulated_delta": 0.048,
             "simulated_direction": "up"
           },
           "synchrony_index": {
@@ -1136,7 +1136,7 @@
             "real_delta": 0.11,
             "real_direction": "up",
             "real_established": true,
-            "simulated_delta": 0.02,
+            "simulated_delta": 0.045,
             "simulated_direction": "up"
           }
         },
@@ -1212,12 +1212,12 @@
           ]
         },
         "simulated_delta": {
-          "burst_rate_per_min": -0.721,
-          "isi_cv": 1.863,
-          "mfr_hz": 2.873,
-          "network_burst_rate_per_min": -0.778,
-          "pct_spikes_in_bursts": 0.032,
-          "synchrony_index": 0.02
+          "burst_rate_per_min": -0.221,
+          "isi_cv": 1.221,
+          "mfr_hz": 2.058,
+          "network_burst_rate_per_min": -0.322,
+          "pct_spikes_in_bursts": 0.048,
+          "synchrony_index": 0.045
         },
         "value": 0.2
       },
@@ -1228,7 +1228,7 @@
             "real_delta": -0.353,
             "real_direction": "down",
             "real_established": true,
-            "simulated_delta": 0.041,
+            "simulated_delta": 0.093,
             "simulated_direction": "up"
           },
           "isi_cv": {
@@ -1236,7 +1236,7 @@
             "real_delta": -0.231,
             "real_direction": "down",
             "real_established": true,
-            "simulated_delta": -0.113,
+            "simulated_delta": -0.05,
             "simulated_direction": "down"
           },
           "mfr_hz": {
@@ -1244,7 +1244,7 @@
             "real_delta": -0.471,
             "real_direction": "down",
             "real_established": true,
-            "simulated_delta": -0.178,
+            "simulated_delta": -0.018,
             "simulated_direction": "down"
           },
           "network_burst_rate_per_min": {
@@ -1252,29 +1252,29 @@
             "real_delta": 0.06,
             "real_direction": "up",
             "real_established": false,
-            "simulated_delta": 0.143,
+            "simulated_delta": 0.047,
             "simulated_direction": "up"
           },
           "pct_spikes_in_bursts": {
-            "agrees": true,
+            "agrees": false,
             "real_delta": -0.282,
             "real_direction": "down",
             "real_established": true,
-            "simulated_delta": -0.031,
-            "simulated_direction": "down"
+            "simulated_delta": 0.005,
+            "simulated_direction": "up"
           },
           "synchrony_index": {
             "agrees": null,
             "real_delta": 0.062,
             "real_direction": "up",
             "real_established": false,
-            "simulated_delta": -0.009,
-            "simulated_direction": "down"
+            "simulated_delta": 0.001,
+            "simulated_direction": "up"
           }
         },
         "knob": "gabaa_potentiate",
         "mechanism": "gabaa_agonist_or_pam",
-        "n_features_agreeing": 3,
+        "n_features_agreeing": 2,
         "n_features_scored": 4,
         "parameter": "gabaa_scale",
         "reads_as": "GABA-A positive modulator (diazepam): inhibition strengthened",
@@ -1344,12 +1344,12 @@
           ]
         },
         "simulated_delta": {
-          "burst_rate_per_min": 0.041,
-          "isi_cv": -0.113,
-          "mfr_hz": -0.178,
-          "network_burst_rate_per_min": 0.143,
-          "pct_spikes_in_bursts": -0.031,
-          "synchrony_index": -0.009
+          "burst_rate_per_min": 0.093,
+          "isi_cv": -0.05,
+          "mfr_hz": -0.018,
+          "network_burst_rate_per_min": 0.047,
+          "pct_spikes_in_bursts": 0.005,
+          "synchrony_index": 0.001
         },
         "value": 2.0
       },
@@ -1368,7 +1368,7 @@
             "real_delta": -0.459,
             "real_direction": "down",
             "real_established": false,
-            "simulated_delta": -2.036,
+            "simulated_delta": -2.138,
             "simulated_direction": "down"
           },
           "mfr_hz": {
@@ -1376,7 +1376,7 @@
             "real_delta": -1.769,
             "real_direction": "down",
             "real_established": true,
-            "simulated_delta": -4.322,
+            "simulated_delta": -4.235,
             "simulated_direction": "down"
           },
           "network_burst_rate_per_min": {
@@ -1400,7 +1400,7 @@
             "real_delta": -4.322,
             "real_direction": "down",
             "real_established": true,
-            "simulated_delta": -3.592,
+            "simulated_delta": -3.224,
             "simulated_direction": "down"
           }
         },
@@ -1476,11 +1476,11 @@
         },
         "simulated_delta": {
           "burst_rate_per_min": -4.322,
-          "isi_cv": -2.036,
-          "mfr_hz": -4.322,
+          "isi_cv": -2.138,
+          "mfr_hz": -4.235,
           "network_burst_rate_per_min": -4.322,
           "pct_spikes_in_bursts": -4.322,
-          "synchrony_index": -3.592
+          "synchrony_index": -3.224
         },
         "value": 0.4
       },
@@ -1620,20 +1620,20 @@
     "simulation": {
       "baseline_features_simulated": {
         "active_electrodes": 48.0,
-        "burst_duration_s": 0.016957411598510178,
-        "burst_rate_per_min": 34.625,
-        "isi_cv": 3.5533996885754613,
-        "mfr_hz": 7.8934895833333325,
-        "network_burst_rate_per_min": 36.0,
-        "pct_spikes_in_bursts": 97.75489908549426,
-        "spikes_per_burst": 13.364624576771043,
-        "synchrony_index": 0.9856474655889574
+        "burst_duration_s": 0.03320863747523532,
+        "burst_rate_per_min": 21.015625,
+        "isi_cv": 3.9244319202346603,
+        "mfr_hz": 6.927604166666667,
+        "network_burst_rate_per_min": 22.5,
+        "pct_spikes_in_bursts": 96.1964616421526,
+        "spikes_per_burst": 19.027344026392132,
+        "synchrony_index": 0.9642643440800385
       },
       "calibrated_parameters_used": true,
       "duration_s": 40.0,
       "layout": {
         "cols": 8,
-        "detection_radius_um": 248.9754,
+        "detection_radius_um": 295.8724,
         "gap_um": 600.0,
         "margin_um": 100.0,
         "pitch_um": 200.0,
@@ -1642,37 +1642,37 @@
       "n_per_compartment": 250,
       "treated_features_simulated": {
         "ampa_block": {
-          "active_electrodes": 42.5,
+          "active_electrodes": 47.5,
           "burst_duration_s": null,
           "burst_rate_per_min": 0.0,
-          "isi_cv": 0.8663492461651128,
-          "mfr_hz": 0.29761705685618733,
-          "network_burst_rate_per_min": 0.75,
+          "isi_cv": 0.8913280264246176,
+          "mfr_hz": 0.3677803634751773,
+          "network_burst_rate_per_min": 0.0,
           "pct_spikes_in_bursts": 0.0,
           "spikes_per_burst": null,
-          "synchrony_index": 0.08171495737493706
+          "synchrony_index": 0.10320771570675405
         },
         "gabaa_block": {
           "active_electrodes": 48.0,
-          "burst_duration_s": 0.03998035714285719,
-          "burst_rate_per_min": 21.0,
-          "isi_cv": 12.927378677591953,
-          "mfr_hz": 57.830468749999994,
-          "network_burst_rate_per_min": 21.0,
-          "pct_spikes_in_bursts": 99.97254396286073,
-          "spikes_per_burst": 165.18526785714286,
-          "synchrony_index": 0.9997160189581088
+          "burst_duration_s": 0.049008713896097705,
+          "burst_rate_per_min": 18.03125,
+          "isi_cv": 9.148458626983976,
+          "mfr_hz": 28.854947916666667,
+          "network_burst_rate_per_min": 18.0,
+          "pct_spikes_in_bursts": 99.42745870023103,
+          "spikes_per_burst": 95.4659115484429,
+          "synchrony_index": 0.9946867758554757
         },
         "gabaa_potentiate": {
           "active_electrodes": 48.0,
-          "burst_duration_s": 0.014841964818414499,
-          "burst_rate_per_min": 35.625,
-          "isi_cv": 3.284735423632148,
-          "mfr_hz": 6.975,
-          "network_burst_rate_per_min": 39.75,
-          "pct_spikes_in_bursts": 95.69419700882538,
-          "spikes_per_burst": 11.245199099289824,
-          "synchrony_index": 0.979779947623037
+          "burst_duration_s": 0.03083786110830531,
+          "burst_rate_per_min": 22.421875,
+          "isi_cv": 3.791197587231527,
+          "mfr_hz": 6.841145833333334,
+          "network_burst_rate_per_min": 23.25,
+          "pct_spikes_in_bursts": 96.50855497135024,
+          "spikes_per_burst": 17.664510182516064,
+          "synchrony_index": 0.9651384103155649
         },
         "sodium_block": {
           "active_electrodes": 0.0,
@@ -1692,28 +1692,28 @@
   "twin_hd14_inference": {
     "contraction": {
       "ampa_scale": {
-        "contraction": 0.45,
-        "posterior_sd": 0.1589,
+        "contraction": 0.445,
+        "posterior_sd": 0.1603,
         "prior_sd": 0.2887
       },
       "gabaa_scale": {
-        "contraction": 0.332,
-        "posterior_sd": 0.3666,
+        "contraction": 0.327,
+        "posterior_sd": 0.369,
         "prior_sd": 0.5485
       },
       "inter_in_degree": {
-        "contraction": 0.305,
-        "posterior_sd": 3.6089,
+        "contraction": 0.32,
+        "posterior_sd": 3.5359,
         "prior_sd": 5.1962
       },
       "log10_forward_ratio": {
-        "contraction": 0.319,
-        "posterior_sd": 0.2554,
+        "contraction": 0.295,
+        "posterior_sd": 0.2647,
         "prior_sd": 0.3753
       },
       "threshold_scale": {
-        "contraction": 0.815,
-        "posterior_sd": 0.016,
+        "contraction": 0.816,
+        "posterior_sd": 0.0159,
         "prior_sd": 0.0866
       }
     },
@@ -1747,23 +1747,23 @@
     },
     "rank_uniformity_ks_p": {
       "ampa_scale": {
-        "ks_p": 0.0232,
-        "ks_statistic": 0.0793,
+        "ks_p": 0.1454,
+        "ks_statistic": 0.0607,
         "n_evaluated": 350
       },
       "gabaa_scale": {
-        "ks_p": 0.0045,
-        "ks_statistic": 0.0929,
+        "ks_p": 0.0009,
+        "ks_statistic": 0.1043,
         "n_evaluated": 350
       },
       "inter_in_degree": {
-        "ks_p": 0.0,
-        "ks_statistic": 0.1386,
+        "ks_p": 0.0002,
+        "ks_statistic": 0.1136,
         "n_evaluated": 350
       },
       "log10_forward_ratio": {
-        "ks_p": 0.0182,
-        "ks_statistic": 0.0814,
+        "ks_p": 0.0101,
+        "ks_statistic": 0.0864,
         "n_evaluated": 350
       },
       "threshold_scale": {
@@ -1805,7 +1805,7 @@
             -1.0,
             1.0
           ],
-          "simulated_support_in_real_iqr": 0.481
+          "simulated_support_in_real_iqr": 0.469
         },
         "c0_active_electrodes": {
           "fraction_inside": 0.92,
@@ -1940,16 +1940,16 @@
             0.0,
             1.0
           ],
-          "simulated_support_in_real_iqr": 0.65
+          "simulated_support_in_real_iqr": 0.659
         },
         "lag_ms": {
-          "fraction_inside": 0.965,
+          "fraction_inside": 0.991,
           "real_median": 0.0,
           "simulated_range": [
-            -40.1,
-            60.0
+            -80.0,
+            95.05
           ],
-          "simulated_support_in_real_iqr": 0.874
+          "simulated_support_in_real_iqr": 0.862
         },
         "log_rate_ratio": {
           "fraction_inside": 1.0,
@@ -1965,12 +1965,12 @@
           "real_median": 0.89,
           "simulated_range": [
             -0.002,
-            0.986
+            0.985
           ],
-          "simulated_support_in_real_iqr": 0.219
+          "simulated_support_in_real_iqr": 0.218
         }
       },
-      "mean_fraction_inside": 0.99,
+      "mean_fraction_inside": 0.992,
       "n_real": 113,
       "outside_dimensions": [],
       "support_note": "unsupported_dimensions pass the range test but fewer than 5% of simulated draws land in the real interquartile range, so the posterior is still interpolating across a gap there",
@@ -1985,10 +1985,10 @@
     "gabaa_scale_at_baseline": {
       "bootstrap_resamples": 1000,
       "includes_neutral": false,
-      "median": 0.4247,
+      "median": 0.4149,
       "median_ci95": [
-        0.3601,
-        0.4977
+        0.3692,
+        0.4693
       ],
       "n_devices": 16,
       "n_untreated": 16,
@@ -2000,11 +2000,11 @@
       "excludes_zero": false,
       "n_devices": 16,
       "n_recordings": 113,
-      "naive_p_value": 0.9654,
-      "spearman_rho": 0.004,
+      "naive_p_value": 0.3841,
+      "spearman_rho": 0.083,
       "spearman_rho_ci95": [
-        -0.2897,
-        0.3369
+        -0.2275,
+        0.4305
       ]
     },
     "gabaa_scale_dose_trend_without_ood_dimensions": {
@@ -2013,11 +2013,11 @@
       "excludes_zero": false,
       "n_devices": 16,
       "n_recordings": 113,
-      "naive_p_value": 0.0356,
-      "spearman_rho": 0.198,
+      "naive_p_value": 0.0377,
+      "spearman_rho": 0.196,
       "spearman_rho_ci95": [
-        -0.1262,
-        0.5348
+        -0.1084,
+        0.5122
       ]
     },
     "label": "posterior trained on SIMULATIONS, applied to REAL recordings",
@@ -2029,15 +2029,2849 @@
       "c1_active_electrodes"
     ],
     "prior_acceptance": {
-      "fraction_below_1_percent": 0.035,
-      "max_acceptance": 0.926,
-      "median_acceptance": 0.525,
-      "min_acceptance": 0.0015,
+      "fraction_below_1_percent": 0.018,
+      "max_acceptance": 0.962,
+      "median_acceptance": 0.671,
+      "min_acceptance": 0.0005,
       "n_draws_per_recording": 2000,
       "note": "share of raw posterior draws inside the prior box; low values mean the posterior is extrapolating outside its training region for real inputs"
     },
     "seed": 0,
     "subsampled": false
+  },
+  "twin_hd16_directionality": {
+    "arms": {
+      "free_rate": "asymmetric wiring left to raise the target chamber's firing rate",
+      "rate_matched": "target drive lowered so the rate imbalance matches symmetric"
+    },
+    "asymmetric_ratios": [
+      3.0,
+      10.0
+    ],
+    "auc_target": 0.8,
+    "bootstrap_resamples": 1000,
+    "cheapest_configuration": {
+      "free_rate_all_features": {
+        "arm": "free_rate",
+        "auc": 0.9219,
+        "auc_ci95": [
+          0.875,
+          0.9619
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "all",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      "free_rate_residualized": {
+        "arm": "free_rate",
+        "auc": 0.9359,
+        "auc_ci95": [
+          0.893,
+          0.9739
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "all_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      "rate_matched_residualized": {
+        "arm": "rate_matched",
+        "auc": 0.9784,
+        "auc_ci95": [
+          0.9481,
+          0.9983
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "all_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      }
+    },
+    "fraction_silent": 0.0,
+    "grid_config": {
+      "durations_s": [
+        10.0,
+        30.0,
+        60.0
+      ],
+      "electrode_counts": [
+        6,
+        12,
+        24,
+        48
+      ],
+      "n_per_compartment": 150,
+      "n_reps": 40,
+      "rate_matched_drives": {
+        "1.0": {
+          "background_rate_hz": 10.0,
+          "background_scale_target": 1.0
+        },
+        "10.0": {
+          "background_rate_hz": 11.0,
+          "background_scale_target": 0.65
+        },
+        "3.0": {
+          "background_rate_hz": 11.0,
+          "background_scale_target": 0.75
+        }
+      },
+      "ratios": [
+        1.0,
+        3.0,
+        10.0
+      ],
+      "summary_pipeline_sha256": "060b0231a0b795dd"
+    },
+    "label": "SIMULATED - directionality discrimination, ground-truth wiring known",
+    "matching_quality": {
+      "free_rate": {
+        "relative_rate_gap_by_ratio": {
+          "10.0": {
+            "c0_mfr_hz": 0.2248,
+            "c1_mfr_hz": 0.1225
+          },
+          "3.0": {
+            "c0_mfr_hz": 0.1064,
+            "c1_mfr_hz": 0.0744
+          }
+        },
+        "worst_relative_rate_gap": 0.2248
+      },
+      "rate_matched": {
+        "relative_rate_gap_by_ratio": {
+          "10.0": {
+            "c0_mfr_hz": 0.2067,
+            "c1_mfr_hz": 0.0123
+          },
+          "3.0": {
+            "c0_mfr_hz": 0.26,
+            "c1_mfr_hz": 0.0049
+          }
+        },
+        "worst_relative_rate_gap": 0.26
+      }
+    },
+    "n_networks": 120,
+    "question": "can MEA summary features tell symmetric from asymmetric connectivity",
+    "quick": false,
+    "rate_imbalance_by_arm": {
+      "free_rate": {
+        "1.0": 0.0046,
+        "10.0": -0.518,
+        "3.0": -0.2756
+      },
+      "rate_matched": {
+        "1.0": 0.0046,
+        "10.0": 0.2377,
+        "3.0": 0.3116
+      }
+    },
+    "rate_only_is_the_validity_check": "in the rate-matched arm the rate_only AUC should fall towards chance; if it does not, the matching failed and that arm says nothing about direction",
+    "sweep": [
+      {
+        "arm": "free_rate",
+        "auc": 0.9219,
+        "auc_ci95": [
+          0.875,
+          0.9619
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "all",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.8813,
+        "auc_ci95": [
+          0.8134,
+          0.9361
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "nonlinear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "all_nonlinear",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.8684,
+        "auc_ci95": [
+          0.7994,
+          0.9218
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "coupling_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.8644,
+        "auc_ci95": [
+          0.8037,
+          0.926
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "rate_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.6472,
+        "auc_ci95": [
+          0.5413,
+          0.7451
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "all_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.6675,
+        "auc_ci95": [
+          0.557,
+          0.7649
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "coupling_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.5969,
+        "auc_ci95": [
+          0.4979,
+          0.7065
+        ],
+        "better_than_chance": false,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "rate_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9475,
+        "auc_ci95": [
+          0.911,
+          0.9778
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "all",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9522,
+        "auc_ci95": [
+          0.9082,
+          0.9854
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "nonlinear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "all_nonlinear",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.8866,
+        "auc_ci95": [
+          0.8222,
+          0.9386
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "coupling_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9319,
+        "auc_ci95": [
+          0.8843,
+          0.9687
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "rate_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.5575,
+        "auc_ci95": [
+          0.4471,
+          0.6594
+        ],
+        "better_than_chance": false,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "all_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.6731,
+        "auc_ci95": [
+          0.5711,
+          0.7635
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "coupling_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.3869,
+        "auc_ci95": [
+          0.2922,
+          0.5034
+        ],
+        "better_than_chance": false,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "rate_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9769,
+        "auc_ci95": [
+          0.9512,
+          0.997
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "all",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9831,
+        "auc_ci95": [
+          0.962,
+          1.0
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "nonlinear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "all_nonlinear",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.8962,
+        "auc_ci95": [
+          0.8332,
+          0.9464
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "coupling_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9681,
+        "auc_ci95": [
+          0.9386,
+          0.9892
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "rate_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9359,
+        "auc_ci95": [
+          0.893,
+          0.9739
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "all_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9106,
+        "auc_ci95": [
+          0.8543,
+          0.9549
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "coupling_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.5075,
+        "auc_ci95": [
+          0.3916,
+          0.6372
+        ],
+        "better_than_chance": false,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "rate_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9831,
+        "auc_ci95": [
+          0.9641,
+          0.9971
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "all",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9678,
+        "auc_ci95": [
+          0.9393,
+          0.9899
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "nonlinear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "all_nonlinear",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.8838,
+        "auc_ci95": [
+          0.8178,
+          0.9371
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "coupling_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9691,
+        "auc_ci95": [
+          0.9392,
+          0.9905
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "rate_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9728,
+        "auc_ci95": [
+          0.9463,
+          0.9932
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "all_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9616,
+        "auc_ci95": [
+          0.9253,
+          0.9883
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "coupling_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.4344,
+        "auc_ci95": [
+          0.3237,
+          0.5594
+        ],
+        "better_than_chance": false,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "rate_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9438,
+        "auc_ci95": [
+          0.9028,
+          0.9764
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "all",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9534,
+        "auc_ci95": [
+          0.9114,
+          0.9884
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "nonlinear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "all_nonlinear",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9041,
+        "auc_ci95": [
+          0.8476,
+          0.955
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "coupling_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.8731,
+        "auc_ci95": [
+          0.8105,
+          0.9325
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "rate_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.8141,
+        "auc_ci95": [
+          0.7243,
+          0.8938
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "all_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.8153,
+        "auc_ci95": [
+          0.7387,
+          0.8892
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "coupling_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.5769,
+        "auc_ci95": [
+          0.4754,
+          0.6888
+        ],
+        "better_than_chance": false,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "rate_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9569,
+        "auc_ci95": [
+          0.9218,
+          0.9837
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "all",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9075,
+        "auc_ci95": [
+          0.8444,
+          0.9587
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "nonlinear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "all_nonlinear",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.91,
+        "auc_ci95": [
+          0.8505,
+          0.9603
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "coupling_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9388,
+        "auc_ci95": [
+          0.8938,
+          0.974
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "rate_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.7894,
+        "auc_ci95": [
+          0.6991,
+          0.8724
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "all_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.7234,
+        "auc_ci95": [
+          0.6312,
+          0.8125
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "coupling_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.4559,
+        "auc_ci95": [
+          0.3425,
+          0.5737
+        ],
+        "better_than_chance": false,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "rate_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9763,
+        "auc_ci95": [
+          0.9508,
+          0.996
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "all",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9731,
+        "auc_ci95": [
+          0.939,
+          0.9967
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "nonlinear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "all_nonlinear",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9022,
+        "auc_ci95": [
+          0.8447,
+          0.9527
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "coupling_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9684,
+        "auc_ci95": [
+          0.9371,
+          0.9916
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "rate_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.7531,
+        "auc_ci95": [
+          0.6548,
+          0.8398
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "all_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.8084,
+        "auc_ci95": [
+          0.7194,
+          0.8853
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "coupling_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.5656,
+        "auc_ci95": [
+          0.4408,
+          0.6971
+        ],
+        "better_than_chance": false,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "rate_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9766,
+        "auc_ci95": [
+          0.9502,
+          0.9931
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "all",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9719,
+        "auc_ci95": [
+          0.9424,
+          0.9929
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "nonlinear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "all_nonlinear",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.895,
+        "auc_ci95": [
+          0.8357,
+          0.946
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "coupling_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9759,
+        "auc_ci95": [
+          0.9491,
+          0.9941
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "rate_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.92,
+        "auc_ci95": [
+          0.8643,
+          0.9639
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "all_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9313,
+        "auc_ci95": [
+          0.8806,
+          0.9696
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "coupling_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.4697,
+        "auc_ci95": [
+          0.3558,
+          0.5873
+        ],
+        "better_than_chance": false,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "rate_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9575,
+        "auc_ci95": [
+          0.9253,
+          0.9834
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "all",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9631,
+        "auc_ci95": [
+          0.9271,
+          0.9872
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "nonlinear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "all_nonlinear",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9366,
+        "auc_ci95": [
+          0.8944,
+          0.9727
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "coupling_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.8803,
+        "auc_ci95": [
+          0.8194,
+          0.9347
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "rate_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9669,
+        "auc_ci95": [
+          0.9378,
+          0.988
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "all_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9466,
+        "auc_ci95": [
+          0.9073,
+          0.9766
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "coupling_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.5487,
+        "auc_ci95": [
+          0.4405,
+          0.6571
+        ],
+        "better_than_chance": false,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "rate_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9716,
+        "auc_ci95": [
+          0.9388,
+          0.9926
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "all",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9594,
+        "auc_ci95": [
+          0.9225,
+          0.9872
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "nonlinear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "all_nonlinear",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9434,
+        "auc_ci95": [
+          0.8995,
+          0.9799
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "coupling_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9419,
+        "auc_ci95": [
+          0.8968,
+          0.9761
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "rate_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.6597,
+        "auc_ci95": [
+          0.5536,
+          0.7566
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "all_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.7584,
+        "auc_ci95": [
+          0.6684,
+          0.8478
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "coupling_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.3991,
+        "auc_ci95": [
+          0.2921,
+          0.5089
+        ],
+        "better_than_chance": false,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "rate_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9816,
+        "auc_ci95": [
+          0.9575,
+          0.998
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "all",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9859,
+        "auc_ci95": [
+          0.9653,
+          0.9991
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "nonlinear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "all_nonlinear",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9403,
+        "auc_ci95": [
+          0.8964,
+          0.9772
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "coupling_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9788,
+        "auc_ci95": [
+          0.9554,
+          0.9954
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "rate_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.8259,
+        "auc_ci95": [
+          0.7481,
+          0.8929
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "all_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.8566,
+        "auc_ci95": [
+          0.7821,
+          0.9207
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "coupling_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.5003,
+        "auc_ci95": [
+          0.3789,
+          0.6197
+        ],
+        "better_than_chance": false,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "rate_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9863,
+        "auc_ci95": [
+          0.9679,
+          0.9983
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "all",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9937,
+        "auc_ci95": [
+          0.9817,
+          1.0
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "nonlinear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "all_nonlinear",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9369,
+        "auc_ci95": [
+          0.8927,
+          0.9741
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "coupling_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9841,
+        "auc_ci95": [
+          0.96,
+          0.9984
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "rate_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.7781,
+        "auc_ci95": [
+          0.6921,
+          0.8506
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "all_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.6722,
+        "auc_ci95": [
+          0.5743,
+          0.7593
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "coupling_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.4103,
+        "auc_ci95": [
+          0.3009,
+          0.5269
+        ],
+        "better_than_chance": false,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "rate_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 1.0,
+        "auc_ci95": [
+          1.0,
+          1.0
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "all",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.9981,
+        "auc_ci95": [
+          0.9938,
+          1.0
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "nonlinear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "all_nonlinear",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.9903,
+        "auc_ci95": [
+          0.9777,
+          0.9991
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "coupling_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.8587,
+        "auc_ci95": [
+          0.782,
+          0.9244
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "rate_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.9784,
+        "auc_ci95": [
+          0.9481,
+          0.9983
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "all_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.9406,
+        "auc_ci95": [
+          0.8851,
+          0.9868
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "coupling_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.5394,
+        "auc_ci95": [
+          0.4324,
+          0.6543
+        ],
+        "better_than_chance": false,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "rate_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 1.0,
+        "auc_ci95": [
+          1.0,
+          1.0
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "all",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 1.0,
+        "auc_ci95": [
+          1.0,
+          1.0
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "nonlinear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "all_nonlinear",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.9928,
+        "auc_ci95": [
+          0.9818,
+          1.0
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "coupling_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.9256,
+        "auc_ci95": [
+          0.8694,
+          0.971
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "rate_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.9966,
+        "auc_ci95": [
+          0.9892,
+          1.0
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "all_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.9734,
+        "auc_ci95": [
+          0.9415,
+          0.9969
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "coupling_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.5953,
+        "auc_ci95": [
+          0.484,
+          0.6958
+        ],
+        "better_than_chance": false,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "rate_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 1.0,
+        "auc_ci95": [
+          1.0,
+          1.0
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "all",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 1.0,
+        "auc_ci95": [
+          1.0,
+          1.0
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "nonlinear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "all_nonlinear",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.9925,
+        "auc_ci95": [
+          0.9812,
+          0.9994
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "coupling_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.9731,
+        "auc_ci95": [
+          0.9449,
+          0.9909
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "rate_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 1.0,
+        "auc_ci95": [
+          1.0,
+          1.0
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "all_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.9844,
+        "auc_ci95": [
+          0.968,
+          0.9969
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "coupling_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.5566,
+        "auc_ci95": [
+          0.4466,
+          0.6498
+        ],
+        "better_than_chance": false,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "rate_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 1.0,
+        "auc_ci95": [
+          1.0,
+          1.0
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "all",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 1.0,
+        "auc_ci95": [
+          1.0,
+          1.0
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "nonlinear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "all_nonlinear",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.9941,
+        "auc_ci95": [
+          0.9846,
+          0.9994
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "coupling_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.9769,
+        "auc_ci95": [
+          0.9524,
+          0.9929
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "rate_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 1.0,
+        "auc_ci95": [
+          1.0,
+          1.0
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "all_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.9234,
+        "auc_ci95": [
+          0.8666,
+          0.9677
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "coupling_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.5656,
+        "auc_ci95": [
+          0.4567,
+          0.6583
+        ],
+        "better_than_chance": false,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "rate_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 1.0,
+        "auc_ci95": [
+          1.0,
+          1.0
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "all",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.9681,
+        "auc_ci95": [
+          0.9302,
+          0.9953
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "nonlinear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "all_nonlinear",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.9988,
+        "auc_ci95": [
+          0.9951,
+          1.0
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "coupling_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.8706,
+        "auc_ci95": [
+          0.7947,
+          0.9292
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "rate_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.945,
+        "auc_ci95": [
+          0.8958,
+          0.9849
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "all_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.9456,
+        "auc_ci95": [
+          0.8995,
+          0.9827
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "coupling_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.4941,
+        "auc_ci95": [
+          0.3851,
+          0.6033
+        ],
+        "better_than_chance": false,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "rate_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 1.0,
+        "auc_ci95": [
+          1.0,
+          1.0
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "all",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.9875,
+        "auc_ci95": [
+          0.9571,
+          1.0
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "nonlinear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "all_nonlinear",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.9991,
+        "auc_ci95": [
+          0.9961,
+          1.0
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "coupling_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.9322,
+        "auc_ci95": [
+          0.8762,
+          0.9766
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "rate_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.97,
+        "auc_ci95": [
+          0.9326,
+          0.9967
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "all_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.9731,
+        "auc_ci95": [
+          0.9445,
+          0.9951
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "coupling_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.5656,
+        "auc_ci95": [
+          0.4608,
+          0.67
+        ],
+        "better_than_chance": false,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "rate_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 1.0,
+        "auc_ci95": [
+          1.0,
+          1.0
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "all",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 1.0,
+        "auc_ci95": [
+          1.0,
+          1.0
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "nonlinear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "all_nonlinear",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.9994,
+        "auc_ci95": [
+          0.9972,
+          1.0
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "coupling_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.9744,
+        "auc_ci95": [
+          0.9478,
+          0.992
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "rate_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.9259,
+        "auc_ci95": [
+          0.8813,
+          0.9662
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "all_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.9072,
+        "auc_ci95": [
+          0.8539,
+          0.9518
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "coupling_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.5244,
+        "auc_ci95": [
+          0.4153,
+          0.6214
+        ],
+        "better_than_chance": false,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "rate_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 1.0,
+        "auc_ci95": [
+          1.0,
+          1.0
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "all",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.9938,
+        "auc_ci95": [
+          0.98,
+          1.0
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "nonlinear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "all_nonlinear",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.9994,
+        "auc_ci95": [
+          0.9972,
+          1.0
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "coupling_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.9828,
+        "auc_ci95": [
+          0.9641,
+          0.9959
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "rate_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.9753,
+        "auc_ci95": [
+          0.9472,
+          0.9953
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "all_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.9125,
+        "auc_ci95": [
+          0.8615,
+          0.9552
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "coupling_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.5166,
+        "auc_ci95": [
+          0.4044,
+          0.6139
+        ],
+        "better_than_chance": false,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "rate_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 1.0,
+        "auc_ci95": [
+          1.0,
+          1.0
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "all",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.9812,
+        "auc_ci95": [
+          0.9488,
+          1.0
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "nonlinear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "all_nonlinear",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.9991,
+        "auc_ci95": [
+          0.9961,
+          1.0
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "coupling_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.8763,
+        "auc_ci95": [
+          0.7996,
+          0.9348
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "rate_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.9878,
+        "auc_ci95": [
+          0.9698,
+          0.9997
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "all_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.9791,
+        "auc_ci95": [
+          0.9554,
+          0.9954
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "coupling_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.5181,
+        "auc_ci95": [
+          0.4047,
+          0.6313
+        ],
+        "better_than_chance": false,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "rate_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 1.0,
+        "auc_ci95": [
+          1.0,
+          1.0
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "all",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.9875,
+        "auc_ci95": [
+          0.9571,
+          1.0
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "nonlinear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "all_nonlinear",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.9997,
+        "auc_ci95": [
+          0.9981,
+          1.0
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "coupling_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.9394,
+        "auc_ci95": [
+          0.8847,
+          0.9814
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "rate_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.9347,
+        "auc_ci95": [
+          0.882,
+          0.9722
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "all_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.8813,
+        "auc_ci95": [
+          0.8095,
+          0.9431
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "coupling_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.5766,
+        "auc_ci95": [
+          0.4558,
+          0.6809
+        ],
+        "better_than_chance": false,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "rate_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 1.0,
+        "auc_ci95": [
+          1.0,
+          1.0
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "all",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.9875,
+        "auc_ci95": [
+          0.9583,
+          1.0
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "nonlinear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "all_nonlinear",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.9997,
+        "auc_ci95": [
+          0.9982,
+          1.0
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "coupling_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.9825,
+        "auc_ci95": [
+          0.9602,
+          0.9969
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "rate_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.9547,
+        "auc_ci95": [
+          0.9137,
+          0.9856
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "all_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.9381,
+        "auc_ci95": [
+          0.8871,
+          0.979
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "coupling_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.52,
+        "auc_ci95": [
+          0.4077,
+          0.6249
+        ],
+        "better_than_chance": false,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "rate_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 1.0,
+        "auc_ci95": [
+          1.0,
+          1.0
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "all",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 1.0,
+        "auc_ci95": [
+          1.0,
+          1.0
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "nonlinear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "all_nonlinear",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 1.0,
+        "auc_ci95": [
+          1.0,
+          1.0
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "coupling_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.9859,
+        "auc_ci95": [
+          0.9697,
+          0.9973
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "rate_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.8662,
+        "auc_ci95": [
+          0.7968,
+          0.9267
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "all_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.755,
+        "auc_ci95": [
+          0.6653,
+          0.8375
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "coupling_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.53,
+        "auc_ci95": [
+          0.4074,
+          0.6325
+        ],
+        "better_than_chance": false,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "rate_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      }
+    ],
+    "symmetric_ratio": 1.0
   },
   "uncertainty_and_ablations": {
     "conformal_sweep": [

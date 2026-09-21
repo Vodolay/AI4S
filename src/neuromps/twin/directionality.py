@@ -116,7 +116,7 @@ def summarise(heard: dict[str, np.ndarray], duration_s: float) -> np.ndarray:
 
 def _grid_job(args) -> list[dict]:
     """One simulation, summarised at every duration and electrode count."""
-    ratio, rep, durations, electrode_counts, n_per_compartment = args
+    ratio, rep, durations, electrode_counts, n_per_compartment, drive, arm = args
     layout = default_layout()
     params = NetworkParams(
         n_per_compartment=n_per_compartment,
@@ -124,6 +124,8 @@ def _grid_job(args) -> list[dict]:
         seed=1000 + rep,
         inter_in_degree=9.0,
         forward_ratio=ratio,
+        background_rate_hz=drive["background_rate_hz"],
+        background_scale_target=drive["background_scale_target"],
     )
     result = simulate(params)
     positions, compartment = place_neurons(params, layout, seed=1000 + rep)
@@ -143,6 +145,9 @@ def _grid_job(args) -> list[dict]:
             rows.append(
                 {
                     "forward_ratio": float(ratio),
+                    "arm": arm,
+                    "background_rate_hz": float(drive["background_rate_hz"]),
+                    "background_scale_target": float(drive["background_scale_target"]),
                     "rep": int(rep),
                     "duration_s": float(duration_s),
                     "electrodes_per_compartment": int(count),
@@ -160,12 +165,24 @@ def run_grid(
     electrode_counts: tuple[int, ...],
     n_per_compartment: int = 150,
     processes: int | None = None,
+    drives: dict[float, dict[str, float]] | None = None,
+    arm: str = "free_rate",
 ) -> pd.DataFrame:
     """Simulate the grid in parallel, one network per (ratio, rep)."""
     import multiprocessing as mp
 
+    drives = drives or {}
+    default_drive = {"background_rate_hz": 10.0, "background_scale_target": 1.0}
     jobs = [
-        (ratio, rep, durations, electrode_counts, n_per_compartment)
+        (
+            ratio,
+            rep,
+            durations,
+            electrode_counts,
+            n_per_compartment,
+            drives.get(ratio, default_drive),
+            arm,
+        )
         for ratio in ratios
         for rep in range(n_reps)
     ]
@@ -176,25 +193,43 @@ def run_grid(
     return pd.DataFrame([row for rows in results for row in rows])
 
 
+def _classifier(kind: str, seed: int):
+    """The discriminator. `linear` is the interpretable baseline, `nonlinear` the ceiling.
+
+    Reporting only a linear model would confuse "the features do not carry
+    direction" with "a linear boundary does not separate them", so both are run
+    wherever the full feature set is scored.
+    """
+    from sklearn.ensemble import HistGradientBoostingClassifier
+    from sklearn.linear_model import LogisticRegression
+    from sklearn.pipeline import make_pipeline
+    from sklearn.preprocessing import StandardScaler
+
+    if kind == "nonlinear":
+        return HistGradientBoostingClassifier(max_iter=200, random_state=seed)
+    return make_pipeline(StandardScaler(), LogisticRegression(max_iter=2000))
+
+
 def discriminate(
-    frame: pd.DataFrame, features: tuple[str, ...], n_resamples: int = 1000, seed: int = 0
+    frame: pd.DataFrame,
+    features: tuple[str, ...],
+    n_resamples: int = 1000,
+    seed: int = 0,
+    kind: str = "linear",
 ) -> dict:
     """Out-of-fold AUC for symmetric vs asymmetric, with a bootstrap interval.
 
     Rows are independent simulations, so this bootstraps rows directly - unlike
     the real-data analyses, where resampling has to be over devices.
     """
-    from sklearn.linear_model import LogisticRegression
     from sklearn.metrics import roc_auc_score
     from sklearn.model_selection import StratifiedKFold, cross_val_predict
-    from sklearn.pipeline import make_pipeline
-    from sklearn.preprocessing import StandardScaler
 
     y = (~frame["symmetric"]).to_numpy(dtype=int)
     if len(np.unique(y)) < 2 or len(y) < 10:
         return {"auc": None, "note": "too few or single-class simulations"}
     x = frame[list(features)].to_numpy(dtype=float)
-    model = make_pipeline(StandardScaler(), LogisticRegression(max_iter=2000))
+    model = _classifier(kind, seed)
     folds = StratifiedKFold(n_splits=5, shuffle=True, random_state=seed)
     predicted = cross_val_predict(model, x, y, cv=folds, method="predict_proba")[:, 1]
     auc = float(roc_auc_score(y, predicted))
@@ -212,46 +247,242 @@ def discriminate(
         "n_simulations": int(len(y)),
         "bootstrap_resamples": int(n_resamples),
         "better_than_chance": bool(low is not None and low > 0.5),
+        "classifier": kind,
     }
+
+
+RATE_COLUMNS = ("c0_mfr_hz", "c1_mfr_hz")
+PLOTTED = ("all", "rate_only", "coupling_only", "all_rate_residualized")
+
+
+def residualize(frame: pd.DataFrame, features: tuple[str, ...]) -> pd.DataFrame:
+    """Remove the part of each feature that both chambers' firing rates explain.
+
+    Drive-matching turned out to be unreliable: every setting that fixed one
+    chamber's rate moved the other's, and a classifier reads whatever mismatch
+    is left. This needs no intervention in the simulation. Each feature is
+    regressed on `c0_mfr_hz` and `c1_mfr_hz` across the cell and replaced by its
+    residual, so a discriminator that still succeeds is not using rate.
+
+    It removes *linear* dependence only; a feature related to rate in a curved
+    way keeps part of that relation.
+    """
+    design = np.column_stack(
+        [np.ones(len(frame))] + [frame[c].to_numpy(dtype=float) for c in RATE_COLUMNS]
+    )
+    out = frame.copy()
+    for name in features:
+        y = frame[name].to_numpy(dtype=float)
+        coefficients, *_ = np.linalg.lstsq(design, y, rcond=None)
+        residual = y - design @ coefficients
+        # A feature the rates explain exactly leaves floating-point dust, which a
+        # standardising classifier rescales to unit variance and can separate
+        # perfectly. Anything that small is zero.
+        if np.std(residual) <= 1e-8 * max(np.std(y), 1e-12):
+            residual = np.zeros_like(residual)
+        out[name] = residual
+    return out
+
+
+SCORED = (
+    ("all", "linear", False),
+    ("all", "nonlinear", False),
+    ("coupling_only", "linear", False),
+    ("rate_only", "linear", False),
+    ("all", "linear", True),
+    ("coupling_only", "linear", True),
+    ("rate_only", "linear", True),
+)
 
 
 def sweep(frame: pd.DataFrame, n_resamples: int = 1000, seed: int = 0) -> list[dict]:
     """Discrimination for every (duration, electrode count, feature set) cell."""
+    if "arm" in frame.columns and frame["arm"].nunique() > 1:
+        rows = []
+        for arm in sorted(frame["arm"].unique()):
+            for row in sweep(frame[frame["arm"] == arm], n_resamples=n_resamples, seed=seed):
+                rows.append({**row, "arm": arm})
+        return rows
     rows = []
     for duration_s in sorted(frame["duration_s"].unique()):
         for count in sorted(frame["electrodes_per_compartment"].unique()):
             cell = frame[
                 (frame["duration_s"] == duration_s) & (frame["electrodes_per_compartment"] == count)
             ]
-            for name, features in FEATURE_SETS.items():
+            for name, kind, residual in SCORED:
+                label = name if kind == "linear" else f"{name}_{kind}"
+                data = residualize(cell, FEATURE_SETS[name]) if residual else cell
                 rows.append(
                     {
                         "duration_s": float(duration_s),
                         "electrodes_per_compartment": int(count),
-                        "feature_set": name,
-                        **discriminate(cell, features, n_resamples=n_resamples, seed=seed),
+                        "feature_set": f"{label}_rate_residualized" if residual else label,
+                        "rate_residualized": bool(residual),
+                        **discriminate(
+                            data,
+                            FEATURE_SETS[name],
+                            n_resamples=n_resamples,
+                            seed=seed,
+                            kind=kind,
+                        ),
                     }
                 )
     return rows
 
 
-def cheapest_configuration(rows: list[dict], target: float = AUC_TARGET) -> dict | None:
-    """Smallest recording that reaches the AUC target with an interval above chance.
+def rate_imbalance_by_arm(frame: pd.DataFrame) -> dict:
+    """Median rate imbalance per arm and wiring condition, to show matching worked."""
+    out: dict[str, dict[str, float]] = {}
+    for arm in sorted(frame.get("arm", pd.Series(["free_rate"])).unique()):
+        subset = frame[frame["arm"] == arm] if "arm" in frame.columns else frame
+        out[arm] = {
+            str(ratio): round(float(np.median(part["log_rate_ratio"])), 4)
+            for ratio, part in subset.groupby("forward_ratio")
+        }
+    return out
 
-    "Smallest" is ranked by recording seconds first, then electrode count: time
-    on a rig is the scarcer resource in a screening context.
+
+def cheapest_configuration(
+    rows: list[dict],
+    target: float = AUC_TARGET,
+    arm: str = "rate_matched",
+    feature_set: str = "all_rate_residualized",
+) -> dict | None:
+    """Smallest recording whose AUC *interval* clears the target.
+
+    The lower bound has to clear the target, not the point estimate: with 120
+    simulations per cell the estimate wanders by about 0.1, and a design
+    recommendation drawn from the optimistic end of that wander would not
+    reproduce. "Smallest" is ranked by recording seconds first, then electrode
+    count, because time on a rig is the scarcer resource in screening.
     """
     qualifying = [
         r
         for r in rows
-        if r["feature_set"] == "all"
+        if r["feature_set"] == feature_set
+        and r.get("arm", arm) == arm
         and r.get("auc") is not None
-        and r["auc"] >= target
-        and r.get("better_than_chance")
+        and r.get("auc_ci95")
+        and r["auc_ci95"][0] >= target
     ]
     if not qualifying:
         return None
     return min(qualifying, key=lambda r: (r["duration_s"], r["electrodes_per_compartment"]))
+
+
+def rate_matching_drives(
+    ratios: tuple[float, ...],
+    global_rates: tuple[float, ...] = (10.0, 11.0, 12.0),
+    target_scales: tuple[float, ...] = (1.0, 0.95, 0.9, 0.85, 0.75, 0.65),
+    n_reps: int = 8,
+    duration_s: float = 10.0,
+    n_per_compartment: int = 150,
+) -> dict[float, dict[str, float]]:
+    """Background drive that makes each chamber fire at the symmetric condition's rate.
+
+    An asymmetric pathway does two things at once: it carries influence one way,
+    and it changes how much excitation each chamber receives, which moves both
+    chambers' firing rates. A discriminator can then separate the conditions
+    from rate alone, without using any directional information - HD11 found the
+    same confound in the coupling measure, and the free-rate arm below shows it
+    again.
+
+    Matching only the *ratio* is not enough: it leaves the absolute rates shifted,
+    which is just as readable. Both knobs are therefore searched together, and
+    both chambers' median rates are matched to the symmetric reference.
+    """
+    reference = None
+    chosen: dict[float, dict[str, float]] = {}
+    for ratio in ratios:
+        if ratio == SYMMETRIC_RATIO:
+            frame = _probe(ratio, 10.0, 1.0, n_reps, duration_s, n_per_compartment)
+            reference = (
+                float(np.median(frame["c0_mfr_hz"])),
+                float(np.median(frame["c1_mfr_hz"])),
+            )
+            chosen[ratio] = {"background_rate_hz": 10.0, "background_scale_target": 1.0}
+            continue
+        best, best_distance = None, np.inf
+        for rate in global_rates:
+            for scale in target_scales:
+                frame = _probe(ratio, rate, scale, n_reps, duration_s, n_per_compartment)
+                got = (float(np.median(frame["c0_mfr_hz"])), float(np.median(frame["c1_mfr_hz"])))
+                distance = sum(
+                    abs(g - r) / max(r, 1e-6) for g, r in zip(got, reference, strict=True)
+                )
+                log.info(
+                    "  ratio %.1f drive %.1f/%.2f -> rates %.2f/%.2f (target %.2f/%.2f)",
+                    ratio,
+                    rate,
+                    scale,
+                    got[0],
+                    got[1],
+                    reference[0],
+                    reference[1],
+                )
+                if distance < best_distance:
+                    best, best_distance = (
+                        {
+                            "background_rate_hz": rate,
+                            "background_scale_target": scale,
+                        },
+                        distance,
+                    )
+        chosen[ratio] = best
+    return chosen
+
+
+def _probe(
+    ratio: float,
+    background_rate_hz: float,
+    target_scale: float,
+    n_reps: int,
+    duration_s: float,
+    n_per_compartment: int,
+) -> pd.DataFrame:
+    """A few short simulations at one drive setting, for the matching search."""
+    return run_grid(
+        n_reps,
+        (ratio,),
+        (duration_s,),
+        (default_layout().electrodes_per_compartment,),
+        n_per_compartment=n_per_compartment,
+        drives={
+            ratio: {
+                "background_rate_hz": background_rate_hz,
+                "background_scale_target": target_scale,
+            }
+        },
+    )
+
+
+def matching_quality(frame: pd.DataFrame) -> dict:
+    """How closely the matched arm reproduces the symmetric condition's rates.
+
+    Reported so the arm can be dismissed when matching failed, rather than read
+    as a result about wiring.
+    """
+    out = {}
+    for arm, part in frame.groupby("arm"):
+        reference = part[part["forward_ratio"] == SYMMETRIC_RATIO]
+        if reference.empty:
+            continue
+        ref = {c: float(np.median(reference[c])) for c in ("c0_mfr_hz", "c1_mfr_hz")}
+        per_ratio, worst = {}, 0.0
+        for ratio, cell in part.groupby("forward_ratio"):
+            if ratio == SYMMETRIC_RATIO:
+                continue
+            gaps = {
+                column: round(abs(float(np.median(cell[column])) - value) / max(value, 1e-6), 4)
+                for column, value in ref.items()
+            }
+            per_ratio[str(ratio)] = gaps
+            worst = max(worst, *gaps.values())
+        out[str(arm)] = {
+            "worst_relative_rate_gap": round(worst, 4),
+            "relative_rate_gap_by_ratio": per_ratio,
+        }
+    return out
 
 
 def grid_config(
@@ -259,6 +490,7 @@ def grid_config(
     durations: tuple[float, ...],
     counts: tuple[int, ...],
     n_per_compartment: int,
+    drive_scales: dict | None = None,
 ) -> dict:
     """The configuration a cached grid was produced under.
 
@@ -274,6 +506,7 @@ def grid_config(
         "durations_s": [float(d) for d in durations],
         "electrode_counts": [int(c) for c in counts],
         "n_per_compartment": int(n_per_compartment),
+        "rate_matched_drives": {str(k): v for k, v in (drive_scales or {}).items()},
         "summary_pipeline_sha256": summary_pipeline_fingerprint(),
     }
 
@@ -297,39 +530,57 @@ def plot_sweep(rows: list[dict], path: Path, title: str) -> None:
     import matplotlib.pyplot as plt
 
     colours = {6: "#0072B2", 12: "#E69F00", 24: "#009E73", 48: "#CC79A7"}
-    names = list(FEATURE_SETS)
-    fig, axes = plt.subplots(1, len(names), figsize=(4 * len(names), 3.4), sharey=True)
-    axes = np.atleast_1d(axes)
-    for ax, name in zip(axes, names, strict=True):
-        for count in sorted({r["electrodes_per_compartment"] for r in rows}):
-            cells = [
-                r
-                for r in rows
-                if r["feature_set"] == name
-                and r["electrodes_per_compartment"] == count
-                and r.get("auc") is not None
-            ]
-            if not cells:
-                continue
-            cells.sort(key=lambda r: r["duration_s"])
-            x = [r["duration_s"] for r in cells]
-            y = [r["auc"] for r in cells]
-            low = [r["auc_ci95"][0] for r in cells]
-            high = [r["auc_ci95"][1] for r in cells]
-            colour = colours.get(count, "#555555")
-            ax.plot(x, y, "o-", color=colour, label=f"{count} electrodes")
-            ax.fill_between(x, low, high, color=colour, alpha=0.15)
-        ax.axhline(0.5, color="black", ls=":", lw=1)
-        ax.axhline(AUC_TARGET, color="black", ls="--", lw=1)
-        ax.set_title(name, fontsize=9)
+    names = [n for n in PLOTTED if any(r["feature_set"] == n for r in rows)]
+    arms = sorted({r.get("arm", "free_rate") for r in rows})
+    fig, axes = plt.subplots(
+        len(arms),
+        len(names),
+        figsize=(3.6 * len(names), 3.2 * len(arms)),
+        sharey=True,
+        squeeze=False,
+    )
+    for row_index, arm in enumerate(arms):
+        for ax, name in zip(axes[row_index], names, strict=True):
+            _panel(ax, rows, name, arm, colours)
+            ax.set_title(f"{name} - {arm}", fontsize=8)
+    for ax in axes[-1]:
         ax.set_xlabel("recording length (s)")
-        ax.set_ylim(0.3, 1.02)
-    axes[0].set_ylabel("AUC, symmetric vs asymmetric")
-    axes[-1].legend(fontsize=7)
+    for row in axes:
+        row[0].set_ylabel("AUC")
+    axes[0][-1].legend(fontsize=7)
     fig.suptitle(title, fontsize=10)
     fig.tight_layout()
     fig.savefig(path, dpi=150)
     plt.close(fig)
+
+
+def _panel(ax, rows: list[dict], name: str, arm: str, colours: dict) -> None:
+    """One AUC-vs-duration panel for one feature set and one arm."""
+    for count in sorted({r["electrodes_per_compartment"] for r in rows}):
+        cells = [
+            r
+            for r in rows
+            if r["feature_set"] == name
+            and r.get("arm", "free_rate") == arm
+            and r["electrodes_per_compartment"] == count
+            and r.get("auc") is not None
+        ]
+        if not cells:
+            continue
+        cells.sort(key=lambda r: r["duration_s"])
+        colour = colours.get(count, "#555555")
+        x = [r["duration_s"] for r in cells]
+        ax.plot(x, [r["auc"] for r in cells], "o-", color=colour, label=f"{count} electrodes")
+        ax.fill_between(
+            x,
+            [r["auc_ci95"][0] for r in cells],
+            [r["auc_ci95"][1] for r in cells],
+            color=colour,
+            alpha=0.15,
+        )
+    ax.axhline(0.5, color="black", ls=":", lw=1)
+    ax.axhline(AUC_TARGET, color="black", ls="--", lw=1)
+    ax.set_ylim(0.3, 1.02)
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -350,23 +601,46 @@ def main(argv: list[str] | None = None) -> int:
 
     n_per_compartment = 80 if args.quick else 150
     path = QUICK_GRID_FILE if args.quick else GRID_FILE
-    config = grid_config(n_reps, durations, counts, n_per_compartment)
+    ratios = (SYMMETRIC_RATIO, *ASYMMETRIC_RATIOS)
+    neutral = {"background_rate_hz": 10.0, "background_scale_target": 1.0}
+    drives = (
+        {r: neutral for r in ratios}
+        if args.quick
+        else rate_matching_drives(ratios, n_per_compartment=n_per_compartment)
+    )
+    log.info("rate-matching drives: %s", drives)
+    config = grid_config(n_reps, durations, counts, n_per_compartment, drives)
     frame = None if args.rebuild else cached_grid(path, config)
     if frame is not None:
         log.info("reusing cached grid: %d rows", len(frame))
     else:
-        frame = run_grid(
+        free = run_grid(
             n_reps,
-            (SYMMETRIC_RATIO, *ASYMMETRIC_RATIOS),
+            ratios,
             durations,
             counts,
             n_per_compartment=n_per_compartment,
+            arm="free_rate",
         )
+        matched = run_grid(
+            n_reps,
+            ratios,
+            durations,
+            counts,
+            n_per_compartment=n_per_compartment,
+            drives=drives,
+            arm="rate_matched",
+        )
+        frame = pd.concat([free, matched], ignore_index=True)
         frame.to_parquet(path, index=False)
         path.with_suffix(".json").write_text(json.dumps(config, indent=2) + "\n")
 
     rows = sweep(frame, n_resamples=resamples, seed=args.seed)
-    cheapest = cheapest_configuration(rows)
+    cheapest = {
+        "rate_matched_residualized": cheapest_configuration(rows, arm="rate_matched"),
+        "free_rate_residualized": cheapest_configuration(rows, arm="free_rate"),
+        "free_rate_all_features": cheapest_configuration(rows, arm="free_rate", feature_set="all"),
+    }
     silent = float((frame["c0_mfr_hz"] == 0).mean())
     results = {
         "label": "SIMULATED - directionality discrimination, ground-truth wiring known",
@@ -376,7 +650,17 @@ def main(argv: list[str] | None = None) -> int:
         "n_networks": int(frame.groupby(["forward_ratio", "rep"]).ngroups),
         "fraction_silent": round(silent, 3),
         "auc_target": AUC_TARGET,
-        "cheapest_configuration_all_features": cheapest,
+        "cheapest_configuration": cheapest,
+        "rate_imbalance_by_arm": rate_imbalance_by_arm(frame),
+        "matching_quality": matching_quality(frame),
+        "rate_only_is_the_validity_check": (
+            "in the rate-matched arm the rate_only AUC should fall towards chance; if it does "
+            "not, the matching failed and that arm says nothing about direction"
+        ),
+        "arms": {
+            "free_rate": "asymmetric wiring left to raise the target chamber's firing rate",
+            "rate_matched": "target drive lowered so the rate imbalance matches symmetric",
+        },
         "sweep": rows,
         "bootstrap_resamples": resamples,
         "quick": bool(args.quick),
@@ -386,22 +670,22 @@ def main(argv: list[str] | None = None) -> int:
         rows,
         TWIN_DIR / "hd16_directionality_simulated.png",
         "SIMULATED: telling symmetric from asymmetric wiring, by recording length\n"
+        "top row: drive left alone; bottom row: drive adjusted to match rates, imperfectly\n"
+        "(see matching_quality); rate_residualized is the controlled comparison\n"
         "dashed = AUC target 0.8, dotted = chance; shaded = 95% bootstrap interval",
     )
     update_metrics("twin_hd16_directionality", results)
-    headline = [
-        r for r in rows if r["feature_set"] == "all" and r["electrodes_per_compartment"] == 48
-    ]
     print(
         json.dumps(
             {
                 "n_networks": results["n_networks"],
-                "cheapest_configuration_all_features": cheapest,
-                "all_features_48_electrodes": headline,
-                "rate_only_vs_coupling_only": [
-                    r
+                "rate_imbalance_by_arm": results["rate_imbalance_by_arm"],
+                "matching_quality": results["matching_quality"],
+                "cheapest_configuration": cheapest,
+                "validity_check_rate_only_residualized": [
+                    {k: r[k] for k in ("arm", "duration_s", "auc", "better_than_chance")}
                     for r in rows
-                    if r["feature_set"] in ("rate_only", "coupling_only")
+                    if r["feature_set"] == "rate_only_rate_residualized"
                     and r["electrodes_per_compartment"] == 48
                 ],
             },
