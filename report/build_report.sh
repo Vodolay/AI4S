@@ -31,6 +31,7 @@ check_pages=""
 min_pages=""
 max_pages=""
 dry_run=""
+strict_figures=""
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -39,6 +40,8 @@ while [[ $# -gt 0 ]]; do
     --engine) engine="${2:?--engine needs xelatex or html}"; shift 2 ;;
     --output) OUTPUT="${2:?--output needs a path}"; shift 2 ;;
     --dry-run) dry_run="yes"; shift ;;
+    --strict-figures) strict_figures="yes"; shift ;;
+    --allow-stale-figures) strict_figures=""; shift ;;
     -h|--help) sed -n '2,20p' "${BASH_SOURCE[0]}"; exit 0 ;;
     *) echo "unknown argument: $1" >&2; exit 2 ;;
   esac
@@ -84,6 +87,36 @@ if [[ -n "${dry_run}" ]]; then
 fi
 
 [[ -f "${SOURCE}" ]] || die "missing source: ${SOURCE}"
+
+# A figure older than the metrics was produced by an earlier run, and the two
+# can disagree: a --quick run leaves quick-mode figures behind, and restoring
+# the tracked metrics with git does not restore them, because figures are large
+# binaries. The report embeds figures and quotes metrics, so a mismatch puts a
+# 30-recording plot next to a 113-recording number.
+check_figure_freshness() {
+  local metrics="${REPO_ROOT}/outputs/metrics.json" figure stale=()
+  [[ -f "${metrics}" ]] || return 0
+  local metrics_time figure_time
+  metrics_time="$(stat -c %Y "${metrics}")"
+  # A fresh clone stamps every file with the checkout time, so only a gap of
+  # more than a couple of minutes means one artefact really predates the other.
+  local tolerance=120
+  while read -r figure; do
+    local resolved="${REPO_ROOT}/report/${figure}"
+    [[ -f "${resolved}" ]] || die "figure referenced by the report is missing: ${figure}"
+    figure_time="$(stat -c %Y "${resolved}")"
+    (( figure_time + tolerance < metrics_time )) && stale+=("${figure#../}")
+  done < <(grep -oE '\]\(\.\./[^)]+\.png\)' "${SOURCE}" | sed -e 's/^](//' -e 's/)$//')
+  if (( ${#stale[@]} )); then
+    printf 'build_report: these figures predate outputs/metrics.json:\n' >&2
+    printf '  %s\n' "${stale[@]}" >&2
+    if [[ -n "${strict_figures}" ]]; then
+      die "refusing to build: regenerate them with python run_all.py, or pass --allow-stale-figures"
+    fi
+    echo "build_report: continuing anyway; pass --strict-figures to make this fatal" >&2
+  fi
+}
+check_figure_freshness
 command -v pandoc >/dev/null || die "pandoc is required (apt install pandoc, or see report/README build notes)"
 
 WORK="$(mktemp -d)"
@@ -130,7 +163,44 @@ HTML
 # The Markdown starts with its own H1 and disclaimer, which the title page now
 # carries; strip them so the document opens on the table of contents.
 sed -e '1,8{/^# NeuroMPS/d; /^\*\*Technical report\.\*\*/d; /^(5th Pazhou/d; /^> \*\*Research decision-support only/d; /^> clinical claim/d;}' \
-  "${SOURCE}" > "${WORK}/body.md"
+  "${SOURCE}" > "${WORK}/stripped.md"
+
+# The metrics citations are comments for neuromps.report.verify, not content.
+# Pandoc drops them but keeps the surrounding whitespace, which leaves "21,272
+# records ," in the prose, and a comment that begins a line leaves "are not ."
+# once Markdown joins the lines. Strip each comment with the space before it,
+# drop any line that held nothing else, and rejoin a line that now opens with
+# punctuation onto the one before it.
+python3 - "${WORK}/stripped.md" "${WORK}/body.md" <<'PYTHON'
+import re
+import sys
+
+source, destination = sys.argv[1], sys.argv[2]
+COMMENT = re.compile(r"[ \t]*<!--.*?-->")
+OPENS_WITH_PUNCTUATION = re.compile(r"^[ \t]*[,.;:)%]")
+
+out: list[str] = []
+for original in open(source, encoding="utf-8"):
+    line = COMMENT.sub("", original)
+    if original.strip() and not line.strip():
+        continue  # the line held only a citation
+    if out and OPENS_WITH_PUNCTUATION.match(line) and out[-1].strip():
+        out[-1] = out[-1].rstrip("\n") + line.lstrip()
+    else:
+        out.append(line)
+open(destination, "w", encoding="utf-8").writelines(out)
+PYTHON
+
+cat > "${WORK}/preamble.tex" <<'LATEX'
+% With a dozen figures, LaTeX's default float parameters strand them on
+% near-empty pages. These let a float take more of a page before it is pushed
+% out, which keeps each figure next to the text that discusses it.
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.7}
+\renewcommand{\textfraction}{0.12}
+\renewcommand{\floatpagefraction}{0.8}
+\captionsetup{font=small,labelfont=bf}
+LATEX
 
 # --- build -------------------------------------------------------------------
 
@@ -154,7 +224,6 @@ pick_font() {
 }
 
 build_xelatex() {
-  command -v xelatex >/dev/null || return 1
   local font_args=()
   local mainfont monofont
   if mainfont="$(pick_font main)"; then
@@ -172,8 +241,8 @@ build_xelatex() {
     --resource-path="${REPO_ROOT}/report:${REPO_ROOT}" \
     --include-before-body="${WORK}/titlepage.tex" \
     --toc --toc-depth=2 \
-    --number-sections \
-    --highlight-style=tango \
+    --shift-heading-level-by=-1 \
+    --include-in-header="${WORK}/preamble.tex" \
     -V documentclass=article \
     -V fontsize=11pt \
     -V geometry:margin=2.5cm \
@@ -187,7 +256,6 @@ build_xelatex() {
 }
 
 build_html() {
-  command -v weasyprint >/dev/null || return 1
   [[ -f "${CSS}" ]] || die "missing ${CSS} for the HTML fallback"
   pandoc "${WORK}/body.md" \
     --from=markdown+pipe_tables+implicit_figures \
@@ -195,7 +263,7 @@ build_html() {
     --resource-path="${REPO_ROOT}/report:${REPO_ROOT}" \
     --include-before-body="${WORK}/titlepage.html" \
     --toc --toc-depth=2 \
-    --number-sections \
+    --shift-heading-level-by=-1 \
     --metadata title="NeuroMPS technical report" \
     -o "${WORK}/report.html"
   weasyprint --base-url "${REPO_ROOT}/report/" -s "${CSS}" "${WORK}/report.html" "${OUTPUT}"
@@ -203,14 +271,27 @@ build_html() {
 
 used=""
 case "${engine}" in
-  xelatex) build_xelatex && used="xelatex" || die "xelatex path failed or xelatex is not installed" ;;
-  html)    build_html && used="weasyprint" || die "html path failed or weasyprint is not installed" ;;
+  xelatex)
+    command -v xelatex >/dev/null || die "--engine xelatex, but xelatex is not installed"
+    build_xelatex || die "xelatex build failed; the LaTeX error above is the cause"
+    used="xelatex" ;;
+  html)
+    command -v weasyprint >/dev/null || die "--engine html, but weasyprint is not installed"
+    build_html || die "weasyprint build failed"
+    used="weasyprint" ;;
   auto)
-    if build_xelatex; then
+    # The fallback exists for a machine without xelatex. When xelatex *is*
+    # installed and the build fails, that is a real error - usually a missing
+    # LaTeX package, named in the output above - and falling back would bury it.
+    if command -v xelatex >/dev/null; then
+      build_xelatex || die "xelatex build failed; the LaTeX error above is the cause"
       used="xelatex"
+    elif command -v weasyprint >/dev/null; then
+      echo "build_report: xelatex not installed, using pandoc -> HTML -> weasyprint" >&2
+      build_html || die "weasyprint build failed"
+      used="weasyprint"
     else
-      echo "build_report: xelatex unavailable, falling back to pandoc -> HTML -> weasyprint" >&2
-      build_html && used="weasyprint" || die "neither xelatex nor weasyprint is available"
+      die "neither xelatex nor weasyprint is installed"
     fi ;;
 esac
 

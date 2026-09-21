@@ -136,3 +136,29 @@ def test_the_pdf_builds_and_lands_in_the_required_page_range(tmp_path: Path) -> 
     )
     assert result.returncode == 0, result.stderr
     assert output.exists() and output.stat().st_size > 50_000
+
+
+def test_every_figure_in_the_report_is_tracked_by_git() -> None:
+    """Figures are gitignored by habit; the report embeds them, so they must not be.
+
+    Without this, a fresh clone - which is what CI builds from - has no figures
+    and the PDF build fails on a missing image.
+    """
+    figures = re.findall(r"!\[[^\]]*\]\((\.\./[^)]+\.png)\)", REPORT.read_text())
+    assert figures
+    ignored = []
+    for figure in figures:
+        path = (REPO_ROOT / "report" / figure).resolve().relative_to(REPO_ROOT)
+        result = subprocess.run(
+            ["git", "check-ignore", "-q", str(path)], cwd=REPO_ROOT, capture_output=True
+        )
+        if result.returncode == 0:
+            ignored.append(str(path))
+    assert ignored == [], f"figures the report needs are gitignored: {ignored}"
+
+
+def test_the_build_refuses_stale_figures_when_asked() -> None:
+    """The guard against a quick run leaving figures that disagree with metrics."""
+    help_text = SCRIPT.read_text()
+    assert "--strict-figures" in help_text
+    assert "predate outputs/metrics.json" in help_text

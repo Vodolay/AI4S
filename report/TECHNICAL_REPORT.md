@@ -101,7 +101,7 @@ and the flags are informational: a flagged record is still in the asset, with th
 a downstream analysis can make its own decision.
 
 | flag | records | what it means |
-|---|---|---|
+|----------------------------|-------|--------------------------------------------|
 | `incomplete_dose_series` | 272 <!-- metrics.json: data_card.flag_counts.incomplete_dose_series --> | the compound's dose series is missing points |
 | `too_few_active_electrodes` | 169 <!-- metrics.json: data_card.flag_counts.too_few_active_electrodes --> | under 10 electrodes cleared 5 spikes/min |
 | `replicate_divergence` | 151 <!-- metrics.json: data_card.flag_counts.replicate_divergence --> | one replicate departs from its group |
@@ -123,7 +123,7 @@ Nine features form the core vector, computed by a single extractor (`features/me
 must also call:
 
 | feature | definition as computed |
-|---|---|
+|------------------------------|-------------------------------------------|
 | `mfr_hz` | spikes per second per active electrode |
 | `burst_rate_per_min` | bursts per minute per active electrode |
 | `burst_duration_s` | mean burst duration |
@@ -152,7 +152,7 @@ disagreement reported in §6.4, and that remains untested.
 ## 4. The data asset
 
 | source | records | level | species | license |
-|---|---|---|---|---|
+|--------------------------|-------|------------|-----------|---------|
 | `toxcast_mea` | 20,375 <!-- metrics.json: data_asset.counts.by_source.toxcast_mea --> | fitted_curve | rat | CC0-1.0 |
 | `screenneuropharm_bic` | 580 <!-- metrics.json: data_asset.counts.by_source.screenneuropharm_bic --> | spike_times | rat | MIT |
 | `kapucu2022` | 288 <!-- metrics.json: data_asset.counts.by_source.kapucu2022 --> | spike_times | human, rat | CC-BY-4.0 |
@@ -344,7 +344,7 @@ calibration done at one network size still holds at another.
 The parameters carried by the network, and how each was fixed:
 
 | parameter | role | how it was set |
-|---|---|---|
+|--------------------------------------|----------------------|----------------------|
 | `intra_in_degree` | recurrent inputs per neuron | calibrated, searched over 10-35 |
 | `inter_in_degree` | cross-compartment inputs per neuron | inferred, prior 4-16 |
 | `forward_ratio` | forward against backward pathway strength | inferred, prior 1-16 in log space |
@@ -416,7 +416,7 @@ A neural posterior estimator was trained on 3,500 simulations
 <!-- metrics.json: twin_hd14_inference.n_simulations -->.
 
 | parameter | posterior contraction | KS statistic |
-|---|---|---|
+|------------------------|-----------------------|--------------|
 | `threshold_scale` | 0.816 <!-- metrics.json: twin_hd14_inference.contraction.threshold_scale.contraction --> | 0.045 <!-- metrics.json: twin_hd14_inference.rank_uniformity_ks_p.threshold_scale.ks_statistic --> |
 | `ampa_scale` | 0.445 <!-- metrics.json: twin_hd14_inference.contraction.ampa_scale.contraction --> | 0.061 <!-- metrics.json: twin_hd14_inference.rank_uniformity_ks_p.ampa_scale.ks_statistic --> |
 | `gabaa_scale` | 0.327 <!-- metrics.json: twin_hd14_inference.contraction.gabaa_scale.contraction --> | 0.104 <!-- metrics.json: twin_hd14_inference.rank_uniformity_ks_p.gabaa_scale.ks_statistic --> |
@@ -614,7 +614,7 @@ Every number in this report comes from a key in `outputs/metrics.json`, written 
 `src/`. The main entry points:
 
 | result | metrics key | script |
-|---|---|---|
+|------------------------------|------------------------------|----------------------------|
 | asset counts and provenance | `data_asset`, `data_card` | `neuromps.etl.build` |
 | mechanism classification, calibration | `mechanism_baselines` | `neuromps.models.mechanism` |
 | conformal sets, ablations | `uncertainty_and_ablations` | `neuromps.models.conformal`, `.ablation` |

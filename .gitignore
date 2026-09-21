@@ -9,7 +9,10 @@ data/raw/*
 data/interim/*
 data/processed/*
 !data/**/.gitkeep
-outputs/**/*.png
+# Figures are tracked, not ignored: the technical report embeds them, so they
+# have to travel with the source that cites them and be visible in a diff when a
+# run changes them. A --quick run therefore shows up as a modified figure rather
+# than silently leaving one that disagrees with outputs/metrics.json.
 outputs/**/*.pdf
 .ipynb_checkpoints/
 sbi-logs/

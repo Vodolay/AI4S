@@ -1,0 +1,484 @@
+2026-09-20 20:59:46,963 INFO wrote metrics and /home/lacsi/AI4S/outputs/figures/mechanism_confusion.png
+2026-09-20 20:59:53,432 INFO wrote metrics and /home/lacsi/AI4S/outputs/figures/species_shift.png
+{
+  "task1_within_platform": {
+    "n_pairs": 73,
+    "n_groups": 50,
+    "n_splits": 4,
+    "class_counts": {
+      "na_channel_blocker": 26,
+      "glutamatergic_antagonist": 17,
+      "control": 10,
+      "gabaa_antagonist": 10,
+      "glutamatergic_agonist": 6,
+      "gabaa_agonist_or_pam": 4
+    },
+    "chance_balanced_accuracy": 0.167,
+    "models": {
+      "dummy_most_frequent": {
+        "balanced_accuracy_mean": 0.167,
+        "balanced_accuracy_sd": 0.0,
+        "balanced_accuracy_ci95": [
+          0.1667,
+          0.1667
+        ],
+        "bootstrap_resamples": 1000,
+        "macro_f1_mean": 0.087,
+        "per_fold_balanced_accuracy": [
+          0.167,
+          0.167,
+          0.167,
+          0.167
+        ]
+      },
+      "logistic_regression": {
+        "balanced_accuracy_mean": 0.537,
+        "balanced_accuracy_sd": 0.102,
+        "balanced_accuracy_ci95": [
+          0.4216,
+          0.6845
+        ],
+        "bootstrap_resamples": 1000,
+        "macro_f1_mean": 0.438,
+        "per_fold_balanced_accuracy": [
+          0.364,
+          0.631,
+          0.569,
+          0.583
+        ]
+      },
+      "gradient_boosting": {
+        "balanced_accuracy_mean": 0.398,
+        "balanced_accuracy_sd": 0.089,
+        "balanced_accuracy_ci95": [
+          0.2762,
+          0.5178
+        ],
+        "bootstrap_resamples": 1000,
+        "macro_f1_mean": 0.363,
+        "per_fold_balanced_accuracy": [
+          0.313,
+          0.53,
+          0.319,
+          0.431
+        ]
+      }
+    },
+    "bootstrap_resamples": 1000,
+    "calibration": {
+      "ece": 0.1114,
+      "n_bins": 10,
+      "n": 73,
+      "bins": [
+        {
+          "lower": 0.0,
+          "upper": 0.1,
+          "count": 0,
+          "confidence": null,
+          "accuracy": null
+        },
+        {
+          "lower": 0.1,
+          "upper": 0.2,
+          "count": 0,
+          "confidence": null,
+          "accuracy": null
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.3,
+          "count": 1,
+          "confidence": 0.2969,
+          "accuracy": 0.0
+        },
+        {
+          "lower": 0.3,
+          "upper": 0.4,
+          "count": 11,
+          "confidence": 0.3485,
+          "accuracy": 0.2727
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.5,
+          "count": 15,
+          "confidence": 0.457,
+          "accuracy": 0.4
+        },
+        {
+          "lower": 0.5,
+          "upper": 0.6,
+          "count": 23,
+          "confidence": 0.5474,
+          "accuracy": 0.6087
+        },
+        {
+          "lower": 0.6,
+          "upper": 0.7,
+          "count": 9,
+          "confidence": 0.6381,
+          "accuracy": 0.6667
+        },
+        {
+          "lower": 0.7,
+          "upper": 0.8,
+          "count": 9,
+          "confidence": 0.7491,
+          "accuracy": 0.6667
+        },
+        {
+          "lower": 0.8,
+          "upper": 0.9,
+          "count": 1,
+          "confidence": 0.8386,
+          "accuracy": 0.0
+        },
+        {
+          "lower": 0.9,
+          "upper": 1.0,
+          "count": 4,
+          "confidence": 0.9753,
+          "accuracy": 0.25
+        }
+      ],
+      "model": "logistic_regression",
+      "ece_ci95": [
+        0.0773,
+        0.2557
+      ],
+      "bootstrap_resamples": 1000
+    }
+  },
+  "task2_external_detection": {
+    "screenneuropharm_bicuculline": {
+      "n": 497,
+      "positive_class": "gabaa_antagonist",
+      "detection_rate": 0.366,
+      "mean_probability": 0.418,
+      "dose_spearman": 0.014,
+      "dose_spearman_p": 0.751,
+      "by_dose": [
+        {
+          "dose_uM": 0.1,
+          "n": 67,
+          "detection_rate": 0.179,
+          "mean_probability": 0.374
+        },
+        {
+          "dose_uM": 0.3,
+          "n": 56,
+          "detection_rate": 0.304,
+          "mean_probability": 0.436
+        },
+        {
+          "dose_uM": 1.0,
+          "n": 71,
+          "detection_rate": 0.366,
+          "mean_probability": 0.405
+        },
+        {
+          "dose_uM": 3.0,
+          "n": 70,
+          "detection_rate": 0.386,
+          "mean_probability": 0.402
+        },
+        {
+          "dose_uM": 10.0,
+          "n": 66,
+          "detection_rate": 0.424,
+          "mean_probability": 0.438
+        },
+        {
+          "dose_uM": 30.0,
+          "n": 61,
+          "detection_rate": 0.426,
+          "mean_probability": 0.423
+        },
+        {
+          "dose_uM": 100.0,
+          "n": 50,
+          "detection_rate": 0.48,
+          "mean_probability": 0.493
+        },
+        {
+          "dose_uM": 300.0,
+          "n": 45,
+          "detection_rate": 0.467,
+          "mean_probability": 0.46
+        },
+        {
+          "dose_uM": 500.0,
+          "n": 11,
+          "detection_rate": 0.091,
+          "mean_probability": 0.12
+        }
+      ]
+    },
+    "sharf_diazepam_negative_control": {
+      "n": 13,
+      "positive_class": "gabaa_antagonist",
+      "detection_rate": 0.077,
+      "mean_probability": 0.21,
+      "dose_spearman": -0.799,
+      "dose_spearman_p": 0.00104
+    }
+  },
+  "task3_platform_contrast": {
+    "mechanism": "gabaa_antagonist",
+    "min_dose_uM": 30.0,
+    "by_source": {
+      "kapucu2022": {
+        "n": 10,
+        "compounds": [
+          "gabazine"
+        ],
+        "median_delta": {
+          "mfr_hz": 0.348,
+          "burst_rate_per_min": -0.277,
+          "burst_duration_s": 0.203,
+          "spikes_per_burst": 0.635,
+          "pct_spikes_in_bursts": 0.476,
+          "network_burst_rate_per_min": 1.536,
+          "synchrony_index": 1.743,
+          "isi_cv": 0.573,
+          "active_electrodes": 0.0
+        }
+      },
+      "screenneuropharm_bic": {
+        "n": 167,
+        "compounds": [
+          "bicuculline"
+        ],
+        "median_delta": {
+          "mfr_hz": -0.684,
+          "burst_rate_per_min": -0.915,
+          "burst_duration_s": 0.086,
+          "spikes_per_burst": 0.314,
+          "pct_spikes_in_bursts": 0.05,
+          "network_burst_rate_per_min": -0.92,
+          "synchrony_index": 0.148,
+          "isi_cv": -0.127,
+          "active_electrodes": 0.0
+        }
+      }
+    },
+    "features_agreeing_in_sign": [
+      "burst_duration_s",
+      "burst_rate_per_min",
+      "pct_spikes_in_bursts",
+      "spikes_per_burst",
+      "synchrony_index"
+    ],
+    "features_disagreeing_in_sign": [
+      "active_electrodes",
+      "isi_cv",
+      "mfr_hz",
+      "network_burst_rate_per_min"
+    ]
+  }
+}
+{
+  "none": {
+    "adaptation": "none",
+    "shared_labels": [
+      "control",
+      "gabaa_antagonist",
+      "glutamatergic_agonist",
+      "glutamatergic_antagonist",
+      "na_channel_blocker"
+    ],
+    "chance_balanced_accuracy": 0.2,
+    "rat_to_human": {
+      "balanced_accuracy": 0.55,
+      "balanced_accuracy_ci95": [
+        0.4,
+        0.6
+      ],
+      "permutation_p": 0.0002,
+      "n_train": 37,
+      "n_test": 32
+    },
+    "human_within": {
+      "balanced_accuracy": 0.646,
+      "balanced_accuracy_sd": 0.139,
+      "n": 32,
+      "n_splits": 4,
+      "repeats": 5
+    },
+    "rat_within": {
+      "balanced_accuracy": 0.543,
+      "balanced_accuracy_sd": 0.067,
+      "n": 37,
+      "n_splits": 2,
+      "repeats": 5
+    }
+  },
+  "standardize": {
+    "adaptation": "standardize",
+    "shared_labels": [
+      "control",
+      "gabaa_antagonist",
+      "glutamatergic_agonist",
+      "glutamatergic_antagonist",
+      "na_channel_blocker"
+    ],
+    "chance_balanced_accuracy": 0.2,
+    "rat_to_human": {
+      "balanced_accuracy": 0.408,
+      "balanced_accuracy_ci95": [
+        0.246,
+        0.56
+      ],
+      "permutation_p": 0.0054,
+      "n_train": 37,
+      "n_test": 32
+    },
+    "human_within": {
+      "balanced_accuracy": 0.646,
+      "balanced_accuracy_sd": 0.139,
+      "n": 32,
+      "n_splits": 4,
+      "repeats": 5
+    },
+    "rat_within": {
+      "balanced_accuracy": 0.543,
+      "balanced_accuracy_sd": 0.067,
+      "n": 37,
+      "n_splits": 2,
+      "repeats": 5
+    }
+  },
+  "coral": {
+    "adaptation": "coral",
+    "shared_labels": [
+      "control",
+      "gabaa_antagonist",
+      "glutamatergic_agonist",
+      "glutamatergic_antagonist",
+      "na_channel_blocker"
+    ],
+    "chance_balanced_accuracy": 0.2,
+    "rat_to_human": {
+      "balanced_accuracy": 0.442,
+      "balanced_accuracy_ci95": [
+        0.28,
+        0.597
+      ],
+      "permutation_p": 0.002,
+      "n_train": 37,
+      "n_test": 32
+    },
+    "human_within": {
+      "balanced_accuracy": 0.646,
+      "balanced_accuracy_sd": 0.139,
+      "n": 32,
+      "n_splits": 4,
+      "repeats": 5
+    },
+    "rat_within": {
+      "balanced_accuracy": 0.543,
+      "balanced_accuracy_sd": 0.067,
+      "n": 37,
+      "n_splits": 2,
+      "repeats": 5
+    }
+  }
+}2026-09-20 20:59:59,342 INFO wrote metrics and /home/lacsi/AI4S/outputs/figures/conformal_set_size.png
+2026-09-20 20:59:59,422 INFO wrote metrics and /home/lacsi/AI4S/outputs/figures/compartment_lag_by_device_type.png
+2026-09-20 20:59:59,422 INFO run_all finished in 15.5 s
+
+{
+  "most_invariant_features": [
+    "mfr_hz",
+    "pct_spikes_in_bursts",
+    "burst_rate_per_min"
+  ],
+  "most_shifted_features": [
+    "synchrony_index",
+    "isi_cv",
+    "network_burst_rate_per_min"
+  ]
+}
+{
+  "conformal_sweep": [
+    {
+      "alpha": 0.05,
+      "target_coverage": 0.95,
+      "n_splits": 4,
+      "mean_threshold": 0.019,
+      "n_test": 73,
+      "empirical_coverage": 0.918,
+      "mean_set_size": 4.562,
+      "fraction_singleton": 0.0,
+      "fraction_empty": 0.0,
+      "coverage_by_class": {
+        "control": 1.0,
+        "gabaa_agonist_or_pam": 1.0,
+        "gabaa_antagonist": 1.0,
+        "glutamatergic_agonist": 0.5,
+        "glutamatergic_antagonist": 0.941,
+        "na_channel_blocker": 0.923
+      }
+    },
+    {
+      "alpha": 0.1,
+      "target_coverage": 0.9,
+      "n_splits": 4,
+      "mean_threshold": 0.019,
+      "n_test": 73,
+      "empirical_coverage": 0.918,
+      "mean_set_size": 4.562,
+      "fraction_singleton": 0.0,
+      "fraction_empty": 0.0,
+      "coverage_by_class": {
+        "control": 1.0,
+        "gabaa_agonist_or_pam": 1.0,
+        "gabaa_antagonist": 1.0,
+        "glutamatergic_agonist": 0.5,
+        "glutamatergic_antagonist": 0.941,
+        "na_channel_blocker": 0.923
+      }
+    },
+    {
+      "alpha": 0.2,
+      "target_coverage": 0.8,
+      "n_splits": 4,
+      "mean_threshold": 0.101,
+      "n_test": 73,
+      "empirical_coverage
+{
+  "column": "median_abs_lag_ms",
+  "by_type": {
+    "CxCx": {
+      "n_devices": 5,
+      "median": 5.0,
+      "min": 0.0,
+      "max": 10.0
+    },
+    "CxHp": {
+      "n_devices": 6,
+      "median": 11.25,
+      "min": 7.5,
+      "max": 22.5
+    },
+    "HpHp": {
+      "n_devices": 5,
+      "median": 5.0,
+      "min": 5.0,
+      "max": 7.5
+    }
+  },
+  "kruskal_p": 0.0082,
+  "kruskal_statistic": 9.61,
+  "pairwise": {
+    "CxCx_vs_CxHp": 0.0207,
+    "CxCx_vs_HpHp": 0.4785,
+    "CxHp_vs_HpHp": 0.0086
+  },
+  "pairwise_holm": {
+    "CxHp_vs_HpHp": 0.0257,
+    "CxCx_vs_CxHp": 0.0413,
+    "CxCx_vs_HpHp": 0.4785
+  }
+}
+2026-09-20 21:00:24,544 INFO simulated baseline features: {'mfr_hz': 4.477604166666667, 'burst_rate_per_min': 25.34375, 'burst_duration_s': 0.02679556103575831, 'spikes_per_burst': 5.79284833538841, 'pct_spikes_in_bursts': 54.64696987321159, 'network_burst_rate_per_min': 53.0, 'synchrony_index': 0.8298518265897853, 'isi_cv': 1.7101395601151226, 'active_electrodes': 32}
