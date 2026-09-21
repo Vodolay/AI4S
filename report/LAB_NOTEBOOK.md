@@ -685,7 +685,7 @@ fabricated rather than assumed, and it does not reproduce. The sample is too sma
 confounded to call that a refutation, and too directly aimed to leave out.
 
 
-### 2026-09-21 — `mateus2024` step 4: extending the standard to admit a source (`STEP4`)
+### 2026-09-21 — `mateus2024` step 4: extending the standard to admit a source (`f6263f8`)
 
 **The schema rejected the new records, and that was the point.** All 108 failed validation on the
 first build: an unknown source, three device fields with nowhere to live, a QC flag outside the
