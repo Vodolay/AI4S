@@ -41,9 +41,9 @@
   "posterior_file": "outputs/twin/hd14_posterior_simulated.pt",
   "conformal_alpha": 0.1,
   "timings_s": {
-    "simulate_grid_s": 28.6,
-    "grid_posteriors_s": 21.2,
-    "real_posteriors_s": 34.2,
+    "simulate_grid_s": 28.4,
+    "grid_posteriors_s": 20.5,
+    "real_posteriors_s": 33.7,
     "fit_classifier_s": 0.1
   },
   "quick": false

@@ -744,3 +744,51 @@ visible rather than assumed fine.
 
 ### Next first task
 - Work through `report/REVIEW.md`.
+
+## 2026-09-20: responding to the independent review (`report/REVIEW.md`)
+
+An external reviewer scored the report 6.8/10, confirmed all 115 citations resolved and matched, and
+raised 17 findings. I checked the three critical ones against `metrics.json` myself before changing
+anything; **all three hold**, and all three were cases of reporting the weaker of two analyses that
+were already in `outputs/`.
+
+### Accepted and fixed
+
+1. **F1 (critical) — the directionality headline came from the arm that fails its own check.**
+   `metrics.json` defines the criterion: in the rate-matched arm, rate-only features must fall
+   towards chance. They run 0.8587-0.9859 and every cell beats chance, so by our own rule that arm
+   is uninterpretable — yet the headline quoted its AUC 0.9784 at 6 electrodes while citing the
+   *free-rate* arm's validity check. The headline is now the free-rate residualised result, AUC
+   0.9359 [0.893, 0.9739] at 24 electrodes, and §7.6 reports the matched arm as inconclusive with
+   the evidence that it failed.
+2. **F2/F3/F9/F12 (critical) — headline 1 was contradicted by the only platform analysis we have,
+   which was never reported.** `task3_platform_contrast` shows `mfr_hz` reversing sign across
+   platforms (+0.348 against -0.684) while `synchrony_index` agrees. A new §6.4 reports Task 3
+   properly, the headline now says *species* rather than *platforms*, and Figure 4's caption is
+   corrected. The zero-valued `active_electrodes` "disagreement" is called out as degenerate.
+3. **F5/F6 (major) — §6.6 reported the pooled test the lab notebook had abandoned.** Replaced with
+   the per-device-type analysis: lag 11.25 ms for CxHp against 5.0 ms for both same-tissue types,
+   Kruskal p = 0.0082, with the internal control behaving (CxCx vs HpHp Holm 0.4785). The pooled
+   test is mentioned as deliberately not the headline, with the reason.
+4. **F4 (major) — `--quick` does not regenerate the §7.6 numbers.** True: every
+   `cheapest_configuration` is `null` at quick settings. §9 now says so. Stage timings are written
+   to `metrics.run_all_timings_{quick,full}` by `run_all.py`, so §9.1 is no longer the one uncited
+   table.
+5. **F7/F8/F10/F11/F13/F14/F16/F17 — figures and over-claims.** `species_shift.png` gained the
+   difference panel with the intervals its caption promised (only `network_burst_rate_per_min`
+   excludes zero); the HD11 title no longer claims a sign flip the regenerated data does not
+   contain; the HD16 figure is four larger panels per arm including the validity-check panel;
+   titles that truncated are wrapped. Prose: "beats gradient boosting" removed, the calibration
+   caveat extended above 0.8 confidence, `isi_cv` hedged like `synchrony_index`, "never better than
+   chance" weakened to what the key licenses, and the §7.2 sweep numbers now carry citations.
+
+### Partially disagreed
+
+- **F15 (naming rule).** The reviewer is right that `hd15_real_dose_response.png` breaks the rule
+  Appendix A states, but renaming it would be wrong: it plots *real* recordings under a
+  simulation-trained posterior, and calling it `simulated` would misdescribe it in the other
+  direction. Appendix A now states the rule as it actually is, and says which file is the hybrid.
+
+### Still open
+- The PDF is at **22 pages of the 14-22 range**, so the next addition will fail the CI check.
+- CI has still not been observed to pass.

@@ -218,7 +218,13 @@ def transfer_scores(pairs: pd.DataFrame, adapt: str | None = None, seed: int = 0
 
 
 def plot_species_shift(shift: dict, path, title: str) -> None:
-    """Per-feature median delta by species, so the shift is visible feature by feature."""
+    """Per-feature medians by species, and the difference with its interval.
+
+    The second panel exists because the first cannot carry uncertainty: the
+    bootstrap intervals are on the rat-human *difference*, not on either median,
+    and several of them reach zero. Drawing only the bars invites the reader to
+    take an ordering as an effect.
+    """
     import matplotlib
 
     matplotlib.use("Agg")
@@ -228,19 +234,49 @@ def plot_species_shift(shift: dict, path, title: str) -> None:
     rat = [shift["by_feature"][f]["rat_median"] or 0 for f in features]
     human = [shift["by_feature"][f]["human_median"] or 0 for f in features]
     positions, width = np.arange(len(features)), 0.38
-    fig, ax = plt.subplots(figsize=(9, 4.5))
-    ax.bar(positions - width / 2, rat, width, label=f"rat (n={shift['n_rat']})", color="#0072B2")
-    ax.bar(
+    fig, axes = plt.subplots(2, 1, figsize=(9, 7.0), sharex=True)
+    axes[0].bar(
+        positions - width / 2, rat, width, label=f"rat (n={shift['n_rat']})", color="#0072B2"
+    )
+    axes[0].bar(
         positions + width / 2, human, width, label=f"human (n={shift['n_human']})", color="#D55E00"
     )
-    ax.axhline(0, color="black", linewidth=0.8)
-    ax.set_xticks(positions, features, rotation=40, ha="right", fontsize=8)
-    ax.set_ylabel("median log2(exposure / baseline)")
-    ax.set_title(title, fontsize=10)
-    ax.legend(fontsize=8)
+    axes[0].axhline(0, color="black", linewidth=0.8)
+    axes[0].set_ylabel("median log2(exposure / baseline)", fontsize=9)
+    axes[0].legend(fontsize=8)
+    _difference_panel(axes[1], shift, features, positions)
+    axes[1].set_xticks(positions, features, rotation=40, ha="right", fontsize=8)
+    fig.suptitle(title, fontsize=10)
     fig.tight_layout()
     fig.savefig(path, dpi=150)
     plt.close(fig)
+
+
+def _difference_panel(axis, shift: dict, features: list[str], positions) -> None:
+    """Rat minus human per feature, with the 95% cluster-bootstrap interval."""
+    differences, lower, upper, colours = [], [], [], []
+    for name in features:
+        entry = shift["by_feature"][name]
+        difference = entry.get("difference") or 0.0
+        low, high = entry.get("difference_ci95") or [difference, difference]
+        differences.append(difference)
+        lower.append(difference - low)
+        upper.append(high - difference)
+        colours.append("#009E73" if (low > 0 or high < 0) else "#999999")
+    axis.errorbar(
+        positions,
+        differences,
+        yerr=[lower, upper],
+        fmt="o",
+        color="black",
+        ecolor="black",
+        capsize=3,
+        markersize=0,
+    )
+    axis.scatter(positions, differences, color=colours, zorder=3, s=36)
+    axis.axhline(0, color="black", linewidth=0.8)
+    axis.set_ylabel("rat - human, log2 units", fontsize=9)
+    axis.set_title("green = interval excludes zero; grey = compatible with no shift", fontsize=8)
 
 
 def main(argv: list[str] | None = None) -> int:

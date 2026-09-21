@@ -361,9 +361,9 @@
     "simulated_duration_s": 10.0,
     "timings_s": {
       "fit_classifier_s": 0.1,
-      "grid_posteriors_s": 21.2,
-      "real_posteriors_s": 34.2,
-      "simulate_grid_s": 28.6
+      "grid_posteriors_s": 20.5,
+      "real_posteriors_s": 33.7,
+      "simulate_grid_s": 28.4
     }
   },
   "mechanism_baselines": {
@@ -642,6 +642,16 @@
       "mechanism": "gabaa_antagonist",
       "min_dose_uM": 30.0
     }
+  },
+  "run_all_timings_full": {
+    "by_stage_s": {
+      "demo": 85.4
+    },
+    "label": "wall-clock seconds per stage, full run",
+    "stages_run": [
+      "demo"
+    ],
+    "total_s": 85.4
   },
   "species_transfer": {
     "source": "kapucu2022",

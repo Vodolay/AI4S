@@ -252,7 +252,9 @@ def discriminate(
 
 
 RATE_COLUMNS = ("c0_mfr_hz", "c1_mfr_hz")
-PLOTTED = ("all", "rate_only", "coupling_only", "all_rate_residualized")
+# Four feature sets fit legibly at text width; eight did not. These are the ones
+# the report argues from, including the set the validity check is computed on.
+PLOTTED = ("all", "rate_only", "all_rate_residualized", "rate_only_rate_residualized")
 
 
 def residualize(frame: pd.DataFrame, features: tuple[str, ...]) -> pd.DataFrame:
@@ -564,13 +566,14 @@ def plot_sweep(rows: list[dict], path: Path, title: str) -> None:
     for row_index, arm in enumerate(arms):
         for ax, name in zip(axes[row_index], names, strict=True):
             _panel(ax, rows, name, arm, colours)
-            ax.set_title(f"{name} - {arm}", fontsize=8)
+            ax.set_title(f"{name}\n{arm}", fontsize=10)
+            ax.tick_params(labelsize=9)
     for ax in axes[-1]:
-        ax.set_xlabel("recording length (s)")
+        ax.set_xlabel("recording length (s)", fontsize=10)
     for row in axes:
-        row[0].set_ylabel("AUC")
-    axes[0][-1].legend(fontsize=7)
-    fig.suptitle(title, fontsize=10)
+        row[0].set_ylabel("AUC", fontsize=10)
+    axes[0][-1].legend(fontsize=9)
+    fig.suptitle(title, fontsize=11)
     fig.tight_layout()
     fig.savefig(path, dpi=150)
     plt.close(fig)

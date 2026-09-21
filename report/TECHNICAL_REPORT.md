@@ -29,18 +29,25 @@ connectivity and drug effects from MEA summary features.
 
 The results that matter are as much negative as positive, and the report leads with both:
 
-1. **Rate and burst-fraction measures are portable across platforms; synchrony and network-burst
-   measures are not.** Four independent analyses converge on this (§6.3, §6.4, §7.3).
+1. **Rate and burst-fraction measures survive a change of species; synchrony and network-burst
+   measures do not** (§6.3, §6.5, §6.6, §7.3). **Across *platforms* none of them is safe** — mean
+   firing rate itself reverses sign (§6.4), which is the sharper limitation of the two.
 2. **Coupling asymmetry tracks relative firing rate, not pathway direction.** At fixed wiring,
-   changing one chamber's drive swings the measured asymmetry across most of its range (§7.2).
+   changing one chamber's drive moves the measure several times further than changing the wiring
+   does (§7.2).
 3. **The twin's posterior does not recover drug-knob direction from real recordings.** The inferred
    GABA-A scale shows no bicuculline dose trend, and untreated chips already infer 0.3781
    <!-- metrics.json: twin_hd15_real_inference.gabaa_scale_at_baseline.median -->, so the parameter
    is absorbing model mismatch rather than tracking the compound (§7.5).
-4. **Direction *is* recoverable from simulated features once rate is controlled for** — AUC 0.9784
-   <!-- metrics.json: twin_hd16_directionality.cheapest_configuration.rate_matched_residualized.auc -->
-   from a 10 s recording on 6 electrodes per compartment — but as a *contrast* between two
-   well-spaced wiring classes, not as a measurement of a continuous ratio (§7.6).
+4. **Direction *is* recoverable from simulated features once firing rate is residualised out** —
+   AUC 0.9359
+   <!-- metrics.json: twin_hd16_directionality.cheapest_configuration.free_rate_residualized.auc -->,
+   95% CI [0.893, 0.9739]
+   <!-- metrics.json: twin_hd16_directionality.cheapest_configuration.free_rate_residualized.auc_ci95 -->,
+   from a 10 s recording on 24 electrodes per compartment — but as a *contrast* between two
+   well-spaced wiring classes, not as a measurement of a continuous ratio (§7.6). A second arm,
+   which adjusted drive to match rates, reaches a higher AUC at fewer electrodes and **fails its own
+   validity check**; it is reported as inconclusive rather than as the result.
 
 The honest summary of the twin is therefore: it reproduces baseline features and most drug
 directions, it can tell two wiring regimes apart in simulation, and it cannot yet read pharmacology
@@ -215,8 +222,9 @@ Six classes, 73 treated/baseline pairs
 | most-frequent baseline | 0.167 <!-- metrics.json: mechanism_baselines.task1_within_platform.models.dummy_most_frequent.balanced_accuracy_mean --> | — |
 
 Chance is 0.167 <!-- metrics.json: mechanism_baselines.task1_within_platform.chance_balanced_accuracy -->.
-Logistic regression beats chance with an interval that excludes it, and beats gradient boosting —
-with 73 pairs, the simpler model is the better one, and the gap between them is within noise.
+Logistic regression beats chance with an interval that excludes it. Its interval and gradient
+boosting's overlap heavily, so the gap between the two models is within noise; with 73 pairs the
+simpler model is the one to prefer, not the one shown to be better.
 
 ![Task 1 confusion matrix, REAL data: out-of-fold predictions from grouped cross-validation over 73 treated/baseline pairs. Errors concentrate between the two GABA-A classes.](../outputs/figures/mechanism_confusion.png){width=82%}
 
@@ -225,7 +233,8 @@ with 73 pairs, the simpler model is the better one, and the gap between them is 
 <!-- metrics.json: mechanism_baselines.task1_within_platform.calibration.ece -->, 95% CI [0.0773, 0.2557]
 <!-- metrics.json: mechanism_baselines.task1_within_platform.calibration.ece_ci95 -->
 (`outputs/figures/task1_reliability_real.png`). The upper end of that interval is large: predicted
-probabilities should be read as ordering, not as calibrated risk.
+probabilities should be read as ordering, not as calibrated risk — and not even as ordering above
+0.8 confidence, where observed accuracy falls rather than rises, on a handful of predictions.
 
 ![Reliability diagram, REAL data: predicted probability against observed frequency for the mechanism classifier, out-of-fold. Bin counts are small, which is why the calibration interval is wide.](../outputs/figures/task1_reliability_real.png){width=72%}
 
@@ -253,8 +262,6 @@ is called GABA-A antagonist in only 0.077
 <!-- metrics.json: mechanism_baselines.task2_external_detection.sharf_diazepam_negative_control.detection_rate -->
 of its records.
 
-![The same mechanism measured on two platforms, REAL data: per-feature log2 change for GABA-A antagonists. Features whose sign disagrees across platforms are the synchrony and network-burst group.](../outputs/figures/platform_contrast_gabaa_antagonist.png){width=88%}
-
 
 **This is a weak result reported as a weak result.** A detection rate near a third with no dose
 relationship is not a screening tool; it is evidence that the mechanism signal partially survives a
@@ -277,7 +284,39 @@ adaptation methods made it worse**. With 37 training and 32 test records
 <!-- metrics.json: species_transfer.transfer.none.rat_to_human.n_test -->, CORAL is estimating a
 covariance it cannot support. Reporting adaptation as a negative result is the useful outcome here.
 
-### 6.4 Which features survive a species change
+### 6.4 Task 3 — platform contrast
+
+The same mechanism at ≥30 µM
+<!-- metrics.json: mechanism_baselines.task3_platform_contrast.min_dose_uM --> measured on two
+platforms: gabazine on 16-electrode Axion wells, n = 10
+<!-- metrics.json: mechanism_baselines.task3_platform_contrast.by_source.kapucu2022.n -->, against
+bicuculline on multi-electrode arrays, n = 167
+<!-- metrics.json: mechanism_baselines.task3_platform_contrast.by_source.screenneuropharm_bic.n -->.
+Five features agree in sign and four disagree
+<!-- metrics.json: mechanism_baselines.task3_platform_contrast.features_agreeing_in_sign -->
+<!-- metrics.json: mechanism_baselines.task3_platform_contrast.features_disagreeing_in_sign -->.
+
+![The same mechanism measured on two platforms, REAL data: per-feature log2 change for GABA-A antagonists. Mean firing rate reverses sign across platforms; synchrony agrees.](../outputs/figures/platform_contrast_gabaa_antagonist.png){width=88%}
+
+**The disagreement does not fall where the species analysis puts it.** `mfr_hz` reverses, +0.348
+<!-- metrics.json: mechanism_baselines.task3_platform_contrast.by_source.kapucu2022.median_delta.mfr_hz -->
+against −0.684
+<!-- metrics.json: mechanism_baselines.task3_platform_contrast.by_source.screenneuropharm_bic.median_delta.mfr_hz -->,
+while `synchrony_index` agrees, +1.743
+<!-- metrics.json: mechanism_baselines.task3_platform_contrast.by_source.kapucu2022.median_delta.synchrony_index -->
+against +0.148
+<!-- metrics.json: mechanism_baselines.task3_platform_contrast.by_source.screenneuropharm_bic.median_delta.synchrony_index -->.
+That is the opposite of the pattern in §6.5 and §6.6, and it is the reason this report separates the
+two claims: **the portable-feature result is about species, and does not carry across platforms.**
+
+Three cautions on how far this goes. The contrast confounds compound (gabazine against bicuculline)
+with electrode count, recording duration and culture age, so it bounds portability rather than
+explaining it. The two arms are ten wells against 167 records. And `active_electrodes` is counted as
+a disagreement while its median delta is exactly 0.000
+<!-- metrics.json: mechanism_baselines.task3_platform_contrast.by_source.kapucu2022.median_delta.active_electrodes -->
+on both platforms — a zero has no sign, so the substantive count is three disagreements, not four.
+
+### 6.5 Which features survive a species change
 
 The most shifted features between species are `synchrony_index`
 <!-- metrics.json: species_transfer.species_shift.most_shifted_features -->, `isi_cv` and
@@ -288,12 +327,21 @@ shift is large — a difference of −4.179
 <!-- metrics.json: species_transfer.species_shift.by_feature.synchrony_index.difference --> in log2
 units — though its interval [−5.7435, 0.1868]
 <!-- metrics.json: species_transfer.species_shift.by_feature.synchrony_index.difference_ci95 -->
-reaches zero, so the ordering is better supported than the magnitude.
+reaches zero, so the ordering is better supported than the magnitude. The same hedge applies to
+`isi_cv`, whose interval [−1.6738, 0.15]
+<!-- metrics.json: species_transfer.species_shift.by_feature.isi_cv.difference_ci95 --> also reaches
+zero; only `network_burst_rate_per_min` has an interval that excludes it,
+[−9.7879, −0.3389]
+<!-- metrics.json: species_transfer.species_shift.by_feature.network_burst_rate_per_min.difference_ci95 -->.
+The ranking is by standardised difference, so "most invariant" does not mean small: `burst_rate_per_min`
+is named invariant while carrying a median difference of 1.04
+<!-- metrics.json: species_transfer.species_shift.by_feature.burst_rate_per_min.difference --> log2
+units, a two-fold shift whose interval also spans zero.
 
-![Per-feature species shift, REAL data: rat against human baseline distributions, with cluster-bootstrap intervals. Rate and burst-fraction features move least; synchrony moves most.](../outputs/figures/species_shift.png){width=88%}
+![Per-feature species shift, REAL data: rat against human baseline distributions, with cluster-bootstrap intervals. Rate and burst-fraction features move least; synchrony moves most.](../outputs/figures/species_shift.png){width=74%}
 
 
-### 6.5 Ablations: the feature set is mostly one feature
+### 6.6 Ablations: the feature set is mostly one feature
 
 | feature subset | balanced accuracy | 95% CI |
 |---|---|---|
@@ -308,26 +356,44 @@ by −0.05 <!-- metrics.json: uncertainty_and_ablations.leave_one_out.mfr_hz.del
 dropping `burst_rate_per_min` changes it by 0.0
 <!-- metrics.json: uncertainty_and_ablations.leave_one_out.burst_rate_per_min.delta_vs_all -->.
 
-### 6.6 Compartment asymmetry in real devices
+### 6.7 Compartment asymmetry in real devices
 
-Across 16 two-chamber devices <!-- metrics.json: compartment_asymmetry.n_devices -->, heterogeneous
-devices (cortical–hippocampal) show a higher median absolute coupling asymmetry, 0.138
-<!-- metrics.json: compartment_asymmetry.pooled_heterogeneous_vs_homogeneous.median_heterogeneous -->,
-than homogeneous ones, 0.094
-<!-- metrics.json: compartment_asymmetry.pooled_heterogeneous_vs_homogeneous.median_homogeneous -->
-(Mann-Whitney p = 0.042
-<!-- metrics.json: compartment_asymmetry.pooled_heterogeneous_vs_homogeneous.p_value -->,
-rank-biserial 0.633
-<!-- metrics.json: compartment_asymmetry.pooled_heterogeneous_vs_homogeneous.rank_biserial -->,
-6 <!-- metrics.json: compartment_asymmetry.pooled_heterogeneous_vs_homogeneous.n_heterogeneous -->
-against 10 devices
-<!-- metrics.json: compartment_asymmetry.pooled_heterogeneous_vs_homogeneous.n_homogeneous -->).
+Across 16 two-chamber devices <!-- metrics.json: compartment_asymmetry.n_devices -->, the statistic
+that separates device types is coupling **lag**, not asymmetry. Median absolute lag is 11.25 ms
+<!-- metrics.json: compartment_asymmetry.by_device_type.median_abs_lag_ms.by_type.CxHp.median -->
+for cortical–hippocampal devices against 5.0 ms
+<!-- metrics.json: compartment_asymmetry.by_device_type.median_abs_lag_ms.by_type.CxCx.median -->
+and 5.0 ms
+<!-- metrics.json: compartment_asymmetry.by_device_type.median_abs_lag_ms.by_type.HpHp.median -->
+for the two same-tissue types (Kruskal p = 0.0082
+<!-- metrics.json: compartment_asymmetry.by_device_type.median_abs_lag_ms.kruskal_p -->; Holm-adjusted
+0.0413
+<!-- metrics.json: compartment_asymmetry.by_device_type.median_abs_lag_ms.pairwise_holm.CxCx_vs_CxHp -->
+and 0.0257
+<!-- metrics.json: compartment_asymmetry.by_device_type.median_abs_lag_ms.pairwise_holm.CxHp_vs_HpHp -->
+against the two homogeneous types).
 
-With six devices on one side, this is a hypothesis, not a finding, and §7.2 gives a specific reason
-to distrust the measure itself.
+**The internal control behaves.** The two same-tissue types are indistinguishable from each other,
+Holm 0.4785
+<!-- metrics.json: compartment_asymmetry.by_device_type.median_abs_lag_ms.pairwise_holm.CxCx_vs_HpHp -->,
+which is what a real device-type effect should look like and what a pooled heterogeneous-against-
+homogeneous split cannot show.
 
-![Inter-compartment coupling lag by device type, REAL data, one value per device. Heterogeneous (cortical-hippocampal) devices sit apart from homogeneous ones, on six devices against ten.](../outputs/figures/compartment_lag_by_device_type.png){width=78%}
+![Inter-compartment coupling lag by device type, REAL data, one value per device: five CxCx, five HpHp, six CxHp. The two same-tissue types are indistinguishable from each other; the heterogeneous type sits apart.](../outputs/figures/compartment_lag_by_device_type.png){width=78%}
 
+Two things this section does **not** claim. On absolute asymmetry rather than lag, the same per-type
+comparison does not survive correction, Holm 0.0519
+<!-- metrics.json: compartment_asymmetry.by_device_type.median_abs_asymmetry.pairwise_holm.CxCx_vs_CxHp -->,
+so lag is the claim and asymmetry is not. And a pooled heterogeneous-against-homogeneous test of
+asymmetry *does* cross the line, p = 0.042
+<!-- metrics.json: compartment_asymmetry.pooled_heterogeneous_vs_homogeneous.p_value -->; it is kept
+in `metrics.json` and is deliberately not the headline here, because pooling CxCx with HpHp is an
+artefact — the two homogeneous types differ from each other on peak correlation, so pooling them
+manufactures a contrast. An earlier draft of this report led with that pooled test; the lab notebook
+had already recorded it as abandoned, and this section now reports the analysis that replaced it.
+
+With five to six devices per group, this supports an ordering of device types, not an effect size,
+and §7.2 gives a specific reason to distrust the asymmetry measure in particular.
 
 ---
 
@@ -368,8 +434,13 @@ per-electrode input.
 ### 7.2 The measure the twin exists to use is confounded
 
 Coupling asymmetry was expected to report pathway direction. It reports relative firing rate. At
-**fixed** wiring, lowering the receiving chamber's background drive swings asymmetry from about 0.11
-to 0.68; at **fixed** drive, raising the forward ratio from 1 to 16 barely moves it. This is the most
+**fixed** wiring, lowering the receiving chamber's background drive moves asymmetry from 0.109
+<!-- metrics.json: twin_hd11_validation.directionality_sweep.0.asymmetry_mean --> to 0.681
+<!-- metrics.json: twin_hd11_validation.directionality_sweep.2.asymmetry_mean -->; at **fixed**
+drive, raising the forward ratio from 1 to 16 moves it only from 0.109 to 0.143
+<!-- metrics.json: twin_hd11_validation.directionality_sweep.6.asymmetry_mean -->. The measure's own
+range is [−1, 1], so this is not the whole of it — but drive moves the statistic several times
+further than the wiring it is supposed to be reporting. This is the most
 consequential single finding about the twin, and it propagates into every later section: any analysis
 that reads direction off coupling must control for rate first.
 
@@ -386,8 +457,9 @@ A random search over seven tuned parameters
 real band for `mfr_hz`, `burst_rate_per_min` and `network_burst_rate_per_min`, and **not** for
 `pct_spikes_in_bursts` or `synchrony_index`
 <!-- metrics.json: twin_hd12_calibration.inside_real_band -->. The residual mismatch is precisely the
-burst-structure and synchrony group that §6.4 and §6.5 independently identify as the unreliable part
-of the feature set. Four analyses, one conclusion.
+burst-structure and synchrony group that §6.5 and §6.6 independently identify as the unreliable part
+of the feature set across species. Three analyses agree about species; the platform contrast of §6.4
+disagrees, and that disagreement is itself the finding.
 
 ![SIMULATED against REAL: calibrated baseline features of the twin compared with the real baseline band. Rate and burst-rate features land inside it; burst fraction and synchrony do not.](../outputs/twin/hd12_calibration_simulated.png){width=85%}
 
@@ -407,7 +479,7 @@ direction is established by a cluster bootstrap:
 Directions only: each knob is compared against a real reference from a different platform, so this
 supports direction, never magnitude.
 
-![SIMULATED drug knobs against REAL pharmacology directions, per feature. Only features whose real direction is established by a cluster bootstrap are scored.](../outputs/twin/hd13_drug_knob_validation_simulated.png){width=88%}
+![SIMULATED drug knobs against REAL pharmacology directions, per feature. Only features whose real direction is established by a cluster bootstrap are scored.](../outputs/twin/hd13_drug_knob_validation_simulated.png){width=80%}
 
 
 ### 7.5 Simulation-based inference, and what it cannot do
@@ -487,20 +559,41 @@ validity check: rate features after residualising score from 0.3869
 <!-- metrics.json: twin_hd16_directionality.summary_by_feature_set.free_rate.rate_only_rate_residualized.min -->
 to 0.5969
 <!-- metrics.json: twin_hd16_directionality.summary_by_feature_set.free_rate.rate_only_rate_residualized.max -->
-and are never better than chance. Direction still separates at 0.9784
-<!-- metrics.json: twin_hd16_directionality.cheapest_configuration.rate_matched_residualized.auc -->,
-95% CI [0.9481, 0.9983]
-<!-- metrics.json: twin_hd16_directionality.cheapest_configuration.rate_matched_residualized.auc_ci95 -->,
+and do not clear chance in every cell. Direction still separates at 0.9359
+<!-- metrics.json: twin_hd16_directionality.cheapest_configuration.free_rate_residualized.auc -->,
+95% CI [0.893, 0.9739]
+<!-- metrics.json: twin_hd16_directionality.cheapest_configuration.free_rate_residualized.auc_ci95 -->,
 from a 10 s recording
-<!-- metrics.json: twin_hd16_directionality.cheapest_configuration.rate_matched_residualized.duration_s -->
-on 6 electrodes per compartment
-<!-- metrics.json: twin_hd16_directionality.cheapest_configuration.rate_matched_residualized.electrodes_per_compartment -->.
+<!-- metrics.json: twin_hd16_directionality.cheapest_configuration.free_rate_residualized.duration_s -->
+on 24 electrodes per compartment
+<!-- metrics.json: twin_hd16_directionality.cheapest_configuration.free_rate_residualized.electrodes_per_compartment -->.
+
+**The rate-matched arm does not pass its own check, and is not the result.** `metrics.json` states
+the criterion: in that arm, rate-only features should fall towards chance, and if they do not, the
+matching failed and the arm says nothing about direction. They do not — rate-only AUC there runs
+from 0.8587
+<!-- metrics.json: twin_hd16_directionality.summary_by_feature_set.rate_matched.rate_only.min -->
+to 0.9859
+<!-- metrics.json: twin_hd16_directionality.summary_by_feature_set.rate_matched.rate_only.max -->.
+The drive adjustment did not remove the rate imbalance so much as reverse its sign, from −0.2756 and
+−0.5180 before to +0.3116 and +0.2377 after
+<!-- metrics.json: twin_hd16_directionality.rate_imbalance_by_arm -->, leaving a worst relative gap
+of 0.26
+<!-- metrics.json: twin_hd16_directionality.matching_quality.rate_matched.worst_relative_rate_gap -->
+against 0.2248
+<!-- metrics.json: twin_hd16_directionality.matching_quality.free_rate.worst_relative_rate_gap -->
+before it. That arm reaches AUC 0.9784
+<!-- metrics.json: twin_hd16_directionality.cheapest_configuration.rate_matched_residualized.auc -->
+on only 6 electrodes,
+and an earlier draft of this report quoted exactly that number as the headline. It is withdrawn: the
+guardrail written into `metrics.json` says the arm is uninterpretable, and the correct response is to
+report the arm that passes, at the electrode count it actually needs.
 
 **Read this as a contrast, not a measurement.** The same summaries that classify two well-spaced
 wiring regimes at 0.98 give a posterior contraction of only 0.311 for the continuous ratio (§7.5).
 Classifying is a far weaker demand than estimating.
 
-![SIMULATED: telling symmetric from asymmetric wiring, by recording length and electrode count. Top row leaves drive alone; bottom row matches rates. The rate-residualised panel is the controlled comparison.](../outputs/twin/hd16_directionality_simulated.png){width=100%}
+![SIMULATED: telling symmetric from asymmetric wiring, by recording length and electrode count. Top row leaves drive alone; the bottom row adjusts drive to match rates and does so imperfectly, which is why that arm is reported as inconclusive. The rate-residualised columns are the controlled comparison, and the rightmost column is the validity check itself.](../outputs/twin/hd16_directionality_simulated.png){width=92%}
 
 
 ---
@@ -528,10 +621,9 @@ is one fixed geometry while real chambers carry 48, 36 or 60 electrodes. HD16's 
 identifiability *under a correct model*, since the same simulator generated both classes, and its
 rate controls remove only linear rate dependence.
 
-**Process.** A CI workflow is configured and a remote exists, but the remote's `master` is 11
-commits behind the work described here, and no CI result has been observed from the environment these
-results were produced in; treat CI as unverified. The Streamlit demo specified for Phase 4
-is **not yet built**; this report describes only what exists in the repository. Every twin metric
+**Process.** A CI workflow is configured and the work described here has been pushed to it, but no
+CI result has been observed from the environment these results were produced in; treat CI as
+unverified. The demo video specified for Phase 4 has not been recorded. Every twin metric
 produced before the coupling-definition fix is incomparable with those after it, and was regenerated.
 
 A fuller list, with dates and commits, is in `report/LAB_NOTEBOOK.md` (33 numbered limitations).
@@ -548,8 +640,16 @@ python run_all.py --quick     # every figure and metric, reduced settings
 python run_all.py             # full run
 ```
 
-- `--quick` completes in **463 s** on CPU against a 600 s budget; the full twin stage alone takes
-  1,956 s. Both timings are logged under `outputs/logs/`.
+- `--quick` completes in about 470 s on CPU against a 600 s budget, and each run records its own
+  per-stage timings under `metrics.run_all_timings_quick`; the full twin stage takes roughly 2,000 s
+  and records `metrics.run_all_timings_full`. Both are logged under `outputs/logs/` as well.
+- **`--quick` reproduces every figure and metric except the §7.6 directionality sweep.** At reduced
+  settings that sweep has too few simulations per cell to fit a discriminator, so every
+  `cheapest_configuration` entry is written as `null` and the validity check is not meaningful; the
+  §7.6 numbers need `python run_all.py --stage twin` at full settings. `metrics.json` records which
+  mode produced the stored value (`twin_hd16_directionality.quick`), and the quick run also
+  evaluates 60 of the 350 posterior holdout points rather than all of them, recording the count it
+  used.
 - Dependencies are pinned in `pyproject.toml`; numpy is held at 2.3.5 because brian2 2.9.0 does not
   import against 2.4.
 - Every number in this report is produced by a script under `src/` and written to
@@ -561,16 +661,12 @@ python run_all.py             # full run
 
 ### 9.1 Where the time goes
 
-| stage | `--quick` | notes |
-|---|---|---|
-| fetch | ~50 s | re-checks each source's advertised license over the network |
-| data | ~60 s | ETL, features, QC, asset build with provenance verification |
-| models | ~70 s | classification, transfer, conformal, ablations, 200 bootstrap resamples |
-| twin | ~280 s | validation, calibration, drug knobs, inference, real-data inference, directionality |
-| **total** | **463 s** | against a 600 s budget; the full twin stage alone is 1,956 s |
-
-The fetch figure moves by about a minute between runs because it depends on how quickly the license
-endpoints respond, which is the main reason the budget headroom is not stable.
+Each run writes its own stage timings, so this table is generated rather than transcribed: see
+`metrics.run_all_timings_quick.by_stage_s` for the quick run and `run_all_timings_full` for a full
+one. In the runs behind this report the quick pipeline spends most of its time in the twin stage
+(validation, calibration, drug knobs, inference, real-data inference, directionality) and in the
+demo precomputation, with fetch varying by about a minute between runs depending on how quickly the
+license endpoints respond — which is the main reason the budget headroom is not stable.
 
 ### 9.2 What the repository enforces, rather than documents
 
@@ -590,7 +686,30 @@ endpoints respond, which is the main reason the budget headroom is not stable.
 
 ---
 
-## 10. AI assistance disclosure
+## 10. The demo
+
+`streamlit run app/app.py`, after `python run_all.py --quick`, opens three tabs — the data asset and
+its standard, mechanism prediction with a conformal set beside the transfer results, and the twin
+with its posterior and what it does on real recordings.
+
+![The demo's third tab: a SIMULATED twin grid with its posterior marginals, above the HD15 result on REAL recordings and the SIMULATED HD16 directionality panel.](../outputs/figures/app_tab3.png){width=62%}
+
+The design constraint was that an interaction must never wait on a simulator.
+`run_all.py --stage demo` precomputes a grid of 75
+<!-- metrics.json: demo_precompute.n_grid_points --> twin simulations spanning the prior, with
+posterior samples per point, posterior
+samples for all 113 real two-chamber recordings
+<!-- metrics.json: demo_precompute.n_real_recordings -->, and a classifier fitted once, in 85.4 s
+<!-- metrics.json: run_all_timings_full.by_stage_s.demo -->. Measured through Streamlit's own test
+harness, every interaction lands between 0.6 and 0.9 s; the one exception is a button that runs a
+single Brian2 simulation at the current slider values in about 4.5 s, which exists so that the twin
+is verifiably a simulator rather than a lookup table. Timings and the tab-by-tab description are in
+`app/README.md`; screenshots of all three tabs are in `outputs/figures/app_tab*.png`.
+
+The app reads `outputs/metrics.json` and `outputs/demo/` and recomputes nothing, so it cannot
+disagree with this report.
+
+## 11. AI assistance disclosure
 
 This work was produced in a paired workflow with Anthropic's Claude (Claude Opus 5) via Claude Code.
 The model wrote the large majority of the code, tests and prose in this repository, under
@@ -609,7 +728,7 @@ Specific practices used to keep that honest, all visible in the repository histo
 
 ---
 
-## 11. Sources and licenses
+## 12. Sources and licenses
 
 Data sources, with licenses and citations, are listed in `CITATIONS.md` and recorded per file in
 `data/raw/MANIFEST.json`. Third-party software licenses are in `THIRD_PARTY.md`. This repository is
@@ -636,9 +755,11 @@ Every number in this report comes from a key in `outputs/metrics.json`, written 
 | posterior applied to real recordings | `twin_hd15_real_inference` | `neuromps.twin.real_inference` |
 | directionality experiment | `twin_hd16_directionality` | `neuromps.twin.directionality` |
 
-Figures are written to `outputs/figures/` (real data) and `outputs/twin/` (simulated, with
-`simulated` in the filename, per the project's own rule that simulated output is never presented as
-measurement).
+Figures are written to `outputs/figures/` (real data) and `outputs/twin/` (twin output). A twin
+figure carries `simulated` in its filename unless it plots **real** recordings under a
+simulation-trained model — `hd15_real_dose_response.png` is the one such hybrid, and its caption
+names both sides. The rule that matters is that no simulated output is ever presented as
+measurement, and that is enforced in the captions, not the filenames.
 
 ## Appendix B. Reading the negative results
 
@@ -658,6 +779,7 @@ against both chambers' rates is what worked, and it carries a validity check: ra
 residualising, score no better than chance.
 
 **A calibration that misses exactly the features that do not transfer.** The twin's residual
-mismatch in §7.3 is burst fraction and synchrony — the same group that disagrees across platforms in
-§6.4 and contributes nothing in the ablations of §6.5. Four analyses, arrived at separately, point
-at one conclusion about which MEA features are portable.
+mismatch in §7.3 is burst fraction and synchrony — the same group that shifts most between species
+in §6.5 and contributes nothing in the ablations of §6.6. Three analyses, arrived at separately,
+agree about species. The platform contrast in §6.4 points the other way, and that is why the
+portability claim in this report is restricted to species.

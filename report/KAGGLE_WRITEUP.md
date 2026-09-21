@@ -30,10 +30,11 @@ about what is wired to what, and about what a compound did?*
 
 ## What we found
 
-**Rate and burst-fraction measures are portable; synchrony and network-burst measures are not.** Four
-independent analyses agree — cross-platform sign disagreement, the species-shift ranking, the feature
-ablations, and the twin's residual calibration mismatch, which lands exactly on burst structure and
-synchrony.
+**Rate and burst-fraction measures survive a change of species; synchrony and network-burst measures
+do not.** Three independent analyses agree: the species-shift ranking, the feature ablations, and the
+twin's residual calibration mismatch, which lands exactly on burst structure and synchrony. **Across
+platforms the picture reverses** — in the one cross-platform contrast available, mean firing rate
+itself flips sign while synchrony agrees, so portability is a species result, not a platform one.
 
 **Coupling asymmetry tracks relative firing rate, not pathway direction.** At fixed wiring, changing
 one chamber's drive swings the measured asymmetry across most of its range. Any claim about
@@ -49,14 +50,16 @@ over devices), and **untreated chips already infer 0.3781**
 <!-- metrics.json: twin_hd15_real_inference.gabaa_scale_at_baseline.median --> where a neutral value
 is 1.0 — the parameter is absorbing model mismatch rather than tracking the compound.
 
-**Direction is recoverable in simulation once rate is controlled for.** With features residualised
-against both chambers' firing rates — a control that carries its own validity check, since rate
-features then score no better than chance — symmetric and asymmetric wiring separate at AUC 0.9784
-<!-- metrics.json: twin_hd16_directionality.cheapest_configuration.rate_matched_residualized.auc -->
+**Direction is recoverable in simulation once rate is residualised out.** With features residualised
+against both chambers' firing rates — a control that carries its own validity check — symmetric and
+asymmetric wiring separate at AUC 0.9359
+<!-- metrics.json: twin_hd16_directionality.cheapest_configuration.free_rate_residualized.auc -->
 from a 10 s recording
-<!-- metrics.json: twin_hd16_directionality.cheapest_configuration.rate_matched_residualized.duration_s -->
-on 6 electrodes per compartment
-<!-- metrics.json: twin_hd16_directionality.cheapest_configuration.rate_matched_residualized.electrodes_per_compartment -->.
+<!-- metrics.json: twin_hd16_directionality.cheapest_configuration.free_rate_residualized.duration_s -->
+on 24 electrodes per compartment
+<!-- metrics.json: twin_hd16_directionality.cheapest_configuration.free_rate_residualized.electrodes_per_compartment -->.
+A second arm that adjusted drive to match rates reports a higher number on fewer electrodes and
+fails its own validity check; we report it as inconclusive rather than as the result.
 Read as a contrast between two wiring regimes, not as a measurement: the same summaries give a
 posterior contraction of only 0.311
 <!-- metrics.json: twin_hd14_inference.contraction.log10_forward_ratio.contraction --> for the
@@ -103,7 +106,7 @@ baselines with calibration and conformal sets, the full twin (network, MEA simul
 drug knobs, inference, directionality experiment), the technical report, and the decision record in
 `report/LAB_NOTEBOOK.md` with 33 numbered limitations.
 
-Not yet built at the time of writing: the interactive Streamlit demo and the demo video. Neither is
-described above as if it existed.
+The interactive demo is built: `streamlit run app/app.py` after `python run_all.py --quick`, with
+screenshots in `outputs/figures/app_tab*.png`. Not yet recorded: the demo video.
 
 **Full details:** `report/TECHNICAL_REPORT.md`.

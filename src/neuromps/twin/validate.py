@@ -167,7 +167,9 @@ def plot_sweep(rows: list[dict], path, title: str) -> None:
     ax.axhline(0, color="black", linewidth=0.8)
     ax.set_xlabel("background drive into the target compartment (relative)")
     ax.set_ylabel("coupling asymmetry (source -> target)")
-    ax.set_title(title, fontsize=10)
+    import textwrap
+
+    ax.set_title("\n".join(textwrap.wrap(title, 64)), fontsize=9)
     ax.legend(fontsize=8)
     ax.grid(alpha=0.3)
     fig.tight_layout()
@@ -210,8 +212,8 @@ def main(argv: list[str] | None = None) -> int:
     plot_sweep(
         sweep,
         TWIN_DIR / "hd11_directionality_simulated.png",
-        "SIMULATED two-compartment network: coupling asymmetry depends on drive balance\n"
-        "same wiring can read as either direction when the target is more or less driven",
+        "SIMULATED two-compartment network: coupling asymmetry tracks drive, not wiring\n"
+        "at fixed wiring, drive moves the measure further than the pathway ratio does",
     )
     update_metrics("twin_hd11_validation", results)
     log.info("wrote %s", TWIN_DIR / "hd11_validation_simulated.json")

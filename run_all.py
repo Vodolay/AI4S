@@ -23,7 +23,9 @@ def main(argv: list[str] | None = None) -> int:
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
     stages = STAGES if args.stage == "all" else [args.stage]
     t0 = time.time()
+    timings: dict[str, float] = {}
     for stage in stages:
+        stage_started = time.time()
         if stage == "fetch":
             from neuromps.fetch.runner import run_fetchers
 
@@ -64,8 +66,30 @@ def main(argv: list[str] | None = None) -> int:
             precompute_demo(["--quick"] if args.quick else [])
         else:
             logging.info("stage %r not implemented yet (later phase) - skipping", stage)
-    logging.info("run_all finished in %.1f s", time.time() - t0)
+        timings[stage] = round(time.time() - stage_started, 1)
+    elapsed = round(time.time() - t0, 1)
+    logging.info("run_all finished in %.1f s", elapsed)
+    _record_timings(timings, elapsed, quick=args.quick, stages=stages)
     return 0
+
+
+def _record_timings(timings: dict, elapsed: float, quick: bool, stages: list[str]) -> None:
+    """Write stage timings to metrics.json, so the report can cite them.
+
+    The reproducibility section quoted a stage table that existed only in a log
+    file, in a report whose opening paragraph promises every number has a key.
+    """
+    from neuromps.metrics import update_metrics
+
+    update_metrics(
+        "run_all_timings_quick" if quick else "run_all_timings_full",
+        {
+            "label": f"wall-clock seconds per stage, {'--quick' if quick else 'full'} run",
+            "total_s": elapsed,
+            "by_stage_s": timings,
+            "stages_run": list(stages),
+        },
+    )
 
 
 if __name__ == "__main__":
