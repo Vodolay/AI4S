@@ -426,7 +426,10 @@ def main(argv: list[str] | None = None) -> int:
     # reported contraction by ~0.02 and the rank-uniformity p-value for
     # threshold_scale from 0.46 to 0.01 - enough to flip a stated conclusion.
     torch.manual_seed(args.seed)
-    n_simulations = args.simulations or (150 if args.quick else 3000)
+    # The quick tier exists to prove the path runs, not to train a usable
+    # posterior: on a cold clone this simulation is the single largest item in
+    # the whole pipeline, and its contraction numbers are never reported.
+    n_simulations = args.simulations or (70 if args.quick else 3000)
 
     if simulation_cache().exists() and not args.rebuild:
         cached = load_simulations(simulation_cache())

@@ -263,8 +263,8 @@ def real_posteriors(posterior, quick: bool, n_samples: int) -> dict:
 
     asset = for_reading(asset_path())
     summaries = real_summaries(pd.read_parquet(asset))
-    if quick and len(summaries) > 12:
-        summaries = summaries.iloc[:: len(summaries) // 12].head(12).reset_index(drop=True)
+    if quick and len(summaries) > 8:
+        summaries = summaries.iloc[:: len(summaries) // 8].head(8).reset_index(drop=True)
     x = summaries[list(SUMMARY_NAMES)].to_numpy(dtype=float)
     if not len(x):  # no two-chamber source in the asset: it is fetched with --full
         log.warning("no two-chamber recordings in %s; the demo ships a simulated grid only", asset)
@@ -300,8 +300,8 @@ def main(argv: list[str] | None = None) -> int:
     points = grid_points(axes)
     duration_s = 5.0 if args.quick else 10.0
     n_per_compartment = 80 if args.quick else 150
-    n_grid_samples = 60 if args.quick else 200
-    n_real_samples = 60 if args.quick else 200
+    n_grid_samples = 40 if args.quick else 200
+    n_real_samples = 40 if args.quick else 200
 
     started = time.time()
     entries = run_grid(points, duration_s, n_per_compartment, args.seed)

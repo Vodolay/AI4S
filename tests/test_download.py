@@ -66,3 +66,33 @@ def test_download_size_cap(http_root: tuple[str, Path], tmp_path: Path) -> None:
     with pytest.raises(DownloadTooLarge):
         download_file(f"{base}/big", tmp_path, "big", max_bytes=1000)
     assert not (tmp_path / "big").exists()
+
+
+def test_fetch_many_preserves_request_order_when_parallel(tmp_path, monkeypatch) -> None:
+    """The manifest must not depend on which download finished first."""
+    import random
+    import time
+
+    from neuromps.fetch import common
+
+    def slow_download(url, raw_root, rel, cached=None, max_bytes=None, expected_md5=None):
+        time.sleep(random.uniform(0, 0.05))
+        return common.FileRecord(path=rel, url=url, sha256="x" * 64, bytes=1, downloaded_at="t")
+
+    monkeypatch.setattr(common, "download_file", slow_download)
+    items = [(f"http://example/{i}", f"src/file_{i:02d}.txt") for i in range(12)]
+    records = common.fetch_many(items, tmp_path, cached={}, workers=6)
+    assert [r.path for r in records] == [rel for _, rel in items]
+
+
+def test_fetch_many_serial_and_parallel_agree(tmp_path, monkeypatch) -> None:
+    from neuromps.fetch import common
+
+    def fake(url, raw_root, rel, cached=None, max_bytes=None, expected_md5=None):
+        return common.FileRecord(path=rel, url=url, sha256="y" * 64, bytes=2, downloaded_at="t")
+
+    monkeypatch.setattr(common, "download_file", fake)
+    items = [(f"http://example/{i}", f"src/f{i}.txt") for i in range(5)]
+    serial = common.fetch_many(items, tmp_path, cached={}, workers=1)
+    parallel = common.fetch_many(items, tmp_path, cached={}, workers=4)
+    assert [r.path for r in serial] == [r.path for r in parallel]

@@ -16,15 +16,24 @@ def fetch_many(
     cached: dict[str, FileRecord],
     max_bytes: int | None = 2 << 30,
     md5s: dict[str, str | None] | None = None,
+    workers: int = 6,
 ) -> list[FileRecord]:
     """Download ``(url, rel_path)`` pairs, reusing files whose hash matches the manifest.
 
     ``md5s`` maps rel_path to an upstream-published MD5; when given, a mismatch
     deletes the partial file and raises.
+
+    Downloads run on a small thread pool because they are latency-bound, not
+    bandwidth-bound: one source publishes 169 separate files, and fetching them
+    one at a time dominated a cold run of the pipeline. Results keep the order
+    they were requested in, so the manifest does not depend on which download
+    finished first. Set ``workers=1`` for serial behaviour.
     """
-    records = []
-    for i, (url, rel) in enumerate(items, 1):
-        rec = download_file(
+    from concurrent.futures import ThreadPoolExecutor
+
+    def one(item: tuple[int, tuple[str, str]]) -> tuple[int, FileRecord]:
+        index, (url, rel) = item
+        record = download_file(
             url,
             raw_root,
             rel,
@@ -32,10 +41,15 @@ def fetch_many(
             max_bytes=max_bytes,
             expected_md5=(md5s or {}).get(rel),
         )
-        status = "cached" if rec is cached.get(rel) else f"{rec.bytes / 1e6:.1f} MB"
-        log.info("  [%d/%d] %s (%s)", i, len(items), rel, status)
-        records.append(rec)
-    return records
+        status = "cached" if record is cached.get(rel) else f"{record.bytes / 1e6:.1f} MB"
+        log.info("  [%d/%d] %s (%s)", index + 1, len(items), rel, status)
+        return index, record
+
+    if workers <= 1 or len(items) <= 1:
+        return [one((i, item))[1] for i, item in enumerate(items)]
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        done = list(pool.map(one, enumerate(items)))
+    return [record for _, record in sorted(done, key=lambda pair: pair[0])]
 
 
 def retain_existing(

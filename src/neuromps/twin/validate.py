@@ -185,8 +185,8 @@ def main(argv: list[str] | None = None) -> int:
     args = p.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
     twin_dir().mkdir(parents=True, exist_ok=True)
-    duration = 20.0 if args.quick else 60.0
-    seeds = (0, 1) if args.quick else (0, 1, 2)
+    duration = 12.0 if args.quick else 60.0
+    seeds = (0,) if args.quick else (0, 1, 2)
 
     baseline = simulated_features(
         NetworkParams(n_per_compartment=250, duration_s=duration, seed=args.seed)
