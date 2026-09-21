@@ -626,7 +626,7 @@ features — the whole of what this project does with a recording — would not 
 HDF5 spike files. It is the first dependency added since the initial pin set.
 
 
-### 2026-09-21 — `mateus2024` step 2: the deposit has no compartment map, and why that is survivable (`STEP2`)
+### 2026-09-21 — `mateus2024` step 2: the deposit has no compartment map, and why that is survivable (`ac3a5fb`)
 
 The spike data are straightforward: MCS HDF5 carrying a `TimeStampStream` of per-electrode spike
 times in microseconds, 252 electrodes on a 16x16 grid, 600.1 s per recording. `h5py` reads it and
