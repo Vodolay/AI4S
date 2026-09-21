@@ -30,3 +30,26 @@ jobs:
           key: raw-${{ hashFiles('src/neuromps/fetch/**') }}
       - name: Smoke run (quick)
         run: timeout 600 python run_all.py --quick
+
+  report:
+    # The PDF is a deliverable, so its build is checked on every push rather
+    # than discovered to be broken at submission time. The page range is a
+    # requirement of the submission, not a style preference.
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pandoc, xelatex and poppler
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            pandoc texlive-xetex texlive-fonts-recommended texlive-latex-recommended \
+            lmodern fonts-dejavu-core poppler-utils
+      - name: Build the technical report
+        run: report/build_report.sh --check-pages 14 22
+      - name: Upload the PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: technical-report
+          path: report/TECHNICAL_REPORT.pdf
+          if-no-files-found: error

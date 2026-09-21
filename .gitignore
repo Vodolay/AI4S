@@ -13,3 +13,6 @@ outputs/**/*.png
 outputs/**/*.pdf
 .ipynb_checkpoints/
 sbi-logs/
+
+# Built report: reproduced by report/build_report.sh, uploaded as a CI artifact.
+report/*.pdf

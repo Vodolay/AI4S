@@ -712,7 +712,10 @@ both classes, and against HD15's finding that these summaries do not transfer to
 4. **Is the chance-corrected network-burst threshold itself responsible?** It scales with electrode
    count, so it is a candidate explanation for the cross-platform disagreement in exactly the
    features that disagree.
-5. **Would CI pass?** The workflow has never run; there is no remote.
+5. **Would CI pass?** Unverified. A remote does exist (`github.com/Vodolay/AI4S`) and holds
+   `master` at `17274fd`, 11 commits behind this work, so any CI result there predates Phase 3's
+   second half; no run has been observed from here. An earlier note in this file said there was no
+   remote at all, which was wrong.
 6. **Does the asymmetry measure need replacing for inference?** Given the excitability confound, HD14
    may need a rate-controlled statistic rather than the current one.
 7. ~~A latent dose-unit bug.~~ **Fixed** on 2026-09-20, see the entry above. No further action.

@@ -1,0 +1,138 @@
+"""Checks on the PDF build that do not need pandoc installed.
+
+The build itself runs in CI, where pandoc and xelatex are available. These tests
+guard the wiring around it: that the script is syntactically valid and resolves
+its metadata, that every figure path in the report exists, and that the page
+range required by the submission is stated identically in the Makefile and the
+workflow, so the two cannot drift apart.
+"""
+
+import os
+import re
+import shutil
+import subprocess
+from pathlib import Path
+
+import pytest
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+SCRIPT = REPO_ROOT / "report" / "build_report.sh"
+REPORT = REPO_ROOT / "report" / "TECHNICAL_REPORT.md"
+MAKEFILE = REPO_ROOT / "Makefile"
+WORKFLOW = REPO_ROOT / ".github" / "workflows" / "ci.yml"
+PAGES_MIN, PAGES_MAX = 14, 22
+
+
+def test_the_build_script_exists_and_is_executable() -> None:
+    assert SCRIPT.exists()
+    assert os.access(SCRIPT, os.X_OK), "build_report.sh must be committed executable"
+
+
+def test_the_build_script_is_valid_bash() -> None:
+    result = subprocess.run(["bash", "-n", str(SCRIPT)], capture_output=True, text=True)
+    assert result.returncode == 0, result.stderr
+
+
+def test_dry_run_resolves_the_title_page_fields_from_the_repository() -> None:
+    """Commit, repository and date are inserted at build time, never typed in."""
+    result = subprocess.run(
+        [str(SCRIPT), "--dry-run"], capture_output=True, text=True, cwd=REPO_ROOT
+    )
+    assert result.returncode == 0, result.stderr
+    output = result.stdout
+    for field in ("team:", "category:", "repository:", "commit:", "built:"):
+        assert field in output, output
+    commit = re.search(r"commit:\s+([0-9a-f]{7,40})", output)
+    assert commit, output
+    head = subprocess.run(
+        ["git", "rev-parse", "--short", "HEAD"], capture_output=True, text=True, cwd=REPO_ROOT
+    ).stdout.strip()
+    assert commit.group(1) == head
+
+
+def test_dry_run_honours_an_overridden_team_and_category() -> None:
+    environment = {**os.environ, "TEAM": "Some Team", "CATEGORY": "Some Category"}
+    result = subprocess.run(
+        [str(SCRIPT), "--dry-run"], capture_output=True, text=True, cwd=REPO_ROOT, env=environment
+    )
+    assert "Some Team" in result.stdout
+    assert "Some Category" in result.stdout
+
+
+def test_an_ssh_remote_is_rewritten_as_a_browsable_url() -> None:
+    """A submission needs a URL a reviewer can open, not a git+ssh address."""
+    result = subprocess.run(
+        [str(SCRIPT), "--dry-run"], capture_output=True, text=True, cwd=REPO_ROOT
+    )
+    line = next(li for li in result.stdout.splitlines() if li.startswith("repository:"))
+    assert "git@" not in line
+    assert line.split(":", 1)[1].strip().startswith(("http", "no remote"))
+
+
+def test_every_figure_referenced_by_the_report_exists() -> None:
+    """A missing figure fails the PDF build; this says which one, and earlier."""
+    missing = [
+        path
+        for path in re.findall(r"!\[[^\]]*\]\((\.\./[^)]+)\)", REPORT.read_text())
+        if not (REPO_ROOT / "report" / path).resolve().exists()
+    ]
+    assert missing == []
+
+
+def test_figures_carry_captions_that_say_whether_data_are_real_or_simulated() -> None:
+    """The project rule for figures applies to the report's captions too."""
+    captions = re.findall(r"!\[([^\]]+)\]\(\.\./[^)]+\)", REPORT.read_text())
+    assert len(captions) >= 10
+    for caption in captions:
+        assert re.search(r"\bREAL\b|\bSIMULATED\b|\bSIMULATIONS\b", caption), caption
+
+
+def test_the_page_range_is_the_same_in_the_makefile_and_the_workflow() -> None:
+    """Two places state the requirement; they must not drift."""
+    makefile = MAKEFILE.read_text()
+    assert f"PAGES_MIN ?= {PAGES_MIN}" in makefile
+    assert f"PAGES_MAX ?= {PAGES_MAX}" in makefile
+    assert f"--check-pages {PAGES_MIN} {PAGES_MAX}" in WORKFLOW.read_text()
+
+
+def test_the_makefile_exposes_the_report_targets() -> None:
+    makefile = MAKEFILE.read_text()
+    for target in ("report:", "report-check:"):
+        assert f"\n{target}" in makefile
+
+
+def test_the_workflow_builds_the_pdf_and_keeps_it() -> None:
+    workflow = WORKFLOW.read_text()
+    assert "report/build_report.sh --check-pages" in workflow
+    assert "texlive-xetex" in workflow
+    assert "upload-artifact" in workflow
+
+
+def test_the_fallback_stylesheet_matches_the_latex_geometry() -> None:
+    """The two engines must produce comparable page counts, or the check is meaningless."""
+    css = (REPO_ROOT / "report" / "report.css").read_text()
+    assert "margin: 2.5cm" in css
+    assert "font-size: 11pt" in css
+    assert "counter-increment: figure" in css  # numbered captions, as in LaTeX
+
+
+def test_the_script_rejects_an_unknown_engine() -> None:
+    result = subprocess.run(
+        [str(SCRIPT), "--engine", "nonsense"], capture_output=True, text=True, cwd=REPO_ROOT
+    )
+    assert result.returncode != 0
+    assert "nonsense" in (result.stderr + result.stdout)
+
+
+@pytest.mark.skipif(shutil.which("pandoc") is None, reason="pandoc not installed")
+def test_the_pdf_builds_and_lands_in_the_required_page_range(tmp_path: Path) -> None:
+    """The real build, when the toolchain is present (CI, and any dev box with pandoc)."""
+    output = tmp_path / "report.pdf"
+    result = subprocess.run(
+        [str(SCRIPT), "--output", str(output), "--check-pages", str(PAGES_MIN), str(PAGES_MAX)],
+        capture_output=True,
+        text=True,
+        cwd=REPO_ROOT,
+    )
+    assert result.returncode == 0, result.stderr
+    assert output.exists() and output.stat().st_size > 50_000
