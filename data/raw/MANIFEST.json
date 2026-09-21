@@ -61,7 +61,7 @@
       "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
       "citation": "Tukker AM, Wijnolts FMJ, de Groot A, Westerink RHS. Toxicol Sci 178(1):71-87 (2020). doi:10.1093/toxsci/kfaa136",
       "note": "EXCLUDED 2026-09-16 (PI decision): non-commercial license is incompatible with a prize-bearing submission released under an open license. Revisit only if the competition rules clearly keep submissions under the entrant's own open license.",
-      "checked_at": "2026-09-21T02:32:43+00:00",
+      "checked_at": "2026-09-21T20:16:44+00:00",
       "files": []
     },
     "kapucu2022": {
@@ -1746,6 +1746,25 @@
           "sha256": "744e65e884beb7d0e1dc4f00c1ab42d96873e6a3e35779557c5219cd529e9a03",
           "bytes": 87146,
           "downloaded_at": "2026-09-16T14:02:41+00:00"
+        }
+      ]
+    },
+    "mateus2024": {
+      "name": "mateus2024",
+      "status": "ok",
+      "landing_url": "https://doi.org/10.5281/zenodo.14525182",
+      "license": "CC-BY-4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "citation": "Mateus J, Melo P, Aroso M, Charlot B, Aguiar P. Influence of asymmetric microchannels in the structure and function of engineered neuronal circuits. bioRxiv 2024, doi:10.1101/2024.07.09.602729. Dataset: doi:10.5281/zenodo.14525182 (CC BY 4.0).",
+      "note": "tier=quick; Zenodo record 14525182; hippocampal cultures on MEA2100-256, 10 min spontaneous recordings, DIV 12-21; straight (Control) against asymmetric microchannels (Arrows, Rams, Tesla); 2_Raw_Images.zip (66 MB widefield images) not fetched. Licence conflict resolved by the corresponding author, Paulo Aguiar, by email on 2026-09-21: 'Please consider CC BY 4.0 only, as stated in the metadata. (Unfortunately, CC BY-NC-ND was the default in the readme and was unintentionally left there - we cannot change it now).' The Zenodo metadata licence field is the operative licence and is publicly checkable; the README's contradicting text is recorded below rather than ignored. README as fetched still states: 'THIS DATASET IS PUBLICALLY AVAILABLE UNDER A CREATIVE COMMONS CC BY-NC-ND LICENSE (ATTRIBUTION-NONCOMMERCIAL-NODERIVS)'",
+      "checked_at": "2026-09-21T20:16:45+00:00",
+      "files": [
+        {
+          "path": "mateus2024/README.txt",
+          "url": "https://zenodo.org/api/records/14525182/files/README.txt/content",
+          "sha256": "0b8a99b1f269514a8c615723f29a7e12d413bbf19af132413a6db7656d9cab81",
+          "bytes": 1270,
+          "downloaded_at": "2026-09-21T20:16:45+00:00"
         }
       ]
     },

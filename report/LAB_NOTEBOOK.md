@@ -591,6 +591,40 @@ Results in `metrics.twin_hd16_directionality`; figure
 beyond firing rate, and cheaply** — but in the twin's own model, where the same simulator generated
 both classes, and against HD15's finding that these summaries do not transfer to real recordings.
 
+
+### 2026-09-21 — `mateus2024`: reversing a licence rejection, and what that rests on (`8a1b260`)
+
+**Decision: include Zenodo 14525182 under CC BY 4.0.** It was rejected on 2026-09-16 under the
+conflict rule, because the deposit contradicts itself — metadata licence `cc-by-4.0`, README text
+CC BY-NC-ND. On 2026-09-21 the corresponding author, Paulo Aguiar, wrote that the metadata is
+correct and the README line was an unintentional default they can no longer change. The rejection is
+reversed, and `data/SOURCES.md` keeps the original rejection visible with the reversal beside it
+rather than rewriting history.
+
+**Why this source is worth the care.** It is the closest published analogue of the chip the twin
+models: hippocampal cultures on straight (`Control`) against asymmetric (`Arrows`, `Rams`, `Tesla`)
+microchannels, 57 spike-data recordings across 12 experiments, 10 min each on an MEA2100-256, with
+the geometry known by design. HD16 could only ask its directionality question in simulation, where
+the ground truth is something we set. Here the ground truth is fabricated into the device.
+
+**Decision: make the fetcher record the contradiction, not resolve it silently.** The easy
+implementation trusts the metadata and moves on, which would leave no trace that the deposit says
+something else. `fetch/mateus2024.py` instead blocks if the *metadata* licence ever moves off
+`cc-by-4.0`, reads the README on every fetch, and writes whatever licence claim it finds into the
+manifest note — including the case where the depositors fix it, which the note then reports. The
+note also carries the author's words and their date, so the resolution travels with the data.
+
+**The honest weakness.** Both halves of the contradiction are publicly checkable; the resolution is
+not. A judge can confirm `cc-by-4.0` from the Zenodo API and CC BY-NC-ND from the README, and then
+has only our word for which governs. We have asked the authors to add a clarifying line to the
+record description, which depositors can edit without cutting a new version. Until that lands, this
+is the one source in the asset whose licence rests on correspondence, and `SOURCES.md` says so in
+those terms. The NoDerivatives clause is the part that mattered: under CC BY-NC-ND publishing derived
+features — the whole of what this project does with a recording — would not have been permitted.
+
+**Dependency.** `h5py` 3.16.0 pinned, approved by the PI on 2026-09-21, to read the deposit's
+HDF5 spike files. It is the first dependency added since the initial pin set.
+
 ---
 
 ## Tried and abandoned

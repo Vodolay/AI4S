@@ -120,13 +120,39 @@ This file records the human decisions behind each source.
     `CxHp` devices lead in the same direction, 1 runs the other way. A proper statistical comparison
     belongs in Phase 2/3, with the twin as the model of what asymmetry should look like.
 - **Rejected in the same search (recorded for the report's data-selection story).**
-  - Zenodo 14525182 (Mateus & Aguiar), compartmentalized asymmetric-microchannel MEA — the closest
-    published analogue of our two-compartment chip: Zenodo metadata says CC BY 4.0 but the dataset's
-    own README says CC BY-NC-ND. Excluded on the conflict rule above.
+  - ~~Zenodo 14525182 (Mateus & Aguiar), compartmentalized asymmetric-microchannel MEA.~~
+    **Rejection reversed on 2026-09-21** — see `mateus2024` in the table above and the note below.
   - Carstens et al. 2025 (3D hiPSC BrainSphere HD-MEA) and a GABA-A seizure-liability study: data
     "available upon reasonable request" — gated, so out of scope.
   - Zenodo 14363732 (36 GB MEA recordings) and the IMI2-NeuroDeRisk comparison: CC BY-NC / CC BY-NC-ND.
   - DANDI 001872 and 001336: human organoid MEA in NWB under CC-BY, but no pharmacology.
+- **The one licence conflict we resolved rather than avoided (`mateus2024`, 2026-09-21).**
+  Zenodo 14525182 is the closest published analogue of the two-compartment chip the twin models:
+  hippocampal cultures on straight (`Control`) against asymmetric (`Arrows`, `Rams`, `Tesla`)
+  microchannels, 57 spike-data recordings, geometry known by design. It was excluded on 2026-09-16
+  because the deposit contradicts itself: the Zenodo metadata licence field says `cc-by-4.0` and the
+  record is open access, while the README inside says, in capitals, CC BY-NC-ND.
+
+  On 2026-09-21 the corresponding author, Paulo Aguiar, wrote to us: *"Please consider CC BY 4.0
+  only, as stated in the metadata. (Unfortunately, CC BY-NC-ND was the default in the readme and was
+  unintentionally left there - we cannot change it now)."* On that basis the source is included
+  under CC BY 4.0, with attribution as recorded in `CITATIONS.md`.
+
+  What a reader should know about the footing this rests on, since it is weaker than every other
+  source in the asset:
+
+  - The **metadata licence is public and checkable** by anyone: `zenodo.org/api/records/14525182`
+    returns `cc-by-4.0`, and `fetch/mateus2024.py` blocks the fetch if it ever moves.
+  - The **README's contradicting claim is public too**, and is recorded verbatim in
+    `data/raw/MANIFEST.json` on every fetch rather than quietly dropped. If the depositors correct
+    it, the manifest note will say so instead.
+  - The **resolution itself is private correspondence**, which a judge cannot verify. We have asked
+    the authors to add a clarifying line to the Zenodo record description, which depositors can edit
+    without cutting a new version; until they do, this dependency stands as stated here.
+
+  The NoDerivatives term is the one that mattered: under CC BY-NC-ND we could not have published
+  derived features at all, which is the whole of what this project does with a recording.
+
 - **Axon-diode lineage.** Peyrin et al. 2011 *Lab Chip* (doi:10.1039/c1lc20014c) and Courte et al. 2018
   *Methods Cell Biol* (doi:10.1016/bs.mcb.2018.07.002) are not open access: cited only, never
   downloaded. Design parameters are taken from the open-access papers.

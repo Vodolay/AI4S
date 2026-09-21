@@ -8,6 +8,7 @@ package metadata, not copied by hand.
 | package | pinned version | license |
 |---|---|---|
 | `brian2` | 2.9.0 | CEA CNRS Inria Logiciel Libre License, version 2.1 (CeCILL-2.1) |
+| `h5py` | 3.16.0 | BSD-3-Clause |
 | `jsonschema` | 4.26.0 | MIT |
 | `matplotlib` | 3.11.2 | Python Software Foundation License |
 | `numpy` | 2.3.5 | BSD License |

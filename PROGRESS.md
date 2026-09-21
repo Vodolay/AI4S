@@ -849,3 +849,38 @@ fails the build instead of quietly clobbering a tracked figure.
 - The app circular import: `streamlit run app/app.py` is broken, which blocks HD19.
 - `data/processed/neuromps.parquet` on this machine is a leftover 288-record quick asset sitting in
   the full root. Only a `--full` run replaces it correctly.
+
+## 2026-09-21: `mateus2024` unblocked — step 1, the licence record
+
+### Done
+- **Rejection reversed.** Zenodo 14525182 (Mateus & Aguiar, asymmetric-microchannel MEA) was
+  excluded on 2026-09-16 for a licence conflict: metadata `cc-by-4.0`, README CC BY-NC-ND. The
+  corresponding author confirmed by email on 2026-09-21 that the metadata governs. Verified
+  independently of the email: the Zenodo API returns `cc-by-4.0`, open access.
+- `src/neuromps/fetch/mateus2024.py` + 13 tests. It blocks if the metadata licence moves, reads the
+  README on every fetch, and records its contradicting claim verbatim in the manifest rather than
+  preferring the convenient reading. Quick tier fetches the README only; full adds the 109 MB spike
+  archive. The 66 MB image archive is deliberately not fetched.
+- `data/SOURCES.md` keeps the original rejection struck through with the reversal beside it, and
+  states plainly that the resolution rests on correspondence a judge cannot check — with the request
+  to the authors to make it public recorded as the open item.
+- `h5py==3.16.0` pinned (approved). `CITATIONS.md` and `THIRD_PARTY.md` regenerate to match.
+
+### What the dataset contains (read over HTTP range requests; no bulk download yet)
+57 spike-data recordings, 12 experiments, 10 min each, MEA2100-256, hippocampal, DIV 12-21.
+Conditions: `Control` 15, `Arrows` 13, `Rams` 11, `Tesla`/`Tesla_v2` 18. Median file 2.3 MB, so
+these are spikes, not raw traces. An `Experiments breakdown.xlsx` accompanies them.
+
+### Why it matters
+HD16 asked whether MEA features can tell symmetric from asymmetric connectivity and could only
+answer in simulation, where we set the ground truth ourselves. This deposit has the geometry
+fabricated into the device, so the same question can be asked of real recordings.
+
+### Next first task (step 2)
+- Fetch the archive at full tier and map one recording per condition: whether electrodes can be
+  assigned to the two sides of the microchannels, and what the Excel breakdown gives per chip.
+  Report what is there before writing any ETL.
+
+### Open
+- The licence resolution is not yet publicly verifiable. Asked the authors for a line in the Zenodo
+  record description.
