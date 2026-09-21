@@ -62,6 +62,15 @@ def processed_dir() -> Path:
     return PROCESSED_ROOT / QUICK if is_quick() else PROCESSED_ROOT
 
 
+def interim_dir() -> Path:
+    """Root for cached intermediates of the active run.
+
+    Split like the other roots: a quick run's partial cache must not be picked
+    up by a full one, which would silently mix tiers.
+    """
+    return INTERIM_ROOT / QUICK if is_quick() else INTERIM_ROOT
+
+
 def figures_dir() -> Path:
     """``outputs/figures`` of the active run."""
     return outputs_dir() / "figures"

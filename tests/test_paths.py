@@ -99,3 +99,14 @@ def test_a_quick_fetch_writes_its_own_manifest(monkeypatch) -> None:
 def test_the_manifest_follows_the_raw_root_it_is_given(monkeypatch, tmp_path) -> None:
     monkeypatch.setenv(paths.MODE_ENV, "quick")
     assert paths.manifest_path(tmp_path) == tmp_path / "MANIFEST.quick.json"
+
+
+def test_interim_dir_is_split_by_run_mode(monkeypatch) -> None:
+    """A quick run's partial cache must not be read by a full one."""
+    from neuromps import paths
+
+    monkeypatch.delenv(paths.MODE_ENV, raising=False)
+    full = paths.interim_dir()
+    monkeypatch.setenv(paths.MODE_ENV, paths.QUICK)
+    assert paths.interim_dir() != full
+    assert paths.interim_dir().name == paths.QUICK

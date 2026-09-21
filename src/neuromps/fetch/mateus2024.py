@@ -40,11 +40,14 @@ FULL_FILES = ("1_MEA_Recordings.zip",)
 # built from spike data, and downloading images we will not use is not free.
 
 CLARIFICATION = (
-    "Licence conflict resolved by the corresponding author, Paulo Aguiar, by email on "
-    "2026-09-21: 'Please consider CC BY 4.0 only, as stated in the metadata. (Unfortunately, "
-    "CC BY-NC-ND was the default in the readme and was unintentionally left there - we cannot "
-    "change it now).' The Zenodo metadata licence field is the operative licence and is "
-    "publicly checkable; the README's contradicting text is recorded below rather than ignored."
+    "Licence conflict resolved by the corresponding author, Paulo de Castro Aguiar "
+    "(pauloaguiar@i3s.up.pt, PI, Neuroengineering and Computational Neuroscience Lab, i3S, "
+    "Universidade do Porto), by email on 2026-09-21 09:11, copying the first author "
+    "(jose.mateus@i3s.up.pt): 'Please consider CC BY 4.0 only, as stated in the metadata. "
+    "(Unfortunately, CC BY-NC-ND was the default in the readme and was unintentionally left "
+    "there - we cannot change it now).' The Zenodo metadata licence field is the operative "
+    "licence and is publicly checkable; the README's contradicting text is recorded below "
+    "rather than ignored."
 )
 
 NON_FREE_TERMS = re.compile(r"BY-NC-ND|NON-?COMMERCIAL|NODERIV", re.IGNORECASE)

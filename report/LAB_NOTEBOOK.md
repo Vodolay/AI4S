@@ -652,6 +652,38 @@ and the asymmetric designs only in 1-8 and 12, so condition is confounded with c
 confound is in the deposit's design and cannot be analysed away; it belongs next to any result this
 source produces.
 
+
+### 2026-09-21 — `mateus2024` step 3: a real-data directionality test that comes out null (`STEP3`)
+
+**Decision: recover the microchannels with the deposit's own criterion rather than a layout guess.**
+An event must appear on all five electrodes of a channel with <=1 ms between consecutive electrodes;
+runs of five electrodes that carry such events are the channels. On the real recordings this finds
+10-15 channels per chip in a row band of 5-12, which is what the published five-electrode design
+predicts, so the recovered geometry is checkable against the paper's description rather than
+invented.
+
+**Decision: the chip is the unit, not the recording.** Chips were recorded at DIV 12, 17 and 21, so
+57 recordings come from 26 devices. Per recording, median |asymmetry| runs control 0.339 against
+rams 0.854 and looks like a geometry effect; per chip it is control 0.617 against rams 0.875 with
+Kruskal p = 0.64 and every Holm-adjusted comparison at 1.0. Both numbers are kept in
+`metrics.microchannel_directionality`, the wrong one labelled as such, because the gap between them
+is the finding.
+
+**Decision: report the sampling confound beside the comparison.** |asymmetry| is a ratio of counts,
+so a chip with few propagation events looks more one-sided by chance. Across chips the correlation
+is Spearman -0.494, p = 0.010, and the better-sampled half gives p = 0.086 — still nothing. A
+comparison of this statistic without that check would not be interpretable.
+
+**What is deliberately not claimed.** This does not contradict Mateus et al. They had the electrode
+map, measured propagation velocities per channel, and asked a different question. The claim here is
+that *this* statistic, aggregated per chip, does not separate the geometries - with 26 chips in five
+groups and control chips confined to experiments 9-11, which confounds condition with batch.
+
+**Why it matters for the twin.** HD16's directionality result was simulation-only, where we set the
+ground truth. This is the first time the question has been put to real devices whose geometry was
+fabricated rather than assumed, and it does not reproduce. The sample is too small and too
+confounded to call that a refutation, and too directly aimed to leave out.
+
 ---
 
 ## Tried and abandoned

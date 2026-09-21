@@ -928,3 +928,55 @@ Implement the deposit's own propagation criterion - ordered runs of 5 in-channel
 <= 1 ms steps - to count forward and backward events per chip, then ask whether the forward/backward
 ratio separates `Control` from `Arrows`/`Rams`/`Tesla`, with firing rate residualised out as in
 HD16, and the batch confound reported beside it.
+
+## 2026-09-21: `mateus2024` step 3 — the real-data directionality test
+
+### Built
+- `src/neuromps/etl/mateus2024.py`: the deposit's own criterion — an event on all five electrodes
+  of a microchannel with <=1 ms between consecutive electrodes — implemented so the geometry falls
+  out of the data rather than being assumed. Runs of five electrodes carrying such events *are* the
+  microchannels. 17 tests, on trains whose direction is known by construction.
+- `src/neuromps/models/microchannels.py`: per-chip aggregation, the condition comparison, and the
+  checks that decide whether it means anything. 9 tests. Wired into the models stage, where it skips
+  itself if the 109 MB archive has not been fetched (the quick tier).
+- `outputs/figures/microchannel_asymmetry_real.png`, one point per chip.
+
+### What the detector found
+57 recordings, 54 with detectable microchannels, median 10-15 channels per chip in a row band of
+5-12 — microchannels running along columns with a chamber at each end, as the five-electrode
+criterion predicts. Two channel datasets in one control recording fail to decompress; they are
+skipped and counted rather than losing the recording's other 250 channels.
+
+### The result: no geometry effect at the chip level
+| unit | n | control | arrows | rams | tesla | tesla_v2 | Kruskal p |
+|---|---|---|---|---|---|---|---|
+| recording (wrong) | 54 | 0.339 | 0.609 | 0.854 | 0.675 | 0.590 | 0.251 |
+| **chip (correct)** | **26** | **0.617** | **0.595** | **0.875** | **0.744** | **0.607** | **0.640** |
+
+Median |propagation asymmetry|. Per chip, every Holm-adjusted comparison against control is p = 1.0.
+A chip recorded at DIV 12, 17 and 21 is one device and three rows; counting the rows is what makes a
+geometry effect appear. This is the HD15 lesson a third time, now on a different dataset.
+
+**And the statistic is confounded with sampling**: |asymmetry| falls as propagation events rise,
+Spearman -0.494, p = 0.010 over 26 chips — a chip with few events looks one-sided by chance. The
+better-sampled half gives Kruskal p = 0.086 on 13 chips, which is not a result either.
+
+### What this does and does not say
+It does **not** contradict the deposit's own paper. Mateus et al. had the electrode map, analysed
+propagation velocities per channel, and asked a different question; we recovered an approximate
+geometry from spike times and compared one aggregate per chip. What it says is narrower: **on this
+statistic, with chips as the unit, the asymmetric geometries are not distinguishable from straight
+channels** — and the naive version that says otherwise is an artefact of the analysis unit.
+
+Two further limits: control chips appear only in experiments 9-11, so condition is confounded with
+batch by the deposit's design; and 26 chips across five groups (3-8 each) would miss a moderate
+effect.
+
+### For the twin
+HD16 showed direction is recoverable from simulated features once rate is residualised out. This is
+the first attempt to put that question to real recordings, and it does not reproduce. Given the
+sample and the confounds, that is weak evidence against the simulated result rather than a
+refutation of it — and it is the honest counterweight to a simulation-only claim.
+
+### Next
+Report, writeup and metrics updates now that the numbers exist.

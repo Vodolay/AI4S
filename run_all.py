@@ -55,6 +55,7 @@ def main(argv: list[str] | None = None) -> int:
             from neuromps.models.asymmetry import main as run_asymmetry
             from neuromps.models.conformal import main as run_uncertainty
             from neuromps.models.mechanism import main as run_models
+            from neuromps.models.microchannels import main as run_microchannels
             from neuromps.models.transfer import main as run_transfer
 
             quick = ["--quick"] if args.quick else []
@@ -62,6 +63,9 @@ def main(argv: list[str] | None = None) -> int:
             run_transfer(quick)
             run_uncertainty(quick)
             run_asymmetry([])
+            # Skips itself when the 109 MB archive has not been fetched, which is
+            # the case on the quick tier.
+            run_microchannels(quick)
         elif stage == "twin":
             from neuromps.twin.calibrate import main as calibrate_twin
             from neuromps.twin.directionality import main as run_directionality

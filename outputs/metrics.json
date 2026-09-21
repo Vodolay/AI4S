@@ -643,6 +643,200 @@
       "min_dose_uM": 30.0
     }
   },
+  "microchannel_directionality": {
+    "batch_confound": "control chips appear only in experiments 9-11 and the asymmetric geometries only in 1-8 and 12, so condition is confounded with culture batch by the deposit's design",
+    "comparison": {
+      "by_condition": {
+        "arrows": {
+          "median_abs_asymmetry": 0.5948,
+          "median_ci95": [
+            0.4624,
+            0.7881
+          ],
+          "median_total_events": 13591.0,
+          "n_chips": 7
+        },
+        "control": {
+          "median_abs_asymmetry": 0.6168,
+          "median_ci95": [
+            0.1904,
+            0.984
+          ],
+          "median_total_events": 3933.0,
+          "n_chips": 8
+        },
+        "rams": {
+          "median_abs_asymmetry": 0.8745,
+          "median_ci95": [
+            0.4389,
+            0.9843
+          ],
+          "median_total_events": 3398.2,
+          "n_chips": 4
+        },
+        "tesla": {
+          "median_abs_asymmetry": 0.7436,
+          "median_ci95": [
+            0.5655,
+            0.9975
+          ],
+          "median_total_events": 3526.0,
+          "n_chips": 3
+        },
+        "tesla_v2": {
+          "median_abs_asymmetry": 0.6066,
+          "median_ci95": [
+            0.2848,
+            0.6822
+          ],
+          "median_total_events": 6071.2,
+          "n_chips": 4
+        }
+      },
+      "ci_method": "percentile bootstrap over chips, neuromps.models.bootstrap conventions",
+      "kruskal_p": 0.63969,
+      "kruskal_statistic": 2.5277,
+      "n_chips": 26,
+      "reference": "control",
+      "statistic": "median |asymmetry| per chip; sign is unanchored",
+      "vs_reference_holm": {
+        "arrows": 1.0,
+        "rams": 1.0,
+        "tesla": 1.0,
+        "tesla_v2": 1.0
+      }
+    },
+    "criterion": "the deposit's own: an event on all 5 electrodes of a microchannel with <=1 ms between consecutive electrodes",
+    "direction_note": "sign is unanchored: the deposit does not record how each device was seated on the array, so only the magnitude of the asymmetry is comparable across chips",
+    "event_count_confound": {
+      "n_chips": 26,
+      "p_value": 0.01032,
+      "reads_as": "a negative correlation means chips with fewer propagation events look more one-sided, which is what a counting artefact looks like",
+      "spearman_rho": -0.494
+    },
+    "label": "REAL recordings: microchannel propagation asymmetry by device geometry",
+    "n_chips": 26,
+    "n_recordings": 57,
+    "n_unreadable_channels": 2,
+    "per_recording_naive": {
+      "by_condition": {
+        "arrows": {
+          "median_abs_asymmetry": 0.6091,
+          "median_ci95": [
+            0.562,
+            0.7492
+          ],
+          "median_total_events": 9426.0,
+          "n_chips": 13
+        },
+        "control": {
+          "median_abs_asymmetry": 0.3392,
+          "median_ci95": [
+            0.1904,
+            0.8966
+          ],
+          "median_total_events": 3496.0,
+          "n_chips": 15
+        },
+        "rams": {
+          "median_abs_asymmetry": 0.8543,
+          "median_ci95": [
+            0.7945,
+            0.9713
+          ],
+          "median_total_events": 4290.0,
+          "n_chips": 10
+        },
+        "tesla": {
+          "median_abs_asymmetry": 0.6753,
+          "median_ci95": [
+            0.3266,
+            0.9988
+          ],
+          "median_total_events": 3207.0,
+          "n_chips": 6
+        },
+        "tesla_v2": {
+          "median_abs_asymmetry": 0.5897,
+          "median_ci95": [
+            0.4127,
+            0.7859
+          ],
+          "median_total_events": 5255.5,
+          "n_chips": 10
+        }
+      },
+      "ci_method": "percentile bootstrap over chips, neuromps.models.bootstrap conventions",
+      "kruskal_p": 0.25068,
+      "kruskal_statistic": 5.3778,
+      "n_chips": 54,
+      "reference": "control",
+      "statistic": "median |asymmetry| per chip; sign is unanchored",
+      "vs_reference_holm": {
+        "arrows": 0.8016,
+        "rams": 0.6288,
+        "tesla": 0.8016,
+        "tesla_v2": 0.8016
+      }
+    },
+    "recordings_without_detected_channels": 3,
+    "source": "mateus2024",
+    "well_sampled_half": {
+      "by_condition": {
+        "arrows": {
+          "median_abs_asymmetry": 0.5784,
+          "median_ci95": [
+            0.4624,
+            0.7881
+          ],
+          "median_total_events": 14289.0,
+          "n_chips": 4
+        },
+        "control": {
+          "median_abs_asymmetry": 0.192,
+          "median_ci95": [
+            0.1836,
+            0.3392
+          ],
+          "median_total_events": 6596.2,
+          "n_chips": 4
+        },
+        "rams": {
+          "median_abs_asymmetry": 0.8189,
+          "median_ci95": null,
+          "median_total_events": 10156.0,
+          "n_chips": 1
+        },
+        "tesla": {
+          "median_abs_asymmetry": 0.5655,
+          "median_ci95": null,
+          "median_total_events": 4819.5,
+          "n_chips": 1
+        },
+        "tesla_v2": {
+          "median_abs_asymmetry": 0.6726,
+          "median_ci95": [
+            0.2848,
+            0.6822
+          ],
+          "median_total_events": 6902.0,
+          "n_chips": 3
+        }
+      },
+      "ci_method": "percentile bootstrap over chips, neuromps.models.bootstrap conventions",
+      "kruskal_p": 0.08629,
+      "kruskal_statistic": 8.1484,
+      "n_chips": 13,
+      "reference": "control",
+      "statistic": "median |asymmetry| per chip; sign is unanchored",
+      "vs_reference_holm": {
+        "arrows": 0.1144,
+        "rams": 0.8,
+        "tesla": 0.8,
+        "tesla_v2": 0.3429
+      }
+    }
+  },
   "run_all_timings_full": {
     "by_stage_s": {
       "demo": 85.4
