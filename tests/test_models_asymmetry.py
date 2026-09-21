@@ -117,3 +117,12 @@ def test_holm_adjusts_for_the_number_of_pairwise_tests() -> None:
     assert adjusted["b"] == pytest.approx(0.08)  # 0.04 * 2
     assert adjusted["c"] == pytest.approx(0.5)
     assert adjusted["a"] <= adjusted["b"] <= adjusted["c"]  # monotone by construction
+
+
+def test_main_skips_an_asset_built_without_the_two_chamber_source(tmp_path) -> None:
+    """A --quick run has no compartment records, and no device columns at all."""
+    from neuromps.models.asymmetry import main
+
+    asset = tmp_path / "neuromps.parquet"
+    pd.DataFrame([{"source": "kapucu2022", "features.mfr_hz": 1.0}]).to_parquet(asset)
+    assert main(["--asset", str(asset)]) == 0

@@ -28,6 +28,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
+from neuromps.asset import compartment_records
 from neuromps.features.mea import extract_features
 from neuromps.metrics import update_metrics
 from neuromps.twin.mea import ElectrodeLayout, electrode_positions, place_neurons, record_electrodes
@@ -74,12 +75,12 @@ def calibrated_params(path: Path | None = None) -> dict:
 
 def real_targets(asset: pd.DataFrame) -> dict:
     """Median and interquartile band per feature, from real chamber baselines."""
-    rows = asset[
-        (asset["source"] == REFERENCE_SOURCE)
-        & (asset["data_level"] == "spike_times")
-        & (asset["recording.phase"] == "baseline")
-        & (asset["qc.usable"].astype(bool))
-        & (asset["device.compartment_id"].notna())
+    chambers = compartment_records(asset)
+    rows = chambers[
+        (chambers["source"] == REFERENCE_SOURCE)
+        & (chambers["data_level"] == "spike_times")
+        & (chambers["recording.phase"] == "baseline")
+        & (chambers["qc.usable"].astype(bool))
     ]
     by_feature = {}
     for feature in CALIBRATION_FEATURES:
@@ -267,6 +268,16 @@ def main(argv: list[str] | None = None) -> int:
     TWIN_DIR.mkdir(parents=True, exist_ok=True)
 
     targets = real_targets(pd.read_parquet(ASSET))
+    if not targets["n_records"]:
+        log.warning(
+            "no %s chamber baselines in %s; skipping calibration (that source is fetched "
+            "with --full). The existing %s, if any, is from an earlier run and is what the "
+            "rest of the twin will use.",
+            REFERENCE_SOURCE,
+            ASSET,
+            CALIBRATION_FILE.name,
+        )
+        return 0
     n_draws = args.draws or (8 if args.quick else 40)
     duration = 20.0 if args.quick else 40.0
     log.info("calibrating against %s (n=%d records)", targets["reference"], targets["n_records"])

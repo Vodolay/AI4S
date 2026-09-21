@@ -203,6 +203,7 @@ def main(argv: list[str] | None = None) -> int:
     import argparse
     from pathlib import Path
 
+    from neuromps.asset import compartment_records
     from neuromps.metrics import update_metrics
 
     p = argparse.ArgumentParser(description=__doc__)
@@ -215,9 +216,13 @@ def main(argv: list[str] | None = None) -> int:
     figures.mkdir(parents=True, exist_ok=True)
 
     records = pd.read_parquet(asset)
-    compartments = records[records["device.compartment_id"].notna()]
+    compartments = compartment_records(records)
     if compartments.empty:
-        log.warning("no compartment records in the asset; nothing to compare")
+        log.warning(
+            "no compartment records in %s; skipping (the two-chamber source is fetched "
+            "with --full). Any compartment_asymmetry in metrics.json is from an earlier run.",
+            asset,
+        )
         return 0
     devices = device_asymmetry(compartments)
     results = {

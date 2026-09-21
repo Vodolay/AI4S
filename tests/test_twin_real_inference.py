@@ -265,3 +265,18 @@ def test_posterior_sampling_is_seeded_so_reruns_agree() -> None:
     torch.manual_seed(7)
     second = infer_parameters(_NoisyPosterior(), np.zeros((2, len(SUMMARY_NAMES))), n_samples=64)
     assert first == second
+
+
+def test_no_summaries_when_the_asset_has_no_compartment_records() -> None:
+    """The two-chamber source is --full only; --quick must not raise on its absence."""
+    quick_asset = _records().drop(columns=["device.compartment_id", "device.device_id"])
+    assert real_summaries(quick_asset).empty
+
+
+def test_the_empty_summary_table_still_has_its_columns() -> None:
+    """Consumers index the result by column name; the empty case must survive that."""
+    quick_asset = _records().drop(columns=["device.compartment_id", "device.device_id"])
+    summaries = real_summaries(quick_asset)
+    assert summaries.empty
+    assert set(SUMMARY_NAMES) <= set(summaries.columns)
+    assert summaries[list(SUMMARY_NAMES)].to_numpy(dtype=float).shape == (0, len(SUMMARY_NAMES))

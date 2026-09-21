@@ -11,6 +11,7 @@ from pathlib import Path
 
 import pandas as pd
 
+from neuromps.asset import compartment_records
 from neuromps.fetch.manifest import Manifest
 from neuromps.metrics import update_metrics
 
@@ -83,9 +84,7 @@ def ptypes(counts: pd.Series) -> dict[str, int]:
 
 def _device_lines(df: pd.DataFrame) -> list[str]:
     """Summary of multi-compartment devices, when the asset contains any."""
-    if "device.compartment_id" not in df.columns:
-        return []
-    comp = df[df["device.compartment_id"].notna()]
+    comp = compartment_records(df)
     if comp.empty:
         return []
     return [

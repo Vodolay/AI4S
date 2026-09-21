@@ -142,3 +142,14 @@ def test_calibrated_values_are_inside_the_search_space_they_came_from() -> None:
     for name, value in values.items():
         low, high = SEARCH_SPACE[name]
         assert low <= value <= high, name
+
+
+def test_real_targets_reports_no_records_when_the_asset_has_no_compartments() -> None:
+    """A --quick asset has no device block at all, so the column is absent, not null.
+
+    Zero records is the signal main() uses to skip rather than fit NaN bands.
+    """
+    quick_asset = _asset().drop(columns=["device.compartment_id"])
+    targets = real_targets(quick_asset)
+    assert targets["n_records"] == 0
+    assert all(band["n"] == 0 for band in targets["by_feature"].values())

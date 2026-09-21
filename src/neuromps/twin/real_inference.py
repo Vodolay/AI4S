@@ -25,6 +25,7 @@ import numpy as np
 import pandas as pd
 from scipy.stats import spearmanr
 
+from neuromps.asset import compartment_records
 from neuromps.metrics import update_metrics
 from neuromps.twin.inference import (
     PARAMETER_NAMES,
@@ -50,6 +51,9 @@ FEATURE_KEYS = (
     "active_electrodes",
 )
 MIN_DISTINCT_DOSES = 3
+# Columns of the table :func:`real_summaries` returns, named so the empty case
+# is still a frame consumers can index by column.
+SUMMARY_TABLE_COLUMNS = ("device_id", "dose_value", "dose_unit", "phase", *SUMMARY_NAMES)
 
 
 def _coupling_between_chambers(row: pd.Series) -> dict:
@@ -64,10 +68,13 @@ def _coupling_between_chambers(row: pd.Series) -> dict:
 
 def real_summaries(records: pd.DataFrame) -> pd.DataFrame:
     """Build one simulator-shaped summary vector per device recording."""
-    usable = records[
-        (records["data_level"] == "spike_times")
-        & records["device.compartment_id"].isin(CHAMBERS)
-        & records["qc.usable"].astype(bool)
+    chambers = compartment_records(records)
+    if chambers.empty:  # a --quick asset carries no device block at all
+        return pd.DataFrame(columns=list(SUMMARY_TABLE_COLUMNS))
+    usable = chambers[
+        (chambers["data_level"] == "spike_times")
+        & chambers["device.compartment_id"].isin(CHAMBERS)
+        & chambers["qc.usable"].astype(bool)
     ]
     rows = []
     keys = ["device.device_id", "compound.dose_value", "compound.dose_unit", "recording.phase"]
@@ -102,7 +109,7 @@ def real_summaries(records: pd.DataFrame) -> pd.DataFrame:
                 **{name: values[name] for name in SUMMARY_NAMES},
             }
         )
-    return pd.DataFrame(rows)
+    return pd.DataFrame(rows, columns=list(SUMMARY_TABLE_COLUMNS))
 
 
 def distribution_check(real_x: np.ndarray, simulated_x: np.ndarray) -> dict:

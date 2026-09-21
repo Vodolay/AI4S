@@ -261,6 +261,12 @@ def real_posteriors(posterior, quick: bool, n_samples: int) -> dict:
     if quick and len(summaries) > 12:
         summaries = summaries.iloc[:: len(summaries) // 12].head(12).reset_index(drop=True)
     x = summaries[list(SUMMARY_NAMES)].to_numpy(dtype=float)
+    if not len(x):  # no two-chamber source in the asset: it is fetched with --full
+        log.warning("no two-chamber recordings in %s; the demo ships a simulated grid only", ASSET)
+        return {
+            "samples": np.empty((0, n_samples, len(PARAMETER_NAMES))),
+            "records": summaries.drop(columns=list(SUMMARY_NAMES)),
+        }
     samples = np.stack([sample_posterior(posterior, row, n_samples) for row in x])
     return {"samples": samples, "records": summaries.drop(columns=list(SUMMARY_NAMES))}
 
