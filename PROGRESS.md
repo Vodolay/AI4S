@@ -884,3 +884,47 @@ fabricated into the device, so the same question can be asked of real recordings
 ### Open
 - The licence resolution is not yet publicly verifiable. Asked the authors for a line in the Zenodo
   record description.
+
+## 2026-09-21: `mateus2024` step 2 — what is actually in the deposit
+
+### Fetched
+109.2 MB `1_MEA_Recordings.zip` at full tier, SHA256 and timestamp in `MANIFEST.json`. The 66 MB
+image archive is still not fetched.
+
+### Format
+MCS HDF5 (`McsHdf5ProtocolType=RawData`, protocol 3) written by Multi Channel DataManager, but the
+payload is a **TimeStampStream**: spike times per channel, not raw traces. Per recording:
+`Data/Recording_0/TimeStampStream/Stream_0/TimeStampEntity_<id>`, one `(1, n_spikes)` int64 array of
+**microseconds**, with `InfoTimeStamp` mapping entity id to electrode label, unit and exponent.
+Layout `MEA_256MEA_MEA2100_252_6`: 252 electrodes on a 16x16 grid, columns A-H and J-R (no I),
+rows 1-16. Duration 600.1 s. Reading it needs only `h5py`; the spike dict feeds `features/mea.py`
+directly, so the shared feature extractor applies unchanged.
+
+### Design, from the deposit's own methods
+Action potentials were detected at 5x SD with a 3 ms dead time. "Forward" (Source-to-Target) and
+"backward" (Target-to-Source) propagation along a microchannel is identified from spike times, and a
+propagating event must be **detected on all 5 electrodes of the microchannel with <=1 ms between
+consecutive pairs** (>= 0.2 m/s). So electrodes sit *inside* the microchannels, five to a channel.
+
+### The obstacle: there is no electrode-to-compartment map in the deposit
+The Excel breakdown gives chips per condition per experiment and nothing about geometry, and spike
+density is spread evenly across columns, so the compartments cannot be read off the file metadata.
+The mapping has to be recovered from the data.
+
+**It is recoverable.** Counting coincidences within 1 ms between grid-adjacent electrodes on one
+`Control` and one `Rams` chip, the strong pairs are all **vertical runs in rows 7-10** on columns
+F, G, H and N, O, P — microchannels running along columns in a middle band, chambers above and
+below, which is what "5 electrodes per channel" predicts. 47 and 74 adjacent pairs respectively
+clear 500 coincidences within 1 ms, against a few thousand spikes per electrode.
+
+### A confound to state now, before any analysis
+**Condition is confounded with experiment.** From the breakdown: `Control` chips appear only in
+Exp9-11, and the asymmetric designs only in Exp1-8 and Exp12. Any Control-against-asymmetric
+comparison is therefore also a comparison between culture batches, and no amount of statistics
+inside this deposit separates the two. This has to be said wherever the comparison is reported.
+
+### Next first task (step 3)
+Implement the deposit's own propagation criterion - ordered runs of 5 in-channel electrodes with
+<= 1 ms steps - to count forward and backward events per chip, then ask whether the forward/backward
+ratio separates `Control` from `Arrows`/`Rams`/`Tesla`, with firing rate residualised out as in
+HD16, and the batch confound reported beside it.

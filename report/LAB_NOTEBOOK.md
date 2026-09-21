@@ -625,6 +625,33 @@ features — the whole of what this project does with a recording — would not 
 **Dependency.** `h5py` 3.16.0 pinned, approved by the PI on 2026-09-21, to read the deposit's
 HDF5 spike files. It is the first dependency added since the initial pin set.
 
+
+### 2026-09-21 — `mateus2024` step 2: the deposit has no compartment map, and why that is survivable (`STEP2`)
+
+The spike data are straightforward: MCS HDF5 carrying a `TimeStampStream` of per-electrode spike
+times in microseconds, 252 electrodes on a 16x16 grid, 600.1 s per recording. `h5py` reads it and
+the resulting dict feeds `features/mea.py` unchanged, so the shared-extractor rule holds for this
+source as it does for the others.
+
+**What is missing is the geometry.** Nothing in the deposit says which electrodes lie in which
+chamber, or which five belong to a given microchannel: the Excel file breaks down chips by condition
+and experiment only, and spike density is spread evenly across the grid, so no column split falls
+out of the metadata. The published methods describe the measurement — forward and backward
+propagation along microchannels, five electrodes each, consecutive steps within 1 ms — without
+publishing the electrode map it was computed on.
+
+**Decision: recover the geometry from the data using the deposit's own criterion rather than
+guessing a layout.** A probe on one `Control` and one `Rams` chip counted 1 ms coincidences between
+grid-adjacent electrodes: the strong pairs are vertical runs in rows 7-10 on columns F, G, H and
+N, O, P, which is the signature of microchannels running along columns with a chamber at each end.
+This is better than assuming a split, because it is the same quantity the authors measured and it
+adapts to a chip whose device sits on the array differently.
+
+**Limitation recorded before any analysis is run:** `Control` chips appear only in experiments 9-11
+and the asymmetric designs only in 1-8 and 12, so condition is confounded with culture batch. That
+confound is in the deposit's design and cannot be analysed away; it belongs next to any result this
+source produces.
+
 ---
 
 ## Tried and abandoned
