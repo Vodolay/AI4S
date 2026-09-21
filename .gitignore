@@ -21,5 +21,4 @@ sbi-logs/
 
 # Built video: reproduced by `make video` from the tracked stills.
 outputs/video/frames/
-outputs/video/*.mp4
 outputs/video/frames.txt
