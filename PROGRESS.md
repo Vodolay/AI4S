@@ -1124,6 +1124,11 @@ than shown as stills.
   `worker_processes` correctly returns 2 and the twin has half the parallelism assumed earlier.
   One Trujillo session, two Brewer cultures, 30 draws, 3 directionality repeats.
 
-**Next first task.** Confirm CI is green for the Brewer commit, then HD20 (Kaggle writeup). If the
-smoke run times out again, the next lever is the twin stage itself rather than the tier knobs -
-validate and calibrate are serial Brian2 runs and together cost about 4 minutes on that runner.
+**CI is green** at `1a28703`, both jobs. The quick pipeline takes 1,126 s on the two-vCPU runner a
+private repository gets (fetch 73, data 114, models 44, twin 773, demo 123), against 401 s here,
+inside the 1500 s budget with about a quarter to spare. Five distinct causes were fixed to get
+there: missing LaTeX packages and an unpinned pandoc, an app that hid its dataset card without the
+gitignored asset, `app/app.py` shadowing the `app` package under pytest's path order, a process
+count that halved a small machine, and gin.g-node.org rate-limiting CI addresses with 403.
+
+**Next first task.** HD20, the Kaggle writeup.

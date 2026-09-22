@@ -793,9 +793,9 @@ how many propagation events a chip produced. It bounds the effect rather than ex
 microchannel geometry is also recovered from the spike times rather than read from a map the deposit
 does not publish, so it approximates the authors' own analysis rather than reproducing it.
 
-**Process.** CI runs on every push and both jobs pass, most recently at commit `7baafbd`; the quick
-pipeline takes 715 s on a four-vCPU runner, against 401 s on the development machine, so the
-ten-minute budget is a claim about the latter. The demo video has been recorded. Every twin metric
+**Process.** CI runs on every push and both jobs pass, at commit `1a28703`; the quick pipeline
+takes 1,126 s on the two-vCPU runner a private repository gets, against 401 s here, so the
+ten-minute budget is a claim about this machine. The demo video has been recorded. Every twin metric
 produced before the coupling-definition fix is incomparable with those after it, and was regenerated.
 
 A fuller list, with dates and commits, is in `report/LAB_NOTEBOOK.md` (33 numbered limitations).
@@ -813,9 +813,9 @@ python run_all.py             # full run
 ```
 
 - `--quick` completes in **401 s on a fresh clone** of this repository — install, download, build,
-  model, twin and demo — against a 600 s budget. That is a 20-core development machine; the same
-  pipeline takes 715 s on a four-vCPU CI runner, which is the number to plan against. Each run
-  records its own per-stage timings
+  model, twin and demo — against a 600 s budget. That is a 20-core machine; the same pipeline takes
+  1,126 s on the two-vCPU runner CI provides, which is the number to plan against. Each run records
+  its own per-stage timings
   under `metrics.run_all_timings_quick`. Most of the variable part is downloading: the same clone
   measured 52 s and 133 s for the fetch stage on two runs; the full twin stage takes roughly 2,000 s
   and records `metrics.run_all_timings_full`. Both are logged under `outputs/logs/` as well.

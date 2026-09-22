@@ -858,7 +858,7 @@ path runs - and that reproducing its numbers needs the full one.
    template (apt's older one loaded neither the fonts nor `caption`), the app hid its dataset card
    when the gitignored asset was absent, `app/app.py` shadowed the `app` package under pytest's
    path order, a 4-vCPU runner was given `cpu_count() - 2` = 2 processes, and gin.g-node.org
-   rate-limits CI addresses with 403. The quick pipeline takes 715 s there against 401 s here.
+   rate-limits CI addresses with 403. The quick pipeline takes 1,126 s there against 401 s here.
 6. **Does the asymmetry measure need replacing for inference?** Given the excitability confound, HD14
    may need a rate-controlled statistic rather than the current one.
 7. ~~A latent dose-unit bug.~~ **Fixed** on 2026-09-20, see the entry above. No further action.
