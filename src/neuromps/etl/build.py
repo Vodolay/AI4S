@@ -82,6 +82,29 @@ def collect_records(raw_root: Path = RAW_ROOT, full: bool = False) -> list[dict]
     return records
 
 
+def fetched_in_this_tier(archive: Path, hashes: dict[str, str], source: str) -> bool:
+    """Whether this run's manifest vouches for `archive`.
+
+    Raw downloads are shared between tiers but manifests are not, so a quick run
+    on a machine that has also run `--full` finds full-tier archives on disk with
+    no hash recorded for them. Building from one anyway produces records whose
+    provenance is an empty string: they fail schema validation, or worse, fail
+    the conformance check with a message about hashes rather than about tiers.
+    The source simply is not part of this tier.
+    """
+    if not archive.exists():
+        log.warning("%s archive absent, skipping (run: fetch.runner --full)", source)
+        return False
+    if not hashes.get(archive.name):
+        log.warning(
+            "%s is on disk but not in this tier's manifest; skipping "
+            "(a --full archive seen from a --quick run)",
+            source,
+        )
+        return False
+    return True
+
+
 def _mateus_records(hashes: dict[str, str], raw_root: Path) -> list[dict]:
     """Two chamber records per Mateus recording; absent unless the archive was fetched.
 
@@ -92,8 +115,7 @@ def _mateus_records(hashes: dict[str, str], raw_root: Path) -> list[dict]:
     from neuromps.paths import interim_dir
 
     archive = raw_root / "mateus2024" / "1_MEA_Recordings.zip"
-    if not archive.exists():
-        log.info("mateus2024 archive not fetched; skipping")
+    if not fetched_in_this_tier(archive, hashes, "mateus2024"):
         return []
     built = build_records(
         archive,
@@ -116,7 +138,16 @@ def _trujillo_records(hashes: dict[str, str], raw_root: Path, full: bool) -> lis
         return []
     cache = interim_dir() / "trujillo2019_records.json"
     if cache.exists() and not full:
-        built = json.loads(cache.read_text())
+        # The cache is per tier but outlives a change to which sessions the tier
+        # fetches, so it is filtered against the manifest like a fresh build is.
+        built = [
+            record
+            for record in json.loads(cache.read_text())
+            if all(
+                Path(f["path"]).name in hashes
+                for f in record["provenance"]["source_files"]
+            )
+        ]
     else:
         built = trujillo.build_records(spikes_dir, hashes)
         cache.parent.mkdir(parents=True, exist_ok=True)
@@ -128,8 +159,7 @@ def _trujillo_records(hashes: dict[str, str], raw_root: Path, full: bool) -> lis
 def _brewer_records(hashes: dict[str, str], raw_root: Path, full: bool) -> list[dict]:
     """Four compartment records per culture; 17 MB, so both tiers carry it."""
     archive = raw_root / brewer.SOURCE / brewer.ARCHIVE_NAME
-    if not archive.exists():
-        log.info("brewer2021 archive not fetched; skipping")
+    if not fetched_in_this_tier(archive, hashes, brewer.SOURCE):
         return []
     built = brewer.build_records(archive, hashes, max_cultures=None if full else 2)
     log.info("brewer2021: %d records", len(built))
@@ -137,7 +167,20 @@ def _brewer_records(hashes: dict[str, str], raw_root: Path, full: bool) -> list[
 
 
 def _toxcast_records(hashes: dict[str, str], full: bool) -> list[dict]:
-    """ToxCast fitted-curve records, preferring the cached interim parquet."""
+    """ToxCast fitted-curve records, preferring the cached interim parquet.
+
+    A record's provenance has to come from the manifest of the run that fetched
+    its source file. The interim parquet is shared between tiers, so a quick run
+    on a machine that has previously run `--full` finds the file but no hash for
+    it, and every record it builds fails schema validation with an empty SHA256 -
+    20,375 of them, which stops the build. Skipping is the right answer: this
+    tier did not fetch that file, so it has nothing to say about it.
+    """
+    if not hashes.get(MC56_CSV.name):
+        log.warning(
+            "toxcast mc5-6 is not in this tier's manifest; skipping (run: fetch.runner --full)"
+        )
+        return []
     if INTERIM_PARQUET.exists():
         df = pd.read_parquet(INTERIM_PARQUET)
     elif MC56_CSV.exists() and full:
@@ -153,8 +196,7 @@ def _toxcast_records(hashes: dict[str, str], full: bool) -> list[dict]:
 def _screenneuropharm_records(hashes: dict[str, str], raw_root: Path, full: bool) -> list[dict]:
     """Bicuculline dose-response records; features are cached (~1 s per recording)."""
     archive = raw_root / screenneuropharm.SOURCE / screenneuropharm.ARCHIVE_NAME
-    if not archive.exists():
-        log.warning("screenneuropharm archive absent, skipping (run: fetch.runner --full)")
+    if not fetched_in_this_tier(archive, hashes, screenneuropharm.SOURCE):
         return []
     built = screenneuropharm.build_records(
         archive, hashes, cache_path=screenneuropharm.CACHE, rebuild=full
@@ -178,8 +220,7 @@ def _cached_compartments(archive: Path, hashes: dict[str, str], full: bool) -> l
 def _archive_records(module, hashes: dict[str, str], raw_root: Path, full: bool) -> list[dict]:
     """Records from an archive-backed source with a feature cache."""
     archive = raw_root / module.SOURCE / module.ARCHIVE_NAME
-    if not archive.exists():
-        log.warning("%s archive absent, skipping (run: fetch.runner --full)", module.SOURCE)
+    if not fetched_in_this_tier(archive, hashes, module.SOURCE):
         return []
     built = module.build_records(archive, hashes, cache_path=module.CACHE, rebuild=full)
     log.info("%s: %d records", module.SOURCE, len(built))

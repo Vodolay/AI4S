@@ -84,6 +84,8 @@ def build_pairs(records: pd.DataFrame, usable_only: bool = True) -> pd.DataFrame
     df = records[records["data_level"] == "spike_times"].copy()
     if usable_only:
         df = df[df["qc.usable"].astype(bool)]
+    if df.empty:  # `apply` on an empty frame returns a frame, not a column
+        return pd.DataFrame(columns=PAIR_COLUMNS + delta_columns())
     df["_key"] = df.apply(_pair_key, axis=1)
     baselines = {row["_key"]: row for _, row in df[df["recording.phase"] == "baseline"].iterrows()}
     rows, unlabelled = [], 0
@@ -98,8 +100,27 @@ def build_pairs(records: pd.DataFrame, usable_only: bool = True) -> pd.DataFrame
     if unlabelled:
         log.info("dropped %d exposures with a compound applied but no mechanism", unlabelled)
     if not rows:
-        return pd.DataFrame(columns=["pair_id", "group", "label", *delta_columns()])
+        return pd.DataFrame(columns=PAIR_COLUMNS + delta_columns())
     return pd.DataFrame(rows)
+
+
+# Every column `_pair_row` produces. An empty table must carry them too: a
+# source that failed to download leaves no pairs, and a consumer indexing
+# `pairs["source"]` then raises a KeyError about a missing column instead of
+# saying that there were no pairs. That is what a blocked fetch looked like in
+# CI, and it took a traceback to work out.
+PAIR_COLUMNS = [
+    "pair_id",
+    "group",
+    "source",
+    "species",
+    "system",
+    "unit_id",
+    "compound",
+    "dose_value",
+    "dose_unit",
+    "label",
+]
 
 
 def is_unlabelled_exposure(row: pd.Series) -> bool:

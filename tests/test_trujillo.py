@@ -129,7 +129,8 @@ def test_records_carry_the_organoid_as_a_stable_unit_id(session_file: Path, tmp_
     out = tmp_path / "spikes"
     out.mkdir()
     pq.write_table(table, out / "LFP_Sp_990101.spikes.parquet")
-    records = trujillo.build_records(out, hashes={"trujillo2019/LFP_Sp_990101.spikes.parquet": "x"})
+    # Keyed by file name, as `etl.build.manifest_hashes` produces.
+    records = trujillo.build_records(out, hashes={"LFP_Sp_990101.spikes.parquet": "x"})
     assert {r["unit_id"] for r in records} == {"well00", "well01"}
     assert all(r["cell_source"]["species"] == "human" for r in records)
     assert all(r["recording"]["duration_s"] == pytest.approx(DURATION) for r in records)
@@ -220,3 +221,28 @@ def test_a_session_that_agrees_with_its_counts_passes(session_file: Path) -> Non
     with h5py.File(session_file, "r") as f:
         frame, _, _ = session_spikes(f)
     assert len(frame) == 20
+
+
+def test_a_session_absent_from_this_tiers_manifest_is_skipped(session_file: Path, tmp_path) -> None:
+    """A --full extraction seen from a --quick run must not become a record.
+
+    The file is on disk and this tier's manifest says nothing about it, so a
+    record built from it fails the conformance check - which is how this was
+    found, from a message about hashes rather than about tiers.
+    """
+    import h5py
+    import pyarrow as pa
+    import pyarrow.parquet as pq
+
+    from neuromps.fetch.trujillo2019 import session_spikes
+
+    with h5py.File(session_file, "r") as f:
+        frame, rate, duration = session_spikes(f)
+    table = pa.Table.from_pandas(frame, preserve_index=False).replace_schema_metadata(
+        {b"duration_s": f"{duration}".encode(), b"sample_rate_hz": f"{rate}".encode()}
+    )
+    out = tmp_path / "spikes"
+    out.mkdir()
+    pq.write_table(table, out / "LFP_Sp_990101.spikes.parquet")
+    assert trujillo.build_records(out, hashes={"some_other_file.parquet": "x"}) == []
+    assert trujillo.build_records(out, hashes={"LFP_Sp_990101.spikes.parquet": "x"})

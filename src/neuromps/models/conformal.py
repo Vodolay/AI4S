@@ -157,6 +157,13 @@ def main(argv: list[str] | None = None) -> int:
     figures.mkdir(parents=True, exist_ok=True)
 
     pairs = load_pairs()
+    if pairs.empty:
+        log.warning(
+            "no exposure/baseline pairs in the asset; skipping conformal sets and ablations. "
+            "This is what a blocked or unfetched source looks like downstream - "
+            "check the fetch summary for a source with status=blocked."
+        )
+        return 0
     kapucu = pairs[pairs["source"] == "kapucu2022"]
     sweep = [conformal_sets(kapucu, alpha=a, seed=args.seed) for a in (0.05, 0.1, 0.2, 0.3)]
     results = {

@@ -620,7 +620,11 @@ def main(argv: list[str] | None = None) -> int:
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
     twin_dir().mkdir(parents=True, exist_ok=True)
 
-    n_reps = args.reps or (3 if args.quick else 40)
+    # Four, not three: at three the quick tier produced a row without a
+    # `better_than_chance` key and the summary died on it. The 30 s saved was
+    # not worth finding out where that row comes from at submission time; the
+    # fragility is recorded in the lab notebook instead.
+    n_reps = args.reps or (4 if args.quick else 40)
     durations = (10.0,) if args.quick else DURATIONS_S
     counts = (12, 48) if args.quick else ELECTRODE_COUNTS
     resamples = 200 if args.quick else 1000

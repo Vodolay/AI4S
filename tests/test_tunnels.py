@@ -104,3 +104,4 @@ def test_a_perfect_rate_relationship_is_detected() -> None:
 
 def test_an_asset_without_the_source_is_skipped_quietly() -> None:
     assert tunnels.run(pd.DataFrame({"source": ["kapucu2022"]})) is None
+

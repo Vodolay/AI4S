@@ -134,9 +134,17 @@ def build_records(
     p = params or FeatureParams()
     records: list[dict] = []
     for path in sorted(Path(spikes_dir).glob("*.spikes.parquet")):
+        rel = f"{SOURCE}/{path.name}"
+        # `manifest_hashes` keys by file name, not by the path recorded in a
+        # record's provenance; checking the wrong one here skipped every
+        # session at first.
+        if hashes and path.name not in hashes:
+            # Sessions extracted by a --full run, seen from a --quick one. The
+            # file is on disk and this tier's manifest says nothing about it, so
+            # a record built from it would not be traceable.
+            continue
         session, treated = session_id(path)
         frame, duration_s = read_session(path)
-        rel = f"{SOURCE}/{path.name}"
         sha = (hashes or {}).get(rel) or sha256_file(path)
         for well, well_rows in frame.groupby("well", sort=True):
             spikes = spikes_by_electrode(well_rows)
