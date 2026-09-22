@@ -268,7 +268,7 @@ Logistic regression beats chance with an interval that excludes it. Its interval
 boosting's overlap heavily, so the gap between the two models is within noise; with 73 pairs the
 simpler model is the one to prefer, not the one shown to be better.
 
-![Task 1 confusion matrix, REAL data: out-of-fold predictions from grouped cross-validation over 73 treated/baseline pairs. Errors concentrate between the two GABA-A classes.](../outputs/figures/mechanism_confusion.png){width=60%}
+![Task 1 confusion matrix, REAL data: out-of-fold predictions from grouped cross-validation over 73 treated/baseline pairs. Errors concentrate between the two GABA-A classes.](../outputs/figures/mechanism_confusion.png){width=55%}
 
 
 **Calibration.** Expected calibration error on out-of-fold predictions is 0.1114
@@ -338,7 +338,7 @@ Five features agree in sign and four disagree
 <!-- metrics.json: mechanism_baselines.task3_platform_contrast.features_agreeing_in_sign -->
 <!-- metrics.json: mechanism_baselines.task3_platform_contrast.features_disagreeing_in_sign -->.
 
-![The same mechanism measured on two platforms, REAL data: per-feature log2 change for GABA-A antagonists. Mean firing rate reverses sign across platforms; synchrony agrees.](../outputs/figures/platform_contrast_gabaa_antagonist.png){width=68%}
+![The same mechanism measured on two platforms, REAL data: per-feature log2 change for GABA-A antagonists. Mean firing rate reverses sign across platforms; synchrony agrees.](../outputs/figures/platform_contrast_gabaa_antagonist.png){width=63%}
 
 **The disagreement does not fall where the species analysis puts it.** `mfr_hz` reverses, +0.348
 <!-- metrics.json: mechanism_baselines.task3_platform_contrast.by_source.kapucu2022.median_delta.mfr_hz -->
@@ -380,7 +380,7 @@ is named invariant while carrying a median difference of 1.04
 <!-- metrics.json: species_transfer.species_shift.by_feature.burst_rate_per_min.difference --> log2
 units, a two-fold shift whose interval also spans zero.
 
-![Per-feature species shift, REAL data: rat against human baseline distributions, with cluster-bootstrap intervals. Rate and burst-fraction features move least; synchrony moves most.](../outputs/figures/species_shift.png){width=56%}
+![Per-feature species shift, REAL data: rat against human baseline distributions, with cluster-bootstrap intervals. Rate and burst-fraction features move least; synchrony moves most.](../outputs/figures/species_shift.png){width=52%}
 
 
 ### 6.6 Ablations: the feature set is mostly one feature
@@ -421,7 +421,7 @@ Holm 0.4785
 which is what a real device-type effect should look like and what a pooled heterogeneous-against-
 homogeneous split cannot show.
 
-![Inter-compartment coupling lag by device type, REAL data, one value per device: five CxCx, five HpHp, six CxHp. The two same-tissue types are indistinguishable from each other; the heterogeneous type sits apart.](../outputs/figures/compartment_lag_by_device_type.png){width=66%}
+![Inter-compartment coupling lag by device type, REAL data, one value per device: five CxCx, five HpHp, six CxHp. The two same-tissue types are indistinguishable from each other; the heterogeneous type sits apart.](../outputs/figures/compartment_lag_by_device_type.png){width=61%}
 
 Two things this section does **not** claim. On absolute asymmetry rather than lag, the same per-type
 comparison does not survive correction, Holm 0.0519
@@ -436,6 +436,52 @@ had already recorded it as abandoned, and this section now reports the analysis 
 
 With five to six devices per group, this supports an ordering of device types, not an effect size,
 and §7.2 gives a specific reason to distrust the asymmetry measure in particular.
+
+### 6.8 Untreated baselines: what differs before any drug is applied
+
+Everything above consumes pairs — an exposure minus its own baseline. That is why adding 184 human
+organoid recordings <!-- metrics.json: data_asset.counts.by_source.trujillo2019 --> changed none of
+the numbers in §6.1 to §6.7: they are untreated baselines with nothing to pair against. They answer
+a different question — before any compound, does human tissue sit inside the rat distribution?
+
+Species and platform are confounded here — every MaxWell recording is human, every Multi Channel
+Systems recording is rat — so the comparison is made inside one vendor, resampling over culture
+units rather than rows: an organoid recorded twenty times is one culture.
+
+**At matched platform and matched preparation, 7
+<!-- metrics.json: baseline_activity.matched_preparation.n_features_separating_species -->
+of the nine features separate the species** (Axion, dissociated monolayers, 28 human cultures
+<!-- metrics.json: baseline_activity.matched_preparation.n_human_cultures --> against 44 rat
+<!-- metrics.json: baseline_activity.matched_preparation.n_rat_cultures -->). Human cultures fire
+faster, put more of their spikes into bursts — a median of 70.9
+<!-- metrics.json: baseline_activity.matched_preparation.features.pct_spikes_in_bursts.median_human -->
+against 40.05
+<!-- metrics.json: baseline_activity.matched_preparation.features.pct_spikes_in_bursts.median_rat -->
+percent — and are four times as synchronous. Only burst rate overlaps. Dropping the untreated wells
+recorded during a plate's exposure phase leaves the same 7
+<!-- metrics.json: baseline_activity.matched_preparation_baseline_phase_only.n_features_separating_species -->,
+so this is not an artifact of session order.
+
+This qualifies §6.5 rather than contradicting it: that section found rate-like **drug-response
+deltas** portable, and a delta can travel between two populations whose resting activity does not
+resemble each other at all. Preparation separates from species too — within human tissue on one
+vendor, 3D organoids differ from dissociated monolayers on 5
+<!-- metrics.json: baseline_activity.preparation_within_human.n_features_separating_species -->
+of the nine features, so "human" does not name one kind of preparation.
+
+**A confound the module refuses rather than reports.** Active-electrode count looked like the
+strongest separator of all, reaching 49 electrodes
+<!-- metrics.json: baseline_activity.within_vendor.features.active_electrodes.difference_ci95.1 -->
+— an artifact of Trujillo's 64-electrode wells against Kapucu's 16. It is flagged
+`format_confounded` and excluded; the fraction of electrodes active gives an interval of −0.031 to
+0.063 <!-- metrics.json: baseline_activity.within_vendor.features.active_fraction.difference_ci95 -->,
+astride zero —
+the fourth apparent effect here dissolved by asking what else differs between the groups.
+
+![Untreated baseline activity on Axion platforms, by species and preparation. REAL recordings. The
+three groups are shown separately because the species contrast and the preparation contrast are both
+present in this slice; two groups would let the whole gap be read as species. Burst rate is the one
+feature flat across all three.](../outputs/figures/baseline_species_comparison.png){width=81%}
 
 ---
 
@@ -489,7 +535,7 @@ that reads direction off coupling must control for rate first.
 Three checks on the real devices confirmed the confound does not obviously bite there (firing-rate
 imbalance does not differ by device type), which is why §6.6 survives as a hypothesis.
 
-![SIMULATED: measured coupling asymmetry against the forward/backward wiring ratio, at three levels of drive to the receiving chamber. Drive moves the measure further than wiring does.](../outputs/twin/hd11_directionality_simulated.png){width=65%}
+![SIMULATED: measured coupling asymmetry against the forward/backward wiring ratio, at three levels of drive to the receiving chamber. Drive moves the measure further than wiring does.](../outputs/twin/hd11_directionality_simulated.png){width=60%}
 
 
 ### 7.3 Calibration
@@ -503,7 +549,7 @@ burst-structure and synchrony group that §6.5 and §6.6 independently identify 
 of the feature set across species. Three analyses agree about species; the platform contrast of §6.4
 disagrees, and that disagreement is itself the finding.
 
-![SIMULATED against REAL: calibrated baseline features of the twin compared with the real baseline band. Rate and burst-rate features land inside it; burst fraction and synchrony do not.](../outputs/twin/hd12_calibration_simulated.png){width=65%}
+![SIMULATED against REAL: calibrated baseline features of the twin compared with the real baseline band. Rate and burst-rate features land inside it; burst fraction and synchrony do not.](../outputs/twin/hd12_calibration_simulated.png){width=60%}
 
 
 ### 7.4 Drug knobs
@@ -521,7 +567,7 @@ direction is established by a cluster bootstrap:
 Directions only: each knob is compared against a real reference from a different platform, so this
 supports direction, never magnitude.
 
-![SIMULATED drug knobs against REAL pharmacology directions, per feature. Only features whose real direction is established by a cluster bootstrap are scored.](../outputs/twin/hd13_drug_knob_validation_simulated.png){width=61%}
+![SIMULATED drug knobs against REAL pharmacology directions, per feature. Only features whose real direction is established by a cluster bootstrap are scored.](../outputs/twin/hd13_drug_knob_validation_simulated.png){width=56%}
 
 
 ### 7.5 Simulation-based inference, and what it cannot do
@@ -552,7 +598,7 @@ rank test was not. A learning curve
 showed connectivity contraction still rising with training-set size but only slightly: more
 simulations alone will not fix it.
 
-![SIMULATED posterior calibration: rank of the true parameter among posterior samples. Flat is calibrated, U-shaped is over-confident. Only `threshold_scale` is close to flat.](../outputs/twin/hd14_posterior_ranks_simulated.png){width=73%}
+![SIMULATED posterior calibration: rank of the true parameter among posterior samples. Flat is calibrated, U-shaped is over-confident. Only `threshold_scale` is close to flat.](../outputs/twin/hd14_posterior_ranks_simulated.png){width=67%}
 
 
 **Applied to 113 real two-chamber recordings**
@@ -579,7 +625,7 @@ An earlier version of this analysis produced an apparent dose trend (ρ = −0.1
 an artefact of pseudo-replication — 113 recordings from 16 devices treated as independent — and of
 posterior extrapolation on out-of-distribution dimensions. Both are now checks in code.
 
-![Inferred GABA-A scale for REAL bicuculline recordings, from a posterior trained on SIMULATIONS. There is no dose trend, and untreated chips already sit far below the neutral value of 1.](../outputs/twin/hd15_real_dose_response.png){width=61%}
+![Inferred GABA-A scale for REAL bicuculline recordings, from a posterior trained on SIMULATIONS. There is no dose trend, and untreated chips already sit far below the neutral value of 1.](../outputs/twin/hd15_real_dose_response.png){width=56%}
 
 
 ### 7.6 Directionality: what it takes to see asymmetry
@@ -635,7 +681,7 @@ report the arm that passes, at the electrode count it actually needs.
 wiring regimes at 0.98 give a posterior contraction of only 0.311 for the continuous ratio (§7.5).
 Classifying is a far weaker demand than estimating.
 
-![SIMULATED: telling symmetric from asymmetric wiring, by recording length and electrode count. Top row leaves drive alone; the bottom row adjusts drive to match rates and does so imperfectly, which is why that arm is reported as inconclusive. The rate-residualised columns are the controlled comparison, and the rightmost column is the validity check itself.](../outputs/twin/hd16_directionality_simulated.png){width=70%}
+![SIMULATED: telling symmetric from asymmetric wiring, by recording length and electrode count. Top row leaves drive alone; the bottom row adjusts drive to match rates and does so imperfectly, which is why that arm is reported as inconclusive. The rate-residualised columns are the controlled comparison, and the rightmost column is the validity check itself.](../outputs/twin/hd16_directionality_simulated.png){width=64%}
 
 
 ### 7.7 The same question on real devices, and a null
@@ -653,7 +699,7 @@ a single row band, which is what the published five-electrode design predicts. D
 as a magnitude: the deposit does not record how each device was seated on the array, so |asymmetry|
 says how one-sided propagation is, not which way it points.
 
-![REAL data: propagation asymmetry per chip by microchannel geometry. One point per chip, bars are medians. The control group spans almost the whole range on its own.](../outputs/figures/microchannel_asymmetry_real.png){width=65%}
+![REAL data: propagation asymmetry per chip by microchannel geometry. One point per chip, bars are medians. The control group spans almost the whole range on its own.](../outputs/figures/microchannel_asymmetry_real.png){width=60%}
 
 **The unit decides the answer.** A chip recorded at DIV 12, 17 and 21 supplies three recordings and
 one device. Counting recordings, median |asymmetry| runs from 0.339
@@ -701,58 +747,11 @@ pairs <!-- metrics.json: tunnel_rate_tracking.n_pairs --> in 9 cultures
 with the pair's firing-rate imbalance: Spearman ρ = −0.0527
 <!-- metrics.json: tunnel_rate_tracking.spearman_rho -->, 95% CI [−0.5988, 0.4665]
 <!-- metrics.json: tunnel_rate_tracking.spearman_rho_ci95 -->, over rate imbalances reaching a log2 ratio of 4.947
-<!-- metrics.json: tunnel_rate_tracking.abs_log2_rate_ratio.max -->, a thirty-fold difference. This is **not** a refutation of §7.2, and the difference matters: §7.2 moved drive with
-wiring held fixed, while these pairs differ in wiring and in rate at once, so a null across them is
-consistent with a strong within-device effect. What it does say is that rate imbalance alone does
-not predict measured asymmetry in real tissue, and the interval is wide enough to admit a
-substantial effect in either direction. The scatter is in
-`outputs/figures/tunnel_asymmetry_vs_rate.png`.
-
-### 6.8 Untreated baselines: what differs before any drug is applied
-
-Everything above consumes pairs — an exposure minus its own baseline. That is why adding 184 human
-organoid recordings <!-- metrics.json: data_asset.counts.by_source.trujillo2019 --> changed none of
-the numbers in §6.1 to §6.7: they are untreated baselines with nothing to pair against. They answer
-a different question — before any compound, does human tissue sit inside the rat distribution?
-
-Species and platform are confounded here — every MaxWell recording is human, every Multi Channel
-Systems recording is rat — so the comparison is made inside one vendor, resampling over culture
-units rather than rows: an organoid recorded twenty times is one culture.
-
-**At matched platform and matched preparation, 7
-<!-- metrics.json: baseline_activity.matched_preparation.n_features_separating_species -->
-of the nine features separate the species** (Axion, dissociated monolayers, 28 human cultures
-<!-- metrics.json: baseline_activity.matched_preparation.n_human_cultures --> against 44 rat
-<!-- metrics.json: baseline_activity.matched_preparation.n_rat_cultures -->). Human cultures fire
-faster, put more of their spikes into bursts — a median of 70.9
-<!-- metrics.json: baseline_activity.matched_preparation.features.pct_spikes_in_bursts.median_human -->
-against 40.05
-<!-- metrics.json: baseline_activity.matched_preparation.features.pct_spikes_in_bursts.median_rat -->
-percent — and are four times as synchronous. Only burst rate overlaps. Dropping the untreated wells
-recorded during a plate's exposure phase leaves the same 7
-<!-- metrics.json: baseline_activity.matched_preparation_baseline_phase_only.n_features_separating_species -->,
-so this is not an artifact of session order.
-
-This qualifies §6.5 rather than contradicting it: that section found rate-like **drug-response
-deltas** portable, and a delta can travel between two populations whose resting activity does not
-resemble each other at all. Preparation separates from species too — within human tissue on one
-vendor, 3D organoids differ from dissociated monolayers on 5
-<!-- metrics.json: baseline_activity.preparation_within_human.n_features_separating_species -->
-of the nine features, so "human" does not name one kind of preparation.
-
-**A confound the module refuses rather than reports.** Active-electrode count looked like the
-strongest separator of all, reaching 49 electrodes
-<!-- metrics.json: baseline_activity.within_vendor.features.active_electrodes.difference_ci95.1 -->
-— an artifact of Trujillo's 64-electrode wells against Kapucu's 16. It is flagged
-`format_confounded` and excluded; the fraction of electrodes active gives an interval of −0.031 to
-0.063 <!-- metrics.json: baseline_activity.within_vendor.features.active_fraction.difference_ci95 -->,
-astride zero —
-the fourth apparent effect here dissolved by asking what else differs between the groups.
-
-![Untreated baseline activity on Axion platforms, by species and preparation. REAL recordings. The
-three groups are shown separately because the species contrast and the preparation contrast are both
-present in this slice; two groups would let the whole gap be read as species. Burst rate is the one
-feature flat across all three.](../outputs/figures/baseline_species_comparison.png){width=98%}
+<!-- metrics.json: tunnel_rate_tracking.abs_log2_rate_ratio.max -->, a thirty-fold difference. This is **not** a refutation of §7.2: that section moved drive with wiring held
+fixed, while these pairs differ in wiring and rate at once, so a null across them is consistent with
+a strong within-device effect. What it says is that rate imbalance alone does not predict measured
+asymmetry in real tissue, over an interval wide enough to admit a substantial effect either way. The
+scatter is in `outputs/figures/tunnel_asymmetry_vs_rate.png`.
 
 ---
 
