@@ -395,7 +395,7 @@ def main(argv: list[str] | None = None) -> int:
         "--max-recordings",
         type=int,
         default=None,
-        help="subsample recordings (quick mode uses 30 to stay inside the run_all budget)",
+        help="subsample recordings (quick mode uses 8 to stay inside the run_all budget)",
     )
     args = p.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
@@ -410,7 +410,12 @@ def main(argv: list[str] | None = None) -> int:
     if summaries.empty:
         log.warning("no two-chamber recordings in the asset")
         return 0
-    limit = args.max_recordings or (30 if args.quick else None)
+    # The quick tier's posterior is trained on 45 draws for five epochs, and
+    # rejection sampling from it accepts about 0.06% of proposals - so asking it
+    # for samples costs far more than simulating did. Every count below is small
+    # for that reason, not because 8 recordings would tell us anything; the
+    # reported numbers all come from the full run.
+    limit = args.max_recordings or (8 if args.quick else None)
     if limit and len(summaries) > limit:
         step = len(summaries) // limit
         summaries = summaries.iloc[::step].head(limit).reset_index(drop=True)
@@ -431,19 +436,19 @@ def main(argv: list[str] | None = None) -> int:
     )
 
     posterior = torch.load(posterior_path, weights_only=False)
-    acceptance = prior_acceptance(posterior, real_x, n_draws=500 if args.quick else 2000)
+    acceptance = prior_acceptance(posterior, real_x, n_draws=200 if args.quick else 2000)
     log.info(
         "prior acceptance: median %.4f%%, %.0f%% of recordings below 1%%",
         100 * acceptance["median_acceptance"],
         100 * acceptance["fraction_below_1_percent"],
     )
-    inferred = infer_parameters(posterior, real_x, n_samples=200 if args.quick else 500)
+    inferred = infer_parameters(posterior, real_x, n_samples=60 if args.quick else 500)
     gabaa = np.array([row["gabaa_scale"]["median"] for row in inferred])
     doses = summaries["dose_value"].fillna(0.0).to_numpy(dtype=float)
     units = summaries["dose_unit"].fillna("uM").to_numpy()
     doses_um = np.where(units == "nM", doses / 1000.0, doses)
     devices = summaries["device_id"].to_numpy()
-    resamples = 200 if args.quick else 1000
+    resamples = 100 if args.quick else 1000
     trend = dose_trend(doses_um, gabaa, groups=devices, n_resamples=resamples)
     baseline = baseline_offset(gabaa, doses_um, groups=devices, n_resamples=resamples)
     patched = sensitivity_without_dimensions(
@@ -451,11 +456,11 @@ def main(argv: list[str] | None = None) -> int:
         real_x,
         cached["x"][inside],
         suspect,
-        n_samples=200 if args.quick else 500,
+        n_samples=60 if args.quick else 500,
     )
     gabaa_patched = np.array([row["gabaa_scale"]["median"] for row in patched])
     trend_patched = dose_trend(
-        doses_um, gabaa_patched, groups=devices, n_resamples=200 if args.quick else 1000
+        doses_um, gabaa_patched, groups=devices, n_resamples=100 if args.quick else 1000
     )
 
     results = {
