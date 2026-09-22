@@ -43,6 +43,7 @@ def main(argv: list[str] | None = None) -> int:
     timings: dict[str, float] = {}
     for stage in stages:
         stage_started = time.time()
+        logging.info("stage %r starting", stage)
         if stage == "fetch":
             from neuromps.fetch.runner import run_fetchers
 
@@ -88,6 +89,10 @@ def main(argv: list[str] | None = None) -> int:
         else:
             logging.info("stage %r not implemented yet (later phase) - skipping", stage)
         timings[stage] = round(time.time() - stage_started, 1)
+        # Printed as each stage ends, not only in the summary: a run killed by a
+        # timeout writes no summary, and then the log is all there is to explain
+        # where the time went.
+        logging.info("stage %r finished in %.1f s", stage, timings[stage])
     elapsed = round(time.time() - t0, 1)
     logging.info("run_all finished in %.1f s; results in %s", elapsed, outputs_dir())
     _record_timings(timings, elapsed, quick=args.quick, stages=stages)

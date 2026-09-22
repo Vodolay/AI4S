@@ -29,6 +29,7 @@ import pandas as pd
 
 from neuromps.features.mea import extract_features
 from neuromps.metrics import update_metrics
+from neuromps.parallel import worker_processes
 from neuromps.paths import asset_path, demo_dir, for_reading
 from neuromps.twin.inference import (
     PARAMETER_NAMES,
@@ -179,7 +180,7 @@ def run_grid(
     import multiprocessing as mp
 
     jobs = [(point, duration_s, seed + i, n_per_compartment) for i, point in enumerate(points)]
-    processes = max(1, min(mp.cpu_count() - 2, 16))
+    processes = worker_processes()
     log.info("simulating %d grid points on %d processes", len(jobs), processes)
     with mp.Pool(processes) as pool:
         return pool.map(_simulate_job, jobs, chunksize=1)

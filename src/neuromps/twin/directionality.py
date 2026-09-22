@@ -32,6 +32,7 @@ import pandas as pd
 
 from neuromps.features.mea import extract_features
 from neuromps.metrics import update_metrics
+from neuromps.parallel import worker_processes
 from neuromps.paths import twin_dir
 from neuromps.twin.inference import SUMMARY_NAMES, default_layout, summary_vector
 from neuromps.twin.mea import (
@@ -186,7 +187,7 @@ def run_grid(
         for ratio in ratios
         for rep in range(n_reps)
     ]
-    processes = processes or max(1, min(mp.cpu_count() - 2, 16))
+    processes = processes or worker_processes()
     log.info("simulating %d networks on %d processes", len(jobs), processes)
     with mp.Pool(processes) as pool:
         results = pool.map(_grid_job, jobs, chunksize=1)

@@ -23,6 +23,7 @@ from pathlib import Path
 import numpy as np
 
 from neuromps.features.mea import extract_features
+from neuromps.parallel import worker_processes
 from neuromps.paths import simulation_cache, twin_dir
 from neuromps.twin.mea import (
     ElectrodeLayout,
@@ -305,7 +306,7 @@ def run_simulations(
     prior = build_prior()
     theta = prior.sample((n_simulations,)).numpy()
     jobs = [(theta[i], n_per_compartment, duration_s, seed + i) for i in range(n_simulations)]
-    processes = processes or max(1, min(mp.cpu_count() - 2, 16))
+    processes = processes or worker_processes()
     log.info("simulating %d draws on %d processes", n_simulations, processes)
     with mp.Pool(processes) as pool:
         results = pool.map(_simulate_job, jobs, chunksize=4)
@@ -429,7 +430,7 @@ def main(argv: list[str] | None = None) -> int:
     # The quick tier exists to prove the path runs, not to train a usable
     # posterior: on a cold clone this simulation is the single largest item in
     # the whole pipeline, and its contraction numbers are never reported.
-    n_simulations = args.simulations or (70 if args.quick else 3000)
+    n_simulations = args.simulations or (45 if args.quick else 3000)
 
     if simulation_cache().exists() and not args.rebuild:
         cached = load_simulations(simulation_cache())

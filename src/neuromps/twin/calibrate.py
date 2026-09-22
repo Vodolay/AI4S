@@ -23,6 +23,7 @@ calibration can be audited rather than trusted.
 import argparse
 import json
 import logging
+from functools import lru_cache
 from pathlib import Path
 
 import numpy as np
@@ -64,17 +65,28 @@ def calibration_file() -> Path:
     return twin_dir() / CALIBRATION_NAME
 
 
+@lru_cache(maxsize=4)
+def _read_calibration(path: str) -> tuple[tuple[str, float], ...]:
+    """The tuned draw, cached per path within a process."""
+    if not Path(path).exists():
+        log.warning("no calibration at %s; using module defaults", path)
+        return ()
+    return tuple(json.loads(Path(path).read_text())["best"]["draw"].items())
+
+
 def calibrated_params(path: Path | None = None) -> dict:
     """The tuned parameter values from the last calibration run.
 
     Returns an empty dict if no calibration has been run, so callers fall back to
     module defaults rather than failing; the caller should record which it used.
+
+    Cached per process: the sbi simulator asks for this twice per draw, which
+    on a fresh run meant two file reads and two fallback warnings for every one
+    of thousands of simulations. The calibration does not change while a run is
+    using it, so re-reading it only produced log noise.
     """
     path = Path(path) if path is not None else for_reading(calibration_file())
-    if not Path(path).exists():
-        log.warning("no calibration at %s; using module defaults", path)
-        return {}
-    return json.loads(Path(path).read_text())["best"]["draw"]
+    return dict(_read_calibration(str(path)))
 
 
 def real_targets(asset: pd.DataFrame) -> dict:
