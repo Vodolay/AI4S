@@ -853,10 +853,12 @@ path runs - and that reproducing its numbers needs the full one.
 4. **Is the chance-corrected network-burst threshold itself responsible?** It scales with electrode
    count, so it is a candidate explanation for the cross-platform disagreement in exactly the
    features that disagree.
-5. **Would CI pass?** Unverified. A remote does exist (`github.com/Vodolay/AI4S`) and holds
-   `master` at `17274fd`, 11 commits behind this work, so any CI result there predates Phase 3's
-   second half; no run has been observed from here. An earlier note in this file said there was no
-   remote at all, which was wrong.
+5. ~~Would CI pass?~~ **Answered 2026-09-22.** Both jobs pass at `7baafbd`. Getting there took
+   five failures, each a different kind of "works here": pandoc's own version carries the LaTeX
+   template (apt's older one loaded neither the fonts nor `caption`), the app hid its dataset card
+   when the gitignored asset was absent, `app/app.py` shadowed the `app` package under pytest's
+   path order, a 4-vCPU runner was given `cpu_count() - 2` = 2 processes, and gin.g-node.org
+   rate-limits CI addresses with 403. The quick pipeline takes 715 s there against 401 s here.
 6. **Does the asymmetry measure need replacing for inference?** Given the excitability confound, HD14
    may need a rate-controlled statistic rather than the current one.
 7. ~~A latent dose-unit bug.~~ **Fixed** on 2026-09-20, see the entry above. No further action.
@@ -871,3 +873,41 @@ path runs - and that reproducing its numbers needs the full one.
 11. **Does the baseline offset of 0.41 have one cause or several?** Candidates are the 10 s vs 480 s
    recording length, the missing burst structure, and the single fixed layout used for chambers with
    36 or 60 electrodes. None has been varied on its own.
+
+
+## 2026-09-22 — Six datasets proposed, two accepted
+
+Verified every pointer before believing it. Four of six did not survive: a 4TU DOI that 404s, an
+author with no deposit in Zenodo, DataverseNO or DataCite, `DANDI:000034` (which is Buccino's
+spike-sorting benchmark, not Trujillo's organoids), and a search phrase whose MaxWell hits are
+cardiomyocytes. Wagenaar 2006 is real and public but carries no licence, only a request for
+citation, so it went the way of Tukker 2020 — applying the licence policy to one source and not the
+other would make it decorative.
+
+**Trujillo 2019 is in.** The interesting part is how: the deposit is 67 GB of MATLAB files that are
+mostly LFP, served at 2.3 MB/s, and the spike times inside are a few MB. Reading the HDF5 in place
+over range requests takes 5 MB and 8 s per session instead of 1.1 GB and 8 minutes. The first
+attempt used `remote_zip.HttpRangeFile` and did not finish in ten minutes, because it reopens a
+request on every backward seek and HDF5 seeks backwards constantly; a block cache fixed it.
+
+**What the new records did not do.** They did not move a single modelling number. Every model here
+consumes exposure-minus-baseline pairs, and 184 untreated baselines produce no pairs. That is worth
+recording as a lesson about where this asset's value is concentrated: records are cheap, *paired*
+records are what the models eat.
+
+**Two of my own confounds, caught by checks rather than by reading.** The culture id in
+`models/baselines.py` grouped rat and human wells together because well names repeat across plates;
+an invariant that human and rat cultures must sum to all cultures caught it. And
+`active_electrodes` "separated" the species with an interval of 36-49 electrodes — because
+Trujillo's wells hold 64 and Kapucu's 16. The fraction of electrodes active shows nothing. That is
+the fourth apparent effect in this project dissolved by asking what else differs.
+
+### Still open
+12. **Does Brewer 4679064 close the §7.7 geometry gap?** Rat hippocampal subregions over
+    instrumented microtunnels, CC BY, 31 MB, downloaded and inspected but not integrated. Caution:
+    only 4 of its 40 subregion files carry an internal `par.subregion` label, and 2 of those 4
+    disagree with the filename, so compartments should be identified from electrode coordinates and
+    the anatomical names treated as unreliable.
+13. **Is the §6.8 baseline gap species, age, or protocol?** The organoids are months old and the
+    monolayers are weeks old; age is not recorded in the Trujillo deposit, so the comparison holds
+    platform and preparation fixed but not maturity.

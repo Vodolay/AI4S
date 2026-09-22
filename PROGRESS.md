@@ -1079,3 +1079,36 @@ clock"** with the raster it produced. Nothing in the video is mocked.
 There is no narration, and the captions carry the argument instead. This is the fallback artefact;
 when we record option A, the same shot list is the script, and the app should be driven live rather
 than shown as stills.
+
+## 2026-09-22 — Dataset expansion review, and the human cohort
+
+**Done.**
+- Reviewed six proposed datasets against the report's three named gaps. Four pointers failed
+  verification (a 404 DOI, an author with no deposit in Zenodo/DataverseNO/DataCite, an identifier
+  belonging to a different group's spike-sorting benchmark, and a search phrase returning
+  cardiomyocytes). Two more were rejected on the project's own licence policy: an NC deposit, and
+  Wagenaar 2006, whose site grants use on condition of citation but applies no licence. All
+  reasons are in `data/SOURCES.md` under "Dataset expansion review (2026-09-21)".
+- **Added `trujillo2019`** (Zenodo 4751759, CC BY 4.0): human hPSC cortical organoids on Axion
+  Maestro, 23 sessions x 8 organoids = 184 records. Human records 173 -> 357; asset 21,564.
+- `fetch/http_random.py`: a block-caching reader over HTTP ranges, so a 1.3 GB MATLAB v7.3 file
+  gives up its spike times for ~5 MB of transfer. 229 MB read instead of 37.6 GB for the set.
+- `models/baselines.py`: the analysis the new records can support. Adding them changed no modelling
+  number, because every model here consumes exposure-minus-baseline pairs and these are unpaired
+  baselines. At matched platform and preparation, 7 of 9 features separate human from rat at rest -
+  which qualifies the portability claim in S6.5 (that one is about drug-response deltas).
+- Report: new S6.8, asset table and counts updated, two stale claims corrected (CI is green and the
+  video is recorded; the rat count had been stale since mateus2024 for want of a citation comment).
+  22 pages, 172 citations, 0 failing.
+
+**Blocked / not done.**
+- The pharmacology gap is *not* closed. Trujillo's three drug sessions carry no well-to-compound
+  mapping, so those 24 records are flagged and excluded from pairing rather than labelled.
+- Brewer 4679064 (rat hippocampal subregions across instrumented microtunnels, CC BY, 31 MB) is
+  verified and downloaded but not integrated: it is the best candidate for the S7.7 geometry gap.
+  Note before using it: only 4 of its 40 files carry an internal subregion label and 2 of those 4
+  disagree with the filename, so compartments should be identified by electrode coordinates and the
+  anatomical names treated as unreliable.
+
+**Next first task.** Decide whether to integrate Brewer as a compartment source for S7.7, or to
+stop the dataset work here and move to HD20 (Kaggle writeup).

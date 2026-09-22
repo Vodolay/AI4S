@@ -19,7 +19,7 @@ prose. The decision record behind these results, including what was tried and ab
 Two layers were built:
 
 **(A) A standardized, provenance-tracked data asset** of public neural microelectrode-array (MEA)
-recordings: 21,564 records <!-- metrics.json: data_asset.n_records --> from five sources, each
+recordings: 21,564 records <!-- metrics.json: data_asset.n_records --> from six sources, each
 record carrying its source URL, license, SHA256 and download time, validated against a JSON Schema
 at a conformance level that requires every provenance hash to match the download manifest.
 
@@ -31,7 +31,9 @@ The results that matter are as much negative as positive, and the report leads w
 
 1. **Rate and burst-fraction measures survive a change of species; synchrony and network-burst
    measures do not** (§6.3, §6.5, §6.6, §7.3). **Across *platforms* none of them is safe** — mean
-   firing rate itself reverses sign (§6.4), which is the sharper limitation of the two.
+   firing rate itself reverses sign (§6.4), which is the sharper limitation of the two. That is a
+   claim about drug-response deltas: *untreated* human and rat activity differs on 7 of the 9
+   features even at matched platform and preparation (§6.8).
 2. **Coupling asymmetry tracks relative firing rate, not pathway direction.** At fixed wiring,
    changing one chamber's drive moves the measure several times further than changing the wiring
    does (§7.2).
@@ -171,6 +173,7 @@ disagreement reported in §6.4, and that remains untested.
 | `kapucu2022` | 288 <!-- metrics.json: data_asset.counts.by_source.kapucu2022 --> | spike_times | human, rat | CC-BY-4.0 |
 | `sharf2022` | 29 <!-- metrics.json: data_asset.counts.by_source.sharf2022 --> | spike_times | human | CC0-1.0 |
 | `mateus2024` | 108 <!-- metrics.json: data_asset.counts.by_source.mateus2024 --> | spike_times | rat | CC-BY-4.0 |
+| `trujillo2019` | 184 <!-- metrics.json: data_asset.counts.by_source.trujillo2019 --> | spike_times | human | CC-BY-4.0 |
 
 Totals: 21,564 records <!-- metrics.json: data_asset.n_records -->, of which 21,106 are marked usable
 <!-- metrics.json: data_asset.counts.by_usable.True --> and 458 are not
@@ -179,7 +182,10 @@ Totals: 21,564 records <!-- metrics.json: data_asset.n_records -->, of which 21,
 <!-- metrics.json: data_asset.counts.by_species.human -->.
 
 **The species imbalance is the asset's main structural weakness** and is stated wherever human
-results appear: every human-species conclusion rests on 173 records from two sources.
+results appear. Adding Trujillo 2019 took the human count from 173 to 357
+<!-- metrics.json: data_asset.counts.by_species.human --> across three sources, and changed no
+modelling number at all: those records are untreated baselines, and every model in §6 consumes
+exposure-minus-baseline pairs. §6.8 is the comparison they do support.
 
 ### 4.1 A rejection, as a worked example of the license discipline
 
@@ -255,7 +261,7 @@ Logistic regression beats chance with an interval that excludes it. Its interval
 boosting's overlap heavily, so the gap between the two models is within noise; with 73 pairs the
 simpler model is the one to prefer, not the one shown to be better.
 
-![Task 1 confusion matrix, REAL data: out-of-fold predictions from grouped cross-validation over 73 treated/baseline pairs. Errors concentrate between the two GABA-A classes.](../outputs/figures/mechanism_confusion.png){width=70%}
+![Task 1 confusion matrix, REAL data: out-of-fold predictions from grouped cross-validation over 73 treated/baseline pairs. Errors concentrate between the two GABA-A classes.](../outputs/figures/mechanism_confusion.png){width=60%}
 
 
 **Calibration.** Expected calibration error on out-of-fold predictions is 0.1114
@@ -265,7 +271,7 @@ simpler model is the one to prefer, not the one shown to be better.
 probabilities should be read as ordering, not as calibrated risk — and not even as ordering above
 0.8 confidence, where observed accuracy falls rather than rises, on a handful of predictions.
 
-![Reliability diagram, REAL data: predicted probability against observed frequency for the mechanism classifier, out-of-fold. Bin counts are small, which is why the calibration interval is wide.](../outputs/figures/task1_reliability_real.png){width=58%}
+Both are plotted in `outputs/figures/task1_reliability_real.png` and `conformal_set_size.png`; the numbers they show are quoted above.
 
 
 **Conformal sets.** At a 95% target the empirical coverage is 0.918
@@ -274,7 +280,7 @@ size of 4.562 <!-- metrics.json: uncertainty_and_ablations.conformal_sweep.0.mea
 out of six — honest coverage at the cost of sets too large to act on. That is the correct reading of
 73 calibration points, not a defect to tune away.
 
-![Conformal set size against target coverage, REAL data. Honest coverage costs sets of four to five classes out of six.](../outputs/figures/conformal_set_size.png){width=60%}
+
 
 
 ### 6.2 Task 2 — external detection and its negative control
@@ -325,7 +331,7 @@ Five features agree in sign and four disagree
 <!-- metrics.json: mechanism_baselines.task3_platform_contrast.features_agreeing_in_sign -->
 <!-- metrics.json: mechanism_baselines.task3_platform_contrast.features_disagreeing_in_sign -->.
 
-![The same mechanism measured on two platforms, REAL data: per-feature log2 change for GABA-A antagonists. Mean firing rate reverses sign across platforms; synchrony agrees.](../outputs/figures/platform_contrast_gabaa_antagonist.png){width=88%}
+![The same mechanism measured on two platforms, REAL data: per-feature log2 change for GABA-A antagonists. Mean firing rate reverses sign across platforms; synchrony agrees.](../outputs/figures/platform_contrast_gabaa_antagonist.png){width=68%}
 
 **The disagreement does not fall where the species analysis puts it.** `mfr_hz` reverses, +0.348
 <!-- metrics.json: mechanism_baselines.task3_platform_contrast.by_source.kapucu2022.median_delta.mfr_hz -->
@@ -367,7 +373,7 @@ is named invariant while carrying a median difference of 1.04
 <!-- metrics.json: species_transfer.species_shift.by_feature.burst_rate_per_min.difference --> log2
 units, a two-fold shift whose interval also spans zero.
 
-![Per-feature species shift, REAL data: rat against human baseline distributions, with cluster-bootstrap intervals. Rate and burst-fraction features move least; synchrony moves most.](../outputs/figures/species_shift.png){width=66%}
+![Per-feature species shift, REAL data: rat against human baseline distributions, with cluster-bootstrap intervals. Rate and burst-fraction features move least; synchrony moves most.](../outputs/figures/species_shift.png){width=56%}
 
 
 ### 6.6 Ablations: the feature set is mostly one feature
@@ -408,7 +414,7 @@ Holm 0.4785
 which is what a real device-type effect should look like and what a pooled heterogeneous-against-
 homogeneous split cannot show.
 
-![Inter-compartment coupling lag by device type, REAL data, one value per device: five CxCx, five HpHp, six CxHp. The two same-tissue types are indistinguishable from each other; the heterogeneous type sits apart.](../outputs/figures/compartment_lag_by_device_type.png){width=78%}
+![Inter-compartment coupling lag by device type, REAL data, one value per device: five CxCx, five HpHp, six CxHp. The two same-tissue types are indistinguishable from each other; the heterogeneous type sits apart.](../outputs/figures/compartment_lag_by_device_type.png){width=66%}
 
 Two things this section does **not** claim. On absolute asymmetry rather than lag, the same per-type
 comparison does not survive correction, Holm 0.0519
@@ -476,7 +482,7 @@ that reads direction off coupling must control for rate first.
 Three checks on the real devices confirmed the confound does not obviously bite there (firing-rate
 imbalance does not differ by device type), which is why §6.6 survives as a hypothesis.
 
-![SIMULATED: measured coupling asymmetry against the forward/backward wiring ratio, at three levels of drive to the receiving chamber. Drive moves the measure further than wiring does.](../outputs/twin/hd11_directionality_simulated.png){width=76%}
+![SIMULATED: measured coupling asymmetry against the forward/backward wiring ratio, at three levels of drive to the receiving chamber. Drive moves the measure further than wiring does.](../outputs/twin/hd11_directionality_simulated.png){width=65%}
 
 
 ### 7.3 Calibration
@@ -490,7 +496,7 @@ burst-structure and synchrony group that §6.5 and §6.6 independently identify 
 of the feature set across species. Three analyses agree about species; the platform contrast of §6.4
 disagrees, and that disagreement is itself the finding.
 
-![SIMULATED against REAL: calibrated baseline features of the twin compared with the real baseline band. Rate and burst-rate features land inside it; burst fraction and synchrony do not.](../outputs/twin/hd12_calibration_simulated.png){width=85%}
+![SIMULATED against REAL: calibrated baseline features of the twin compared with the real baseline band. Rate and burst-rate features land inside it; burst fraction and synchrony do not.](../outputs/twin/hd12_calibration_simulated.png){width=65%}
 
 
 ### 7.4 Drug knobs
@@ -508,7 +514,7 @@ direction is established by a cluster bootstrap:
 Directions only: each knob is compared against a real reference from a different platform, so this
 supports direction, never magnitude.
 
-![SIMULATED drug knobs against REAL pharmacology directions, per feature. Only features whose real direction is established by a cluster bootstrap are scored.](../outputs/twin/hd13_drug_knob_validation_simulated.png){width=80%}
+![SIMULATED drug knobs against REAL pharmacology directions, per feature. Only features whose real direction is established by a cluster bootstrap are scored.](../outputs/twin/hd13_drug_knob_validation_simulated.png){width=61%}
 
 
 ### 7.5 Simulation-based inference, and what it cannot do
@@ -539,7 +545,7 @@ rank test was not. A learning curve
 showed connectivity contraction still rising with training-set size but only slightly: more
 simulations alone will not fix it.
 
-![SIMULATED posterior calibration: rank of the true parameter among posterior samples. Flat is calibrated, U-shaped is over-confident. Only `threshold_scale` is close to flat.](../outputs/twin/hd14_posterior_ranks_simulated.png){width=95%}
+![SIMULATED posterior calibration: rank of the true parameter among posterior samples. Flat is calibrated, U-shaped is over-confident. Only `threshold_scale` is close to flat.](../outputs/twin/hd14_posterior_ranks_simulated.png){width=73%}
 
 
 **Applied to 113 real two-chamber recordings**
@@ -566,7 +572,7 @@ An earlier version of this analysis produced an apparent dose trend (ρ = −0.1
 an artefact of pseudo-replication — 113 recordings from 16 devices treated as independent — and of
 posterior extrapolation on out-of-distribution dimensions. Both are now checks in code.
 
-![Inferred GABA-A scale for REAL bicuculline recordings, from a posterior trained on SIMULATIONS. There is no dose trend, and untreated chips already sit far below the neutral value of 1.](../outputs/twin/hd15_real_dose_response.png){width=80%}
+![Inferred GABA-A scale for REAL bicuculline recordings, from a posterior trained on SIMULATIONS. There is no dose trend, and untreated chips already sit far below the neutral value of 1.](../outputs/twin/hd15_real_dose_response.png){width=61%}
 
 
 ### 7.6 Directionality: what it takes to see asymmetry
@@ -622,7 +628,7 @@ report the arm that passes, at the electrode count it actually needs.
 wiring regimes at 0.98 give a posterior contraction of only 0.311 for the continuous ratio (§7.5).
 Classifying is a far weaker demand than estimating.
 
-![SIMULATED: telling symmetric from asymmetric wiring, by recording length and electrode count. Top row leaves drive alone; the bottom row adjusts drive to match rates and does so imperfectly, which is why that arm is reported as inconclusive. The rate-residualised columns are the controlled comparison, and the rightmost column is the validity check itself.](../outputs/twin/hd16_directionality_simulated.png){width=92%}
+![SIMULATED: telling symmetric from asymmetric wiring, by recording length and electrode count. Top row leaves drive alone; the bottom row adjusts drive to match rates and does so imperfectly, which is why that arm is reported as inconclusive. The rate-residualised columns are the controlled comparison, and the rightmost column is the validity check itself.](../outputs/twin/hd16_directionality_simulated.png){width=70%}
 
 
 ### 7.7 The same question on real devices, and a null
@@ -640,7 +646,7 @@ a single row band, which is what the published five-electrode design predicts. D
 as a magnitude: the deposit does not record how each device was seated on the array, so |asymmetry|
 says how one-sided propagation is, not which way it points.
 
-![REAL data: propagation asymmetry per chip by microchannel geometry. One point per chip, bars are medians. The control group spans almost the whole range on its own.](../outputs/figures/microchannel_asymmetry_real.png){width=76%}
+![REAL data: propagation asymmetry per chip by microchannel geometry. One point per chip, bars are medians. The control group spans almost the whole range on its own.](../outputs/figures/microchannel_asymmetry_real.png){width=65%}
 
 **The unit decides the answer.** A chip recorded at DIV 12, 17 and 21 supplies three recordings and
 one device. Counting recordings, median |asymmetry| runs from 0.339
@@ -679,15 +685,68 @@ first time that question has been put to devices whose asymmetry was fabricated 
 simulated. It does not reproduce. The sample is too small and too confounded to call that a
 refutation, and too directly aimed to leave out.
 
+### 6.8 Untreated baselines: what differs before any drug is applied
+
+Everything above consumes pairs — an exposure minus its own baseline. That is why adding 184 human
+organoid recordings <!-- metrics.json: data_asset.counts.by_source.trujillo2019 --> changed none of
+the numbers in §6.1 to §6.7: they are untreated baselines with nothing to be paired against. They
+answer a different question. Before any compound is applied, does human tissue sit inside the rat
+feature distribution?
+
+Species and platform are confounded here — every MaxWell recording is human, every Multi Channel
+Systems recording is rat — so the comparison is made inside one vendor, resampling over culture
+units rather than rows. An organoid recorded twenty times is one culture.
+
+**At matched platform and matched preparation, 7
+<!-- metrics.json: baseline_activity.matched_preparation.n_features_separating_species -->
+of the nine features separate the species** (Axion, dissociated monolayers, 28 human cultures
+<!-- metrics.json: baseline_activity.matched_preparation.n_human_cultures --> against 44 rat
+<!-- metrics.json: baseline_activity.matched_preparation.n_rat_cultures -->). Human cultures fire
+faster, put more of their spikes into bursts — a median of 70.9
+<!-- metrics.json: baseline_activity.matched_preparation.features.pct_spikes_in_bursts.median_human -->
+against 40.05
+<!-- metrics.json: baseline_activity.matched_preparation.features.pct_spikes_in_bursts.median_rat -->
+percent — and are four times as synchronous. Only burst rate overlaps.
+
+This qualifies §6.5 rather than contradicting it: that section found rate-like **drug-response
+deltas** portable, and a delta can travel between two populations whose resting activity does not
+resemble each other at all. Preparation separates from species too — within human tissue on one
+vendor, 3D organoids differ from dissociated monolayers on 5
+<!-- metrics.json: baseline_activity.preparation_within_human.n_features_separating_species -->
+of the nine features, so "human" does not name one kind of preparation.
+
+**A confound the module refuses rather than reports.** Active-electrode count looked like the
+strongest separator of all, reaching 49 electrodes
+<!-- metrics.json: baseline_activity.within_vendor.features.active_electrodes.difference_ci95.1 -->.
+It is an artifact: Trujillo's wells hold 64 electrodes, Kapucu's 16. It is flagged
+`format_confounded` and excluded; the comparable quantity, the fraction of electrodes active, gives
+an interval astride zero, reaching only 0.063
+<!-- metrics.json: baseline_activity.within_vendor.features.active_fraction.difference_ci95.1 -->.
+That is the fourth apparent effect here dissolved by asking what else differs between the groups.
+
+![Untreated baseline activity on Axion platforms, by species and preparation. REAL recordings. The
+three groups are shown separately because the species contrast and the preparation contrast are both
+present in this slice; two groups would let the whole gap be read as species. Burst rate is the one
+feature flat across all three.](../outputs/figures/baseline_species_comparison.png){width=98%}
+
 ---
 
 ## 8. Limitations
 
-**Data.** The asset is 21,099 rat records against 357 human
-<!-- metrics.json: data_asset.counts.by_species.human -->; every human claim rests on two sources.
+**Data.** The asset is 21,207 rat records
+<!-- metrics.json: data_asset.counts.by_species.rat --> against 357 human
+<!-- metrics.json: data_asset.counts.by_species.human -->; every human claim rests on three sources.
+That rat figure had been stale since `mateus2024` was added, because it carried no citation comment
+— the checker in §9.2 guards only marked numbers, which is an argument for marking them all.
 Most records are curve fits from which our features cannot be recomputed. Dropping Tukker 2020 on
-license grounds leaves the transfer study on a single source. Compound coverage is thin: six
-mechanism classes, 73 pairs.
+license grounds leaves the *transfer* study on a single source, and Trujillo 2019 does not relieve
+it: its three drug sessions record that a compound was applied but not which well received which,
+so those 24 records are flagged and excluded from pairing rather than labelled by guesswork.
+Nineteen of its 42 sessions are MATLAB 5 files that cannot be read in place and were not downloaded,
+so its developmental series starts later than the deposit's does. The §6.8 human side also rests on
+8 organoid cultures <!-- metrics.json: baseline_activity.preparation_within_human.n_human_cultures -->
+recorded many times each, not on 160 independent ones. Compound coverage is thin: six mechanism
+classes, 73 pairs.
 
 **Models.** Balanced accuracies around 0.5 on six classes are above chance but far from usable;
 intervals are wide and overlapping. Conformal sets cover honestly but are too large to act on.
@@ -710,9 +769,9 @@ how many propagation events a chip produced. It bounds the effect rather than ex
 microchannel geometry is also recovered from the spike times rather than read from a map the deposit
 does not publish, so it approximates the authors' own analysis rather than reproducing it.
 
-**Process.** A CI workflow is configured and the work described here has been pushed to it, but no
-CI result has been observed from the environment these results were produced in; treat CI as
-unverified. The demo video specified for Phase 4 has not been recorded. Every twin metric
+**Process.** CI runs on every push and both jobs pass, most recently at commit `7baafbd`; the quick
+pipeline takes 715 s on a four-vCPU runner, against 401 s on the development machine, so the
+ten-minute budget is a claim about the latter. The demo video has been recorded. Every twin metric
 produced before the coupling-definition fix is incomparable with those after it, and was regenerated.
 
 A fuller list, with dates and commits, is in `report/LAB_NOTEBOOK.md` (33 numbered limitations).
@@ -730,7 +789,9 @@ python run_all.py             # full run
 ```
 
 - `--quick` completes in **401 s on a fresh clone** of this repository — install, download, build,
-  model, twin and demo — against a 600 s budget, and each run records its own per-stage timings
+  model, twin and demo — against a 600 s budget. That is a 20-core development machine; the same
+  pipeline takes 715 s on a four-vCPU CI runner, which is the number to plan against. Each run
+  records its own per-stage timings
   under `metrics.run_all_timings_quick`. Most of the variable part is downloading: the same clone
   measured 52 s and 133 s for the fetch stage on two runs; the full twin stage takes roughly 2,000 s
   and records `metrics.run_all_timings_full`. Both are logged under `outputs/logs/` as well.
@@ -792,10 +853,9 @@ posterior samples per point, posterior samples for all 113 real two-chamber reco
 <!-- metrics.json: demo_precompute.n_real_recordings -->, and a classifier fitted once, in 85.1 s
 <!-- metrics.json: run_all_timings_full.by_stage_s.demo -->. Through Streamlit's own test harness
 every interaction lands between 0.6 and 0.9 s; the exception is a button running one Brian2
-simulation at the current slider values in about 4.5 s, so the twin is verifiably a simulator rather
-than a lookup table. The app reads `outputs/metrics.json` and `outputs/demo/` and recomputes
-nothing, so it cannot disagree with this report. Tab-by-tab detail is in `app/README.md`;
-screenshots are in `outputs/figures/app_tab*.png` and in the write-up.
+simulation in about 4.5 s, so the twin is verifiably a simulator and not a lookup table. The app
+reads `outputs/metrics.json` and `outputs/demo/` and recomputes nothing, so it cannot disagree with
+this report. Detail is in `app/README.md`, screenshots in `outputs/figures/app_tab*.png`.
 
 ---
 
@@ -828,8 +888,7 @@ released under the MIT license (`LICENSE`).
 
 ## Appendix A. Where each result lives
 
-Every number in this report comes from a key in `outputs/metrics.json`, written by a script under
-`src/`. The main entry points:
+Every number here comes from a key in `outputs/metrics.json`, written by a script under `src/`:
 
 | result | metrics key | script |
 |------------------------------|------------------------------|----------------------------|
@@ -838,6 +897,7 @@ Every number in this report comes from a key in `outputs/metrics.json`, written 
 | conformal sets, ablations | `uncertainty_and_ablations` | `neuromps.models.conformal`, `.ablation` |
 | species transfer and shift | `species_transfer` | `neuromps.models.transfer` |
 | compartment asymmetry | `compartment_asymmetry` | `neuromps.models.asymmetry` |
+| untreated baseline comparison | `baseline_activity` | `neuromps.models.baselines` |
 | twin baseline and drive sweep | `twin_hd11_validation` | `neuromps.twin.validate` |
 | twin calibration | `twin_hd12_calibration` | `neuromps.twin.calibrate` |
 | drug knob directions | `twin_hd13_perturbation` | `neuromps.twin.perturbation` |
@@ -845,7 +905,7 @@ Every number in this report comes from a key in `outputs/metrics.json`, written 
 | posterior applied to real recordings | `twin_hd15_real_inference` | `neuromps.twin.real_inference` |
 | directionality experiment | `twin_hd16_directionality` | `neuromps.twin.directionality` |
 
-Figures are written to `outputs/figures/` (real data) and `outputs/twin/` (twin output), the latter
-carrying `simulated` in the filename except for `hd15_real_dose_response.png`, which plots real
-recordings under a simulation-trained model and says so in its caption. The rule is enforced in the
-captions, not the filenames: no simulated output is presented as measurement.
+Figures go to `outputs/figures/` (real data) and `outputs/twin/` (twin output), the latter carrying
+`simulated` in the filename except `hd15_real_dose_response.png`, which plots real recordings under
+a simulation-trained model and says so in its caption. The rule is enforced in the captions, not the
+filenames: no simulated output is presented as measurement.
