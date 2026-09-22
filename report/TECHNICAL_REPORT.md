@@ -767,6 +767,25 @@ claim here is narrower — *this* statistic, aggregated per chip, does not separ
 on 26 chips in five groups of three to eight, with control chips confined to experiments 9–11 so
 that condition is confounded with culture batch by the deposit's design.
 
+**The null is not an artefact of the geometry assumptions.** The detector assumes the channels run
+down the array's columns and that all five of their electrodes fired; the deposit settles neither.
+Running it under both orientations, and again with one electrode allowed to miss, gives four
+detectors and none separates the conditions — Kruskal p = 0.13074
+<!-- metrics.json: microchannel_directionality.geometry_robustness.variants.column_one_missing.kruskal_p -->,
+0.33528
+<!-- metrics.json: microchannel_directionality.geometry_robustness.variants.row_one_missing.kruskal_p -->
+and 0.77195
+<!-- metrics.json: microchannel_directionality.geometry_robustness.variants.row_strict.kruskal_p -->
+beside the headline's 0.63969. The orientation is also more than an assumption: down the columns the
+detector finds a median of 14
+<!-- metrics.json: microchannel_directionality.geometry_robustness.variants.column_strict.median_channels_detected -->
+channels per recording against 1
+<!-- metrics.json: microchannel_directionality.geometry_robustness.variants.row_strict.median_channels_detected -->
+along the rows, so the devices were seated the way the detector assumes. Tolerating a missing
+electrode triples the events to 1,101,233
+<!-- metrics.json: microchannel_directionality.geometry_robustness.variants.column_one_missing.total_events -->
+and still finds nothing.
+
 **What it says about the twin.** §7.6's directionality result is simulation-only, and this is the
 first time that question has been put to devices whose asymmetry was fabricated rather than
 simulated. It does not reproduce. The sample is too small and too confounded to call that a
@@ -941,18 +960,14 @@ Specific practices used to keep that honest, all visible in the repository histo
 
 ---
 
-## 12. Sources and licenses
+## 12. Sources, licenses, and where each result lives
 
 Data sources, with licenses and citations, are listed in `CITATIONS.md` and recorded per file in
 `data/raw/MANIFEST.json`. Third-party software licenses are in `THIRD_PARTY.md`. This repository is
 released under the MIT license (`LICENSE`).
 
----
-
-## Appendix A. Where each result lives
-
 Every number here comes from a key in `outputs/metrics.json`, written by a script under `src/`;
 `report/RESULT_INDEX.md` maps each result to its key and its script. Figures go to
 `outputs/figures/` (real) and `outputs/twin/` (simulated, marked in the filename except
-`hd15_real_dose_response.png`, real recordings under a simulation-trained model). The rule is
-enforced in the captions, not the filenames: no simulated output is presented as measurement.
+`hd15_real_dose_response.png`, real recordings under a simulation-trained model) — the rule is
+enforced in the captions, not the filenames.

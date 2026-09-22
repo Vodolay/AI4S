@@ -68,8 +68,25 @@ def parse_filename(name: str) -> dict[str, str | int | None]:
     }
 
 
-def recordings_table(archive: Path) -> pd.DataFrame:
-    """Run the propagation detector over every recording in the deposit."""
+# The deposit records neither the device's orientation on the array nor which
+# electrodes were dead, so both are assumptions. Each variant re-runs the whole
+# detector under a different one, in the same pass over the archive.
+GEOMETRY_VARIANTS = (
+    ("column_strict", "column", None),
+    ("row_strict", "row", None),
+    ("column_one_missing", "column", 4),
+    ("row_one_missing", "row", 4),
+)
+HEADLINE_VARIANT = "column_strict"
+
+
+def recordings_table(archive: Path, variants=GEOMETRY_VARIANTS) -> pd.DataFrame:
+    """Run the propagation detector over every recording, under each geometry.
+
+    One pass over the archive, several detectors: reading the 109 MB deposit
+    four times to answer a robustness question would be four times the cost for
+    the same answer.
+    """
     import tempfile
     import zipfile
 
@@ -84,22 +101,24 @@ def recordings_table(archive: Path) -> pd.DataFrame:
             target = Path(tmp) / "recording.h5"
             target.write_bytes(zf.read(member))
             spikes, duration_s, unreadable = read_recording(target)
-            summary = chip_summary(spikes, duration_s)
-            rows.append(
-                {
-                    "experiment": parts[2],
-                    "condition": parts[3].lower(),
-                    "file": parts[-1],
-                    "duration_s": duration_s,
-                    "n_electrodes": len(spikes),
-                    "n_unreadable_channels": len(unreadable),
-                    "n_channels_detected": summary["n_channels_detected"],
-                    "forward_events": summary["forward_events"],
-                    "backward_events": summary["backward_events"],
-                    "asymmetry": summary["asymmetry"],
-                    **parse_filename(parts[-1]),
-                }
-            )
+            for name, orientation, min_electrodes in variants:
+                summary = chip_summary(spikes, duration_s, orientation, min_electrodes)
+                rows.append(
+                    {
+                        "variant": name,
+                        "experiment": parts[2],
+                        "condition": parts[3].lower(),
+                        "file": parts[-1],
+                        "duration_s": duration_s,
+                        "n_electrodes": len(spikes),
+                        "n_unreadable_channels": len(unreadable),
+                        "n_channels_detected": summary["n_channels_detected"],
+                        "forward_events": summary["forward_events"],
+                        "backward_events": summary["backward_events"],
+                        "asymmetry": summary["asymmetry"],
+                        **parse_filename(parts[-1]),
+                    }
+                )
     return pd.DataFrame(rows)
 
 
@@ -280,6 +299,50 @@ def plot_by_condition(chips: pd.DataFrame, path: Path, title: str) -> None:
     plt.close(fig)
 
 
+def geometry_robustness(recordings: pd.DataFrame) -> dict:
+    """Does the null in the headline variant survive the other geometry assumptions?
+
+    §7.7 reports no separation between straight and asymmetric microchannels.
+    That rests on a detector that assumes the channels run down the columns and
+    that every one of their five electrodes fired. If either assumption is
+    wrong the events are simply missed, and a null found by missing the data is
+    not a null. Each variant is the same comparison under a different
+    assumption.
+    """
+    out = {}
+    for name in sorted(recordings["variant"].unique()):
+        subset = recordings[recordings["variant"] == name]
+        chips = per_chip(subset)
+        if chips.empty:
+            out[name] = {"n_chips": 0, "note": "no chip carried a detectable channel"}
+            continue
+        comparison = condition_comparison(chips)
+        out[name] = {
+            "n_chips": int(len(chips)),
+            "recordings_with_a_channel": int((~subset["asymmetry"].isna()).sum()),
+            "median_channels_detected": float(subset["n_channels_detected"].median()),
+            "total_events": int(subset[["forward_events", "backward_events"]].to_numpy().sum()),
+            "kruskal_p": comparison.get("kruskal_p"),
+            "median_abs_asymmetry_by_condition": comparison.get("median_abs_asymmetry"),
+        }
+    passing = [
+        name
+        for name, entry in out.items()
+        if entry.get("kruskal_p") is not None and entry["kruskal_p"] < 0.05
+    ]
+    return {
+        "variants": out,
+        "headline_variant": HEADLINE_VARIANT,
+        "variants_separating_conditions": sorted(passing),
+        "null_survives_every_variant": not passing,
+        "note": (
+            "orientation and dead-electrode tolerance are assumptions the deposit does not "
+            "settle; 'one_missing' takes the best four-of-five ordered chain, which is "
+            "optimistic by construction and bounds the sensitivity rather than improving it"
+        ),
+    }
+
+
 def main(argv: list[str] | None = None) -> int:
     """Run the detector over the deposit and compare geometries, chip by chip."""
     p = argparse.ArgumentParser(description=__doc__)
@@ -301,6 +364,10 @@ def main(argv: list[str] | None = None) -> int:
         cache.parent.mkdir(parents=True, exist_ok=True)
         recordings.to_parquet(cache, index=False)
 
+    if "variant" not in recordings.columns:  # a cache from before the variants existed
+        recordings = recordings.assign(variant=HEADLINE_VARIANT)
+    robustness = geometry_robustness(recordings)
+    recordings = recordings[recordings["variant"] == HEADLINE_VARIANT]
     chips = per_chip(recordings)
     comparison = condition_comparison(chips)
     confound = count_confound(chips)
@@ -317,6 +384,7 @@ def main(argv: list[str] | None = None) -> int:
             "between consecutive electrodes"
         ),
         "comparison": comparison,
+        "geometry_robustness": robustness,
         "per_recording_naive": _naive_by_recording(recordings),
         "event_count_confound": confound,
         "well_sampled_half": condition_comparison(well_sampled),

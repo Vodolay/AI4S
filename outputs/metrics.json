@@ -1663,6 +1663,46 @@
       "reads_as": "a negative correlation means chips with fewer propagation events look more one-sided, which is what a counting artefact looks like",
       "spearman_rho": -0.494
     },
+    "geometry_robustness": {
+      "headline_variant": "column_strict",
+      "note": "orientation and dead-electrode tolerance are assumptions the deposit does not settle; 'one_missing' takes the best four-of-five ordered chain, which is optimistic by construction and bounds the sensitivity rather than improving it",
+      "null_survives_every_variant": true,
+      "variants": {
+        "column_one_missing": {
+          "kruskal_p": 0.13074,
+          "median_abs_asymmetry_by_condition": null,
+          "median_channels_detected": 16.0,
+          "n_chips": 27,
+          "recordings_with_a_channel": 56,
+          "total_events": 1101233
+        },
+        "column_strict": {
+          "kruskal_p": 0.63969,
+          "median_abs_asymmetry_by_condition": null,
+          "median_channels_detected": 14.0,
+          "n_chips": 26,
+          "recordings_with_a_channel": 54,
+          "total_events": 336794
+        },
+        "row_one_missing": {
+          "kruskal_p": 0.33528,
+          "median_abs_asymmetry_by_condition": null,
+          "median_channels_detected": 10.0,
+          "n_chips": 27,
+          "recordings_with_a_channel": 52,
+          "total_events": 67754
+        },
+        "row_strict": {
+          "kruskal_p": 0.77195,
+          "median_abs_asymmetry_by_condition": null,
+          "median_channels_detected": 1.0,
+          "n_chips": 19,
+          "recordings_with_a_channel": 31,
+          "total_events": 8825
+        }
+      },
+      "variants_separating_conditions": []
+    },
     "label": "REAL recordings: microchannel propagation asymmetry by device geometry",
     "n_chips": 26,
     "n_recordings": 57,

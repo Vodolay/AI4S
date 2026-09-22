@@ -47,17 +47,29 @@ def grid_position(label: str) -> tuple[int, int] | None:
     return COLUMN_INDEX[match.group(1)], int(match.group(2))
 
 
-def channel_runs(labels: list[str]) -> list[list[str]]:
-    """Every run of five electrodes occupying consecutive rows of one column."""
-    by_column: dict[int, dict[int, str]] = {}
+def channel_runs(labels: list[str], orientation: str = "column") -> list[list[str]]:
+    """Every run of five adjacent electrodes along one column, or along one row.
+
+    The deposit does not record how each device was seated on the array, so
+    which axis the microchannels run along is an assumption. `orientation`
+    exists to let that assumption be tested rather than trusted: "column" walks
+    consecutive rows within a column, "row" walks consecutive columns within a
+    row.
+    """
+    if orientation not in ("column", "row"):
+        raise ValueError(f"orientation must be 'column' or 'row', not {orientation!r}")
+    lines: dict[int, dict[int, str]] = {}
     for label in labels:
         position = grid_position(label)
-        if position is not None:
-            by_column.setdefault(position[0], {})[position[1]] = label
+        if position is None:
+            continue
+        column, row = position
+        fixed, moving = (column, row) if orientation == "column" else (row, column)
+        lines.setdefault(fixed, {})[moving] = label
     runs = []
-    for rows in by_column.values():
-        for start in sorted(rows):
-            window = [rows.get(start + step) for step in range(CHANNEL_LENGTH)]
+    for positions in lines.values():
+        for start in sorted(positions):
+            window = [positions.get(start + step) for step in range(CHANNEL_LENGTH)]
             if all(window):
                 runs.append([label for label in window if label])
     return runs
@@ -86,12 +98,40 @@ def ordered_events(trains: list[np.ndarray]) -> int:
     return int(current.size)
 
 
-def propagation(trains: list[np.ndarray]) -> tuple[int, int]:
+def _best_chain(trains: list[np.ndarray], min_electrodes: int) -> int:
+    """Events along the run, allowing `len(trains) - min_electrodes` electrodes to miss.
+
+    A dead or low-SNR electrode in the middle of a channel breaks a strict chain
+    and loses every event that crossed it. With one allowed omission this takes
+    the best of the five four-electrode subsequences, which is optimistic - an
+    event is counted if any of them fires - and is meant as a sensitivity
+    bound, not as a better estimate.
+    """
+    if min_electrodes >= len(trains):
+        return ordered_events(trains)
+    from itertools import combinations
+
+    best = 0
+    for keep in combinations(range(len(trains)), min_electrodes):
+        best = max(best, ordered_events([trains[i] for i in keep]))
+    return best
+
+
+def propagation(trains: list[np.ndarray], min_electrodes: int | None = None) -> tuple[int, int]:
     """Forward and backward event counts along one candidate microchannel."""
-    return ordered_events(trains), ordered_events(list(reversed(trains)))
+    required = min_electrodes or len(trains)
+    return (
+        _best_chain(trains, required),
+        _best_chain(list(reversed(trains)), required),
+    )
 
 
-def chip_summary(spikes: dict[str, np.ndarray], duration_s: float) -> dict:
+def chip_summary(
+    spikes: dict[str, np.ndarray],
+    duration_s: float,
+    orientation: str = "column",
+    min_electrodes: int | None = None,
+) -> dict:
     """Detected microchannels and the chip's propagation asymmetry.
 
     ``asymmetry`` is ``(forward - backward) / (forward + backward)`` summed over
@@ -100,8 +140,8 @@ def chip_summary(spikes: dict[str, np.ndarray], duration_s: float) -> dict:
     reporting zero for it would confuse "balanced" with "not measured".
     """
     detected, forward_total, backward_total = [], 0, 0
-    for run in channel_runs(list(spikes)):
-        forward, backward = propagation([spikes[label] for label in run])
+    for run in channel_runs(list(spikes), orientation):
+        forward, backward = propagation([spikes[label] for label in run], min_electrodes)
         if forward + backward >= MIN_EVENTS:
             detected.append({"electrodes": run, "forward": forward, "backward": backward})
             forward_total += forward
@@ -110,7 +150,8 @@ def chip_summary(spikes: dict[str, np.ndarray], duration_s: float) -> dict:
     forward_total = sum(d["forward"] for d in detected)
     backward_total = sum(d["backward"] for d in detected)
     total = forward_total + backward_total
-    rows = [int(grid_position(e)[1]) for d in detected for e in d["electrodes"]]
+    axis = 1 if orientation == "column" else 0
+    rows = [int(grid_position(e)[axis]) for d in detected for e in d["electrodes"]]
     return {
         "n_channels_detected": len(detected),
         "forward_events": forward_total,
