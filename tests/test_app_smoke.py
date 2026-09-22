@@ -17,6 +17,7 @@ from streamlit.testing.v1 import AppTest
 REPO_ROOT = Path(__file__).resolve().parents[1]
 APP = REPO_ROOT / "app" / "app.py"
 DEMO_READY = (REPO_ROOT / "outputs" / "demo" / "meta.json").exists()
+ASSET_BUILT = (REPO_ROOT / "data" / "processed" / "neuromps.parquet").exists()
 INTERACTION_BUDGET_S = 1.0
 
 needs_demo = pytest.mark.skipif(not DEMO_READY, reason="run `python run_all.py --stage demo` first")
@@ -49,10 +50,25 @@ def test_the_research_use_banner_is_shown(app: AppTest) -> None:
     assert "clinical claim" in warnings
 
 
-@needs_demo
-def test_tab_one_shows_the_dataset_card_and_record_filters(app: AppTest) -> None:
+def test_tab_one_shows_the_dataset_card_without_the_built_asset(app: AppTest) -> None:
+    """The card reads metrics.json, which is committed; only the table needs the asset.
+
+    A clone that has not run the pipeline - which is what CI checks out - must
+    still show the dataset card, and say why the table is missing rather than
+    rendering an empty tab.
+    """
     labels = [m.label for m in app.metric]
     assert "Records" in labels and "Sources" in labels
+
+
+@pytest.mark.skipif(ASSET_BUILT, reason="the asset is present, so the table renders")
+def test_tab_one_explains_a_missing_asset(app: AppTest) -> None:
+    messages = " ".join(i.value for i in app.info)
+    assert "record table is unavailable" in messages
+
+
+@pytest.mark.skipif(not ASSET_BUILT, reason="needs the built asset")
+def test_tab_one_shows_the_record_filters_when_the_asset_is_built(app: AppTest) -> None:
     assert any(s.label == "Source" for s in app.selectbox)
     assert any(s.label == "Data level" for s in app.selectbox)
 

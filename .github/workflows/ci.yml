@@ -51,7 +51,10 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
             pandoc texlive-xetex texlive-fonts-recommended texlive-latex-recommended \
-            lmodern fonts-dejavu-core poppler-utils
+            texlive-latex-extra lmodern fonts-dejavu-core fontconfig poppler-utils
+          # texlive-latex-extra carries unicode-math, footnotehyper and xurl, which
+          # pandoc's xelatex template loads; fontconfig provides fc-list, without
+          # which the build cannot find a font with Greek and arrows.
       - name: Build the technical report
         run: report/build_report.sh --check-pages 14 22
       - name: Upload the PDF

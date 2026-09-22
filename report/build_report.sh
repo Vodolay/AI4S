@@ -210,30 +210,70 @@ LATEX
 # characters would disappear from the PDF silently. Pick a font that has them.
 pick_font() {
   local kind="$1" candidate
-  command -v fc-list >/dev/null || return 1
+  local -a names
   if [[ "${kind}" == "mono" ]]; then
-    for candidate in "DejaVu Sans Mono" "Liberation Mono" "Noto Sans Mono"; do
-      fc-list : family | grep -qiF "${candidate}" && { echo "${candidate}"; return 0; }
-    done
+    names=("DejaVu Sans Mono" "Liberation Mono" "Noto Sans Mono")
   else
-    for candidate in "DejaVu Serif" "Liberation Serif" "Noto Serif" "TeX Gyre Termes"; do
-      fc-list : family | grep -qiF "${candidate}" && { echo "${candidate}"; return 0; }
-    done
+    names=("DejaVu Serif" "Liberation Serif" "Noto Serif" "TeX Gyre Termes")
+  fi
+  command -v fc-list >/dev/null || return 1
+  for candidate in "${names[@]}"; do
+    fc-list : family | grep -qiF "${candidate}" && { echo "${candidate}"; return 0; }
+  done
+  return 1
+}
+
+pick_font_file() {
+  # Fallback for a machine without fontconfig: find the file and hand fontspec
+  # its directory, which loads it without a font database. Prints "file<TAB>dir".
+  local kind="$1" candidate found
+  local -a files
+  if [[ "${kind}" == "mono" ]]; then
+    files=("DejaVuSansMono.ttf" "LiberationMono-Regular.ttf" "NotoSansMono-Regular.ttf")
+  else
+    files=("DejaVuSerif.ttf" "LiberationSerif-Regular.ttf" "NotoSerif-Regular.ttf")
+  fi
+  for candidate in "${files[@]}"; do
+    found="$(find /usr/share/fonts /usr/local/share/fonts "${HOME}/.fonts" \
+      -name "${candidate}" -print -quit 2>/dev/null)"
+    if [[ -n "${found}" ]]; then
+      printf '%s\t%s/\n' "${candidate}" "$(dirname "${found}")"
+      return 0
+    fi
+  done
+  return 1
+}
+
+font_arguments() {
+  # Font options for pandoc: a family name when fontconfig can resolve one,
+  # otherwise a file plus its path. Empty output means Latin Modern, which
+  # drops the Greek and arrows this report uses - the text check catches that.
+  local kind="$1" variable="$2" name file_and_dir
+  if name="$(pick_font "${kind}")"; then
+    printf -- '-V\n%s=%s\n' "${variable}" "${name}"
+    return 0
+  fi
+  if file_and_dir="$(pick_font_file "${kind}")"; then
+    printf -- '-V\n%s=%s\n-V\n%soptions=Path=%s\n' \
+      "${variable}" "${file_and_dir%%$'\t'*}" "${variable}" "${file_and_dir##*$'\t'}"
+    return 0
   fi
   return 1
 }
 
 build_xelatex() {
   local font_args=()
-  local mainfont monofont
-  if mainfont="$(pick_font main)"; then
-    font_args+=(-V "mainfont=${mainfont}")
-    echo "build_report: using ${mainfont} for text coverage of Greek and arrows" >&2
-  else
+  local line
+  while IFS= read -r line; do
+    [[ -n "${line}" ]] && font_args+=("${line}")
+  done < <(font_arguments main mainfont || true)
+  while IFS= read -r line; do
+    [[ -n "${line}" ]] && font_args+=("${line}")
+  done < <(font_arguments mono monofont || true)
+  if (( ${#font_args[@]} == 0 )); then
     echo "build_report: no wide-coverage font found; Greek and arrows may be dropped" >&2
-  fi
-  if monofont="$(pick_font mono)"; then
-    font_args+=(-V "monofont=${monofont}")
+  else
+    echo "build_report: font options: ${font_args[*]}" >&2
   fi
   pandoc "${WORK}/body.md" \
     --from=markdown+tex_math_dollars+pipe_tables+implicit_figures \

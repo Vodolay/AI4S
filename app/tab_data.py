@@ -20,16 +20,27 @@ BADGES = {
 
 
 def render(stamps: dict[str, float]) -> None:
-    """Dataset card, filterable records with QC badges, schema and provenance."""
+    """Dataset card, filterable records with QC badges, schema and provenance.
+
+    The card, the schema and the provenance panel read `outputs/metrics.json`,
+    which travels with the repository; only the record table needs the built
+    asset, which does not. A clone that has not run the pipeline yet therefore
+    shows everything except the table, and says why - rather than showing an
+    empty tab and implying there is nothing there.
+    """
     metrics = loaders.load_metrics(stamps["metrics"])
     records = loaders.load_asset(stamps["asset"])
-    if records.empty:
-        st.warning("The data asset is missing. Run `python run_all.py --quick` first.")
-        return
 
     _dataset_card(metrics)
     st.divider()
-    _records_table(records)
+    if records.empty:
+        st.info(
+            "The built asset is not in this checkout, so the record table is unavailable. "
+            "Run `python run_all.py --quick` to build it; the numbers above come from "
+            "`outputs/metrics.json`, which is committed."
+        )
+    else:
+        _records_table(records)
     st.divider()
     left, right = st.columns(2)
     with left:

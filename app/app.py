@@ -20,8 +20,22 @@ from pathlib import Path
 import streamlit as st
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
+
+# This file is `app/app.py`, so the name `app` is ambiguous: it is both the
+# package holding the tabs and this script. A runner puts the script's own
+# directory on `sys.path` and registers the script under its file stem, and
+# both of those make `app` resolve to this half-executed file - an ImportError
+# under `pytest`, and unbounded recursion once the import is retried. Undo
+# both before importing, rather than renaming the entry point that the README,
+# the Makefile and every screenshot caption already point at.
+_HERE = str(Path(__file__).resolve().parent)
+while _HERE in sys.path:
+    sys.path.remove(_HERE)
 if str(REPO_ROOT) not in sys.path:  # `streamlit run` does not add the repo root
     sys.path.insert(0, str(REPO_ROOT))
+_running_script = sys.modules.get("app")
+if _running_script is not None and not hasattr(_running_script, "__path__"):
+    del sys.modules["app"]  # the runner keeps its own reference to this module
 
 from app import loaders, tab_data, tab_models, tab_twin  # noqa: E402
 
