@@ -74,6 +74,18 @@ about what is wired to what, and about what a compound did?*
 
 ## What we found
 
+**Feature names do not determine feature values — and we measured by how much.** One source deposits
+both its spike files and the authors' own meaRtools output, so the same 336 recordings
+<!-- metrics.json: extractor_agreement.n_recordings --> can be scored by two independent
+implementations of the same seven features. One reproduces on both ordering and scale. Three rank
+the recordings identically but sit on a different scale, because one activity threshold differs.
+Three — all burst measures — disagree about *which* recordings burst more: our "bursts per minute"
+is a median 0.4423
+<!-- metrics.json: extractor_agreement.by_feature.burst_rate_per_min.median_ratio_ours_over_theirs -->
+of theirs, a factor of two.
+Nothing in either paper would warn a reader pooling them. This is the argument for a standard,
+measured rather than asserted.
+
 **Rate and burst-fraction measures survive a change of species; synchrony and network-burst measures
 do not.** Three independent analyses agree: the species-shift ranking, the feature ablations, and the
 twin's residual calibration mismatch, which lands exactly on burst structure and synchrony. **Across

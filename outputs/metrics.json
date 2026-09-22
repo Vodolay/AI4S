@@ -1397,6 +1397,121 @@
       "simulate_grid_s": 27.3
     }
   },
+  "extractor_agreement": {
+    "by_feature": {
+      "active_electrodes": {
+        "fraction_within_10pct": 0.1726,
+        "median_ratio_ours_over_theirs": 1.3624,
+        "n_paired": 336,
+        "n_wells": 24,
+        "reproduces": false,
+        "spearman_rho": 0.9763,
+        "spearman_rho_ci95": [
+          0.9627,
+          0.9851
+        ]
+      },
+      "burst_duration_s": {
+        "fraction_within_10pct": 0.3563,
+        "median_ratio_ours_over_theirs": 0.8189,
+        "n_paired": 320,
+        "n_wells": 24,
+        "reproduces": false,
+        "spearman_rho": 0.7926,
+        "spearman_rho_ci95": [
+          0.7225,
+          0.8492
+        ]
+      },
+      "burst_rate_per_min": {
+        "fraction_within_10pct": 0.1594,
+        "median_ratio_ours_over_theirs": 0.4423,
+        "n_paired": 320,
+        "n_wells": 24,
+        "reproduces": false,
+        "spearman_rho": 0.8907,
+        "spearman_rho_ci95": [
+          0.8711,
+          0.9084
+        ]
+      },
+      "mfr_hz": {
+        "fraction_within_10pct": 0.1964,
+        "median_ratio_ours_over_theirs": 0.7539,
+        "n_paired": 336,
+        "n_wells": 24,
+        "reproduces": false,
+        "spearman_rho": 0.9831,
+        "spearman_rho_ci95": [
+          0.9709,
+          0.9902
+        ]
+      },
+      "pct_spikes_in_bursts": {
+        "fraction_within_10pct": 0.7281,
+        "median_ratio_ours_over_theirs": 0.9864,
+        "n_paired": 336,
+        "n_wells": 24,
+        "reproduces": true,
+        "spearman_rho": 0.9703,
+        "spearman_rho_ci95": [
+          0.9441,
+          0.9889
+        ]
+      },
+      "spikes_per_burst": {
+        "fraction_within_10pct": 0.6344,
+        "median_ratio_ours_over_theirs": 0.9418,
+        "n_paired": 320,
+        "n_wells": 24,
+        "reproduces": false,
+        "spearman_rho": 0.9167,
+        "spearman_rho_ci95": [
+          0.8664,
+          0.9577
+        ]
+      },
+      "synchrony_index": {
+        "fraction_within_10pct": 0.2,
+        "median_ratio_ours_over_theirs": 0.736,
+        "n_paired": 330,
+        "n_wells": 24,
+        "reproduces": false,
+        "spearman_rho": 0.9839,
+        "spearman_rho_ci95": [
+          0.9746,
+          0.9895
+        ]
+      }
+    },
+    "disagree_on_ordering_too": [
+      "burst_duration_s",
+      "burst_rate_per_min",
+      "spikes_per_burst"
+    ],
+    "figure": "extractor_agreement_real.png",
+    "label": "REAL recordings, our extractor against the depositors' meaRtools output",
+    "n_checked": 7,
+    "n_paired_values": 2298,
+    "n_plates": 3,
+    "n_recordings": 336,
+    "n_uncheckable": 2,
+    "question": "does features/mea.py reproduce the numbers an independent implementation computed from the same spike files",
+    "rank_agreement_threshold": 0.95,
+    "reproduce": [
+      "pct_spikes_in_bursts"
+    ],
+    "same_ordering_different_scale": [
+      "active_electrodes",
+      "mfr_hz",
+      "synchrony_index"
+    ],
+    "scale_tolerance": 0.05,
+    "uncheckable": [
+      "isi_cv",
+      "network_burst_rate_per_min"
+    ]
+  },
   "mechanism_baselines": {
     "label_source_confounding": {
       "by_label": {

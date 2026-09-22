@@ -17,6 +17,21 @@ from scipy.stats import binom
 
 SECONDS_PER_MINUTE = 60.0
 
+# The feature vector, in one place. Everything downstream - the schema, the
+# twin's summary vector, the report's "nine features" - is counting this tuple,
+# and `extract_features` builds its result from it so the two cannot drift.
+FEATURE_NAMES = (
+    "mfr_hz",
+    "burst_rate_per_min",
+    "burst_duration_s",
+    "spikes_per_burst",
+    "pct_spikes_in_bursts",
+    "network_burst_rate_per_min",
+    "synchrony_index",
+    "isi_cv",
+    "active_electrodes",
+)
+
 
 @dataclass(frozen=True)
 class FeatureParams:
@@ -169,16 +184,7 @@ def extract_features(
     min_spikes = p.active_min_spikes_per_min * duration_s / SECONDS_PER_MINUTE
     active = [t for t in trains.values() if t.size >= min_spikes and t.size > 0]
     out: dict[str, float | int | None] = dict.fromkeys(
-        (
-            "mfr_hz",
-            "burst_rate_per_min",
-            "burst_duration_s",
-            "spikes_per_burst",
-            "pct_spikes_in_bursts",
-            "network_burst_rate_per_min",
-            "synchrony_index",
-            "isi_cv",
-        )
+        n for n in FEATURE_NAMES if n != "active_electrodes"
     )
     out["active_electrodes"] = len(active)
     if not active:

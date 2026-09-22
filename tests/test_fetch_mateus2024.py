@@ -49,10 +49,24 @@ def test_restrictive_wordings_are_all_caught(line: str) -> None:
 
 def test_the_note_carries_both_the_conflict_and_its_resolution() -> None:
     note = mateus2024.license_note(RESTRICTIVE_README)
-    assert "CC BY 4.0 only" in note  # the depositor's words
+    assert "CC BY 4.0" in note  # the licence the authors confirmed they intend
     assert "2026-09-21" in note  # when they said it
     assert "BY-NC-ND" in note  # what the deposit still says
     assert "publicly checkable" in note  # which of the two a reader can verify
+
+
+def test_the_note_paraphrases_rather_than_publishing_private_correspondence() -> None:
+    """They agreed to a licence reading, not to having their email published.
+
+    The substance and the date are what a reader needs to judge the decision;
+    the wording and the addresses are the authors' to release, not ours.
+    """
+    note = mateus2024.license_note(RESTRICTIVE_README)
+    assert "@" not in note, "no personal addresses in a public manifest"
+    for quoted in ("Please consider", "Unfortunately", "we cannot change it now"):
+        assert quoted not in note
+    # The one thing a reader must still be told: this half is not verifiable.
+    assert "private" in note and "SOURCES.md" in note
 
 
 def test_the_note_says_so_if_the_readme_is_ever_fixed() -> None:

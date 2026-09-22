@@ -46,26 +46,31 @@ connectivity and drug effects from MEA summary features.
 
 The results that matter are as much negative as positive, and the report leads with both:
 
-1. **Rate and burst-fraction measures survive a change of species; synchrony and network-burst
+1. **Feature names do not determine feature values, and now there is a number for it.** Against the
+   depositors' own meaRtools output on the same 336 recordings
+   <!-- metrics.json: extractor_agreement.n_recordings -->, one of seven shared features reproduces;
+   three rank recordings identically on a different scale; three burst measures disagree about
+   *which* recordings burst more, "bursts per minute" by a factor of two (§3.5).
+2. **Rate and burst-fraction measures survive a change of species; synchrony and network-burst
    measures do not** (§6.3, §6.5, §6.6, §7.3). **Across *platforms* none of them is safe** — mean
    firing rate itself reverses sign (§6.4), which is the sharper limitation of the two. That is a
    claim about drug-response deltas: *untreated* human and rat activity differs on 7 of the 9
    features even at matched platform and preparation (§6.8).
-2. **Coupling asymmetry tracks relative firing rate, not pathway direction.** At fixed wiring,
+3. **Coupling asymmetry tracks relative firing rate, not pathway direction.** At fixed wiring,
    changing one chamber's drive moves the measure several times further than changing the wiring
    does, and pre-whitening makes that worse rather than better (§7.2). On real devices that
    instrument the connecting tunnels, the measure agrees with the axons' own measured direction on
    a fraction 0.419
    <!-- metrics.json: axonal_directionality.headline.sign_agreement.fraction --> of 31 chamber
    pairs — chance (§7.7).
-3. **The twin's posterior does not recover drug-knob direction from real recordings.** The inferred
+4. **The twin's posterior does not recover drug-knob direction from real recordings.** The inferred
    GABA-A scale shows no bicuculline dose trend, and untreated chips already infer 0.3781
    <!-- metrics.json: twin_hd15_real_inference.gabaa_scale_at_baseline.median -->, so the parameter
    is absorbing model mismatch rather than tracking the compound. Training a second estimator on the
    *change* against each chip's own baseline recovers the neutral value — 1.0289
    <!-- metrics.json: twin_hd17_delta_inference.real_data.gabaa_scale_at_baseline.median --> — and
    still finds no dose trend, so baseline heterogeneity was not what was hiding it (§7.5).
-4. **Direction *is* recoverable from simulated features once firing rate is residualised out** —
+5. **Direction *is* recoverable from simulated features once firing rate is residualised out** —
    AUC 0.8825
    <!-- metrics.json: twin_hd16_directionality.cheapest_configuration.free_rate_residualized.auc -->,
    95% CI [0.8184, 0.9359]
@@ -73,7 +78,7 @@ The results that matter are as much negative as positive, and the report leads w
    from 10 s on 6 electrodes per compartment — but as a *contrast* between two well-spaced wiring
    classes, not a measurement of a continuous ratio (§7.6). A second arm that matched rates reaches
    a higher AUC and **fails its own validity check**; it is reported as inconclusive.
-5. **That result does not reproduce on real devices.** On 26 chips whose microchannel geometry was
+6. **That result does not reproduce on real devices.** On 26 chips whose microchannel geometry was
    fabricated rather than assumed, propagation asymmetry does not separate straight channels from
    three asymmetric designs (Kruskal p = 0.64
    <!-- metrics.json: microchannel_directionality.comparison.kruskal_p -->), and the statistic is
@@ -170,6 +175,52 @@ recording's own electrode count and firing rates. This matters beyond bookkeepin
 correction scales with electrode count, it is a candidate explanation for part of the cross-platform
 disagreement reported in §6.4, and that remains untested.
 
+### 3.5 Does the extractor reproduce an independent implementation?
+
+§2 claims that feature names collide while their definitions differ. That claim was asserted rather
+than measured, and one source lets it be measured: Kapucu 2022's three maturation plates deposit
+both the spike times and the authors' own **meaRtools** output — the same recordings scored by
+different software — for seven of our nine features. Running `features/mea.py` over their spike
+files and joining on plate, well and DIV gives 2,298 paired values
+<!-- metrics.json: extractor_agreement.n_paired_values --> over 336 recordings
+<!-- metrics.json: extractor_agreement.n_recordings --> and 24 wells, intervals clustered on the
+well because one well contributes about twenty correlated DIVs.
+
+**One of the seven reproduces on both ordering and scale**, `pct_spikes_in_bursts`: Spearman 0.9703
+<!-- metrics.json: extractor_agreement.by_feature.pct_spikes_in_bursts.spearman_rho -->, median
+ratio 0.9864
+<!-- metrics.json: extractor_agreement.by_feature.pct_spikes_in_bursts.median_ratio_ours_over_theirs -->.
+**Three rank the recordings identically on a different scale** — `mfr_hz`, `synchrony_index` and
+`active_electrodes`, all with ρ above 0.97 — where our values are 0.754
+<!-- metrics.json: extractor_agreement.by_feature.mfr_hz.median_ratio_ours_over_theirs --> and 0.736
+<!-- metrics.json: extractor_agreement.by_feature.synchrony_index.median_ratio_ours_over_theirs -->
+of theirs while we count 1.362
+<!-- metrics.json: extractor_agreement.by_feature.active_electrodes.median_ratio_ours_over_theirs -->
+times as many electrodes active. The first and third are one choice, not two: our activity threshold
+admits more electrodes, and mean rate *per active electrode* falls accordingly.
+
+**Three disagree on the ordering as well**, and all three are burst measures — `burst_rate_per_min`
+(ρ = 0.8907 <!-- metrics.json: extractor_agreement.by_feature.burst_rate_per_min.spearman_rho -->,
+ratio 0.4423
+<!-- metrics.json: extractor_agreement.by_feature.burst_rate_per_min.median_ratio_ours_over_theirs -->),
+`spikes_per_burst` and `burst_duration_s`. A rank correlation short of one means the two
+implementations do not merely rescale each other: they disagree about *which* recordings burst more.
+Our detector is a fixed rule (≥5 spikes, ISI ≤0.1 s); meaRtools uses its own. Which is preferable is
+not the point and this cannot settle it. The point is the size of the gap — a study reporting "bursts
+per minute" and a study reporting "bursts per minute" can differ by a factor of two and rank their
+recordings differently, with nothing in either paper to warn a reader pooling them. Per-feature
+numbers are in Appendix H.
+
+`isi_cv` and `network_burst_rate_per_min`
+<!-- metrics.json: extractor_agreement.uncheckable --> have no meaRtools counterpart here and are
+unchecked; the network-burst measure is the one this report would most like to have checked, since
+§3.4's chance correction is specific to it.
+
+**This is the standard's justification, measured.** It is also a bound on every cross-source claim in
+§6: results are computed inside one extractor, so they are internally consistent, but a reader
+comparing our numbers to a published table should expect the offsets above rather than agreement.
+The scatter, one panel per feature, is `outputs/figures/extractor_agreement_real.png`.
+
 ---
 
 ## 4. The data asset
@@ -213,25 +264,20 @@ real: without it, the rat→human transfer study rests on one source.
 
 ### 4.2 A licence conflict, resolved rather than avoided
 
-Zenodo 14525182 (Mateus et al. 2024) is the closest published analogue of the chip the twin models:
-hippocampal cultures on straight against asymmetric microchannels, 57 spike-data recordings, with the
-geometry fabricated into the device. It was **rejected on 2026-09-16** because the deposit
-contradicts itself — the Zenodo metadata licence field says `cc-by-4.0` and the record is open
-access, while the README inside says, in capitals, CC BY-NC-ND. Under NoDerivatives, publishing
-derived features would not have been permitted, which is the whole of what this project does with a
-recording.
+Zenodo 14525182 (Mateus et al. 2024) is the closest published analogue of the chip the twin models,
+and its deposit contradicts itself: the Zenodo metadata licence field says `cc-by-4.0` while the
+README inside says, in capitals, CC BY-NC-ND. Under NoDerivatives, publishing derived features would
+not have been permitted, which is the whole of what this project does with a recording, so it was
+**rejected on 2026-09-16**. On 2026-09-21 the corresponding author confirmed by email that the
+metadata governs and the README line was an unintentional default, and the source was included on
+that basis.
 
-On 2026-09-21 the corresponding author confirmed by email that the metadata governs and the README
-line was an unintentional default. The source is included on that basis, and the reasoning is
-recorded where a reader can check it: both halves of the contradiction are public, the fetcher
-blocks if the metadata licence ever moves, and it reads the README on every fetch and writes
-whatever licence claim it finds into `data/raw/MANIFEST.json`. **The resolution itself is private
-correspondence, which a reader cannot verify**; `data/SOURCES.md` says so in those words. This is the
-one source in the asset whose licence rests on anything other than a public record.
-
-Its 108 records <!-- metrics.json: data_asset.counts.by_source.mateus2024 --> are in the asset:
-two chambers per recording, split at the microchannel band recovered from the spike times, with
-features from the same extractor as every other source. They are analysed in §7.7.
+Both halves of the contradiction are public and the fetcher blocks if the metadata licence moves,
+but **the resolution itself is private correspondence, which a reader cannot verify** — the one
+source in the asset whose licence rests on anything other than a public record. `data/SOURCES.md`
+says so in those words, and the full account, including what the fetcher checks on every run, is in
+Appendix I. Its 108 records
+<!-- metrics.json: data_asset.counts.by_source.mateus2024 --> are analysed in §7.7.
 
 ---
 
@@ -413,7 +459,7 @@ is named invariant while carrying a median difference of 1.04
 <!-- metrics.json: species_transfer.species_shift.by_feature.burst_rate_per_min.difference --> log2
 units, a two-fold shift whose interval also spans zero.
 
-![Per-feature species shift, REAL data: rat against human baseline distributions, with cluster-bootstrap intervals. Rate and burst-fraction features move least; synchrony moves most.](../outputs/figures/species_shift.png){width=47%}
+The per-feature shift, with cluster-bootstrap intervals, is plotted in Appendix E.
 
 
 ### 6.6 Ablations: the feature set is mostly one feature
@@ -446,7 +492,7 @@ Holm 0.4785
 which is what a real device-type effect should look like and what a pooled heterogeneous-against-
 homogeneous split cannot show.
 
-![Inter-compartment coupling lag by device type, REAL data, one value per device: five CxCx, five HpHp, six CxHp. The two same-tissue types are indistinguishable from each other; the heterogeneous type sits apart.](../outputs/figures/compartment_lag_by_device_type.png){width=55%}
+The per-device values are plotted by type in Appendix E.
 
 Two things this section does **not** claim. On absolute asymmetry rather than lag, the same per-type
 comparison does not survive correction, Holm 0.0519
@@ -503,7 +549,9 @@ strongest separator of all, reaching 49 electrodes
 astride zero —
 the fourth apparent effect here dissolved by asking what else differs between the groups.
 
-![Untreated baseline activity on Axion platforms, by species and preparation. REAL recordings. The
+The three groups are plotted separately in Appendix E, because the species contrast and the
+preparation contrast are both present in this slice and two groups would let the whole gap be read
+as species.
 three groups are shown separately because the species contrast and the preparation contrast are both
 present in this slice; two groups would let the whole gap be read as species. Burst rate is the one
 feature flat across all three.](../outputs/figures/baseline_species_comparison.png){width=58%}
@@ -935,26 +983,14 @@ python run_all.py --quick     # path test: every stage, reduced settings (see be
 python run_all.py             # full run
 ```
 
-- `--quick` completes in **401 s on a fresh clone** — install, download, build, model, twin and
-  demo — against a 600 s budget, on a 20-core machine; the same pipeline takes 1,126 s on the
-  two-vCPU runner CI provides, which is the number to plan against. Each run records its own
-  per-stage timings (`metrics.run_all_timings_quick.by_stage_s`, `..._full`) rather than this report
-  transcribing them, and logs them under `outputs/logs/`; the twin stage dominates, then
-  downloading, then the asset build.
-- **`--quick` is a path test, not a reproduction of the report.** It fetches the small-tier sources
-  only, so it builds a much smaller asset, draws 16 of the 17 figures, and omits six `metrics.json`
-  entries whose analyses need either a full-tier download or compartment records the small-tier
-  asset lacks; each skips itself with a logged reason rather than failing. The §7.6 sweep also has
-  too few simulations per cell to fit a discriminator, so its `cheapest_configuration` entries are
-  written as `null`.
-- **Reproducing the numbers in this report takes the full path**: `python run_all.py` after a
-  full-tier fetch. `metrics.json` records which mode produced each value, and the two modes write to
-  separate roots so neither can overwrite the other.
-- Dependencies are pinned in `pyproject.toml`; numpy is held at 2.3.5 because brian2 2.9.0 does not
-  import against 2.4.
-- Tests run with `pytest` (feature extraction, QC flags, provenance hashing, the MEA simulator, and
-  a contract test that fails if any headline metric loses its interval). Appendix D lists what the repository
-  enforces rather than documents.
+**`--quick` is a path test, not a reproduction of this report**: it fetches the small-tier sources
+only, so it builds a much smaller asset and leaves six `metrics.json` entries unwritten, each
+skipping itself with a logged reason. Reproducing the numbers here takes the full path, and the two
+modes write to separate roots so neither can overwrite the other. It completes in 401 s on a
+20-core machine and 1,126 s on the two-vCPU runner CI provides, against a 600 s budget; each run
+records its own per-stage timings rather than this report transcribing them. Dependencies are
+pinned, tests run with `pytest`, and Appendix J has the detail — what `--quick` omits, where the
+time goes, and what the repository enforces rather than documents.
 
 ### 9.1 Sources, licenses, and where each result lives
 
@@ -1077,6 +1113,12 @@ Referenced from §6.1, §7.4 and §7.5.
 
 ![SIMULATED posterior calibration: rank of the true parameter among posterior samples. Flat is calibrated, U-shaped is over-confident. Only `threshold_scale` is close to flat.](../outputs/twin/hd14_posterior_ranks_simulated.png){width=54%}
 
+![Per-feature species shift, REAL data: rat against human baseline distributions, with cluster-bootstrap intervals. Rate and burst-fraction features move least; synchrony moves most.](../outputs/figures/species_shift.png){width=47%}
+
+![Untreated baseline activity on Axion platforms, by species and preparation. REAL recordings. The
+
+![Inter-compartment coupling lag by device type, REAL data, one value per device: five CxCx, five HpHp, six CxHp. The two same-tissue types are indistinguishable from each other; the heterogeneous type sits apart.](../outputs/figures/compartment_lag_by_device_type.png){width=55%}
+
 ### Appendix F — The nine-feature vector
 
 Referenced from §3.4. Computed by `features/mea.py`, which the twin is also required to call.
@@ -1105,3 +1147,94 @@ Referenced from §6.6.
 | synchrony only | 0.455 <!-- metrics.json: uncertainty_and_ablations.feature_subsets.synchrony_only.balanced_accuracy_mean --> | [0.3554, 0.586] <!-- metrics.json: uncertainty_and_ablations.feature_subsets.synchrony_only.balanced_accuracy_ci95 --> |
 | network measures only | 0.417 <!-- metrics.json: uncertainty_and_ablations.feature_subsets.network_only.balanced_accuracy_mean --> | [0.2983, 0.5573] <!-- metrics.json: uncertainty_and_ablations.feature_subsets.network_only.balanced_accuracy_ci95 --> |
 
+### Appendix H — Extractor agreement, per feature
+
+Referenced from §3.5. Our `features/mea.py` against the depositors' meaRtools output on the same
+recordings. `reproduces` requires both ρ ≥ 0.95 and a median ratio within 5% of one.
+
+**One feature of the seven reproduces.** `pct_spikes_in_bursts` agrees on both ordering and scale —
+Spearman 0.9703
+<!-- metrics.json: extractor_agreement.by_feature.pct_spikes_in_bursts.spearman_rho -->, median
+ratio 0.9864
+<!-- metrics.json: extractor_agreement.by_feature.pct_spikes_in_bursts.median_ratio_ours_over_theirs -->,
+73% of values within a tenth of each other
+<!-- metrics.json: extractor_agreement.by_feature.pct_spikes_in_bursts.fraction_within_10pct -->.
+
+**Three rank the recordings identically and sit on a different scale.** `mfr_hz` (ρ = 0.9831
+<!-- metrics.json: extractor_agreement.by_feature.mfr_hz.spearman_rho -->), `synchrony_index`
+(0.9839 <!-- metrics.json: extractor_agreement.by_feature.synchrony_index.spearman_rho -->) and
+`active_electrodes` (0.9763
+<!-- metrics.json: extractor_agreement.by_feature.active_electrodes.spearman_rho -->) would order
+any set of recordings the same way, but our values are 0.754
+<!-- metrics.json: extractor_agreement.by_feature.mfr_hz.median_ratio_ours_over_theirs --> and 0.736
+<!-- metrics.json: extractor_agreement.by_feature.synchrony_index.median_ratio_ours_over_theirs -->
+of theirs while we count 1.362
+<!-- metrics.json: extractor_agreement.by_feature.active_electrodes.median_ratio_ours_over_theirs -->
+times as many electrodes active. The first and third are one choice, not two: our activity threshold
+admits more electrodes, and mean rate *per active electrode* falls accordingly.
+
+**Three disagree on the ordering as well**, and all three are burst measures: `burst_rate_per_min`
+(ρ = 0.8907 <!-- metrics.json: extractor_agreement.by_feature.burst_rate_per_min.spearman_rho -->,
+ratio 0.4423
+<!-- metrics.json: extractor_agreement.by_feature.burst_rate_per_min.median_ratio_ours_over_theirs -->),
+`spikes_per_burst` (0.9167
+<!-- metrics.json: extractor_agreement.by_feature.spikes_per_burst.spearman_rho -->) and
+`burst_duration_s` (0.7926
+<!-- metrics.json: extractor_agreement.by_feature.burst_duration_s.spearman_rho -->). A rank
+correlation short of one means the two implementations do not merely rescale each other — they
+disagree about *which* recordings burst more. Our detector is a fixed rule (≥5 spikes, ISI ≤0.1 s);
+meaRtools uses its own. Which is preferable is not the point and this analysis cannot settle it. The
+point is the size of the gap: a study reporting "bursts per minute" and a study reporting "bursts per
+minute" can differ by a factor of two and rank their recordings differently, with nothing in either
+paper to warn a reader pooling them.
+
+The scatter, one panel per feature, is `outputs/figures/extractor_agreement_real.png`.
+
+### Appendix I — The Mateus 2024 licence conflict in full
+
+Referenced from §4.2.
+
+Zenodo 14525182 (Mateus et al. 2024) is the closest published analogue of the chip the twin models:
+hippocampal cultures on straight against asymmetric microchannels, 57 spike-data recordings, with the
+geometry fabricated into the device. It was **rejected on 2026-09-16** because the deposit
+contradicts itself — the Zenodo metadata licence field says `cc-by-4.0` and the record is open
+access, while the README inside says, in capitals, CC BY-NC-ND. Under NoDerivatives, publishing
+derived features would not have been permitted, which is the whole of what this project does with a
+recording.
+
+On 2026-09-21 the corresponding author confirmed by email that the metadata governs and the README
+line was an unintentional default. The source is included on that basis, and the reasoning is
+recorded where a reader can check it: both halves of the contradiction are public, the fetcher
+blocks if the metadata licence ever moves, and it reads the README on every fetch and writes
+whatever licence claim it finds into `data/raw/MANIFEST.json`. **The resolution itself is private
+correspondence, which a reader cannot verify**; `data/SOURCES.md` says so in those words. This is the
+one source in the asset whose licence rests on anything other than a public record.
+
+Its 108 records <!-- metrics.json: data_asset.counts.by_source.mateus2024 --> are in the asset:
+two chambers per recording, split at the microchannel band recovered from the spike times, with
+features from the same extractor as every other source. They are analysed in §7.7.
+
+### Appendix J — Reproducibility detail
+
+Referenced from §9.
+
+- `--quick` completes in **401 s on a fresh clone** — install, download, build, model, twin and
+  demo — against a 600 s budget, on a 20-core machine; the same pipeline takes 1,126 s on the
+  two-vCPU runner CI provides, which is the number to plan against. Each run records its own
+  per-stage timings (`metrics.run_all_timings_quick.by_stage_s`, `..._full`) rather than this report
+  transcribing them, and logs them under `outputs/logs/`; the twin stage dominates, then
+  downloading, then the asset build.
+- **`--quick` is a path test, not a reproduction of the report.** It fetches the small-tier sources
+  only, so it builds a much smaller asset, draws 16 of the 17 figures, and omits six `metrics.json`
+  entries whose analyses need either a full-tier download or compartment records the small-tier
+  asset lacks; each skips itself with a logged reason rather than failing. The §7.6 sweep also has
+  too few simulations per cell to fit a discriminator, so its `cheapest_configuration` entries are
+  written as `null`.
+- **Reproducing the numbers in this report takes the full path**: `python run_all.py` after a
+  full-tier fetch. `metrics.json` records which mode produced each value, and the two modes write to
+  separate roots so neither can overwrite the other.
+- Dependencies are pinned in `pyproject.toml`; numpy is held at 2.3.5 because brian2 2.9.0 does not
+  import against 2.4.
+- Tests run with `pytest` (feature extraction, QC flags, provenance hashing, the MEA simulator, and
+  a contract test that fails if any headline metric loses its interval). Appendix D lists what the repository
+  enforces rather than documents.

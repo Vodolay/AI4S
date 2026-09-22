@@ -1034,3 +1034,34 @@ gap while pushing the three features already inside the band back out, and the b
 belongs to the weakest setting tried. The fix has to enter the calibration search rather than be
 bolted on after it; that is the twin's next version, and `depression_u = 0` keeps every earlier
 result reproducible in the meantime.
+
+## 2026-09-22 — The extractor, measured against someone else's
+
+The asset's central claim — one fixed extractor makes sources comparable — had never been checked
+against an independent implementation. Kapucu 2022 makes it checkable and we had not noticed: its
+three maturation plates deposit both the spike files and the authors' own meaRtools output, for
+seven of our nine features. Same recordings, different software, 2,298 paired values over 336
+recordings and 24 wells.
+
+One feature of seven reproduces on both ordering and scale (`pct_spikes_in_bursts`, rho 0.9703,
+ratio 0.9864). Three rank the recordings identically on a different scale: our activity threshold
+admits 1.362x as many electrodes, so mean rate per active electrode comes out at 0.754 of theirs,
+and STTC at 0.736. Three — all burst measures — disagree on the ordering too, `burst_rate_per_min`
+worst at rho 0.8907 and a median ratio of 0.4423.
+
+The last group is the result. A rank correlation short of one means the two implementations do not
+merely rescale each other: they disagree about *which* recordings burst more. Two papers can both
+report "bursts per minute", differ by a factor of two, and rank their recordings differently, with
+nothing in either to warn a reader pooling them. §2 asserted that; §3.5 now measures it.
+
+Two notes against over-reading it. This is one reference implementation on one source, so it bounds
+our offsets rather than establishing that either is correct — which is preferable is a question this
+analysis cannot settle and does not try to. And the two features with no meaRtools counterpart,
+`isi_cv` and `network_burst_rate_per_min`, include the one whose definition the report most relies
+on being right: §3.4's chance correction is specific to the network-burst measure and remains
+unchecked against anything external.
+
+Incidental but worth keeping: there was no single source of truth for the nine feature names. They
+were a tuple literal inside `extract_features` and a separate count in the prose. `FEATURE_NAMES`
+now lives in `features/mea.py`, the extractor builds its result from it, and a test asserts that the
+checked and uncheckable lists partition it — so "nine features" cannot drift from what is computed.

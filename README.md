@@ -32,6 +32,12 @@ negative as positive. Four confounds that published practice would have carried:
 - **Rate and burst-fraction measures survive a species change; synchrony and network-burst measures
   do not — and across *platforms* none of them is safe**, with mean firing rate itself reversing
   sign.
+- **Two competent implementations of the same feature disagree.** Scored against the depositors' own
+  meaRtools output on the same 336 recordings
+  <!-- metrics.json: extractor_agreement.n_recordings -->, one of seven shared features reproduces;
+  three rank recordings identically on a different scale; three burst measures disagree about which
+  recordings burst more. "Bursts per minute" differs by a factor of two. That is the argument for a
+  data standard, measured.
 
 Every number above is produced by a script into `outputs/metrics.json` and re-checked against the
 documents that cite it. Full account: [report/TECHNICAL_REPORT.md](report/TECHNICAL_REPORT.md).
