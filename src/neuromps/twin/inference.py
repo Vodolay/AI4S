@@ -92,9 +92,18 @@ def build_prior():
 
 
 def params_from_vector(
-    theta, n_per_compartment: int = 150, duration_s: float = 10.0, seed: int = 0
+    theta,
+    n_per_compartment: int = 150,
+    duration_s: float = 10.0,
+    seed: int = 0,
+    noise_seed: int | None = None,
 ) -> NetworkParams:
-    """Turn a parameter vector into network parameters, on top of the calibration."""
+    """Turn a parameter vector into network parameters, on top of the calibration.
+
+    ``noise_seed`` is passed through so that two draws sharing ``seed`` can be
+    the same simulated chip under different noise, which paired inference needs
+    (`twin/delta_inference.py`). Left unset it changes nothing.
+    """
     from neuromps.twin.calibrate import calibrated_params
 
     values = dict(zip(PARAMETER_NAMES, np.asarray(theta, dtype=float), strict=True))
@@ -103,6 +112,7 @@ def params_from_vector(
         n_per_compartment=n_per_compartment,
         duration_s=duration_s,
         seed=seed,
+        noise_seed=noise_seed,
         **tuned,
         forward_ratio=float(10 ** values["log10_forward_ratio"]),
         inter_in_degree=float(values["inter_in_degree"]),
@@ -155,9 +165,10 @@ def simulate_summary(
     duration_s: float = 10.0,
     seed: int = 0,
     layout: ElectrodeLayout | None = None,
+    noise_seed: int | None = None,
 ) -> np.ndarray:
     """Run one simulation and summarise it exactly as a real recording would be."""
-    params = params_from_vector(theta, n_per_compartment, duration_s, seed)
+    params = params_from_vector(theta, n_per_compartment, duration_s, seed, noise_seed)
     layout = layout or default_layout()
     result = simulate(params)
     positions, compartment = place_neurons(params, layout, seed=seed)

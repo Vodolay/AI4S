@@ -1,0 +1,181 @@
+{
+  "label": "SIMULATED - a model comparison, not measured data",
+  "question": "does Tsodyks-Markram depression on recurrent excitatory synapses move pct_spikes_in_bursts and synchrony_index toward the real band",
+  "caveat": "the weights were calibrated without depression, so this shows the direction the mechanism pushes, not what a re-calibrated model would score",
+  "duration_s": 40.0,
+  "n_settings": 8,
+  "n_seeds": 3,
+  "control": "u0_tau600",
+  "best": "u0.2_tau600",
+  "best_beats_control": true,
+  "settings": {
+    "u0_tau600": {
+      "depression_u": 0.0,
+      "depression_tau_rec_ms": 600.0,
+      "score": 0.0454,
+      "penalties": {
+        "mfr_hz": 0.0358,
+        "burst_rate_per_min": 0.0,
+        "network_burst_rate_per_min": 0.0388,
+        "synchrony_index": 0.1314,
+        "pct_spikes_in_bursts": 0.0211
+      },
+      "features": {
+        "mfr_hz": 6.6051,
+        "burst_rate_per_min": 20.9271,
+        "network_burst_rate_per_min": 23.5,
+        "synchrony_index": 0.9614,
+        "pct_spikes_in_bursts": 95.6829
+      }
+    },
+    "u0.2_tau300": {
+      "depression_u": 0.2,
+      "depression_tau_rec_ms": 300.0,
+      "score": 0.0469,
+      "penalties": {
+        "mfr_hz": 0.0361,
+        "burst_rate_per_min": 0.0,
+        "network_burst_rate_per_min": 0.0369,
+        "synchrony_index": 0.1346,
+        "pct_spikes_in_bursts": 0.0268
+      },
+      "features": {
+        "mfr_hz": 6.7676,
+        "burst_rate_per_min": 21.8698,
+        "network_burst_rate_per_min": 23.5,
+        "synchrony_index": 0.9645,
+        "pct_spikes_in_bursts": 96.2322
+      }
+    },
+    "u0.2_tau600": {
+      "depression_u": 0.2,
+      "depression_tau_rec_ms": 600.0,
+      "score": 0.0438,
+      "penalties": {
+        "mfr_hz": 0.0577,
+        "burst_rate_per_min": 0.0,
+        "network_burst_rate_per_min": 0.008,
+        "synchrony_index": 0.131,
+        "pct_spikes_in_bursts": 0.0219
+      },
+      "features": {
+        "mfr_hz": 6.4312,
+        "burst_rate_per_min": 20.4115,
+        "network_burst_rate_per_min": 22.25,
+        "synchrony_index": 0.9611,
+        "pct_spikes_in_bursts": 95.7627
+      }
+    },
+    "u0.4_tau300": {
+      "depression_u": 0.4,
+      "depression_tau_rec_ms": 300.0,
+      "score": 0.0452,
+      "penalties": {
+        "mfr_hz": 0.0401,
+        "burst_rate_per_min": 0.0,
+        "network_burst_rate_per_min": 0.0289,
+        "synchrony_index": 0.1327,
+        "pct_spikes_in_bursts": 0.024
+      },
+      "features": {
+        "mfr_hz": 6.5859,
+        "burst_rate_per_min": 21.3958,
+        "network_burst_rate_per_min": 23.25,
+        "synchrony_index": 0.9627,
+        "pct_spikes_in_bursts": 95.9643
+      }
+    },
+    "u0.4_tau600": {
+      "depression_u": 0.4,
+      "depression_tau_rec_ms": 600.0,
+      "score": 0.0534,
+      "penalties": {
+        "mfr_hz": 0.0793,
+        "burst_rate_per_min": 0.0,
+        "network_burst_rate_per_min": 0.0388,
+        "synchrony_index": 0.1288,
+        "pct_spikes_in_bursts": 0.0201
+      },
+      "features": {
+        "mfr_hz": 6.2935,
+        "burst_rate_per_min": 20.4167,
+        "network_burst_rate_per_min": 23.25,
+        "synchrony_index": 0.9589,
+        "pct_spikes_in_bursts": 95.5822
+      }
+    },
+    "u0.4_tau900": {
+      "depression_u": 0.4,
+      "depression_tau_rec_ms": 900.0,
+      "score": 0.0506,
+      "penalties": {
+        "mfr_hz": 0.0641,
+        "burst_rate_per_min": 0.0,
+        "network_burst_rate_per_min": 0.0369,
+        "synchrony_index": 0.1301,
+        "pct_spikes_in_bursts": 0.0219
+      },
+      "features": {
+        "mfr_hz": 6.3764,
+        "burst_rate_per_min": 20.8958,
+        "network_burst_rate_per_min": 23.0,
+        "synchrony_index": 0.9601,
+        "pct_spikes_in_bursts": 95.7574
+      }
+    },
+    "u0.6_tau600": {
+      "depression_u": 0.6,
+      "depression_tau_rec_ms": 600.0,
+      "score": 0.0519,
+      "penalties": {
+        "mfr_hz": 0.0807,
+        "burst_rate_per_min": 0.0,
+        "network_burst_rate_per_min": 0.0289,
+        "synchrony_index": 0.1296,
+        "pct_spikes_in_bursts": 0.0206
+      },
+      "features": {
+        "mfr_hz": 6.2864,
+        "burst_rate_per_min": 20.4375,
+        "network_burst_rate_per_min": 23.0,
+        "synchrony_index": 0.9597,
+        "pct_spikes_in_bursts": 95.6408
+      }
+    },
+    "u0.6_tau900": {
+      "depression_u": 0.6,
+      "depression_tau_rec_ms": 900.0,
+      "score": 0.0585,
+      "penalties": {
+        "mfr_hz": 0.1176,
+        "burst_rate_per_min": 0.0,
+        "network_burst_rate_per_min": 0.0369,
+        "synchrony_index": 0.1233,
+        "pct_spikes_in_bursts": 0.0149
+      },
+      "features": {
+        "mfr_hz": 6.0444,
+        "burst_rate_per_min": 19.4062,
+        "network_burst_rate_per_min": 23.25,
+        "synchrony_index": 0.9536,
+        "pct_spikes_in_bursts": 95.0897
+      }
+    }
+  },
+  "pct_spikes_in_bursts_improves_under": [
+    "u0.4_tau600",
+    "u0.6_tau600",
+    "u0.6_tau900"
+  ],
+  "pct_spikes_in_bursts_control_penalty": 0.0211,
+  "pct_spikes_in_bursts_best_penalty": 0.0149,
+  "synchrony_index_improves_under": [
+    "u0.2_tau600",
+    "u0.4_tau600",
+    "u0.4_tau900",
+    "u0.6_tau600",
+    "u0.6_tau900"
+  ],
+  "synchrony_index_control_penalty": 0.1314,
+  "synchrony_index_best_penalty": 0.1233
+}

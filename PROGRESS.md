@@ -1145,4 +1145,35 @@ New finding in S6.1: the mechanism classifier reaches 0.537 (CI 0.422-0.685, cha
 set it was developed on and 0.333 (CI 0.232-0.420, chance 0.25) on the independent platform - an
 interval that contains chance.
 
+**Second review cycle answered by running it (2026-09-22).** Five of the six modelling suggestions
+were implemented rather than argued about, and three of those produced results.
+
+- **Axonal ground truth (HD19).** `brewer2021` instruments its microtunnels - 40 of 44 electrodes
+  sit inside them, two per tunnel - so the sign of a crossing's delay is the direction it physically
+  travelled. The traffic is strongly directed (mean |flow index| 0.363 against 0.0093 for a shifted
+  control) and the chamber coupling measure agrees with it on **13 of 31 pairs, a coin flip**, at
+  every window from 0.5 to 5 ms. The project's headline negative result now rests on a real-device
+  measurement instead of a simulation. Two file defects had to be handled first - 8 of 50 spike
+  files store point-reflected coordinates, and the device was mounted two ways across the ten
+  cultures - either of which silently inverts the answer.
+- **Pre-whitening (S7.2).** Filtering each compartment's burst structure out before correlating
+  makes the drive confound *stronger*, not weaker: drive span 0.671 raw against 0.817 pre-whitened,
+  beside wiring spans of 0.109 and 0.173. The confound is in the network, not the estimator.
+- **Paired inference (HD17).** Training on `p(theta_drug | x_treated - x_baseline, x_baseline)` from
+  1,500 paired simulations moves untreated chips from 0.3781 to **1.0289, CI [0.9847, 1.056]** -
+  containing the neutral value that S7.5's interval excluded - and contraction from 0.323 to 0.3894.
+  The dose trend still does not appear. Baseline heterogeneity was a real defect and was not what
+  was hiding it. Needed `NetworkParams.noise_seed` so a simulated pair shares wiring but not noise.
+- **Short-term depression (HD18).** Tsodyks-Markram depression moves both calibration-gap features
+  the predicted way (synchrony penalty 0.1314 -> 0.1233, burst fraction 0.0211 -> 0.0149) and only
+  with slow recovery, but closes about a twentieth of the gap while pushing the three features
+  already inside the band back out. It has to enter the calibration search, not be bolted on after
+  it: the twin's next version. `depression_u = 0` keeps every earlier result reproducible.
+- **Pooling the 754 pairs** stays declined, with a measured reason rather than an opinion: label and
+  source are 97.35% the same variable in this asset and six of nine mechanism classes come from a
+  single source, so a pooled classifier would be scored on recognising the laboratory.
+
+Report is 22 pages with 216 citations verified. S12 folded into S9 and S7.7 was cut back to make
+room; the per-chip microchannel scatter moved to `outputs/figures/`.
+
 **Next first task.** HD20, the Kaggle writeup.

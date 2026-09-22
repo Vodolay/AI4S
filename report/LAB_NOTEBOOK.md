@@ -934,9 +934,10 @@ measurement it was checked against assumed twice the machine.
 14. **Is the tunnel null a power problem or a real absence?** Nine cultures and 46 pairs, with an
     interval half a unit wide either side of zero. The within-device version — does asymmetry track
     rate across a single culture's six pairs — is the sharper test and was not run.
-15. **The tunnel electrodes are still unused.** `sorted-spikes/mea_tunnels.mat` holds axonal spikes
-    inside the channels, which is what would let direction be read from the crossing itself rather
-    than from the chambers either side. This integration takes only the four chambers.
+15. ~~The tunnel electrodes are still unused.~~ **Resolved 2026-09-22**, and the answer was worth
+    the wait: `sorted-spikes/mea_tunnels.mat` holds axonal spikes inside the channels, and reading
+    the crossing itself gives the chamber measure a ground truth it fails against. See the dated
+    entry below.
 
 16. **A row without `better_than_chance`.** At three repeats the quick
     directionality tier produced a result row missing that key, and the summary
@@ -985,3 +986,51 @@ measurement it was checked against assumed twice the machine.
       spike file names the one that chip received. On that key all 38 match
       1:1, and the log's compound column agrees with the filename code in all
       38 - which is the check that the join is right rather than merely unique.
+
+## 2026-09-22 — Three review suggestions, answered by running them
+
+**The ground truth for the project's headline negative result was inside a deposit we had already
+downloaded.** `brewer2021` was being used for chamber-level coupling only; 40 of the 44 electrodes
+in its `sorted-spikes/mea_tunnels.mat` sit inside the microtunnels, two per tunnel, and had never
+been read. A spike crossing between chambers is recorded at both, so the sign of the delay is the
+direction it physically travelled. The traffic is strongly directed (mean |flow index| 0.363 against
+0.0093 for a circularly shifted control) and the chamber coupling measure agrees with it on 13 of 31
+pairs - chance, at every window from 0.5 to 5 ms. The lesson is item 19's again: I reasoned about
+what could be inferred from the data I was using before checking what else the deposit held.
+
+Two defects in the files had to be handled first, either of which silently inverts the answer. 8 of
+the 50 spike files store `coordinates` point-reflected through the array centre that contradict
+their own channel names, and the device was mounted in two orientations across the ten cultures.
+Position now comes from channel names and orientation from the tunnel labels' own topology,
+cross-checked against the chamber files' independent electrode positions.
+
+**Pre-whitening does not rescue §7.2, and that is the useful answer.** The theory was sound - two
+spike trains with different autocorrelation kernels give an asymmetric cross-correlogram even under
+symmetric coupling - so the drive dependence might have been an estimator artefact. Filtering each
+compartment's burst structure out first makes it *stronger*: drive span 0.671 raw against 0.817
+pre-whitened, beside wiring spans of 0.109 and 0.173. The confound is in the network, not the
+measurement, which is why §7.6 residualises rather than filters.
+
+**Pairing fixes the drug knob's offset and not its dose response.** §7.5's posterior inferred
+`gabaa_scale` = 0.3781 on untreated chips where 1.0 is neutral. Trained instead on
+`p(theta_drug | x_treated - x_baseline, x_baseline)` from 1,500 paired simulations - one chip
+recorded twice, same connectivity under fresh noise - untreated recordings return 1.0289, CI
+[0.9847, 1.056], containing neutral, and contraction rises from 0.323 to 0.3894. The dose trend
+still does not appear (rho = -0.0326, CI spanning zero), though it now points the way a GABA-A
+antagonist should rather than the opposite. Baseline heterogeneity was a real defect and was not
+what was hiding the dose response.
+
+This needed `NetworkParams.noise_seed`, because a pair sharing one seed shares its noise realisation
+as well as its wiring, which two recordings of a real device do not. A pair that clean would have
+made the estimator look better than it is.
+
+**Short-term depression is the right mechanism for §7.3's residual and far too small at the current
+weights.** Adding Tsodyks-Markram depression to the recurrent excitatory synapses, calibration
+otherwise fixed, lowers the synchrony penalty from 0.1314 to 0.1233 and the burst-fraction penalty
+from 0.0211 to 0.0149, in five of seven settings, and only with the slow recovery the mechanism is
+usually quoted with - both tau_rec = 300 ms settings raised synchrony instead, because resources
+return faster than depression accumulates. But the strongest setting closes about a twentieth of the
+gap while pushing the three features already inside the band back out, and the best total score
+belongs to the weakest setting tried. The fix has to enter the calibration search rather than be
+bolted on after it; that is the twin's next version, and `depression_u = 0` keeps every earlier
+result reproducible in the meantime.

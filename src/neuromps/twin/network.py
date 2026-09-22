@@ -37,6 +37,13 @@ class NetworkParams:
     excitatory_fraction: float = 0.8
     duration_s: float = 60.0
     seed: int = 0
+    # Connectivity and threshold heterogeneity are drawn at build time from
+    # `seed`; the background Poisson drive is drawn at run time. Setting
+    # `noise_seed` reseeds between the two, which gives the *same chip* under a
+    # different noise realisation - the relation between two recordings of one
+    # real device. None keeps the single-seed behaviour every earlier result
+    # was produced under.
+    noise_seed: int | None = None
     # Connectivity is set by in-degree, not by probability: with a fixed
     # probability the number of inputs per neuron grows with the network, so a
     # calibration done at one size does not hold at another.
@@ -60,6 +67,15 @@ class NetworkParams:
     # adaptation
     adaptation_increment: float = 1.5
     adaptation_tau_ms: float = 380.0
+    # Short-term synaptic depression on recurrent excitatory synapses
+    # (Tsodyks-Markram). `depression_u` is the fraction of available resources
+    # each spike consumes and `depression_tau_rec_ms` how fast they come back;
+    # u = 0 disables it, which is what every result before HD18 was produced
+    # under. Parameterised so the *first* spike after rest delivers the same
+    # conductance either way, which makes the two comparable without
+    # recalibrating the weights - see `twin/depression.py`.
+    depression_u: float = 0.0
+    depression_tau_rec_ms: float = 600.0
     # Per-neuron threshold heterogeneity (fractional SD). Identical neurons
     # synchronise almost perfectly, which no real culture does; excitability
     # varies from cell to cell.
@@ -244,17 +260,37 @@ def _synapses(params: NetworkParams, neurons, compartment, excitatory, b2) -> li
     inh_weight = params.inhibitory_weight * params.gabaa_scale
     blocks = _ranges(params)
     made = []
+    depressing = params.depression_u > 0
     for kind, weight, target_var in (("exc", exc_weight, "g_e"), ("inh", inh_weight, "g_i")):
-        synapses = b2.Synapses(
-            neurons,
-            neurons,
-            on_pre=f"{target_var}_post += {weight}",
-            delay=params.intra_delay_ms * b2.ms,
-        )
+        if depressing and kind == "exc":
+            # Vesicle depletion: each spike consumes a fraction u of what is
+            # available and it recovers with tau_rec. x starts at 1, so the
+            # first spike out of rest is unchanged and only sustained firing
+            # is attenuated - which is how a burst terminates itself.
+            synapses = b2.Synapses(
+                neurons,
+                neurons,
+                model="dx/dt = (1 - x) / tau_rec : 1 (event-driven)",
+                on_pre=f"{target_var}_post += {weight} * x; x = x * (1 - u_se)",
+                delay=params.intra_delay_ms * b2.ms,
+                namespace={
+                    "tau_rec": params.depression_tau_rec_ms * b2.ms,
+                    "u_se": params.depression_u,
+                },
+            )
+        else:
+            synapses = b2.Synapses(
+                neurons,
+                neurons,
+                on_pre=f"{target_var}_post += {weight}",
+                delay=params.intra_delay_ms * b2.ms,
+            )
         for c in (0, 1):  # recurrent, within each compartment only
             synapses.connect(
                 _condition(blocks[c][kind], blocks[c]["all"]), p=intra_probability(params)
             )
+        if depressing and kind == "exc":
+            synapses.x = 1.0
         made.append(synapses)
     forward_p, backward_p = _inter_probabilities(params)
     for source, target, probability in ((0, 1, forward_p), (1, 0, backward_p)):
@@ -277,6 +313,8 @@ def simulate(params: NetworkParams) -> SimulationResult:
 
     with _quiet_brian():
         network, monitor, compartment, excitatory = _build(params)
+        if params.noise_seed is not None:
+            b2.seed(params.noise_seed)
         network.run(params.duration_s * b2.second)
         times = np.asarray(monitor.t / b2.second, dtype=float)
         neurons = np.asarray(monitor.i, dtype=int)

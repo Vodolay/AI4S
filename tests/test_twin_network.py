@@ -127,3 +127,38 @@ def test_parameters_are_recorded_for_provenance() -> None:
     assert record["forward_ratio"] == 4.0
     assert record["n_per_compartment"] == 80
     assert "seed" in record
+
+
+def test_noise_seed_changes_the_recording_but_not_the_chip() -> None:
+    """A pair of recordings from one device: same wiring, different noise."""
+    base = NetworkParams(n_per_compartment=60, duration_s=1.0, seed=3)
+    same = NetworkParams(n_per_compartment=60, duration_s=1.0, seed=3, noise_seed=99)
+    counts_base = synapse_counts(base)
+    counts_same = synapse_counts(same)
+    assert counts_base == counts_same, "noise_seed must not move the connectivity"
+    a = simulate(base)
+    b = simulate(same)
+    assert a.spike_times.size and b.spike_times.size
+    assert not np.array_equal(a.spike_times, b.spike_times), "the noise should differ"
+
+
+def test_both_seeding_paths_stay_deterministic() -> None:
+    """Reproducibility, with and without the extra reseed.
+
+    `noise_seed=seed` is deliberately *not* the same run as `noise_seed=None`:
+    the build consumes draws before the reseed, so restarting the stream at the
+    same number lands elsewhere in it. What matters is that the default path is
+    untouched - every earlier result reproduces - and that a stated noise seed
+    reproduces itself.
+    """
+    for noise_seed in (None, 5):
+        first = NetworkParams(n_per_compartment=60, duration_s=1.0, seed=5, noise_seed=noise_seed)
+        second = NetworkParams(n_per_compartment=60, duration_s=1.0, seed=5, noise_seed=noise_seed)
+        assert np.array_equal(simulate(first).spike_times, simulate(second).spike_times)
+
+
+def test_two_noise_seeds_on_one_chip_give_different_recordings() -> None:
+    chip = dict(n_per_compartment=60, duration_s=1.0, seed=5)
+    a = simulate(NetworkParams(**chip, noise_seed=1))
+    b = simulate(NetworkParams(**chip, noise_seed=2))
+    assert not np.array_equal(a.spike_times, b.spike_times)

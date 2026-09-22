@@ -76,6 +76,8 @@ def main(argv: list[str] | None = None) -> int:
             run_microchannels(quick)
         elif stage == "twin":
             from neuromps.twin.calibrate import main as calibrate_twin
+            from neuromps.twin.delta_inference import main as run_delta_inference
+            from neuromps.twin.depression import main as run_depression
             from neuromps.twin.directionality import main as run_directionality
             from neuromps.twin.inference import main as run_inference
             from neuromps.twin.perturbation import main as run_knobs
@@ -85,9 +87,14 @@ def main(argv: list[str] | None = None) -> int:
             quick = ["--quick"] if args.quick else []
             validate_twin(quick)
             calibrate_twin(quick)
+            # Whether the calibration's residual is a missing mechanism.
+            run_depression(quick)
             run_knobs(quick)
             run_inference(quick)
             run_real_inference(quick)
+            # The same question put to a change against each chip's own
+            # baseline, rather than to one recording's absolute features.
+            run_delta_inference(quick)
             run_directionality(quick)
         elif stage == "demo":
             from neuromps.demo.precompute import main as precompute_demo

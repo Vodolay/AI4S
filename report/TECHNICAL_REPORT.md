@@ -46,7 +46,10 @@ The results that matter are as much negative as positive, and the report leads w
 3. **The twin's posterior does not recover drug-knob direction from real recordings.** The inferred
    GABA-A scale shows no bicuculline dose trend, and untreated chips already infer 0.3781
    <!-- metrics.json: twin_hd15_real_inference.gabaa_scale_at_baseline.median -->, so the parameter
-   is absorbing model mismatch rather than tracking the compound (§7.5).
+   is absorbing model mismatch rather than tracking the compound. Training a second estimator on the
+   *change* against each chip's own baseline recovers the neutral value — 1.0289
+   <!-- metrics.json: twin_hd17_delta_inference.real_data.gabaa_scale_at_baseline.median --> — and
+   still finds no dose trend, so baseline heterogeneity was not what was hiding it (§7.5).
 4. **Direction *is* recoverable from simulated features once firing rate is residualised out** —
    AUC 0.8825
    <!-- metrics.json: twin_hd16_directionality.cheapest_configuration.free_rate_residualized.auc -->,
@@ -598,6 +601,27 @@ disagrees, and that disagreement is itself the finding.
 
 ![SIMULATED against REAL: calibrated baseline features of the twin compared with the real baseline band. Rate and burst-rate features land inside it; burst fraction and synchrony do not.](../outputs/twin/hd12_calibration_simulated.png){width=54%}
 
+**The missing mechanism is the right one and is nowhere near large enough.** A reviewer proposed the
+standard explanation: spike-frequency adaptation acts on each cell alone and cannot stop a burst the
+population is driving, while vesicle depletion at recurrent excitatory synapses can. Adding
+Tsodyks-Markram depression to those synapses, with the calibration otherwise held fixed and `u = 0`
+reproducing the model above exactly, moves both gap features the predicted way: the synchrony
+penalty falls from 0.1314
+<!-- metrics.json: twin_hd18_depression.synchrony_index_control_penalty --> to 0.1233
+<!-- metrics.json: twin_hd18_depression.synchrony_index_best_penalty --> and the burst-fraction
+penalty from 0.0211
+<!-- metrics.json: twin_hd18_depression.pct_spikes_in_bursts_control_penalty --> to 0.0149
+<!-- metrics.json: twin_hd18_depression.pct_spikes_in_bursts_best_penalty -->, in five of the seven
+settings tried. It also needs the slow recovery the mechanism is usually quoted with: both settings
+with τ_rec = 300 ms *raised* synchrony, because resources return faster than depression accumulates.
+
+But the effect is small beside the gap. A penalty of 0.13 means simulated synchrony sits about 14%
+above the real band's edge, and the strongest depression closes roughly a twentieth of that while
+pushing the three features already inside the band back out — its overall score is worse than the
+control's, and the best total score belongs to the weakest setting tried. So the explanation holds
+and the fix is not free: depression has to enter the calibration search rather than be bolted on
+after it, which is the twin's next version rather than this one.
+
 
 ### 7.4 Drug knobs
 
@@ -635,15 +659,13 @@ Only excitability is well identified, and only `threshold_scale` passes a rank-u
 every other parameter is below 0.01). **Posterior intervals from this estimator should not be quoted
 as calibrated.**
 
-That statement is weaker than it looks, and the reason is worth recording. Posterior *training* was
-unseeded until this report was being built: rerunning identical code on the identical simulation
-cache moved contraction by about 0.02 and moved this p-value between 0.46, 0.0092 and 0.1956 — on
-one of those runs `threshold_scale` failed the check that it passes here. Training is now seeded and
-verified to reproduce across processes, but the run-to-run spread is the honest measure of how much
-weight a single rank-uniformity p-value can carry. Contraction was stable across the same runs; the
-rank test was not. A learning curve
-showed connectivity contraction still rising with training-set size but only slightly: more
-simulations alone will not fix it.
+That statement is weaker than it looks. Posterior *training* was unseeded until this report was
+being built, and rerunning identical code on the identical cache moved this p-value between 0.46 and
+0.0092 — on one of those runs `threshold_scale` failed the check it passes here. Training is now
+seeded and reproduces across processes, but that spread is the honest measure of how much weight one
+rank-uniformity p-value carries; contraction was stable across the same runs. A learning curve showed
+connectivity contraction still rising with training-set size, but only slightly: more simulations
+alone will not fix it.
 
 ![SIMULATED posterior calibration: rank of the true parameter among posterior samples. Flat is calibrated, U-shaped is over-confident. Only `threshold_scale` is close to flat.](../outputs/twin/hd14_posterior_ranks_simulated.png){width=54%}
 
@@ -663,14 +685,43 @@ summary values inside the simulated range
   CI [0.3149, 0.4677]
   <!-- metrics.json: twin_hd15_real_inference.gabaa_scale_at_baseline.median_ci95 -->, excluding the
   neutral value of 1.0. The knob is absorbing general model mismatch.
-- Four summary dimensions — burst rate and active electrodes in both chambers —
+- Four summary dimensions
   <!-- metrics.json: twin_hd15_real_inference.distribution_check.unsupported_dimensions --> pass a
-  range check but have almost no simulated draws where the real values sit. Range containment is not
+  range check but have almost no simulated draws where the real values sit: range containment is not
   density containment.
 
 An earlier version of this analysis produced an apparent dose trend (ρ = −0.197, p = 0.036). It was
 an artefact of pseudo-replication — 113 recordings from 16 devices treated as independent — and of
 posterior extrapolation on out-of-distribution dimensions. Both are now checks in code.
+
+**Inferring the change instead of the state fixes the offset and not the trend.** Absolute features
+give the estimator no way to tell "this culture is unlike the simulator" from "this culture had a
+drug applied", and pharmacology is never quantified that way: a compound is measured against the
+same preparation's own baseline. A second estimator was trained on exactly that,
+`p(θ_drug | x_treated − x_baseline, x_baseline)`, from 1,500
+<!-- metrics.json: twin_hd17_delta_inference.n_pairs_simulated --> paired simulations — one chip
+recorded twice, same connectivity and thresholds under fresh noise, neutral knob then a prior draw.
+Each of the 16 real devices supplies its own untreated recording as the baseline.
+
+The offset goes away. Untreated recordings now infer 1.0289
+<!-- metrics.json: twin_hd17_delta_inference.real_data.gabaa_scale_at_baseline.median -->, 95% CI
+[0.9847, 1.056]
+<!-- metrics.json: twin_hd17_delta_inference.real_data.gabaa_scale_at_baseline.median_ci95 -->,
+which contains the neutral value where the absolute version's interval excluded it, and contraction
+rises from 0.323 to 0.3894
+<!-- metrics.json: twin_hd17_delta_inference.held_out_checks.contraction -->. The dose trend does
+not appear: ρ = −0.0326
+<!-- metrics.json: twin_hd17_delta_inference.real_data.gabaa_scale_dose_trend.spearman_rho -->, 95%
+CI [−0.1497, 0.131]
+<!-- metrics.json: twin_hd17_delta_inference.real_data.gabaa_scale_dose_trend.spearman_rho_ci95 -->,
+now at least pointing the way a GABA-A antagonist should rather than the opposite. The held-out rank
+check still fails (KS p = 0.0056
+<!-- metrics.json: twin_hd17_delta_inference.held_out_checks.rank_uniformity_ks_p -->), so these
+intervals are no more calibrated than §7.5's.
+
+That is a useful negative: removing a real defect recovered the neutral value almost exactly, which
+says the pairing works as intended, and the dose response still did not come back. Whatever stops
+the twin reading bicuculline off a real chip is not that the cultures differ from each other.
 
 ![Inferred GABA-A scale for REAL bicuculline recordings, from a posterior trained on SIMULATIONS. There is no dose trend, and untreated chips already sit far below the neutral value of 1.](../outputs/twin/hd15_real_dose_response.png){width=50%}
 
@@ -738,9 +789,9 @@ Classifying is a far weaker demand than estimating.
 
 ### 7.7 The same question on real devices, and a null
 
-§7.6 could only ask its question in simulation, where the ground truth is something we set. The
-Mateus deposit (§4.2) has it fabricated into the device: straight `control` microchannels against
-`arrows`, `rams` and `tesla`-valve geometries, 57 recordings
+§7.6 could only ask its question in simulation. The Mateus deposit (§4.2) has the answer fabricated
+into the device: straight `control` microchannels against `arrows`, `rams` and `tesla`-valve
+geometries, 57 recordings
 <!-- metrics.json: microchannel_directionality.n_recordings --> from 26 chips
 <!-- metrics.json: microchannel_directionality.n_chips -->.
 
@@ -769,27 +820,26 @@ the result — the pseudo-replication of §7.5 a third time, on a different data
 
 **Two reasons not to read the null as a measurement.** |asymmetry| is a ratio of counts, so a chip
 with few events looks one-sided by chance: across chips it correlates with event count at −0.494
-<!-- metrics.json: microchannel_directionality.event_count_confound.spearman_rho -->, p = 0.010
-<!-- metrics.json: microchannel_directionality.event_count_confound.p_value -->, and the
+<!-- metrics.json: microchannel_directionality.event_count_confound.spearman_rho -->, and the
 better-sampled half leaves 13 chips
 <!-- metrics.json: microchannel_directionality.well_sampled_half.n_chips --> at p = 0.086
 <!-- metrics.json: microchannel_directionality.well_sampled_half.kruskal_p -->. And control chips
-are confined to experiments 9–11 by the deposit's design, so condition is confounded with culture
-batch. None of this contradicts the deposit's own paper, whose authors had the electrode map.
+sit in experiments 9–11 by the deposit's design, confounding condition with culture batch. None of
+this contradicts the deposit's own paper, whose authors had the electrode map.
 
 **The null is not an artefact of the geometry assumptions.** The detector assumes the channels run
 down the array's columns and that all five electrodes fired; the deposit settles neither. Under both
 orientations, and again with one electrode allowed to miss, none of the four detectors separates the
-conditions (worst-case Kruskal p = 0.13074
+conditions — worst case Kruskal p = 0.13074
 <!-- metrics.json: microchannel_directionality.geometry_robustness.variants.column_one_missing.kruskal_p -->
-beside the headline's 0.63969), and tolerating a missing electrode triples the events to 1,101,233
+beside the headline's 0.63969 — and tolerating a missing electrode triples the events to 1,101,233
 <!-- metrics.json: microchannel_directionality.geometry_robustness.variants.column_one_missing.total_events -->
-without changing that. The orientation is also more than an assumption: down the columns the detector
-finds a median of 14
+without changing it. The orientation is more than an assumption: down the columns the detector finds
+a median of 14
 <!-- metrics.json: microchannel_directionality.geometry_robustness.variants.column_strict.median_channels_detected -->
 channels per recording against 1
 <!-- metrics.json: microchannel_directionality.geometry_robustness.variants.row_strict.median_channels_detected -->
-along the rows. Per-variant figures are in `metrics.json`.
+along the rows.
 
 **What it says about the twin.** §7.6's directionality result is simulation-only; put to devices
 whose asymmetry was fabricated rather than simulated, it does not reproduce.
@@ -856,9 +906,7 @@ independent electrode positions.
 **Data.** The asset is 21,530 rat records
 <!-- metrics.json: data_asset.counts.by_species.rat --> against 357 human
 <!-- metrics.json: data_asset.counts.by_species.human -->; every human claim rests on three sources.
-That figure had been stale because it carried no citation comment; the checker in §9.2 guards only
-marked numbers, which is an argument for marking them all. Most records are curve fits from which
-our features cannot be recomputed. Dropping Tukker 2020 on
+Most records are curve fits from which our features cannot be recomputed. Dropping Tukker 2020 on
 license grounds leaves the *transfer* study on a single source, and Trujillo 2019 does not relieve
 it: its drug sessions say a compound was applied but not which well received which, so those 24
 records are flagged and excluded from pairing rather than labelled by guesswork. Nineteen of its 42
@@ -878,13 +926,15 @@ Calibration error may be as high as 0.2557
 vector is effectively a rate feature plus noise for this task. The implementation uses single-level
 grouped CV where the plan specified nested CV, so hyperparameter choice is not fully held out.
 
-**The twin.** Coupling asymmetry tracks rate, not direction (§7.2). Calibration misses burst
-structure and synchrony (§7.3). Connectivity parameters are weakly identified and no parameter's
-posterior is calibrated except by the weakest test (§7.5). On real data the drug knob absorbs model
-mismatch (§7.5). Simulated recordings are 10 s against real recordings of 480 s, the length ScreenNeuroPharm deposited. The simulated array
-is one fixed geometry while real chambers carry 48, 36 or 60 electrodes. HD16's positive result is
-identifiability *under a correct model*, since the same simulator generated both classes, and its
-rate controls remove only linear rate dependence.
+**The twin.** Coupling asymmetry tracks rate, not direction, and fails against measured axonal
+direction (§7.2, §7.7). Calibration misses burst structure and synchrony, and the mechanism most
+likely to fix it moves them only slightly at fixed weights (§7.3). Connectivity parameters are
+weakly identified and no posterior is calibrated except by the weakest test; pairing against a
+chip's own baseline removes the drug knob's offset but recovers no dose response (§7.5). Simulated
+recordings are 10 s against real recordings of 480 s, and the simulated array is one fixed geometry
+while real chambers carry 48, 36 or 60 electrodes. §7.6's positive result is identifiability *under
+a correct model*, since the same simulator generated both classes, and its rate controls remove only
+linear rate dependence.
 
 **The real-device tests.** §7.7's microchannel null rests on 26 chips in five groups, with condition
 confounded with culture batch, an unanchored direction, a statistic that varies with a chip's event
@@ -913,66 +963,55 @@ python run_all.py             # full run
 ```
 
 - `--quick` completes in **401 s on a fresh clone** — install, download, build, model, twin and
-  demo — against a 600 s budget. That is a 20-core machine; the same pipeline takes 1,126 s on the
-  two-vCPU runner CI provides, which is the number to plan against. Most of the variable part is
-  downloading: the same clone measured 52 s and 133 s for the fetch stage on two runs. Each run
-  records its own per-stage timings (`metrics.run_all_timings_quick`, `..._full`) and logs them
-  under `outputs/logs/`.
-- **`--quick` is a path test, not a reproduction of the report.** Measured on a fresh clone, it
-  fetches the small-tier sources only and therefore builds a much smaller asset than the one this
-  report describes; it produces 15 of the 16 figures the pipeline draws - the exception is the rate-matched
-  directionality arm, which the quick tier does not simulate - and omits six `metrics.json` entries
-  (`toxcast_mea_inventory`, `twin_hd12_calibration`, `twin_hd15_real_inference`,
-  `compartment_asymmetry`, `microchannel_directionality`, the full-run timings), whose analyses need
-  either a full-tier download or compartment records the small-tier asset lacks; each skips itself
-  with a logged reason rather than failing. The §7.6 sweep additionally has too few simulations per
-  cell to fit a discriminator, so its `cheapest_configuration` entries are written as `null`.
+  demo — against a 600 s budget, on a 20-core machine; the same pipeline takes 1,126 s on the
+  two-vCPU runner CI provides, which is the number to plan against. Each run records its own
+  per-stage timings (`metrics.run_all_timings_quick.by_stage_s`, `..._full`) rather than this report
+  transcribing them, and logs them under `outputs/logs/`; the twin stage dominates, then
+  downloading, then the asset build.
+- **`--quick` is a path test, not a reproduction of the report.** It fetches the small-tier sources
+  only, so it builds a much smaller asset, draws 15 of the 16 figures, and omits six `metrics.json`
+  entries whose analyses need either a full-tier download or compartment records the small-tier
+  asset lacks; each skips itself with a logged reason rather than failing. The §7.6 sweep also has
+  too few simulations per cell to fit a discriminator, so its `cheapest_configuration` entries are
+  written as `null`.
 - **Reproducing the numbers in this report takes the full path**: `python run_all.py` after a
-  full-tier fetch. `metrics.json` records which mode produced each stored value, and quick and full
-  runs write to separate roots (`outputs/` against `outputs/quick/`) so neither can overwrite the
-  other.
+  full-tier fetch. `metrics.json` records which mode produced each value, and the two modes write to
+  separate roots so neither can overwrite the other.
 - Dependencies are pinned in `pyproject.toml`; numpy is held at 2.3.5 because brian2 2.9.0 does not
   import against 2.4.
 - Tests run with `pytest` (feature extraction, QC flags, provenance hashing, the MEA simulator, and
-  a contract test that fails if any headline metric loses its confidence interval). §9.2 lists what
-  the repository enforces rather than documents.
+  a contract test that fails if any headline metric loses its interval). §9.1 lists what the
+  repository enforces rather than documents.
 
-### 9.1 Where the time goes
-
-Each run writes its own stage timings, so this is generated rather than transcribed: see
-`metrics.run_all_timings_quick.by_stage_s` and `run_all_timings_full`. On the fresh-clone run above,
-the twin stage dominates, then downloading, then the asset build.
-
-### 9.2 What the repository enforces, rather than documents
+### 9.1 What the repository enforces, rather than documents
 
 - **Provenance.** The asset build fails if any record's provenance hash disagrees with the manifest.
 - **One feature extractor.** The twin computes features through the same `features/mea.py` as real
-  recordings, and — after a defect that survived for several phases — through the same coupling
-  measure on the same per-electrode input.
+  recordings, and — after a defect that survived several phases — through the same coupling measure
+  on the same per-electrode input.
 - **Interval discipline.** A contract test fails if any headline metric loses its confidence
-  interval, and the resample count is recorded next to every estimate.
-- **Cache meaning.** The simulation cache stores its summary names, its electrode count and a hash
-  of the source of every function that defines a summary; it refuses to load across a change in any
-  of them.
+  interval, and the resample count sits next to every estimate.
+- **Cache meaning.** The simulation cache stores its summary names, electrode count and a hash of
+  the source of every function defining a summary, and refuses to load across a change in any.
 - **Report numbers.** `neuromps.report.verify` re-reads every citation in this document and fails on
   disagreement.
 - **No clinical claims.** A test scans the reports for efficacy, diagnostic and treatment language
   and fails unless the line is a disclaimer ruling it out.
 
-### 9.3 Sources, licenses, and where each result lives
+### 9.2 Sources, licenses, and where each result lives
 
-Data sources, with licenses and citations, are in `CITATIONS.md` and recorded per file in
-`data/raw/MANIFEST.json`; third-party software licenses are in `THIRD_PARTY.md`; the repository is
+Data sources, with licenses and citations, are in `CITATIONS.md` and per file in
+`data/raw/MANIFEST.json`; third-party licenses are in `THIRD_PARTY.md`; the repository is
 MIT-licensed. Every number here comes from a key in `outputs/metrics.json` written by a script under
 `src/`, and `report/RESULT_INDEX.md` maps each result to its key and script. Figures go to
-`outputs/figures/` (real) and `outputs/twin/` (simulated), with the real/simulated rule enforced in
-the captions rather than the filenames.
+`outputs/figures/` (real) and `outputs/twin/` (simulated), with that distinction enforced in the
+captions rather than the filenames.
 
 ---
 
 ## 10. The demo
 
-`streamlit run app/app.py`, after `python run_all.py --quick`, opens three tabs — the data asset and
+`streamlit run app/app.py`, after `python run_all.py --quick`, opens three tabs: the data asset and
 its standard, mechanism prediction with a conformal set beside the transfer results, and the twin
 with its posterior and what it does on real recordings.
 
@@ -980,11 +1019,10 @@ No interaction waits on a simulator: `run_all.py --stage demo` precomputes a gri
 <!-- metrics.json: demo_precompute.n_grid_points --> twin simulations spanning the prior, posterior
 samples for all 113 real two-chamber recordings
 <!-- metrics.json: demo_precompute.n_real_recordings -->, and a classifier fitted once, in 66.3 s
-<!-- metrics.json: run_all_timings_full.by_stage_s.demo -->. Through Streamlit's test harness every
-interaction lands between 0.6 and 0.9 s, except a button running one Brian2 simulation in about
-4.5 s, so the twin is verifiably a simulator and not a lookup table. The app recomputes nothing, so
-it cannot disagree with this report. Detail in `app/README.md`, screenshots in
-`outputs/figures/app_tab*.png`.
+<!-- metrics.json: run_all_timings_full.by_stage_s.demo -->. Every interaction then lands between
+0.6 and 0.9 s, except a button running one Brian2 simulation in about 4.5 s, so the twin is
+verifiably a simulator and not a lookup table. The app recomputes nothing, so it cannot disagree
+with this report. Detail and screenshots: `app/README.md`.
 
 ---
 
@@ -992,9 +1030,7 @@ it cannot disagree with this report. Detail in `app/README.md`, screenshots in
 
 This work was produced in a paired workflow with Anthropic's Claude (Claude Opus 5) via Claude Code.
 The model wrote most of the code, tests and prose here under step-by-step human direction: the human
-set the plan and phase gates, chose the scope, approved or rejected each step, and directed the
-scientific decisions. Three practices kept that honest: numbers are emitted into
-`outputs/metrics.json` and re-checked by `neuromps.report.verify` rather than typed, which caught a
-stale timestamp and three mis-anchored citations here; results are reported as observed, including
-against the plan's expectation (§6.2, §6.3, §7.2, §7.5); and `report/LAB_NOTEBOOK.md` records what
-was tried and abandoned.
+set the plan and phase gates, chose the scope, approved each step, and directed the science. Three
+practices kept that honest: numbers are emitted into `metrics.json` and re-checked by
+`neuromps.report.verify` rather than typed; results are reported as observed; and the lab notebook
+records what was abandoned.
