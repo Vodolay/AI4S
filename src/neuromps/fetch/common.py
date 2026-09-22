@@ -16,7 +16,7 @@ def fetch_many(
     cached: dict[str, FileRecord],
     max_bytes: int | None = 2 << 30,
     md5s: dict[str, str | None] | None = None,
-    workers: int = 6,
+    workers: int = 4,
 ) -> list[FileRecord]:
     """Download ``(url, rel_path)`` pairs, reusing files whose hash matches the manifest.
 
@@ -25,7 +25,9 @@ def fetch_many(
 
     Downloads run on a small thread pool because they are latency-bound, not
     bandwidth-bound: one source publishes 169 separate files, and fetching them
-    one at a time dominated a cold run of the pipeline. Results keep the order
+    one at a time dominated a cold run of the pipeline. Four, not more: these
+    are small academic servers, and one of them answers a burst from a single
+    address by refusing it. Results keep the order
     they were requested in, so the manifest does not depend on which download
     finished first. Set ``workers=1`` for serial behaviour.
     """
