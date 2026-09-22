@@ -110,6 +110,19 @@ one even with `trujillo2019`, and every human record still comes from
 hPSC-derived tissue rather than primary human neurons - a limitation to keep in
 the report rather than one this review can close.
 
+The **multi-compound pharmacology gap is also still open**, and not for want of
+looking: a second search pass over Zenodo (open licences, dataset type, sizes
+between 50 KB and 12 GB) for paired pre/post MEA spike data across several
+compounds returned nothing usable. The near misses were in-vivo recordings,
+imaging (Zenodo 15195636 is a *Fractal* image-processing benchmark despite
+"multiwell" in its title), or cardiomyocytes. What the asset has instead is
+kapucu2022 (5 compound classes x 2 species, paired, but single concentrations),
+screenneuropharm_bic (one compound, dose series), sharf2022 (diazepam series in
+human organoid slices) and fofie2025 (many compounds, but fitted curves rather
+than spike times). Anyone re-attacking this should start from a published
+*consortium* dataset rather than a single lab's deposit, and should expect to
+ask the authors: the HESI NeuTox outputs exist as papers, not as a deposit.
+
 
 - **Kapucu 2022, raw vs preprocessed.** The raw 12.5 kHz `.h5` recordings total ~2.4 TB (75 files, up to
   120 GB each). We use the authors' spike-time CSVs (`Channel,Time`) and meaRtools per-well outputs instead.
