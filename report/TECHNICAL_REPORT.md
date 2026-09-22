@@ -19,7 +19,7 @@ prose. The decision record behind these results, including what was tried and ab
 Two layers were built:
 
 **(A) A standardized, provenance-tracked data asset** of public neural microelectrode-array (MEA)
-recordings: 21,564 records <!-- metrics.json: data_asset.n_records --> from six sources, each
+recordings: 21,604 records <!-- metrics.json: data_asset.n_records --> from seven sources, each
 record carrying its source URL, license, SHA256 and download time, validated against a JSON Schema
 at a conformance level that requires every provenance hash to match the download manifest.
 
@@ -93,7 +93,7 @@ that records carry an explicit **data level**, and that records only compare wit
 
 | level | meaning | records |
 |---|---|---|
-| `spike_times` | per-electrode spike trains; our feature vector is computable | 1,189 <!-- metrics.json: data_asset.counts.by_data_level.spike_times --> |
+| `spike_times` | per-electrode spike trains; our feature vector is computable | 1,229 <!-- metrics.json: data_asset.counts.by_data_level.spike_times --> |
 | `fitted_curve` | published concentration-response fits only | 20,375 <!-- metrics.json: data_asset.counts.by_data_level.fitted_curve --> |
 | `per_well_features` | vendor feature tables without spike times | — |
 
@@ -118,9 +118,9 @@ a downstream analysis can make its own decision.
 | flag | records | what it means |
 |----------------------------|-------|--------------------------------------------|
 | `incomplete_dose_series` | 272 <!-- metrics.json: data_card.flag_counts.incomplete_dose_series --> | the compound's dose series is missing points |
-| `too_few_active_electrodes` | 186 <!-- metrics.json: data_card.flag_counts.too_few_active_electrodes --> | under 10 electrodes cleared 5 spikes/min |
-| `replicate_divergence` | 191 <!-- metrics.json: data_card.flag_counts.replicate_divergence --> | one replicate departs from its group |
-| `outlier_feature_value` | 191 <!-- metrics.json: data_card.flag_counts.outlier_feature_value --> | a feature sits far outside its source's distribution |
+| `too_few_active_electrodes` | 194 <!-- metrics.json: data_card.flag_counts.too_few_active_electrodes --> | under 10 electrodes cleared 5 spikes/min |
+| `replicate_divergence` | 199 <!-- metrics.json: data_card.flag_counts.replicate_divergence --> | one replicate departs from its group |
+| `outlier_feature_value` | 199 <!-- metrics.json: data_card.flag_counts.outlier_feature_value --> | a feature sits far outside its source's distribution |
 | `excluded_well_upstream` | 90 <!-- metrics.json: data_card.flag_counts.excluded_well_upstream --> | the source's own log excluded the well |
 | `noisy_electrodes_present` | 11 <!-- metrics.json: data_card.flag_counts.noisy_electrodes_present --> | the source marked electrodes as noisy |
 
@@ -174,10 +174,11 @@ disagreement reported in §6.4, and that remains untested.
 | `sharf2022` | 29 <!-- metrics.json: data_asset.counts.by_source.sharf2022 --> | spike_times | human | CC0-1.0 |
 | `mateus2024` | 108 <!-- metrics.json: data_asset.counts.by_source.mateus2024 --> | spike_times | rat | CC-BY-4.0 |
 | `trujillo2019` | 184 <!-- metrics.json: data_asset.counts.by_source.trujillo2019 --> | spike_times | human | CC-BY-4.0 |
+| `brewer2021` | 40 <!-- metrics.json: data_asset.counts.by_source.brewer2021 --> | spike_times | rat | CC-BY-4.0 |
 
-Totals: 21,564 records <!-- metrics.json: data_asset.n_records -->, of which 21,106 are marked usable
-<!-- metrics.json: data_asset.counts.by_usable.True --> and 458 are not
-<!-- metrics.json: data_asset.counts.by_usable.False -->. By species, 21,207 records are rat
+Totals: 21,604 records <!-- metrics.json: data_asset.n_records -->, of which 21,138 are marked usable
+<!-- metrics.json: data_asset.counts.by_usable.True --> and 466 are not
+<!-- metrics.json: data_asset.counts.by_usable.False -->. By species, 21,247 records are rat
 <!-- metrics.json: data_asset.counts.by_species.rat --> and 357 are human
 <!-- metrics.json: data_asset.counts.by_species.human -->.
 
@@ -186,6 +187,12 @@ results appear. Adding Trujillo 2019 took the human count from 173 to 357
 <!-- metrics.json: data_asset.counts.by_species.human --> across three sources, and changed no
 modelling number at all: those records are untreated baselines, and every model in §6 consumes
 exposure-minus-baseline pairs. §6.8 is the comparison they do support.
+
+`brewer2021` is here for §7.7's sake rather than for a result: ten rat hippocampal cultures in a
+four-chamber device whose **tunnels are themselves over electrodes**, so a crossing is measured
+rather than inferred from the chambers either side. Its anatomical labels are not trusted — 4 of its
+40 files carry the deposit's own subregion field and 2 of those disagree with the file name, which
+each record's QC note states.
 
 ### 4.1 A rejection, as a worked example of the license discipline
 
@@ -695,7 +702,7 @@ feature distribution?
 
 Species and platform are confounded here — every MaxWell recording is human, every Multi Channel
 Systems recording is rat — so the comparison is made inside one vendor, resampling over culture
-units rather than rows. An organoid recorded twenty times is one culture.
+units rather than rows: an organoid recorded twenty times is one culture.
 
 **At matched platform and matched preparation, 7
 <!-- metrics.json: baseline_activity.matched_preparation.n_features_separating_species -->
@@ -717,12 +724,12 @@ of the nine features, so "human" does not name one kind of preparation.
 
 **A confound the module refuses rather than reports.** Active-electrode count looked like the
 strongest separator of all, reaching 49 electrodes
-<!-- metrics.json: baseline_activity.within_vendor.features.active_electrodes.difference_ci95.1 -->.
-It is an artifact: Trujillo's wells hold 64 electrodes, Kapucu's 16. It is flagged
-`format_confounded` and excluded; the comparable quantity, the fraction of electrodes active, gives
-an interval astride zero, reaching only 0.063
-<!-- metrics.json: baseline_activity.within_vendor.features.active_fraction.difference_ci95.1 -->.
-That is the fourth apparent effect here dissolved by asking what else differs between the groups.
+<!-- metrics.json: baseline_activity.within_vendor.features.active_electrodes.difference_ci95.1 -->
+— an artifact of Trujillo's 64-electrode wells against Kapucu's 16. It is flagged
+`format_confounded` and excluded; the fraction of electrodes active gives an interval of −0.031 to
+0.063 <!-- metrics.json: baseline_activity.within_vendor.features.active_fraction.difference_ci95 -->,
+astride zero —
+the fourth apparent effect here dissolved by asking what else differs between the groups.
 
 ![Untreated baseline activity on Axion platforms, by species and preparation. REAL recordings. The
 three groups are shown separately because the species contrast and the preparation contrast are both
@@ -733,20 +740,19 @@ feature flat across all three.](../outputs/figures/baseline_species_comparison.p
 
 ## 8. Limitations
 
-**Data.** The asset is 21,207 rat records
+**Data.** The asset is 21,247 rat records
 <!-- metrics.json: data_asset.counts.by_species.rat --> against 357 human
 <!-- metrics.json: data_asset.counts.by_species.human -->; every human claim rests on three sources.
 That rat figure had been stale since `mateus2024` was added, because it carried no citation comment
 — the checker in §9.2 guards only marked numbers, which is an argument for marking them all.
 Most records are curve fits from which our features cannot be recomputed. Dropping Tukker 2020 on
 license grounds leaves the *transfer* study on a single source, and Trujillo 2019 does not relieve
-it: its three drug sessions record that a compound was applied but not which well received which,
-so those 24 records are flagged and excluded from pairing rather than labelled by guesswork.
-Nineteen of its 42 sessions are MATLAB 5 files that cannot be read in place and were not downloaded,
-so its developmental series starts later than the deposit's does. The §6.8 human side also rests on
-8 organoid cultures <!-- metrics.json: baseline_activity.preparation_within_human.n_human_cultures -->
-recorded many times each, not on 160 independent ones. Compound coverage is thin: six mechanism
-classes, 73 pairs.
+it: its drug sessions say a compound was applied but not which well received which, so those 24
+records are flagged and excluded from pairing rather than labelled by guesswork. Nineteen of its 42
+sessions are MATLAB 5 files that cannot be read in place, so its developmental series starts late.
+The §6.8 human side rests on 8 organoid cultures
+<!-- metrics.json: baseline_activity.preparation_within_human.n_human_cultures --> recorded many
+times each, not 160 independent ones. Compound coverage is thin: six mechanism classes, 73 pairs.
 
 **Models.** Balanced accuracies around 0.5 on six classes are above chance but far from usable;
 intervals are wide and overlapping. Conformal sets cover honestly but are too large to act on.
@@ -888,24 +894,8 @@ released under the MIT license (`LICENSE`).
 
 ## Appendix A. Where each result lives
 
-Every number here comes from a key in `outputs/metrics.json`, written by a script under `src/`:
-
-| result | metrics key | script |
-|------------------------------|------------------------------|----------------------------|
-| asset counts and provenance | `data_asset`, `data_card` | `neuromps.etl.build` |
-| mechanism classification, calibration | `mechanism_baselines` | `neuromps.models.mechanism` |
-| conformal sets, ablations | `uncertainty_and_ablations` | `neuromps.models.conformal`, `.ablation` |
-| species transfer and shift | `species_transfer` | `neuromps.models.transfer` |
-| compartment asymmetry | `compartment_asymmetry` | `neuromps.models.asymmetry` |
-| untreated baseline comparison | `baseline_activity` | `neuromps.models.baselines` |
-| twin baseline and drive sweep | `twin_hd11_validation` | `neuromps.twin.validate` |
-| twin calibration | `twin_hd12_calibration` | `neuromps.twin.calibrate` |
-| drug knob directions | `twin_hd13_perturbation` | `neuromps.twin.perturbation` |
-| posterior training and coverage | `twin_hd14_inference` | `neuromps.twin.inference` |
-| posterior applied to real recordings | `twin_hd15_real_inference` | `neuromps.twin.real_inference` |
-| directionality experiment | `twin_hd16_directionality` | `neuromps.twin.directionality` |
-
-Figures go to `outputs/figures/` (real data) and `outputs/twin/` (twin output), the latter carrying
-`simulated` in the filename except `hd15_real_dose_response.png`, which plots real recordings under
-a simulation-trained model and says so in its caption. The rule is enforced in the captions, not the
-filenames: no simulated output is presented as measurement.
+Every number here comes from a key in `outputs/metrics.json`, written by a script under `src/`;
+`report/RESULT_INDEX.md` maps each result to its key and its script. Figures go to
+`outputs/figures/` (real) and `outputs/twin/` (simulated, marked in the filename except
+`hd15_real_dose_response.png`, real recordings under a simulation-trained model). The rule is
+enforced in the captions, not the filenames: no simulated output is presented as measurement.

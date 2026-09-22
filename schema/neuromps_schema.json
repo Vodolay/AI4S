@@ -32,7 +32,8 @@
         "fofie2025",
         "screenneuropharm_bic",
         "mateus2024",
-        "trujillo2019"
+        "trujillo2019",
+        "brewer2021"
       ],
       "description": "Source key; must match a source in data/raw/MANIFEST.json."
     },
@@ -830,6 +831,7 @@
             "single_chamber",
             "two_chamber_microchannel",
             "three_chamber_microchannel",
+            "four_chamber_microtunnel",
             "other"
           ]
         },

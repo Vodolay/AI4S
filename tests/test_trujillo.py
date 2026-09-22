@@ -181,3 +181,42 @@ def test_an_unlabelled_exposure_never_becomes_a_control_pair() -> None:
     assert not is_unlabelled_exposure(pd.Series(baseline))
     pairs = build_pairs(pd.DataFrame([baseline, treated]))
     assert pairs.empty, "an unidentified compound must not be paired as a control"
+
+
+def test_extraction_is_checked_against_the_deposits_own_spike_counts(tmp_path) -> None:
+    """A dropped spike must fail the fetch, not reach the asset quietly."""
+    import h5py
+    import numpy as np
+
+    from neuromps.fetch.trujillo2019 import session_spikes
+
+    path = tmp_path / "wrong.mat"
+    with h5py.File(path, "w") as f:
+        f.create_dataset("t_s", data=np.linspace(0, 1.0, 12501)[None, :])
+        refs = f.create_group("cells")
+        spikes = np.empty((2, 1), dtype=h5py.ref_dtype)
+        for electrode in range(2):
+            cell = refs.create_dataset(f"c{electrode}", data=np.arange(1, 4, dtype=float)[:, None])
+            spikes[electrode, 0] = cell.ref
+        f.create_dataset("spikes", data=spikes)
+        # The deposit claims four spikes on the first electrode; we will read three.
+        f.create_dataset("spike_cnt", data=np.array([[4.0], [3.0]]))
+    with h5py.File(path, "r") as f, pytest.raises(ValueError, match="disagree with the deposit"):
+        session_spikes(f)
+
+
+def test_a_session_that_agrees_with_its_counts_passes(session_file: Path) -> None:
+    import h5py
+    import numpy as np
+
+    from neuromps.fetch.trujillo2019 import session_spikes
+
+    with h5py.File(session_file, "r+") as f:
+        counts = np.zeros((3, 2))
+        for electrode in range(3):
+            for well in range(2):
+                counts[electrode, well] = 0 if (well == 1 and electrode == 2) else 4
+        f.create_dataset("spike_cnt", data=counts)
+    with h5py.File(session_file, "r") as f:
+        frame, _, _ = session_spikes(f)
+    assert len(frame) == 20

@@ -295,7 +295,7 @@ def main(argv: list[str] | None = None) -> int:
             calibration_file().name,
         )
         return 0
-    n_draws = args.draws or (8 if args.quick else 40)
+    n_draws = args.draws or (6 if args.quick else 40)
     duration = 20.0 if args.quick else 40.0
     log.info("calibrating against %s (n=%d records)", targets["reference"], targets["n_records"])
     trials = random_search(targets, n_draws, duration, seed=args.seed)

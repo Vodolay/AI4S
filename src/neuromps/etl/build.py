@@ -13,7 +13,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from neuromps.etl import kapucu, screenneuropharm, sharf, trujillo
+from neuromps.etl import brewer, kapucu, screenneuropharm, sharf, trujillo
 from neuromps.etl.toxcast_mea import (
     INTERIM_PARQUET,
     MC56_CSV,
@@ -77,6 +77,7 @@ def collect_records(raw_root: Path = RAW_ROOT, full: bool = False) -> list[dict]
     records += _archive_records(sharf, hashes, raw_root, full)
     records += _mateus_records(hashes, raw_root)
     records += _trujillo_records(hashes, raw_root, full)
+    records += _brewer_records(hashes, raw_root, full)
     add_cross_record_flags(records)  # replicate divergence, outliers, unpaired exposures
     return records
 
@@ -121,6 +122,17 @@ def _trujillo_records(hashes: dict[str, str], raw_root: Path, full: bool) -> lis
         cache.parent.mkdir(parents=True, exist_ok=True)
         cache.write_text(json.dumps(built, default=str))
     log.info("trujillo2019: %d records", len(built))
+    return built
+
+
+def _brewer_records(hashes: dict[str, str], raw_root: Path, full: bool) -> list[dict]:
+    """Four compartment records per culture; 17 MB, so both tiers carry it."""
+    archive = raw_root / brewer.SOURCE / brewer.ARCHIVE_NAME
+    if not archive.exists():
+        log.info("brewer2021 archive not fetched; skipping")
+        return []
+    built = brewer.build_records(archive, hashes, max_cultures=None if full else 2)
+    log.info("brewer2021: %d records", len(built))
     return built
 
 

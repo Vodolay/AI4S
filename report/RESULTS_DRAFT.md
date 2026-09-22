@@ -18,11 +18,11 @@ exist in `outputs/`, the text says `[MISSING: ...]` instead of estimating.
 **A single schema-validated asset holds 21,272 records from four openly licensed sources, but it is
 dominated by one source and by one data level, and the two levels cannot be compared.**
 
-The build produces 21,564 records <!-- metrics.json: data_asset.n_records --> validated against
+The build produces 21,604 records <!-- metrics.json: data_asset.n_records --> validated against
 `schema/neuromps_schema.json` at conformance level 2 (every provenance hash matches
-`data/raw/MANIFEST.json`), generated 2026-09-22T05:00:54+00:00
-<!-- metrics.json: data_asset.generated_at -->. Of these, 21,106 are marked usable
-<!-- metrics.json: data_asset.counts.by_usable.True --> and 458 are not
+`data/raw/MANIFEST.json`), generated 2026-09-22T05:49:52+00:00
+<!-- metrics.json: data_asset.generated_at -->. Of these, 21,138 are marked usable
+<!-- metrics.json: data_asset.counts.by_usable.True --> and 466 are not
 <!-- metrics.json: data_asset.counts.by_usable.False -->.
 
 Composition by source:
@@ -35,11 +35,11 @@ Composition by source:
 | `sharf2022` | 29 <!-- metrics.json: data_asset.counts.by_source.sharf2022 --> | spike_times | human | CC0-1.0 <!-- outputs/DATA_CARD.md, Sources table, license column --> |
 
 The imbalance is the first thing to state plainly. Of 21,272 records, 20,375
-<!-- metrics.json: data_asset.counts.by_data_level.fitted_curve --> are ToxCast curve fits, leaving 1189 records at
+<!-- metrics.json: data_asset.counts.by_data_level.fitted_curve --> are ToxCast curve fits, leaving 1229 records at
 `spike_times` level <!-- metrics.json: data_asset.counts.by_data_level.spike_times --> — the only
-records from which our own feature vector can be computed. By species, 21,207 records are rat
+records from which our own feature vector can be computed. By species, 21,247 records are rat
 <!-- metrics.json: data_asset.counts.by_species.rat --> and 357 are human
-<!-- metrics.json: data_asset.counts.by_species.human -->. By mechanism class, 20,855 records carry
+<!-- metrics.json: data_asset.counts.by_species.human -->. By mechanism class, 20,895 records carry
 no mechanism label <!-- metrics.json: data_asset.counts.by_mechanism_class.none -->; the labelled
 classes are GABA-A antagonist 537 <!-- metrics.json: data_asset.counts.by_mechanism_class.gabaa_antagonist -->,
 Na-channel blocker 113 <!-- metrics.json: data_asset.counts.by_mechanism_class.na_channel_blocker -->,
@@ -55,9 +55,9 @@ interface records <!-- outputs/DATA_CARD.md, "Multi-compartment devices" section
 basis of §5.
 
 Cross-record QC flagged, across the whole asset: 272 `incomplete_dose_series`
-<!-- metrics.json: data_card.flag_counts.incomplete_dose_series -->, 186
+<!-- metrics.json: data_card.flag_counts.incomplete_dose_series -->, 194
 `too_few_active_electrodes` <!-- metrics.json: data_card.flag_counts.too_few_active_electrodes -->,
-191 `replicate_divergence` <!-- metrics.json: data_card.flag_counts.replicate_divergence -->, 191
+199 `replicate_divergence` <!-- metrics.json: data_card.flag_counts.replicate_divergence -->, 199
 `outlier_feature_value` <!-- metrics.json: data_card.flag_counts.outlier_feature_value -->, 90
 `excluded_well_upstream` <!-- metrics.json: data_card.flag_counts.excluded_well_upstream --> and 11
 `noisy_electrodes_present` <!-- metrics.json: data_card.flag_counts.noisy_electrodes_present -->.
@@ -553,7 +553,7 @@ conformal figure exists for this subsection.]
 
 Stated plainly, because several of the results above are weak or negative:
 
-- The asset and standard are the solid part. 21,564 validated, hash-traceable records
+- The asset and standard are the solid part. 21,604 validated, hash-traceable records
   <!-- metrics.json: data_asset.n_records -->, four sources, explicit data levels, and a coverage
   table that shows the gaps instead of hiding them.
 - Mechanism information is present in MEA feature deltas within one platform (0.537 vs 0.167 chance)

@@ -21,6 +21,7 @@ def registry() -> dict[str, tuple[Fetcher, dict[str, str]]]:
     """Map source name -> (fetch function, static metadata used if it is blocked)."""
     from neuromps.fetch import (
         axon_diode,
+        brewer2021,
         fofie2025,
         kapucu2022,
         mateus2024,
@@ -39,6 +40,7 @@ def registry() -> dict[str, tuple[Fetcher, dict[str, str]]]:
         axon_diode,
         mateus2024,
         trujillo2019,
+        brewer2021,
     ]
     return {m.SOURCE: (m.fetch, m.META) for m in mods}
 

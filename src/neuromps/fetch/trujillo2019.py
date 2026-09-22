@@ -33,8 +33,10 @@ log = logging.getLogger("neuromps.fetch")
 SOURCE = "trujillo2019"
 RECORD_ID = 4751759
 EXPECTED_LICENSE = "cc-by-4.0"
-# Two sessions for the smoke path: one early, one late in the ten months.
-QUICK_SESSIONS = ("LFP_Sp_160810.mat", "LFP_Sp_170207.mat")
+# One session on the smoke path. Feature extraction costs about 4 s per
+# organoid, and the quick tier exists to prove the path runs, not to sample the
+# ten months: two sessions put 60 s into a stage budget measured in minutes.
+QUICK_SESSIONS = ("LFP_Sp_170207.mat",)
 META = {
     "landing_url": "https://doi.org/10.5281/zenodo.4751759",
     "license": "CC-BY-4.0",
@@ -98,6 +100,7 @@ def session_spikes(handle) -> tuple[pd.DataFrame, float, float]:
     sample_rate_hz = (n_samples - 1) / duration_s
     references = handle["spikes"]
     n_electrodes, n_wells = references.shape
+    published_counts = np.asarray(handle["spike_cnt"]) if "spike_cnt" in handle else None
     wells, electrodes, times = [], [], []
     for well in range(n_wells):
         for electrode in range(n_electrodes):
@@ -118,7 +121,37 @@ def session_spikes(handle) -> tuple[pd.DataFrame, float, float]:
                 "time_s": np.concatenate(times).astype(np.float32),
             }
         )
+    if published_counts is not None:
+        _check_counts(frame, published_counts, n_electrodes, n_wells)
     return frame, sample_rate_hz, duration_s
+
+
+def _check_counts(frame: pd.DataFrame, published, n_electrodes: int, n_wells: int) -> None:
+    """Fail if our extraction disagrees with the deposit's own spike counts.
+
+    The file carries `spike_cnt` beside `spikes`, so the number of spikes we
+    read is checkable against the number the depositors say are there. Reading
+    an HDF5 over the network through a cache, dereferencing object references,
+    and skipping cells that look empty are each a chance to drop a spike
+    quietly; this is what would catch it.
+    """
+    ours = np.zeros((n_electrodes, n_wells), dtype=np.int64)
+    if len(frame):
+        counted = frame.groupby(["electrode", "well"]).size()
+        for (electrode, well), n in counted.items():
+            ours[int(electrode), int(well)] = int(n)
+    theirs = np.asarray(published).astype(np.int64)
+    if theirs.shape != ours.shape:
+        theirs = theirs.T if theirs.T.shape == ours.shape else theirs
+    if theirs.shape != ours.shape:
+        log.warning("spike_cnt has shape %s against %s; not checked", theirs.shape, ours.shape)
+        return
+    if not np.array_equal(theirs, ours):
+        wrong = int((theirs != ours).sum())
+        raise ValueError(
+            f"extracted spike counts disagree with the deposit's spike_cnt in {wrong} of "
+            f"{ours.size} cells (max difference {int(np.abs(theirs - ours).max())})"
+        )
 
 
 def extract_session(url: str, raw_root: Path, rel_path: str) -> tuple[FileRecord, int]:

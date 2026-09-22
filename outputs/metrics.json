@@ -33,74 +33,74 @@
       "features": {
         "active_electrodes": {
           "difference_ci95": [
-            22.0,
-            40.0
+            25.9875,
+            44.0
           ],
           "excludes_zero": false,
           "format_confounded": true,
           "kind": "coverage",
           "median_human": 62.0,
-          "median_rat": 29.0
+          "median_rat": 23.0
         },
         "active_fraction": {
           "difference_ci95": [
-            0.131,
-            0.3333
+            0.1719,
+            0.4744
           ],
           "excludes_zero": true,
           "format_confounded": false,
           "kind": "coverage",
           "median_human": 0.9844,
-          "median_rat": 0.7685
+          "median_rat": 0.6667
         },
         "burst_duration_s": {
           "difference_ci95": [
-            0.2344,
-            0.522
+            0.2318,
+            0.5004
           ],
           "excludes_zero": true,
           "format_confounded": false,
           "kind": "synchrony_like",
           "median_human": 0.6004,
-          "median_rat": 0.2511
+          "median_rat": 0.2528
         },
         "burst_rate_per_min": {
           "difference_ci95": [
-            -2.046,
-            3.3004
+            -2.438,
+            2.4791
           ],
           "excludes_zero": false,
           "format_confounded": false,
           "kind": "rate_like",
           "median_human": 7.2135,
-          "median_rat": 5.9874
+          "median_rat": 6.7513
         },
         "isi_cv": {
           "difference_ci95": [
-            5.5201,
-            7.651
+            5.3884,
+            7.6411
           ],
           "excludes_zero": true,
           "format_confounded": false,
           "kind": "synchrony_like",
           "median_human": 9.2078,
-          "median_rat": 2.424
+          "median_rat": 2.4894
         },
         "mfr_hz": {
           "difference_ci95": [
-            4.4483,
-            11.2665
+            3.9888,
+            10.9749
           ],
           "excludes_zero": true,
           "format_confounded": false,
           "kind": "rate_like",
           "median_human": 10.1882,
-          "median_rat": 2.277
+          "median_rat": 2.6431
         },
         "network_burst_rate_per_min": {
           "difference_ci95": [
-            -5.1934,
-            3.2012
+            -5.221,
+            2.8356
           ],
           "excludes_zero": false,
           "format_confounded": false,
@@ -110,36 +110,36 @@
         },
         "pct_spikes_in_bursts": {
           "difference_ci95": [
-            26.8286,
-            43.4863
+            22.1958,
+            40.8571
           ],
           "excludes_zero": true,
           "format_confounded": false,
           "kind": "rate_like",
           "median_human": 95.3594,
-          "median_rat": 56.8449
+          "median_rat": 61.851
         },
         "spikes_per_burst": {
           "difference_ci95": [
-            47.7652,
-            119.3836
+            47.6071,
+            118.2784
           ],
           "excludes_zero": true,
           "format_confounded": false,
           "kind": "rate_like",
           "median_human": 101.7133,
-          "median_rat": 11.9558
+          "median_rat": 12.7253
         },
         "synchrony_index": {
           "difference_ci95": [
-            0.4666,
-            0.5915
+            0.4188,
+            0.567
           ],
           "excludes_zero": true,
           "format_confounded": false,
           "kind": "synchrony_like",
           "median_human": 0.8951,
-          "median_rat": 0.35
+          "median_rat": 0.3707
         }
       },
       "features_separating_species": [
@@ -151,15 +151,16 @@
         "spikes_per_burst",
         "synchrony_index"
       ],
-      "n_cultures": 186,
+      "n_cultures": 195,
       "n_features_separating_species": 7,
       "n_human_cultures": 46,
       "n_human_records": 200,
-      "n_rat_cultures": 140,
-      "n_rat_records": 208,
-      "n_records": 408,
+      "n_rat_cultures": 149,
+      "n_rat_records": 240,
+      "n_records": 440,
       "slice": "every platform (species and vendor confounded)",
       "sources": [
+        "brewer2021",
         "kapucu2022",
         "mateus2024",
         "screenneuropharm_bic",
@@ -335,7 +336,7 @@
         "kapucu2022"
       ]
     },
-    "n_baseline_records": 408,
+    "n_baseline_records": 440,
     "preparation_within_human": {
       "contrast": {
         "column": "cell_source.system",
@@ -479,6 +480,7 @@
       ]
     },
     "records_by_source": {
+      "brewer2021": 32,
       "kapucu2022": 72,
       "mateus2024": 93,
       "screenneuropharm_bic": 71,
@@ -935,7 +937,7 @@
     "counts": {
       "by_data_level": {
         "fitted_curve": 20375,
-        "spike_times": 1189
+        "spike_times": 1229
       },
       "by_mechanism_class": {
         "gabaa_agonist_or_pam": 26,
@@ -943,9 +945,10 @@
         "glutamatergic_agonist": 11,
         "glutamatergic_antagonist": 22,
         "na_channel_blocker": 113,
-        "none": 20855
+        "none": 20895
       },
       "by_source": {
+        "brewer2021": 40,
         "kapucu2022": 288,
         "mateus2024": 108,
         "screenneuropharm_bic": 580,
@@ -955,15 +958,15 @@
       },
       "by_species": {
         "human": 357,
-        "rat": 21207
+        "rat": 21247
       },
       "by_usable": {
-        "False": 458,
-        "True": 21106
+        "False": 466,
+        "True": 21138
       }
     },
-    "generated_at": "2026-09-22T05:00:54+00:00",
-    "n_records": 21564,
+    "generated_at": "2026-09-22T05:49:52+00:00",
+    "n_records": 21604,
     "schema": "schema/neuromps_schema.json"
   },
   "data_card": {
@@ -972,13 +975,13 @@
       "incomplete_dose_series": 272,
       "missing_baseline_pair": 24,
       "noisy_electrodes_present": 11,
-      "outlier_feature_value": 191,
-      "replicate_divergence": 191,
-      "too_few_active_electrodes": 186,
+      "outlier_feature_value": 199,
+      "replicate_divergence": 199,
+      "too_few_active_electrodes": 194,
       "unreadable_channels": 2
     },
-    "records": 21564,
-    "usable": 21106
+    "records": 21604,
+    "usable": 21138
   },
   "demo_precompute": {
     "conformal_alpha": 0.1,
@@ -1504,13 +1507,13 @@
   "run_all_timings_full": {
     "by_stage_s": {
       "demo": 85.1,
-      "models": 16.1
+      "models": 19.1
     },
     "label": "wall-clock seconds per stage, most recent full run of each",
     "stages_run": [
       "models"
     ],
-    "total_s": 16.1
+    "total_s": 19.1
   },
   "species_transfer": {
     "source": "kapucu2022",

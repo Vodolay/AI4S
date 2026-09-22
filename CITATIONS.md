@@ -19,6 +19,18 @@ Each fetcher re-checks its source's advertised license at download time.
 
 *Note:* licenses verified from XML: PMC4406441: http://creativecommons.org/licenses/by/4.0/; PMC6265304: https://creativecommons.org/licenses/by/4.0/; PMC7078319: https://creativecommons.org/licenses/by/4.0/ | not open access, cited only: Peyrin 2011 Lab Chip doi:10.1039/c1lc20014c; Courte 2018 Methods Cell Biol doi:10.1016/bs.mcb.2018.07.002
 
+### `brewer2021`
+
+- **License:** CC-BY-4.0
+- **License URL:** https://creativecommons.org/licenses/by/4.0/
+- **Source:** https://doi.org/10.5281/zenodo.4679064
+- **Files recorded:** 2
+- **Status:** ok
+
+> Vakilna YS, Tang WC, Wheeler BC, Brewer GJ. The flow of axonal information among hippocampal subregions: 1. Feedforward and feedback network spatial dynamics underpinning emergent information processing. Front. Neural Circuits (2021). Dataset doi:10.5281/zenodo.4679064
+
+*Note:* tier=quick; Zenodo record 4679064; 10 cultures, four hippocampal subregions each over a 60-electrode MCS array, 300 s spontaneous at 25 kHz; the analysis scripts in the record are not fetched
+
 ### `fofie2025`
 
 - **License:** CC0-1.0

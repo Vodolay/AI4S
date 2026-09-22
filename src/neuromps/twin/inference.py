@@ -430,7 +430,7 @@ def main(argv: list[str] | None = None) -> int:
     # The quick tier exists to prove the path runs, not to train a usable
     # posterior: on a cold clone this simulation is the single largest item in
     # the whole pipeline, and its contraction numbers are never reported.
-    n_simulations = args.simulations or (45 if args.quick else 3000)
+    n_simulations = args.simulations or (30 if args.quick else 3000)
 
     if simulation_cache().exists() and not args.rebuild:
         cached = load_simulations(simulation_cache())
