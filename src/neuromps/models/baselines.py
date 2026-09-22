@@ -316,9 +316,16 @@ def run(records: pd.DataFrame, seed: int = 0) -> dict:
         "Axion monolayers, baseline-phase recordings only",
         seed,
     )
+    # `compare` returns early, without a feature list, when a slice has too few
+    # cultures to resample - which is what a blocked source looks like from
+    # here. Comparing two absent lists would report agreement where there was no
+    # comparison, so the answer is null rather than True.
+    full_slice = result["matched_preparation"].get("features_separating_species")
+    baseline_only = result["matched_preparation_baseline_phase_only"].get(
+        "features_separating_species"
+    )
     result["headline_survives_dropping_exposure_phase_controls"] = (
-        result["matched_preparation"]["features_separating_species"]
-        == result["matched_preparation_baseline_phase_only"]["features_separating_species"]
+        None if full_slice is None or baseline_only is None else full_slice == baseline_only
     )
     return result
 
