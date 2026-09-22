@@ -547,34 +547,42 @@ def cached_grid(path: Path, config: dict) -> pd.DataFrame | None:
     return pd.read_parquet(path)
 
 
-def plot_sweep(rows: list[dict], path: Path, title: str) -> None:
-    """AUC against recording length, one panel per feature set."""
+def plot_sweep(rows: list[dict], path: Path, title: str, arm: str | None = None) -> None:
+    """AUC against recording length, one panel per feature set, for one arm.
+
+    Both arms in one figure means eight panels across the text block, and an
+    independent reviewer could not read any of them in the compiled PDF. One
+    arm at a time, two by two, gives each panel four times the area; the arms
+    are compared through the numbers in the text, which is where the comparison
+    is actually made.
+    """
     import matplotlib
 
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
 
     colours = {6: "#0072B2", 12: "#E69F00", 24: "#009E73", 48: "#CC79A7"}
-    names = [n for n in PLOTTED if any(r["feature_set"] == n for r in rows)]
-    arms = sorted({r.get("arm", "free_rate") for r in rows})
+    chosen = [r for r in rows if arm is None or r.get("arm", "free_rate") == arm]
+    names = [n for n in PLOTTED if any(r["feature_set"] == n for r in chosen)]
+    if not names:
+        return
+    columns = 2 if len(names) > 2 else len(names)
+    grid_rows = -(-len(names) // columns)
     fig, axes = plt.subplots(
-        len(arms),
-        len(names),
-        figsize=(3.6 * len(names), 3.2 * len(arms)),
-        sharey=True,
-        squeeze=False,
+        grid_rows, columns, figsize=(5.4 * columns, 3.9 * grid_rows), sharey=True, squeeze=False
     )
-    for row_index, arm in enumerate(arms):
-        for ax, name in zip(axes[row_index], names, strict=True):
-            _panel(ax, rows, name, arm, colours)
-            ax.set_title(f"{name}\n{arm}", fontsize=10)
-            ax.tick_params(labelsize=9)
-    for ax in axes[-1]:
-        ax.set_xlabel("recording length (s)", fontsize=10)
+    flat = [ax for row in axes for ax in row]
+    for ax, name in zip(flat, names, strict=False):
+        _panel(ax, chosen, name, arm or "free_rate", colours)
+        ax.set_title(name, fontsize=12)
+        ax.tick_params(labelsize=10)
+        ax.set_xlabel("recording length (s)", fontsize=11)
     for row in axes:
-        row[0].set_ylabel("AUC", fontsize=10)
-    axes[0][-1].legend(fontsize=9)
-    fig.suptitle(title, fontsize=11)
+        row[0].set_ylabel("AUC", fontsize=11)
+    for ax in flat[len(names):]:
+        ax.set_visible(False)
+    flat[0].legend(fontsize=10)
+    fig.suptitle(title, fontsize=12)
     fig.tight_layout()
     fig.savefig(path, dpi=150)
     plt.close(fig)
@@ -697,13 +705,22 @@ def main(argv: list[str] | None = None) -> int:
         "quick": bool(args.quick),
         "grid_config": config,
     }
+    common = (
+        "rate_residualized is the controlled comparison; rate_only_rate_residualized is the\n"
+        "validity check. Dashed = AUC target 0.8, dotted = chance; shaded = 95% interval"
+    )
     plot_sweep(
         rows,
         twin_dir() / "hd16_directionality_simulated.png",
-        "SIMULATED: telling symmetric from asymmetric wiring, by recording length\n"
-        "top row: drive left alone; bottom row: drive adjusted to match rates, imperfectly\n"
-        "(see matching_quality); rate_residualized is the controlled comparison\n"
-        "dashed = AUC target 0.8, dotted = chance; shaded = 95% bootstrap interval",
+        "SIMULATED, drive left alone: telling symmetric from asymmetric wiring\n" + common,
+        arm="free_rate",
+    )
+    plot_sweep(
+        rows,
+        twin_dir() / "hd16_directionality_rate_matched_simulated.png",
+        "SIMULATED, drive adjusted to match rates (imperfectly - see matching_quality):\n"
+        "this arm fails its own validity check and is reported as inconclusive\n" + common,
+        arm="rate_matched",
     )
     update_metrics("twin_hd16_directionality", results)
     print(

@@ -181,7 +181,8 @@ def main(argv: list[str] | None = None) -> int:
         sweep,
         figures / "conformal_set_size.png",
         "Conformal prediction sets for drug mechanism (real data, Kapucu 2022)\n"
-        "6 classes: 90% coverage needs most of them, so the features do not pin a mechanism down",
+        "6 classes: 90% coverage needs most of them,\n"
+        "so the features do not pin a mechanism down",
     )
     update_metrics("uncertainty_and_ablations", results)
     log.info("wrote metrics and %s", figures / "conformal_set_size.png")

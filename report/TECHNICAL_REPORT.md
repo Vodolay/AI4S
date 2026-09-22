@@ -6,7 +6,9 @@
 > **Research decision-support only.** Nothing in this report is an efficacy, safety, diagnostic or
 > clinical claim. The models here describe public *in vitro* recordings and a simulation of them.
 
-Every number below carries an HTML comment naming the `outputs/metrics.json` key it came from.
+Every computed number below carries an HTML comment naming the `outputs/metrics.json` key it
+came from. The few figures that describe a source deposit rather than a result of this
+pipeline - a recording length, an electrode count - are attributed in the text instead.
 `python -m neuromps.report.verify` re-reads each citation and fails if the document and the metrics
 disagree, so a figure that goes stale when a stage is regenerated cannot quietly survive in the
 prose. The decision record behind these results, including what was tried and abandoned, is
@@ -235,7 +237,7 @@ Every model is evaluated with **grouped** cross-validation, grouping by culture/
 of one culture never span the train/test boundary, and every interval is a **cluster bootstrap over
 those groups**, never over rows — with 1,000 resamples
 <!-- metrics.json: mechanism_baselines.task1_within_platform.bootstrap_resamples --> in a full run and
-200 in `--quick`, the count recorded alongside each estimate. Bootstrapping rows here would report
+fewer in `--quick`, the count recorded alongside each estimate. Bootstrapping rows here would report
 intervals roughly a factor of two too narrow, because rows within a culture are not independent.
 
 ### 5.2 Tasks
@@ -682,7 +684,7 @@ report the arm that passes, at the electrode count it actually needs.
 wiring regimes at 0.98 give a posterior contraction of only 0.311 for the continuous ratio (§7.5).
 Classifying is a far weaker demand than estimating.
 
-![SIMULATED: telling symmetric from asymmetric wiring, by recording length and electrode count. Top row leaves drive alone; the bottom row adjusts drive to match rates and does so imperfectly, which is why that arm is reported as inconclusive. The rate-residualised columns are the controlled comparison, and the rightmost column is the validity check itself.](../outputs/twin/hd16_directionality_simulated.png){width=64%}
+![SIMULATED, drive left alone: telling symmetric from asymmetric wiring, by recording length and electrode count. `all_rate_residualized` is the controlled comparison this section reports; `rate_only_rate_residualized` is the validity check it has to pass. The rate-matched arm, which does not pass it, is plotted separately in `outputs/twin/hd16_directionality_rate_matched_simulated.png` — split out because eight panels across one text block were unreadable at print size.](../outputs/twin/hd16_directionality_simulated.png){width=88%}
 
 
 ### 7.7 The same question on real devices, and a null
@@ -786,7 +788,7 @@ grouped CV where the plan specified nested CV, so hyperparameter choice is not f
 **The twin.** Coupling asymmetry tracks rate, not direction (§7.2). Calibration misses burst
 structure and synchrony (§7.3). Connectivity parameters are weakly identified and no parameter's
 posterior is calibrated except by the weakest test (§7.5). On real data the drug knob absorbs model
-mismatch (§7.5). Simulated recordings are 10 s against real recordings of 480 s. The simulated array
+mismatch (§7.5). Simulated recordings are 10 s against real recordings of 480 s, the length ScreenNeuroPharm deposited. The simulated array
 is one fixed geometry while real chambers carry 48, 36 or 60 electrodes. HD16's positive result is
 identifiability *under a correct model*, since the same simulator generated both classes, and its
 rate controls remove only linear rate dependence.
@@ -812,7 +814,7 @@ A fuller list, with dates and commits, is in `report/LAB_NOTEBOOK.md` (33 number
 pip install uv
 uv venv --python 3.11 .venv
 uv pip install --python .venv/bin/python -e ".[dev]"
-python run_all.py --quick     # every figure and metric, reduced settings
+python run_all.py --quick     # path test: every stage, reduced settings (see below)
 python run_all.py             # full run
 ```
 

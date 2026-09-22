@@ -212,8 +212,8 @@ def main(argv: list[str] | None = None) -> int:
     plot_sweep(
         sweep,
         twin_dir() / "hd11_directionality_simulated.png",
-        "SIMULATED two-compartment network: coupling asymmetry tracks drive, not wiring\n"
-        "at fixed wiring, drive moves the measure further than the pathway ratio does",
+        "SIMULATED two-compartment network: coupling asymmetry tracks drive, not wiring.\n"
+        "At fixed wiring, drive moves the measure further than the pathway ratio does.",
     )
     update_metrics("twin_hd11_validation", results)
     log.info("wrote %s", twin_dir() / "hd11_validation_simulated.json")
