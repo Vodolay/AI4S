@@ -962,8 +962,11 @@ measurement it was checked against assumed twice the machine.
     OSF and GIN missed it; DataCite found it in one query, because government
     repositories are indexed there and nowhere else I had looked. The lesson is
     about where the searching was done, not how hard.
-    - Blocking question before it can be used: a chip is recorded continuously
-      for about 107 minutes across several concentrations, and the dose timings
-      are not stated. `Filter Length = 600` per row in the summary workbook
-      suggests ten-minute windows, but a `dose_value` derived from a guess about
-      when a pipette went in would be fabricated, not measured.
+    - Blocking question before it can be used, and I checked rather than
+      guessed: the published per-chip files are continuous, and one of them
+      holds 1,005,054 spikes on 56 channels over 371 minutes whose largest
+      inter-spike gaps (92-305 s) all sit in the final hour as the culture goes
+      quiet. No gap structure marks a dose boundary, so the per-concentration
+      segments the acquisition originally wrote as separate files cannot be
+      recovered from the spike times. A `dose_value` assigned by guessing when
+      the pipette went in would be fabricated, not measured.

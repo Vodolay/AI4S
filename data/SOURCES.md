@@ -131,11 +131,16 @@ description:
 - **Licence: U.S. Public Domain**, 17 U.S.C. section 105, via the EPA ScienceHub licence page. The
   policy above accepts public domain explicitly, and it is the same basis as `toxcast_mea`.
 
-**Not integrated in this session, deliberately.** The one hard part is segmentation: a chip is
-recorded for about 107 minutes across several concentrations, and the spike file is continuous. The
-summary workbook gives a `Filter Length` of 600 s per row, which suggests successive ten-minute
-windows per concentration, but the dose timings are not stated outright and guessing them would
-produce records whose `dose_value` is fiction. Resolving that - from `Logfile_EPAv1.xls`, or by
+**Not integrated in this session, deliberately.** The one hard part is segmentation, and it was
+measured rather than assumed. The acquisition originally wrote one file per concentration step
+(`-- timestamps.txt`, `timestamps0001.txt` ... , visible in the archive's own `breakValues.py`),
+but the published per-chip files are continuous. Reading one in full - `102010 15160 10309 DA --
+10309.txt` - gives **1,005,054 spikes on 56 channels spanning 371 minutes**, and its twelve largest
+inter-spike gaps are 92-305 s, all in the last hour, where the culture is falling quiet. There is no
+gap structure that marks a dose boundary, so the segments cannot be recovered from the spike times.
+The summary workbook gives a `Filter Length` of 600 s per row, which suggests ten-minute windows per
+concentration, but 371 minutes is far more than six such windows, and a `dose_value` assigned by
+guessing when the pipette went in would be fiction. Resolving that - from `Logfile_EPAv1.xls`, or by
 asking Timothy Shafer, whose address is on the data.gov record - is the first task for whoever picks
 this up. Two of its compounds map onto mechanism classes the asset already uses (domoic acid is a
 glutamatergic agonist, deltamethrin a sodium-channel modulator); chlorpyrifos-oxon is an AChE
