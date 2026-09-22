@@ -39,15 +39,17 @@ FULL_FILES = ("1_MEA_Recordings.zip",)
 # 2_Raw_Images.zip (66 MB of widefield microscopy) is not fetched: the asset is
 # built from spike data, and downloading images we will not use is not free.
 
+# Paraphrased rather than quoted: the clarification arrived as private
+# correspondence, and the authors agreed to a licence reading, not to having
+# their message published. The date and the substance are what a reader needs
+# to judge the decision; the wording is theirs to release.
 CLARIFICATION = (
-    "Licence conflict resolved by the corresponding author, Paulo de Castro Aguiar "
-    "(pauloaguiar@i3s.up.pt, PI, Neuroengineering and Computational Neuroscience Lab, i3S, "
-    "Universidade do Porto), by email on 2026-09-21 09:11, copying the first author "
-    "(jose.mateus@i3s.up.pt): 'Please consider CC BY 4.0 only, as stated in the metadata. "
-    "(Unfortunately, CC BY-NC-ND was the default in the readme and was unintentionally left "
-    "there - we cannot change it now).' The Zenodo metadata licence field is the operative "
-    "licence and is publicly checkable; the README's contradicting text is recorded below "
-    "rather than ignored."
+    "Licence conflict resolved by the deposit's corresponding author by email on 2026-09-21, "
+    "copying the first author: they confirmed that the Zenodo metadata licence (CC BY 4.0) is "
+    "the one they intend, and that the README's CC BY-NC-ND line was an unintentional default "
+    "they can no longer edit. The metadata licence field is the operative licence and is "
+    "publicly checkable; the README's contradicting text is recorded below rather than ignored. "
+    "The correspondence itself is private and a reader cannot verify it - see data/SOURCES.md."
 )
 
 NON_FREE_TERMS = re.compile(r"BY-NC-ND|NON-?COMMERCIAL|NODERIV", re.IGNORECASE)

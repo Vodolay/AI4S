@@ -1,3 +1,11 @@
+> **Superseded — kept as a record, not as current criticism.**
+>
+> This is an adversarial review of the report as it stood on 2026-09-21, when it carried 115
+> citations. The report now carries 224 and has been through two further review cycles. Every
+> finding below was either fixed or answered in the commits that followed; the ones that moved
+> numbers are recorded in `report/LAB_NOTEBOOK.md`. Read it for how the work was checked, not for
+> what is wrong with the current report.
+
 # Adversarial review — NeuroMPS technical report
 
 **Reviewer stance:** skeptical judge. I read `report/TECHNICAL_REPORT.md`, checked its rendering in

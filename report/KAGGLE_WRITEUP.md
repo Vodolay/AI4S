@@ -1,12 +1,56 @@
-# NeuroMPS: a provenance-tracked MEA data asset and a digital twin that reports what it cannot do
+# NeuroMPS: a measurement standard for neural organ-on-a-chip data, and a harness that tests what it can support
+
+## Submission category: **End-to-End System**
+
+A complete path from public recordings to actionable output: provenance-enforced ingestion → a
+standardized feature layer → models and a calibrated digital twin → a falsification harness that
+reports which measurements the data can and cannot support, with an interactive demo.
 
 **AI4S Open Innovation: AI + Organ-on-a-Chip — 5th Pazhou Algorithm Competition**
 
 > **Research decision-support only.** No efficacy, safety, diagnostic or clinical claim is made.
 
+## Demo video
+
+<!-- FILL IN BEFORE SUBMITTING: paste the public URL (YouTube / Bilibili / Loom), or attach
+     outputs/video/neuromps_demo.mp4 to the Kaggle Writeup. It must play without login. -->
+**[PUBLIC VIDEO LINK]** — 4 min 36 s. Source file: `outputs/video/neuromps_demo.mp4`.
+
+## Code repository
+
+**https://github.com/Vodolay/AI4S** — MIT licensed, one-command reproduction, CI green on every
+push.
+
+## Project summary
+
+Microphysiological systems produce electrophysiology that is rich and almost impossible to compare
+across studies: feature names collide while their definitions differ, electrode counts and recording
+lengths vary, and provenance is usually gone by the time data reach an analysis. Before anyone can
+build a predictive digital twin of a neural chip, someone has to establish which measurements
+survive being moved between a species, a platform and a laboratory.
+
+NeuroMPS does both halves. The first is a standardized, provenance-tracked data asset: 21,887
+records <!-- metrics.json: data_asset.n_records --> from eight public sources, each carrying the URL,
+license, SHA256 and download time of the file it came from, validated against a JSON Schema whose
+conformance level *requires* every provenance hash to match the download manifest — the build
+refuses to emit an asset otherwise. Records declare an explicit data level and compare only within
+it, and a single fixed feature extractor computes the nine-feature vector that everything downstream
+consumes, including the twin.
+
+The second is a Brian2 spiking-network digital twin of an asymmetric two-compartment chip,
+calibrated against that asset and scored through the *same* extractor as the real recordings, with
+simulation-based inference (`sbi`) attempting to recover connectivity and drug effects.
+
+What the two together produce is a falsification harness, and it has found four confounds that
+published practice would have carried: pseudo-replication that manufactured a dose trend,
+firing-rate confounding that makes a standard directionality measure report the wrong thing,
+in-sample leakage that inflated a classifier's AUC, and a chamber-level coupling measure that
+disagrees with axonal traffic measured inside the connecting microtunnels. Each was caught by the
+infrastructure rather than by inspection, and each is reported with the number that caught it.
+
 ## What this is
 
-Two things, built to be reproduced by one command:
+Two layers, reproduced by one command:
 
 1. **A standardized data asset** of public neural microelectrode-array recordings — 21,887 records
    <!-- metrics.json: data_asset.n_records --> from eight sources — where every record carries the
@@ -117,21 +161,69 @@ trust. Three specific mechanisms keep this one honest:
   after a real defect where the twin measured coupling from every neuron while real recordings
   measure it from electrodes.
 
+## Why this matters, and to whom
+
+The supporting organization's stated roadmap is standardization, then data assetization, then
+AI-driven digital twins for neural drug development. That order is the right one, and this entry is
+an argument about the first two steps: a digital twin built on measurements that have not been
+checked for portability will be confidently wrong, and the checking is neither expensive nor
+optional.
+
+Three outputs are directly usable by a chip laboratory today.
+
+- **A schema and feature standard with enforced provenance.** Any group pooling MEA data across
+  studies faces the comparability problem; the record model, the explicit data level, and the
+  build-time hash check are transferable as-is and are the part of this work most likely to outlive
+  it.
+- **A negative result that changes practice.** Coupling asymmetry between two chambers is a
+  standard readout for connectivity direction. We show it tracks relative firing rate rather than
+  direction in simulation, that pre-whitening makes that worse rather than better, and that on real
+  devices it agrees with the axons' own measured direction at chance. Anyone reporting direction
+  from a two-chamber MEA needs to residualise rate first, and should not expect chamber
+  cross-correlation alone to carry the claim.
+- **A cost curve for experiment design.** §7.6 reports what it takes to separate two wiring regimes
+  from simulated recordings — electrode count against recording length, selected on an interval's
+  lower bound — which is the shape of question a chip user asks before running an experiment.
+
 ## Reproducing
 
 ```bash
 uv venv --python 3.11 .venv && uv pip install --python .venv/bin/python -e ".[dev]"
 python run_all.py --quick     # path test: small-tier sources, ~400 s on CPU
+streamlit run app/app.py      # interactive demo, reads the run's outputs
 ```
 
-## What exists, and what does not
+## Optional demo
 
-Present in the repository: the data asset and schema, the feature extractor and QC, the model
-baselines with calibration and conformal sets, the full twin (network, MEA simulator, calibration,
-drug knobs, inference, directionality experiment), the technical report, and the decision record in
-`report/LAB_NOTEBOOK.md` with 33 numbered limitations.
+The Streamlit app runs locally after the command above — three tabs covering the data asset and its
+standard, mechanism prediction with a conformal set beside the transfer results, and the twin with
+its posterior and what it does on real recordings. It reads `outputs/metrics.json` and recomputes
+nothing, so it cannot disagree with the report. Screenshots are in `outputs/figures/app_tab*.png` for
+reviewers who prefer not to run it.
 
-The interactive demo is built: `streamlit run app/app.py` after `python run_all.py --quick`, with
-screenshots in `outputs/figures/app_tab*.png`; the demo video is in `outputs/video/neuromps_demo.mp4`.
+## Technical report
 
-**Full details:** `report/TECHNICAL_REPORT.md`.
+**`report/TECHNICAL_REPORT.md`** in the repository, and `report/TECHNICAL_REPORT.pdf` built from it
+by `report/build_report.sh`. Every computed number in it names the `outputs/metrics.json` key that
+produced it, and `python -m neuromps.report.verify` fails the build if the document and the metrics
+disagree.
+
+Also present: the data asset and schema, the feature extractor and QC, the model baselines with
+calibration and conformal sets, the full twin (network, MEA simulator, calibration, drug knobs,
+inference, directionality experiment), and the decision record in `report/LAB_NOTEBOOK.md` with 33
+numbered limitations and everything that was tried and abandoned.
+
+## Team
+
+<!-- FILL IN BEFORE SUBMITTING. The rules give a +0.5 bonus in the interpretability and reliability
+     dimension to teams covering both AI/CS and biology/bioengineering/clinical expertise, and ask
+     that team composition be declared in the technical report as well as here. Replace the lines
+     below with the real roster; if the relevant background is present, name it explicitly. -->
+
+| member | role | background |
+|---|---|---|
+| **[NAME]** (team leader) | **[ROLE]** | **[AI/CS and/or biology/bioengineering/clinical]** |
+
+**AI assistance.** Built in a paired workflow with Anthropic's Claude (Claude Opus 5) via Claude
+Code, under step-by-step human direction; §11 of the technical report states what the model did and
+the three practices used to keep it honest.

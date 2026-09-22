@@ -92,7 +92,7 @@ jobs:
           sudo dpkg -i "${deb}"
           pandoc --version | head -1
       - name: Build the technical report
-        run: report/build_report.sh --check-pages 14 22
+        run: report/build_report.sh --check-pages 15 20
       - name: Upload the PDF
         uses: actions/upload-artifact@v4
         with:

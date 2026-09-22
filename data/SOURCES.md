@@ -291,10 +291,12 @@ ask the authors: the HESI NeuTox outputs exist as papers, not as a deposit.
   because the deposit contradicts itself: the Zenodo metadata licence field says `cc-by-4.0` and the
   record is open access, while the README inside says, in capitals, CC BY-NC-ND.
 
-  On 2026-09-21 the corresponding author, Paulo Aguiar, wrote to us: *"Please consider CC BY 4.0
-  only, as stated in the metadata. (Unfortunately, CC BY-NC-ND was the default in the readme and was
-  unintentionally left there - we cannot change it now)."* On that basis the source is included
-  under CC BY 4.0, with attribution as recorded in `CITATIONS.md`.
+  On 2026-09-21 the deposit's corresponding author replied by email, copying the first author, and
+  confirmed that the Zenodo metadata licence is the one they intend and that the README's
+  CC BY-NC-ND line was an unintentional default they can no longer edit. On that basis the source is
+  included under CC BY 4.0, with attribution as recorded in `CITATIONS.md`. Their wording is
+  paraphrased rather than quoted here: they agreed to a licence reading, not to the publication of
+  their message.
 
   What a reader should know about the footing this rests on, since it is weaker than every other
   source in the asset:

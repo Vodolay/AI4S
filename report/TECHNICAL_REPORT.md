@@ -14,6 +14,21 @@ disagree, so a figure that goes stale when a stage is regenerated cannot quietly
 prose. The decision record behind these results, including what was tried and abandoned, is
 `report/LAB_NOTEBOOK.md`.
 
+**Submission category: End-to-End System.** A complete path from public recordings to actionable
+output — provenance-enforced ingestion, a standardized feature layer, models and a calibrated
+digital twin, and a harness that reports which measurements the data can support — with an
+interactive demo.
+
+**Team.**
+<!-- FILL IN BEFORE SUBMITTING. The competition gives a +0.5 bonus to teams covering both AI/CS and
+     biology/bioengineering/clinical expertise, and asks that composition be declared here as well as
+     in the Kaggle Writeup. Replace the row below with the real roster and name the relevant
+     background explicitly. -->
+
+| member | role | background |
+|---|---|---|
+| **[NAME]** (team leader) | **[ROLE]** | **[AI/CS and/or biology/bioengineering/clinical]** |
+
 ---
 
 ## 1. Summary
@@ -106,8 +121,10 @@ that records carry an explicit **data level**, and that records only compare wit
 | `per_well_features` | vendor feature tables without spike times | — |
 
 This distinction is load-bearing. Most of the asset by count is ToxCast curve fits, from which our
-nine-feature vector cannot be recomputed; only 897 records support the feature pipeline. A schema
-that hid that behind a single "features" field would invite exactly the wrong comparison.
+nine-feature vector cannot be recomputed; only the 1,512
+<!-- metrics.json: data_asset.counts.by_data_level.spike_times --> spike-time records support the
+feature pipeline. A schema that hid that behind a single "features" field would invite exactly the
+wrong comparison.
 
 ### 3.2 Provenance and conformance
 
@@ -123,14 +140,7 @@ QC is recorded, never applied silently. Each record carries flags and a single `
 and the flags are informational: a flagged record is still in the asset, with the reason attached, so
 a downstream analysis can make its own decision.
 
-| flag | records | what it means |
-|----------------------------|-------|--------------------------------------------|
-| `incomplete_dose_series` | 272 <!-- metrics.json: data_card.flag_counts.incomplete_dose_series --> | the compound's dose series is missing points |
-| `too_few_active_electrodes` | 265 <!-- metrics.json: data_card.flag_counts.too_few_active_electrodes --> | under 10 electrodes cleared 5 spikes/min |
-| `replicate_divergence` | 221 <!-- metrics.json: data_card.flag_counts.replicate_divergence --> | one replicate departs from its group |
-| `outlier_feature_value` | 221 <!-- metrics.json: data_card.flag_counts.outlier_feature_value --> | a feature sits far outside its source's distribution |
-| `excluded_well_upstream` | 90 <!-- metrics.json: data_card.flag_counts.excluded_well_upstream --> | the source's own log excluded the well |
-| `noisy_electrodes_present` | 11 <!-- metrics.json: data_card.flag_counts.noisy_electrodes_present --> | the source marked electrodes as noisy |
+The six flags, their counts and their meanings are in Appendix A.
 
 Two decisions here were driven by defects found in the data rather than by design. The
 replicate-divergence test originally used a robust z-score, which collapses when more than half a
@@ -145,17 +155,7 @@ the spike files, so an exclusion is represented rather than absent.
 Nine features form the core vector, computed by a single extractor (`features/mea.py`) that the twin
 must also call:
 
-| feature | definition as computed |
-|------------------------------|-------------------------------------------|
-| `mfr_hz` | spikes per second per active electrode |
-| `burst_rate_per_min` | bursts per minute per active electrode |
-| `burst_duration_s` | mean burst duration |
-| `spikes_per_burst` | mean spikes in a burst |
-| `pct_spikes_in_bursts` | share of spikes falling inside bursts |
-| `network_burst_rate_per_min` | network bursts per minute, chance-corrected participation |
-| `synchrony_index` | spike-time tiling coefficient, mean over electrode pairs |
-| `isi_cv` | coefficient of variation of inter-spike intervals |
-| `active_electrodes` | electrodes clearing the activity threshold |
+The nine features and how each is computed are listed in Appendix F.
 
 Thresholds are fixed and recorded per record: an electrode is active at ≥5 spikes/min, a well is
 usable at ≥10 active electrodes, a burst is ≥5 spikes with ISI ≤0.1 s, and the tiling coefficient
@@ -277,7 +277,8 @@ Logistic regression beats chance with an interval that excludes it. Its interval
 boosting's overlap heavily, so the gap between the two models is within noise; with 73 pairs the
 simpler model is the one to prefer, not the one shown to be better.
 
-![Task 1 confusion matrix, REAL data: out-of-fold predictions from grouped cross-validation over 73 treated/baseline pairs. Errors concentrate between the two GABA-A classes.](../outputs/figures/mechanism_confusion.png){width=50%}
+The out-of-fold confusion matrix is in Appendix E; errors concentrate between the two GABA-A
+classes.
 
 
 **Calibration.** Expected calibration error on out-of-fold predictions is 0.1114
@@ -287,14 +288,12 @@ simpler model is the one to prefer, not the one shown to be better.
 probabilities should be read as ordering, not as calibrated risk — and not even as ordering above
 0.8 confidence, where observed accuracy falls rather than rises, on a handful of predictions.
 
-Both are plotted in `outputs/figures/task1_reliability_real.png` and `conformal_set_size.png`; the numbers they show are quoted above.
-
-
 **Conformal sets.** At a 95% target the empirical coverage is 0.918
 <!-- metrics.json: uncertainty_and_ablations.conformal_sweep.0.empirical_coverage --> with a mean set
 size of 4.562 <!-- metrics.json: uncertainty_and_ablations.conformal_sweep.0.mean_set_size --> classes
 out of six — honest coverage at the cost of sets too large to act on. That is the correct reading of
-73 calibration points, not a defect to tune away.
+73 calibration points, not a defect to tune away. The set-size sweep is plotted in
+`outputs/figures/conformal_set_size.png`.
 
 **The same task on an independent platform.** `vassallo2017` is a different laboratory and vendor,
 with six compounds Kapucu never used and each baseline on the same chip as its doses: 171 pairs
@@ -419,15 +418,7 @@ units, a two-fold shift whose interval also spans zero.
 
 ### 6.6 Ablations: the feature set is mostly one feature
 
-| feature subset | balanced accuracy | 95% CI |
-|---|---|---|
-| all nine | 0.514 <!-- metrics.json: uncertainty_and_ablations.feature_subsets.all.balanced_accuracy_mean --> | [0.3983, 0.6619] <!-- metrics.json: uncertainty_and_ablations.feature_subsets.all.balanced_accuracy_ci95 --> |
-| rate only | 0.53 <!-- metrics.json: uncertainty_and_ablations.feature_subsets.rate_only.balanced_accuracy_mean --> | [0.3964, 0.6235] <!-- metrics.json: uncertainty_and_ablations.feature_subsets.rate_only.balanced_accuracy_ci95 --> |
-| species-invariant three | 0.516 <!-- metrics.json: uncertainty_and_ablations.feature_subsets.species_invariant.balanced_accuracy_mean --> | [0.371, 0.6295] <!-- metrics.json: uncertainty_and_ablations.feature_subsets.species_invariant.balanced_accuracy_ci95 --> |
-| synchrony only | 0.455 <!-- metrics.json: uncertainty_and_ablations.feature_subsets.synchrony_only.balanced_accuracy_mean --> | [0.3554, 0.586] <!-- metrics.json: uncertainty_and_ablations.feature_subsets.synchrony_only.balanced_accuracy_ci95 --> |
-| network measures only | 0.417 <!-- metrics.json: uncertainty_and_ablations.feature_subsets.network_only.balanced_accuracy_mean --> | [0.2983, 0.5573] <!-- metrics.json: uncertainty_and_ablations.feature_subsets.network_only.balanced_accuracy_ci95 --> |
-
-Two rate features match all nine. Leave-one-out agrees: dropping `mfr_hz` changes balanced accuracy
+Two rate features match all nine, and every subset's interval overlaps every other's (Appendix G). Leave-one-out agrees: dropping `mfr_hz` changes balanced accuracy
 by −0.05 <!-- metrics.json: uncertainty_and_ablations.leave_one_out.mfr_hz.delta_vs_all -->, while
 dropping `burst_rate_per_min` changes it by 0.0
 <!-- metrics.json: uncertainty_and_ablations.leave_one_out.burst_rate_per_min.delta_vs_all -->.
@@ -531,22 +522,16 @@ calibration done at one network size still holds at another.
 
 The parameters carried by the network, and how each was fixed:
 
-| parameter | role | how it was set |
-|--------------------------------------|----------------------|----------------------|
-| `intra_in_degree` | recurrent inputs per neuron | calibrated, searched over 10-35 |
-| `inter_in_degree` | cross-compartment inputs per neuron | inferred, prior 4-16 |
-| `forward_ratio` | forward against backward pathway strength | inferred, prior 1-16 in log space |
-| `excitatory_weight`, `inhibitory_weight` | synaptic conductance steps | calibrated |
-| `background_rate_hz`, `background_weight` | Poisson drive | calibrated; drive to the target chamber is a separate scale |
-| `adaptation_increment`, `adaptation_tau_ms` | spike-frequency adaptation | calibrated |
-| `threshold_spread` | per-neuron excitability heterogeneity | calibrated, searched over 0-0.3 |
-| `detection_radius_um` | how far an electrode hears | calibrated, searched over 100-300 µm |
-| `gabaa_scale`, `ampa_scale`, `threshold_scale` | drug knobs, 1.0 is untreated | inferred |
+The full parameter list, and how each was fixed, is in Appendix B.
 
 Identical neurons synchronise almost perfectly, which no real culture does, so `threshold_spread`
 exists to stop the twin being trivially more synchronous than any recording. `detection_radius_um`
 is a property of the virtual electrode rather than of the culture, and is called out as such in the
-calibration record so it is not read as a biological parameter.
+calibration record so it is not read as a biological parameter. The seven parameters marked
+calibrated above are exactly the search space
+<!-- metrics.json: twin_hd12_calibration.tuned_parameters -->; the two marked *held* were left at
+their module defaults and are stated here because an earlier draft of this table listed them as
+calibrated, which they never were.
 
 Neurons are placed on a virtual electrode grid and only spikes within a detection radius reach an
 electrode; the resulting per-electrode spike trains go through the same `features/mea.py` as real
@@ -638,7 +623,7 @@ direction is established by a cluster bootstrap:
 Directions only: each knob is compared against a real reference from a different platform, so this
 supports direction, never magnitude.
 
-![SIMULATED drug knobs against REAL pharmacology directions, per feature. Only features whose real direction is established by a cluster bootstrap are scored.](../outputs/twin/hd13_drug_knob_validation_simulated.png){width=50%}
+Per-feature agreement is plotted in Appendix E.
 
 
 ### 7.5 Simulation-based inference, and what it cannot do
@@ -667,7 +652,7 @@ rank-uniformity p-value carries; contraction was stable across the same runs. A 
 connectivity contraction still rising with training-set size, but only slightly: more simulations
 alone will not fix it.
 
-![SIMULATED posterior calibration: rank of the true parameter among posterior samples. Flat is calibrated, U-shaped is over-confident. Only `threshold_scale` is close to flat.](../outputs/twin/hd14_posterior_ranks_simulated.png){width=54%}
+The rank histograms are in Appendix E.
 
 
 **Applied to 113 real two-chamber recordings**
@@ -827,19 +812,7 @@ better-sampled half leaves 13 chips
 sit in experiments 9–11 by the deposit's design, confounding condition with culture batch. None of
 this contradicts the deposit's own paper, whose authors had the electrode map.
 
-**The null is not an artefact of the geometry assumptions.** The detector assumes the channels run
-down the array's columns and that all five electrodes fired; the deposit settles neither. Under both
-orientations, and again with one electrode allowed to miss, none of the four detectors separates the
-conditions — worst case Kruskal p = 0.13074
-<!-- metrics.json: microchannel_directionality.geometry_robustness.variants.column_one_missing.kruskal_p -->
-beside the headline's 0.63969 — and tolerating a missing electrode triples the events to 1,101,233
-<!-- metrics.json: microchannel_directionality.geometry_robustness.variants.column_one_missing.total_events -->
-without changing it. The orientation is more than an assumption: down the columns the detector finds
-a median of 14
-<!-- metrics.json: microchannel_directionality.geometry_robustness.variants.column_strict.median_channels_detected -->
-channels per recording against 1
-<!-- metrics.json: microchannel_directionality.geometry_robustness.variants.row_strict.median_channels_detected -->
-along the rows.
+The null survives the detector's own assumptions: run under both array orientations and again with one electrode allowed to miss, none of the four detectors separates the conditions (Appendix C).
 
 **What it says about the twin.** §7.6's directionality result is simulation-only; put to devices
 whose asymmetry was fabricated rather than simulated, it does not reproduce.
@@ -943,9 +916,9 @@ bounds the effect rather than excluding it. The axonal comparison in the same se
 anchored but smaller — 31 chamber pairs in 9 cultures — and shows the chamber measure carries no
 directional information, not that no summary of chamber activity could.
 
-**Process.** CI runs on every push and both jobs pass, at commit `1a28703`; the quick pipeline
-takes 1,126 s on the two-vCPU runner a private repository gets, against 401 s here, so the
-ten-minute budget is a claim about this machine. The demo video has been recorded. Every twin metric
+**Process.** CI runs on every push and both jobs pass; the quick pipeline takes 1,126 s on the
+two-vCPU GitHub-hosted runner it was measured on, against 401 s on the 20-core development machine,
+so the ten-minute budget is a claim about a machine rather than about the code. The demo video has been recorded. Every twin metric
 produced before the coupling-definition fix is incomparable with those after it, and was regenerated.
 
 A fuller list, with dates and commits, is in `report/LAB_NOTEBOOK.md` (33 numbered limitations).
@@ -969,7 +942,7 @@ python run_all.py             # full run
   transcribing them, and logs them under `outputs/logs/`; the twin stage dominates, then
   downloading, then the asset build.
 - **`--quick` is a path test, not a reproduction of the report.** It fetches the small-tier sources
-  only, so it builds a much smaller asset, draws 15 of the 16 figures, and omits six `metrics.json`
+  only, so it builds a much smaller asset, draws 16 of the 17 figures, and omits six `metrics.json`
   entries whose analyses need either a full-tier download or compartment records the small-tier
   asset lacks; each skips itself with a logged reason rather than failing. The §7.6 sweep also has
   too few simulations per cell to fit a discriminator, so its `cheapest_configuration` entries are
@@ -980,25 +953,10 @@ python run_all.py             # full run
 - Dependencies are pinned in `pyproject.toml`; numpy is held at 2.3.5 because brian2 2.9.0 does not
   import against 2.4.
 - Tests run with `pytest` (feature extraction, QC flags, provenance hashing, the MEA simulator, and
-  a contract test that fails if any headline metric loses its interval). §9.1 lists what the
-  repository enforces rather than documents.
+  a contract test that fails if any headline metric loses its interval). Appendix D lists what the repository
+  enforces rather than documents.
 
-### 9.1 What the repository enforces, rather than documents
-
-- **Provenance.** The asset build fails if any record's provenance hash disagrees with the manifest.
-- **One feature extractor.** The twin computes features through the same `features/mea.py` as real
-  recordings, and — after a defect that survived several phases — through the same coupling measure
-  on the same per-electrode input.
-- **Interval discipline.** A contract test fails if any headline metric loses its confidence
-  interval, and the resample count sits next to every estimate.
-- **Cache meaning.** The simulation cache stores its summary names, electrode count and a hash of
-  the source of every function defining a summary, and refuses to load across a change in any.
-- **Report numbers.** `neuromps.report.verify` re-reads every citation in this document and fails on
-  disagreement.
-- **No clinical claims.** A test scans the reports for efficacy, diagnostic and treatment language
-  and fails unless the line is a disclaimer ruling it out.
-
-### 9.2 Sources, licenses, and where each result lives
+### 9.1 Sources, licenses, and where each result lives
 
 Data sources, with licenses and citations, are in `CITATIONS.md` and per file in
 `data/raw/MANIFEST.json`; third-party licenses are in `THIRD_PARTY.md`; the repository is
@@ -1034,3 +992,116 @@ set the plan and phase gates, chose the scope, approved each step, and directed 
 practices kept that honest: numbers are emitted into `metrics.json` and re-checked by
 `neuromps.report.verify` rather than typed; results are reported as observed; and the lab notebook
 records what was abandoned.
+
+---
+
+## Appendices
+
+### Appendix A — Quality-control flags
+
+Referenced from §3.3. QC is recorded, never applied silently: a flagged record stays in the asset
+with the reason attached.
+
+| flag | records | what it means |
+|----------------------------|-------|--------------------------------------------|
+| `incomplete_dose_series` | 272 <!-- metrics.json: data_card.flag_counts.incomplete_dose_series --> | the compound's dose series is missing points |
+| `too_few_active_electrodes` | 265 <!-- metrics.json: data_card.flag_counts.too_few_active_electrodes --> | under 10 electrodes cleared 5 spikes/min |
+| `replicate_divergence` | 221 <!-- metrics.json: data_card.flag_counts.replicate_divergence --> | one replicate departs from its group |
+| `outlier_feature_value` | 221 <!-- metrics.json: data_card.flag_counts.outlier_feature_value --> | a feature sits far outside its source's distribution |
+| `excluded_well_upstream` | 90 <!-- metrics.json: data_card.flag_counts.excluded_well_upstream --> | the source's own log excluded the well |
+| `noisy_electrodes_present` | 11 <!-- metrics.json: data_card.flag_counts.noisy_electrodes_present --> | the source marked electrodes as noisy |
+
+### Appendix B — Digital twin parameters
+
+Referenced from §7.1. The seven marked *calibrated* are exactly the calibration search space
+<!-- metrics.json: twin_hd12_calibration.tuned_parameters -->.
+
+| parameter | role | how it was set |
+|--------------------------------------|----------------------|----------------------|
+| `intra_in_degree` | recurrent inputs per neuron | calibrated, searched over 10-35 |
+| `inter_in_degree` | cross-compartment inputs per neuron | inferred, prior 2-20 |
+| `forward_ratio` | forward against backward pathway strength | inferred, prior 1-20 in log space |
+| `excitatory_weight`, `inhibitory_weight` | synaptic conductance steps | calibrated |
+| `background_weight` | Poisson drive | calibrated; drive to the target chamber is a separate scale |
+| `background_rate_hz` | Poisson drive rate | **held at 10 Hz**, not searched |
+| `adaptation_increment` | spike-frequency adaptation step | calibrated |
+| `adaptation_tau_ms` | adaptation time constant | **held at 380 ms**, not searched |
+| `threshold_spread` | per-neuron excitability heterogeneity | calibrated, searched over 0-0.3 |
+| `detection_radius_um` | how far an electrode hears | calibrated, searched over 100-300 µm |
+| `gabaa_scale`, `ampa_scale`, `threshold_scale` | drug knobs, 1.0 is untreated | inferred |
+
+### Appendix C — Microchannel detector robustness
+
+Referenced from §7.7.
+
+**The null is not an artefact of the geometry assumptions.** The detector assumes the channels run
+down the array's columns and that all five electrodes fired; the deposit settles neither. Under both
+orientations, and again with one electrode allowed to miss, none of the four detectors separates the
+conditions — worst case Kruskal p = 0.13074
+<!-- metrics.json: microchannel_directionality.geometry_robustness.variants.column_one_missing.kruskal_p -->
+beside the headline's 0.63969 — and tolerating a missing electrode triples the events to 1,101,233
+<!-- metrics.json: microchannel_directionality.geometry_robustness.variants.column_one_missing.total_events -->
+without changing it. The orientation is more than an assumption: down the columns the detector finds
+a median of 14
+<!-- metrics.json: microchannel_directionality.geometry_robustness.variants.column_strict.median_channels_detected -->
+channels per recording against 1
+<!-- metrics.json: microchannel_directionality.geometry_robustness.variants.row_strict.median_channels_detected -->
+along the rows.
+
+### Appendix D — What the repository enforces, rather than documents
+
+Referenced from §9.
+
+### 9.1 What the repository enforces, rather than documents
+
+- **Provenance.** The asset build fails if any record's provenance hash disagrees with the manifest.
+- **One feature extractor.** The twin computes features through the same `features/mea.py` as real
+  recordings, and — after a defect that survived several phases — through the same coupling measure
+  on the same per-electrode input.
+- **Interval discipline.** A contract test fails if any headline metric loses its confidence
+  interval, and the resample count sits next to every estimate.
+- **Cache meaning.** The simulation cache stores its summary names, electrode count and a hash of
+  the source of every function defining a summary, and refuses to load across a change in any.
+- **Report numbers.** `neuromps.report.verify` re-reads every citation in this document and fails on
+  disagreement.
+- **No clinical claims.** A test scans the reports for efficacy, diagnostic and treatment language
+  and fails unless the line is a disclaimer ruling it out.
+
+### Appendix E — Supporting figures
+
+Referenced from §6.1, §7.4 and §7.5.
+
+![Task 1 confusion matrix, REAL data: out-of-fold predictions from grouped cross-validation over 73 treated/baseline pairs. Errors concentrate between the two GABA-A classes.](../outputs/figures/mechanism_confusion.png){width=50%}
+
+![SIMULATED drug knobs against REAL pharmacology directions, per feature. Only features whose real direction is established by a cluster bootstrap are scored.](../outputs/twin/hd13_drug_knob_validation_simulated.png){width=50%}
+
+![SIMULATED posterior calibration: rank of the true parameter among posterior samples. Flat is calibrated, U-shaped is over-confident. Only `threshold_scale` is close to flat.](../outputs/twin/hd14_posterior_ranks_simulated.png){width=54%}
+
+### Appendix F — The nine-feature vector
+
+Referenced from §3.4. Computed by `features/mea.py`, which the twin is also required to call.
+
+| feature | definition as computed |
+|------------------------------|-------------------------------------------|
+| `mfr_hz` | spikes per second per active electrode |
+| `burst_rate_per_min` | bursts per minute per active electrode |
+| `burst_duration_s` | mean burst duration |
+| `spikes_per_burst` | mean spikes in a burst |
+| `pct_spikes_in_bursts` | share of spikes falling inside bursts |
+| `network_burst_rate_per_min` | network bursts per minute, chance-corrected participation |
+| `synchrony_index` | spike-time tiling coefficient, mean over electrode pairs |
+| `isi_cv` | coefficient of variation of inter-spike intervals |
+| `active_electrodes` | electrodes clearing the activity threshold |
+
+### Appendix G — Feature-subset ablations
+
+Referenced from §6.6.
+
+| feature subset | balanced accuracy | 95% CI |
+|---|---|---|
+| all nine | 0.514 <!-- metrics.json: uncertainty_and_ablations.feature_subsets.all.balanced_accuracy_mean --> | [0.3983, 0.6619] <!-- metrics.json: uncertainty_and_ablations.feature_subsets.all.balanced_accuracy_ci95 --> |
+| rate only | 0.53 <!-- metrics.json: uncertainty_and_ablations.feature_subsets.rate_only.balanced_accuracy_mean --> | [0.3964, 0.6235] <!-- metrics.json: uncertainty_and_ablations.feature_subsets.rate_only.balanced_accuracy_ci95 --> |
+| species-invariant three | 0.516 <!-- metrics.json: uncertainty_and_ablations.feature_subsets.species_invariant.balanced_accuracy_mean --> | [0.371, 0.6295] <!-- metrics.json: uncertainty_and_ablations.feature_subsets.species_invariant.balanced_accuracy_ci95 --> |
+| synchrony only | 0.455 <!-- metrics.json: uncertainty_and_ablations.feature_subsets.synchrony_only.balanced_accuracy_mean --> | [0.3554, 0.586] <!-- metrics.json: uncertainty_and_ablations.feature_subsets.synchrony_only.balanced_accuracy_ci95 --> |
+| network measures only | 0.417 <!-- metrics.json: uncertainty_and_ablations.feature_subsets.network_only.balanced_accuracy_mean --> | [0.2983, 0.5573] <!-- metrics.json: uncertainty_and_ablations.feature_subsets.network_only.balanced_accuracy_ci95 --> |
+

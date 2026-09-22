@@ -20,7 +20,10 @@ SCRIPT = REPO_ROOT / "report" / "build_report.sh"
 REPORT = REPO_ROOT / "report" / "TECHNICAL_REPORT.md"
 MAKEFILE = REPO_ROOT / "Makefile"
 WORKFLOW = REPO_ROOT / ".github" / "workflows" / "ci.yml"
-PAGES_MIN, PAGES_MAX = 14, 22
+# The competition asks for 15-20 pages "excluding references and appendices", so
+# the gate counts main matter only: `count_main_matter` in the build script finds
+# the page the appendices start on.
+PAGES_MIN, PAGES_MAX = 15, 20
 
 
 def test_the_build_script_exists_and_is_executable() -> None:
@@ -136,6 +139,16 @@ def test_the_pdf_builds_and_lands_in_the_required_page_range(tmp_path: Path) -> 
     )
     assert result.returncode == 0, result.stderr
     assert output.exists() and output.stat().st_size > 50_000
+    # The gate must be counting main matter, not the whole document: the report
+    # has appendices, so the two numbers have to differ and the range has to be
+    # applied to the smaller one.
+    assert "pages of main matter" in result.stdout, result.stdout
+    main, total = (
+        int(n)
+        for n in re.search(r"(\d+) pages of main matter, (\d+) including", result.stdout).groups()
+    )
+    assert main < total, "appendices should not count toward the page range"
+    assert PAGES_MIN <= main <= PAGES_MAX
 
 
 def test_every_figure_in_the_report_is_tracked_by_git() -> None:

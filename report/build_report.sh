@@ -13,7 +13,7 @@
 #
 # Usage:
 #   report/build_report.sh                    # build the PDF
-#   report/build_report.sh --check-pages 14 22   # build, then require a page range
+#   report/build_report.sh --check-pages 15 20   # build, then require a main-matter page range
 #   report/build_report.sh --engine html      # force the weasyprint fallback
 #   report/build_report.sh --dry-run          # show resolved metadata, build nothing
 set -euo pipefail
@@ -392,9 +392,31 @@ pages="$(count_pages "${OUTPUT}")"
 size="$(du -h "${OUTPUT}" | cut -f1)"
 echo "build_report: wrote ${OUTPUT} via ${used} - ${pages} pages, ${size}"
 
+# The competition asks for 15-20 pages "excluding references and appendices", so
+# the gate counts main matter: everything before the page the appendices start
+# on. Falls back to the whole document when there is no appendix or no
+# pdftotext, which is the conservative direction.
+count_main_matter() {
+  local pdf="$1" total="$2" page
+  command -v pdftotext >/dev/null || { echo "${total}"; return 0; }
+  # Scanned from the back, because the table of contents lists the appendices
+  # too and a forward scan would stop on the contents page.
+  for (( page = total; page >= 1; page-- )); do
+    if pdftotext -f "${page}" -l "${page}" "${pdf}" - 2>/dev/null | grep -qE '^[[:space:]]*Appendix A\b'; then
+      echo $(( page - 1 )); return 0
+    fi
+  done
+  echo "${total}"
+}
+
+main_pages="$(count_main_matter "${OUTPUT}" "${pages}")"
+if (( main_pages != pages )); then
+  echo "build_report: ${main_pages} pages of main matter, ${pages} including appendices"
+fi
+
 if [[ -n "${check_pages}" ]]; then
-  if (( pages < min_pages || pages > max_pages )); then
-    die "page count ${pages} is outside the required range ${min_pages}-${max_pages}"
+  if (( main_pages < min_pages || main_pages > max_pages )); then
+    die "main matter is ${main_pages} pages, outside the required range ${min_pages}-${max_pages}"
   fi
-  echo "build_report: page count ${pages} is within ${min_pages}-${max_pages}"
+  echo "build_report: main matter ${main_pages} pages is within ${min_pages}-${max_pages}"
 fi

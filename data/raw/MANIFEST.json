@@ -87,7 +87,7 @@
       "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
       "citation": "Tukker AM, Wijnolts FMJ, de Groot A, Westerink RHS. Toxicol Sci 178(1):71-87 (2020). doi:10.1093/toxsci/kfaa136",
       "note": "EXCLUDED 2026-09-16 (PI decision): non-commercial license is incompatible with a prize-bearing submission released under an open license. Revisit only if the competition rules clearly keep submissions under the entrant's own open license.",
-      "checked_at": "2026-09-22T10:56:12+00:00",
+      "checked_at": "2026-09-22T22:48:30+00:00",
       "files": []
     },
     "kapucu2022": {
@@ -1782,8 +1782,8 @@
       "license": "CC-BY-4.0",
       "license_url": "https://creativecommons.org/licenses/by/4.0/",
       "citation": "Mateus J, Melo P, Aroso M, Charlot B, Aguiar P. Influence of asymmetric microchannels in the structure and function of engineered neuronal circuits. bioRxiv 2024, doi:10.1101/2024.07.09.602729. Dataset: doi:10.5281/zenodo.14525182 (CC BY 4.0).",
-      "note": "tier=full; Zenodo record 14525182; hippocampal cultures on MEA2100-256, 10 min spontaneous recordings, DIV 12-21; straight (Control) against asymmetric microchannels (Arrows, Rams, Tesla); 2_Raw_Images.zip (66 MB widefield images) not fetched. Licence conflict resolved by the corresponding author, Paulo de Castro Aguiar (pauloaguiar@i3s.up.pt, PI, Neuroengineering and Computational Neuroscience Lab, i3S, Universidade do Porto), by email on 2026-09-21 09:11, copying the first author (jose.mateus@i3s.up.pt): 'Please consider CC BY 4.0 only, as stated in the metadata. (Unfortunately, CC BY-NC-ND was the default in the readme and was unintentionally left there - we cannot change it now).' The Zenodo metadata licence field is the operative licence and is publicly checkable; the README's contradicting text is recorded below rather than ignored. README as fetched still states: 'THIS DATASET IS PUBLICALLY AVAILABLE UNDER A CREATIVE COMMONS CC BY-NC-ND LICENSE (ATTRIBUTION-NONCOMMERCIAL-NODERIVS)'",
-      "checked_at": "2026-09-22T07:38:19+00:00",
+      "note": "tier=full; Zenodo record 14525182; hippocampal cultures on MEA2100-256, 10 min spontaneous recordings, DIV 12-21; straight (Control) against asymmetric microchannels (Arrows, Rams, Tesla); 2_Raw_Images.zip (66 MB widefield images) not fetched. Licence conflict resolved by the deposit's corresponding author by email on 2026-09-21, copying the first author: they confirmed that the Zenodo metadata licence (CC BY 4.0) is the one they intend, and that the README's CC BY-NC-ND line was an unintentional default they can no longer edit. The metadata licence field is the operative licence and is publicly checkable; the README's contradicting text is recorded below rather than ignored. The correspondence itself is private and a reader cannot verify it - see data/SOURCES.md. README as fetched still states: 'THIS DATASET IS PUBLICALLY AVAILABLE UNDER A CREATIVE COMMONS CC BY-NC-ND LICENSE (ATTRIBUTION-NONCOMMERCIAL-NODERIVS)'",
+      "checked_at": "2026-09-22T22:48:31+00:00",
       "files": [
         {
           "path": "mateus2024/1_MEA_Recordings.zip",

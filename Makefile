@@ -3,8 +3,8 @@
 .PHONY: help report report-check video test lint quick full clean-report
 
 PYTHON ?= .venv/bin/python
-PAGES_MIN ?= 14
-PAGES_MAX ?= 22
+PAGES_MIN ?= 15
+PAGES_MAX ?= 20
 
 help:
 	@echo "make report        build report/TECHNICAL_REPORT.pdf"

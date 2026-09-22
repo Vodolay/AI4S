@@ -173,7 +173,13 @@ def main(argv: list[str] | None = None) -> int:
     # An external review quotes these documents' numbers in order to dispute
     # them; it is not one of their claims and is not held to their rules.
     external = {"REVIEW.md", "CONTEXT_FROM_CHAT.md"}
-    paths = args.paths or sorted(p for p in REPORT_DIR.glob("*.md") if p.name not in external)
+    # The README quotes results too, and is the first thing a reader opens, so
+    # it is held to the same rule as the report rather than trusted.
+    readme = REPORT_DIR.parent / "README.md"
+    paths = args.paths or [
+        *sorted(p for p in REPORT_DIR.glob("*.md") if p.name not in external),
+        *([readme] if readme.exists() else []),
+    ]
     found = check_documents(paths)
     total = 0
     for document, problems in found.items():

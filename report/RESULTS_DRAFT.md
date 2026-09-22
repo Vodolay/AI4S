@@ -1,8 +1,14 @@
 # Results (Phase 1–2)
 
-**Draft — not reviewed.** Scope: the data asset, the draft standard, mechanism classification,
-rat→hPSC transfer, compartment asymmetry, and uncertainty. Phase 3 (the twin) is out of scope here;
-`twin_hd11_validation` and `twin_hd12_calibration` are not cited below.
+> **Working document, superseded by `report/TECHNICAL_REPORT.md`.** This is the Phase 1-2 results
+> draft, kept because it carries per-result detail the report had to cut for length. Its numbers are
+> live — `python -m neuromps.report.verify` checks them against `outputs/metrics.json` on every run,
+> the same as the report's. Where the two differ in *framing*, the technical report is the one that
+> was reviewed and is the submission.
+
+Scope: the data asset, the draft standard, mechanism classification, rat→hPSC transfer, compartment
+asymmetry, and uncertainty. Phase 3 (the twin) is out of scope here; `twin_hd11_validation` and
+`twin_hd12_calibration` are not cited below.
 
 Research decision-support only. Nothing in this section is an efficacy, safety, diagnostic or
 clinical claim.
