@@ -937,3 +937,9 @@ measurement it was checked against assumed twice the machine.
 15. **The tunnel electrodes are still unused.** `sorted-spikes/mea_tunnels.mat` holds axonal spikes
     inside the channels, which is what would let direction be read from the crossing itself rather
     than from the chambers either side. This integration takes only the four chambers.
+
+16. **A row without `better_than_chance`.** At three repeats the quick
+    directionality tier produced a result row missing that key, and the summary
+    died on it; at four it does not. Where that row comes from - a branch that
+    skips scoring, presumably - was not chased, and the quick tier was put back
+    to four rather than shipping the fragility.
