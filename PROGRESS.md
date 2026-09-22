@@ -1137,4 +1137,12 @@ keys, **zero substantive values changed** - only timestamps and stage timings. T
 reproduces exactly and the asset build is deterministic, which is the strongest evidence this
 repository has that its numbers are not accidents of a particular run.
 
+**Pharmacology gap closed (2026-09-22).** `Logfile_EPAv1.xls` inside the EPA archive turned out to
+be the dose-timing table, so `vassallo2017` is integrated: 283 records, 38 same-chip baselines and
+245 exposures, six compounds, spike times at 25 kHz, U.S. Public Domain. The modelling table goes
+from **73 pairs in six mechanism classes to 754 in nine**. Asset: 21,887 records, eight sources.
+New finding in S6.1: the mechanism classifier reaches 0.537 (CI 0.422-0.685, chance 0.167) on the
+set it was developed on and 0.333 (CI 0.232-0.420, chance 0.25) on the independent platform - an
+interval that contains chance.
+
 **Next first task.** HD20, the Kaggle writeup.

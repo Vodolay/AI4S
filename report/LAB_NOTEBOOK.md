@@ -970,3 +970,18 @@ measurement it was checked against assumed twice the machine.
       segments the acquisition originally wrote as separate files cannot be
       recovered from the spike times. A `dose_value` assigned by guessing when
       the pipette went in would be fabricated, not measured.
+
+19. ~~The EPA dose timings are not recoverable.~~ **Wrong, resolved 2026-09-22.**
+    I had concluded from the spike data alone that the per-concentration
+    segments could not be recovered, and recorded emailing Tim Shafer as the
+    way forward. The answer was already in the archive: `Logfile_EPAv1.xls`, a
+    legacy .xls I had extracted but not opened, is the dose-timing table -
+    baseline and every concentration, start and end second, same timebase as
+    the spikes. The lesson is narrow and worth keeping: I tested whether the
+    boundaries could be *inferred* before checking whether they had been
+    *written down*.
+    - Joining the two namings needs (session date, chip id), not the filename:
+      a logfile row lists every compound on the plate ("ACE DP GLY") while the
+      spike file names the one that chip received. On that key all 38 match
+      1:1, and the log's compound column agrees with the filename code in all
+      38 - which is the check that the join is right rather than merely unique.
