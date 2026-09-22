@@ -199,6 +199,12 @@ cat > "${WORK}/preamble.tex" <<'LATEX'
 \renewcommand{\bottomfraction}{0.7}
 \renewcommand{\textfraction}{0.12}
 \renewcommand{\floatpagefraction}{0.8}
+% Load caption explicitly. Newer pandoc templates pull it in and older ones do
+% not, so relying on the template made \captionsetup an undefined control
+% sequence on a machine with a different pandoc - which is exactly what CI is.
+% Re-loading a package LaTeX already has is a no-op here; not loading it is a
+% failed build.
+\usepackage{caption}
 \captionsetup{font=small,labelfont=bf}
 LATEX
 
