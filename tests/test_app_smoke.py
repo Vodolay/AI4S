@@ -8,6 +8,7 @@ so they skip when `outputs/demo/` is absent rather than failing a fresh clone.
 
 from __future__ import annotations
 
+import os
 import time
 from pathlib import Path
 
@@ -19,6 +20,16 @@ APP = REPO_ROOT / "app" / "app.py"
 DEMO_READY = (REPO_ROOT / "outputs" / "demo" / "meta.json").exists()
 ASSET_BUILT = (REPO_ROOT / "data" / "processed" / "neuromps.parquet").exists()
 INTERACTION_BUDGET_S = 1.0
+# What this budget is for: catching a callback that has started doing real work.
+# A live Brian2 run in the app takes about four seconds, so anything that slow
+# is unambiguous. The one-second figure is the promise the app makes on a
+# developer's machine, and a shared CI runner cannot be held to it - it has no
+# timing guarantee and measured 1.26 s on the very code that took well under a
+# second here. Allow it room on CI rather than leaving a coin-flip in the suite,
+# and keep the strict number where it can actually be measured.
+CI_BUDGET_MULTIPLIER = 3.0
+_on_ci = bool(os.environ.get("CI"))
+interaction_budget_s = INTERACTION_BUDGET_S * (CI_BUDGET_MULTIPLIER if _on_ci else 1.0)
 
 needs_demo = pytest.mark.skipif(not DEMO_READY, reason="run `python run_all.py --stage demo` first")
 
@@ -104,7 +115,9 @@ def test_changing_a_twin_slider_responds_within_the_budget() -> None:
     slider.set_value(options[-1]).run()
     elapsed = time.time() - started
     assert at.exception == [], [str(e.value) for e in at.exception]
-    assert elapsed < INTERACTION_BUDGET_S, f"slider took {elapsed:.2f}s"
+    assert elapsed < interaction_budget_s, (
+        f"slider took {elapsed:.2f}s, over the {interaction_budget_s:.1f}s budget"
+    )
 
 
 @needs_demo
