@@ -91,6 +91,18 @@ Each fetcher re-checks its source's advertised license at download time.
 
 *Note:* tier=quick; invitrodb v4.3 via EPA Clowder
 
+### `trujillo2019`
+
+- **License:** CC-BY-4.0
+- **License URL:** https://creativecommons.org/licenses/by/4.0/
+- **Source:** https://doi.org/10.5281/zenodo.4751759
+- **Files recorded:** 23
+- **Status:** ok
+
+> Trujillo CA, Gao R, Negraes PD, et al. Complex Oscillatory Waves Emerging from Cortical Organoids Model Early Human Brain Network Development. Cell Stem Cell 25(4):558-569.e7 (2019). Dataset: doi:10.5281/zenodo.4751759
+
+*Note:* tier=full; Zenodo record 4751759; 23 sessions, spike times extracted in place over HTTP ranges (229 MB read of 37583 MB remote, 99.4% not transferred); LFP traces not read; 19 sessions skipped as MATLAB 5 (not readable in place, 29 GB of early timepoints); '_Drugs' sessions carry no well-to-compound mapping in the deposit
+
 ## Sources deliberately not used
 
 Recorded here rather than dropped silently: an exclusion on license grounds is a

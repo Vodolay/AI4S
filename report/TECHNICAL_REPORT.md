@@ -19,7 +19,7 @@ prose. The decision record behind these results, including what was tried and ab
 Two layers were built:
 
 **(A) A standardized, provenance-tracked data asset** of public neural microelectrode-array (MEA)
-recordings: 21,380 records <!-- metrics.json: data_asset.n_records --> from five sources, each
+recordings: 21,564 records <!-- metrics.json: data_asset.n_records --> from five sources, each
 record carrying its source URL, license, SHA256 and download time, validated against a JSON Schema
 at a conformance level that requires every provenance hash to match the download manifest.
 
@@ -91,7 +91,7 @@ that records carry an explicit **data level**, and that records only compare wit
 
 | level | meaning | records |
 |---|---|---|
-| `spike_times` | per-electrode spike trains; our feature vector is computable | 1,005 <!-- metrics.json: data_asset.counts.by_data_level.spike_times --> |
+| `spike_times` | per-electrode spike trains; our feature vector is computable | 1,189 <!-- metrics.json: data_asset.counts.by_data_level.spike_times --> |
 | `fitted_curve` | published concentration-response fits only | 20,375 <!-- metrics.json: data_asset.counts.by_data_level.fitted_curve --> |
 | `per_well_features` | vendor feature tables without spike times | — |
 
@@ -116,9 +116,9 @@ a downstream analysis can make its own decision.
 | flag | records | what it means |
 |----------------------------|-------|--------------------------------------------|
 | `incomplete_dose_series` | 272 <!-- metrics.json: data_card.flag_counts.incomplete_dose_series --> | the compound's dose series is missing points |
-| `too_few_active_electrodes` | 184 <!-- metrics.json: data_card.flag_counts.too_few_active_electrodes --> | under 10 electrodes cleared 5 spikes/min |
-| `replicate_divergence` | 161 <!-- metrics.json: data_card.flag_counts.replicate_divergence --> | one replicate departs from its group |
-| `outlier_feature_value` | 161 <!-- metrics.json: data_card.flag_counts.outlier_feature_value --> | a feature sits far outside its source's distribution |
+| `too_few_active_electrodes` | 186 <!-- metrics.json: data_card.flag_counts.too_few_active_electrodes --> | under 10 electrodes cleared 5 spikes/min |
+| `replicate_divergence` | 191 <!-- metrics.json: data_card.flag_counts.replicate_divergence --> | one replicate departs from its group |
+| `outlier_feature_value` | 191 <!-- metrics.json: data_card.flag_counts.outlier_feature_value --> | a feature sits far outside its source's distribution |
 | `excluded_well_upstream` | 90 <!-- metrics.json: data_card.flag_counts.excluded_well_upstream --> | the source's own log excluded the well |
 | `noisy_electrodes_present` | 11 <!-- metrics.json: data_card.flag_counts.noisy_electrodes_present --> | the source marked electrodes as noisy |
 
@@ -172,10 +172,10 @@ disagreement reported in §6.4, and that remains untested.
 | `sharf2022` | 29 <!-- metrics.json: data_asset.counts.by_source.sharf2022 --> | spike_times | human | CC0-1.0 |
 | `mateus2024` | 108 <!-- metrics.json: data_asset.counts.by_source.mateus2024 --> | spike_times | rat | CC-BY-4.0 |
 
-Totals: 21,380 records <!-- metrics.json: data_asset.n_records -->, of which 20,924 are marked usable
-<!-- metrics.json: data_asset.counts.by_usable.True --> and 456 are not
+Totals: 21,564 records <!-- metrics.json: data_asset.n_records -->, of which 21,106 are marked usable
+<!-- metrics.json: data_asset.counts.by_usable.True --> and 458 are not
 <!-- metrics.json: data_asset.counts.by_usable.False -->. By species, 21,207 records are rat
-<!-- metrics.json: data_asset.counts.by_species.rat --> and 173 are human
+<!-- metrics.json: data_asset.counts.by_species.rat --> and 357 are human
 <!-- metrics.json: data_asset.counts.by_species.human -->.
 
 **The species imbalance is the asset's main structural weakness** and is stated wherever human
@@ -683,7 +683,7 @@ refutation, and too directly aimed to leave out.
 
 ## 8. Limitations
 
-**Data.** The asset is 21,099 rat records against 173 human
+**Data.** The asset is 21,099 rat records against 357 human
 <!-- metrics.json: data_asset.counts.by_species.human -->; every human claim rests on two sources.
 Most records are curve fits from which our features cannot be recomputed. Dropping Tukker 2020 on
 license grounds leaves the transfer study on a single source. Compound coverage is thin: six

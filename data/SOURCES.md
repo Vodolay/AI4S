@@ -16,6 +16,101 @@ This file records the human decisions behind each source.
 
 ## Decisions
 
+### Dataset expansion review (2026-09-21)
+
+Six datasets were proposed to fix three named gaps in the report: the human/rat
+imbalance (173 human records against 21,207 rat), the lack of a two-compartment
+device with a known electrode map to test the §7.7 directionality null, and the
+lack of multi-compound pharmacology with paired baselines for the twin's drug
+knobs. Every pointer was checked before it was believed. Four of the six did not
+survive the check, so the search was widened; what replaced them is below.
+
+**Accepted.**
+
+- `trujillo2019` - **Zenodo 4751759**, CC BY 4.0. Human hPSC-derived cortical
+  organoids on 64-electrode planar MEAs, 12 organoids per session, recorded
+  weekly over ten months: 42 sessions of 240.25 s at 12.5 kHz. Spike times are
+  stored as sample indices in MATLAB v7.3 (HDF5) files of 1.0-1.5 GB each, whose
+  bulk is LFP traces we do not use. Two sessions have a paired `_Drugs`
+  counterpart recorded the same day. This is the single largest correction
+  available to the human/rat imbalance, and it brings human pharmacology with a
+  same-day baseline, which no source in the asset had.
+  - *This is the dataset the proposal called `DANDI:000034`.* That identifier is
+    somebody else's work (see rejections). The Trujillo organoid recordings are
+    on Zenodo.
+  - Fetched by partial read, not download: `fetch/http_random.py` reads the HDF5
+    object headers and the spike references over HTTP range requests, so one
+    session costs **5.2 MB of transfer instead of 1073 MB** and about 8 s.
+    Zenodo serves this record at ~2.3 MB/s, so downloading all 42 files would
+    have taken about eight hours; the whole set now takes minutes. Provenance
+    follows the precedent already set by `remote_zip.py`: the extracted artifact
+    is written locally, hashed, and recorded with the byte count actually read.
+- `brewer2021` - **Zenodo 4679064**, CC BY 4.0, 31 MB. Rat hippocampal
+  subregions (EC, DG, CA3, CA1) reconstructed in a four-compartment device over
+  an electrode array, with axons crossing **microtunnels that are individually
+  instrumented**, so the direction and speed of transmission are measured rather
+  than inferred. `spike_trains_data.zip` is 17 MB. This is the known-geometry
+  two-compartment recording the §7.7 null needs: the mateus2024 chips have
+  asymmetric microchannels but no electrode map inside them, which is exactly
+  the confound the report says it cannot rule out.
+
+**Rejected, with reasons.**
+
+- *van de Wijdeven et al., 4TU `10.4121/uuid:c3c3a4f6-8c46-4cb2-87c2-55f653457a41`.*
+  The DOI returns 404. No deposit by these authors was found in DataCite, 4TU or
+  Zenodo. The papers are real; a public dataset behind them was not found.
+- *Winter-Hjelm et al., "Zenodo / NTNU Open Research Data".* No deposit exists
+  under this author in Zenodo (creator query: 0 hits), DataverseNO (0), or
+  DataCite (0 datasets). The proposal gave a search phrase rather than an
+  identifier, and the search does not resolve. Note that the asymmetric
+  microchannel *design parameters* this would have supplied are already in the
+  asset as `axon_diode`, read from the article XML of Renault 2015, Lassus 2018
+  and Courte 2020.
+- *DANDI:000034, "Trujillo organoids".* `000034` is Buccino et al.,
+  "SpikeInterface, a unified framework for spike sorting", 74 GB - a different
+  dataset by different authors. The organoid sets that do exist on DANDI
+  (001336, 001603, 001850, 001872) are all CC BY 4.0 but store **raw ecephys
+  traces at 0.2-4.3 GB per session, 20-1570 GB per set**. Using them would mean
+  spike-sorting them ourselves, which changes what the asset is: every record in
+  it carries the depositors' spike detection, recorded as provenance. Rejected
+  on method and on cost, not on licence.
+- *D'Amico et al. / MaxWell HD-CMOS, "search Zenodo".* No identifier given and
+  none found for human iPSC neurons. The MaxWell HD-MEA datasets that are on
+  Zenodo under that description (13839556, 13839126) are iPSC-derived
+  **cardiomyocytes**. Human MaxWell HD-MEA neural data is already in the asset
+  as `sharf2022` (organoid slices, MaxOne, 26,400 electrodes, CC0).
+- *HESI NeuTox multi-laboratory reference screen.* No open deposit found in
+  Zenodo, figshare or the EPA Science Inventory; the consortium's outputs are
+  published as papers. The EPA MEA data that is public is already in the asset
+  as `toxcast_mea` (CC0, invitrodb v4.3).
+- *Wagenaar, Pine & Potter 2006 (`mcc-1`).* The proposal's CRCNS URL 404s, but
+  the data are genuinely public at potterlab.bme.gatech.edu. Rejected on the
+  project's own licence policy, recorded above: the site states only
+  *"Downloading from this site is subject to the condition that you acknowledge
+  our work in any publications that use our data, by citing this article"*,
+  which is an attribution condition rather than a licence grant, and the policy
+  excludes unlicensed material even when it is publicly downloadable. Applying
+  it here is the same rule that excluded Tukker 2020; applying it to one source
+  and not the other would make the policy decorative. Secondary point: 963
+  recordings of rat cortex would deepen the very imbalance this review was meant
+  to fix.
+- *Auslender, Zenodo 14363732 ("MEA recordings dataset", 36 GB).* CC BY-**NC**
+  4.0. Excluded by licence policy, as Tukker 2020 was.
+- *Monma, Zenodo 14346577 ("Directional intermodular coupling ...").* The title
+  is close to what §7.7 needs, but the contents are spiking-network **simulation**
+  output, not recordings. Ingesting it as data would break the rule that no
+  synthetic data is presented as real.
+- *Voskobiynyk et al., Zenodo 3998336 (BIN1, CC0).* Rat hippocampal neurons on
+  Axion Maestro, but the recordings are Axion's proprietary `.spk` binaries and
+  the manipulation is genetic rather than pharmacological. Neither gap is
+  addressed at a cost worth paying.
+
+**Still open after this review.** The human cohort remains thinner than the rat
+one even with `trujillo2019`, and every human record still comes from
+hPSC-derived tissue rather than primary human neurons - a limitation to keep in
+the report rather than one this review can close.
+
+
 - **Kapucu 2022, raw vs preprocessed.** The raw 12.5 kHz `.h5` recordings total ~2.4 TB (75 files, up to
   120 GB each). We use the authors' spike-time CSVs (`Channel,Time`) and meaRtools per-well outputs instead.
   Raw files are never fetched. Consequence: spike detection is the authors' (MATLAB code in the GIN `Codes/` folder + noise-electrode

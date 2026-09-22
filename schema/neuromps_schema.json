@@ -31,7 +31,8 @@
         "sharf2022",
         "fofie2025",
         "screenneuropharm_bic",
-        "mateus2024"
+        "mateus2024",
+        "trujillo2019"
       ],
       "description": "Source key; must match a source in data/raw/MANIFEST.json."
     },
@@ -310,6 +311,7 @@
             "primary_hippocampal",
             "hpsc_derived_cortical",
             "hipsc_derived_nociceptor",
+            "brain_organoid",
             "brain_organoid_slice",
             "unknown"
           ]
@@ -373,6 +375,7 @@
             "48-well",
             "96-well",
             "24-well",
+            "12-well",
             "single-well",
             null
           ]

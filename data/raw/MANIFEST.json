@@ -61,7 +61,7 @@
       "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
       "citation": "Tukker AM, Wijnolts FMJ, de Groot A, Westerink RHS. Toxicol Sci 178(1):71-87 (2020). doi:10.1093/toxsci/kfaa136",
       "note": "EXCLUDED 2026-09-16 (PI decision): non-commercial license is incompatible with a prize-bearing submission released under an open license. Revisit only if the competition rules clearly keep submissions under the entrant's own open license.",
-      "checked_at": "2026-09-21T20:34:47+00:00",
+      "checked_at": "2026-09-22T03:46:57+00:00",
       "files": []
     },
     "kapucu2022": {
@@ -2123,6 +2123,179 @@
           "sha256": "f77d7528d77ccc4a4ed5525baab5f051fe2f292c24663d54ea6a4d53c4ca6e39",
           "bytes": 2550615005,
           "downloaded_at": "2026-09-16T14:46:02+00:00"
+        }
+      ]
+    },
+    "trujillo2019": {
+      "name": "trujillo2019",
+      "status": "ok",
+      "landing_url": "https://doi.org/10.5281/zenodo.4751759",
+      "license": "CC-BY-4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "citation": "Trujillo CA, Gao R, Negraes PD, et al. Complex Oscillatory Waves Emerging from Cortical Organoids Model Early Human Brain Network Development. Cell Stem Cell 25(4):558-569.e7 (2019). Dataset: doi:10.5281/zenodo.4751759",
+      "note": "tier=full; Zenodo record 4751759; 23 sessions, spike times extracted in place over HTTP ranges (229 MB read of 37583 MB remote, 99.4% not transferred); LFP traces not read; 19 sessions skipped as MATLAB 5 (not readable in place, 29 GB of early timepoints); '_Drugs' sessions carry no well-to-compound mapping in the deposit",
+      "checked_at": "2026-09-22T03:53:45+00:00",
+      "files": [
+        {
+          "path": "trujillo2019/LFP_Sp_160810.spikes.parquet",
+          "url": "https://zenodo.org/api/records/4751759/files/LFP_Sp_160810.mat/content#spikes",
+          "sha256": "2a8978d985d7e6153adb2d922f5d7590ee3dd3251302dfbce2ee93c1c83a3a84",
+          "bytes": 1185760,
+          "downloaded_at": "2026-09-22T03:47:06+00:00"
+        },
+        {
+          "path": "trujillo2019/LFP_Sp_161118.spikes.parquet",
+          "url": "https://zenodo.org/api/records/4751759/files/LFP_Sp_161118.mat/content#spikes",
+          "sha256": "79b7abdda8849772ef39df6bd04999a0fba98de23d1fd6959b791ca26ec4b88d",
+          "bytes": 3337311,
+          "downloaded_at": "2026-09-22T03:47:39+00:00"
+        },
+        {
+          "path": "trujillo2019/LFP_Sp_161206.spikes.parquet",
+          "url": "https://zenodo.org/api/records/4751759/files/LFP_Sp_161206.mat/content#spikes",
+          "sha256": "011f8f7475219e60afac97adeb993434dd51c8aa88b7ab6377f56dcaeff178ed",
+          "bytes": 4067789,
+          "downloaded_at": "2026-09-22T03:47:49+00:00"
+        },
+        {
+          "path": "trujillo2019/LFP_Sp_161209.spikes.parquet",
+          "url": "https://zenodo.org/api/records/4751759/files/LFP_Sp_161209.mat/content#spikes",
+          "sha256": "66cab8eda66d8855cb5c18e54965837150b6430de427aa824aa36b5c061e1e18",
+          "bytes": 5667038,
+          "downloaded_at": "2026-09-22T03:48:17+00:00"
+        },
+        {
+          "path": "trujillo2019/LFP_Sp_161216.spikes.parquet",
+          "url": "https://zenodo.org/api/records/4751759/files/LFP_Sp_161216.mat/content#spikes",
+          "sha256": "265100689c45a25c24d3def219f1f91cc9945e898dbb0b6b06ab66b4da0aa0a7",
+          "bytes": 4065462,
+          "downloaded_at": "2026-09-22T03:48:30+00:00"
+        },
+        {
+          "path": "trujillo2019/LFP_Sp_161217.spikes.parquet",
+          "url": "https://zenodo.org/api/records/4751759/files/LFP_Sp_161217.mat/content#spikes",
+          "sha256": "13da07976a6b3ba4f77a3158c9fbaeb6899e9e214bfcd36ecb3c1c3aa82b5ce4",
+          "bytes": 3383091,
+          "downloaded_at": "2026-09-22T03:48:44+00:00"
+        },
+        {
+          "path": "trujillo2019/LFP_Sp_161217_Drugs.spikes.parquet",
+          "url": "https://zenodo.org/api/records/4751759/files/LFP_Sp_161217_Drugs.mat/content#spikes",
+          "sha256": "8e9a8b11bcc2a314b37695bddaa7f7c50e14fc2d03549e24ba4beafb2e83d61c",
+          "bytes": 3919661,
+          "downloaded_at": "2026-09-22T03:49:08+00:00"
+        },
+        {
+          "path": "trujillo2019/LFP_Sp_161223.spikes.parquet",
+          "url": "https://zenodo.org/api/records/4751759/files/LFP_Sp_161223.mat/content#spikes",
+          "sha256": "f6095061cb17fa84169dc45195fea340c60da907285ff7e4bcd82e3d9d43e6ff",
+          "bytes": 7301602,
+          "downloaded_at": "2026-09-22T03:49:21+00:00"
+        },
+        {
+          "path": "trujillo2019/LFP_Sp_161230.spikes.parquet",
+          "url": "https://zenodo.org/api/records/4751759/files/LFP_Sp_161230.mat/content#spikes",
+          "sha256": "5367fce950b6bd08f4a7647e19cd3c36db0767cf7a8bfc545ffb0314b86b210f",
+          "bytes": 7785657,
+          "downloaded_at": "2026-09-22T03:49:31+00:00"
+        },
+        {
+          "path": "trujillo2019/LFP_Sp_170106.spikes.parquet",
+          "url": "https://zenodo.org/api/records/4751759/files/LFP_Sp_170106.mat/content#spikes",
+          "sha256": "17eb15fc46b92394f191f78b7da6ca0ca677d4e14dfd7ab6e93612c1d33a0096",
+          "bytes": 7807583,
+          "downloaded_at": "2026-09-22T03:49:47+00:00"
+        },
+        {
+          "path": "trujillo2019/LFP_Sp_170113.spikes.parquet",
+          "url": "https://zenodo.org/api/records/4751759/files/LFP_Sp_170113.mat/content#spikes",
+          "sha256": "e682e17bd9450e9af57b5b2455ccc760eba2038251d6471cb37ea1d2962ab085",
+          "bytes": 7749982,
+          "downloaded_at": "2026-09-22T03:50:03+00:00"
+        },
+        {
+          "path": "trujillo2019/LFP_Sp_170120.spikes.parquet",
+          "url": "https://zenodo.org/api/records/4751759/files/LFP_Sp_170120.mat/content#spikes",
+          "sha256": "4b1623808a3a9533582026a9d962ae55206607c4c3bb163461024abf87ea02fc",
+          "bytes": 7610867,
+          "downloaded_at": "2026-09-22T03:50:16+00:00"
+        },
+        {
+          "path": "trujillo2019/LFP_Sp_170127.spikes.parquet",
+          "url": "https://zenodo.org/api/records/4751759/files/LFP_Sp_170127.mat/content#spikes",
+          "sha256": "ef48570f85b4441cc6b0c8c41549f9db4f587ba929b91e90f16dcd4de30508b5",
+          "bytes": 7709139,
+          "downloaded_at": "2026-09-22T03:50:29+00:00"
+        },
+        {
+          "path": "trujillo2019/LFP_Sp_170203.spikes.parquet",
+          "url": "https://zenodo.org/api/records/4751759/files/LFP_Sp_170203.mat/content#spikes",
+          "sha256": "3f2e896c50dde1f086fb03750c42a1c63d735641097da6ea89a0e33579a42b56",
+          "bytes": 7498022,
+          "downloaded_at": "2026-09-22T03:50:44+00:00"
+        },
+        {
+          "path": "trujillo2019/LFP_Sp_170207.spikes.parquet",
+          "url": "https://zenodo.org/api/records/4751759/files/LFP_Sp_170207.mat/content#spikes",
+          "sha256": "8dff79687f1d7013ba3980f55962162dbddb5cb89e98c97c8eacd7c4df53c63c",
+          "bytes": 6170309,
+          "downloaded_at": "2026-09-22T03:51:00+00:00"
+        },
+        {
+          "path": "trujillo2019/LFP_Sp_170207_Drugs.spikes.parquet",
+          "url": "https://zenodo.org/api/records/4751759/files/LFP_Sp_170207_Drugs.mat/content#spikes",
+          "sha256": "566083c1edf56703b437bb7648101628d05c7713d16fa5e7551ed5240a90dc1b",
+          "bytes": 5805797,
+          "downloaded_at": "2026-09-22T03:51:10+00:00"
+        },
+        {
+          "path": "trujillo2019/LFP_Sp_170210.spikes.parquet",
+          "url": "https://zenodo.org/api/records/4751759/files/LFP_Sp_170210.mat/content#spikes",
+          "sha256": "cd78569b1cab32048f4a1cd95a09415edfeed0e978be336730a6fee4e06e1be3",
+          "bytes": 9450266,
+          "downloaded_at": "2026-09-22T03:51:24+00:00"
+        },
+        {
+          "path": "trujillo2019/LFP_Sp_170217.spikes.parquet",
+          "url": "https://zenodo.org/api/records/4751759/files/LFP_Sp_170217.mat/content#spikes",
+          "sha256": "51cdeba5bdb4fb99e3ada44d4545942974c0717f2ec2cacbf5c64fc73debaa96",
+          "bytes": 8967221,
+          "downloaded_at": "2026-09-22T03:51:51+00:00"
+        },
+        {
+          "path": "trujillo2019/LFP_Sp_170224.spikes.parquet",
+          "url": "https://zenodo.org/api/records/4751759/files/LFP_Sp_170224.mat/content#spikes",
+          "sha256": "b10e814f66e2f9ab7d7c49ad57ad5c446d8d233207c2a4742e76f3887cb7db3d",
+          "bytes": 10476125,
+          "downloaded_at": "2026-09-22T03:52:07+00:00"
+        },
+        {
+          "path": "trujillo2019/LFP_Sp_170303.spikes.parquet",
+          "url": "https://zenodo.org/api/records/4751759/files/LFP_Sp_170303.mat/content#spikes",
+          "sha256": "6e3e25c6cc316bbcc15443377a546b5f341c801dfb5ae48f8c6091b88ec4775b",
+          "bytes": 15967106,
+          "downloaded_at": "2026-09-22T03:52:39+00:00"
+        },
+        {
+          "path": "trujillo2019/LFP_Sp_170303_Drugs.spikes.parquet",
+          "url": "https://zenodo.org/api/records/4751759/files/LFP_Sp_170303_Drugs.mat/content#spikes",
+          "sha256": "13aff281623200988ba15e59fd82702f58ee531a2812e9d8e5637b0b76bb7f02",
+          "bytes": 7668030,
+          "downloaded_at": "2026-09-22T03:52:53+00:00"
+        },
+        {
+          "path": "trujillo2019/LFP_Sp_170310.spikes.parquet",
+          "url": "https://zenodo.org/api/records/4751759/files/LFP_Sp_170310.mat/content#spikes",
+          "sha256": "a1c1186ad53b14ee9a2a6eb62a473e13057a70b87888a87def43ebd0c3757779",
+          "bytes": 13120489,
+          "downloaded_at": "2026-09-22T03:53:26+00:00"
+        },
+        {
+          "path": "trujillo2019/LFP_Sp_170316.spikes.parquet",
+          "url": "https://zenodo.org/api/records/4751759/files/LFP_Sp_170316.mat/content#spikes",
+          "sha256": "64c5bce8aadb04a4c5a8041ed4827c2d31549315944ce605d119ba219e599cb9",
+          "bytes": 15953688,
+          "downloaded_at": "2026-09-22T03:53:45+00:00"
         }
       ]
     }

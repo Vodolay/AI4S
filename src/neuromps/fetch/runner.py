@@ -27,6 +27,7 @@ def registry() -> dict[str, tuple[Fetcher, dict[str, str]]]:
         screenneuropharm_bic,
         sharf2022,
         toxcast_mea,
+        trujillo2019,
     )
 
     mods = [
@@ -37,6 +38,7 @@ def registry() -> dict[str, tuple[Fetcher, dict[str, str]]]:
         screenneuropharm_bic,
         axon_diode,
         mateus2024,
+        trujillo2019,
     ]
     return {m.SOURCE: (m.fetch, m.META) for m in mods}
 

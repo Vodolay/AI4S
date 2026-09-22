@@ -1,4 +1,664 @@
 {
+  "baseline_activity": {
+    "all_platforms": {
+      "electrodes_per_unit": [
+        16,
+        24,
+        34,
+        36,
+        44,
+        48,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        67,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        88,
+        89,
+        91,
+        92,
+        93,
+        94,
+        1020
+      ],
+      "features": {
+        "active_electrodes": {
+          "difference_ci95": [
+            22.0,
+            40.0
+          ],
+          "excludes_zero": false,
+          "format_confounded": true,
+          "kind": "coverage",
+          "median_human": 62.0,
+          "median_rat": 29.0
+        },
+        "active_fraction": {
+          "difference_ci95": [
+            0.131,
+            0.3333
+          ],
+          "excludes_zero": true,
+          "format_confounded": false,
+          "kind": "coverage",
+          "median_human": 0.9844,
+          "median_rat": 0.7685
+        },
+        "burst_duration_s": {
+          "difference_ci95": [
+            0.2344,
+            0.522
+          ],
+          "excludes_zero": true,
+          "format_confounded": false,
+          "kind": "synchrony_like",
+          "median_human": 0.6004,
+          "median_rat": 0.2511
+        },
+        "burst_rate_per_min": {
+          "difference_ci95": [
+            -2.046,
+            3.3004
+          ],
+          "excludes_zero": false,
+          "format_confounded": false,
+          "kind": "rate_like",
+          "median_human": 7.2135,
+          "median_rat": 5.9874
+        },
+        "isi_cv": {
+          "difference_ci95": [
+            5.5201,
+            7.651
+          ],
+          "excludes_zero": true,
+          "format_confounded": false,
+          "kind": "synchrony_like",
+          "median_human": 9.2078,
+          "median_rat": 2.424
+        },
+        "mfr_hz": {
+          "difference_ci95": [
+            4.4483,
+            11.2665
+          ],
+          "excludes_zero": true,
+          "format_confounded": false,
+          "kind": "rate_like",
+          "median_human": 10.1882,
+          "median_rat": 2.277
+        },
+        "network_burst_rate_per_min": {
+          "difference_ci95": [
+            -5.1934,
+            3.2012
+          ],
+          "excludes_zero": false,
+          "format_confounded": false,
+          "kind": "synchrony_like",
+          "median_human": 10.7583,
+          "median_rat": 11.7255
+        },
+        "pct_spikes_in_bursts": {
+          "difference_ci95": [
+            26.8286,
+            43.4863
+          ],
+          "excludes_zero": true,
+          "format_confounded": false,
+          "kind": "rate_like",
+          "median_human": 95.3594,
+          "median_rat": 56.8449
+        },
+        "spikes_per_burst": {
+          "difference_ci95": [
+            47.7652,
+            119.3836
+          ],
+          "excludes_zero": true,
+          "format_confounded": false,
+          "kind": "rate_like",
+          "median_human": 101.7133,
+          "median_rat": 11.9558
+        },
+        "synchrony_index": {
+          "difference_ci95": [
+            0.4666,
+            0.5915
+          ],
+          "excludes_zero": true,
+          "format_confounded": false,
+          "kind": "synchrony_like",
+          "median_human": 0.8951,
+          "median_rat": 0.35
+        }
+      },
+      "features_separating_species": [
+        "active_fraction",
+        "burst_duration_s",
+        "isi_cv",
+        "mfr_hz",
+        "pct_spikes_in_bursts",
+        "spikes_per_burst",
+        "synchrony_index"
+      ],
+      "n_cultures": 186,
+      "n_features_separating_species": 7,
+      "n_human_cultures": 46,
+      "n_human_records": 200,
+      "n_rat_cultures": 140,
+      "n_rat_records": 208,
+      "n_records": 408,
+      "slice": "every platform (species and vendor confounded)",
+      "sources": [
+        "kapucu2022",
+        "mateus2024",
+        "screenneuropharm_bic",
+        "sharf2022",
+        "trujillo2019"
+      ]
+    },
+    "figure": "outputs/figures/baseline_species_comparison.png",
+    "human_records_by_source": {
+      "kapucu2022": 28,
+      "sharf2022": 12,
+      "trujillo2019": 160
+    },
+    "label": "untreated baseline activity, human vs rat",
+    "matched_preparation": {
+      "electrodes_per_unit": [
+        16
+      ],
+      "features": {
+        "active_electrodes": {
+          "difference_ci95": [
+            0.0,
+            1.0
+          ],
+          "excludes_zero": false,
+          "format_confounded": false,
+          "kind": "coverage",
+          "median_human": 16.0,
+          "median_rat": 15.5
+        },
+        "active_fraction": {
+          "difference_ci95": [
+            0.0,
+            0.0625
+          ],
+          "excludes_zero": false,
+          "format_confounded": false,
+          "kind": "coverage",
+          "median_human": 1.0,
+          "median_rat": 0.9688
+        },
+        "burst_duration_s": {
+          "difference_ci95": [
+            0.2133,
+            0.3272
+          ],
+          "excludes_zero": true,
+          "format_confounded": false,
+          "kind": "synchrony_like",
+          "median_human": 0.5839,
+          "median_rat": 0.2936
+        },
+        "burst_rate_per_min": {
+          "difference_ci95": [
+            -2.9043,
+            2.3265
+          ],
+          "excludes_zero": false,
+          "format_confounded": false,
+          "kind": "rate_like",
+          "median_human": 7.4337,
+          "median_rat": 8.2603
+        },
+        "isi_cv": {
+          "difference_ci95": [
+            1.6293,
+            2.0984
+          ],
+          "excludes_zero": true,
+          "format_confounded": false,
+          "kind": "synchrony_like",
+          "median_human": 3.1418,
+          "median_rat": 1.2455
+        },
+        "mfr_hz": {
+          "difference_ci95": [
+            0.6039,
+            2.5842
+          ],
+          "excludes_zero": true,
+          "format_confounded": false,
+          "kind": "rate_like",
+          "median_human": 5.1,
+          "median_rat": 3.5196
+        },
+        "network_burst_rate_per_min": {
+          "difference_ci95": [
+            4.5,
+            16.4667
+          ],
+          "excludes_zero": true,
+          "format_confounded": false,
+          "kind": "synchrony_like",
+          "median_human": 10.8167,
+          "median_rat": 0.1167
+        },
+        "pct_spikes_in_bursts": {
+          "difference_ci95": [
+            22.7445,
+            38.6565
+          ],
+          "excludes_zero": true,
+          "format_confounded": false,
+          "kind": "rate_like",
+          "median_human": 70.8983,
+          "median_rat": 40.0476
+        },
+        "spikes_per_burst": {
+          "difference_ci95": [
+            12.3829,
+            21.2501
+          ],
+          "excludes_zero": true,
+          "format_confounded": false,
+          "kind": "rate_like",
+          "median_human": 26.5897,
+          "median_rat": 9.7363
+        },
+        "synchrony_index": {
+          "difference_ci95": [
+            0.305,
+            0.413
+          ],
+          "excludes_zero": true,
+          "format_confounded": false,
+          "kind": "synchrony_like",
+          "median_human": 0.4412,
+          "median_rat": 0.0969
+        }
+      },
+      "features_separating_species": [
+        "burst_duration_s",
+        "isi_cv",
+        "mfr_hz",
+        "network_burst_rate_per_min",
+        "pct_spikes_in_bursts",
+        "spikes_per_burst",
+        "synchrony_index"
+      ],
+      "mann_whitney": {
+        "holm_p": {
+          "active_electrodes": 0.0947,
+          "burst_duration_s": 0.0,
+          "burst_rate_per_min": 0.9401,
+          "isi_cv": 0.0,
+          "mfr_hz": 0.0001,
+          "network_burst_rate_per_min": 0.0,
+          "pct_spikes_in_bursts": 0.0,
+          "spikes_per_burst": 0.0,
+          "synchrony_index": 0.0
+        },
+        "raw_p": {
+          "active_electrodes": 0.04734,
+          "burst_duration_s": 0.0,
+          "burst_rate_per_min": 0.94015,
+          "isi_cv": 0.0,
+          "mfr_hz": 4e-05,
+          "network_burst_rate_per_min": 0.0,
+          "pct_spikes_in_bursts": 0.0,
+          "spikes_per_burst": 0.0,
+          "synchrony_index": 0.0
+        }
+      },
+      "n_cultures": 72,
+      "n_features_separating_species": 7,
+      "n_human_cultures": 28,
+      "n_human_records": 28,
+      "n_rat_cultures": 44,
+      "n_rat_records": 44,
+      "n_records": 72,
+      "slice": "Axion Biosystems, dissociated monolayers only",
+      "sources": [
+        "kapucu2022"
+      ]
+    },
+    "n_baseline_records": 408,
+    "preparation_within_human": {
+      "contrast": {
+        "column": "cell_source.system",
+        "left_as_human": "brain_organoid",
+        "right_as_rat": "hpsc_derived_cortical"
+      },
+      "electrodes_per_unit": [
+        16,
+        64
+      ],
+      "features": {
+        "active_electrodes": {
+          "difference_ci95": [
+            42.5,
+            48.0
+          ],
+          "excludes_zero": false,
+          "format_confounded": true,
+          "kind": "coverage",
+          "median_human": 63.0,
+          "median_rat": 16.0
+        },
+        "active_fraction": {
+          "difference_ci95": [
+            -0.0859,
+            0.0156
+          ],
+          "excludes_zero": false,
+          "format_confounded": false,
+          "kind": "coverage",
+          "median_human": 0.9844,
+          "median_rat": 1.0
+        },
+        "burst_duration_s": {
+          "difference_ci95": [
+            -0.101,
+            0.2835
+          ],
+          "excludes_zero": false,
+          "format_confounded": false,
+          "kind": "synchrony_like",
+          "median_human": 0.6295,
+          "median_rat": 0.5839
+        },
+        "burst_rate_per_min": {
+          "difference_ci95": [
+            -2.949,
+            1.5127
+          ],
+          "excludes_zero": false,
+          "format_confounded": false,
+          "kind": "rate_like",
+          "median_human": 7.1654,
+          "median_rat": 7.4337
+        },
+        "isi_cv": {
+          "difference_ci95": [
+            6.0192,
+            8.7826
+          ],
+          "excludes_zero": true,
+          "format_confounded": false,
+          "kind": "synchrony_like",
+          "median_human": 9.8247,
+          "median_rat": 3.1418
+        },
+        "mfr_hz": {
+          "difference_ci95": [
+            4.7609,
+            12.1368
+          ],
+          "excludes_zero": true,
+          "format_confounded": false,
+          "kind": "rate_like",
+          "median_human": 12.8315,
+          "median_rat": 5.1
+        },
+        "network_burst_rate_per_min": {
+          "difference_ci95": [
+            -7.0588,
+            6.3426
+          ],
+          "excludes_zero": false,
+          "format_confounded": false,
+          "kind": "synchrony_like",
+          "median_human": 10.7245,
+          "median_rat": 10.8167
+        },
+        "pct_spikes_in_bursts": {
+          "difference_ci95": [
+            22.1951,
+            32.031
+          ],
+          "excludes_zero": true,
+          "format_confounded": false,
+          "kind": "rate_like",
+          "median_human": 96.3483,
+          "median_rat": 70.8983
+        },
+        "spikes_per_burst": {
+          "difference_ci95": [
+            45.1789,
+            120.4966
+          ],
+          "excludes_zero": true,
+          "format_confounded": false,
+          "kind": "rate_like",
+          "median_human": 119.1016,
+          "median_rat": 26.5897
+        },
+        "synchrony_index": {
+          "difference_ci95": [
+            0.4064,
+            0.5123
+          ],
+          "excludes_zero": true,
+          "format_confounded": false,
+          "kind": "synchrony_like",
+          "median_human": 0.9091,
+          "median_rat": 0.4412
+        }
+      },
+      "features_separating_species": [
+        "isi_cv",
+        "mfr_hz",
+        "pct_spikes_in_bursts",
+        "spikes_per_burst",
+        "synchrony_index"
+      ],
+      "n_cultures": 36,
+      "n_features_separating_species": 5,
+      "n_human_cultures": 8,
+      "n_human_records": 160,
+      "n_rat_cultures": 28,
+      "n_rat_records": 28,
+      "n_records": 188,
+      "slice": "human only, Axion: 3D organoid vs 2D monolayer",
+      "sources": [
+        "kapucu2022",
+        "trujillo2019"
+      ]
+    },
+    "records_by_source": {
+      "kapucu2022": 72,
+      "mateus2024": 93,
+      "screenneuropharm_bic": 71,
+      "sharf2022": 12,
+      "trujillo2019": 160
+    },
+    "vendor_by_species": {
+      "human": [
+        "Axion Biosystems",
+        "MaxWell Biosystems"
+      ],
+      "rat": [
+        "Axion Biosystems",
+        "Multi Channel Systems"
+      ]
+    },
+    "within_vendor": {
+      "electrodes_per_unit": [
+        16,
+        64
+      ],
+      "features": {
+        "active_electrodes": {
+          "difference_ci95": [
+            36.0,
+            49.0
+          ],
+          "excludes_zero": false,
+          "format_confounded": true,
+          "kind": "coverage",
+          "median_human": 63.0,
+          "median_rat": 15.5
+        },
+        "active_fraction": {
+          "difference_ci95": [
+            -0.0312,
+            0.0625
+          ],
+          "excludes_zero": false,
+          "format_confounded": false,
+          "kind": "coverage",
+          "median_human": 0.9844,
+          "median_rat": 0.9688
+        },
+        "burst_duration_s": {
+          "difference_ci95": [
+            0.2133,
+            0.4898
+          ],
+          "excludes_zero": true,
+          "format_confounded": false,
+          "kind": "synchrony_like",
+          "median_human": 0.6116,
+          "median_rat": 0.2936
+        },
+        "burst_rate_per_min": {
+          "difference_ci95": [
+            -3.5643,
+            2.466
+          ],
+          "excludes_zero": false,
+          "format_confounded": false,
+          "kind": "rate_like",
+          "median_human": 7.3118,
+          "median_rat": 8.2603
+        },
+        "isi_cv": {
+          "difference_ci95": [
+            7.0596,
+            9.3419
+          ],
+          "excludes_zero": true,
+          "format_confounded": false,
+          "kind": "synchrony_like",
+          "median_human": 9.4982,
+          "median_rat": 1.2455
+        },
+        "mfr_hz": {
+          "difference_ci95": [
+            3.835,
+            11.1025
+          ],
+          "excludes_zero": true,
+          "format_confounded": false,
+          "kind": "rate_like",
+          "median_human": 10.5785,
+          "median_rat": 3.5196
+        },
+        "network_burst_rate_per_min": {
+          "difference_ci95": [
+            7.4345,
+            12.5503
+          ],
+          "excludes_zero": true,
+          "format_confounded": false,
+          "kind": "synchrony_like",
+          "median_human": 10.7583,
+          "median_rat": 0.1167
+        },
+        "pct_spikes_in_bursts": {
+          "difference_ci95": [
+            51.1077,
+            62.9271
+          ],
+          "excludes_zero": true,
+          "format_confounded": false,
+          "kind": "rate_like",
+          "median_human": 95.6485,
+          "median_rat": 40.0476
+        },
+        "spikes_per_burst": {
+          "difference_ci95": [
+            53.4397,
+            123.6669
+          ],
+          "excludes_zero": true,
+          "format_confounded": false,
+          "kind": "rate_like",
+          "median_human": 109.0265,
+          "median_rat": 9.7363
+        },
+        "synchrony_index": {
+          "difference_ci95": [
+            0.7568,
+            0.8507
+          ],
+          "excludes_zero": true,
+          "format_confounded": false,
+          "kind": "synchrony_like",
+          "median_human": 0.8982,
+          "median_rat": 0.0969
+        }
+      },
+      "features_separating_species": [
+        "burst_duration_s",
+        "isi_cv",
+        "mfr_hz",
+        "network_burst_rate_per_min",
+        "pct_spikes_in_bursts",
+        "spikes_per_burst",
+        "synchrony_index"
+      ],
+      "mann_whitney": {
+        "holm_p": {
+          "active_electrodes": 0.0,
+          "burst_duration_s": 0.0,
+          "burst_rate_per_min": 0.5238,
+          "isi_cv": 0.0,
+          "mfr_hz": 0.0,
+          "network_burst_rate_per_min": 0.0,
+          "pct_spikes_in_bursts": 0.0,
+          "spikes_per_burst": 0.0,
+          "synchrony_index": 0.0
+        },
+        "raw_p": {
+          "active_electrodes": 0.0,
+          "burst_duration_s": 0.0,
+          "burst_rate_per_min": 0.52378,
+          "isi_cv": 0.0,
+          "mfr_hz": 0.0,
+          "network_burst_rate_per_min": 0.0,
+          "pct_spikes_in_bursts": 0.0,
+          "spikes_per_burst": 0.0,
+          "synchrony_index": 0.0
+        }
+      },
+      "n_cultures": 80,
+      "n_features_separating_species": 7,
+      "n_human_cultures": 36,
+      "n_human_records": 188,
+      "n_rat_cultures": 44,
+      "n_rat_records": 44,
+      "n_records": 232,
+      "slice": "Axion Biosystems only",
+      "sources": [
+        "kapucu2022",
+        "trujillo2019"
+      ]
+    }
+  },
   "compartment_asymmetry": {
     "by_device_type": {
       "median_abs_asymmetry": {
@@ -275,7 +935,7 @@
     "counts": {
       "by_data_level": {
         "fitted_curve": 20375,
-        "spike_times": 1005
+        "spike_times": 1189
       },
       "by_mechanism_class": {
         "gabaa_agonist_or_pam": 26,
@@ -283,40 +943,42 @@
         "glutamatergic_agonist": 11,
         "glutamatergic_antagonist": 22,
         "na_channel_blocker": 113,
-        "none": 20671
+        "none": 20855
       },
       "by_source": {
         "kapucu2022": 288,
         "mateus2024": 108,
         "screenneuropharm_bic": 580,
         "sharf2022": 29,
-        "toxcast_mea": 20375
+        "toxcast_mea": 20375,
+        "trujillo2019": 184
       },
       "by_species": {
-        "human": 173,
+        "human": 357,
         "rat": 21207
       },
       "by_usable": {
-        "False": 456,
-        "True": 20924
+        "False": 458,
+        "True": 21106
       }
     },
-    "generated_at": "2026-09-21T20:59:44+00:00",
-    "n_records": 21380,
+    "generated_at": "2026-09-22T05:00:54+00:00",
+    "n_records": 21564,
     "schema": "schema/neuromps_schema.json"
   },
   "data_card": {
     "flag_counts": {
       "excluded_well_upstream": 90,
       "incomplete_dose_series": 272,
+      "missing_baseline_pair": 24,
       "noisy_electrodes_present": 11,
-      "outlier_feature_value": 161,
-      "replicate_divergence": 161,
-      "too_few_active_electrodes": 184,
+      "outlier_feature_value": 191,
+      "replicate_divergence": 191,
+      "too_few_active_electrodes": 186,
       "unreadable_channels": 2
     },
-    "records": 21380,
-    "usable": 20924
+    "records": 21564,
+    "usable": 21106
   },
   "demo_precompute": {
     "conformal_alpha": 0.1,
@@ -842,13 +1504,13 @@
   "run_all_timings_full": {
     "by_stage_s": {
       "demo": 85.1,
-      "models": 16.5
+      "models": 16.1
     },
     "label": "wall-clock seconds per stage, most recent full run of each",
     "stages_run": [
-      "demo"
+      "models"
     ],
-    "total_s": 85.1
+    "total_s": 16.1
   },
   "species_transfer": {
     "source": "kapucu2022",

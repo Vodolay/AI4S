@@ -86,15 +86,36 @@ def build_pairs(records: pd.DataFrame, usable_only: bool = True) -> pd.DataFrame
         df = df[df["qc.usable"].astype(bool)]
     df["_key"] = df.apply(_pair_key, axis=1)
     baselines = {row["_key"]: row for _, row in df[df["recording.phase"] == "baseline"].iterrows()}
-    rows = []
+    rows, unlabelled = [], 0
     for _, exposure in df[df["recording.phase"] == "exposure"].iterrows():
+        if is_unlabelled_exposure(exposure):
+            unlabelled += 1
+            continue
         baseline = baselines.get(exposure["_key"])
         if baseline is None:
             continue
         rows.append(_pair_row(exposure, baseline))
+    if unlabelled:
+        log.info("dropped %d exposures with a compound applied but no mechanism", unlabelled)
     if not rows:
         return pd.DataFrame(columns=["pair_id", "group", "label", *delta_columns()])
     return pd.DataFrame(rows)
+
+
+def is_unlabelled_exposure(row: pd.Series) -> bool:
+    """Whether a compound was applied to this recording without being identified.
+
+    Such a recording must never become a pair. :func:`_pair_row` falls back to
+    the control label when ``mechanism_class`` is missing, so an unlabelled
+    exposure would enter the classifier as a control - a treated recording
+    teaching the model what untreated looks like. Trujillo's drug sessions are
+    the case in hand: the deposit records that a compound was applied and not
+    which well received which, so the mechanism is genuinely unknown rather
+    than absent.
+    """
+    role = row.get("compound.role")
+    label = row.get("compound.mechanism_class")
+    return role == "test" and not (isinstance(label, str) and label)
 
 
 def _pair_row(exposure: pd.Series, baseline: pd.Series) -> dict:

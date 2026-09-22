@@ -13,7 +13,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from neuromps.etl import kapucu, screenneuropharm, sharf
+from neuromps.etl import kapucu, screenneuropharm, sharf, trujillo
 from neuromps.etl.toxcast_mea import (
     INTERIM_PARQUET,
     MC56_CSV,
@@ -22,7 +22,7 @@ from neuromps.etl.toxcast_mea import (
 )
 from neuromps.fetch.manifest import Manifest, utc_now
 from neuromps.metrics import update_metrics
-from neuromps.paths import manifest_path, processed_dir
+from neuromps.paths import interim_dir, manifest_path, processed_dir
 from neuromps.qc.flags import add_cross_record_flags
 from neuromps.qc.schema import check_traceable, validate_records
 
@@ -76,6 +76,7 @@ def collect_records(raw_root: Path = RAW_ROOT, full: bool = False) -> list[dict]
     records += _screenneuropharm_records(hashes, raw_root, full)
     records += _archive_records(sharf, hashes, raw_root, full)
     records += _mateus_records(hashes, raw_root)
+    records += _trujillo_records(hashes, raw_root, full)
     add_cross_record_flags(records)  # replicate divergence, outliers, unpaired exposures
     return records
 
@@ -99,6 +100,27 @@ def _mateus_records(hashes: dict[str, str], raw_root: Path) -> list[dict]:
         cache_path=interim_dir() / "mateus2024_records.json",
     )
     log.info("mateus2024: %d records", len(built))
+    return built
+
+
+def _trujillo_records(hashes: dict[str, str], raw_root: Path, full: bool) -> list[dict]:
+    """Human organoid records, cached: feature extraction costs about 90 s.
+
+    The spike tables are small, so unlike the other large sources this one is
+    present on both tiers; a quick run simply has fewer sessions to read.
+    """
+    spikes_dir = raw_root / trujillo.SOURCE
+    if not any(spikes_dir.glob("*.spikes.parquet")):
+        log.info("trujillo2019 sessions not fetched; skipping")
+        return []
+    cache = interim_dir() / "trujillo2019_records.json"
+    if cache.exists() and not full:
+        built = json.loads(cache.read_text())
+    else:
+        built = trujillo.build_records(spikes_dir, hashes)
+        cache.parent.mkdir(parents=True, exist_ok=True)
+        cache.write_text(json.dumps(built, default=str))
+    log.info("trujillo2019: %d records", len(built))
     return built
 
 
