@@ -37,8 +37,20 @@ platforms the picture reverses** — in the one cross-platform contrast availabl
 itself flips sign while synchrony agrees, so portability is a species result, not a platform one.
 
 **Coupling asymmetry tracks relative firing rate, not pathway direction.** At fixed wiring, changing
-one chamber's drive swings the measured asymmetry across most of its range. Any claim about
-direction has to control for rate first — the single most useful negative result in the project.
+one chamber's drive swings the measured asymmetry across most of its range, and pre-whitening the
+correlogram makes that worse rather than better, so it is the network and not the estimator. Any
+claim about direction has to control for rate first — the single most useful negative result in the
+project.
+
+**And it is wrong against ground truth.** One deposit instruments the microtunnels between its
+chambers, two electrodes per tunnel, so a spike crossing is recorded twice and the sign of the delay
+is the direction it physically travelled. The traffic is strongly directed — mean |flow index| 0.363
+<!-- metrics.json: axonal_directionality.headline.median_abs_flow_index --> against 0.0093
+<!-- metrics.json: axonal_directionality.headline.shift_control_median_abs_index --> for a
+time-shifted control — and the chamber measure points the same way on a fraction 0.419
+<!-- metrics.json: axonal_directionality.headline.sign_agreement.fraction --> of 31 chamber pairs,
+a coin flip, at every latency window tested. Reading direction off chamber cross-correlation does
+not work on real devices, and we can now say so against a measurement rather than a simulation.
 
 **The twin does not yet recover pharmacology from a real chip.** Applied to 113 real two-chamber
 recordings <!-- metrics.json: twin_hd15_real_inference.n_recordings -->, the inferred GABA-A scale

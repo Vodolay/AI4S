@@ -54,6 +54,7 @@
       "forward_ratio": 1.0,
       "background_scale_target": 1.0,
       "asymmetry_mean": 0.109,
+      "asymmetry_prewhitened_mean": 0.231,
       "lag_ms_mean": 1.667,
       "peak_correlation_mean": 0.681,
       "rate_ratio_c1_over_c0": 0.978,
@@ -63,6 +64,7 @@
       "forward_ratio": 1.0,
       "background_scale_target": 0.85,
       "asymmetry_mean": 0.494,
+      "asymmetry_prewhitened_mean": 0.832,
       "lag_ms_mean": 5.0,
       "peak_correlation_mean": 0.731,
       "rate_ratio_c1_over_c0": 0.692,
@@ -72,6 +74,7 @@
       "forward_ratio": 1.0,
       "background_scale_target": 0.7,
       "asymmetry_mean": 0.681,
+      "asymmetry_prewhitened_mean": 0.936,
       "lag_ms_mean": 8.333,
       "peak_correlation_mean": 0.721,
       "rate_ratio_c1_over_c0": 0.599,
@@ -81,6 +84,7 @@
       "forward_ratio": 4.0,
       "background_scale_target": 1.0,
       "asymmetry_mean": 0.005,
+      "asymmetry_prewhitened_mean": -0.054,
       "lag_ms_mean": 0.0,
       "peak_correlation_mean": 0.582,
       "rate_ratio_c1_over_c0": 1.225,
@@ -90,6 +94,7 @@
       "forward_ratio": 4.0,
       "background_scale_target": 0.85,
       "asymmetry_mean": 0.535,
+      "asymmetry_prewhitened_mean": 0.941,
       "lag_ms_mean": 5.0,
       "peak_correlation_mean": 0.752,
       "rate_ratio_c1_over_c0": 0.895,
@@ -99,6 +104,7 @@
       "forward_ratio": 4.0,
       "background_scale_target": 0.7,
       "asymmetry_mean": 0.759,
+      "asymmetry_prewhitened_mean": 0.995,
       "lag_ms_mean": 5.0,
       "peak_correlation_mean": 0.795,
       "rate_ratio_c1_over_c0": 0.762,
@@ -108,6 +114,7 @@
       "forward_ratio": 16.0,
       "background_scale_target": 1.0,
       "asymmetry_mean": 0.143,
+      "asymmetry_prewhitened_mean": 0.297,
       "lag_ms_mean": 5.0,
       "peak_correlation_mean": 0.576,
       "rate_ratio_c1_over_c0": 1.474,
@@ -117,6 +124,7 @@
       "forward_ratio": 16.0,
       "background_scale_target": 0.85,
       "asymmetry_mean": 0.502,
+      "asymmetry_prewhitened_mean": 0.931,
       "lag_ms_mean": 5.0,
       "peak_correlation_mean": 0.722,
       "rate_ratio_c1_over_c0": 0.997,
@@ -126,11 +134,26 @@
       "forward_ratio": 16.0,
       "background_scale_target": 0.7,
       "asymmetry_mean": 0.83,
+      "asymmetry_prewhitened_mean": 0.993,
       "lag_ms_mean": 5.0,
       "peak_correlation_mean": 0.808,
       "rate_ratio_c1_over_c0": 0.859,
       "n_seeds": 3
     }
   ],
+  "confound_summary": {
+    "raw": {
+      "drive_span": 0.671,
+      "wiring_span": 0.109,
+      "drive_moves_measure_more_than_wiring": true
+    },
+    "prewhitened": {
+      "drive_span": 0.817,
+      "wiring_span": 0.173,
+      "drive_moves_measure_more_than_wiring": true
+    },
+    "prewhitening_reduces_drive_dependence": false,
+    "prewhiten_order": 5
+  },
   "finding": "coupling asymmetry tracks the compartments' relative firing rate as much as the pathway ratio: with equal drive a strongly directed pathway can read as reversed, because the target compartment also receives the pathway's excitation"
 }

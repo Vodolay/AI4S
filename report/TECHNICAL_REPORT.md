@@ -38,7 +38,11 @@ The results that matter are as much negative as positive, and the report leads w
    features even at matched platform and preparation (§6.8).
 2. **Coupling asymmetry tracks relative firing rate, not pathway direction.** At fixed wiring,
    changing one chamber's drive moves the measure several times further than changing the wiring
-   does (§7.2).
+   does, and pre-whitening makes that worse rather than better (§7.2). On real devices that
+   instrument the connecting tunnels, the measure agrees with the axons' own measured direction on
+   a fraction 0.419
+   <!-- metrics.json: axonal_directionality.headline.sign_agreement.fraction --> of 31 chamber
+   pairs — chance (§7.7).
 3. **The twin's posterior does not recover drug-knob direction from real recordings.** The inferred
    GABA-A scale shows no bicuculline dose trend, and untreated chips already infer 0.3781
    <!-- metrics.json: twin_hd15_real_inference.gabaa_scale_at_baseline.median -->, so the parameter
@@ -48,11 +52,9 @@ The results that matter are as much negative as positive, and the report leads w
    <!-- metrics.json: twin_hd16_directionality.cheapest_configuration.free_rate_residualized.auc -->,
    95% CI [0.8184, 0.9359]
    <!-- metrics.json: twin_hd16_directionality.cheapest_configuration.free_rate_residualized.auc_ci95 -->,
-   from a 10 s recording on 6 electrodes per compartment
-   <!-- metrics.json: twin_hd16_directionality.cheapest_configuration.free_rate_residualized.electrodes_per_compartment -->
-   — but as a *contrast* between two well-spaced wiring classes, not as a measurement of a
-   continuous ratio (§7.6). A second arm, which adjusted drive to match rates, reaches a higher AUC
-   and **fails its own validity check**; it is reported as inconclusive rather than as the result.
+   from 10 s on 6 electrodes per compartment — but as a *contrast* between two well-spaced wiring
+   classes, not a measurement of a continuous ratio (§7.6). A second arm that matched rates reaches
+   a higher AUC and **fails its own validity check**; it is reported as inconclusive.
 5. **That result does not reproduce on real devices.** On 26 chips whose microchannel geometry was
    fabricated rather than assumed, propagation asymmetry does not separate straight channels from
    three asymmetric designs (Kruskal p = 0.64
@@ -272,7 +274,7 @@ Logistic regression beats chance with an interval that excludes it. Its interval
 boosting's overlap heavily, so the gap between the two models is within noise; with 73 pairs the
 simpler model is the one to prefer, not the one shown to be better.
 
-![Task 1 confusion matrix, REAL data: out-of-fold predictions from grouped cross-validation over 73 treated/baseline pairs. Errors concentrate between the two GABA-A classes.](../outputs/figures/mechanism_confusion.png){width=55%}
+![Task 1 confusion matrix, REAL data: out-of-fold predictions from grouped cross-validation over 73 treated/baseline pairs. Errors concentrate between the two GABA-A classes.](../outputs/figures/mechanism_confusion.png){width=50%}
 
 
 **Calibration.** Expected calibration error on out-of-fold predictions is 0.1114
@@ -367,7 +369,7 @@ Five features agree in sign and four disagree
 <!-- metrics.json: mechanism_baselines.task3_platform_contrast.features_agreeing_in_sign -->
 <!-- metrics.json: mechanism_baselines.task3_platform_contrast.features_disagreeing_in_sign -->.
 
-![The same mechanism measured on two platforms, REAL data: per-feature log2 change for GABA-A antagonists. Mean firing rate reverses sign across platforms; synchrony agrees.](../outputs/figures/platform_contrast_gabaa_antagonist.png){width=63%}
+![The same mechanism measured on two platforms, REAL data: per-feature log2 change for GABA-A antagonists. Mean firing rate reverses sign across platforms; synchrony agrees.](../outputs/figures/platform_contrast_gabaa_antagonist.png){width=57%}
 
 **The disagreement does not fall where the species analysis puts it.** `mfr_hz` reverses, +0.348
 <!-- metrics.json: mechanism_baselines.task3_platform_contrast.by_source.kapucu2022.median_delta.mfr_hz -->
@@ -409,7 +411,7 @@ is named invariant while carrying a median difference of 1.04
 <!-- metrics.json: species_transfer.species_shift.by_feature.burst_rate_per_min.difference --> log2
 units, a two-fold shift whose interval also spans zero.
 
-![Per-feature species shift, REAL data: rat against human baseline distributions, with cluster-bootstrap intervals. Rate and burst-fraction features move least; synchrony moves most.](../outputs/figures/species_shift.png){width=52%}
+![Per-feature species shift, REAL data: rat against human baseline distributions, with cluster-bootstrap intervals. Rate and burst-fraction features move least; synchrony moves most.](../outputs/figures/species_shift.png){width=47%}
 
 
 ### 6.6 Ablations: the feature set is mostly one feature
@@ -450,7 +452,7 @@ Holm 0.4785
 which is what a real device-type effect should look like and what a pooled heterogeneous-against-
 homogeneous split cannot show.
 
-![Inter-compartment coupling lag by device type, REAL data, one value per device: five CxCx, five HpHp, six CxHp. The two same-tissue types are indistinguishable from each other; the heterogeneous type sits apart.](../outputs/figures/compartment_lag_by_device_type.png){width=61%}
+![Inter-compartment coupling lag by device type, REAL data, one value per device: five CxCx, five HpHp, six CxHp. The two same-tissue types are indistinguishable from each other; the heterogeneous type sits apart.](../outputs/figures/compartment_lag_by_device_type.png){width=55%}
 
 Two things this section does **not** claim. On absolute asymmetry rather than lag, the same per-type
 comparison does not survive correction, Holm 0.0519
@@ -510,7 +512,7 @@ the fourth apparent effect here dissolved by asking what else differs between th
 ![Untreated baseline activity on Axion platforms, by species and preparation. REAL recordings. The
 three groups are shown separately because the species contrast and the preparation contrast are both
 present in this slice; two groups would let the whole gap be read as species. Burst rate is the one
-feature flat across all three.](../outputs/figures/baseline_species_comparison.png){width=81%}
+feature flat across all three.](../outputs/figures/baseline_species_comparison.png){width=58%}
 
 ---
 
@@ -564,7 +566,23 @@ that reads direction off coupling must control for rate first.
 Three checks on the real devices confirmed the confound does not obviously bite there (firing-rate
 imbalance does not differ by device type), which is why §6.6 survives as a hypothesis.
 
-![SIMULATED: measured coupling asymmetry against the forward/backward wiring ratio, at three levels of drive to the receiving chamber. Drive moves the measure further than wiring does.](../outputs/twin/hd11_directionality_simulated.png){width=60%}
+**It is not an artefact of the estimator.** Two spike trains with different autocorrelation kernels
+give an asymmetric cross-correlogram even under symmetric coupling, so the drive dependence could be
+a property of the measurement. Repeating the sweep with each compartment's burst structure filtered
+out first — an order 5
+<!-- metrics.json: twin_hd11_validation.confound_summary.prewhiten_order --> autoregressive
+pre-whitening, through the same `features/coupling.py` the real recordings use — makes it
+*stronger*. Averaged over wiring ratios, drive moves the raw measure by 0.671
+<!-- metrics.json: twin_hd11_validation.confound_summary.raw.drive_span --> and the pre-whitened one
+by 0.817 <!-- metrics.json: twin_hd11_validation.confound_summary.prewhitened.drive_span -->, against
+0.109 <!-- metrics.json: twin_hd11_validation.confound_summary.raw.wiring_span --> and 0.173
+<!-- metrics.json: twin_hd11_validation.confound_summary.prewhitened.wiring_span --> for wiring at
+fixed drive; whether pre-whitening reduces the drive dependence: false
+<!-- metrics.json: twin_hd11_validation.confound_summary.prewhitening_reduces_drive_dependence -->.
+The confound is in the network — the pathway's own excitation raises the target's rate — not in the
+correlogram, which is why §7.6 residualises rate out rather than filtering it out.
+
+![SIMULATED: measured coupling asymmetry against the forward/backward wiring ratio, at three levels of drive to the receiving chamber. Drive moves the measure further than wiring does; the dashed pre-whitened control moves further still.](../outputs/twin/hd11_directionality_simulated.png){width=54%}
 
 
 ### 7.3 Calibration
@@ -578,7 +596,7 @@ burst-structure and synchrony group that §6.5 and §6.6 independently identify 
 of the feature set across species. Three analyses agree about species; the platform contrast of §6.4
 disagrees, and that disagreement is itself the finding.
 
-![SIMULATED against REAL: calibrated baseline features of the twin compared with the real baseline band. Rate and burst-rate features land inside it; burst fraction and synchrony do not.](../outputs/twin/hd12_calibration_simulated.png){width=60%}
+![SIMULATED against REAL: calibrated baseline features of the twin compared with the real baseline band. Rate and burst-rate features land inside it; burst fraction and synchrony do not.](../outputs/twin/hd12_calibration_simulated.png){width=54%}
 
 
 ### 7.4 Drug knobs
@@ -596,7 +614,7 @@ direction is established by a cluster bootstrap:
 Directions only: each knob is compared against a real reference from a different platform, so this
 supports direction, never magnitude.
 
-![SIMULATED drug knobs against REAL pharmacology directions, per feature. Only features whose real direction is established by a cluster bootstrap are scored.](../outputs/twin/hd13_drug_knob_validation_simulated.png){width=56%}
+![SIMULATED drug knobs against REAL pharmacology directions, per feature. Only features whose real direction is established by a cluster bootstrap are scored.](../outputs/twin/hd13_drug_knob_validation_simulated.png){width=50%}
 
 
 ### 7.5 Simulation-based inference, and what it cannot do
@@ -627,7 +645,7 @@ rank test was not. A learning curve
 showed connectivity contraction still rising with training-set size but only slightly: more
 simulations alone will not fix it.
 
-![SIMULATED posterior calibration: rank of the true parameter among posterior samples. Flat is calibrated, U-shaped is over-confident. Only `threshold_scale` is close to flat.](../outputs/twin/hd14_posterior_ranks_simulated.png){width=67%}
+![SIMULATED posterior calibration: rank of the true parameter among posterior samples. Flat is calibrated, U-shaped is over-confident. Only `threshold_scale` is close to flat.](../outputs/twin/hd14_posterior_ranks_simulated.png){width=54%}
 
 
 **Applied to 113 real two-chamber recordings**
@@ -654,7 +672,7 @@ An earlier version of this analysis produced an apparent dose trend (ρ = −0.1
 an artefact of pseudo-replication — 113 recordings from 16 devices treated as independent — and of
 posterior extrapolation on out-of-distribution dimensions. Both are now checks in code.
 
-![Inferred GABA-A scale for REAL bicuculline recordings, from a posterior trained on SIMULATIONS. There is no dose trend, and untreated chips already sit far below the neutral value of 1.](../outputs/twin/hd15_real_dose_response.png){width=56%}
+![Inferred GABA-A scale for REAL bicuculline recordings, from a posterior trained on SIMULATIONS. There is no dose trend, and untreated chips already sit far below the neutral value of 1.](../outputs/twin/hd15_real_dose_response.png){width=50%}
 
 
 ### 7.6 Directionality: what it takes to see asymmetry
@@ -715,7 +733,7 @@ configuration from 24 electrodes per compartment to 6.
 wiring regimes at 0.98 give a posterior contraction of only 0.311 for the continuous ratio (§7.5).
 Classifying is a far weaker demand than estimating.
 
-![SIMULATED, drive left alone: telling symmetric from asymmetric wiring, by recording length and electrode count. `all_rate_residualized` is the controlled comparison this section reports; `rate_only_rate_residualized` is the validity check it has to pass. The rate-matched arm, which does not pass it, is plotted separately in `outputs/twin/hd16_directionality_rate_matched_simulated.png` — split out because eight panels across one text block were unreadable at print size.](../outputs/twin/hd16_directionality_simulated.png){width=78%}
+![SIMULATED, drive left alone: telling symmetric from asymmetric wiring, by recording length and electrode count. `all_rate_residualized` is the controlled comparison this section reports; `rate_only_rate_residualized` is the validity check it has to pass. The rate-matched arm, which does not pass it, is plotted separately in `outputs/twin/hd16_directionality_rate_matched_simulated.png` — split out because eight panels across one text block were unreadable at print size.](../outputs/twin/hd16_directionality_simulated.png){width=56%}
 
 
 ### 7.7 The same question on real devices, and a null
@@ -726,14 +744,13 @@ Mateus deposit (§4.2) has it fabricated into the device: straight `control` mic
 <!-- metrics.json: microchannel_directionality.n_recordings --> from 26 chips
 <!-- metrics.json: microchannel_directionality.n_chips -->.
 
-The deposit publishes spike times and the measurement but not the electrode map it was computed on,
-so the geometry is recovered with the authors' own criterion — an event on all five electrodes of a
-microchannel with at most 1 ms between consecutive electrodes. That finds 10–15 channels per chip in
-a single row band, which is what the published five-electrode design predicts. Direction is reported
-as a magnitude: the deposit does not record how each device was seated on the array, so |asymmetry|
-says how one-sided propagation is, not which way it points.
-
-![REAL data: propagation asymmetry per chip by microchannel geometry. One point per chip, bars are medians. The control group spans almost the whole range on its own.](../outputs/figures/microchannel_asymmetry_real.png){width=60%}
+The deposit publishes spike times and the measurement but not the electrode map, so the geometry is
+recovered with the authors' own criterion — an event on all five electrodes of a microchannel with
+at most 1 ms between consecutive electrodes — which finds 10–15 channels per chip in a single row
+band, as the published five-electrode design predicts. Direction is reported as a magnitude: the
+deposit does not record how each device was seated, so |asymmetry| says how one-sided propagation is,
+not which way it points. The per-chip scatter is in
+`outputs/figures/microchannel_asymmetry_real.png`; control spans almost the whole range on its own.
 
 **The unit decides the answer.** A chip recorded at DIV 12, 17 and 21 supplies three recordings and
 one device. Counting recordings, median |asymmetry| runs from 0.339
@@ -743,68 +760,94 @@ for control to 0.854
 for rams, which looks like a geometry effect. Counting chips, it is 0.617
 <!-- metrics.json: microchannel_directionality.comparison.by_condition.control.median_abs_asymmetry -->
 against 0.875
-<!-- metrics.json: microchannel_directionality.comparison.by_condition.rams.median_abs_asymmetry -->
-with Kruskal p = 0.64
-<!-- metrics.json: microchannel_directionality.comparison.kruskal_p --> and every Holm-adjusted
-comparison against control at 1.0
-<!-- metrics.json: microchannel_directionality.comparison.vs_reference_holm.rams -->. Both are kept
-in `metrics.json`, the per-recording one labelled as the wrong unit, because the gap between them is
-the result. This is the pseudo-replication of §7.5 a third time, on a different dataset.
+<!-- metrics.json: microchannel_directionality.comparison.by_condition.rams.median_abs_asymmetry -->,
+Kruskal p = 0.64 <!-- metrics.json: microchannel_directionality.comparison.kruskal_p -->, every
+Holm-adjusted comparison against control at 1.0
+<!-- metrics.json: microchannel_directionality.comparison.vs_reference_holm.rams -->. Both are in
+`metrics.json`, the per-recording one labelled as the wrong unit, because the gap between them is
+the result — the pseudo-replication of §7.5 a third time, on a different dataset.
 
-**The statistic is also confounded with sampling.** |asymmetry| is a ratio of counts, so a chip with
-few propagation events looks one-sided by chance; across chips the correlation between event count
-and |asymmetry| is −0.494
+**Two reasons not to read the null as a measurement.** |asymmetry| is a ratio of counts, so a chip
+with few events looks one-sided by chance: across chips it correlates with event count at −0.494
 <!-- metrics.json: microchannel_directionality.event_count_confound.spearman_rho -->, p = 0.010
-<!-- metrics.json: microchannel_directionality.event_count_confound.p_value -->. Restricting to the
+<!-- metrics.json: microchannel_directionality.event_count_confound.p_value -->, and the
 better-sampled half leaves 13 chips
-<!-- metrics.json: microchannel_directionality.well_sampled_half.n_chips --> and p = 0.086
-<!-- metrics.json: microchannel_directionality.well_sampled_half.kruskal_p -->, which is not a
-result either.
-
-**What this does not say.** It does not contradict the deposit's own paper: those authors had the
-electrode map, measured per-channel propagation velocities, and asked a different question. The
-claim here is narrower — *this* statistic, aggregated per chip, does not separate these geometries,
-on 26 chips in five groups of three to eight, with control chips confined to experiments 9–11 so
-that condition is confounded with culture batch by the deposit's design.
+<!-- metrics.json: microchannel_directionality.well_sampled_half.n_chips --> at p = 0.086
+<!-- metrics.json: microchannel_directionality.well_sampled_half.kruskal_p -->. And control chips
+are confined to experiments 9–11 by the deposit's design, so condition is confounded with culture
+batch. None of this contradicts the deposit's own paper, whose authors had the electrode map.
 
 **The null is not an artefact of the geometry assumptions.** The detector assumes the channels run
-down the array's columns and that all five of their electrodes fired; the deposit settles neither.
-Running it under both orientations, and again with one electrode allowed to miss, gives four
-detectors and none separates the conditions — Kruskal p = 0.13074
-<!-- metrics.json: microchannel_directionality.geometry_robustness.variants.column_one_missing.kruskal_p -->,
-0.33528
-<!-- metrics.json: microchannel_directionality.geometry_robustness.variants.row_one_missing.kruskal_p -->
-and 0.77195
-<!-- metrics.json: microchannel_directionality.geometry_robustness.variants.row_strict.kruskal_p -->
-beside the headline's 0.63969. The orientation is also more than an assumption: down the columns the
-detector finds a median of 14
+down the array's columns and that all five electrodes fired; the deposit settles neither. Under both
+orientations, and again with one electrode allowed to miss, none of the four detectors separates the
+conditions (worst-case Kruskal p = 0.13074
+<!-- metrics.json: microchannel_directionality.geometry_robustness.variants.column_one_missing.kruskal_p -->
+beside the headline's 0.63969), and tolerating a missing electrode triples the events to 1,101,233
+<!-- metrics.json: microchannel_directionality.geometry_robustness.variants.column_one_missing.total_events -->
+without changing that. The orientation is also more than an assumption: down the columns the detector
+finds a median of 14
 <!-- metrics.json: microchannel_directionality.geometry_robustness.variants.column_strict.median_channels_detected -->
 channels per recording against 1
 <!-- metrics.json: microchannel_directionality.geometry_robustness.variants.row_strict.median_channels_detected -->
-along the rows, so the devices were seated the way the detector assumes. Tolerating a missing
-electrode triples the events to 1,101,233
-<!-- metrics.json: microchannel_directionality.geometry_robustness.variants.column_one_missing.total_events -->
-and still finds nothing.
+along the rows. Per-variant figures are in `metrics.json`.
 
-**What it says about the twin.** §7.6's directionality result is simulation-only, and this is the
-first time that question has been put to devices whose asymmetry was fabricated rather than
-simulated. It does not reproduce. The sample is too small and too confounded to call that a
-refutation, and too directly aimed to leave out.
+**What it says about the twin.** §7.6's directionality result is simulation-only; put to devices
+whose asymmetry was fabricated rather than simulated, it does not reproduce.
 
-**A second real-device test, of the confound rather than the result.** §7.2's finding — that the
-asymmetry measure reads relative activity rather than pathway direction — had only ever been shown
-in the twin, where drive could be moved at fixed wiring. `brewer2021`'s four-chamber cultures allow
-a version of it on real tissue whose chambers are joined by instrumented tunnels. Across 46 chamber
-pairs <!-- metrics.json: tunnel_rate_tracking.n_pairs --> in 9 cultures
-<!-- metrics.json: tunnel_rate_tracking.n_devices -->, coupling asymmetry has no rank relationship
-with the pair's firing-rate imbalance: Spearman ρ = −0.0527
+**A second real-device test, of the confound rather than the result.** On `brewer2021`'s
+four-chamber cultures, coupling asymmetry has no rank relationship with a pair's firing-rate
+imbalance across 46 pairs <!-- metrics.json: tunnel_rate_tracking.n_pairs --> in 9 cultures
+<!-- metrics.json: tunnel_rate_tracking.n_devices --> (ρ = −0.0527
 <!-- metrics.json: tunnel_rate_tracking.spearman_rho -->, 95% CI [−0.5988, 0.4665]
-<!-- metrics.json: tunnel_rate_tracking.spearman_rho_ci95 -->, over rate imbalances reaching a log2 ratio of 4.947
-<!-- metrics.json: tunnel_rate_tracking.abs_log2_rate_ratio.max -->, a thirty-fold difference. This is **not** a refutation of §7.2: that section moved drive with wiring held
-fixed, while these pairs differ in wiring and rate at once, so a null across them is consistent with
-a strong within-device effect. What it says is that rate imbalance alone does not predict measured
-asymmetry in real tissue, over an interval wide enough to admit a substantial effect either way. The
-scatter is in `outputs/figures/tunnel_asymmetry_vs_rate.png`.
+<!-- metrics.json: tunnel_rate_tracking.spearman_rho_ci95 -->). That is not a refutation of §7.2,
+which moved drive at fixed wiring while these pairs differ in both at once, and the interval is wide
+enough to admit a substantial effect either way — an uninformative test, kept because the next one
+answers the same question properly. Scatter in `outputs/figures/tunnel_asymmetry_vs_rate.png`.
+
+**The ground truth was in the deposit all along.** Both tests above compare the chamber measure
+against a proxy, because neither knows which way the axons actually fired. The Brewer device does:
+40 of the 44 electrodes in its `sorted-spikes/mea_tunnels.mat` sit *inside* the microtunnels, two per
+tunnel, so a spike crossing between chambers is recorded twice and the sign of the delay is the
+direction it went. Counting signed crossings within 1 ms
+<!-- metrics.json: axonal_directionality.headline_window_ms --> across 10 cultures
+<!-- metrics.json: axonal_directionality.n_cultures --> gives a physical flow direction per chamber
+pair, and the traffic is emphatically directed: mean |flow index| 0.363
+<!-- metrics.json: axonal_directionality.headline.median_abs_flow_index --> against 0.0093
+<!-- metrics.json: axonal_directionality.headline.shift_control_median_abs_index --> once one train
+is circularly shifted by seconds, which is what chance coincidence alone delivers.
+
+The chamber measure does not recover it. Told which way the axons fired, coupling asymmetry points
+the same way on 13 <!-- metrics.json: axonal_directionality.headline.sign_agreement.n_agreeing -->
+of 31 pairs <!-- metrics.json: axonal_directionality.headline.sign_agreement.n_pairs --> — a
+fraction of 0.419 <!-- metrics.json: axonal_directionality.headline.sign_agreement.fraction -->,
+95% CI [0.2667, 0.5484]
+<!-- metrics.json: axonal_directionality.headline.sign_agreement.fraction_ci95 --> clustered over
+cultures, against a chance level of one half. The rank correlation agrees: ρ = −0.23
+<!-- metrics.json: axonal_directionality.headline.axonal_vs_chamber_asymmetry.spearman_rho -->, 95%
+CI [−0.5106, 0.1234]
+<!-- metrics.json: axonal_directionality.headline.axonal_vs_chamber_asymmetry.spearman_rho_ci95 -->.
+Neither is sensitive to the window: at 0.5, 2 and 5 ms the correlation stays close to it, −0.2012
+<!-- metrics.json: axonal_directionality.by_window.5000us.axonal_vs_chamber_asymmetry.spearman_rho -->
+at the widest, and no window puts sign agreement above chance. The axonal direction does not track rate imbalance
+either (ρ = 0.0915
+<!-- metrics.json: axonal_directionality.headline.axonal_vs_log2_rate_ratio.spearman_rho -->, CI
+spanning zero) — the control this needs, since it shows the physical direction is not itself a rate
+artefact, so the disagreement is the chamber measure's.
+
+This is the strongest statement the project can make about coupling asymmetry, and it is negative:
+§7.2 showed the measure is confounded in a network we built, and this shows it fails on real devices
+where direction was measured independently. The scatter is in
+`outputs/figures/axonal_flow_vs_chamber.png`.
+
+**One defect worth recording, because it would have inverted the answer.** Of the 50 spike files in
+the deposit, 8
+<!-- metrics.json: axonal_directionality.stored_coordinate_disagreements.n_files_disagreeing -->
+store electrode `coordinates` that are the array point-reflected through its centre and contradict
+the channel names in the same file, and the device was mounted in two orientations across the ten
+cultures. Taking either at face value flips every affected tunnel's direction.
+`etl/brewer_tunnels.py` therefore derives position from channel names and the orientation from the
+tunnel labels' own topology, checked in `tests/test_brewer_tunnels.py` against the chamber files'
+independent electrode positions.
 
 ---
 
@@ -813,9 +856,9 @@ scatter is in `outputs/figures/tunnel_asymmetry_vs_rate.png`.
 **Data.** The asset is 21,530 rat records
 <!-- metrics.json: data_asset.counts.by_species.rat --> against 357 human
 <!-- metrics.json: data_asset.counts.by_species.human -->; every human claim rests on three sources.
-That rat figure had been stale since `mateus2024` was added, because it carried no citation comment
-— the checker in §9.2 guards only marked numbers, which is an argument for marking them all.
-Most records are curve fits from which our features cannot be recomputed. Dropping Tukker 2020 on
+That figure had been stale because it carried no citation comment; the checker in §9.2 guards only
+marked numbers, which is an argument for marking them all. Most records are curve fits from which
+our features cannot be recomputed. Dropping Tukker 2020 on
 license grounds leaves the *transfer* study on a single source, and Trujillo 2019 does not relieve
 it: its drug sessions say a compound was applied but not which well received which, so those 24
 records are flagged and excluded from pairing rather than labelled by guesswork. Nineteen of its 42
@@ -843,11 +886,12 @@ is one fixed geometry while real chambers carry 48, 36 or 60 electrodes. HD16's 
 identifiability *under a correct model*, since the same simulator generated both classes, and its
 rate controls remove only linear rate dependence.
 
-**The real-device test.** The §7.7 null rests on 26 chips in five groups, with condition confounded
-with culture batch by the deposit's design, an unanchored direction, and a statistic that varies with
-how many propagation events a chip produced. It bounds the effect rather than excluding it. The
-microchannel geometry is also recovered from the spike times rather than read from a map the deposit
-does not publish, so it approximates the authors' own analysis rather than reproducing it.
+**The real-device tests.** §7.7's microchannel null rests on 26 chips in five groups, with condition
+confounded with culture batch, an unanchored direction, a statistic that varies with a chip's event
+count, and a geometry recovered from spike times rather than a map the deposit does not publish: it
+bounds the effect rather than excluding it. The axonal comparison in the same section is better
+anchored but smaller — 31 chamber pairs in 9 cultures — and shows the chamber measure carries no
+directional information, not that no summary of chamber activity could.
 
 **Process.** CI runs on every push and both jobs pass, at commit `1a28703`; the quick pipeline
 takes 1,126 s on the two-vCPU runner a private repository gets, against 401 s here, so the
@@ -868,22 +912,19 @@ python run_all.py --quick     # path test: every stage, reduced settings (see be
 python run_all.py             # full run
 ```
 
-- `--quick` completes in **401 s on a fresh clone** of this repository — install, download, build,
-  model, twin and demo — against a 600 s budget. That is a 20-core machine; the same pipeline takes
-  1,126 s on the two-vCPU runner CI provides, which is the number to plan against. Each run records
-  its own per-stage timings
-  under `metrics.run_all_timings_quick`. Most of the variable part is downloading: the same clone
-  measured 52 s and 133 s for the fetch stage on two runs; the full twin stage takes roughly 2,000 s
-  and records `metrics.run_all_timings_full`. Both are logged under `outputs/logs/` as well.
+- `--quick` completes in **401 s on a fresh clone** — install, download, build, model, twin and
+  demo — against a 600 s budget. That is a 20-core machine; the same pipeline takes 1,126 s on the
+  two-vCPU runner CI provides, which is the number to plan against. Most of the variable part is
+  downloading: the same clone measured 52 s and 133 s for the fetch stage on two runs. Each run
+  records its own per-stage timings (`metrics.run_all_timings_quick`, `..._full`) and logs them
+  under `outputs/logs/`.
 - **`--quick` is a path test, not a reproduction of the report.** Measured on a fresh clone, it
   fetches the small-tier sources only and therefore builds a much smaller asset than the one this
   report describes; it produces 15 of the 16 figures the pipeline draws - the exception is the rate-matched
-  directionality arm, which the quick tier does not simulate - and omits six
-  `metrics.json` entries —
-  `toxcast_mea_inventory`, `twin_hd12_calibration`, `twin_hd15_real_inference`,
-  `compartment_asymmetry`, `microchannel_directionality` and the full-run timings. The analyses
-  behind those either need a full-tier download (the 109 MB microchannel archive, the ToxCast
-  release) or need compartment records the small-tier asset does not contain, and each skips itself
+  directionality arm, which the quick tier does not simulate - and omits six `metrics.json` entries
+  (`toxcast_mea_inventory`, `twin_hd12_calibration`, `twin_hd15_real_inference`,
+  `compartment_asymmetry`, `microchannel_directionality`, the full-run timings), whose analyses need
+  either a full-tier download or compartment records the small-tier asset lacks; each skips itself
   with a logged reason rather than failing. The §7.6 sweep additionally has too few simulations per
   cell to fit a discriminator, so its `cheapest_configuration` entries are written as `null`.
 - **Reproducing the numbers in this report takes the full path**: `python run_all.py` after a
@@ -892,12 +933,9 @@ python run_all.py             # full run
   other.
 - Dependencies are pinned in `pyproject.toml`; numpy is held at 2.3.5 because brian2 2.9.0 does not
   import against 2.4.
-- Every number in this report is produced by a script under `src/` and written to
-  `outputs/metrics.json`; `python -m neuromps.report.verify` checks the report against it.
-- Caches refuse to be reused across a change in what they mean: the simulation cache stores its
-  summary names, electrode count and a hash of the source of every function that defines a summary.
 - Tests run with `pytest` (feature extraction, QC flags, provenance hashing, the MEA simulator, and
-  a contract test that fails if any headline metric loses its confidence interval).
+  a contract test that fails if any headline metric loses its confidence interval). §9.2 lists what
+  the repository enforces rather than documents.
 
 ### 9.1 Where the time goes
 
@@ -921,6 +959,15 @@ the twin stage dominates, then downloading, then the asset build.
 - **No clinical claims.** A test scans the reports for efficacy, diagnostic and treatment language
   and fails unless the line is a disclaimer ruling it out.
 
+### 9.3 Sources, licenses, and where each result lives
+
+Data sources, with licenses and citations, are in `CITATIONS.md` and recorded per file in
+`data/raw/MANIFEST.json`; third-party software licenses are in `THIRD_PARTY.md`; the repository is
+MIT-licensed. Every number here comes from a key in `outputs/metrics.json` written by a script under
+`src/`, and `report/RESULT_INDEX.md` maps each result to its key and script. Figures go to
+`outputs/figures/` (real) and `outputs/twin/` (simulated), with the real/simulated rule enforced in
+the captions rather than the filenames.
+
 ---
 
 ## 10. The demo
@@ -930,44 +977,24 @@ its standard, mechanism prediction with a conformal set beside the transfer resu
 with its posterior and what it does on real recordings.
 
 No interaction waits on a simulator: `run_all.py --stage demo` precomputes a grid of 75
-<!-- metrics.json: demo_precompute.n_grid_points --> twin simulations spanning the prior with
-posterior samples per point, posterior samples for all 113 real two-chamber recordings
+<!-- metrics.json: demo_precompute.n_grid_points --> twin simulations spanning the prior, posterior
+samples for all 113 real two-chamber recordings
 <!-- metrics.json: demo_precompute.n_real_recordings -->, and a classifier fitted once, in 66.3 s
-<!-- metrics.json: run_all_timings_full.by_stage_s.demo -->. Through Streamlit's own test harness
-every interaction lands between 0.6 and 0.9 s; the exception is a button running one Brian2
-simulation in about 4.5 s, so the twin is verifiably a simulator and not a lookup table. The app
-reads `outputs/metrics.json` and `outputs/demo/` and recomputes nothing, so it cannot disagree with
-this report. Detail is in `app/README.md`, screenshots in `outputs/figures/app_tab*.png`.
+<!-- metrics.json: run_all_timings_full.by_stage_s.demo -->. Through Streamlit's test harness every
+interaction lands between 0.6 and 0.9 s, except a button running one Brian2 simulation in about
+4.5 s, so the twin is verifiably a simulator and not a lookup table. The app recomputes nothing, so
+it cannot disagree with this report. Detail in `app/README.md`, screenshots in
+`outputs/figures/app_tab*.png`.
 
 ---
 
 ## 11. AI assistance disclosure
 
 This work was produced in a paired workflow with Anthropic's Claude (Claude Opus 5) via Claude Code.
-The model wrote the large majority of the code, tests and prose in this repository, under
-step-by-step human direction: the human set the plan and phase gates, chose the scope, approved or
-rejected each step, and directed the scientific decisions.
-
-Specific practices used to keep that honest, all visible in the repository history:
-
-- Numbers are never written by hand into documents. Every figure in this report is emitted by a
-  script into `outputs/metrics.json` and re-checked against it by `neuromps.report.verify`, which
-  caught a stale timestamp and three mis-anchored citations while this report was being written.
-- Results were reported as observed, including when they contradicted the plan's expectation — the
-  negative findings in §6.2, §6.3, §7.2 and §7.5 are examples.
-- `report/LAB_NOTEBOOK.md` records what was tried and abandoned, with dates and commit hashes,
-  including several defects the model introduced and then found in its own work.
-
----
-
-## 12. Sources, licenses, and where each result lives
-
-Data sources, with licenses and citations, are listed in `CITATIONS.md` and recorded per file in
-`data/raw/MANIFEST.json`. Third-party software licenses are in `THIRD_PARTY.md`. This repository is
-released under the MIT license (`LICENSE`).
-
-Every number here comes from a key in `outputs/metrics.json`, written by a script under `src/`;
-`report/RESULT_INDEX.md` maps each result to its key and its script. Figures go to
-`outputs/figures/` (real) and `outputs/twin/` (simulated, marked in the filename except
-`hd15_real_dose_response.png`, real recordings under a simulation-trained model) — the rule is
-enforced in the captions, not the filenames.
+The model wrote most of the code, tests and prose here under step-by-step human direction: the human
+set the plan and phase gates, chose the scope, approved or rejected each step, and directed the
+scientific decisions. Three practices kept that honest: numbers are emitted into
+`outputs/metrics.json` and re-checked by `neuromps.report.verify` rather than typed, which caught a
+stale timestamp and three mis-anchored citations here; results are reported as observed, including
+against the plan's expectation (§6.2, §6.3, §7.2, §7.5); and `report/LAB_NOTEBOOK.md` records what
+was tried and abandoned.

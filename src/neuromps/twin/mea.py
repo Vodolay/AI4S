@@ -150,7 +150,9 @@ def simulate_recording(params, layout: ElectrodeLayout | None = None, seed: int 
     }
 
 
-def electrode_coupling(heard: dict[str, np.ndarray], duration_s: float) -> dict:
+def electrode_coupling(
+    heard: dict[str, np.ndarray], duration_s: float, prewhiten_order: int = 0
+) -> dict:
     """Directed coupling between compartments, from what the electrodes heard.
 
     The real ETL measures coupling from the per-electrode spike trains a device
@@ -160,9 +162,10 @@ def electrode_coupling(heard: dict[str, np.ndarray], duration_s: float) -> dict:
     the one variable an electrode-count experiment has to vary. Same function,
     same input contract as the real recordings.
     """
-    from neuromps.features.coupling import directed_coupling
+    from neuromps.features.coupling import CouplingParams, directed_coupling
 
     per_compartment = {
         c: {k: v for k, v in heard.items() if k.startswith(f"c{c}_")} for c in (0, 1)
     }
-    return directed_coupling(per_compartment[0], per_compartment[1], duration_s)
+    params = CouplingParams(prewhiten_order=prewhiten_order) if prewhiten_order else None
+    return directed_coupling(per_compartment[0], per_compartment[1], duration_s, params)

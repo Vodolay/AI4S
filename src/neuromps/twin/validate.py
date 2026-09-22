@@ -92,6 +92,11 @@ def in_real_range(features: dict) -> dict:
     return verdict
 
 
+# AR order for the pre-whitened control measurement: five 5 ms bins covers the
+# 25 ms over which a burst dominates its own autocorrelation.
+PREWHITEN_ORDER = 5
+
+
 def directionality_sweep(
     ratios: tuple[float, ...], drive_scales: tuple[float, ...], seeds: tuple[int, ...], duration_s
 ) -> list[dict]:
@@ -110,17 +115,33 @@ def directionality_sweep(
                     background_scale_target=scale,
                 )
                 result = simulate(params)
-                out = electrode_coupling(electrode_spikes(result), result.duration_s)
+                electrodes = electrode_spikes(result)
+                out = electrode_coupling(electrodes, result.duration_s)
+                # The same measurement with each compartment's own burst
+                # structure filtered out first. A cross-correlogram between two
+                # signals with different autocorrelation kernels is asymmetric
+                # even when the coupling is not, so if the drive dependence
+                # below is an artefact of the estimator rather than of the
+                # network, it should weaken here.
+                whitened = electrode_coupling(electrodes, result.duration_s, PREWHITEN_ORDER)
                 spikes = result.spikes_by_compartment()
                 rates = {
                     c: len(t) / params.n_per_compartment / duration_s for c, t in spikes.items()
                 }
-                values.append({**out, "rate_c0": rates[0], "rate_c1": rates[1]})
+                values.append(
+                    {
+                        **out,
+                        "asymmetry_prewhitened": whitened.get("asymmetry"),
+                        "rate_c0": rates[0],
+                        "rate_c1": rates[1],
+                    }
+                )
             rows.append(
                 {
                     "forward_ratio": ratio,
                     "background_scale_target": scale,
                     "asymmetry_mean": _mean(values, "asymmetry"),
+                    "asymmetry_prewhitened_mean": _mean(values, "asymmetry_prewhitened"),
                     "lag_ms_mean": _mean(values, "lag_ms"),
                     "peak_correlation_mean": _mean(values, "peak_correlation"),
                     "rate_ratio_c1_over_c0": round(
@@ -142,6 +163,53 @@ def _mean(values: list[dict], key: str) -> float | None:
     return round(float(np.mean(present)), 3) if present else None
 
 
+def _span(rows: list[dict], key: str, hold: str, vary: str) -> float | None:
+    """Mean range of ``key`` across ``vary``, averaged over levels of ``hold``.
+
+    How far the measure moves when one factor is swept and the other is
+    pinned - the quantity the confound claim in the report compares between
+    the pathway ratio and the drive balance.
+    """
+    spans = []
+    for level in sorted({row[hold] for row in rows}):
+        present = [row[key] for row in rows if row[hold] == level and row.get(key) is not None]
+        if len(present) > 1:
+            spans.append(max(present) - min(present))
+    return round(float(np.mean(spans)), 3) if spans else None
+
+
+def confound_summary(rows: list[dict]) -> dict:
+    """Does filtering each compartment's burst kernel out weaken the confound?
+
+    A cross-correlogram between two spike trains with different
+    autocorrelation kernels is asymmetric even under symmetric coupling, so
+    the drive dependence the sweep shows could be an artefact of the
+    estimator rather than a property of the network. If it were, the
+    pre-whitened measurement - which removes each compartment's own burst
+    structure before correlating - would show a smaller drive span.
+    """
+    summary = {}
+    for label, key in (
+        ("raw", "asymmetry_mean"),
+        ("prewhitened", "asymmetry_prewhitened_mean"),
+    ):
+        summary[label] = {
+            "drive_span": _span(rows, key, "forward_ratio", "background_scale_target"),
+            "wiring_span": _span(rows, key, "background_scale_target", "forward_ratio"),
+        }
+    for entry in summary.values():
+        drive, wiring = entry["drive_span"], entry["wiring_span"]
+        entry["drive_moves_measure_more_than_wiring"] = (
+            None if drive is None or wiring is None else bool(drive > wiring)
+        )
+    raw, white = summary["raw"]["drive_span"], summary["prewhitened"]["drive_span"]
+    summary["prewhitening_reduces_drive_dependence"] = (
+        None if raw is None or white is None else bool(white < raw)
+    )
+    summary["prewhiten_order"] = PREWHITEN_ORDER
+    return summary
+
+
 def plot_sweep(rows: list[dict], path, title: str) -> None:
     """Asymmetry against drive balance, one line per pathway ratio (simulated)."""
     import matplotlib
@@ -153,17 +221,25 @@ def plot_sweep(rows: list[dict], path, title: str) -> None:
     ratios = sorted({row["forward_ratio"] for row in rows})
     fig, ax = plt.subplots(figsize=(6.5, 4.2))
     for i, ratio in enumerate(ratios):
-        subset = [
-            r for r in rows if r["forward_ratio"] == ratio and r["asymmetry_mean"] is not None
-        ]
-        subset.sort(key=lambda r: r["background_scale_target"])
-        ax.plot(
-            [r["background_scale_target"] for r in subset],
-            [r["asymmetry_mean"] for r in subset],
-            "o-",
-            color=colours[i % len(colours)],
-            label=f"forward ratio {ratio:g}",
-        )
+        colour = colours[i % len(colours)]
+        for key, style, width in (
+            ("asymmetry_mean", "o-", 1.6),
+            ("asymmetry_prewhitened_mean", "s--", 1.0),
+        ):
+            subset = [r for r in rows if r["forward_ratio"] == ratio and r.get(key) is not None]
+            if not subset:
+                continue
+            subset.sort(key=lambda r: r["background_scale_target"])
+            ax.plot(
+                [r["background_scale_target"] for r in subset],
+                [r[key] for r in subset],
+                style,
+                color=colour,
+                linewidth=width,
+                markersize=4 if style.startswith("s") else 5,
+                label=f"forward ratio {ratio:g}" if key == "asymmetry_mean" else None,
+            )
+    ax.plot([], [], "ks--", markersize=4, linewidth=1.0, label="pre-whitened control")
     ax.axhline(0, color="black", linewidth=0.8)
     ax.set_xlabel("background drive into the target compartment (relative)")
     ax.set_ylabel("coupling asymmetry (source -> target)")
@@ -202,6 +278,7 @@ def main(argv: list[str] | None = None) -> int:
         "duration_s": duration,
         "baseline": baseline,
         "directionality_sweep": sweep,
+        "confound_summary": confound_summary(sweep),
         "finding": (
             "coupling asymmetry tracks the compartments' relative firing rate as much as the "
             "pathway ratio: with equal drive a strongly directed pathway can read as reversed, "
@@ -232,6 +309,7 @@ def main(argv: list[str] | None = None) -> int:
             f"-> asym {row['asymmetry_mean']}, lag {row['lag_ms_mean']} ms, "
             f"rate ratio {row['rate_ratio_c1_over_c0']}"
         )
+    print(json.dumps(results["confound_summary"], indent=2))
     return 0
 
 

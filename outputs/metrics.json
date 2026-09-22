@@ -1,4 +1,224 @@
 {
+  "axonal_directionality": {
+    "agreement_holds_at_every_window": false,
+    "by_window": {
+      "1000us": {
+        "axonal_vs_chamber_asymmetry": {
+          "excludes_zero": false,
+          "p_value": 0.2127,
+          "spearman_rho": -0.2302,
+          "spearman_rho_ci95": [
+            -0.5106,
+            0.1234
+          ]
+        },
+        "axonal_vs_log2_rate_ratio": {
+          "excludes_zero": false,
+          "p_value": 0.6243,
+          "spearman_rho": 0.0915,
+          "spearman_rho_ci95": [
+            -0.2859,
+            0.4754
+          ]
+        },
+        "median_abs_flow_index": 0.3628,
+        "min_crossings_per_pair": 50,
+        "n_devices": 9,
+        "n_pairs": 31,
+        "n_pairs_below_crossing_threshold": 0,
+        "n_pairs_joined": 31,
+        "shift_control_median_abs_index": 0.0093,
+        "sign_agreement": {
+          "better_than_chance": false,
+          "chance": 0.5,
+          "fraction": 0.4194,
+          "fraction_ci95": [
+            0.2667,
+            0.5484
+          ],
+          "n_agreeing": 13,
+          "n_pairs": 31
+        },
+        "window_ms": 1.0
+      },
+      "2000us": {
+        "axonal_vs_chamber_asymmetry": {
+          "excludes_zero": false,
+          "p_value": 0.2948,
+          "spearman_rho": -0.1944,
+          "spearman_rho_ci95": [
+            -0.5212,
+            0.1733
+          ]
+        },
+        "axonal_vs_log2_rate_ratio": {
+          "excludes_zero": false,
+          "p_value": 0.5805,
+          "spearman_rho": 0.1032,
+          "spearman_rho_ci95": [
+            -0.2846,
+            0.4879
+          ]
+        },
+        "median_abs_flow_index": 0.2137,
+        "min_crossings_per_pair": 50,
+        "n_devices": 9,
+        "n_pairs": 31,
+        "n_pairs_below_crossing_threshold": 0,
+        "n_pairs_joined": 31,
+        "shift_control_median_abs_index": 0.0085,
+        "sign_agreement": {
+          "better_than_chance": false,
+          "chance": 0.5,
+          "fraction": 0.4516,
+          "fraction_ci95": [
+            0.2941,
+            0.5862
+          ],
+          "n_agreeing": 14,
+          "n_pairs": 31
+        },
+        "window_ms": 2.0
+      },
+      "5000us": {
+        "axonal_vs_chamber_asymmetry": {
+          "excludes_zero": false,
+          "p_value": 0.2777,
+          "spearman_rho": -0.2012,
+          "spearman_rho_ci95": [
+            -0.5156,
+            0.1564
+          ]
+        },
+        "axonal_vs_log2_rate_ratio": {
+          "excludes_zero": false,
+          "p_value": 0.5555,
+          "spearman_rho": 0.1101,
+          "spearman_rho_ci95": [
+            -0.2927,
+            0.5063
+          ]
+        },
+        "median_abs_flow_index": 0.1194,
+        "min_crossings_per_pair": 50,
+        "n_devices": 9,
+        "n_pairs": 31,
+        "n_pairs_below_crossing_threshold": 0,
+        "n_pairs_joined": 31,
+        "shift_control_median_abs_index": 0.0046,
+        "sign_agreement": {
+          "better_than_chance": false,
+          "chance": 0.5,
+          "fraction": 0.4516,
+          "fraction_ci95": [
+            0.3462,
+            0.5517
+          ],
+          "n_agreeing": 14,
+          "n_pairs": 31
+        },
+        "window_ms": 5.0
+      },
+      "500us": {
+        "axonal_vs_chamber_asymmetry": {
+          "excludes_zero": false,
+          "p_value": 0.2917,
+          "spearman_rho": -0.1956,
+          "spearman_rho_ci95": [
+            -0.4885,
+            0.2121
+          ]
+        },
+        "axonal_vs_log2_rate_ratio": {
+          "excludes_zero": false,
+          "p_value": 0.9143,
+          "spearman_rho": 0.0202,
+          "spearman_rho_ci95": [
+            -0.3694,
+            0.3867
+          ]
+        },
+        "median_abs_flow_index": 0.4494,
+        "min_crossings_per_pair": 50,
+        "n_devices": 9,
+        "n_pairs": 31,
+        "n_pairs_below_crossing_threshold": 0,
+        "n_pairs_joined": 31,
+        "shift_control_median_abs_index": 0.0229,
+        "sign_agreement": {
+          "better_than_chance": false,
+          "chance": 0.5,
+          "fraction": 0.4516,
+          "fraction_ci95": [
+            0.2941,
+            0.5862
+          ],
+          "n_agreeing": 14,
+          "n_pairs": 31
+        },
+        "window_ms": 0.5
+      }
+    },
+    "figure": "outputs/figures/axonal_flow_vs_chamber.png",
+    "headline": {
+      "axonal_vs_chamber_asymmetry": {
+        "excludes_zero": false,
+        "p_value": 0.2127,
+        "spearman_rho": -0.2302,
+        "spearman_rho_ci95": [
+          -0.5106,
+          0.1234
+        ]
+      },
+      "axonal_vs_log2_rate_ratio": {
+        "excludes_zero": false,
+        "p_value": 0.6243,
+        "spearman_rho": 0.0915,
+        "spearman_rho_ci95": [
+          -0.2859,
+          0.4754
+        ]
+      },
+      "median_abs_flow_index": 0.3628,
+      "min_crossings_per_pair": 50,
+      "n_devices": 9,
+      "n_pairs": 31,
+      "n_pairs_below_crossing_threshold": 0,
+      "n_pairs_joined": 31,
+      "shift_control_median_abs_index": 0.0093,
+      "sign_agreement": {
+        "better_than_chance": false,
+        "chance": 0.5,
+        "fraction": 0.4194,
+        "fraction_ci95": [
+          0.2667,
+          0.5484
+        ],
+        "n_agreeing": 13,
+        "n_pairs": 31
+      },
+      "window_ms": 1.0
+    },
+    "headline_window_ms": 1.0,
+    "label": "REAL - measured axonal crossings, not simulated",
+    "n_cultures": 10,
+    "shifts_s": [
+      5.0,
+      17.0,
+      41.0
+    ],
+    "stored_coordinate_disagreements": {
+      "n_files_checked": 50,
+      "n_files_disagreeing": 8,
+      "note": "files whose stored coordinates contradict their own channel names; position is taken from the names, which never disagree with the convention"
+    },
+    "windows_ms": [
+      0.5,
+      1.0,
+      2.0,
+      5.0
+    ]
+  },
   "baseline_activity": {
     "all_platforms": {
       "electrodes_per_unit": [
@@ -2151,9 +2371,24 @@
         "synchrony_index": false
       }
     },
+    "confound_summary": {
+      "prewhiten_order": 5,
+      "prewhitened": {
+        "drive_moves_measure_more_than_wiring": true,
+        "drive_span": 0.817,
+        "wiring_span": 0.173
+      },
+      "prewhitening_reduces_drive_dependence": false,
+      "raw": {
+        "drive_moves_measure_more_than_wiring": true,
+        "drive_span": 0.671,
+        "wiring_span": 0.109
+      }
+    },
     "directionality_sweep": [
       {
         "asymmetry_mean": 0.109,
+        "asymmetry_prewhitened_mean": 0.231,
         "background_scale_target": 1.0,
         "forward_ratio": 1.0,
         "lag_ms_mean": 1.667,
@@ -2163,6 +2398,7 @@
       },
       {
         "asymmetry_mean": 0.494,
+        "asymmetry_prewhitened_mean": 0.832,
         "background_scale_target": 0.85,
         "forward_ratio": 1.0,
         "lag_ms_mean": 5.0,
@@ -2172,6 +2408,7 @@
       },
       {
         "asymmetry_mean": 0.681,
+        "asymmetry_prewhitened_mean": 0.936,
         "background_scale_target": 0.7,
         "forward_ratio": 1.0,
         "lag_ms_mean": 8.333,
@@ -2181,6 +2418,7 @@
       },
       {
         "asymmetry_mean": 0.005,
+        "asymmetry_prewhitened_mean": -0.054,
         "background_scale_target": 1.0,
         "forward_ratio": 4.0,
         "lag_ms_mean": 0.0,
@@ -2190,6 +2428,7 @@
       },
       {
         "asymmetry_mean": 0.535,
+        "asymmetry_prewhitened_mean": 0.941,
         "background_scale_target": 0.85,
         "forward_ratio": 4.0,
         "lag_ms_mean": 5.0,
@@ -2199,6 +2438,7 @@
       },
       {
         "asymmetry_mean": 0.759,
+        "asymmetry_prewhitened_mean": 0.995,
         "background_scale_target": 0.7,
         "forward_ratio": 4.0,
         "lag_ms_mean": 5.0,
@@ -2208,6 +2448,7 @@
       },
       {
         "asymmetry_mean": 0.143,
+        "asymmetry_prewhitened_mean": 0.297,
         "background_scale_target": 1.0,
         "forward_ratio": 16.0,
         "lag_ms_mean": 5.0,
@@ -2217,6 +2458,7 @@
       },
       {
         "asymmetry_mean": 0.502,
+        "asymmetry_prewhitened_mean": 0.931,
         "background_scale_target": 0.85,
         "forward_ratio": 16.0,
         "lag_ms_mean": 5.0,
@@ -2226,6 +2468,7 @@
       },
       {
         "asymmetry_mean": 0.83,
+        "asymmetry_prewhitened_mean": 0.993,
         "background_scale_target": 0.7,
         "forward_ratio": 16.0,
         "lag_ms_mean": 5.0,

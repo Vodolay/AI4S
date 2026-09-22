@@ -54,6 +54,7 @@ def main(argv: list[str] | None = None) -> int:
             build_data(["--full"] if args.full else [])
         elif stage == "models":
             from neuromps.models.asymmetry import main as run_asymmetry
+            from neuromps.models.axonal import main as run_axonal
             from neuromps.models.baselines import main as run_baselines
             from neuromps.models.conformal import main as run_uncertainty
             from neuromps.models.mechanism import main as run_models
@@ -67,6 +68,8 @@ def main(argv: list[str] | None = None) -> int:
             run_uncertainty(quick)
             run_baselines(quick)
             run_tunnels(quick)
+            # Ground truth for the tunnel result: the axons themselves.
+            run_axonal(quick)
             run_asymmetry([])
             # Skips itself when the 109 MB archive has not been fetched, which is
             # the case on the quick tier.

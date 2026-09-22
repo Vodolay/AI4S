@@ -36,6 +36,9 @@ class CouplingParams:
 
     bin_s: float = 0.005
     max_lag_s: float = 0.2
+    # 0 keeps the raw binned rates, which is what every stored record uses.
+    # A positive order correlates AR innovations instead; see `prewhiten`.
+    prewhiten_order: int = 0
 
     def as_method_record(self) -> dict[str, object]:
         """Method fields for a schema record."""
@@ -59,6 +62,37 @@ def population_rate(
     return counts, bin_s
 
 
+def prewhiten(series: np.ndarray, order: int = 5) -> np.ndarray:
+    """Autoregressive innovations of a rate series.
+
+    Cross-correlating two population rates compares signals that each carry
+    their own burst structure. If the two compartments' autocorrelation kernels
+    differ - which is exactly what a difference in drive produces - the
+    cross-correlogram is asymmetric even when the coupling is not, so the
+    measure can read direction off a rate difference. Fitting a short AR model
+    to each series and correlating the residuals removes the part of that shape
+    each signal explains about itself.
+
+    Least squares on a lagged design, no external dependency. A series too
+    short for the requested order, or with no variance, is returned centred and
+    otherwise untouched.
+    """
+    values = np.asarray(series, dtype=float)
+    values = values - values.mean()
+    order = int(min(order, max(len(values) // 10, 1)))
+    if len(values) <= order + 1 or not np.any(values):
+        return values
+    design = np.column_stack(
+        [values[order - lag : len(values) - lag] for lag in range(1, order + 1)]
+    )
+    target = values[order:]
+    coefficients, *_ = np.linalg.lstsq(design, target, rcond=None)
+    residual = target - design @ coefficients
+    if not np.any(residual):
+        return values
+    return residual
+
+
 def directed_coupling(
     source: Mapping[str, np.ndarray],
     target: Mapping[str, np.ndarray],
@@ -77,6 +111,10 @@ def directed_coupling(
     b, _ = population_rate(target, duration_s, p.bin_s)
     if a.sum() == 0 or b.sum() == 0 or a.std() == 0 or b.std() == 0:
         return {"peak_correlation": None, "lag_ms": None, "asymmetry": None}
+    if p.prewhiten_order:
+        a, b = prewhiten(a, p.prewhiten_order), prewhiten(b, p.prewhiten_order)
+        if a.std() == 0 or b.std() == 0:
+            return {"peak_correlation": None, "lag_ms": None, "asymmetry": None}
     corr, lags = _cross_correlation(a, b, int(round(p.max_lag_s / p.bin_s)))
     peak = int(np.argmax(np.abs(corr)))
     peak_corr = float(corr[peak])
