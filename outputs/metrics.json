@@ -1757,6 +1757,26 @@
     "rows_mea": 20375,
     "source_file": "mc5-6_winning_model_fits-flags_invitrodbv4_3_AUG2024.csv"
   },
+  "tunnel_rate_tracking": {
+    "abs_log2_rate_ratio": {
+      "max": 4.947,
+      "median": 0.821,
+      "p90": 3.536
+    },
+    "excludes_zero": false,
+    "figure": "tunnel_asymmetry_vs_rate.png",
+    "label": "coupling asymmetry against chamber rate imbalance, four-chamber cultures with instrumented tunnels",
+    "median_abs_asymmetry": 0.1281,
+    "n_devices": 9,
+    "n_pairs": 46,
+    "pairs_dropped_below_noise_floor": 14,
+    "spearman_p": 0.728119,
+    "spearman_rho": -0.0527,
+    "spearman_rho_ci95": [
+      -0.5988,
+      0.4665
+    ]
+  },
   "twin_hd11_validation": {
     "baseline": {
       "coupling_simulated": {

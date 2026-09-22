@@ -692,6 +692,22 @@ first time that question has been put to devices whose asymmetry was fabricated 
 simulated. It does not reproduce. The sample is too small and too confounded to call that a
 refutation, and too directly aimed to leave out.
 
+**A second real-device test, of the confound rather than the result.** §7.2's finding — that the
+asymmetry measure reads relative activity rather than pathway direction — had only ever been shown
+in the twin, where drive could be moved at fixed wiring. `brewer2021`'s four-chamber cultures allow
+a version of it on real tissue whose chambers are joined by instrumented tunnels. Across 46 chamber
+pairs <!-- metrics.json: tunnel_rate_tracking.n_pairs --> in 9 cultures
+<!-- metrics.json: tunnel_rate_tracking.n_devices -->, coupling asymmetry has no rank relationship
+with the pair's firing-rate imbalance: Spearman ρ = −0.0527
+<!-- metrics.json: tunnel_rate_tracking.spearman_rho -->, 95% CI [−0.5988, 0.4665]
+<!-- metrics.json: tunnel_rate_tracking.spearman_rho_ci95 -->, over rate imbalances reaching a log2 ratio of 4.947
+<!-- metrics.json: tunnel_rate_tracking.abs_log2_rate_ratio.max -->, a thirty-fold difference. This is **not** a refutation of §7.2, and the difference matters: §7.2 moved drive with
+wiring held fixed, while these pairs differ in wiring and in rate at once, so a null across them is
+consistent with a strong within-device effect. What it does say is that rate imbalance alone does
+not predict measured asymmetry in real tissue, and the interval is wide enough to admit a
+substantial effect in either direction. The scatter is in
+`outputs/figures/tunnel_asymmetry_vs_rate.png`.
+
 ### 6.8 Untreated baselines: what differs before any drug is applied
 
 Everything above consumes pairs — an exposure minus its own baseline. That is why adding 184 human

@@ -59,12 +59,14 @@ def main(argv: list[str] | None = None) -> int:
             from neuromps.models.mechanism import main as run_models
             from neuromps.models.microchannels import main as run_microchannels
             from neuromps.models.transfer import main as run_transfer
+            from neuromps.models.tunnels import main as run_tunnels
 
             quick = ["--quick"] if args.quick else []
             run_models(quick)
             run_transfer(quick)
             run_uncertainty(quick)
             run_baselines(quick)
+            run_tunnels(quick)
             run_asymmetry([])
             # Skips itself when the 109 MB archive has not been fetched, which is
             # the case on the quick tier.
