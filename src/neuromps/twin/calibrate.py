@@ -296,7 +296,7 @@ def main(argv: list[str] | None = None) -> int:
         )
         return 0
     n_draws = args.draws or (6 if args.quick else 40)
-    duration = 20.0 if args.quick else 40.0
+    duration = 12.0 if args.quick else 40.0
     log.info("calibrating against %s (n=%d records)", targets["reference"], targets["n_records"])
     trials = random_search(targets, n_draws, duration, seed=args.seed)
     best = trials[0]

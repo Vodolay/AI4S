@@ -255,7 +255,7 @@ def main(argv: list[str] | None = None) -> int:
     args = p.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
     twin_dir().mkdir(parents=True, exist_ok=True)
-    duration = 20.0 if args.quick else 40.0
+    duration = 12.0 if args.quick else 40.0
     n_resamples = resample_count(args.quick)
 
     simulated = run_knobs(duration, args.seed)
