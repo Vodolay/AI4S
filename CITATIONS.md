@@ -29,7 +29,7 @@ Each fetcher re-checks its source's advertised license at download time.
 
 > Vakilna YS, Tang WC, Wheeler BC, Brewer GJ. The flow of axonal information among hippocampal subregions: 1. Feedforward and feedback network spatial dynamics underpinning emergent information processing. Front. Neural Circuits (2021). Dataset doi:10.5281/zenodo.4679064
 
-*Note:* tier=quick; Zenodo record 4679064; 10 cultures, four hippocampal subregions each over a 60-electrode MCS array, 300 s spontaneous at 25 kHz; the analysis scripts in the record are not fetched
+*Note:* tier=full; Zenodo record 4679064; 10 cultures, four hippocampal subregions each over a 60-electrode MCS array, 300 s spontaneous at 25 kHz; the analysis scripts in the record are not fetched
 
 ### `fofie2025`
 
@@ -53,7 +53,7 @@ Each fetcher re-checks its source's advertised license at download time.
 
 > Kapucu FE, Vinogradov A, Hyvärinen T, Ylä-Outinen L, Narkilahti S. Comparative microelectrode array data of the functional development of hPSC-derived and rat neuronal networks. Sci Data 9, 120 (2022). doi:10.1038/s41597-022-01242-4
 
-*Note:* tier=quick; GIN commit 0f0f13517bf6cfc382b5f3c3f9219f13d76d798a; raw .h5 excluded by design
+*Note:* tier=full; GIN commit 0f0f13517bf6cfc382b5f3c3f9219f13d76d798a; raw .h5 excluded by design
 
 ### `mateus2024`
 
@@ -77,7 +77,7 @@ Each fetcher re-checks its source's advertised license at download time.
 
 > ScreenNeuroPharm. Bicuculline (v1). Zenodo. doi:10.5281/zenodo.7665283. Source repository: github.com/ScreenNeuroPharm/Bicuculline (MIT License, 2023).
 
-*Note:* tier=quick: kept files from an earlier --full fetch; nothing re-downloaded
+*Note:* tier=full; rat cortical (Cx) and hippocampal (Hp) cultures, 60-electrode MCS MEA, spike trains; MIT license verified in the source repository, not on Zenodo
 
 ### `sharf2022`
 
@@ -89,7 +89,7 @@ Each fetcher re-checks its source's advertised license at download time.
 
 > Sharf T, van der Molen T, Glasauer SMK, et al. Functional neuronal circuitry and oscillatory dynamics in human brain organoids. Dataset: Extracellular Recordings from Human Brain Organoids Using High-density CMOS Arrays. doi:10.25349/D9031Z
 
-*Note:* tier=quick; Zenodo record 6578989; raw .h5 recordings (~60 GB) excluded by design; diazepam series control/3/10/30/50 uM in 4 organoids
+*Note:* tier=full; Zenodo record 6578989; raw .h5 recordings (~60 GB) excluded by design; diazepam series control/3/10/30/50 uM in 4 organoids
 
 ### `toxcast_mea`
 
@@ -101,7 +101,7 @@ Each fetcher re-checks its source's advertised license at download time.
 
 > U.S. EPA Center for Computational Toxicology and Exposure. ToxCast Database: invitrodb version 4.3. doi:10.23645/epacomptox.6062623.v14
 
-*Note:* tier=quick; invitrodb v4.3 via EPA Clowder
+*Note:* tier=full; invitrodb v4.3 via EPA Clowder
 
 ### `trujillo2019`
 
@@ -113,7 +113,7 @@ Each fetcher re-checks its source's advertised license at download time.
 
 > Trujillo CA, Gao R, Negraes PD, et al. Complex Oscillatory Waves Emerging from Cortical Organoids Model Early Human Brain Network Development. Cell Stem Cell 25(4):558-569.e7 (2019). Dataset: doi:10.5281/zenodo.4751759
 
-*Note:* tier=full; Zenodo record 4751759; 23 sessions, spike times extracted in place over HTTP ranges (229 MB read of 37583 MB remote, 99.4% not transferred); LFP traces not read; 19 sessions skipped as MATLAB 5 (not readable in place, 29 GB of early timepoints); '_Drugs' sessions carry no well-to-compound mapping in the deposit
+*Note:* tier=full; Zenodo record 4751759; 23 sessions, spike times extracted in place over HTTP ranges (0 MB read of 0 MB remote, 0.0% not transferred); LFP traces not read; 19 sessions skipped as MATLAB 5 (not readable in place, 29 GB of early timepoints); '_Drugs' sessions carry no well-to-compound mapping in the deposit
 
 ## Sources deliberately not used
 

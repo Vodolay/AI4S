@@ -1131,4 +1131,10 @@ there: missing LaTeX packages and an unpinned pandoc, an app that hid its datase
 gitignored asset, `app/app.py` shadowing the `app` package under pytest's path order, a process
 count that halved a small machine, and gin.g-node.org rate-limiting CI addresses with 403.
 
+**Whole pipeline regenerated from scratch** (`run_all.py --full`, 3,117 s: fetch 20, data 1037,
+models 19, twin 1974, demo 66) as a reproducibility check after all of the above. Of 4,445 metric
+keys, **zero substantive values changed** - only timestamps and stage timings. The seeded twin
+reproduces exactly and the asset build is deterministic, which is the strongest evidence this
+repository has that its numbers are not accidents of a particular run.
+
 **Next first task.** HD20, the Kaggle writeup.

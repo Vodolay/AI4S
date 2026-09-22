@@ -873,7 +873,7 @@ with its posterior and what it does on real recordings.
 No interaction waits on a simulator: `run_all.py --stage demo` precomputes a grid of 75
 <!-- metrics.json: demo_precompute.n_grid_points --> twin simulations spanning the prior with
 posterior samples per point, posterior samples for all 113 real two-chamber recordings
-<!-- metrics.json: demo_precompute.n_real_recordings -->, and a classifier fitted once, in 85.1 s
+<!-- metrics.json: demo_precompute.n_real_recordings -->, and a classifier fitted once, in 66.3 s
 <!-- metrics.json: run_all_timings_full.by_stage_s.demo -->. Through Streamlit's own test harness
 every interaction lands between 0.6 and 0.9 s; the exception is a button running one Brian2
 simulation in about 4.5 s, so the twin is verifiably a simulator and not a lookup table. The app

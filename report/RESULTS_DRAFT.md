@@ -20,7 +20,7 @@ dominated by one source and by one data level, and the two levels cannot be comp
 
 The build produces 21,604 records <!-- metrics.json: data_asset.n_records --> validated against
 `schema/neuromps_schema.json` at conformance level 2 (every provenance hash matches
-`data/raw/MANIFEST.json`), generated 2026-09-22T05:49:52+00:00
+`data/raw/MANIFEST.json`), generated 2026-09-22T07:55:47+00:00
 <!-- metrics.json: data_asset.generated_at -->. Of these, 21,138 are marked usable
 <!-- metrics.json: data_asset.counts.by_usable.True --> and 466 are not
 <!-- metrics.json: data_asset.counts.by_usable.False -->.

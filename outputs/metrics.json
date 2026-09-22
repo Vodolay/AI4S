@@ -1166,9 +1166,9 @@
     "simulated_duration_s": 10.0,
     "timings_s": {
       "fit_classifier_s": 0.1,
-      "grid_posteriors_s": 20.9,
-      "real_posteriors_s": 34.0,
-      "simulate_grid_s": 28.4
+      "grid_posteriors_s": 14.8,
+      "real_posteriors_s": 24.1,
+      "simulate_grid_s": 27.3
     }
   },
   "mechanism_baselines": {
@@ -1644,14 +1644,21 @@
   },
   "run_all_timings_full": {
     "by_stage_s": {
-      "demo": 85.1,
-      "models": 19.1
+      "data": 1037.1,
+      "demo": 66.3,
+      "fetch": 20.2,
+      "models": 19.4,
+      "twin": 1974.0
     },
     "label": "wall-clock seconds per stage, most recent full run of each",
     "stages_run": [
-      "models"
+      "fetch",
+      "data",
+      "models",
+      "twin",
+      "demo"
     ],
-    "total_s": 19.1
+    "total_s": 3117.1
   },
   "species_transfer": {
     "source": "kapucu2022",
