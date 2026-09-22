@@ -712,9 +712,8 @@ substantial effect in either direction. The scatter is in
 
 Everything above consumes pairs — an exposure minus its own baseline. That is why adding 184 human
 organoid recordings <!-- metrics.json: data_asset.counts.by_source.trujillo2019 --> changed none of
-the numbers in §6.1 to §6.7: they are untreated baselines with nothing to be paired against. They
-answer a different question. Before any compound is applied, does human tissue sit inside the rat
-feature distribution?
+the numbers in §6.1 to §6.7: they are untreated baselines with nothing to pair against. They answer
+a different question — before any compound, does human tissue sit inside the rat distribution?
 
 Species and platform are confounded here — every MaxWell recording is human, every Multi Channel
 Systems recording is rat — so the comparison is made inside one vendor, resampling over culture
@@ -729,7 +728,10 @@ faster, put more of their spikes into bursts — a median of 70.9
 <!-- metrics.json: baseline_activity.matched_preparation.features.pct_spikes_in_bursts.median_human -->
 against 40.05
 <!-- metrics.json: baseline_activity.matched_preparation.features.pct_spikes_in_bursts.median_rat -->
-percent — and are four times as synchronous. Only burst rate overlaps.
+percent — and are four times as synchronous. Only burst rate overlaps. Dropping the untreated wells
+recorded during a plate's exposure phase leaves the same 7
+<!-- metrics.json: baseline_activity.matched_preparation_baseline_phase_only.n_features_separating_species -->,
+so this is not an artifact of session order.
 
 This qualifies §6.5 rather than contradicting it: that section found rate-like **drug-response
 deltas** portable, and a delta can travel between two populations whose resting activity does not

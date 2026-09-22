@@ -307,6 +307,19 @@ def run(records: pd.DataFrame, seed: int = 0) -> dict:
     }
     result["within_vendor"]["mann_whitney"] = _mann_whitney(axion)
     result["matched_preparation"]["mann_whitney"] = _mann_whitney(monolayer)
+    # An untreated control well recorded during a plate's exposure phase is
+    # still untreated, so it is kept - but it is a later timepoint, and activity
+    # drifts. If the headline count depended on that choice it would be a
+    # finding about session order rather than about species.
+    result["matched_preparation_baseline_phase_only"] = compare(
+        monolayer[monolayer["recording.phase"] == "baseline"],
+        "Axion monolayers, baseline-phase recordings only",
+        seed,
+    )
+    result["headline_survives_dropping_exposure_phase_controls"] = (
+        result["matched_preparation"]["features_separating_species"]
+        == result["matched_preparation_baseline_phase_only"]["features_separating_species"]
+    )
     return result
 
 

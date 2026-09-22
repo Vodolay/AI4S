@@ -169,6 +169,7 @@
       ]
     },
     "figure": "outputs/figures/baseline_species_comparison.png",
+    "headline_survives_dropping_exposure_phase_controls": true,
     "human_records_by_source": {
       "kapucu2022": 28,
       "sharf2022": 12,
@@ -332,6 +333,143 @@
       "n_rat_records": 44,
       "n_records": 72,
       "slice": "Axion Biosystems, dissociated monolayers only",
+      "sources": [
+        "kapucu2022"
+      ]
+    },
+    "matched_preparation_baseline_phase_only": {
+      "electrodes_per_unit": [
+        16
+      ],
+      "features": {
+        "active_electrodes": {
+          "difference_ci95": [
+            0.0,
+            1.0
+          ],
+          "excludes_zero": false,
+          "format_confounded": false,
+          "kind": "coverage",
+          "median_human": 16.0,
+          "median_rat": 15.0
+        },
+        "active_fraction": {
+          "difference_ci95": [
+            0.0,
+            0.0625
+          ],
+          "excludes_zero": false,
+          "format_confounded": false,
+          "kind": "coverage",
+          "median_human": 1.0,
+          "median_rat": 0.9375
+        },
+        "burst_duration_s": {
+          "difference_ci95": [
+            0.1894,
+            0.3029
+          ],
+          "excludes_zero": true,
+          "format_confounded": false,
+          "kind": "synchrony_like",
+          "median_human": 0.5445,
+          "median_rat": 0.2966
+        },
+        "burst_rate_per_min": {
+          "difference_ci95": [
+            -2.3985,
+            2.6151
+          ],
+          "excludes_zero": false,
+          "format_confounded": false,
+          "kind": "rate_like",
+          "median_human": 7.6143,
+          "median_rat": 7.3969
+        },
+        "isi_cv": {
+          "difference_ci95": [
+            1.5105,
+            2.0248
+          ],
+          "excludes_zero": true,
+          "format_confounded": false,
+          "kind": "synchrony_like",
+          "median_human": 3.0523,
+          "median_rat": 1.2409
+        },
+        "mfr_hz": {
+          "difference_ci95": [
+            0.4226,
+            2.5598
+          ],
+          "excludes_zero": true,
+          "format_confounded": false,
+          "kind": "rate_like",
+          "median_human": 5.0619,
+          "median_rat": 3.2168
+        },
+        "network_burst_rate_per_min": {
+          "difference_ci95": [
+            4.1283,
+            16.5
+          ],
+          "excludes_zero": true,
+          "format_confounded": false,
+          "kind": "synchrony_like",
+          "median_human": 10.8167,
+          "median_rat": 0.1167
+        },
+        "pct_spikes_in_bursts": {
+          "difference_ci95": [
+            21.6032,
+            37.9679
+          ],
+          "excludes_zero": true,
+          "format_confounded": false,
+          "kind": "rate_like",
+          "median_human": 69.4632,
+          "median_rat": 38.7304
+        },
+        "spikes_per_burst": {
+          "difference_ci95": [
+            10.4165,
+            18.792
+          ],
+          "excludes_zero": true,
+          "format_confounded": false,
+          "kind": "rate_like",
+          "median_human": 24.9849,
+          "median_rat": 9.7526
+        },
+        "synchrony_index": {
+          "difference_ci95": [
+            0.2786,
+            0.4053
+          ],
+          "excludes_zero": true,
+          "format_confounded": false,
+          "kind": "synchrony_like",
+          "median_human": 0.4333,
+          "median_rat": 0.0969
+        }
+      },
+      "features_separating_species": [
+        "burst_duration_s",
+        "isi_cv",
+        "mfr_hz",
+        "network_burst_rate_per_min",
+        "pct_spikes_in_bursts",
+        "spikes_per_burst",
+        "synchrony_index"
+      ],
+      "n_cultures": 62,
+      "n_features_separating_species": 7,
+      "n_human_cultures": 24,
+      "n_human_records": 24,
+      "n_rat_cultures": 38,
+      "n_rat_records": 38,
+      "n_records": 62,
+      "slice": "Axion monolayers, baseline-phase recordings only",
       "sources": [
         "kapucu2022"
       ]
