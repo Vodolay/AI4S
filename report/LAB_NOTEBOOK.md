@@ -943,3 +943,14 @@ measurement it was checked against assumed twice the machine.
     died on it; at four it does not. Where that row comes from - a branch that
     skips scoring, presumably - was not chased, and the quick tier was put back
     to four rather than shipping the fragility.
+
+17. ~~Do the app screenshots still show the asset they claim to?~~ **No, and fixed
+    2026-09-22.** The video's captions read from `metrics.json` and had updated
+    to 21,604 records from seven sources, while the screenshot beside them still
+    showed 21,380 from five - a contradiction inside one frame. Recaptured all
+    three tabs over the DevTools protocol, waiting on the rendered DOM rather
+    than a timer, because a `--virtual-time-budget` screenshot catches
+    Streamlit's loading skeleton. Adding two source rows also moved everything
+    below the dataset card down, so two of the three tab-1 crops framed the
+    wrong content and were retargeted. The source count in the captions is now
+    counted from the metrics instead of typed.

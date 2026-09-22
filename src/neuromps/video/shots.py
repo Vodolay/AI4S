@@ -40,16 +40,19 @@ def shot_list(metrics: dict) -> list[Shot]:
     m = lambda path: metric(metrics, path)  # noqa: E731 - local shorthand, used heavily below
     records = f"{m('data_asset.n_records'):,}"
     spike = f"{m('data_asset.counts.by_data_level.spike_times'):,}"
+    # Counted, not typed: the captions said "five sources" for two commits after
+    # the asset had seven, beside a screenshot that showed all seven.
+    sources = len(m("data_asset.counts.by_source"))
     return [
-        *_opening(records, spike),
-        *_asset(m, records, spike),
+        *_opening(records, spike, sources),
+        *_asset(m, records, spike, sources),
         *_transfer(m),
         *_twin(m),
         *_reproducibility(m),
     ]
 
 
-def _opening(records: str, spike: str) -> list[Shot]:
+def _opening(records: str, spike: str, sources: int) -> list[Shot]:
     """Title and problem: 35 s."""
     return [
         Shot(
@@ -83,7 +86,7 @@ def _opening(records: str, spike: str) -> list[Shot]:
             "",
             title="What we built",
             body=[
-                f"A standardised asset: {records} records, five sources,",
+                f"A standardised asset: {records} records, {sources} sources,",
                 "every record carrying its URL, licence, SHA256 and download time.",
                 "",
                 "A Brian2 twin of an asymmetric two-chamber chip,",
@@ -104,15 +107,15 @@ def _opening(records: str, spike: str) -> list[Shot]:
     ]
 
 
-def _asset(m, records: str, spike: str) -> list[Shot]:
+def _asset(m, records: str, spike: str, sources: int) -> list[Shot]:
     """Data asset and standard: 60 s."""
     return [
         Shot(
             14,
-            f"{records} records from five sources. The build refuses to write an asset unless "
+            f"{records} records from {sources} sources. The build refuses to write an asset unless "
             "every record's provenance hash matches the download manifest.",
             image="outputs/video/stills/tab1.png",
-            crop=(0, 260, 1600, 1120),
+            crop=(0, 300, 1600, 880),
             section="Data asset & standard",
         ),
         Shot(
@@ -120,7 +123,7 @@ def _asset(m, records: str, spike: str) -> list[Shot]:
             f"Records carry an explicit data level, and only compare within it: {spike} records "
             "support the nine-feature vector; the rest are published curve fits.",
             image="outputs/video/stills/tab1.png",
-            crop=(0, 1080, 1600, 1860),
+            crop=(0, 940, 1600, 1420),
             section="Data asset & standard",
         ),
         Shot(
@@ -144,7 +147,7 @@ def _asset(m, records: str, spike: str) -> list[Shot]:
             "QC is recorded, never applied silently: a flagged record stays in the asset with its "
             "reason attached, and the flag vocabulary is part of the schema.",
             image="outputs/video/stills/tab1.png",
-            crop=(0, 1780, 1600, 2280),
+            crop=(0, 1330, 1600, 1800),
             section="Data asset & standard",
         ),
     ]
