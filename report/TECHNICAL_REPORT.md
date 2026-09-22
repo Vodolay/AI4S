@@ -44,14 +44,15 @@ The results that matter are as much negative as positive, and the report leads w
    <!-- metrics.json: twin_hd15_real_inference.gabaa_scale_at_baseline.median -->, so the parameter
    is absorbing model mismatch rather than tracking the compound (§7.5).
 4. **Direction *is* recoverable from simulated features once firing rate is residualised out** —
-   AUC 0.9359
+   AUC 0.8825
    <!-- metrics.json: twin_hd16_directionality.cheapest_configuration.free_rate_residualized.auc -->,
-   95% CI [0.893, 0.9739]
+   95% CI [0.8184, 0.9359]
    <!-- metrics.json: twin_hd16_directionality.cheapest_configuration.free_rate_residualized.auc_ci95 -->,
-   from a 10 s recording on 24 electrodes per compartment — but as a *contrast* between two
-   well-spaced wiring classes, not as a measurement of a continuous ratio (§7.6). A second arm,
-   which adjusted drive to match rates, reaches a higher AUC at fewer electrodes and **fails its own
-   validity check**; it is reported as inconclusive rather than as the result.
+   from a 10 s recording on 6 electrodes per compartment
+   <!-- metrics.json: twin_hd16_directionality.cheapest_configuration.free_rate_residualized.electrodes_per_compartment -->
+   — but as a *contrast* between two well-spaced wiring classes, not as a measurement of a
+   continuous ratio (§7.6). A second arm, which adjusted drive to match rates, reaches a higher AUC
+   and **fails its own validity check**; it is reported as inconclusive rather than as the result.
 5. **That result does not reproduce on real devices.** On 26 chips whose microchannel geometry was
    fabricated rather than assumed, propagation asymmetry does not separate straight channels from
    three asymmetric designs (Kruskal p = 0.64
@@ -290,8 +291,33 @@ size of 4.562 <!-- metrics.json: uncertainty_and_ablations.conformal_sweep.0.mea
 out of six — honest coverage at the cost of sets too large to act on. That is the correct reading of
 73 calibration points, not a defect to tune away.
 
+**The same task on an independent platform.** `vassallo2017` is a different laboratory and vendor,
+with six compounds Kapucu never used and each baseline on the same chip as its doses: 171 pairs
+<!-- metrics.json: mechanism_baselines.task1b_independent_platform.n_pairs --> over 26 chips
+<!-- metrics.json: mechanism_baselines.task1b_independent_platform.n_groups --> in four mechanism
+classes. **Logistic regression reaches 0.333
+<!-- metrics.json: mechanism_baselines.task1b_independent_platform.models.logistic_regression.balanced_accuracy_mean -->
+there, 95% CI [0.2317, 0.4204]
+<!-- metrics.json: mechanism_baselines.task1b_independent_platform.models.logistic_regression.balanced_accuracy_ci95 -->,
+against a chance level of 0.25
+<!-- metrics.json: mechanism_baselines.task1b_independent_platform.chance_balanced_accuracy -->** —
+an interval that contains chance. The two tasks differ in class count and in compound, so the
+accuracies are not directly comparable; what is comparable is each against its own chance level, and
+only the first clears it. The mechanism claim is weaker than this section's Kapucu numbers alone
+suggest.
 
+**Why this is not one model over all 754 pairs.** Pooling the sources would measure the wrong
+thing: a pair's mechanism label very nearly determines which laboratory produced it. The label
+predicts the source for 97.35%
+<!-- metrics.json: mechanism_baselines.label_source_confounding.source_determined_by_label --> of
+the 754 pairs <!-- metrics.json: mechanism_baselines.label_source_confounding.n_pairs -->, and 6
+<!-- metrics.json: mechanism_baselines.label_source_confounding.n_labels_from_one_source_only -->
+of the nine labels occur in one source only, so a pooled model would be scored on recognising the
+platform - which §6.4 shows these features do well. The asset supports within-source classification
+and cross-source *detection* of one mechanism at a time (§6.2), not a cross-platform benchmark.
+That is a property of what the field has published, not of the model.
 
+---
 
 ### 6.2 Task 2 — external detection and its negative control
 
@@ -319,8 +345,8 @@ platform change.
 | human, within-species | 0.646 <!-- metrics.json: species_transfer.transfer.none.human_within.balanced_accuracy --> | — |
 | rat, within-species | 0.543 <!-- metrics.json: species_transfer.transfer.none.rat_within.balanced_accuracy --> | — |
 | rat → human, no adaptation | 0.55 <!-- metrics.json: species_transfer.transfer.none.rat_to_human.balanced_accuracy --> | [0.4, 0.6] <!-- metrics.json: species_transfer.transfer.none.rat_to_human.balanced_accuracy_ci95 --> |
-| rat → human, CORAL | 0.442 <!-- metrics.json: species_transfer.transfer.coral.rat_to_human.balanced_accuracy --> | [0.28, 0.597] <!-- metrics.json: species_transfer.transfer.coral.rat_to_human.balanced_accuracy_ci95 --> |
-| rat → human, per-species standardisation | 0.408 <!-- metrics.json: species_transfer.transfer.standardize.rat_to_human.balanced_accuracy --> | [0.246, 0.56] <!-- metrics.json: species_transfer.transfer.standardize.rat_to_human.balanced_accuracy_ci95 --> |
+| rat → human, CORAL | 0.442 <!-- metrics.json: species_transfer.transfer.coral.rat_to_human.balanced_accuracy --> | [0.302, 0.591] <!-- metrics.json: species_transfer.transfer.coral.rat_to_human.balanced_accuracy_ci95 --> |
+| rat → human, per-species standardisation | 0.408 <!-- metrics.json: species_transfer.transfer.standardize.rat_to_human.balanced_accuracy --> | [0.267, 0.568] <!-- metrics.json: species_transfer.transfer.standardize.rat_to_human.balanced_accuracy_ci95 --> |
 
 Chance is 0.2 <!-- metrics.json: species_transfer.transfer.none.chance_balanced_accuracy -->.
 Transfer works above chance (permutation p = 0.0002
@@ -646,17 +672,17 @@ firing-rate features alone reach from 0.8644
 <!-- metrics.json: twin_hd16_directionality.summary_by_feature_set.free_rate.rate_only.max -->.
 
 Residualising every feature against both chambers' firing rates removes that, and carries its own
-validity check: rate features after residualising score from 0.3869
+validity check: rate features after residualising score from 0.4772
 <!-- metrics.json: twin_hd16_directionality.summary_by_feature_set.free_rate.rate_only_rate_residualized.min -->
-to 0.5969
+to 0.6213
 <!-- metrics.json: twin_hd16_directionality.summary_by_feature_set.free_rate.rate_only_rate_residualized.max -->
-and do not clear chance in every cell. Direction still separates at 0.9359
+and do not clear chance in every cell. Direction still separates at 0.8825
 <!-- metrics.json: twin_hd16_directionality.cheapest_configuration.free_rate_residualized.auc -->,
-95% CI [0.893, 0.9739]
+95% CI [0.8184, 0.9359]
 <!-- metrics.json: twin_hd16_directionality.cheapest_configuration.free_rate_residualized.auc_ci95 -->,
 from a 10 s recording
 <!-- metrics.json: twin_hd16_directionality.cheapest_configuration.free_rate_residualized.duration_s -->
-on 24 electrodes per compartment
+on 6 electrodes per compartment
 <!-- metrics.json: twin_hd16_directionality.cheapest_configuration.free_rate_residualized.electrodes_per_compartment -->.
 
 **The rate-matched arm does not pass its own check, and is not the result.** `metrics.json` states
@@ -673,18 +699,23 @@ of 0.26
 <!-- metrics.json: twin_hd16_directionality.matching_quality.rate_matched.worst_relative_rate_gap -->
 against 0.2248
 <!-- metrics.json: twin_hd16_directionality.matching_quality.free_rate.worst_relative_rate_gap -->
-before it. That arm reaches AUC 0.9784
+before it. That arm reaches AUC 0.9869
 <!-- metrics.json: twin_hd16_directionality.cheapest_configuration.rate_matched_residualized.auc -->
-on only 6 electrodes,
-and an earlier draft of this report quoted exactly that number as the headline. It is withdrawn: the
-guardrail written into `metrics.json` says the arm is uninterpretable, and the correct response is to
-report the arm that passes, at the electrode count it actually needs.
+at the same electrode count, and an earlier draft of this report quoted its predecessor as the
+headline. It is withdrawn: the guardrail written into `metrics.json` says the arm is
+uninterpretable, and the correct response is to report the arm that passes.
+
+**The residualisation is fitted inside each fold.** An earlier version fitted the rate regression
+once across the whole cell before cross-validating, letting test rows help fit the coefficients that
+built their own features. Moving it inside the training fold took this section's AUC from 0.9359 to
+0.8825 and, because the criterion is the interval's *lower* bound, moved the cheapest qualifying
+configuration from 24 electrodes per compartment to 6.
 
 **Read this as a contrast, not a measurement.** The same summaries that classify two well-spaced
 wiring regimes at 0.98 give a posterior contraction of only 0.311 for the continuous ratio (§7.5).
 Classifying is a far weaker demand than estimating.
 
-![SIMULATED, drive left alone: telling symmetric from asymmetric wiring, by recording length and electrode count. `all_rate_residualized` is the controlled comparison this section reports; `rate_only_rate_residualized` is the validity check it has to pass. The rate-matched arm, which does not pass it, is plotted separately in `outputs/twin/hd16_directionality_rate_matched_simulated.png` — split out because eight panels across one text block were unreadable at print size.](../outputs/twin/hd16_directionality_simulated.png){width=88%}
+![SIMULATED, drive left alone: telling symmetric from asymmetric wiring, by recording length and electrode count. `all_rate_residualized` is the controlled comparison this section reports; `rate_only_rate_residualized` is the validity check it has to pass. The rate-matched arm, which does not pass it, is plotted separately in `outputs/twin/hd16_directionality_rate_matched_simulated.png` — split out because eight panels across one text block were unreadable at print size.](../outputs/twin/hd16_directionality_simulated.png){width=78%}
 
 
 ### 7.7 The same question on real devices, and a null
@@ -778,8 +809,8 @@ those pairs are one compound at many doses, and the EPA chips carry four classes
 its negative controls.
 
 **Models.** Balanced accuracies around 0.5 on six classes are above chance but far from usable;
-intervals are wide and overlapping, and on the independent platform of §6.1 the interval contains
-chance outright. Conformal sets cover honestly but are too large to act on.
+intervals are wide and overlapping, and on §6.1's independent platform the interval contains chance
+outright. Conformal sets cover honestly but are too large to act on.
 Calibration error may be as high as 0.2557
 <!-- metrics.json: mechanism_baselines.task1_within_platform.calibration.ece_ci95.1 -->. The nine-feature
 vector is effectively a rate feature plus noise for this task. The implementation uses single-level
@@ -827,7 +858,9 @@ python run_all.py             # full run
   and records `metrics.run_all_timings_full`. Both are logged under `outputs/logs/` as well.
 - **`--quick` is a path test, not a reproduction of the report.** Measured on a fresh clone, it
   fetches the small-tier sources only and therefore builds a much smaller asset than the one this
-  report describes; it produces 8 of the 14 figures and omits six `metrics.json` entries —
+  report describes; it produces 15 of the 16 figures the pipeline draws - the exception is the rate-matched
+  directionality arm, which the quick tier does not simulate - and omits six
+  `metrics.json` entries —
   `toxcast_mea_inventory`, `twin_hd12_calibration`, `twin_hd15_real_inference`,
   `compartment_asymmetry`, `microchannel_directionality` and the full-run timings. The analyses
   behind those either need a full-tier download (the 109 MB microchannel archive, the ToxCast

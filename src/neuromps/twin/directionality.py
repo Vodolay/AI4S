@@ -211,26 +211,84 @@ def _classifier(kind: str, seed: int):
     return make_pipeline(StandardScaler(), LogisticRegression(max_iter=2000))
 
 
+class _RateResidualizer:
+    """Remove the rate-explained part of each feature, fitted on training rows only.
+
+    `residualize` fits its regression across the whole cell. Handing that frame
+    to cross-validation lets the test folds contribute to the coefficients that
+    were used to build their own features - mild leakage, but exactly the kind
+    of thing this report objects to elsewhere. As a transformer the regression
+    is fitted inside each fold instead.
+
+    The last two columns of `X` are the two chambers' firing rates; the rest are
+    the features being residualised.
+    """
+
+    def __init__(self, n_features: int) -> None:
+        self.n_features = n_features
+
+    def get_params(self, deep: bool = True) -> dict:
+        return {"n_features": self.n_features}
+
+    def set_params(self, **params):
+        for key, value in params.items():
+            setattr(self, key, value)
+        return self
+
+    def fit(self, X, y=None):
+        values, design = self._split(X)
+        self.coefficients_ = np.linalg.lstsq(design, values, rcond=None)[0]
+        self.scale_ = np.std(values, axis=0)
+        return self
+
+    def transform(self, X):
+        values, design = self._split(X)
+        residual = values - design @ self.coefficients_
+        # A feature the rates explain exactly leaves floating-point dust, which a
+        # standardising classifier rescales to unit variance and can separate
+        # perfectly. Anything that small is zero. Same rule as `residualize`.
+        dust = np.std(residual, axis=0) <= 1e-8 * np.maximum(self.scale_, 1e-12)
+        residual[:, dust] = 0.0
+        return residual
+
+    def fit_transform(self, X, y=None):
+        return self.fit(X, y).transform(X)
+
+    def _split(self, X):
+        values = np.asarray(X, dtype=float)[:, : self.n_features].copy()
+        rates = np.asarray(X, dtype=float)[:, self.n_features :]
+        return values, np.column_stack([np.ones(len(rates)), rates])
+
+
 def discriminate(
     frame: pd.DataFrame,
     features: tuple[str, ...],
     n_resamples: int = 1000,
     seed: int = 0,
     kind: str = "linear",
+    residual: bool = False,
 ) -> dict:
     """Out-of-fold AUC for symmetric vs asymmetric, with a bootstrap interval.
 
     Rows are independent simulations, so this bootstraps rows directly - unlike
     the real-data analyses, where resampling has to be over devices.
+
+    With `residual`, the rate regression is fitted inside each training fold
+    rather than once over the whole cell, so no test row contributes to the
+    coefficients used to transform it.
     """
     from sklearn.metrics import roc_auc_score
     from sklearn.model_selection import StratifiedKFold, cross_val_predict
+    from sklearn.pipeline import make_pipeline
 
     y = (~frame["symmetric"]).to_numpy(dtype=int)
     if len(np.unique(y)) < 2 or len(y) < 10:
         return {"auc": None, "note": "too few or single-class simulations"}
-    x = frame[list(features)].to_numpy(dtype=float)
+    columns = list(features) + ([c for c in RATE_COLUMNS] if residual else [])
+    x = frame[columns].to_numpy(dtype=float)
     model = _classifier(kind, seed)
+    if residual:
+        model = make_pipeline(_RateResidualizer(len(features)), model)
     folds = StratifiedKFold(n_splits=5, shuffle=True, random_state=seed)
     predicted = cross_val_predict(model, x, y, cv=folds, method="predict_proba")[:, 1]
     auc = float(roc_auc_score(y, predicted))
@@ -314,7 +372,9 @@ def sweep(frame: pd.DataFrame, n_resamples: int = 1000, seed: int = 0) -> list[d
             ]
             for name, kind, residual in SCORED:
                 label = name if kind == "linear" else f"{name}_{kind}"
-                data = residualize(cell, FEATURE_SETS[name]) if residual else cell
+                # Residualising is done inside the folds by `discriminate`, not
+                # here: fitting it once over the cell leaked test rows into the
+                # coefficients that built their own features.
                 rows.append(
                     {
                         "duration_s": float(duration_s),
@@ -322,11 +382,12 @@ def sweep(frame: pd.DataFrame, n_resamples: int = 1000, seed: int = 0) -> list[d
                         "feature_set": f"{label}_rate_residualized" if residual else label,
                         "rate_residualized": bool(residual),
                         **discriminate(
-                            data,
+                            cell,
                             FEATURE_SETS[name],
                             n_resamples=n_resamples,
                             seed=seed,
                             kind=kind,
+                            residual=residual,
                         ),
                     }
                 )

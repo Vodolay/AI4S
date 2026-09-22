@@ -102,21 +102,27 @@ def _difference_ci(pairs: pd.DataFrame, column: str, n_resamples: int, seed: int
     return group_bootstrap_metric(metric, groups, n_resamples=n_resamples, seed=seed)
 
 
-def _bootstrap_ci(truth: np.ndarray, predicted: np.ndarray, seed: int) -> list[float]:
-    """Percentile bootstrap interval for balanced accuracy."""
-    rng = np.random.default_rng(seed)
-    scores = []
-    for _ in range(BOOTSTRAP):
-        idx = rng.integers(0, len(truth), len(truth))
-        if len(set(truth[idx])) < 2:
-            continue
-        scores.append(balanced_accuracy_score(truth[idx], predicted[idx]))
-    if not scores:
-        return [float("nan"), float("nan")]
-    return [
-        round(float(np.percentile(scores, 2.5)), 3),
-        round(float(np.percentile(scores, 97.5)), 3),
-    ]
+def _bootstrap_ci(
+    truth: np.ndarray, predicted: np.ndarray, seed: int, groups: np.ndarray
+) -> list[float]:
+    """Percentile interval for balanced accuracy, resampling cultures not rows.
+
+    §5.1 of the report states this rule for every interval in the project, and
+    this function used to break it: it drew rows with replacement, which treats
+    two recordings from one culture as two independent observations and reports
+    an interval far too narrow. The test frame carries its culture labels, so
+    there was never a reason to.
+    """
+
+    def metric(idx: np.ndarray) -> float:
+        drawn_truth, drawn_predicted = truth[idx], predicted[idx]
+        if len(set(drawn_truth.tolist())) < 2:
+            return float("nan")
+        return float(balanced_accuracy_score(drawn_truth, drawn_predicted))
+
+    interval = group_bootstrap_metric(metric, groups, n_resamples=BOOTSTRAP, seed=seed)
+    low, high = interval.get("ci95", [float("nan"), float("nan")])
+    return [round(float(low), 3), round(float(high), 3)]
 
 
 def _fit_predict(train: pd.DataFrame, test: pd.DataFrame, adapt: str | None, seed: int):
@@ -204,7 +210,9 @@ def transfer_scores(pairs: pd.DataFrame, adapt: str | None = None, seed: int = 0
         "chance_balanced_accuracy": round(chance, 3),
         "rat_to_human": {
             "balanced_accuracy": round(float(balanced_accuracy_score(truth, predicted)), 3),
-            "balanced_accuracy_ci95": _bootstrap_ci(truth, predicted, seed),
+            "balanced_accuracy_ci95": _bootstrap_ci(
+                truth, predicted, seed, human["group"].to_numpy()
+            ),
             "permutation_p": round(_permutation_p(truth, predicted, seed), 4),
             "n_train": int(len(rat)),
             "n_test": int(len(human)),

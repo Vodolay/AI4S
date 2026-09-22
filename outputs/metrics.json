@@ -1178,6 +1178,77 @@
     }
   },
   "mechanism_baselines": {
+    "label_source_confounding": {
+      "by_label": {
+        "ache_inhibitor": {
+          "dominant_share": 1.0,
+          "dominant_source": "vassallo2017",
+          "n_pairs": 30,
+          "n_sources": 1
+        },
+        "control": {
+          "dominant_share": 1.0,
+          "dominant_source": "kapucu2022",
+          "n_pairs": 10,
+          "n_sources": 1
+        },
+        "gabaa_agonist_or_pam": {
+          "dominant_share": 0.7647,
+          "dominant_source": "sharf2022",
+          "n_pairs": 17,
+          "n_sources": 2
+        },
+        "gabaa_antagonist": {
+          "dominant_share": 0.9803,
+          "dominant_source": "screenneuropharm_bic",
+          "n_pairs": 507,
+          "n_sources": 2
+        },
+        "glutamatergic_agonist": {
+          "dominant_share": 0.8065,
+          "dominant_source": "vassallo2017",
+          "n_pairs": 31,
+          "n_sources": 2
+        },
+        "glutamatergic_antagonist": {
+          "dominant_share": 1.0,
+          "dominant_source": "kapucu2022",
+          "n_pairs": 17,
+          "n_sources": 1
+        },
+        "inactive": {
+          "dominant_share": 1.0,
+          "dominant_source": "vassallo2017",
+          "n_pairs": 74,
+          "n_sources": 1
+        },
+        "na_channel_blocker": {
+          "dominant_share": 1.0,
+          "dominant_source": "kapucu2022",
+          "n_pairs": 26,
+          "n_sources": 1
+        },
+        "na_channel_modulator": {
+          "dominant_share": 1.0,
+          "dominant_source": "vassallo2017",
+          "n_pairs": 42,
+          "n_sources": 1
+        }
+      },
+      "labels_from_one_source_only": [
+        "ache_inhibitor",
+        "control",
+        "glutamatergic_antagonist",
+        "inactive",
+        "na_channel_blocker",
+        "na_channel_modulator"
+      ],
+      "n_labels": 9,
+      "n_labels_from_one_source_only": 6,
+      "n_pairs": 754,
+      "note": "share of pairs whose source is the most common source for their label; a pooled cross-source classifier would be scored on this confound",
+      "source_determined_by_label": 0.9735
+    },
     "task1_within_platform": {
       "bootstrap_resamples": 1000,
       "calibration": {
@@ -1720,14 +1791,14 @@
       "data": 1037.1,
       "demo": 66.3,
       "fetch": 20.2,
-      "models": 25.0,
+      "models": 22.6,
       "twin": 1974.0
     },
     "label": "wall-clock seconds per stage, most recent full run of each",
     "stages_run": [
       "models"
     ],
-    "total_s": 25.0
+    "total_s": 22.6
   },
   "species_transfer": {
     "source": "kapucu2022",
@@ -1861,8 +1932,8 @@
         "rat_to_human": {
           "balanced_accuracy": 0.442,
           "balanced_accuracy_ci95": [
-            0.28,
-            0.597
+            0.302,
+            0.591
           ],
           "n_test": 32,
           "n_train": 37,
@@ -1931,8 +2002,8 @@
         "rat_to_human": {
           "balanced_accuracy": 0.408,
           "balanced_accuracy_ci95": [
-            0.246,
-            0.56
+            0.267,
+            0.568
           ],
           "n_test": 32,
           "n_train": 37,
@@ -3226,26 +3297,26 @@
       },
       "free_rate_residualized": {
         "arm": "free_rate",
-        "auc": 0.9359,
+        "auc": 0.8825,
         "auc_ci95": [
-          0.893,
-          0.9739
+          0.8184,
+          0.9359
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
         "classifier": "linear",
         "duration_s": 10.0,
-        "electrodes_per_compartment": 24,
+        "electrodes_per_compartment": 6,
         "feature_set": "all_rate_residualized",
         "n_simulations": 120,
         "rate_residualized": true
       },
       "rate_matched_residualized": {
         "arm": "rate_matched",
-        "auc": 0.9784,
+        "auc": 0.9869,
         "auc_ci95": [
-          0.9481,
-          0.9983
+          0.9654,
+          1.0
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -3353,9 +3424,9 @@
           "n_cells": 12
         },
         "all_rate_residualized": {
-          "all_better_than_chance": false,
-          "max": 0.9728,
-          "min": 0.5575,
+          "all_better_than_chance": true,
+          "max": 0.9234,
+          "min": 0.7706,
           "n_cells": 12
         },
         "coupling_only": {
@@ -3366,8 +3437,8 @@
         },
         "coupling_only_rate_residualized": {
           "all_better_than_chance": true,
-          "max": 0.9616,
-          "min": 0.6675,
+          "max": 0.8925,
+          "min": 0.7719,
           "n_cells": 12
         },
         "rate_only": {
@@ -3378,8 +3449,8 @@
         },
         "rate_only_rate_residualized": {
           "all_better_than_chance": false,
-          "max": 0.5969,
-          "min": 0.3869,
+          "max": 0.6213,
+          "min": 0.4772,
           "n_cells": 12
         }
       },
@@ -3398,8 +3469,8 @@
         },
         "all_rate_residualized": {
           "all_better_than_chance": true,
-          "max": 1.0,
-          "min": 0.8662,
+          "max": 0.9997,
+          "min": 0.9275,
           "n_cells": 12
         },
         "coupling_only": {
@@ -3410,8 +3481,8 @@
         },
         "coupling_only_rate_residualized": {
           "all_better_than_chance": true,
-          "max": 0.9844,
-          "min": 0.755,
+          "max": 0.9978,
+          "min": 0.8569,
           "n_cells": 12
         },
         "rate_only": {
@@ -3422,8 +3493,8 @@
         },
         "rate_only_rate_residualized": {
           "all_better_than_chance": false,
-          "max": 0.5953,
-          "min": 0.4941,
+          "max": 0.6009,
+          "min": 0.5278,
           "n_cells": 12
         }
       }
@@ -3495,10 +3566,10 @@
       },
       {
         "arm": "free_rate",
-        "auc": 0.6472,
+        "auc": 0.8825,
         "auc_ci95": [
-          0.5413,
-          0.7451
+          0.8184,
+          0.9359
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -3511,10 +3582,10 @@
       },
       {
         "arm": "free_rate",
-        "auc": 0.6675,
+        "auc": 0.855,
         "auc_ci95": [
-          0.557,
-          0.7649
+          0.7846,
+          0.9151
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -3527,12 +3598,12 @@
       },
       {
         "arm": "free_rate",
-        "auc": 0.5969,
+        "auc": 0.6213,
         "auc_ci95": [
-          0.4979,
-          0.7065
+          0.5174,
+          0.7274
         ],
-        "better_than_chance": false,
+        "better_than_chance": true,
         "bootstrap_resamples": 1000,
         "classifier": "linear",
         "duration_s": 10.0,
@@ -3607,12 +3678,12 @@
       },
       {
         "arm": "free_rate",
-        "auc": 0.5575,
+        "auc": 0.8028,
         "auc_ci95": [
-          0.4471,
-          0.6594
+          0.7248,
+          0.8742
         ],
-        "better_than_chance": false,
+        "better_than_chance": true,
         "bootstrap_resamples": 1000,
         "classifier": "linear",
         "duration_s": 10.0,
@@ -3623,10 +3694,10 @@
       },
       {
         "arm": "free_rate",
-        "auc": 0.6731,
+        "auc": 0.7719,
         "auc_ci95": [
-          0.5711,
-          0.7635
+          0.6784,
+          0.8507
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -3639,10 +3710,10 @@
       },
       {
         "arm": "free_rate",
-        "auc": 0.3869,
+        "auc": 0.4772,
         "auc_ci95": [
-          0.2922,
-          0.5034
+          0.3572,
+          0.5968
         ],
         "better_than_chance": false,
         "bootstrap_resamples": 1000,
@@ -3719,10 +3790,10 @@
       },
       {
         "arm": "free_rate",
-        "auc": 0.9359,
+        "auc": 0.8941,
         "auc_ci95": [
-          0.893,
-          0.9739
+          0.8311,
+          0.9479
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -3735,10 +3806,10 @@
       },
       {
         "arm": "free_rate",
-        "auc": 0.9106,
+        "auc": 0.8616,
         "auc_ci95": [
-          0.8543,
-          0.9549
+          0.793,
+          0.9224
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -3751,10 +3822,10 @@
       },
       {
         "arm": "free_rate",
-        "auc": 0.5075,
+        "auc": 0.5581,
         "auc_ci95": [
-          0.3916,
-          0.6372
+          0.445,
+          0.6866
         ],
         "better_than_chance": false,
         "bootstrap_resamples": 1000,
@@ -3831,10 +3902,10 @@
       },
       {
         "arm": "free_rate",
-        "auc": 0.9728,
+        "auc": 0.9197,
         "auc_ci95": [
-          0.9463,
-          0.9932
+          0.8659,
+          0.9672
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -3847,10 +3918,10 @@
       },
       {
         "arm": "free_rate",
-        "auc": 0.9616,
+        "auc": 0.8722,
         "auc_ci95": [
-          0.9253,
-          0.9883
+          0.8104,
+          0.9278
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -3863,10 +3934,10 @@
       },
       {
         "arm": "free_rate",
-        "auc": 0.4344,
+        "auc": 0.5484,
         "auc_ci95": [
-          0.3237,
-          0.5594
+          0.4393,
+          0.674
         ],
         "better_than_chance": false,
         "bootstrap_resamples": 1000,
@@ -3943,10 +4014,10 @@
       },
       {
         "arm": "free_rate",
-        "auc": 0.8141,
+        "auc": 0.8109,
         "auc_ci95": [
-          0.7243,
-          0.8938
+          0.7247,
+          0.8943
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -3959,10 +4030,10 @@
       },
       {
         "arm": "free_rate",
-        "auc": 0.8153,
+        "auc": 0.7831,
         "auc_ci95": [
-          0.7387,
-          0.8892
+          0.701,
+          0.8658
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -3975,10 +4046,10 @@
       },
       {
         "arm": "free_rate",
-        "auc": 0.5769,
+        "auc": 0.5813,
         "auc_ci95": [
-          0.4754,
-          0.6888
+          0.4747,
+          0.6909
         ],
         "better_than_chance": false,
         "bootstrap_resamples": 1000,
@@ -4055,10 +4126,10 @@
       },
       {
         "arm": "free_rate",
-        "auc": 0.7894,
+        "auc": 0.7834,
         "auc_ci95": [
-          0.6991,
-          0.8724
+          0.6933,
+          0.8654
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -4071,10 +4142,10 @@
       },
       {
         "arm": "free_rate",
-        "auc": 0.7234,
+        "auc": 0.7931,
         "auc_ci95": [
-          0.6312,
-          0.8125
+          0.7042,
+          0.8707
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -4087,10 +4158,10 @@
       },
       {
         "arm": "free_rate",
-        "auc": 0.4559,
+        "auc": 0.5491,
         "auc_ci95": [
-          0.3425,
-          0.5737
+          0.4307,
+          0.6673
         ],
         "better_than_chance": false,
         "bootstrap_resamples": 1000,
@@ -4167,10 +4238,10 @@
       },
       {
         "arm": "free_rate",
-        "auc": 0.7531,
+        "auc": 0.8953,
         "auc_ci95": [
-          0.6548,
-          0.8398
+          0.826,
+          0.9452
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -4183,10 +4254,10 @@
       },
       {
         "arm": "free_rate",
-        "auc": 0.8084,
+        "auc": 0.8925,
         "auc_ci95": [
-          0.7194,
-          0.8853
+          0.8305,
+          0.9445
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -4199,10 +4270,10 @@
       },
       {
         "arm": "free_rate",
-        "auc": 0.5656,
+        "auc": 0.5613,
         "auc_ci95": [
-          0.4408,
-          0.6971
+          0.4327,
+          0.6903
         ],
         "better_than_chance": false,
         "bootstrap_resamples": 1000,
@@ -4279,10 +4350,10 @@
       },
       {
         "arm": "free_rate",
-        "auc": 0.92,
+        "auc": 0.8766,
         "auc_ci95": [
-          0.8643,
-          0.9639
+          0.8071,
+          0.9302
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -4295,10 +4366,10 @@
       },
       {
         "arm": "free_rate",
-        "auc": 0.9313,
+        "auc": 0.8691,
         "auc_ci95": [
-          0.8806,
-          0.9696
+          0.7985,
+          0.9299
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -4311,10 +4382,10 @@
       },
       {
         "arm": "free_rate",
-        "auc": 0.4697,
+        "auc": 0.5434,
         "auc_ci95": [
-          0.3558,
-          0.5873
+          0.4276,
+          0.672
         ],
         "better_than_chance": false,
         "bootstrap_resamples": 1000,
@@ -4391,10 +4462,10 @@
       },
       {
         "arm": "free_rate",
-        "auc": 0.9669,
+        "auc": 0.8781,
         "auc_ci95": [
-          0.9378,
-          0.988
+          0.8145,
+          0.9265
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -4407,10 +4478,10 @@
       },
       {
         "arm": "free_rate",
-        "auc": 0.9466,
+        "auc": 0.8503,
         "auc_ci95": [
-          0.9073,
-          0.9766
+          0.7777,
+          0.9058
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -4423,10 +4494,10 @@
       },
       {
         "arm": "free_rate",
-        "auc": 0.5487,
+        "auc": 0.575,
         "auc_ci95": [
-          0.4405,
-          0.6571
+          0.4656,
+          0.6842
         ],
         "better_than_chance": false,
         "bootstrap_resamples": 1000,
@@ -4503,10 +4574,10 @@
       },
       {
         "arm": "free_rate",
-        "auc": 0.6597,
+        "auc": 0.7706,
         "auc_ci95": [
-          0.5536,
-          0.7566
+          0.6811,
+          0.8499
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -4519,10 +4590,10 @@
       },
       {
         "arm": "free_rate",
-        "auc": 0.7584,
+        "auc": 0.8044,
         "auc_ci95": [
-          0.6684,
-          0.8478
+          0.7297,
+          0.8817
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -4535,10 +4606,10 @@
       },
       {
         "arm": "free_rate",
-        "auc": 0.3991,
+        "auc": 0.5069,
         "auc_ci95": [
-          0.2921,
-          0.5089
+          0.3909,
+          0.6274
         ],
         "better_than_chance": false,
         "bootstrap_resamples": 1000,
@@ -4615,10 +4686,10 @@
       },
       {
         "arm": "free_rate",
-        "auc": 0.8259,
+        "auc": 0.9234,
         "auc_ci95": [
-          0.7481,
-          0.8929
+          0.8697,
+          0.9685
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -4631,10 +4702,10 @@
       },
       {
         "arm": "free_rate",
-        "auc": 0.8566,
+        "auc": 0.8884,
         "auc_ci95": [
-          0.7821,
-          0.9207
+          0.8292,
+          0.9426
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -4647,10 +4718,10 @@
       },
       {
         "arm": "free_rate",
-        "auc": 0.5003,
+        "auc": 0.5334,
         "auc_ci95": [
-          0.3789,
-          0.6197
+          0.4154,
+          0.6609
         ],
         "better_than_chance": false,
         "bootstrap_resamples": 1000,
@@ -4727,10 +4798,10 @@
       },
       {
         "arm": "free_rate",
-        "auc": 0.7781,
+        "auc": 0.9172,
         "auc_ci95": [
-          0.6921,
-          0.8506
+          0.862,
+          0.9607
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -4743,10 +4814,10 @@
       },
       {
         "arm": "free_rate",
-        "auc": 0.6722,
+        "auc": 0.8894,
         "auc_ci95": [
-          0.5743,
-          0.7593
+          0.8128,
+          0.9508
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -4759,10 +4830,10 @@
       },
       {
         "arm": "free_rate",
-        "auc": 0.4103,
+        "auc": 0.4912,
         "auc_ci95": [
-          0.3009,
-          0.5269
+          0.3706,
+          0.6166
         ],
         "better_than_chance": false,
         "bootstrap_resamples": 1000,
@@ -4839,10 +4910,10 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.9784,
+        "auc": 0.9869,
         "auc_ci95": [
-          0.9481,
-          0.9983
+          0.9654,
+          1.0
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -4855,10 +4926,10 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.9406,
+        "auc": 0.9403,
         "auc_ci95": [
-          0.8851,
-          0.9868
+          0.8862,
+          0.9878
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -4871,10 +4942,10 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.5394,
+        "auc": 0.545,
         "auc_ci95": [
-          0.4324,
-          0.6543
+          0.4397,
+          0.66
         ],
         "better_than_chance": false,
         "bootstrap_resamples": 1000,
@@ -4951,9 +5022,9 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.9966,
+        "auc": 0.9975,
         "auc_ci95": [
-          0.9892,
+          0.9914,
           1.0
         ],
         "better_than_chance": true,
@@ -4967,10 +5038,10 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.9734,
+        "auc": 0.9722,
         "auc_ci95": [
-          0.9415,
-          0.9969
+          0.9397,
+          0.9959
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -4983,10 +5054,10 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.5953,
+        "auc": 0.6009,
         "auc_ci95": [
-          0.484,
-          0.6958
+          0.4851,
+          0.6971
         ],
         "better_than_chance": false,
         "bootstrap_resamples": 1000,
@@ -5063,9 +5134,9 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 1.0,
+        "auc": 0.9994,
         "auc_ci95": [
-          1.0,
+          0.9969,
           1.0
         ],
         "better_than_chance": true,
@@ -5079,10 +5150,10 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.9844,
+        "auc": 0.9803,
         "auc_ci95": [
-          0.968,
-          0.9969
+          0.9603,
+          0.9951
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -5095,10 +5166,10 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.5566,
+        "auc": 0.5516,
         "auc_ci95": [
-          0.4466,
-          0.6498
+          0.445,
+          0.6482
         ],
         "better_than_chance": false,
         "bootstrap_resamples": 1000,
@@ -5175,9 +5246,9 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 1.0,
+        "auc": 0.9909,
         "auc_ci95": [
-          1.0,
+          0.97,
           1.0
         ],
         "better_than_chance": true,
@@ -5191,10 +5262,10 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.9234,
+        "auc": 0.9537,
         "auc_ci95": [
-          0.8666,
-          0.9677
+          0.915,
+          0.9825
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -5207,10 +5278,10 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.5656,
+        "auc": 0.5703,
         "auc_ci95": [
-          0.4567,
-          0.6583
+          0.4615,
+          0.6628
         ],
         "better_than_chance": false,
         "bootstrap_resamples": 1000,
@@ -5287,10 +5358,10 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.945,
+        "auc": 0.9769,
         "auc_ci95": [
-          0.8958,
-          0.9849
+          0.9369,
+          0.9992
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -5303,10 +5374,10 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.9456,
+        "auc": 0.9772,
         "auc_ci95": [
-          0.8995,
-          0.9827
+          0.9503,
+          0.9964
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -5319,10 +5390,10 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.4941,
+        "auc": 0.5294,
         "auc_ci95": [
-          0.3851,
-          0.6033
+          0.4197,
+          0.6383
         ],
         "better_than_chance": false,
         "bootstrap_resamples": 1000,
@@ -5399,10 +5470,10 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.97,
+        "auc": 0.9997,
         "auc_ci95": [
-          0.9326,
-          0.9967
+          0.9981,
+          1.0
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -5415,10 +5486,10 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.9731,
+        "auc": 0.99,
         "auc_ci95": [
-          0.9445,
-          0.9951
+          0.9776,
+          0.9987
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -5431,10 +5502,10 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.5656,
+        "auc": 0.5813,
         "auc_ci95": [
-          0.4608,
-          0.67
+          0.476,
+          0.6834
         ],
         "better_than_chance": false,
         "bootstrap_resamples": 1000,
@@ -5511,10 +5582,10 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.9259,
+        "auc": 0.9644,
         "auc_ci95": [
-          0.8813,
-          0.9662
+          0.9245,
+          0.992
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -5527,10 +5598,10 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.9072,
+        "auc": 0.9444,
         "auc_ci95": [
-          0.8539,
-          0.9518
+          0.9034,
+          0.9769
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -5543,10 +5614,10 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.5244,
+        "auc": 0.5381,
         "auc_ci95": [
-          0.4153,
-          0.6214
+          0.4264,
+          0.6338
         ],
         "better_than_chance": false,
         "bootstrap_resamples": 1000,
@@ -5623,10 +5694,10 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.9753,
+        "auc": 0.9909,
         "auc_ci95": [
-          0.9472,
-          0.9953
+          0.978,
+          0.9994
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -5639,10 +5710,10 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.9125,
+        "auc": 0.9681,
         "auc_ci95": [
-          0.8615,
-          0.9552
+          0.939,
+          0.9906
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -5655,10 +5726,10 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.5166,
+        "auc": 0.5309,
         "auc_ci95": [
-          0.4044,
-          0.6139
+          0.4185,
+          0.6295
         ],
         "better_than_chance": false,
         "bootstrap_resamples": 1000,
@@ -5735,10 +5806,10 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.9878,
+        "auc": 0.9994,
         "auc_ci95": [
-          0.9698,
-          0.9997
+          0.997,
+          1.0
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -5751,10 +5822,10 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.9791,
+        "auc": 0.9978,
         "auc_ci95": [
-          0.9554,
-          0.9954
+          0.9908,
+          1.0
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -5767,10 +5838,10 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.5181,
+        "auc": 0.5278,
         "auc_ci95": [
-          0.4047,
-          0.6313
+          0.4136,
+          0.6411
         ],
         "better_than_chance": false,
         "bootstrap_resamples": 1000,
@@ -5847,10 +5918,10 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.9347,
+        "auc": 0.9991,
         "auc_ci95": [
-          0.882,
-          0.9722
+          0.996,
+          1.0
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -5863,10 +5934,10 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.8813,
+        "auc": 0.9791,
         "auc_ci95": [
-          0.8095,
-          0.9431
+          0.9522,
+          0.9981
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -5879,10 +5950,10 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.5766,
+        "auc": 0.5841,
         "auc_ci95": [
-          0.4558,
-          0.6809
+          0.4652,
+          0.6839
         ],
         "better_than_chance": false,
         "bootstrap_resamples": 1000,
@@ -5959,10 +6030,10 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.9547,
+        "auc": 0.9275,
         "auc_ci95": [
-          0.9137,
-          0.9856
+          0.8768,
+          0.9691
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -5975,10 +6046,10 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.9381,
+        "auc": 0.8569,
         "auc_ci95": [
-          0.8871,
-          0.979
+          0.7854,
+          0.9237
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -5991,10 +6062,10 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.52,
+        "auc": 0.5322,
         "auc_ci95": [
-          0.4077,
-          0.6249
+          0.4156,
+          0.636
         ],
         "better_than_chance": false,
         "bootstrap_resamples": 1000,
@@ -6071,10 +6142,10 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.8662,
+        "auc": 0.9481,
         "auc_ci95": [
-          0.7968,
-          0.9267
+          0.9081,
+          0.9799
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -6087,10 +6158,10 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.755,
+        "auc": 0.9166,
         "auc_ci95": [
-          0.6653,
-          0.8375
+          0.864,
+          0.96
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -6103,10 +6174,10 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.53,
+        "auc": 0.5444,
         "auc_ci95": [
-          0.4074,
-          0.6325
+          0.4268,
+          0.648
         ],
         "better_than_chance": false,
         "bootstrap_resamples": 1000,

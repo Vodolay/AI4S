@@ -9,7 +9,7 @@
 Two things, built to be reproduced by one command:
 
 1. **A standardized data asset** of public neural microelectrode-array recordings — 21,887 records
-   <!-- metrics.json: data_asset.n_records --> from seven sources — where every record carries the
+   <!-- metrics.json: data_asset.n_records --> from eight sources — where every record carries the
    URL, license, SHA256 and download time of the file it came from, and the build refuses to emit an
    asset if any provenance hash fails to match the download manifest.
 
@@ -52,11 +52,11 @@ is 1.0 — the parameter is absorbing model mismatch rather than tracking the co
 
 **Direction is recoverable in simulation once rate is residualised out.** With features residualised
 against both chambers' firing rates — a control that carries its own validity check — symmetric and
-asymmetric wiring separate at AUC 0.9359
+asymmetric wiring separate at AUC 0.8825
 <!-- metrics.json: twin_hd16_directionality.cheapest_configuration.free_rate_residualized.auc -->
 from a 10 s recording
 <!-- metrics.json: twin_hd16_directionality.cheapest_configuration.free_rate_residualized.duration_s -->
-on 24 electrodes per compartment
+on 6 electrodes per compartment
 <!-- metrics.json: twin_hd16_directionality.cheapest_configuration.free_rate_residualized.electrodes_per_compartment -->.
 A second arm that adjusted drive to match rates reports a higher number on fewer electrodes and
 fails its own validity check; we report it as inconclusive rather than as the result.
@@ -109,7 +109,7 @@ trust. Three specific mechanisms keep this one honest:
 
 ```bash
 uv venv --python 3.11 .venv && uv pip install --python .venv/bin/python -e ".[dev]"
-python run_all.py --quick     # 463 s on CPU: every figure and metric
+python run_all.py --quick     # path test: small-tier sources, ~400 s on CPU
 ```
 
 ## What exists, and what does not
@@ -120,6 +120,6 @@ drug knobs, inference, directionality experiment), the technical report, and the
 `report/LAB_NOTEBOOK.md` with 33 numbered limitations.
 
 The interactive demo is built: `streamlit run app/app.py` after `python run_all.py --quick`, with
-screenshots in `outputs/figures/app_tab*.png`. Not yet recorded: the demo video.
+screenshots in `outputs/figures/app_tab*.png`; the demo video is in `outputs/video/neuromps_demo.mp4`.
 
 **Full details:** `report/TECHNICAL_REPORT.md`.

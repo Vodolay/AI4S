@@ -287,6 +287,43 @@ def plot_confusion(matrix: np.ndarray, labels: list[str], path, title: str) -> N
     plt.close(fig)
 
 
+def label_source_confounding(pairs: pd.DataFrame) -> dict:
+    """How far a pair's mechanism label already determines which source it came from.
+
+    A reviewer asked why Task 1 is fitted on 73 Kapucu pairs when the asset now
+    holds 754. This is the answer, and it is a result rather than an excuse: in
+    this asset mechanism and platform are very nearly the same variable, so a
+    model pooled across sources would score well by recognising the laboratory.
+    The statistic is the share of pairs whose source is the most common source
+    for their label - the accuracy of the best possible guess of provenance from
+    the label alone.
+    """
+    table = pairs.groupby(["label", "source"]).size().unstack(fill_value=0)
+    total = int(table.to_numpy().sum())
+    determined = int(table.max(axis=1).sum())
+    by_label = {}
+    for label, row in table.iterrows():
+        by_label[str(label)] = {
+            "n_pairs": int(row.sum()),
+            "dominant_source": str(row.idxmax()),
+            "dominant_share": round(float(row.max() / row.sum()), 4),
+            "n_sources": int((row > 0).sum()),
+        }
+    single = [name for name, entry in by_label.items() if entry["n_sources"] == 1]
+    return {
+        "n_pairs": total,
+        "n_labels": int(len(by_label)),
+        "source_determined_by_label": round(determined / total, 4) if total else None,
+        "labels_from_one_source_only": sorted(single),
+        "n_labels_from_one_source_only": len(single),
+        "by_label": by_label,
+        "note": (
+            "share of pairs whose source is the most common source for their label; "
+            "a pooled cross-source classifier would be scored on this confound"
+        ),
+    }
+
+
 def main(argv: list[str] | None = None) -> int:
     """Run both tasks, write metrics and the confusion figure."""
     import argparse
@@ -357,6 +394,7 @@ def main(argv: list[str] | None = None) -> int:
             kapucu, bicuculline, positive="gabaa_antagonist"
         )
     results["task2_external_detection"] = external
+    results["label_source_confounding"] = label_source_confounding(pairs)
     # An independent within-platform replication. Task 1 is Kapucu on an Axion
     # plate; this is a different laboratory, a different MEA vendor and six
     # compounds Kapucu never used, with the baseline recorded on the same chip

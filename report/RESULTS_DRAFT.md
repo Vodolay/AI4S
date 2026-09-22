@@ -325,8 +325,8 @@ balanced accuracy of 0.200 <!-- metrics.json: species_transfer.transfer.none.cha
 | rat → human, no adaptation | 0.550 <!-- metrics.json: species_transfer.transfer.none.rat_to_human.balanced_accuracy --> | [0.400, 0.600] <!-- metrics.json: species_transfer.transfer.none.rat_to_human.balanced_accuracy_ci95 --> | 37 train / 32 test <!-- metrics.json: species_transfer.transfer.none.rat_to_human.n_train and .n_test --> |
 | human within-species (5 repeats × 4 splits) | 0.646 ± 0.139 <!-- metrics.json: species_transfer.transfer.none.human_within.balanced_accuracy and .balanced_accuracy_sd --> | — | 32 <!-- metrics.json: species_transfer.transfer.none.human_within.n --> |
 | rat within-species (5 repeats × 2 splits) | 0.543 ± 0.067 <!-- metrics.json: species_transfer.transfer.none.rat_within.balanced_accuracy and .balanced_accuracy_sd --> | — | 37 <!-- metrics.json: species_transfer.transfer.none.rat_within.n --> |
-| rat → human, CORAL | 0.442 <!-- metrics.json: species_transfer.transfer.coral.rat_to_human.balanced_accuracy --> | [0.280, 0.597] <!-- metrics.json: species_transfer.transfer.coral.rat_to_human.balanced_accuracy_ci95 --> | 37 / 32 |
-| rat → human, per-species standardisation | 0.408 <!-- metrics.json: species_transfer.transfer.standardize.rat_to_human.balanced_accuracy --> | [0.246, 0.560] <!-- metrics.json: species_transfer.transfer.standardize.rat_to_human.balanced_accuracy_ci95 --> | 37 / 32 |
+| rat → human, CORAL | 0.442 <!-- metrics.json: species_transfer.transfer.coral.rat_to_human.balanced_accuracy --> | [0.302, 0.591] <!-- metrics.json: species_transfer.transfer.coral.rat_to_human.balanced_accuracy_ci95 --> | 37 / 32 |
+| rat → human, per-species standardisation | 0.408 <!-- metrics.json: species_transfer.transfer.standardize.rat_to_human.balanced_accuracy --> | [0.267, 0.568] <!-- metrics.json: species_transfer.transfer.standardize.rat_to_human.balanced_accuracy_ci95 --> | 37 / 32 |
 
 The unadapted transfer is above chance by permutation test, p = 0.0002
 <!-- metrics.json: species_transfer.transfer.none.rat_to_human.permutation_p -->. Two things should
