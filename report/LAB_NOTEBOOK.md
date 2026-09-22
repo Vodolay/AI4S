@@ -954,3 +954,16 @@ measurement it was checked against assumed twice the machine.
     below the dataset card down, so two of the three tab-1 crops framed the
     wrong content and were retargeted. The source count in the captions is now
     counted from the metrics instead of typed.
+
+18. **The EPA multi-laboratory MEA data is public, and this project said it was not.**
+    `10.23719/1517583`, US EPA ORD, on data.gov: 199 MB, 39 spike-time files at
+    25 kHz, six compounds in concentration-response with 0 nM rows on the same
+    chip, U.S. Public Domain. Two search passes over Zenodo, Dryad, figshare,
+    OSF and GIN missed it; DataCite found it in one query, because government
+    repositories are indexed there and nowhere else I had looked. The lesson is
+    about where the searching was done, not how hard.
+    - Blocking question before it can be used: a chip is recorded continuously
+      for about 107 minutes across several concentrations, and the dose timings
+      are not stated. `Filter Length = 600` per row in the summary workbook
+      suggests ten-minute windows, but a `dose_value` derived from a guess about
+      when a pipette went in would be fabricated, not measured.

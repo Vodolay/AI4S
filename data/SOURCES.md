@@ -105,15 +105,49 @@ survive the check, so the search was widened; what replaced them is below.
   the manipulation is genetic rather than pharmacological. Neither gap is
   addressed at a cost worth paying.
 
+### Found on a second pass: the EPA multi-laboratory MEA data (2026-09-22)
+
+`10.23719/1517583`, "Data set for Vassallo et al", published by the **U.S. EPA Office of
+Research and Development** and listed on data.gov. This is the EPA arm of the multi-laboratory
+study the review above looked for under "HESI NeuTox" and did not find, and it contradicts a line
+this file has carried since 2026-09-16 saying Vassallo 2017 was not open access. It was found by
+querying DataCite, which indexes government repositories that Zenodo, Dryad, figshare, OSF and GIN
+searches never reach.
+
+What it is, verified by reading the archive over HTTP range requests rather than trusting the
+description:
+
+- **199 MB, 46 members**, of which 39 are spike files named `<date> <chip ids> <COMPOUND> -- <chip>.txt`.
+- **Spike times, not summaries.** Each line is `sample_index<TAB>channel`. The archive's own
+  conversion script fixes the rate: `samplingFrequency = 25000`. Ticks run to ~1.6e8, so a
+  recording spans roughly 107 minutes.
+- **Six compounds in a concentration-response design**: acetaminophen (ACE), dimethyl phthalate
+  (DMP), glyphosate (GLY), deltamethrin (DELT), domoic acid (DA) and chlorpyrifos-oxon (COX,
+  named in full in the companion multi-laboratory workbook).
+- **Paired controls on the same chip.** `EPA Final Data.xlsx` carries one row per chip and
+  concentration - `Chip`, `Chemical`, `Concentrations (nM)`, `Group` - including **0 nM** rows for
+  the same chip that later receives the compound. That is the pairing every model in `models/`
+  consumes and that no other multi-compound source in this asset provides.
+- **Licence: U.S. Public Domain**, 17 U.S.C. section 105, via the EPA ScienceHub licence page. The
+  policy above accepts public domain explicitly, and it is the same basis as `toxcast_mea`.
+
+**Not integrated in this session, deliberately.** The one hard part is segmentation: a chip is
+recorded for about 107 minutes across several concentrations, and the spike file is continuous. The
+summary workbook gives a `Filter Length` of 600 s per row, which suggests successive ten-minute
+windows per concentration, but the dose timings are not stated outright and guessing them would
+produce records whose `dose_value` is fiction. Resolving that - from `Logfile_EPAv1.xls`, or by
+asking Timothy Shafer, whose address is on the data.gov record - is the first task for whoever picks
+this up. Two of its compounds map onto mechanism classes the asset already uses (domoic acid is a
+glutamatergic agonist, deltamethrin a sodium-channel modulator); chlorpyrifos-oxon is an AChE
+inhibitor, which the schema's enum has no value for.
+
 **Still open after this review.** The human cohort remains thinner than the rat
 one even with `trujillo2019`, and every human record still comes from
 hPSC-derived tissue rather than primary human neurons - a limitation to keep in
 the report rather than one this review can close.
 
-The **multi-compound pharmacology gap is also still open**, and not for want of
-looking: a second search pass over Zenodo (open licences, dataset type, sizes
-between 50 KB and 12 GB) for paired pre/post MEA spike data across several
-compounds returned nothing usable. The near misses were in-vivo recordings,
+The **multi-compound pharmacology gap now has a candidate** - the EPA dataset
+above - where two search passes over Zenodo had found nothing usable. The near misses were in-vivo recordings,
 imaging (Zenodo 15195636 is a *Fractal* image-processing benchmark despite
 "multiwell" in its title), or cardiomyocytes. What the asset has instead is
 kapucu2022 (5 compound classes x 2 species, paired, but single concentrations),
@@ -163,7 +197,8 @@ ask the authors: the HESI NeuTox outputs exist as papers, not as a deposit.
     part of the provenance record, not just a missing entry. Local copies were deleted.
   - Cost: we lose an independent hiPSC-vs-rat MEA pharmacology set with dose–response. The
     rat→hPSC transfer study relies on Kapucu 2022 alone, which must be stated as a limitation.
-  - Vassallo et al. 2017 (rat cortical MEA, same lab) was not found as open access and was never fetched.
+  - ~~Vassallo et al. 2017 (rat cortical MEA, same lab) was not found as open access and was never
+    fetched.~~ **Wrong, corrected 2026-09-22:** it is public. See the entry below.
 - **License policy (applies to every source).** Accept only licenses that allow commercial reuse and
   redistribution with attribution: CC0, CC BY, public domain, or permissive OSI-approved licenses
   (MIT, BSD, Apache-2.0) where a repository applies one to data. Exclude NC, ND and unlicensed
