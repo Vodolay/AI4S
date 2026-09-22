@@ -13,7 +13,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from neuromps.etl import brewer, kapucu, screenneuropharm, sharf, trujillo
+from neuromps.etl import brewer, kapucu, screenneuropharm, sharf, trujillo, vassallo
 from neuromps.etl.toxcast_mea import (
     INTERIM_PARQUET,
     MC56_CSV,
@@ -78,6 +78,7 @@ def collect_records(raw_root: Path = RAW_ROOT, full: bool = False) -> list[dict]
     records += _mateus_records(hashes, raw_root)
     records += _trujillo_records(hashes, raw_root, full)
     records += _brewer_records(hashes, raw_root, full)
+    records += _vassallo_records(hashes, raw_root, full)
     add_cross_record_flags(records)  # replicate divergence, outliers, unpaired exposures
     return records
 
@@ -163,6 +164,26 @@ def _brewer_records(hashes: dict[str, str], raw_root: Path, full: bool) -> list[
         return []
     built = brewer.build_records(archive, hashes, max_cultures=None if full else 2)
     log.info("brewer2021: %d records", len(built))
+    return built
+
+
+def _vassallo_records(hashes: dict[str, str], raw_root: Path, full: bool) -> list[dict]:
+    """EPA concentration-response records, cached: reading 199 MB of spikes costs minutes."""
+    archive = raw_root / vassallo.SOURCE / vassallo.ARCHIVE_NAME
+    if not fetched_in_this_tier(archive, hashes, vassallo.SOURCE):
+        return []
+    cache = interim_dir() / "vassallo2017_records.json"
+    if cache.exists() and not full:
+        built = [
+            record
+            for record in json.loads(cache.read_text())
+            if all(Path(f["path"]).name in hashes for f in record["provenance"]["source_files"])
+        ]
+    else:
+        built = vassallo.build_records(archive, hashes)
+        cache.parent.mkdir(parents=True, exist_ok=True)
+        cache.write_text(json.dumps(built, default=str))
+    log.info("vassallo2017: %d records", len(built))
     return built
 
 

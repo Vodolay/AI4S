@@ -33,7 +33,8 @@
         "screenneuropharm_bic",
         "mateus2024",
         "trujillo2019",
-        "brewer2021"
+        "brewer2021",
+        "vassallo2017"
       ],
       "description": "Source key; must match a source in data/raw/MANIFEST.json."
     },
@@ -44,7 +45,8 @@
         "CC-BY-4.0",
         "MIT",
         "BSD-3-Clause",
-        "Apache-2.0"
+        "Apache-2.0",
+        "US-Public-Domain"
       ],
       "description": "SPDX id of the source's license. Non-commercial and no-derivatives licenses are not permitted in this asset (see data/SOURCES.md)."
     },
@@ -438,6 +440,8 @@
             "glutamatergic_antagonist",
             "na_channel_blocker",
             "k_channel_modulator",
+            "na_channel_modulator",
+            "ache_inhibitor",
             "other",
             "inactive",
             null

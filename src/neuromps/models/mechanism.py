@@ -31,6 +31,8 @@ from sklearn.preprocessing import StandardScaler
 from neuromps.models.bootstrap import group_bootstrap_metric, resample_count
 from neuromps.models.dataset import delta_columns
 
+# Below this a classifier is fitting noise rather than a mechanism.
+MIN_PAIRS_FOR_A_TASK = 30
 log = logging.getLogger("neuromps.models")
 
 
@@ -355,6 +357,17 @@ def main(argv: list[str] | None = None) -> int:
             kapucu, bicuculline, positive="gabaa_antagonist"
         )
     results["task2_external_detection"] = external
+    # An independent within-platform replication. Task 1 is Kapucu on an Axion
+    # plate; this is a different laboratory, a different MEA vendor and six
+    # compounds Kapucu never used, with the baseline recorded on the same chip
+    # minutes before the first dose. If mechanism classification only worked on
+    # the set it was designed around, this is where that would show.
+    epa = pairs[pairs["source"] == "vassallo2017"]
+    if len(epa) >= MIN_PAIRS_FOR_A_TASK:
+        results["task1b_independent_platform"] = summarize(
+            epa, seed=args.seed, quick=args.quick
+        )
+        results["task1b_independent_platform"]["source"] = "vassallo2017"
     contrast = platform_delta_contrast(pairs, "gabaa_antagonist")
     results["task3_platform_contrast"] = contrast
     if len(contrast["by_source"]) == 2:

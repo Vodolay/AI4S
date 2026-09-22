@@ -33,113 +33,113 @@
       "features": {
         "active_electrodes": {
           "difference_ci95": [
-            25.9875,
-            44.0
+            27.0,
+            42.0
           ],
           "excludes_zero": false,
           "format_confounded": true,
           "kind": "coverage",
           "median_human": 62.0,
-          "median_rat": 23.0
+          "median_rat": 24.0
         },
         "active_fraction": {
           "difference_ci95": [
-            0.1719,
-            0.4744
+            0.2344,
+            0.5
           ],
           "excludes_zero": true,
           "format_confounded": false,
           "kind": "coverage",
           "median_human": 0.9844,
-          "median_rat": 0.6667
+          "median_rat": 0.6297
         },
         "burst_duration_s": {
           "difference_ci95": [
-            0.2318,
-            0.5004
+            0.2466,
+            0.5121
           ],
           "excludes_zero": true,
           "format_confounded": false,
           "kind": "synchrony_like",
           "median_human": 0.6004,
-          "median_rat": 0.2528
+          "median_rat": 0.2452
         },
         "burst_rate_per_min": {
           "difference_ci95": [
-            -2.438,
-            2.4791
+            -1.6483,
+            2.45
           ],
           "excludes_zero": false,
           "format_confounded": false,
           "kind": "rate_like",
           "median_human": 7.2135,
-          "median_rat": 6.7513
+          "median_rat": 6.4397
         },
         "isi_cv": {
           "difference_ci95": [
-            5.3884,
-            7.6411
+            5.4412,
+            7.8797
           ],
           "excludes_zero": true,
           "format_confounded": false,
           "kind": "synchrony_like",
           "median_human": 9.2078,
-          "median_rat": 2.4894
+          "median_rat": 2.4496
         },
         "mfr_hz": {
           "difference_ci95": [
-            3.9888,
-            10.9749
+            4.2593,
+            11.2961
           ],
           "excludes_zero": true,
           "format_confounded": false,
           "kind": "rate_like",
           "median_human": 10.1882,
-          "median_rat": 2.6431
+          "median_rat": 2.3769
         },
         "network_burst_rate_per_min": {
           "difference_ci95": [
-            -5.221,
-            2.8356
+            -4.1279,
+            1.7673
           ],
           "excludes_zero": false,
           "format_confounded": false,
           "kind": "synchrony_like",
           "median_human": 10.7583,
-          "median_rat": 11.7255
+          "median_rat": 11.6685
         },
         "pct_spikes_in_bursts": {
           "difference_ci95": [
-            22.1958,
-            40.8571
+            22.8117,
+            39.3144
           ],
           "excludes_zero": true,
           "format_confounded": false,
           "kind": "rate_like",
           "median_human": 95.3594,
-          "median_rat": 61.851
+          "median_rat": 63.0453
         },
         "spikes_per_burst": {
           "difference_ci95": [
-            47.6071,
-            118.2784
+            47.3585,
+            119.296
           ],
           "excludes_zero": true,
           "format_confounded": false,
           "kind": "rate_like",
           "median_human": 101.7133,
-          "median_rat": 12.7253
+          "median_rat": 12.1529
         },
         "synchrony_index": {
           "difference_ci95": [
-            0.4188,
-            0.567
+            0.4132,
+            0.5547
           ],
           "excludes_zero": true,
           "format_confounded": false,
           "kind": "synchrony_like",
           "median_human": 0.8951,
-          "median_rat": 0.3707
+          "median_rat": 0.3906
         }
       },
       "features_separating_species": [
@@ -151,13 +151,13 @@
         "spikes_per_burst",
         "synchrony_index"
       ],
-      "n_cultures": 195,
+      "n_cultures": 229,
       "n_features_separating_species": 7,
       "n_human_cultures": 46,
       "n_human_records": 200,
-      "n_rat_cultures": 149,
-      "n_rat_records": 240,
-      "n_records": 440,
+      "n_rat_cultures": 183,
+      "n_rat_records": 274,
+      "n_records": 474,
       "slice": "every platform (species and vendor confounded)",
       "sources": [
         "brewer2021",
@@ -165,7 +165,8 @@
         "mateus2024",
         "screenneuropharm_bic",
         "sharf2022",
-        "trujillo2019"
+        "trujillo2019",
+        "vassallo2017"
       ]
     },
     "figure": "outputs/figures/baseline_species_comparison.png",
@@ -474,7 +475,7 @@
         "kapucu2022"
       ]
     },
-    "n_baseline_records": 440,
+    "n_baseline_records": 474,
     "preparation_within_human": {
       "contrast": {
         "column": "cell_source.system",
@@ -623,7 +624,8 @@
       "mateus2024": 93,
       "screenneuropharm_bic": 71,
       "sharf2022": 12,
-      "trujillo2019": 160
+      "trujillo2019": 160,
+      "vassallo2017": 34
     },
     "vendor_by_species": {
       "human": [
@@ -1075,15 +1077,18 @@
     "counts": {
       "by_data_level": {
         "fitted_curve": 20375,
-        "spike_times": 1229
+        "spike_times": 1512
       },
       "by_mechanism_class": {
+        "ache_inhibitor": 44,
         "gabaa_agonist_or_pam": 26,
         "gabaa_antagonist": 537,
-        "glutamatergic_agonist": 11,
+        "glutamatergic_agonist": 55,
         "glutamatergic_antagonist": 22,
+        "inactive": 88,
         "na_channel_blocker": 113,
-        "none": 20895
+        "na_channel_modulator": 69,
+        "none": 20933
       },
       "by_source": {
         "brewer2021": 40,
@@ -1092,19 +1097,20 @@
         "screenneuropharm_bic": 580,
         "sharf2022": 29,
         "toxcast_mea": 20375,
-        "trujillo2019": 184
+        "trujillo2019": 184,
+        "vassallo2017": 283
       },
       "by_species": {
         "human": 357,
-        "rat": 21247
+        "rat": 21530
       },
       "by_usable": {
-        "False": 466,
-        "True": 21138
+        "False": 537,
+        "True": 21350
       }
     },
-    "generated_at": "2026-09-22T07:55:47+00:00",
-    "n_records": 21604,
+    "generated_at": "2026-09-22T11:20:51+00:00",
+    "n_records": 21887,
     "schema": "schema/neuromps_schema.json"
   },
   "data_card": {
@@ -1113,13 +1119,13 @@
       "incomplete_dose_series": 272,
       "missing_baseline_pair": 24,
       "noisy_electrodes_present": 11,
-      "outlier_feature_value": 199,
-      "replicate_divergence": 199,
-      "too_few_active_electrodes": 194,
+      "outlier_feature_value": 221,
+      "replicate_divergence": 221,
+      "too_few_active_electrodes": 265,
       "unreadable_channels": 2
     },
-    "records": 21604,
-    "usable": 21138
+    "records": 21887,
+    "usable": 21350
   },
   "demo_precompute": {
     "conformal_alpha": 0.1,
@@ -1319,6 +1325,73 @@
       "n_groups": 50,
       "n_pairs": 73,
       "n_splits": 4
+    },
+    "task1b_independent_platform": {
+      "bootstrap_resamples": 1000,
+      "chance_balanced_accuracy": 0.25,
+      "class_counts": {
+        "ache_inhibitor": 30,
+        "glutamatergic_agonist": 25,
+        "inactive": 74,
+        "na_channel_modulator": 42
+      },
+      "models": {
+        "dummy_most_frequent": {
+          "balanced_accuracy_ci95": [
+            0.25,
+            0.25
+          ],
+          "balanced_accuracy_mean": 0.25,
+          "balanced_accuracy_sd": 0.0,
+          "bootstrap_resamples": 1000,
+          "macro_f1_mean": 0.151,
+          "per_fold_balanced_accuracy": [
+            0.25,
+            0.25,
+            0.25,
+            0.25,
+            0.25
+          ]
+        },
+        "gradient_boosting": {
+          "balanced_accuracy_ci95": [
+            0.2685,
+            0.4883
+          ],
+          "balanced_accuracy_mean": 0.378,
+          "balanced_accuracy_sd": 0.037,
+          "bootstrap_resamples": 1000,
+          "macro_f1_mean": 0.349,
+          "per_fold_balanced_accuracy": [
+            0.39,
+            0.346,
+            0.392,
+            0.433,
+            0.328
+          ]
+        },
+        "logistic_regression": {
+          "balanced_accuracy_ci95": [
+            0.2317,
+            0.4204
+          ],
+          "balanced_accuracy_mean": 0.333,
+          "balanced_accuracy_sd": 0.078,
+          "bootstrap_resamples": 1000,
+          "macro_f1_mean": 0.321,
+          "per_fold_balanced_accuracy": [
+            0.348,
+            0.329,
+            0.216,
+            0.459,
+            0.316
+          ]
+        }
+      },
+      "n_groups": 26,
+      "n_pairs": 171,
+      "n_splits": 5,
+      "source": "vassallo2017"
     },
     "task2_external_detection": {
       "screenneuropharm_bicuculline": {
@@ -1647,18 +1720,14 @@
       "data": 1037.1,
       "demo": 66.3,
       "fetch": 20.2,
-      "models": 19.4,
+      "models": 25.0,
       "twin": 1974.0
     },
     "label": "wall-clock seconds per stage, most recent full run of each",
     "stages_run": [
-      "fetch",
-      "data",
-      "models",
-      "twin",
-      "demo"
+      "models"
     ],
-    "total_s": 3117.1
+    "total_s": 25.0
   },
   "species_transfer": {
     "source": "kapucu2022",

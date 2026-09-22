@@ -87,7 +87,7 @@
       "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
       "citation": "Tukker AM, Wijnolts FMJ, de Groot A, Westerink RHS. Toxicol Sci 178(1):71-87 (2020). doi:10.1093/toxsci/kfaa136",
       "note": "EXCLUDED 2026-09-16 (PI decision): non-commercial license is incompatible with a prize-bearing submission released under an open license. Revisit only if the competition rules clearly keep submissions under the entrant's own open license.",
-      "checked_at": "2026-09-22T07:38:10+00:00",
+      "checked_at": "2026-09-22T10:56:12+00:00",
       "files": []
     },
     "kapucu2022": {
@@ -2322,6 +2322,25 @@
           "sha256": "64c5bce8aadb04a4c5a8041ed4827c2d31549315944ce605d119ba219e599cb9",
           "bytes": 15953688,
           "downloaded_at": "2026-09-22T03:53:45+00:00"
+        }
+      ]
+    },
+    "vassallo2017": {
+      "name": "vassallo2017",
+      "status": "ok",
+      "landing_url": "https://catalog.data.gov/dataset/data-set-for-vassallo-et-al",
+      "license": "US-Public-Domain",
+      "license_url": "https://pasteur.epa.gov/license/sciencehub-license.html",
+      "citation": "Vassallo A, Chiappalone M, De Camargos Lopes R, et al. A multi-laboratory evaluation of microelectrode array-based measurements of neural network activity for acute neurotoxicity testing. Neurotoxicology 60:280-292 (2017). Dataset: U.S. EPA Office of Research and Development, doi:10.23719/1517583 (U.S. Public Domain).",
+      "note": "tier=full; EPA ScienceHub doi:10.23719/1517583; 38 chips, six compounds (deltamethrin, domoic acid, chlorpyrifos-oxon, acetaminophen, glyphosate, dimethyl phthalate) in concentration-response with a same-chip baseline; spike times at 25 kHz, dose windows in Logfile_EPAv1.xls",
+      "checked_at": "2026-09-22T10:56:57+00:00",
+      "files": [
+        {
+          "path": "vassallo2017/Vassallo Data.zip",
+          "url": "https://pasteur.epa.gov/uploads/10.23719/1517583/Vassallo%20Data.zip",
+          "sha256": "441efd9f4cf8266dea7764b8f18b62963fa5e75497add04819faf108d797ea4a",
+          "bytes": 198920470,
+          "downloaded_at": "2026-09-22T10:56:57+00:00"
         }
       ]
     }

@@ -131,8 +131,15 @@ description:
 - **Licence: U.S. Public Domain**, 17 U.S.C. section 105, via the EPA ScienceHub licence page. The
   policy above accepts public domain explicitly, and it is the same basis as `toxcast_mea`.
 
-**Not integrated in this session, deliberately.** The one hard part is segmentation, and it was
-measured rather than assumed. The acquisition originally wrote one file per concentration step
+**Integrated on 2026-09-22 as `vassallo2017`, once the logfile was read.** The segmentation
+problem below was real but not blocking: `Logfile_EPAv1.xls`, inside the same archive, gives the
+start and end second of the baseline and of every concentration, on the same timebase as the
+spikes. All 38 experiments matched their spike file 1:1 on (session date, chip id) - the full names
+disagree because a logfile row lists every compound on the plate while the file names the one that
+chip received - and the log's compound column agreed with the filename code in all 38. That yields
+**283 records, 38 baselines and 245 exposures**, of which 171 survive QC as pairs.
+
+What remains true from the first assessment: The acquisition originally wrote one file per concentration step
 (`-- timestamps.txt`, `timestamps0001.txt` ... , visible in the archive's own `breakValues.py`),
 but the published per-chip files are continuous. Reading one in full - `102010 15160 10309 DA --
 10309.txt` - gives **1,005,054 spikes on 56 channels spanning 371 minutes**, and its twelve largest
@@ -151,8 +158,11 @@ one even with `trujillo2019`, and every human record still comes from
 hPSC-derived tissue rather than primary human neurons - a limitation to keep in
 the report rather than one this review can close.
 
-The **multi-compound pharmacology gap now has a candidate** - the EPA dataset
-above - where two search passes over Zenodo had found nothing usable. The near misses were in-vivo recordings,
+The **multi-compound pharmacology gap is closed** by the EPA dataset above,
+which two search passes over Zenodo had failed to find. The modelling table goes
+from 73 pairs in six mechanism classes to 754 in nine, and for the first time
+the asset holds a concentration-response series with its baseline on the same
+chip, from a laboratory that had nothing to do with the rest of it. The near misses were in-vivo recordings,
 imaging (Zenodo 15195636 is a *Fractal* image-processing benchmark despite
 "multiwell" in its title), or cardiomyocytes. What the asset has instead is
 kapucu2022 (5 compound classes x 2 species, paired, but single concentrations),

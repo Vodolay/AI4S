@@ -18,6 +18,7 @@ dependencies = [
     "matplotlib==3.11.2",
     "requests==2.34.2",
     "openpyxl==3.1.5",  # read EPA assay annotation .xlsx
+    "xlrd==2.0.2",  # read the legacy .xls dose logfile in the EPA Vassallo archive
     "jsonschema==4.26.0",  # validate records against schema/neuromps_schema.json
     "h5py==3.16.0",  # read the MCS-format spike files in the mateus2024 deposit
     "brian2==2.9.0",

@@ -19,7 +19,7 @@ prose. The decision record behind these results, including what was tried and ab
 Two layers were built:
 
 **(A) A standardized, provenance-tracked data asset** of public neural microelectrode-array (MEA)
-recordings: 21,604 records <!-- metrics.json: data_asset.n_records --> from seven sources, each
+recordings: 21,887 records <!-- metrics.json: data_asset.n_records --> from eight sources, each
 record carrying its source URL, license, SHA256 and download time, validated against a JSON Schema
 at a conformance level that requires every provenance hash to match the download manifest.
 
@@ -93,7 +93,7 @@ that records carry an explicit **data level**, and that records only compare wit
 
 | level | meaning | records |
 |---|---|---|
-| `spike_times` | per-electrode spike trains; our feature vector is computable | 1,229 <!-- metrics.json: data_asset.counts.by_data_level.spike_times --> |
+| `spike_times` | per-electrode spike trains; our feature vector is computable | 1,512 <!-- metrics.json: data_asset.counts.by_data_level.spike_times --> |
 | `fitted_curve` | published concentration-response fits only | 20,375 <!-- metrics.json: data_asset.counts.by_data_level.fitted_curve --> |
 | `per_well_features` | vendor feature tables without spike times | — |
 
@@ -118,9 +118,9 @@ a downstream analysis can make its own decision.
 | flag | records | what it means |
 |----------------------------|-------|--------------------------------------------|
 | `incomplete_dose_series` | 272 <!-- metrics.json: data_card.flag_counts.incomplete_dose_series --> | the compound's dose series is missing points |
-| `too_few_active_electrodes` | 194 <!-- metrics.json: data_card.flag_counts.too_few_active_electrodes --> | under 10 electrodes cleared 5 spikes/min |
-| `replicate_divergence` | 199 <!-- metrics.json: data_card.flag_counts.replicate_divergence --> | one replicate departs from its group |
-| `outlier_feature_value` | 199 <!-- metrics.json: data_card.flag_counts.outlier_feature_value --> | a feature sits far outside its source's distribution |
+| `too_few_active_electrodes` | 265 <!-- metrics.json: data_card.flag_counts.too_few_active_electrodes --> | under 10 electrodes cleared 5 spikes/min |
+| `replicate_divergence` | 221 <!-- metrics.json: data_card.flag_counts.replicate_divergence --> | one replicate departs from its group |
+| `outlier_feature_value` | 221 <!-- metrics.json: data_card.flag_counts.outlier_feature_value --> | a feature sits far outside its source's distribution |
 | `excluded_well_upstream` | 90 <!-- metrics.json: data_card.flag_counts.excluded_well_upstream --> | the source's own log excluded the well |
 | `noisy_electrodes_present` | 11 <!-- metrics.json: data_card.flag_counts.noisy_electrodes_present --> | the source marked electrodes as noisy |
 
@@ -175,10 +175,11 @@ disagreement reported in §6.4, and that remains untested.
 | `mateus2024` | 108 <!-- metrics.json: data_asset.counts.by_source.mateus2024 --> | spike_times | rat | CC-BY-4.0 |
 | `trujillo2019` | 184 <!-- metrics.json: data_asset.counts.by_source.trujillo2019 --> | spike_times | human | CC-BY-4.0 |
 | `brewer2021` | 40 <!-- metrics.json: data_asset.counts.by_source.brewer2021 --> | spike_times | rat | CC-BY-4.0 |
+| `vassallo2017` | 283 <!-- metrics.json: data_asset.counts.by_source.vassallo2017 --> | spike_times | rat | US Public Domain |
 
-Totals: 21,604 records <!-- metrics.json: data_asset.n_records -->, of which 21,138 are marked usable
-<!-- metrics.json: data_asset.counts.by_usable.True --> and 466 are not
-<!-- metrics.json: data_asset.counts.by_usable.False -->. By species, 21,247 records are rat
+Totals: 21,887 records <!-- metrics.json: data_asset.n_records -->, of which 21,350 are marked usable
+<!-- metrics.json: data_asset.counts.by_usable.True --> and 537 are not
+<!-- metrics.json: data_asset.counts.by_usable.False -->. By species, 21,530 records are rat
 <!-- metrics.json: data_asset.counts.by_species.rat --> and 357 are human
 <!-- metrics.json: data_asset.counts.by_species.human -->.
 
@@ -757,7 +758,7 @@ scatter is in `outputs/figures/tunnel_asymmetry_vs_rate.png`.
 
 ## 8. Limitations
 
-**Data.** The asset is 21,247 rat records
+**Data.** The asset is 21,530 rat records
 <!-- metrics.json: data_asset.counts.by_species.rat --> against 357 human
 <!-- metrics.json: data_asset.counts.by_species.human -->; every human claim rests on three sources.
 That rat figure had been stale since `mateus2024` was added, because it carried no citation comment
@@ -769,10 +770,14 @@ records are flagged and excluded from pairing rather than labelled by guesswork.
 sessions are MATLAB 5 files that cannot be read in place, so its developmental series starts late.
 The §6.8 human side rests on 8 organoid cultures
 <!-- metrics.json: baseline_activity.preparation_within_human.n_human_cultures --> recorded many
-times each, not 160 independent ones. Compound coverage is thin: six mechanism classes, 73 pairs.
+times each, not 160 independent ones. Compound coverage is no longer thin - `vassallo2017` took the
+modelling table from 73 pairs to 754 across nine mechanism classes - but it is uneven: over half of
+those pairs are one compound at many doses, and the EPA chips carry four classes of which three are
+its negative controls.
 
 **Models.** Balanced accuracies around 0.5 on six classes are above chance but far from usable;
-intervals are wide and overlapping. Conformal sets cover honestly but are too large to act on.
+intervals are wide and overlapping, and on the independent platform of §6.1 the interval contains
+chance outright. Conformal sets cover honestly but are too large to act on.
 Calibration error may be as high as 0.2557
 <!-- metrics.json: mechanism_baselines.task1_within_platform.calibration.ece_ci95.1 -->. The nine-feature
 vector is effectively a rate feature plus noise for this task. The implementation uses single-level

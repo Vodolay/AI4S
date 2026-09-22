@@ -115,6 +115,18 @@ Each fetcher re-checks its source's advertised license at download time.
 
 *Note:* tier=full; Zenodo record 4751759; 23 sessions, spike times extracted in place over HTTP ranges (0 MB read of 0 MB remote, 0.0% not transferred); LFP traces not read; 19 sessions skipped as MATLAB 5 (not readable in place, 29 GB of early timepoints); '_Drugs' sessions carry no well-to-compound mapping in the deposit
 
+### `vassallo2017`
+
+- **License:** US-Public-Domain
+- **License URL:** https://pasteur.epa.gov/license/sciencehub-license.html
+- **Source:** https://catalog.data.gov/dataset/data-set-for-vassallo-et-al
+- **Files recorded:** 1
+- **Status:** ok
+
+> Vassallo A, Chiappalone M, De Camargos Lopes R, et al. A multi-laboratory evaluation of microelectrode array-based measurements of neural network activity for acute neurotoxicity testing. Neurotoxicology 60:280-292 (2017). Dataset: U.S. EPA Office of Research and Development, doi:10.23719/1517583 (U.S. Public Domain).
+
+*Note:* tier=full; EPA ScienceHub doi:10.23719/1517583; 38 chips, six compounds (deltamethrin, domoic acid, chlorpyrifos-oxon, acetaminophen, glyphosate, dimethyl phthalate) in concentration-response with a same-chip baseline; spike times at 25 kHz, dose windows in Logfile_EPAv1.xls
+
 ## Sources deliberately not used
 
 Recorded here rather than dropped silently: an exclusion on license grounds is a

@@ -29,6 +29,7 @@ def registry() -> dict[str, tuple[Fetcher, dict[str, str]]]:
         sharf2022,
         toxcast_mea,
         trujillo2019,
+        vassallo2017,
     )
 
     mods = [
@@ -41,6 +42,7 @@ def registry() -> dict[str, tuple[Fetcher, dict[str, str]]]:
         mateus2024,
         trujillo2019,
         brewer2021,
+        vassallo2017,
     ]
     return {m.SOURCE: (m.fetch, m.META) for m in mods}
 

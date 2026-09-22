@@ -23,6 +23,7 @@ package metadata, not copied by hand.
 | `scipy` | 1.17.1 | BSD License |
 | `streamlit` | 1.64.0 | Apache-2.0 |
 | `torch` | 2.14.0 | Apache-2.0 AND Apache-2.0 WITH LLVM-exception AND BSD-2-Clau |
+| `xlrd` | 2.0.2 | BSD License |
 
 These packages are used unmodified, as libraries; none of their source is redistributed
 here. `brian2` carries CeCILL-2.1, the most restrictive license in the table.
