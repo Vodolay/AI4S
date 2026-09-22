@@ -911,3 +911,29 @@ the fourth apparent effect in this project dissolved by asking what else differs
 13. **Is the §6.8 baseline gap species, age, or protocol?** The organoids are months old and the
     monolayers are weeks old; age is not recorded in the Trujillo deposit, so the comparison holds
     platform and preparation fixed but not maturity.
+
+
+## 2026-09-22 — Brewer, and a confound that did not replicate
+
+Added the four-chamber cultures for §7.7's sake, then used them for something better than a record
+count. §7.2's claim — the asymmetry measure reads rate, not direction — was the twin's, made where
+drive can be moved at fixed wiring. On 46 real chamber pairs the rank correlation between asymmetry
+and rate imbalance is -0.0527, CI [-0.599, 0.467], across imbalances up to thirty-fold.
+
+It would have been easy, and wrong, to write that up as "the confound does not appear in real
+tissue". These pairs differ in wiring *and* rate at once, so a null across them is consistent with a
+strong within-device effect; §7.2 held wiring fixed and moved only drive. The report says both
+things. The module carries a test that a synthetic perfect relationship comes back with rho > 0.9,
+because a null from a test that cannot see the effect is not evidence of anything.
+
+Also learned, from a CI timeout rather than from reading the docs: a **private** repository gets a
+two-vCPU runner, not four. `worker_processes` was returning 2 and doing the right thing; the
+measurement it was checked against assumed twice the machine.
+
+### Still open
+14. **Is the tunnel null a power problem or a real absence?** Nine cultures and 46 pairs, with an
+    interval half a unit wide either side of zero. The within-device version — does asymmetry track
+    rate across a single culture's six pairs — is the sharper test and was not run.
+15. **The tunnel electrodes are still unused.** `sorted-spikes/mea_tunnels.mat` holds axonal spikes
+    inside the channels, which is what would let direction be read from the crossing itself rather
+    than from the chambers either side. This integration takes only the four chambers.

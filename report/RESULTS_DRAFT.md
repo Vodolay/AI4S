@@ -554,7 +554,7 @@ conformal figure exists for this subsection.]
 Stated plainly, because several of the results above are weak or negative:
 
 - The asset and standard are the solid part. 21,604 validated, hash-traceable records
-  <!-- metrics.json: data_asset.n_records -->, four sources, explicit data levels, and a coverage
+  <!-- metrics.json: data_asset.n_records -->, seven sources, explicit data levels, and a coverage
   table that shows the gaps instead of hiding them.
 - Mechanism information is present in MEA feature deltas within one platform (0.537 vs 0.167 chance)
   <!-- metrics.json: mechanism_baselines.task1_within_platform.models.logistic_regression.balanced_accuracy_mean and .chance_balanced_accuracy -->

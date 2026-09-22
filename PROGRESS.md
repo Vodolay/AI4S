@@ -1110,5 +1110,20 @@ than shown as stills.
   disagree with the filename, so compartments should be identified by electrode coordinates and the
   anatomical names treated as unreliable.
 
-**Next first task.** Decide whether to integrate Brewer as a compartment source for S7.7, or to
-stop the dataset work here and move to HD20 (Kaggle writeup).
+**Then done in the same session.**
+- **Added `brewer2021`** (Zenodo 4679064, CC BY 4.0, 17 MB): ten rat hippocampal cultures in a
+  four-chamber device whose tunnels are over electrodes. 40 compartment records with measured
+  directed coupling to each other chamber. Asset now 21,604 records from seven sources. Anatomical
+  labels are carried but not trusted, and every record's QC note says so.
+- **`models/tunnels.py`**: the test this source makes possible. S7.2's rate confound had only been
+  shown in the twin; across 46 chamber pairs in 9 real cultures, asymmetry has no rank relationship
+  with rate imbalance (Spearman -0.0527, CI [-0.599, 0.467]) over a thirty-fold range. Written into
+  S7.7 as a companion null, explicitly *not* a refutation: those pairs differ in wiring and rate at
+  once, while S7.2 moved only rate.
+- Quick tier trimmed again after CI timed out at 900 s: a private repo gets a **2-vCPU** runner, so
+  `worker_processes` correctly returns 2 and the twin has half the parallelism assumed earlier.
+  One Trujillo session, two Brewer cultures, 30 draws, 3 directionality repeats.
+
+**Next first task.** Confirm CI is green for the Brewer commit, then HD20 (Kaggle writeup). If the
+smoke run times out again, the next lever is the twin stage itself rather than the tier knobs -
+validate and calibrate are serial Brian2 runs and together cost about 4 minutes on that runner.
