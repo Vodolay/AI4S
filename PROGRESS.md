@@ -1176,4 +1176,35 @@ were implemented rather than argued about, and three of those produced results.
 Report is 22 pages with 216 citations verified. S12 folded into S9 and S7.7 was cut back to make
 room; the per-chip microchannel scatter moved to `outputs/figures/`.
 
-**Next first task.** HD20, the Kaggle writeup.
+**Competition-rules pass and four additions (2026-09-22).** Read the rules properly and found the
+submission out of compliance in ways no amount of science would have fixed.
+
+- **Eligibility.** The Writeup now declares its category (End-to-End System) and follows the
+  required structure: video, repository link, 274-word summary, report, demo, team. The report
+  declares category and team too, since the cross-disciplinary bonus is awarded on what the report
+  says. **Two team tables and the public video link are placeholders and must be filled before
+  submitting**, and the repository has to be public.
+- **The page gate was aimed wrong.** The rules say 15-20 pages *excluding appendices*; CI required
+  14-22 of everything, which is why three sessions went into shaving words. `count_main_matter`
+  now finds where the appendices start, eleven appendices hold the supporting detail, and main
+  matter is 20 pages.
+- **Five wrong numbers**, all unguarded by the citation checker: a stale record count, two wrong
+  priors, two parameters described as calibrated that were held fixed, and a stale figure count.
+  A private email quoted in four places is now paraphrased; the README is held to the checker.
+
+Then four additions, aimed at impact and presentation rather than more validation.
+
+- **The extractor, measured (S3.5).** Kapucu deposits its own meaRtools output for seven of our nine
+  features. One reproduces on both ordering and scale; three rank identically on a different scale;
+  three burst measures disagree about *which* recordings burst more, "bursts per minute" by a factor
+  of two. The standard's justification, measured rather than asserted.
+- **No chamber readout recovers axonal direction (S7.7).** All four together reach 0.3854 against
+  chance of one half, p = 0.79, at a sample that could have seen 0.6438.
+- **The dose signal is not in the features either (S7.5).** Zero of seven testable features move
+  monotonically with bicuculline dose, absolute or baseline-subtracted. That moves S7.5's failure off
+  simulation-based inference: the twin was inverting a measurement that does not contain the answer.
+- **Two things to pick up.** `python -m neuromps.design` turns the S7.6 grid into a lookup, with the
+  simulated-upper-bound caveat on every answer; the architecture figure is drawn by a script.
+
+**Next first task.** Fill the team tables, publish the video, make the repository public, submit the
+registration form.

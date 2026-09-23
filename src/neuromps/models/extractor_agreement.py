@@ -112,8 +112,17 @@ def _features_job(args) -> list[dict]:
     return rows
 
 
-def our_features(spikes_dir: Path, prefix: str, processes: int | None = None) -> pd.DataFrame:
-    """Run the shared extractor over one plate's recordings."""
+def our_features(
+    spikes_dir: Path,
+    prefix: str,
+    processes: int | None = None,
+    max_recordings: int | None = None,
+) -> pd.DataFrame:
+    """Run the shared extractor over one plate's recordings.
+
+    ``max_recordings`` exists for the quick tier, which only has to reach every
+    branch; a path test does not need all twenty DIVs of a plate.
+    """
     import multiprocessing as mp
 
     jobs = []
@@ -121,6 +130,7 @@ def our_features(spikes_dir: Path, prefix: str, processes: int | None = None) ->
         match = re.search(r"_DIV(\d+)_spikes\.csv$", path.name)
         if match:
             jobs.append((path, int(match.group(1))))
+    jobs = jobs[:max_recordings] if max_recordings else jobs
     if not jobs:
         return pd.DataFrame()
     processes = processes or worker_processes()
@@ -130,7 +140,11 @@ def our_features(spikes_dir: Path, prefix: str, processes: int | None = None) ->
     return pd.DataFrame([row for batch in results for row in batch])
 
 
-def paired_table(plates: tuple[str, ...] = PLATES, root: Path = DATA_ROOT) -> pd.DataFrame:
+def paired_table(
+    plates: tuple[str, ...] = PLATES,
+    root: Path = DATA_ROOT,
+    max_recordings: int | None = None,
+) -> pd.DataFrame:
     """Our value beside theirs for every well, DIV and feature both computed."""
     frames = []
     for plate in plates:
@@ -144,7 +158,7 @@ def paired_table(plates: tuple[str, ...] = PLATES, root: Path = DATA_ROOT) -> pd
         if prefix is None:
             log.warning("no spike files found for %s", plate)
             continue
-        ours = our_features(spikes_dir, prefix)
+        ours = our_features(spikes_dir, prefix, max_recordings=max_recordings)
         theirs = read_meartools(output_dir, prefix)
         if ours.empty or theirs.empty:
             continue
@@ -317,7 +331,7 @@ def main(argv: list[str] | None = None) -> int:
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 
     plates = PLATES[:1] if args.quick else PLATES
-    table = paired_table(plates)
+    table = paired_table(plates, max_recordings=4 if args.quick else None)
     if table.empty:
         log.warning("no paired recordings found; is %s fetched?", DATA_ROOT)
         update_metrics(
