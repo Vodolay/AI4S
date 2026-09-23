@@ -55,3 +55,10 @@ def test_the_record_count_in_the_diagram_matches_the_report() -> None:
 def test_draw_writes_a_figure(tmp_path: Path) -> None:
     path = draw(tmp_path / "architecture.png")
     assert path.exists() and path.stat().st_size > 10_000
+
+
+def test_draw_creates_its_directory_on_a_fresh_run(tmp_path: Path) -> None:
+    """The models stage draws this first, before anything has made figures/."""
+    target = tmp_path / "outputs" / "quick" / "figures" / "architecture.png"
+    assert not target.parent.exists()
+    assert draw(target).exists()

@@ -73,13 +73,19 @@ ARROWS = [
 
 
 def draw(path: Path) -> Path:
-    """Write the architecture figure."""
+    """Write the architecture figure, creating its directory if it is not there.
+
+    This is the first thing the models stage draws, so on a fresh quick run
+    nothing has made `outputs/quick/figures/` yet.
+    """
     import matplotlib
 
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
     from matplotlib.patches import FancyArrowPatch, FancyBboxPatch
 
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
     fig, ax = plt.subplots(figsize=(9.2, 4.2))
     ax.set_xlim(0, 1)
     ax.set_ylim(-0.10, 1)

@@ -257,6 +257,9 @@ def plot_agreement(table: pd.DataFrame, by_feature: dict, path: Path) -> Path:
     features = [f for f in MEARTOOLS_FILES if f in set(table["feature"])]
     if not features:
         return path
+    # Nothing has made figures/ yet on a fresh quick run.
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
     columns = 4
     rows_n = int(np.ceil(len(features) / columns))
     fig, axes = plt.subplots(rows_n, columns, figsize=(11.0, 3.0 * rows_n))

@@ -138,3 +138,24 @@ def test_a_zero_denominator_does_not_poison_the_ratio() -> None:
 def test_every_mapped_feature_names_a_plausible_file_stem(feature: str) -> None:
     stem = MEARTOOLS_FILES[feature]
     assert stem and "/" not in stem and not stem.endswith(".csv")
+
+
+def test_the_plot_creates_its_directory_on_a_fresh_run(tmp_path: Path) -> None:
+    """A quick run draws into outputs/quick/figures/ before anything makes it."""
+    import pandas as pd
+
+    from neuromps.models.extractor_agreement import plot_agreement
+
+    table = pd.DataFrame(
+        {
+            "plate": ["P"] * 4,
+            "well": ["A1", "A2", "A3", "A4"],
+            "div": [7, 7, 14, 14],
+            "feature": ["mfr_hz"] * 4,
+            "ours": [1.0, 2.0, 3.0, 4.0],
+            "theirs": [1.1, 2.1, 3.1, 4.1],
+        }
+    )
+    target = tmp_path / "outputs" / "quick" / "figures" / "extractor_agreement_real.png"
+    assert not target.parent.exists()
+    assert plot_agreement(table, {"mfr_hz": {}}, target).exists()
