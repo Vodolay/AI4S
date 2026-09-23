@@ -57,15 +57,20 @@ def main(argv: list[str] | None = None) -> int:
             from neuromps.models.axonal import main as run_axonal
             from neuromps.models.baselines import main as run_baselines
             from neuromps.models.conformal import main as run_uncertainty
+            from neuromps.models.dose_response import main as run_dose_response
             from neuromps.models.extractor_agreement import main as run_extractor_agreement
             from neuromps.models.mechanism import main as run_models
             from neuromps.models.microchannels import main as run_microchannels
             from neuromps.models.transfer import main as run_transfer
             from neuromps.models.tunnels import main as run_tunnels
+            from neuromps.report.architecture import main as draw_architecture
 
             quick = ["--quick"] if args.quick else []
             # Does the shared extractor reproduce the depositors' own numbers?
+            draw_architecture(quick)
             run_extractor_agreement(quick)
+            # Is the dose signal in the features the twin is given at all?
+            run_dose_response(quick)
             run_models(quick)
             run_transfer(quick)
             run_uncertainty(quick)

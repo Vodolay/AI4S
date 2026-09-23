@@ -159,6 +159,23 @@
         "window_ms": 0.5
       }
     },
+    "chamber_readouts_predict_direction": {
+      "balanced_accuracy": 0.3854,
+      "beats_chance": false,
+      "chance": 0.5,
+      "detectable_balanced_accuracy": 0.6438,
+      "features": [
+        "asymmetry",
+        "peak_correlation",
+        "lag_ms",
+        "log2_rate_ratio"
+      ],
+      "n_cultures": 9,
+      "n_pairs": 31,
+      "note": "leave-one-culture-out logistic regression on the chamber readouts, predicting the sign of the measured axonal flow; the null shuffles signs within each culture",
+      "permutation_p": 0.7881,
+      "permutations": 2000
+    },
     "figure": "outputs/figures/axonal_flow_vs_chamber.png",
     "headline": {
       "axonal_vs_chamber_asymmetry": {
@@ -1511,6 +1528,230 @@
       "isi_cv",
       "network_burst_rate_per_min"
     ]
+  },
+  "feature_dose_response": {
+    "absolute": {
+      "by_feature": {
+        "active_electrodes": {
+          "excludes_zero": false,
+          "holm_p": 1.0,
+          "n": 113,
+          "n_devices": 16,
+          "naive_p_value": 0.419211,
+          "spearman_rho": -0.0767,
+          "spearman_rho_ci95": [
+            -0.257,
+            0.0654
+          ],
+          "survives_correction": false
+        },
+        "burst_duration_s": {
+          "n": 0,
+          "note": "too few points or doses to fit a trend"
+        },
+        "burst_rate_per_min": {
+          "excludes_zero": false,
+          "holm_p": 1.0,
+          "n": 113,
+          "n_devices": 16,
+          "naive_p_value": 0.314733,
+          "spearman_rho": -0.0954,
+          "spearman_rho_ci95": [
+            -0.2529,
+            0.0203
+          ],
+          "survives_correction": false
+        },
+        "isi_cv": {
+          "excludes_zero": false,
+          "holm_p": 1.0,
+          "n": 113,
+          "n_devices": 16,
+          "naive_p_value": 0.710698,
+          "spearman_rho": -0.0353,
+          "spearman_rho_ci95": [
+            -0.2223,
+            0.1414
+          ],
+          "survives_correction": false
+        },
+        "mfr_hz": {
+          "excludes_zero": false,
+          "holm_p": 1.0,
+          "n": 113,
+          "n_devices": 16,
+          "naive_p_value": 0.895242,
+          "spearman_rho": -0.0125,
+          "spearman_rho_ci95": [
+            -0.1994,
+            0.1453
+          ],
+          "survives_correction": false
+        },
+        "network_burst_rate_per_min": {
+          "excludes_zero": false,
+          "holm_p": 1.0,
+          "n": 107,
+          "n_devices": 16,
+          "naive_p_value": 0.712515,
+          "spearman_rho": -0.036,
+          "spearman_rho_ci95": [
+            -0.1651,
+            0.0771
+          ],
+          "survives_correction": false
+        },
+        "pct_spikes_in_bursts": {
+          "excludes_zero": false,
+          "holm_p": 1.0,
+          "n": 113,
+          "n_devices": 16,
+          "naive_p_value": 0.547296,
+          "spearman_rho": 0.0572,
+          "spearman_rho_ci95": [
+            -0.1014,
+            0.2146
+          ],
+          "survives_correction": false
+        },
+        "spikes_per_burst": {
+          "n": 0,
+          "note": "too few points or doses to fit a trend"
+        },
+        "synchrony_index": {
+          "excludes_zero": false,
+          "holm_p": 1.0,
+          "n": 113,
+          "n_devices": 16,
+          "naive_p_value": 0.6219,
+          "spearman_rho": -0.0469,
+          "spearman_rho_ci95": [
+            -0.1947,
+            0.1245
+          ],
+          "survives_correction": false
+        }
+      },
+      "features_moving_with_dose": [],
+      "n_features_moving": 0,
+      "n_features_tested": 7
+    },
+    "baseline_subtracted": {
+      "by_feature": {
+        "active_electrodes": {
+          "excludes_zero": false,
+          "holm_p": 1.0,
+          "n": 97,
+          "n_devices": 16,
+          "naive_p_value": 0.365787,
+          "spearman_rho": -0.0928,
+          "spearman_rho_ci95": [
+            -0.285,
+            0.1064
+          ],
+          "survives_correction": false
+        },
+        "burst_duration_s": {
+          "n": 0,
+          "note": "too few points or doses to fit a trend"
+        },
+        "burst_rate_per_min": {
+          "excludes_zero": false,
+          "holm_p": 1.0,
+          "n": 97,
+          "n_devices": 16,
+          "naive_p_value": 0.850666,
+          "spearman_rho": 0.0194,
+          "spearman_rho_ci95": [
+            -0.1785,
+            0.183
+          ],
+          "survives_correction": false
+        },
+        "isi_cv": {
+          "excludes_zero": false,
+          "holm_p": 1.0,
+          "n": 97,
+          "n_devices": 16,
+          "naive_p_value": 0.657215,
+          "spearman_rho": 0.0456,
+          "spearman_rho_ci95": [
+            -0.116,
+            0.2422
+          ],
+          "survives_correction": false
+        },
+        "mfr_hz": {
+          "excludes_zero": false,
+          "holm_p": 1.0,
+          "n": 97,
+          "n_devices": 16,
+          "naive_p_value": 0.844622,
+          "spearman_rho": 0.0202,
+          "spearman_rho_ci95": [
+            -0.1626,
+            0.1677
+          ],
+          "survives_correction": false
+        },
+        "network_burst_rate_per_min": {
+          "excludes_zero": false,
+          "holm_p": 1.0,
+          "n": 91,
+          "n_devices": 16,
+          "naive_p_value": 0.634366,
+          "spearman_rho": 0.0505,
+          "spearman_rho_ci95": [
+            -0.1427,
+            0.2709
+          ],
+          "survives_correction": false
+        },
+        "pct_spikes_in_bursts": {
+          "excludes_zero": false,
+          "holm_p": 1.0,
+          "n": 97,
+          "n_devices": 16,
+          "naive_p_value": 0.295808,
+          "spearman_rho": 0.1072,
+          "spearman_rho_ci95": [
+            -0.0361,
+            0.2612
+          ],
+          "survives_correction": false
+        },
+        "spikes_per_burst": {
+          "n": 0,
+          "note": "too few points or doses to fit a trend"
+        },
+        "synchrony_index": {
+          "excludes_zero": false,
+          "holm_p": 1.0,
+          "n": 97,
+          "n_devices": 16,
+          "naive_p_value": 0.746317,
+          "spearman_rho": 0.0333,
+          "spearman_rho_ci95": [
+            -0.1312,
+            0.2048
+          ],
+          "survives_correction": false
+        }
+      },
+      "features_moving_with_dose": [],
+      "n_features_moving": 0,
+      "n_features_tested": 7
+    },
+    "bootstrap_resamples": 1000,
+    "label": "REAL bicuculline recordings, features against dose",
+    "n_devices": 16,
+    "n_recordings": 113,
+    "question": "does the dose signal exist in the summary features, or only fail to be recovered by the twin's posterior",
+    "verdict": {
+      "n_features_moving_absolute": 0,
+      "n_features_moving_baseline_subtracted": 0,
+      "reading": "no feature moves monotonically with dose after correction, so there is no dose signal in these summaries for any estimator to recover"
+    }
   },
   "mechanism_baselines": {
     "label_source_confounding": {

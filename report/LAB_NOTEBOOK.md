@@ -1065,3 +1065,69 @@ Incidental but worth keeping: there was no single source of truth for the nine f
 were a tuple literal inside `extract_features` and a separate count in the prose. `FEATURE_NAMES`
 now lives in `features/mea.py`, the extractor builds its result from it, and a test asserts that the
 checked and uncheckable lists partition it — so "nine features" cannot drift from what is computed.
+
+## 2026-09-22 — Two questions that should have been asked first
+
+Both came out of reading the competition rules and then re-reading our own negative results. Each
+asks the prior question to a failure we had already reported, and both change what the failure
+means.
+
+**Does any chamber readout recover axonal direction?** §7.7 showed coupling asymmetry agrees with
+measured axonal flow at chance. The obvious objection is that asymmetry is one statistic and a
+two-chamber device gives you four. Fitting all four - asymmetry, peak correlation, lag, rate ratio -
+to predict the sign of the measured flow, one culture held out at a time, reaches balanced accuracy
+0.3854 against chance of one half, permutation p = 0.7881 with signs shuffled inside each culture.
+The shuffle is meaningful for 7 of the 9 cultures; two carry a single sign and contribute no null
+variance, which is a real weakening of the test and is why the power statement is reported beside
+it: at 31 pairs this could have seen 0.6438 or better. So the null bounds the effect rather than
+excluding a small one, but the readouts a device actually gives you do not locate the direction.
+
+**Is the bicuculline dose signal in the features at all?** §7.5 reported that the twin's posterior
+recovers no dose trend, and the paired estimator did not rescue it. Both are statements about an
+inverse model; nobody had asked whether the summaries it was handed carry a dose response. They do
+not. Across the same 113 recordings and 16 devices, no feature moves monotonically with dose - zero
+of seven testable features survive Holm correction on absolute summaries, zero on
+baseline-subtracted ones, largest |rho| anywhere 0.1072 with an interval spanning zero.
+
+That is the more useful of the two. It moves the §7.5 failure off simulation-based inference
+entirely: the twin was being asked to invert a measurement that does not contain the answer. It also
+makes §3.5 the more consequential finding, because if the feature layer is where the information is
+lost, the feature layer's reproducibility is what matters.
+
+Both analyses report both views deliberately. A between-device offset twice the size of a dose
+effect dilutes a pooled rank correlation to almost nothing, so a null in the absolute view alone
+would prove very little; the baseline-subtracted view removes the offset, and a test asserts that it
+recovers a planted trend the absolute view buries.
+
+## 2026-09-22 — Two outputs a chip laboratory can use, and a drawn system
+
+Three additions aimed at the half of the competition rubric this project scores worst on. The
+scientific content was already there; none of it was in a form anyone could pick up.
+
+**`python -m neuromps.design`.** The §7.6 sweep is a grid - electrode count against recording
+length, seven feature sets, two arms - and it was sitting in a figure. It is now a lookup: give it a
+target AUC and it returns the cheapest recording whose interval *lower bound* clears it; give it a
+configuration and it says what that configuration could detect. A test asserts the tool reproduces
+§7.6's own headline at §7.6's own target, so the two cannot drift.
+
+Every answer carries the caveat, and that is deliberate rather than decorative. The grid is
+simulated, the classifier was trained on the same generative model that produced its test set, and
+§7.7 put the same question to real devices and found nothing. A design tool that quoted the AUC
+without those three would be actively misleading, which is worse than having no tool.
+
+**The architecture figure is drawn by a script.** `report/architecture.py` emits it, because a
+diagram kept in a drawing tool would be the one picture in this report that could drift from the
+code with nothing noticing. Tests assert that every box naming a path names one that exists, that
+the boxes do not overlap, and that the record count on the figure matches the report's.
+
+**An impact paragraph in §2, which the report did not have.** The competition asks for potential
+scientific or practical impact and weights it heavily; the report had the substance scattered across
+sections and never said who any of it was for. It now names the three transferable outputs: the
+record model with its build-time provenance check, the finding that chamber coupling asymmetry does
+not report direction, and the design curve.
+
+One process note. Four edits in this session were computed and then discarded, because the script
+asserted the replacement had changed the text and then wrote the *pre-edit* string back. It is the
+same defect recorded at item B1 and it survived that fix, which only ever guarded a single edit. The
+habit that catches it is cheap: re-read the file after writing and assert the new text is on disk,
+not that it was in the buffer.

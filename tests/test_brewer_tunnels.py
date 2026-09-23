@@ -229,3 +229,78 @@ def test_stored_coordinates_really_do_disagree_with_the_names() -> None:
                 if entry and entry["n_disagree"]:
                     disagreeing += 1
         assert disagreeing > 0, "if this ever passes at 0 the workaround can go"
+
+
+def _flow_and_chamber(signs: list[int], informative: bool, cultures: int = 4):
+    """Paired tables where the chamber readouts either carry the sign or do not."""
+    import pandas as pd
+
+    rows_flow, rows_chamber = [], []
+    per_culture = max(1, len(signs) // cultures)
+    for i, sign in enumerate(signs):
+        # Consecutive pairs share a culture, so each culture carries both signs -
+        # as 7 of the 9 real cultures do. A culture of one sign contributes
+        # nothing to a within-culture permutation null.
+        device = f"D{min(i // per_culture, cultures - 1)}"
+        pair = f"P{i}"
+        rows_flow.append(
+            {
+                "device_id": device,
+                "pair": pair,
+                "window_ms": 1.0,
+                "flow_index": 0.5 * sign,
+                "n_crossings": 500,
+            }
+        )
+        # When informative, asymmetry carries the sign and the rest are noise.
+        rows_chamber.append(
+            {
+                "device_id": device,
+                "pair": pair,
+                "asymmetry": (0.4 * sign if informative else 0.1),
+                "peak_correlation": 0.2,
+                "lag_ms": 1.0 + 0.01 * i,
+                "log2_rate_ratio": 0.05 * i,
+            }
+        )
+    return pd.DataFrame(rows_flow), pd.DataFrame(rows_chamber)
+
+
+def test_the_chamber_readouts_recover_a_direction_they_do_carry() -> None:
+    from neuromps.models.axonal import predicts_axonal_direction
+
+    signs = [1, -1] * 8
+    flow, chamber = _flow_and_chamber(signs, informative=True)
+    out = predicts_axonal_direction(flow, chamber)
+    assert out["n_pairs"] == 16
+    assert out["balanced_accuracy"] > 0.9
+    assert out["beats_chance"] is True
+
+
+def test_the_chamber_readouts_do_not_recover_a_direction_they_do_not_carry() -> None:
+    from neuromps.models.axonal import predicts_axonal_direction
+
+    signs = [1, -1] * 8
+    flow, chamber = _flow_and_chamber(signs, informative=False)
+    out = predicts_axonal_direction(flow, chamber)
+    assert out["beats_chance"] is False
+    assert out["permutation_p"] > 0.05
+    # The power statement has to be present whichever way the answer goes. It
+    # can equal chance exactly when the readouts are constant, as here, because
+    # then every permutation scores the same; it must never sit below it.
+    assert out["detectable_balanced_accuracy"] >= out["chance"]
+
+
+def test_a_pair_with_no_measurable_flow_is_not_given_a_sign() -> None:
+    from neuromps.models.axonal import predicts_axonal_direction
+
+    flow, chamber = _flow_and_chamber([1, -1] * 8, informative=True)
+    flow.loc[0, "flow_index"] = 0.0
+    assert predicts_axonal_direction(flow, chamber)["n_pairs"] == 15
+
+
+def test_too_few_pairs_is_declined_rather_than_fitted() -> None:
+    from neuromps.models.axonal import predicts_axonal_direction
+
+    flow, chamber = _flow_and_chamber([1, -1, 1], informative=True, cultures=3)
+    assert "verdict" in predicts_axonal_direction(flow, chamber)

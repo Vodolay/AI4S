@@ -63,13 +63,16 @@ The results that matter are as much negative as positive, and the report leads w
    a fraction 0.419
    <!-- metrics.json: axonal_directionality.headline.sign_agreement.fraction --> of 31 chamber
    pairs — chance (§7.7).
-4. **The twin's posterior does not recover drug-knob direction from real recordings.** The inferred
-   GABA-A scale shows no bicuculline dose trend, and untreated chips already infer 0.3781
-   <!-- metrics.json: twin_hd15_real_inference.gabaa_scale_at_baseline.median -->, so the parameter
-   is absorbing model mismatch rather than tracking the compound. Training a second estimator on the
-   *change* against each chip's own baseline recovers the neutral value — 1.0289
-   <!-- metrics.json: twin_hd17_delta_inference.real_data.gabaa_scale_at_baseline.median --> — and
-   still finds no dose trend, so baseline heterogeneity was not what was hiding it (§7.5).
+4. **The twin's posterior does not recover drug-knob direction from real recordings — and neither
+   do the features.** The inferred GABA-A scale shows no bicuculline dose trend, and untreated chips
+   already infer 0.3781
+   <!-- metrics.json: twin_hd15_real_inference.gabaa_scale_at_baseline.median -->; an estimator
+   trained on the *change* against each chip's own baseline recovers the neutral value, 1.0289
+   <!-- metrics.json: twin_hd17_delta_inference.real_data.gabaa_scale_at_baseline.median -->, and
+   still finds no trend. Asking the prior question shows why: **no feature moves monotonically with
+   dose** across the same 113 recordings
+   <!-- metrics.json: feature_dose_response.n_recordings -->, so the twin was being asked to invert
+   a measurement that does not contain the answer (§7.5).
 5. **Direction *is* recoverable from simulated features once firing rate is residualised out** —
    AUC 0.8825
    <!-- metrics.json: twin_hd16_directionality.cheapest_configuration.free_rate_residualized.auc -->,
@@ -417,7 +420,7 @@ Five features agree in sign and four disagree
 <!-- metrics.json: mechanism_baselines.task3_platform_contrast.features_agreeing_in_sign -->
 <!-- metrics.json: mechanism_baselines.task3_platform_contrast.features_disagreeing_in_sign -->.
 
-![The same mechanism measured on two platforms, REAL data: per-feature log2 change for GABA-A antagonists. Mean firing rate reverses sign across platforms; synchrony agrees.](../outputs/figures/platform_contrast_gabaa_antagonist.png){width=57%}
+The per-feature comparison is plotted in Appendix E.
 
 **The disagreement does not fall where the species analysis puts it.** `mfr_hz` reverses, +0.348
 <!-- metrics.json: mechanism_baselines.task3_platform_contrast.by_source.kapucu2022.median_delta.mfr_hz -->
@@ -679,26 +682,16 @@ Per-feature agreement is plotted in Appendix E.
 A neural posterior estimator was trained on 3,500 simulations
 <!-- metrics.json: twin_hd14_inference.n_simulations -->.
 
-| parameter | posterior contraction | KS statistic |
-|------------------------|-----------------------|--------------|
-| `threshold_scale` | 0.8 <!-- metrics.json: twin_hd14_inference.contraction.threshold_scale.contraction --> | 0.0571 <!-- metrics.json: twin_hd14_inference.rank_uniformity_ks_p.threshold_scale.ks_statistic --> |
-| `ampa_scale` | 0.443 <!-- metrics.json: twin_hd14_inference.contraction.ampa_scale.contraction --> | 0.0871 <!-- metrics.json: twin_hd14_inference.rank_uniformity_ks_p.ampa_scale.ks_statistic --> |
-| `gabaa_scale` | 0.323 <!-- metrics.json: twin_hd14_inference.contraction.gabaa_scale.contraction --> | 0.1093 <!-- metrics.json: twin_hd14_inference.rank_uniformity_ks_p.gabaa_scale.ks_statistic --> |
-| `inter_in_degree` | 0.32 <!-- metrics.json: twin_hd14_inference.contraction.inter_in_degree.contraction --> | 0.1029 <!-- metrics.json: twin_hd14_inference.rank_uniformity_ks_p.inter_in_degree.ks_statistic --> |
-| `log10_forward_ratio` | 0.311 <!-- metrics.json: twin_hd14_inference.contraction.log10_forward_ratio.contraction --> | 0.0957 <!-- metrics.json: twin_hd14_inference.rank_uniformity_ks_p.log10_forward_ratio.ks_statistic --> |
-
-Only excitability is well identified, and only `threshold_scale` passes a rank-uniformity check
+Per-parameter contraction and rank statistics are in Appendix K. Only excitability is well identified, and only `threshold_scale` passes a rank-uniformity check
 (p = 0.1956 <!-- metrics.json: twin_hd14_inference.rank_uniformity_ks_p.threshold_scale.ks_p -->;
 every other parameter is below 0.01). **Posterior intervals from this estimator should not be quoted
 as calibrated.**
 
-That statement is weaker than it looks. Posterior *training* was unseeded until this report was
-being built, and rerunning identical code on the identical cache moved this p-value between 0.46 and
-0.0092 — on one of those runs `threshold_scale` failed the check it passes here. Training is now
-seeded and reproduces across processes, but that spread is the honest measure of how much weight one
-rank-uniformity p-value carries; contraction was stable across the same runs. A learning curve showed
-connectivity contraction still rising with training-set size, but only slightly: more simulations
-alone will not fix it.
+That statement is weaker than it looks: before training was seeded, rerunning identical code on the
+identical cache moved this p-value between 0.46 and 0.0092, which is the honest measure of how much
+weight one rank-uniformity p-value carries. Contraction was stable across the same runs, and a
+learning curve showed connectivity contraction still rising with training-set size but only
+slightly — more simulations alone will not fix it.
 
 The rank histograms are in Appendix E.
 
@@ -755,6 +748,26 @@ intervals are no more calibrated than §7.5's.
 That is a useful negative: removing a real defect recovered the neutral value almost exactly, which
 says the pairing works as intended, and the dose response still did not come back. Whatever stops
 the twin reading bicuculline off a real chip is not that the cultures differ from each other.
+
+**The dose signal is not in the features either, which moves the blame off the inverse model.** Both
+results above are statements about an estimator. The prior question — whether the summaries it was
+given carry a dose response at all — had never been asked. Across the same 113 recordings
+<!-- metrics.json: feature_dose_response.n_recordings --> and 16 devices, **no feature moves
+monotonically with dose**: 0
+<!-- metrics.json: feature_dose_response.verdict.n_features_moving_absolute --> of the seven testable
+features survive a Holm correction on absolute summaries, and 0
+<!-- metrics.json: feature_dose_response.verdict.n_features_moving_baseline_subtracted --> when each
+exposure is differenced against its own device's untreated recording — the more sensitive view, since
+differencing removes the between-device spread that can bury a within-device trend. The largest
+|ρ| anywhere in the two tables is 0.1072
+<!-- metrics.json: feature_dose_response.baseline_subtracted.by_feature.pct_spikes_in_bursts.spearman_rho -->,
+with an interval spanning zero.
+
+So §7.5 is not a failure of simulation-based inference. There is no dose information in this
+nine-feature summary of these recordings for *any* estimator to recover, and the twin was being
+asked to invert a measurement that does not contain the answer. That relocates the problem from the
+posterior to the feature layer, and makes §3.5's finding — that the feature layer is itself only
+partly reproducible — the more consequential of the two.
 
 ![Inferred GABA-A scale for REAL bicuculline recordings, from a posterior trained on SIMULATIONS. There is no dose trend, and untreated chips already sit far below the neutral value of 1.](../outputs/twin/hd15_real_dose_response.png){width=50%}
 
@@ -905,10 +918,24 @@ either (ρ = 0.0915
 spanning zero) — the control this needs, since it shows the physical direction is not itself a rate
 artefact, so the disagreement is the chamber measure's.
 
+**And no combination of the chamber readouts rescues it.** The obvious objection is that asymmetry
+is one statistic and a device gives you four. Fitting all four — asymmetry, peak correlation, lag and
+the rate ratio — to predict the *sign* of the measured axonal flow, with one culture held out at a
+time, reaches a balanced accuracy of 0.3854
+<!-- metrics.json: axonal_directionality.chamber_readouts_predict_direction.balanced_accuracy -->
+against a chance level of one half, permutation p = 0.7881
+<!-- metrics.json: axonal_directionality.chamber_readouts_predict_direction.permutation_p --> with
+the signs shuffled inside each culture so the cluster structure survives the shuffle. At 31 pairs
+<!-- metrics.json: axonal_directionality.chamber_readouts_predict_direction.n_pairs --> over 9
+cultures this could have detected a balanced accuracy of 0.6438
+<!-- metrics.json: axonal_directionality.chamber_readouts_predict_direction.detectable_balanced_accuracy -->
+or better, so it bounds the effect rather than excluding a small one — but the readouts a
+two-chamber device actually gives you do not locate the direction its axons fired.
+
 This is the strongest statement the project can make about coupling asymmetry, and it is negative:
-§7.2 showed the measure is confounded in a network we built, and this shows it fails on real devices
-where direction was measured independently. The scatter is in
-`outputs/figures/axonal_flow_vs_chamber.png`.
+§7.2 showed the measure is confounded in a network we built, and this shows neither it nor its three
+companions recover direction on real devices where direction was measured independently. The scatter
+is in `outputs/figures/axonal_flow_vs_chamber.png`.
 
 **One defect worth recording, because it would have inverted the answer.** Of the 50 spike files in
 the deposit, 8
@@ -1119,6 +1146,8 @@ Referenced from §6.1, §7.4 and §7.5.
 
 ![Inter-compartment coupling lag by device type, REAL data, one value per device: five CxCx, five HpHp, six CxHp. The two same-tissue types are indistinguishable from each other; the heterogeneous type sits apart.](../outputs/figures/compartment_lag_by_device_type.png){width=55%}
 
+![The same mechanism measured on two platforms, REAL data: per-feature log2 change for GABA-A antagonists. Mean firing rate reverses sign across platforms; synchrony agrees.](../outputs/figures/platform_contrast_gabaa_antagonist.png){width=57%}
+
 ### Appendix F — The nine-feature vector
 
 Referenced from §3.4. Computed by `features/mea.py`, which the twin is also required to call.
@@ -1238,3 +1267,15 @@ Referenced from §9.
 - Tests run with `pytest` (feature extraction, QC flags, provenance hashing, the MEA simulator, and
   a contract test that fails if any headline metric loses its interval). Appendix D lists what the repository
   enforces rather than documents.
+
+### Appendix K — Posterior calibration per parameter
+
+Referenced from §7.5.
+
+| parameter | posterior contraction | KS statistic |
+|------------------------|-----------------------|--------------|
+| `threshold_scale` | 0.8 <!-- metrics.json: twin_hd14_inference.contraction.threshold_scale.contraction --> | 0.0571 <!-- metrics.json: twin_hd14_inference.rank_uniformity_ks_p.threshold_scale.ks_statistic --> |
+| `ampa_scale` | 0.443 <!-- metrics.json: twin_hd14_inference.contraction.ampa_scale.contraction --> | 0.0871 <!-- metrics.json: twin_hd14_inference.rank_uniformity_ks_p.ampa_scale.ks_statistic --> |
+| `gabaa_scale` | 0.323 <!-- metrics.json: twin_hd14_inference.contraction.gabaa_scale.contraction --> | 0.1093 <!-- metrics.json: twin_hd14_inference.rank_uniformity_ks_p.gabaa_scale.ks_statistic --> |
+| `inter_in_degree` | 0.32 <!-- metrics.json: twin_hd14_inference.contraction.inter_in_degree.contraction --> | 0.1029 <!-- metrics.json: twin_hd14_inference.rank_uniformity_ks_p.inter_in_degree.ks_statistic --> |
+| `log10_forward_ratio` | 0.311 <!-- metrics.json: twin_hd14_inference.contraction.log10_forward_ratio.contraction --> | 0.0957 <!-- metrics.json: twin_hd14_inference.rank_uniformity_ks_p.log10_forward_ratio.ks_statistic --> |

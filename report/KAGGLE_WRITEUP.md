@@ -98,6 +98,13 @@ correlogram makes that worse rather than better, so it is the network and not th
 claim about direction has to control for rate first — the single most useful negative result in the
 project.
 
+**And no chamber readout rescues it.** Fitting all four readouts a two-chamber device gives you —
+asymmetry, peak correlation, lag, rate ratio — to predict the sign of the measured axonal flow, one
+culture held out at a time, reaches balanced accuracy 0.3854
+<!-- metrics.json: axonal_directionality.chamber_readouts_predict_direction.balanced_accuracy -->
+against chance of one half, at a sample that could have detected 0.6438
+<!-- metrics.json: axonal_directionality.chamber_readouts_predict_direction.detectable_balanced_accuracy -->.
+
 **And it is wrong against ground truth.** One deposit instruments the microtunnels between its
 chambers, two electrodes per tunnel, so a spike crossing is recorded twice and the sign of the delay
 is the direction it physically travelled. The traffic is strongly directed — mean |flow index| 0.363
@@ -107,6 +114,14 @@ time-shifted control — and the chamber measure points the same way on a fracti
 <!-- metrics.json: axonal_directionality.headline.sign_agreement.fraction --> of 31 chamber pairs,
 a coin flip, at every latency window tested. Reading direction off chamber cross-correlation does
 not work on real devices, and we can now say so against a measurement rather than a simulation.
+
+**Neither the twin nor the features recover pharmacology from a real chip — and knowing which is
+the point.** Before blaming the inference, we asked whether the summaries it was given carry a dose
+response at all. Across 113 recordings
+<!-- metrics.json: feature_dose_response.n_recordings --> and 16 devices, no feature moves
+monotonically with bicuculline dose, absolute or differenced against each device's own baseline.
+The twin was being asked to invert a measurement that does not contain the answer, which moves the
+problem from the posterior to the feature layer.
 
 **The twin does not yet recover pharmacology from a real chip.** Applied to 113 real two-chamber
 recordings <!-- metrics.json: twin_hd15_real_inference.n_recordings -->, the inferred GABA-A scale
@@ -193,9 +208,11 @@ Three outputs are directly usable by a chip laboratory today.
   devices it agrees with the axons' own measured direction at chance. Anyone reporting direction
   from a two-chamber MEA needs to residualise rate first, and should not expect chamber
   cross-correlation alone to carry the claim.
-- **A cost curve for experiment design.** §7.6 reports what it takes to separate two wiring regimes
-  from simulated recordings — electrode count against recording length, selected on an interval's
-  lower bound — which is the shape of question a chip user asks before running an experiment.
+- **A cost curve for experiment design, as a tool.** `python -m neuromps.design --target-auc 0.8`
+  returns the cheapest electrode count and recording length whose interval *lower bound* clears a
+  target, and `--electrodes 12 --duration 30` says what a given recording could detect. It is a
+  lookup over the §7.6 grid, and every answer carries the caveat that the grid is simulated and the
+  equivalent real-device test was null — a tool that overstates itself would be worse than none.
 
 ## Reproducing
 

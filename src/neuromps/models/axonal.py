@@ -330,6 +330,10 @@ def run(
     for window_ms, rows in flow.groupby("window_ms"):
         result["by_window"][_window_key(window_ms)] = agreement(rows, chamber, seed)
     result["headline"] = result["by_window"].get(_window_key(HEADLINE_WINDOW_MS))
+    headline_rows = flow[flow["window_ms"] == HEADLINE_WINDOW_MS]
+    result["chamber_readouts_predict_direction"] = predicts_axonal_direction(
+        headline_rows, chamber, seed
+    )
     result["agreement_holds_at_every_window"] = _stable(result["by_window"])
     with zipfile.ZipFile(ARCHIVE) as archive:
         names = cultures(archive)[:max_cultures]
@@ -403,6 +407,89 @@ def main(argv: list[str] | None = None) -> int:
     print(json.dumps({k: v for k, v in result.items() if k != "by_window"}, indent=2))
     print(json.dumps(result["by_window"], indent=2))
     return 0
+
+
+# The chamber-level readouts a device gives you without opening the tunnels.
+# Kept small on purpose: 31 pairs over 9 cultures cannot support a wide model,
+# and a wide one would find something whether or not there is anything there.
+CHAMBER_FEATURES = ("asymmetry", "peak_correlation", "lag_ms", "log2_rate_ratio")
+PERMUTATIONS = 2000
+
+
+def _leave_one_culture_out(x: np.ndarray, y: np.ndarray, groups: np.ndarray) -> np.ndarray:
+    """Out-of-fold sign predictions, each culture held out in turn."""
+    from sklearn.linear_model import LogisticRegression
+    from sklearn.pipeline import make_pipeline
+    from sklearn.preprocessing import StandardScaler
+
+    predicted = np.empty(len(y), dtype=int)
+    for held in np.unique(groups):
+        test = groups == held
+        train = ~test
+        if len(set(y[train])) < 2:
+            # A fold whose training half is all one class cannot be fitted; the
+            # majority guess is what it would have produced anyway.
+            predicted[test] = y[train][0] if train.any() else 1
+            continue
+        model = make_pipeline(StandardScaler(), LogisticRegression(max_iter=2000, C=1.0)).fit(
+            x[train], y[train]
+        )
+        predicted[test] = model.predict(x[test])
+    return predicted
+
+
+def predicts_axonal_direction(flow: pd.DataFrame, chamber: pd.DataFrame, seed: int = 0) -> dict:
+    """Can *any* chamber-level readout recover the direction the axons fired?
+
+    The constructive form of the finding above. The chamber coupling asymmetry
+    fails on its own; this asks whether the four readouts a two-chamber device
+    gives you, taken together, do better - fitted with one culture held out at a
+    time, and scored against a permutation null that shuffles the axonal signs
+    within each culture so the cluster structure survives the shuffle.
+
+    With 31 pairs over 9 cultures this can only detect a large effect, and the
+    reported detectable effect says how large.
+    """
+    from sklearn.metrics import balanced_accuracy_score
+
+    merged = flow.merge(chamber, on=["device_id", "pair"], how="inner", validate="one_to_one")
+    merged = merged[merged["flow_index"].notna() & merged["n_crossings"].ge(MIN_CROSSINGS)]
+    usable = merged[list(CHAMBER_FEATURES)].notna().all(axis=1) & merged["flow_index"].ne(0)
+    merged = merged[usable]
+    if len(merged) < 8 or merged["device_id"].nunique() < 3:
+        return {"n_pairs": int(len(merged)), "verdict": "too few pairs to fit"}
+
+    x = merged[list(CHAMBER_FEATURES)].to_numpy(dtype=float)
+    y = np.sign(merged["flow_index"].to_numpy(dtype=float)).astype(int)
+    groups = merged["device_id"].to_numpy()
+    observed = float(balanced_accuracy_score(y, _leave_one_culture_out(x, y, groups)))
+
+    rng = np.random.default_rng(seed)
+    null = []
+    for _ in range(PERMUTATIONS):
+        shuffled = y.copy()
+        for culture in np.unique(groups):
+            mask = groups == culture
+            shuffled[mask] = rng.permutation(y[mask])
+        null.append(balanced_accuracy_score(shuffled, _leave_one_culture_out(x, shuffled, groups)))
+    null = np.asarray(null, dtype=float)
+    # +1 in both terms: the observed labelling is one of the arrangements.
+    p_value = float((1 + (null >= observed).sum()) / (1 + len(null)))
+    return {
+        "n_pairs": int(len(merged)),
+        "n_cultures": int(merged["device_id"].nunique()),
+        "features": list(CHAMBER_FEATURES),
+        "balanced_accuracy": round(observed, 4),
+        "chance": 0.5,
+        "permutation_p": round(p_value, 4),
+        "permutations": PERMUTATIONS,
+        "beats_chance": bool(p_value < 0.05),
+        "detectable_balanced_accuracy": round(float(np.percentile(null, 95)), 4),
+        "note": (
+            "leave-one-culture-out logistic regression on the chamber readouts, predicting the "
+            "sign of the measured axonal flow; the null shuffles signs within each culture"
+        ),
+    }
 
 
 if __name__ == "__main__":
