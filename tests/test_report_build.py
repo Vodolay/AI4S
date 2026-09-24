@@ -177,6 +177,7 @@ def test_the_build_refuses_stale_figures_when_asked() -> None:
     assert "predate outputs/metrics.json" in help_text
 
 
+@pytest.mark.skipif(shutil.which("pandoc") is None, reason="pandoc not installed")
 def test_the_script_builds_a_source_other_than_the_technical_report(tmp_path: Path) -> None:
     """`--source` exists so a companion document gets the same typography.
 
@@ -223,6 +224,7 @@ def test_the_script_builds_a_source_other_than_the_technical_report(tmp_path: Pa
     assert "metrics.json" not in text, "citation comments are not content"
 
 
+@pytest.mark.skipif(shutil.which("pandoc") is None, reason="pandoc not installed")
 def test_source_defaults_its_output_beside_the_source(tmp_path: Path) -> None:
     source = tmp_path / "doc.md"
     source.write_text("# Doc\n\n## Section\n\nBody.\n")
