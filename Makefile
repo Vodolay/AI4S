@@ -35,6 +35,11 @@ explainers:
 	       --title "The digital twin, explained" \
 	       --subtitle "A companion to the NeuroMPS technical report, for readers without a computational-modelling background" \
 	  || echo "report/DIGITAL_TWIN_FOR_BIOLOGISTS.md not present; skipped"
+	@test -f report/APP_WALKTHROUGH.md \
+	  && report/build_report.sh --source report/APP_WALKTHROUGH.md \
+	       --title "The demo app, a walkthrough" \
+	       --subtitle "Running the NeuroMPS demo, what every control does, and what to look at" \
+	  || echo "report/APP_WALKTHROUGH.md not present; skipped"
 
 video:
 	$(PYTHON) -m neuromps.video.build

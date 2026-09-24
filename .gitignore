@@ -30,5 +30,7 @@ outputs/video/frames.txt
 # numbers should be held to the same rule whether or not it ships.
 report/MODELLING_FOR_BIOLOGISTS.md
 report/DIGITAL_TWIN_FOR_BIOLOGISTS.md
+report/APP_WALKTHROUGH.md
 report/MODELLING_FOR_BIOLOGISTS.pdf
 report/DIGITAL_TWIN_FOR_BIOLOGISTS.pdf
+report/APP_WALKTHROUGH.pdf
