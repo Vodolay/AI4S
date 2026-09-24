@@ -22,3 +22,11 @@ sbi-logs/
 # Built video: reproduced by `make video` from the tracked stills.
 outputs/video/frames/
 outputs/video/frames.txt
+
+# Explainers written for readers without a machine-learning background. Kept out
+# of the repository at the author's request; they are companions to
+# report/TECHNICAL_REPORT.md, not part of the submission. `report.verify` and the
+# clinical-language test still check them locally, because a document that quotes
+# numbers should be held to the same rule whether or not it ships.
+report/MODELLING_FOR_BIOLOGISTS.md
+report/DIGITAL_TWIN_FOR_BIOLOGISTS.md
