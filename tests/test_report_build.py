@@ -175,3 +175,62 @@ def test_the_build_refuses_stale_figures_when_asked() -> None:
     help_text = SCRIPT.read_text()
     assert "--strict-figures" in help_text
     assert "predate outputs/metrics.json" in help_text
+
+
+def test_the_script_builds_a_source_other_than_the_technical_report(tmp_path: Path) -> None:
+    """`--source` exists so a companion document gets the same typography.
+
+    Without it each document grows its own half-correct build: the font
+    selection, the metrics-comment stripping and the engine fallback here were
+    all hard-won and should not be reimplemented per document.
+    """
+    source = tmp_path / "companion.md"
+    source.write_text(
+        "# A companion\n\n"
+        "**Companion to `report/TECHNICAL_REPORT.md`.** Opening line that must survive.\n\n"
+        "> **Research decision-support only.** Stripped, because the title page carries it.\n\n"
+        "## A section\n\nBody text with a citation 0.537 "
+        "<!-- metrics.json: some.key --> that renders without a gap.\n"
+    )
+    output = tmp_path / "companion.pdf"
+    result = subprocess.run(
+        [
+            str(SCRIPT),
+            "--source",
+            str(source),
+            "--output",
+            str(output),
+            "--title",
+            "A companion",
+            "--subtitle",
+            "Subtitle here",
+        ],
+        capture_output=True,
+        text=True,
+        cwd=REPO_ROOT,
+    )
+    assert result.returncode == 0, result.stderr
+    assert output.exists()
+    if shutil.which("pdftotext") is None:
+        return
+    text = subprocess.run(["pdftotext", str(output), "-"], capture_output=True, text=True).stdout
+    assert "A companion" in text, "the title page should carry the given title"
+    assert "Subtitle here" in text
+    assert "Opening line that must survive" in text
+    # The title page carries its own disclaimer footer, so the phrase is present;
+    # what must be gone is the source's blockquote, identified by its own words.
+    assert "Stripped, because the title page carries it" not in text
+    assert "metrics.json" not in text, "citation comments are not content"
+
+
+def test_source_defaults_its_output_beside_the_source(tmp_path: Path) -> None:
+    source = tmp_path / "doc.md"
+    source.write_text("# Doc\n\n## Section\n\nBody.\n")
+    result = subprocess.run(
+        [str(SCRIPT), "--source", str(source), "--title", "Doc", "--subtitle", "S"],
+        capture_output=True,
+        text=True,
+        cwd=REPO_ROOT,
+    )
+    assert result.returncode == 0, result.stderr
+    assert (tmp_path / "doc.pdf").exists()

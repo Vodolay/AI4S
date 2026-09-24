@@ -16,11 +16,18 @@
 #   report/build_report.sh --check-pages 15 20   # build, then require a main-matter page range
 #   report/build_report.sh --engine html      # force the weasyprint fallback
 #   report/build_report.sh --dry-run          # show resolved metadata, build nothing
+#   report/build_report.sh --source report/X.md --title "X" --subtitle "..."
+#
+# --source builds any of the report Markdown documents with the same typography,
+# rather than each one growing its own half-correct build. The output defaults to
+# the source with a .pdf suffix.
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 SOURCE="${REPO_ROOT}/report/TECHNICAL_REPORT.md"
-OUTPUT="${REPO_ROOT}/report/TECHNICAL_REPORT.pdf"
+OUTPUT=""
+TITLE="NeuroMPS"
+SUBTITLE="A provenance-tracked MEA data asset and a calibrated two-compartment digital twin"
 CSS="${REPO_ROOT}/report/report.css"
 
 TEAM="${TEAM:-NeuroMPS}"
@@ -39,6 +46,9 @@ while [[ $# -gt 0 ]]; do
       check_pages="yes"; min_pages="${2:?--check-pages needs MIN and MAX}"; max_pages="${3:?--check-pages needs MIN and MAX}"; shift 3 ;;
     --engine) engine="${2:?--engine needs xelatex or html}"; shift 2 ;;
     --output) OUTPUT="${2:?--output needs a path}"; shift 2 ;;
+    --source) SOURCE="${2:?--source needs a path}"; shift 2 ;;
+    --title) TITLE="${2:?--title needs text}"; shift 2 ;;
+    --subtitle) SUBTITLE="${2:?--subtitle needs text}"; shift 2 ;;
     --dry-run) dry_run="yes"; shift ;;
     --strict-figures) strict_figures="yes"; shift ;;
     --allow-stale-figures) strict_figures=""; shift ;;
@@ -48,6 +58,9 @@ while [[ $# -gt 0 ]]; do
 done
 
 die() { echo "build_report: $*" >&2; exit 1; }
+
+# Default the output beside the source, so --source alone does the right thing.
+[[ -n "${OUTPUT}" ]] || OUTPUT="${SOURCE%.md}.pdf"
 
 # Argument errors are reported before anything about the environment: a typo in
 # --engine should say so whether or not pandoc happens to be installed.
@@ -128,9 +141,9 @@ cat > "${WORK}/titlepage.tex" <<LATEX
 \\begin{titlepage}
 \\centering
 \\vspace*{3cm}
-{\\Huge\\bfseries NeuroMPS\\par}
+{\\Huge\\bfseries ${TITLE}\\par}
 \\vspace{0.6cm}
-{\\large A provenance-tracked MEA data asset and a calibrated two-compartment digital twin\\par}
+{\\large ${SUBTITLE}\\par}
 \\vspace{2.5cm}
 \\begin{tabular}{rl}
 \\textbf{Team} & ${TEAM}\\\\[4pt]
@@ -146,8 +159,8 @@ LATEX
 
 cat > "${WORK}/titlepage.html" <<HTML
 <div class="titlepage">
-  <h1 class="title">NeuroMPS</h1>
-  <p class="subtitle">A provenance-tracked MEA data asset and a calibrated two-compartment digital twin</p>
+  <h1 class="title">${TITLE}</h1>
+  <p class="subtitle">${SUBTITLE}</p>
   <table class="titlemeta">
     <tr><th>Team</th><td>${TEAM}</td></tr>
     <tr><th>Category</th><td>${CATEGORY}</td></tr>
@@ -160,9 +173,11 @@ cat > "${WORK}/titlepage.html" <<HTML
 </div>
 HTML
 
-# The Markdown starts with its own H1 and disclaimer, which the title page now
-# carries; strip them so the document opens on the table of contents.
-sed -e '1,8{/^# NeuroMPS/d; /^\*\*Technical report\.\*\*/d; /^(5th Pazhou/d; /^> \*\*Research decision-support only/d; /^> clinical claim/d;}' \
+# The Markdown starts with its own H1, a one-line description of what it is, and
+# the disclaimer blockquote - all of which the title page now carries. Strip them
+# so the document opens on the table of contents. Bounded to the opening lines so
+# a blockquote used as content further down survives.
+sed -e '1,10{/^# /d; /^\*\*Technical report\.\*\*/d; /^(5th Pazhou/d; /^> /d;}' \
   "${SOURCE}" > "${WORK}/stripped.md"
 
 # The metrics citations are comments for neuromps.report.verify, not content.
@@ -372,18 +387,21 @@ verify_text() {
   }
   local text missing=() marker expanded
   text="$(pdftotext "${OUTPUT}" - 2>/dev/null)" || return 0
-  # "NeuroMPS" appears only on the generated title page, since the Markdown H1 is
-  # stripped above - so it doubles as a check that the title page was included.
-  # The last two are the characters most likely to be dropped by a font without
-  # Greek or mathematical coverage.
-  for marker in "NeuroMPS" "Directionality" "Limitations" '\u03c1' '\u2265'; do
+  # The title is checked because it appears only on the generated title page -
+  # the Markdown H1 is stripped above - so it doubles as a check that the title
+  # page was included. The Greek and comparison characters are the ones most
+  # likely to be dropped by a font without the coverage, and are only required
+  # of a document whose source actually contains them, so this works for any
+  # --source rather than only for the technical report.
+  for marker in "${TITLE}" '\u03c1' '\u2265'; do
     expanded="$(printf '%b' "${marker}")"
+    grep -qF -- "${expanded}" "${SOURCE}" >/dev/null 2>&1 || [[ "${expanded}" == "${TITLE}" ]] || continue
     grep -qF -- "${expanded}" <<<"${text}" || missing+=("${expanded}")
   done
   if (( ${#missing[@]} )); then
     die "the PDF text layer is missing: ${missing[*]} (a font may lack these glyphs)"
   fi
-  echo "build_report: text layer contains the expected Greek and comparison characters"
+  echo "build_report: text layer contains the title and the expected special characters"
 }
 
 verify_text
