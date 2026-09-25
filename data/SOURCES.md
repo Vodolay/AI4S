@@ -318,3 +318,69 @@ ask the authors: the HESI NeuTox outputs exist as papers, not as a deposit.
   downloaded. Design parameters are taken from the open-access papers.
 - **Kapucu 2022 code** in the GIN `Codes/` folder is BSD-3 / GPL-3.0 (meaRtools, SpikeDetection-Toolbox).
   We do not fetch or vendor it. If any of it is ever used, check GPL obligations against our MIT license first.
+
+### Final dataset sweep for Task 1 pairs (2026-09-25)
+
+Task 1 fits 73 pairs. The question asked was whether more public data exists, including
+species beyond rat and human. Searched: Zenodo's API (170 + 148 deposits over fourteen
+queries), DataCite across repositories, and the EPA ScienceHub catalogue. One candidate
+worth having; the rest of the well is close to dry.
+
+**The one candidate. Zenodo 21283609**, "Graph Theory Benchmarking MEA Data Set - Human
+Brain Slice Cultures", CC BY 4.0, 593 MB, deposited 2026-07-24.
+
+- **Adult human post-operative neocortical slice cultures** on a Multi Channel Systems
+  256-electrode array, 252 recording channels. This is a preparation the asset does not
+  have: its human side is iPSC-derived and organoid only.
+- 37 recordings, each a pickled dict carrying MAD-detected **spike times** per channel,
+  plus `slice_id`, `recording_date`, `tissue`, `medium` and a `drug` field taking
+  `nodrug`, `8mMK` (8 mM potassium) and `5uMgabazine`.
+- Read without downloading, using `fetch/remote_zip.HttpRangeFile` over the central
+  directory and a 4 MB prefix of each member. Of the 17 recordings whose `slice_id` and
+  `drug` both resolved in that prefix, **three slices carry a baseline and a drug
+  condition**: `ID2310CT004` and `ID2411CT002` are gabazine/nodrug, `ID2405CT005` is
+  8mMK/nodrug. Twelve recordings did not resolve in a 4 MB prefix, and the filenames
+  carry roughly fourteen gabazine tags, so the true count is higher than three - but it
+  is a handful, not a doubling of the 73.
+
+**Why it is still worth having, and it is not the pair count.** `gabaa_antagonist`
+currently comes from `kapucu2022` (gabazine, one condition) and `screenneuropharm_bic`
+(bicuculline). Section 6.1 shows the real ceiling on Task 1 is not sample size but that a
+pair's mechanism label predicts its source 97.35% of the time. A third source for that
+class, on adult human cortex rather than a stem-cell model, is worth more to that
+confound than the same number of pairs from a fourth compound in an existing source.
+
+**The objection to weigh first.** The recordings are **Python pickles**. Ingesting them
+means unpickling files fetched over the network, which executes arbitrary code during the
+build. Every other source in the asset is HDF5, MATLAB, CSV, parquet or Excel, none of
+which does. Reading the metadata above deliberately used `pickletools.genops` and a raw
+byte scan rather than `pickle.load`, and the same restraint would be needed in an ETL -
+or the deposit's authors asked for a plain export. This is a provenance property the
+project has not had to have an opinion on before, and it should have one before ingesting.
+
+**The EPA vein is exhausted.** DataCite lists twelve EPA MEA datasets. Seven were checked
+by reading their file lists, and four ZIP archives were opened over range requests without
+downloading. All of them ship summary endpoint tables or analysis output - `MEA 86
+Compound data` is AUC and plate-normalised values; `NTP_TC_Analysis.zip` is 11,967 PDFs of
+dose-response plots beside 80 CSVs; `Kosnik 2020` is 25 CSVs through `tcpl` with R
+scripts; `Tipping point` is 273 PDFs. `vassallo2017`, already in the asset, was the single
+deposit that shipped raw spike files. Two near-misses worth naming because they read well
+in a search result and are not what they look like:
+
+- `10.23719/1518437` (Saavedra 2024), "Comparison of Acute Effects of Neurotoxic Compounds
+  on Network Activity in **Human and Rodent** Neural Cultures" - exactly the comparison
+  section 6.4 lacks, but the deposit is one spreadsheet of per-figure normalised values.
+- `10.23719/1374038`, "MEA 86 Compound data" - 86 compounds, one xlsx, no spike times.
+
+**Nothing else passed.** Across 148 further Zenodo deposits from eight queries covering
+mouse, zebrafish, organoid, multiwell and slice preparations, **none** had an open licence,
+an MEA, spike times and a drug condition together. The field publishes endpoint tables.
+
+**Already downloaded and still unconverted: `fofie2025`.** CC0, hiPSC-derived nociceptors,
+and the widest compound overlap of anything here - TTX, huwentoxin-IV, lidocaine,
+retigabine, DNQX, GABA. It was parked on 2026-09-20 because the dose units appear nowhere
+in the workbook and because it holds spike *counts* per electrode, not spike times. The
+first half of that is now a solved kind of problem: the EPA logfile precedent is to take
+the value from the paper and record where it came from. The second half is not - counts
+support rate features only, so it cannot supply the nine-feature delta vector Task 1
+consumes. It could support a rate-only arm, which is a different claim.
