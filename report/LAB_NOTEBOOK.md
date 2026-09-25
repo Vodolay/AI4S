@@ -1131,3 +1131,30 @@ asserted the replacement had changed the text and then wrote the *pre-edit* stri
 same defect recorded at item B1 and it survived that fix, which only ever guarded a single edit. The
 habit that catches it is cheap: re-read the file after writing and assert the new text is on disk,
 not that it was in the buffer.
+
+## 2026-09-24 — A wait-loop that watched itself, six times
+
+Not a scientific entry, but the defect has now cost enough to be worth writing down properly.
+
+Six background tasks were still registered as running from 2026-09-22. All six were the same shape:
+`until ! pgrep -f "[p]ytest -q"; do sleep N; done`, waiting for a test suite to finish. None of them
+could ever finish, because the harness wraps a background command in a `bash -c` whose command line
+*contains the pattern being searched for*. The loop matched itself, saw "pytest is still running"
+forever, hit the tool timeout, and got moved to the background - where it kept matching itself. I
+then started another wait for the same suite, which did the same thing. Three attempts per suite
+run, twice over.
+
+The same mistake appeared twice more this week in different clothes: a `pkill -f "streamlit run
+app/app.py"` that killed its own wrapper shell instead of the server (exit 144), and the 8.5-hour
+runaway recorded earlier in this notebook.
+
+The rule that actually prevents it: **never wait on a pattern the waiting command's own command line
+can contain.** Wait on a PID file the job writes, or on a sentinel the job appends on exit, or check
+`[ -s file ]` for output that only exists when the work is done. `[p]ytest` bracket-escaping is not
+enough - it stops the *grep* self-matching, not the *wrapper* self-matching, which is a different
+process with the literal text in it.
+
+Two leftover servers from the screenshot work were also still up, a Streamlit for two and a half
+days and a headless Chrome for three and a half, holding 3.8 GB between them. Starting a server in a
+background shell and moving on leaves it running indefinitely; it needs an explicit stop in the same
+session that started it.

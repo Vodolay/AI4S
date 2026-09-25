@@ -1206,5 +1206,37 @@ Then four additions, aimed at impact and presentation rather than more validatio
 - **Two things to pick up.** `python -m neuromps.design` turns the S7.6 grid into a lookup, with the
   simulated-upper-bound caveat on every answer; the architecture figure is drawn by a script.
 
-**Next first task.** Fill the team tables, publish the video, make the repository public, submit the
-registration form.
+**Explainers, and a tidy-up (2026-09-24).** Nothing in the science moved; this was about making the
+work readable and the repository honest about its own state.
+
+- **Three plain-language companions**, written for readers without an ML or modelling background and
+  held to the same citation checker as the report: `MODELLING_FOR_BIOLOGISTS.md` (63 citations) on
+  the classifiers - deltas rather than states, why splits group by culture, balanced accuracy,
+  cluster bootstraps, calibration, conformal sets; `DIGITAL_TWIN_FOR_BIOLOGISTS.md` (61) on the
+  simulation - the neuron model in words, what calibration is for a simulation, simulation-based
+  inference from scratch, contraction and rank uniformity; and `APP_WALKTHROUGH.md` (10), a guided
+  tour of the demo. All three are gitignored with their PDFs, at the author's request.
+- **`build_report.sh` takes `--source`, `--title`, `--subtitle`.** A second build script would have
+  meant reimplementing the font selection, the metrics-comment stripping and the engine fallback.
+  Two things hardcoded to the technical report had to generalise: the header strip and the
+  text-layer check. The report builds unchanged at 20 pages of main matter. `make explainers`
+  builds all three companions and skips cleanly on a clone that lacks them.
+- **App screenshots regenerated.** They predated `vassallo2017` and showed 21,604 records from 7
+  sources against the asset's 21,887 from 8, while the writeup and report offer them to reviewers
+  who would rather not run the app. Two traps for whoever does this next: a one-shot
+  `chrome --headless --screenshot` captures mid-render, because Streamlit paints over a websocket
+  and `--virtual-time-budget` does not advance a real socket; and `body.scrollHeight` is always the
+  viewport height, because Streamlit scrolls `[data-testid="stMain"]` rather than the document.
+- **CI, twice.** Two new build tests shelled out to `build_report.sh` without the pandoc skip guard
+  their neighbour already carried - the `test` job does not install pandoc, only `report` does.
+  Reproduced by putting an empty directory ahead of pandoc on the PATH, which is the habit that was
+  missing both times CI broke this week.
+- **Six stale background tasks cleared.** All `pytest` wait-loops that could never finish, because
+  `pgrep -f "[p]ytest -q"` matches the loop's own wrapped command line: each was watching itself.
+  Same defect as the `pkill` that killed its own shell this session and the 8.5-hour runaway in the
+  notebook. Two leftover servers were also stopped - a Streamlit and a headless Chrome left running
+  for two and a half and three and a half days, holding 3.8 GB.
+
+**Next first task.** Unchanged, and all four are the author's: fill the team tables in the report and
+the Writeup, publish the demo video and paste its public link, make the repository public, and submit
+the registration form. Nothing in the code or the documents is waiting on anything.
