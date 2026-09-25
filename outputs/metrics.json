@@ -2402,6 +2402,103 @@
       }
     }
   },
+  "rate_only_arm": {
+    "across_sources": {
+      "balanced_accuracy": 0.5012,
+      "balanced_accuracy_ci95": [
+        0.3464,
+        0.6157
+      ],
+      "beats_chance": true,
+      "bootstrap_resamples": 1000,
+      "chance": 0.3333,
+      "n_test_groups": 30,
+      "n_test_pairs": 156,
+      "n_train_pairs": 53,
+      "note": "trained on kapucu2022 cortical delta.mfr_hz, tested on fofie2025 sensory neuron rate change; one feature, and a different preparation",
+      "shared_classes": [
+        "control",
+        "glutamatergic_antagonist",
+        "na_channel_blocker"
+      ]
+    },
+    "by_mechanism": {
+      "ca_channel_blocker": {
+        "fraction_suppressed": 0.9259,
+        "median_log2_change": -0.1991,
+        "n_groups": 5,
+        "n_pairs": 54
+      },
+      "control": {
+        "fraction_suppressed": 0.9383,
+        "median_log2_change": -0.1743,
+        "n_groups": 17,
+        "n_pairs": 81
+      },
+      "control_is_flat_and_blocker_is_not": true,
+      "glutamatergic_antagonist": {
+        "fraction_suppressed": 1.0,
+        "median_log2_change": -1.2998,
+        "n_groups": 3,
+        "n_pairs": 18
+      },
+      "k_channel_opener": {
+        "fraction_suppressed": 1.0,
+        "median_log2_change": -0.8295,
+        "n_groups": 4,
+        "n_pairs": 36
+      },
+      "kinase_inhibitor": {
+        "fraction_suppressed": 1.0,
+        "median_log2_change": -0.6563,
+        "n_groups": 4,
+        "n_pairs": 21
+      },
+      "monoamine_reuptake_inhibitor": {
+        "fraction_suppressed": 1.0,
+        "median_log2_change": -1.104,
+        "n_groups": 2,
+        "n_pairs": 6
+      },
+      "na_channel_blocker": {
+        "fraction_suppressed": 0.9649,
+        "median_log2_change": -1.9529,
+        "n_groups": 10,
+        "n_pairs": 57
+      },
+      "trpv1_antagonist": {
+        "fraction_suppressed": 1.0,
+        "median_log2_change": -2.4787,
+        "n_groups": 3,
+        "n_pairs": 18
+      }
+    },
+    "caveat": "sensory neurons, not cortical: what is shared with the rest of the asset is the compound mechanism, not the preparation or the network",
+    "dropped_single_block_classes": [
+      "gabaa_agonist_or_pam"
+    ],
+    "label": "REAL hiPSC sensory-neuron wells, rate change only",
+    "n_groups": 48,
+    "n_pairs": 291,
+    "question": "does a firing-rate change alone carry mechanism, and does it carry it to a preparation the model has not seen",
+    "source": "fofie2025",
+    "within_source": {
+      "balanced_accuracy": 0.2972,
+      "balanced_accuracy_ci95": [
+        0.2264,
+        0.3887
+      ],
+      "beats_chance": true,
+      "bootstrap_resamples": 1000,
+      "chance": 0.125,
+      "dummy_balanced_accuracy": 0.125,
+      "feature": "delta_log2_rate",
+      "n_classes": 8,
+      "n_groups": 48,
+      "n_pairs": 291,
+      "n_splits": 4
+    }
+  },
   "run_all_timings_full": {
     "by_stage_s": {
       "data": 1037.1,

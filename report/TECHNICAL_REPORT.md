@@ -46,47 +46,40 @@ connectivity and drug effects from MEA summary features.
 
 The results that matter are as much negative as positive, and the report leads with both:
 
-1. **Feature names do not determine feature values, and now there is a number for it.** Against the
-   depositors' own meaRtools output on the same 336 recordings
-   <!-- metrics.json: extractor_agreement.n_recordings -->, one of seven shared features reproduces;
-   three rank recordings identically on a different scale; three burst measures disagree about
-   *which* recordings burst more, "bursts per minute" by a factor of two (§3.5).
+1. **Feature names do not determine feature values.** Against the depositors' own meaRtools output
+   on the same 336 recordings <!-- metrics.json: extractor_agreement.n_recordings -->, one of seven
+   shared features reproduces; three rank recordings identically on a different scale; three burst
+   measures disagree about *which* recordings burst more, "bursts per minute" by a factor of two
+   (§3.5).
 2. **Rate and burst-fraction measures survive a change of species; synchrony and network-burst
-   measures do not** (§6.3, §6.5, §6.6, §7.3). **Across *platforms* none of them is safe** — mean
-   firing rate itself reverses sign (§6.4), which is the sharper limitation of the two. That is a
-   claim about drug-response deltas: *untreated* human and rat activity differs on 7 of the 9
+   measures do not** (§6.3, §6.5, §6.6, §7.3). **Across *platforms* none is safe** — mean firing
+   rate itself reverses sign (§6.4). And *untreated* human and rat activity differs on 7 of the 9
    features even at matched platform and preparation (§6.8).
-3. **Coupling asymmetry tracks relative firing rate, not pathway direction.** At fixed wiring,
-   changing one chamber's drive moves the measure several times further than changing the wiring
-   does, and pre-whitening makes that worse rather than better (§7.2). On real devices that
-   instrument the connecting tunnels, the measure agrees with the axons' own measured direction on
-   a fraction 0.419
+3. **Coupling asymmetry tracks relative firing rate, not pathway direction.** At fixed wiring, drive
+   moves the measure several times further than wiring does, and pre-whitening makes that worse
+   (§7.2). On real devices that instrument the connecting tunnels it agrees with the axons' own
+   measured direction on a fraction 0.419
    <!-- metrics.json: axonal_directionality.headline.sign_agreement.fraction --> of 31 chamber
-   pairs — chance (§7.7).
-4. **The twin's posterior does not recover drug-knob direction from real recordings — and neither
-   do the features.** The inferred GABA-A scale shows no bicuculline dose trend, and untreated chips
-   already infer 0.3781
-   <!-- metrics.json: twin_hd15_real_inference.gabaa_scale_at_baseline.median -->; an estimator
-   trained on the *change* against each chip's own baseline recovers the neutral value, 1.0289
-   <!-- metrics.json: twin_hd17_delta_inference.real_data.gabaa_scale_at_baseline.median -->, and
-   still finds no trend. Asking the prior question shows why: **no feature moves monotonically with
-   dose** across the same 113 recordings
-   <!-- metrics.json: feature_dose_response.n_recordings -->, so the twin was being asked to invert
-   a measurement that does not contain the answer (§7.5).
+   pairs — chance — and no combination of the four chamber readouts does better (§7.7).
+4. **Neither the twin's posterior nor the features recover bicuculline dose from a real chip.**
+   Untreated chips infer a GABA-A scale of 0.3781
+   <!-- metrics.json: twin_hd15_real_inference.gabaa_scale_at_baseline.median --> where neutral is
+   1.0; an estimator trained on the *change* against each chip's own baseline recovers neutral,
+   1.0289 <!-- metrics.json: twin_hd17_delta_inference.real_data.gabaa_scale_at_baseline.median -->,
+   and still finds no trend. **No feature moves monotonically with dose** across the same 113
+   recordings <!-- metrics.json: feature_dose_response.n_recordings -->, so the twin was being asked
+   to invert a measurement that does not contain the answer (§7.5).
 5. **Direction *is* recoverable from simulated features once firing rate is residualised out** —
    AUC 0.8825
    <!-- metrics.json: twin_hd16_directionality.cheapest_configuration.free_rate_residualized.auc -->,
    95% CI [0.8184, 0.9359]
-   <!-- metrics.json: twin_hd16_directionality.cheapest_configuration.free_rate_residualized.auc_ci95 -->,
-   from 10 s on 6 electrodes per compartment — but as a *contrast* between two well-spaced wiring
-   classes, not a measurement of a continuous ratio (§7.6). A second arm that matched rates reaches
-   a higher AUC and **fails its own validity check**; it is reported as inconclusive.
+   <!-- metrics.json: twin_hd16_directionality.cheapest_configuration.free_rate_residualized.auc_ci95 -->
+   from 10 s on 6 electrodes per compartment — as a *contrast* between two well-spaced wiring
+   classes, not a measurement of a continuous ratio (§7.6).
 6. **That result does not reproduce on real devices.** On 26 chips whose microchannel geometry was
-   fabricated rather than assumed, propagation asymmetry does not separate straight channels from
-   three asymmetric designs (Kruskal p = 0.64
-   <!-- metrics.json: microchannel_directionality.comparison.kruskal_p -->), and the statistic is
-   confounded with how many events a chip produced (§7.7). The sample is too small to call that a
-   refutation of the simulated result, and too directly aimed to omit.
+   fabricated rather than assumed, propagation asymmetry does not separate the geometries (Kruskal
+   p = 0.64 <!-- metrics.json: microchannel_directionality.comparison.kruskal_p -->), and the
+   statistic is confounded with a chip's event count (§7.7).
 
 The honest summary of the twin is therefore: it reproduces baseline features and most drug
 directions, it can tell two wiring regimes apart in simulation, it cannot yet read pharmacology off
@@ -375,33 +368,26 @@ That is a property of what the field has published, not of the model.
 ### 6.2 Task 2 — external detection and its negative control
 
 Applied to bicuculline recordings from a source the model never saw, the GABA-A antagonist class is
-detected in 0.366 <!-- metrics.json: mechanism_baselines.task2_external_detection.screenneuropharm_bicuculline.detection_rate -->
-of 497 records <!-- metrics.json: mechanism_baselines.task2_external_detection.screenneuropharm_bicuculline.n -->,
-and the detection does **not** track dose (Spearman 0.014
-<!-- metrics.json: mechanism_baselines.task2_external_detection.screenneuropharm_bicuculline.dose_spearman -->,
-p = 0.751 <!-- metrics.json: mechanism_baselines.task2_external_detection.screenneuropharm_bicuculline.dose_spearman_p -->).
-
-The negative control behaves as it should: diazepam, a positive modulator rather than an antagonist,
-is called GABA-A antagonist in only 0.077
+detected in 0.366
+<!-- metrics.json: mechanism_baselines.task2_external_detection.screenneuropharm_bicuculline.detection_rate -->
+of 497 records
+<!-- metrics.json: mechanism_baselines.task2_external_detection.screenneuropharm_bicuculline.n -->,
+and the detection does **not** track dose (ρ = 0.014
+<!-- metrics.json: mechanism_baselines.task2_external_detection.screenneuropharm_bicuculline.dose_spearman -->).
+The negative control behaves: diazepam, a positive modulator rather than an antagonist, is called an
+antagonist on 0.077
 <!-- metrics.json: mechanism_baselines.task2_external_detection.sharf_diazepam_negative_control.detection_rate -->
-of its records.
-
-
-**This is a weak result reported as a weak result.** A detection rate near a third with no dose
-relationship is not a screening tool; it is evidence that the mechanism signal partially survives a
-platform change.
+of its records, so the model is not shouting one class at everything. A detection rate near a third
+with no dose relationship is evidence that the mechanism signal partially survives a platform
+change, and not a screening tool. Per-dose rates are in Appendix M.
 
 ### 6.3 Species transfer (rat → human)
 
-| setting | balanced accuracy | 95% CI |
-|---|---|---|
-| human, within-species | 0.646 <!-- metrics.json: species_transfer.transfer.none.human_within.balanced_accuracy --> | — |
-| rat, within-species | 0.543 <!-- metrics.json: species_transfer.transfer.none.rat_within.balanced_accuracy --> | — |
-| rat → human, no adaptation | 0.55 <!-- metrics.json: species_transfer.transfer.none.rat_to_human.balanced_accuracy --> | [0.4, 0.6] <!-- metrics.json: species_transfer.transfer.none.rat_to_human.balanced_accuracy_ci95 --> |
-| rat → human, CORAL | 0.442 <!-- metrics.json: species_transfer.transfer.coral.rat_to_human.balanced_accuracy --> | [0.302, 0.591] <!-- metrics.json: species_transfer.transfer.coral.rat_to_human.balanced_accuracy_ci95 --> |
-| rat → human, per-species standardisation | 0.408 <!-- metrics.json: species_transfer.transfer.standardize.rat_to_human.balanced_accuracy --> | [0.267, 0.568] <!-- metrics.json: species_transfer.transfer.standardize.rat_to_human.balanced_accuracy_ci95 --> |
-
-Chance is 0.2 <!-- metrics.json: species_transfer.transfer.none.chance_balanced_accuracy -->.
+Rat-trained, tested on human: 0.55
+<!-- metrics.json: species_transfer.transfer.none.rat_to_human.balanced_accuracy --> without
+adaptation, against a chance level of 0.2
+<!-- metrics.json: species_transfer.transfer.none.chance_balanced_accuracy -->; the full table,
+with both adaptation methods, is in Appendix N.
 Transfer works above chance (permutation p = 0.0002
 <!-- metrics.json: species_transfer.transfer.none.rat_to_human.permutation_p -->), and **both
 adaptation methods made it worse**. With 37 training and 32 test records
@@ -457,10 +443,10 @@ reaches zero, so the ordering is better supported than the magnitude. The same h
 zero; only `network_burst_rate_per_min` has an interval that excludes it,
 [−9.7879, −0.3389]
 <!-- metrics.json: species_transfer.species_shift.by_feature.network_burst_rate_per_min.difference_ci95 -->.
-The ranking is by standardised difference, so "most invariant" does not mean small: `burst_rate_per_min`
-is named invariant while carrying a median difference of 1.04
+The ranking is by standardised difference, so "most invariant" does not mean small:
+`burst_rate_per_min` is named invariant while carrying a two-fold median shift of 1.04
 <!-- metrics.json: species_transfer.species_shift.by_feature.burst_rate_per_min.difference --> log2
-units, a two-fold shift whose interval also spans zero.
+units, whose interval also spans zero.
 
 The per-feature shift, with cluster-bootstrap intervals, is plotted in Appendix E.
 
@@ -471,6 +457,50 @@ Two rate features match all nine, and every subset's interval overlaps every oth
 by −0.05 <!-- metrics.json: uncertainty_and_ablations.leave_one_out.mfr_hz.delta_vs_all -->, while
 dropping `burst_rate_per_min` changes it by 0.0
 <!-- metrics.json: uncertainty_and_ablations.leave_one_out.burst_rate_per_min.delta_vs_all -->.
+
+### 6.6b A rate-only arm on a platform the classifier has never seen
+
+§6.6 finds two rate features scoring as well as all nine, but it varies the feature set on one
+source. `fofie2025` allows the sharper question: does a rate change carry mechanism on a different
+platform, preparation and cell type?
+
+It is the only source publishing **spike counts per well** rather than spike times — hiPSC-derived
+sensory neurons on Axion plates, a baseline and then readings after a compound — so the rate change
+is the only feature it can supply, which is exactly the feature under test. The recording duration
+is absent from the deposit and is not needed, because it cancels out of a log2 exposure/baseline
+ratio. 291 pairs <!-- metrics.json: rate_only_arm.n_pairs --> over 48 condition blocks
+<!-- metrics.json: rate_only_arm.n_groups -->, each well its own control. Appendix L has the parse,
+the argument that the duration cancels, and the per-class changes that show the sheets were read
+correctly — untreated wells move by −0.1743
+<!-- metrics.json: rate_only_arm.by_mechanism.control.median_log2_change --> log2 units against
+−1.9529 <!-- metrics.json: rate_only_arm.by_mechanism.na_channel_blocker.median_log2_change --> for
+sodium-channel blockers.
+
+**Within the source, one number beats chance and little more.** Predicting eight mechanism classes
+from the rate change alone, with blocks grouped across the split, gives a balanced accuracy of
+0.2972 <!-- metrics.json: rate_only_arm.within_source.balanced_accuracy -->, 95% CI
+[0.2264, 0.3887]
+<!-- metrics.json: rate_only_arm.within_source.balanced_accuracy_ci95 --> against a chance level of
+0.125 <!-- metrics.json: rate_only_arm.within_source.chance -->. Above chance, and nowhere near
+usable — which is the same shape as §6.1's answer on nine features and 73 pairs.
+
+**Across sources it survives, barely.** Fitted on Kapucu's *cortical* `delta.mfr_hz` and applied to
+Fofie's *sensory-neuron* rate change, on the three classes they share
+<!-- metrics.json: rate_only_arm.across_sources.shared_classes -->, it reaches 0.5012
+<!-- metrics.json: rate_only_arm.across_sources.balanced_accuracy --> on 156 test pairs
+<!-- metrics.json: rate_only_arm.across_sources.n_test_pairs --> in 30 blocks
+<!-- metrics.json: rate_only_arm.across_sources.n_test_groups -->, against a chance level of
+0.3333 <!-- metrics.json: rate_only_arm.across_sources.chance -->. The interval is
+[0.3464, 0.6157]
+<!-- metrics.json: rate_only_arm.across_sources.balanced_accuracy_ci95 -->, whose lower bound clears
+chance by 0.013. **That is a margin, not a result.** The honest statement is that a single rate
+change, trained on cortical cultures, is not shown to fail on sensory neurons and is not shown to
+work either.
+
+The two preparations share the *compound mechanism* and nothing else: a sodium-channel blocker
+silences a nociceptor for reasons that have little to do with how it changes a cortical network's
+bursting. Read this as the weakest form of portability — the direction of a rate change under a
+channel blocker survives a change of cell type, and almost nothing else was tested.
 
 ### 6.7 Compartment asymmetry in real devices
 
@@ -557,7 +587,7 @@ preparation contrast are both present in this slice and two groups would let the
 as species.
 three groups are shown separately because the species contrast and the preparation contrast are both
 present in this slice; two groups would let the whole gap be read as species. Burst rate is the one
-feature flat across all three.](../outputs/figures/baseline_species_comparison.png){width=58%}
+feature flat across all three.](../outputs/figures/baseline_species_comparison.png){width=51%}
 
 ---
 
@@ -621,7 +651,7 @@ fixed drive; whether pre-whitening reduces the drive dependence: false
 The confound is in the network — the pathway's own excitation raises the target's rate — not in the
 correlogram, which is why §7.6 residualises rate out rather than filtering it out.
 
-![SIMULATED: measured coupling asymmetry against the forward/backward wiring ratio, at three levels of drive to the receiving chamber. Drive moves the measure further than wiring does; the dashed pre-whitened control moves further still.](../outputs/twin/hd11_directionality_simulated.png){width=54%}
+![SIMULATED: measured coupling asymmetry against the forward/backward wiring ratio, at three levels of drive to the receiving chamber. Drive moves the measure further than wiring does; the dashed pre-whitened control moves further still.](../outputs/twin/hd11_directionality_simulated.png){width=48%}
 
 
 ### 7.3 Calibration
@@ -635,7 +665,7 @@ burst-structure and synchrony group that §6.5 and §6.6 independently identify 
 of the feature set across species. Three analyses agree about species; the platform contrast of §6.4
 disagrees, and that disagreement is itself the finding.
 
-![SIMULATED against REAL: calibrated baseline features of the twin compared with the real baseline band. Rate and burst-rate features land inside it; burst fraction and synchrony do not.](../outputs/twin/hd12_calibration_simulated.png){width=54%}
+![SIMULATED against REAL: calibrated baseline features of the twin compared with the real baseline band. Rate and burst-rate features land inside it; burst fraction and synchrony do not.](../outputs/twin/hd12_calibration_simulated.png){width=48%}
 
 **The missing mechanism is the right one and is nowhere near large enough.** A reviewer proposed the
 standard explanation: spike-frequency adaptation acts on each cell alone and cannot stop a burst the
@@ -769,7 +799,7 @@ asked to invert a measurement that does not contain the answer. That relocates t
 posterior to the feature layer, and makes §3.5's finding — that the feature layer is itself only
 partly reproducible — the more consequential of the two.
 
-![Inferred GABA-A scale for REAL bicuculline recordings, from a posterior trained on SIMULATIONS. There is no dose trend, and untreated chips already sit far below the neutral value of 1.](../outputs/twin/hd15_real_dose_response.png){width=50%}
+![Inferred GABA-A scale for REAL bicuculline recordings, from a posterior trained on SIMULATIONS. There is no dose trend, and untreated chips already sit far below the neutral value of 1.](../outputs/twin/hd15_real_dose_response.png){width=44%}
 
 
 ### 7.6 Directionality: what it takes to see asymmetry
@@ -830,7 +860,7 @@ configuration from 24 electrodes per compartment to 6.
 wiring regimes at 0.98 give a posterior contraction of only 0.311 for the continuous ratio (§7.5).
 Classifying is a far weaker demand than estimating.
 
-![SIMULATED, drive left alone: telling symmetric from asymmetric wiring, by recording length and electrode count. `all_rate_residualized` is the controlled comparison this section reports; `rate_only_rate_residualized` is the validity check it has to pass. The rate-matched arm, which does not pass it, is plotted separately in `outputs/twin/hd16_directionality_rate_matched_simulated.png` — split out because eight panels across one text block were unreadable at print size.](../outputs/twin/hd16_directionality_simulated.png){width=56%}
+![SIMULATED, drive left alone: telling symmetric from asymmetric wiring, by recording length and electrode count. `all_rate_residualized` is the controlled comparison this section reports; `rate_only_rate_residualized` is the validity check it has to pass. The rate-matched arm, which does not pass it, is plotted separately in `outputs/twin/hd16_directionality_rate_matched_simulated.png` — split out because eight panels across one text block were unreadable at print size.](../outputs/twin/hd16_directionality_simulated.png){width=49%}
 
 
 ### 7.7 The same question on real devices, and a null
@@ -849,29 +879,22 @@ deposit does not record how each device was seated, so |asymmetry| says how one-
 not which way it points. The per-chip scatter is in
 `outputs/figures/microchannel_asymmetry_real.png`; control spans almost the whole range on its own.
 
-**The unit decides the answer.** A chip recorded at DIV 12, 17 and 21 supplies three recordings and
-one device. Counting recordings, median |asymmetry| runs from 0.339
+**The unit decides the answer, and the statistic is confounded with sampling.** Counting recordings,
+median |asymmetry| runs from 0.339
 <!-- metrics.json: microchannel_directionality.per_recording_naive.by_condition.control.median_abs_asymmetry -->
 for control to 0.854
 <!-- metrics.json: microchannel_directionality.per_recording_naive.by_condition.rams.median_abs_asymmetry -->
-for rams, which looks like a geometry effect. Counting chips, it is 0.617
+for rams, which looks like a geometry effect; counting *chips*, since one supplies three recordings
+at three ages, it is 0.617
 <!-- metrics.json: microchannel_directionality.comparison.by_condition.control.median_abs_asymmetry -->
 against 0.875
-<!-- metrics.json: microchannel_directionality.comparison.by_condition.rams.median_abs_asymmetry -->,
-Kruskal p = 0.64 <!-- metrics.json: microchannel_directionality.comparison.kruskal_p -->, every
-Holm-adjusted comparison against control at 1.0
-<!-- metrics.json: microchannel_directionality.comparison.vs_reference_holm.rams -->. Both are in
-`metrics.json`, the per-recording one labelled as the wrong unit, because the gap between them is
-the result — the pseudo-replication of §7.5 a third time, on a different dataset.
-
-**Two reasons not to read the null as a measurement.** |asymmetry| is a ratio of counts, so a chip
-with few events looks one-sided by chance: across chips it correlates with event count at −0.494
-<!-- metrics.json: microchannel_directionality.event_count_confound.spearman_rho -->, and the
-better-sampled half leaves 13 chips
-<!-- metrics.json: microchannel_directionality.well_sampled_half.n_chips --> at p = 0.086
-<!-- metrics.json: microchannel_directionality.well_sampled_half.kruskal_p -->. And control chips
-sit in experiments 9–11 by the deposit's design, confounding condition with culture batch. None of
-this contradicts the deposit's own paper, whose authors had the electrode map.
+<!-- metrics.json: microchannel_directionality.comparison.by_condition.rams.median_abs_asymmetry -->
+at Kruskal p = 0.64 <!-- metrics.json: microchannel_directionality.comparison.kruskal_p -->. The gap
+between those two readings is the result — the pseudo-replication of §7.5 a third time. The
+statistic also tracks a chip's event count at −0.494
+<!-- metrics.json: microchannel_directionality.event_count_confound.spearman_rho -->, and control
+chips sit in experiments 9–11 by the deposit's design, confounding condition with culture batch.
+Appendix C carries both in full.
 
 The null survives the detector's own assumptions: run under both array orientations and again with one electrode allowed to miss, none of the four detectors separates the conditions (Appendix C).
 
@@ -1097,6 +1120,30 @@ Referenced from §7.1. The seven marked *calibrated* are exactly the calibration
 
 Referenced from §7.7.
 
+**The unit decides the answer.** A chip recorded at DIV 12, 17 and 21 supplies three recordings and
+one device. Counting recordings, median |asymmetry| runs from 0.339
+<!-- metrics.json: microchannel_directionality.per_recording_naive.by_condition.control.median_abs_asymmetry -->
+for control to 0.854
+<!-- metrics.json: microchannel_directionality.per_recording_naive.by_condition.rams.median_abs_asymmetry -->
+for rams, which looks like a geometry effect. Counting chips, it is 0.617
+<!-- metrics.json: microchannel_directionality.comparison.by_condition.control.median_abs_asymmetry -->
+against 0.875
+<!-- metrics.json: microchannel_directionality.comparison.by_condition.rams.median_abs_asymmetry -->,
+Kruskal p = 0.64 <!-- metrics.json: microchannel_directionality.comparison.kruskal_p -->, every
+Holm-adjusted comparison against control at 1.0
+<!-- metrics.json: microchannel_directionality.comparison.vs_reference_holm.rams -->. Both are in
+`metrics.json`, the per-recording one labelled as the wrong unit, because the gap between them is
+the result — the pseudo-replication of §7.5 a third time, on a different dataset.
+
+**Two reasons not to read the null as a measurement.** |asymmetry| is a ratio of counts, so a chip
+with few events looks one-sided by chance: across chips it correlates with event count at −0.494
+<!-- metrics.json: microchannel_directionality.event_count_confound.spearman_rho -->, and the
+better-sampled half leaves 13 chips
+<!-- metrics.json: microchannel_directionality.well_sampled_half.n_chips --> at p = 0.086
+<!-- metrics.json: microchannel_directionality.well_sampled_half.kruskal_p -->. And control chips
+sit in experiments 9–11 by the deposit's design, confounding condition with culture batch. None of
+this contradicts the deposit's own paper, whose authors had the electrode map.
+
 **The null is not an artefact of the geometry assumptions.** The detector assumes the channels run
 down the array's columns and that all five electrodes fired; the deposit settles neither. Under both
 orientations, and again with one electrode allowed to miss, none of the four detectors separates the
@@ -1279,3 +1326,44 @@ Referenced from §7.5.
 | `gabaa_scale` | 0.323 <!-- metrics.json: twin_hd14_inference.contraction.gabaa_scale.contraction --> | 0.1093 <!-- metrics.json: twin_hd14_inference.rank_uniformity_ks_p.gabaa_scale.ks_statistic --> |
 | `inter_in_degree` | 0.32 <!-- metrics.json: twin_hd14_inference.contraction.inter_in_degree.contraction --> | 0.1029 <!-- metrics.json: twin_hd14_inference.rank_uniformity_ks_p.inter_in_degree.ks_statistic --> |
 | `log10_forward_ratio` | 0.311 <!-- metrics.json: twin_hd14_inference.contraction.log10_forward_ratio.contraction --> | 0.0957 <!-- metrics.json: twin_hd14_inference.rank_uniformity_ks_p.log10_forward_ratio.ks_statistic --> |
+
+### Appendix L — The rate-only arm: parse and validation
+
+Referenced from §6.6b.
+
+It is the only source in this project that publishes **spike counts per well** rather than spike
+times — hiPSC-derived sensory neurons on Axion plates, a baseline and then several readings after a
+compound. That makes the rate change the only feature it can supply, which is exactly the feature
+under test. **The recording duration is not in the deposit and is not needed**: every model here
+consumes log2(exposure / baseline), and with both counts taken over equal-length recordings of one
+well the duration cancels out of the ratio. An absolute rate would need it and is not claimed.
+
+The parse yields 291 pairs
+<!-- metrics.json: rate_only_arm.n_pairs --> over 48 condition blocks
+<!-- metrics.json: rate_only_arm.n_groups -->, each well its own control; `gabaa_agonist_or_pam`
+<!-- metrics.json: rate_only_arm.dropped_single_block_classes --> occupies a single block and is
+dropped, since a split cannot hold it out. The check that the sheets were read correctly is
+biological rather than structural: untreated wells move by a median of −0.1743
+<!-- metrics.json: rate_only_arm.by_mechanism.control.median_log2_change --> log2 units while
+sodium-channel blockers move by −1.9529
+<!-- metrics.json: rate_only_arm.by_mechanism.na_channel_blocker.median_log2_change -->, a
+four-fold silencing. A misaligned column would not produce that.
+
+### Appendix M — Task 2 detection by dose
+
+Referenced from §6.2. The detection rate rises from 0.179 at 0.1 µM to 0.426 at 30 µM, which looks
+like a trend until the rank correlation over all doses is computed and comes back at 0.014; the
+per-dose counts are in `metrics.json` under
+`mechanism_baselines.task2_external_detection.screenneuropharm_bicuculline.by_dose`.
+
+### Appendix N — Species transfer, all settings
+
+Referenced from §6.3.
+
+| setting | balanced accuracy | 95% CI |
+|---|---|---|
+| human, within-species | 0.646 <!-- metrics.json: species_transfer.transfer.none.human_within.balanced_accuracy --> | — |
+| rat, within-species | 0.543 <!-- metrics.json: species_transfer.transfer.none.rat_within.balanced_accuracy --> | — |
+| rat → human, no adaptation | 0.55 <!-- metrics.json: species_transfer.transfer.none.rat_to_human.balanced_accuracy --> | [0.4, 0.6] <!-- metrics.json: species_transfer.transfer.none.rat_to_human.balanced_accuracy_ci95 --> |
+| rat → human, CORAL | 0.442 <!-- metrics.json: species_transfer.transfer.coral.rat_to_human.balanced_accuracy --> | [0.302, 0.591] <!-- metrics.json: species_transfer.transfer.coral.rat_to_human.balanced_accuracy_ci95 --> |
+| rat → human, per-species standardisation | 0.408 <!-- metrics.json: species_transfer.transfer.standardize.rat_to_human.balanced_accuracy --> | [0.267, 0.568] <!-- metrics.json: species_transfer.transfer.standardize.rat_to_human.balanced_accuracy_ci95 --> |

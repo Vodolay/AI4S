@@ -384,3 +384,41 @@ first half of that is now a solved kind of problem: the EPA logfile precedent is
 the value from the paper and record where it came from. The second half is not - counts
 support rate features only, so it cannot supply the nine-feature delta vector Task 1
 consumes. It could support a rate-only arm, which is a different claim.
+
+### `fofie2025` converted after all, as a rate-only arm (2026-09-25)
+
+The September decision to fetch this source and not convert it rested on two claims, one of
+which was wrong.
+
+- **"The dose units appear nowhere in the file" is false.** Four of the five data sheets label
+  conditions with the unit: `GABA [10 µM]`, `TTX (5 nM)`, `DNQX (50 µM)`, `Capsazepine (30 µM)`.
+  The one sheet that writes bare numbers, `Curves TTX-HWTX-Lidocaine`, is skipped rather than
+  read against the paper - a dose is a number and a unit, and half of one is not a dose. The
+  earlier note generalised from that sheet to the workbook.
+- **"Spike counts, so firing-rate features cannot be derived" is half right, and the useful
+  half is the other one.** An absolute rate needs the recording duration, which the deposit
+  does not publish. A rate *change* does not: every model here consumes
+  log2(exposure / baseline), and with both counts taken over equal-length recordings of the
+  same well the duration cancels out of the ratio. That is the whole of what makes this source
+  usable, and it is why its records would sit at `per_well_features` rather than `spike_times`.
+
+**What it yields.** 291 pairs over 48 condition blocks, eight mechanism classes, each well its
+own control - the strongest pairing in the asset, with no plate effect to model around.
+`gabaa_agonist_or_pam` occupies a single block and is dropped, because a grouped split cannot
+hold out a class that lives in one group.
+
+**What validated the parse.** Not that it produced rows, but that untreated wells move by a
+median of -0.17 log2 units while sodium-channel blockers move by -1.95. Three layouts had to be
+read - rows-as-wells, blocks-stacked-down-the-sheet, and derived %-change columns sitting beside
+the counts - and a misalignment in any of them would not produce that separation.
+
+**Two defects the first parse had, both caught by asserting on the biology rather than the row
+count.** Every `No Intervention` well was being dropped, because the condition name was reduced
+to its first word and `no` then matched nothing in the vehicle list. And the grouping key was
+the condition block, which in the rows-as-wells sheets holds several conditions at once - so
+126 of 133 groups spanned more than one compound, which would have leaked the label across the
+split. The group is now block *and* compound, and a test asserts no group spans two.
+
+**The scope limit, which is not small.** These are hiPSC-derived **sensory neurons**. What they
+share with the rest of the asset is the compound mechanism, not the preparation, the network or
+the readout. §6.6b says so wherever it quotes a number.

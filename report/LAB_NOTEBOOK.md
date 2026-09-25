@@ -1158,3 +1158,47 @@ Two leftover servers from the screenshot work were also still up, a Streamlit fo
 days and a headless Chrome for three and a half, holding 3.8 GB between them. Starting a server in a
 background shell and moving on leaves it running indefinitely; it needs an explicit stop in the same
 session that started it.
+
+## 2026-09-25 — A rate-only arm, and the value of the pickle deposit priced
+
+**`fofie2025`, converted after all.** The note that parked it in September said the dose units
+were absent from the workbook and that spike counts cannot give firing-rate features. The first
+was wrong - four of its five data sheets carry the unit, and only `Curves TTX-HWTX-Lidocaine`
+writes bare numbers, which is skipped. The second was half wrong in the useful direction: an
+absolute rate needs the recording duration, which is genuinely absent, but a rate *change* does
+not, because the duration cancels out of log2(exposure / baseline) when both counts come from
+equal-length recordings of one well. That single observation is what makes the source usable.
+
+291 pairs over 48 condition blocks, eight classes, each well its own control. Predicting
+mechanism from that one number reaches balanced accuracy 0.2972, CI [0.2264, 0.3887], against a
+chance level of 0.125 - above chance and nowhere near usable, the same shape as §6.1's answer on
+nine features.
+
+The arm worth having is the cross-source one. Fitted on Kapucu's *cortical* `delta.mfr_hz` and
+applied to Fofie's *sensory-neuron* rate change on the three classes they share, it reaches
+0.5012 against a chance level of 0.3333, interval [0.3464, 0.6157]. The lower bound clears chance
+by 0.013. That is a margin and not a result, and §6.6b says so in those words: one rate change
+trained on cortical cultures is neither shown to fail on sensory neurons nor shown to work.
+
+Two parse defects, both caught by asserting on biology rather than on row counts. Every
+`No Intervention` well was being dropped, because the condition name was reduced to its first
+word and `no` matched nothing in the vehicle list. And the grouping key was the condition block,
+which in the rows-as-wells sheets holds several conditions at once, so 126 of 133 groups spanned
+more than one compound - a label leak straight across the split. The check that found both was
+"do untreated wells sit near zero while channel blockers sit far below", which a structural test
+on shape would have passed.
+
+**A near-miss worth recording.** A script moving a block of §7.7 into an appendix computed its
+end boundary with `s.index(...)` on a string that had already been moved to that appendix in an
+earlier edit. The slice therefore spanned from §7.7 to the appendix and would have deleted
+several sections. The assert that the appendix anchor still existed after the edit caught it.
+Boundary-by-search is safe only when the search text is unique; when it is not, the guard has to
+be on the result, not the intent.
+
+**The pickle deposit, priced.** Zenodo 21283609 was read in full over range requests - all 37
+recordings, metadata by byte scan rather than `pickle.load`. 23 distinct slices; **4 carry both a
+baseline and gabazine**, one also carries 8 mM potassium. So it would add four pairs to Task 1's
+73, not the dozen the filename tags suggested. Its 11 untreated adult-human-cortex recordings are
+a genuinely new preparation for §6.8, whose human side is organoid and dissociated only. Weighed
+against introducing arbitrary-code deserialisation into the build, four pairs does not carry it;
+the untreated baselines might, and would not need the drug arm at all.

@@ -61,6 +61,7 @@ def main(argv: list[str] | None = None) -> int:
             from neuromps.models.extractor_agreement import main as run_extractor_agreement
             from neuromps.models.mechanism import main as run_models
             from neuromps.models.microchannels import main as run_microchannels
+            from neuromps.models.rate_only import main as run_rate_only
             from neuromps.models.transfer import main as run_transfer
             from neuromps.models.tunnels import main as run_tunnels
             from neuromps.report.architecture import main as draw_architecture
@@ -71,6 +72,8 @@ def main(argv: list[str] | None = None) -> int:
             run_extractor_agreement(quick)
             # Is the dose signal in the features the twin is given at all?
             run_dose_response(quick)
+            # How far one rate change carries, and whether it carries across.
+            run_rate_only(quick)
             run_models(quick)
             run_transfer(quick)
             run_uncertainty(quick)
