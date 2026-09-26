@@ -12,7 +12,7 @@ help:
 	@echo "make video         build outputs/video/neuromps_demo.mp4"
 	@echo "make quick         python run_all.py --quick"
 	@echo "make full          python run_all.py"
-	@echo "make explainers    build the two plain-language companion PDFs"
+	@echo "make explainers    build the plain-language companion PDFs"
 	@echo "make test / lint   pytest / ruff"
 
 report:
@@ -30,11 +30,11 @@ explainers:
 	       --title "Prediction models, explained" \
 	       --subtitle "A companion to the NeuroMPS technical report, for readers without a machine-learning background" \
 	  || echo "report/MODELLING_FOR_BIOLOGISTS.md not present; skipped"
-	@test -f report/DIGITAL_TWIN_FOR_BIOLOGISTS.md \
-	  && report/build_report.sh --source report/DIGITAL_TWIN_FOR_BIOLOGISTS.md \
-	       --title "The digital twin, explained" \
-	       --subtitle "A companion to the NeuroMPS technical report, for readers without a computational-modelling background" \
-	  || echo "report/DIGITAL_TWIN_FOR_BIOLOGISTS.md not present; skipped"
+	@test -f report/TECH_REPORT_FOR_BIOLOGISTS.md \
+	  && report/build_report.sh --source report/TECH_REPORT_FOR_BIOLOGISTS.md \
+	       --title "NeuroMPS, explained for the bench" \
+	       --subtitle "The technical report for reviewers with wet-lab rather than modelling expertise" \
+	  || echo "report/TECH_REPORT_FOR_BIOLOGISTS.md not present; skipped"
 	@test -f report/APP_WALKTHROUGH.md \
 	  && report/build_report.sh --source report/APP_WALKTHROUGH.md \
 	       --title "The demo app, a walkthrough" \

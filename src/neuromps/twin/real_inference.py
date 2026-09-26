@@ -228,6 +228,58 @@ def sensitivity_without_dimensions(
     return infer_parameters(posterior, patched, n_samples=n_samples)
 
 
+def sensitivity_or_reason(
+    posterior, x, simulated_x, dimensions, n_samples
+) -> tuple[list | None, dict | None]:
+    """The sensitivity re-inference, or a record of why it could not be run.
+
+    Neutralising the out-of-distribution dimensions moves the summaries somewhere
+    the posterior may put almost no mass inside the prior, and rejection sampling
+    then aborts. That is a result about the posterior, not a crash to propagate:
+    it says the conclusion *does* rest on those dimensions. The headline inference
+    has already succeeded by this point, so the run continues and records both.
+    """
+    try:
+        return sensitivity_without_dimensions(
+            posterior, x, simulated_x, dimensions, n_samples
+        ), None
+    except RuntimeError as error:  # sbi aborts rejection sampling on low acceptance
+        log.warning("sensitivity re-inference could not be sampled: %s", error)
+        return None, {
+            "status": "could not be sampled",
+            "reason": str(error)[:300],
+            "reads_as": (
+                "with the out-of-distribution dimensions neutralised the posterior puts too "
+                "little mass inside the prior to sample, which means the dose trend below "
+                "does rest on those dimensions rather than surviving without them"
+            ),
+        }
+
+
+def inference_caveat() -> str:
+    """The caveat for these medians, derived from HD14 rather than frozen in prose.
+
+    This sentence used to be hardcoded, and said "contraction 0.34 and no
+    parameter passing the rank-uniformity check" long after both had changed.
+    """
+    from neuromps.paths import for_reading, metrics_path
+
+    path = for_reading(metrics_path())
+    if not path.exists():
+        return "read these medians as directional evidence at best"
+    hd14 = json.loads(path.read_text()).get("twin_hd14_inference", {})
+    contraction = hd14.get("contraction", {}).get("gabaa_scale", {}).get("contraction")
+    ranks = hd14.get("rank_uniformity_ks_p", {})
+    passing = [n for n, d in ranks.items() if (d.get("ks_p") or 0) >= 0.05]
+    if contraction is None or not ranks:
+        return "read these medians as directional evidence at best"
+    return (
+        f"HD14 identifies gabaa_scale only weakly (contraction {contraction}) and it is not among "
+        f"the {len(passing)} of {len(ranks)} parameters passing the rank-uniformity "
+        "check, so these medians are directional evidence at best"
+    )
+
+
 def prior_acceptance(posterior, x: np.ndarray, n_draws: int = 2000) -> dict:
     """Share of raw posterior draws that land inside the prior box, per recording.
 
@@ -457,17 +509,16 @@ def main(argv: list[str] | None = None) -> int:
     resamples = 100 if args.quick else 1000
     trend = dose_trend(doses_um, gabaa, groups=devices, n_resamples=resamples)
     baseline = baseline_offset(gabaa, doses_um, groups=devices, n_resamples=resamples)
-    patched = sensitivity_without_dimensions(
-        posterior,
-        real_x,
-        cached["x"][inside],
-        suspect,
-        n_samples=60 if args.quick else 500,
+    patched, patched_failure = sensitivity_or_reason(
+        posterior, real_x, cached["x"][inside], suspect, 60 if args.quick else 500
     )
-    gabaa_patched = np.array([row["gabaa_scale"]["median"] for row in patched])
-    trend_patched = dose_trend(
-        doses_um, gabaa_patched, groups=devices, n_resamples=100 if args.quick else 1000
-    )
+    if patched is None:
+        trend_patched = patched_failure
+    else:
+        gabaa_patched = np.array([row["gabaa_scale"]["median"] for row in patched])
+        trend_patched = dose_trend(
+            doses_um, gabaa_patched, groups=devices, n_resamples=100 if args.quick else 1000
+        )
 
     results = {
         "label": "posterior trained on SIMULATIONS, applied to REAL recordings",
@@ -490,10 +541,7 @@ def main(argv: list[str] | None = None) -> int:
             }
             for i, (row, dose) in enumerate(zip(summaries.itertuples(), doses_um, strict=True))
         ],
-        "caveat": (
-            "HD14 found gabaa_scale only weakly identified (contraction 0.34) and no parameter "
-            "passing the rank-uniformity check, so these medians are directional evidence at best"
-        ),
+        "caveat": inference_caveat(),
     }
     (twin_dir() / "hd15_real_inference.json").write_text(json.dumps(results, indent=2) + "\n")
     plot_dose_response(

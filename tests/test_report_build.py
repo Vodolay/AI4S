@@ -302,3 +302,50 @@ def test_the_malformed_figure_check_catches_both_halves_of_a_split_caption() -> 
         )
         == []
     )
+
+
+@pytest.mark.skipif(shutil.which("pandoc") is None, reason="pandoc not installed")
+def test_a_long_front_matter_does_not_split_the_disclaimer(tmp_path: Path) -> None:
+    """The disclaimer is stripped whole, however long the opening paragraph is.
+
+    The strip used to be bounded to the first ten lines. A document whose opening
+    paragraph ran long put the disclaimer's first line inside that window and its
+    second line outside, so the built PDF opened with a sentence fragment -
+    visible to a reader, invisible to every check.
+    """
+    source = tmp_path / "long_front_matter.md"
+    filler = "\n".join(
+        f"Opening paragraph line {i}, which exists to run the header long." for i in range(1, 9)
+    )
+    source.write_text(
+        "# A title\n\n"
+        f"**Companion to something.** {filler}\n\n"
+        "> **Research decision-support only.** Nothing here is an efficacy or\n"
+        "> clinical claim, and nothing here should be used to make one.\n\n"
+        "## 1. A section\n\nBody text.\n"
+    )
+    output = tmp_path / "out.pdf"
+    result = subprocess.run(
+        [
+            str(SCRIPT),
+            "--source",
+            str(source),
+            "--output",
+            str(output),
+            "--title",
+            "A title",
+            "--subtitle",
+            "A subtitle",
+        ],
+        capture_output=True,
+        text=True,
+        cwd=REPO_ROOT,
+    )
+    assert result.returncode == 0, result.stderr
+    if shutil.which("pdftotext") is None:
+        return
+    text = subprocess.run(["pdftotext", str(output), "-"], capture_output=True, text=True).stdout
+    flat = " ".join(text.split())
+    assert "should be used to make one" not in flat, (
+        "the disclaimer's second line survived the strip and opens the document as a fragment"
+    )

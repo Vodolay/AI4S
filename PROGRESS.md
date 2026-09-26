@@ -1351,3 +1351,45 @@ in a scratchpad), so that text now claims only what the repository can regenerat
 **Next first task.** When the chain lands: read the citation checker's failures for §7.5 and fix
 them, then regenerate `DIGITAL_TWIN_FOR_BIOLOGISTS.md`. The author's four are unchanged - team
 tables, demo video link, make the repository public, submit the registration form.
+
+### Session close, same day: the chain landed and the documents were reconciled
+
+The downstream re-run at the calibrated density finished. `real_inference` failed the first time —
+sbi aborted rejection sampling on low acceptance in the *sensitivity* variant, after the headline
+inference had already succeeded — so that step now records why it could not be sampled instead of
+taking the stage down with it. On the re-run it sampled fine, which makes the original failure a
+non-deterministic timeout and the fallback worth having either way.
+
+**Closing the inference density gap paid off.** Silent simulations fell from a fifth to 0, and three
+of five parameters now pass the rank-uniformity check where none did. `gabaa_scale` still fails, and
+it is the parameter §7.5 and §7.7 depend on, so that is stated where it bites.
+
+**One conclusion changed, not just its numbers.** The paired estimator no longer recovers neutral:
+0.9108 on [0.8583, 0.966], against 0.5219 for the absolute one. The report had said "the offset goes
+away... contains the neutral value". It now says most of it goes and not all. The citation checker
+flagged the numbers; the word "recovers" it could not see, which is the blind spot again.
+
+**Two more frozen values found.** HD1.5's `caveat` was a hardcoded sentence still claiming
+"contraction 0.34 and no parameter passing" - now derived from the live metrics. Appendix K's table
+had drifted in every row and is now generated from them, with KS p-values and a pass/fail column.
+
+**A third document for reviewers.** `TECH_REPORT_FOR_BIOLOGISTS.md` (19 pages, 134 citations) covers
+the whole project for wet-lab reviewers: the data asset and the extractor-agreement measurement
+upfront, all results, and the negative results collected in one section. Schema mechanics and
+pipeline automation are in its appendices. `DIGITAL_TWIN_FOR_BIOLOGISTS.md` is **retired** - the new
+document covers the twin in its §13-§17, and the old one described a seven-parameter search that no
+longer exists. References in `MODELLING_FOR_BIOLOGISTS.md` were repointed before deleting it.
+
+**Two build-script bugs, both found by reading the output rather than the tests.** A document whose
+opening paragraph ran long had its disclaimer split by a fixed `1,10` strip window, so the PDF opened
+on a sentence fragment; the bound is now the first heading. And the text-layer check searched for a
+contiguous title, so any title long enough to wrap reported itself missing. Both have regression
+tests, and the first was verified to fail against the old rule.
+
+All nine documents now verify with 0 failing citations. The technical report is back inside the page
+gate at 20 pages of main matter, which needed a historical paragraph moved into an appendix.
+
+**Next first task.** Commit this work onto `twin-synchrony-calibration` and update
+[the open PR](https://github.com/Vodolay/AI4S/pull/1), whose description predates the whole
+downstream re-run. Then the author's four, unchanged: team tables, demo video link, make the
+repository public, submit the registration form.

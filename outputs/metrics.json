@@ -3686,36 +3686,37 @@
   "twin_hd14_inference": {
     "contraction": {
       "ampa_scale": {
-        "contraction": 0.443,
-        "posterior_sd": 0.1607,
+        "contraction": 0.599,
+        "posterior_sd": 0.1157,
         "prior_sd": 0.2887
       },
       "gabaa_scale": {
-        "contraction": 0.323,
-        "posterior_sd": 0.3714,
+        "contraction": 0.3,
+        "posterior_sd": 0.384,
         "prior_sd": 0.5485
       },
       "inter_in_degree": {
-        "contraction": 0.321,
-        "posterior_sd": 3.5286,
+        "contraction": 0.269,
+        "posterior_sd": 3.7987,
         "prior_sd": 5.1962
       },
       "log10_forward_ratio": {
-        "contraction": 0.311,
-        "posterior_sd": 0.2585,
+        "contraction": 0.438,
+        "posterior_sd": 0.2109,
         "prior_sd": 0.3753
       },
       "threshold_scale": {
-        "contraction": 0.8,
-        "posterior_sd": 0.0173,
+        "contraction": 0.661,
+        "posterior_sd": 0.0294,
         "prior_sd": 0.0866
       }
     },
-    "fraction_silent_simulations": 0.201,
+    "fraction_silent_simulations": 0.0,
     "label": "SIMULATED - inference trained on simulations only",
-    "n_holdout": 350,
-    "n_simulations": 3500,
-    "n_train": 3150,
+    "n_holdout": 300,
+    "n_per_compartment": 967,
+    "n_simulations": 3000,
+    "n_train": 2700,
     "posterior_samples": 200,
     "prior_bounds": {
       "ampa_scale": [
@@ -3741,29 +3742,29 @@
     },
     "rank_uniformity_ks_p": {
       "ampa_scale": {
-        "ks_p": 0.0092,
-        "ks_statistic": 0.0871,
-        "n_evaluated": 350
+        "ks_p": 0.3128,
+        "ks_statistic": 0.055,
+        "n_evaluated": 300
       },
       "gabaa_scale": {
-        "ks_p": 0.0004,
-        "ks_statistic": 0.1093,
-        "n_evaluated": 350
+        "ks_p": 0.0174,
+        "ks_statistic": 0.0883,
+        "n_evaluated": 300
       },
       "inter_in_degree": {
-        "ks_p": 0.0011,
-        "ks_statistic": 0.1029,
-        "n_evaluated": 350
+        "ks_p": 0.0121,
+        "ks_statistic": 0.0917,
+        "n_evaluated": 300
       },
       "log10_forward_ratio": {
-        "ks_p": 0.003,
-        "ks_statistic": 0.0957,
-        "n_evaluated": 350
+        "ks_p": 0.1517,
+        "ks_statistic": 0.065,
+        "n_evaluated": 300
       },
       "threshold_scale": {
-        "ks_p": 0.1956,
-        "ks_statistic": 0.0571,
-        "n_evaluated": 350
+        "ks_p": 0.6105,
+        "ks_statistic": 0.0433,
+        "n_evaluated": 300
       }
     },
     "seed": 0,
@@ -3790,143 +3791,143 @@
     ]
   },
   "twin_hd15_real_inference": {
-    "caveat": "HD14 found gabaa_scale only weakly identified (contraction 0.34) and no parameter passing the rank-uniformity check, so these medians are directional evidence at best",
+    "caveat": "HD14 identifies gabaa_scale only weakly (contraction 0.3) and it is not among the 3 of 5 parameters passing the rank-uniformity check, so these medians are directional evidence at best",
     "distribution_check": {
       "by_dimension": {
         "asymmetry": {
-          "fraction_inside": 1.0,
+          "fraction_inside": 0.991,
           "real_median": -0.012,
           "simulated_range": [
-            -1.0,
-            1.0
+            -0.439,
+            0.447
           ],
-          "simulated_support_in_real_iqr": 0.469
+          "simulated_support_in_real_iqr": 0.719
         },
         "c0_active_electrodes": {
-          "fraction_inside": 0.92,
+          "fraction_inside": 0.805,
           "real_median": 44.0,
           "simulated_range": [
-            0.0,
+            28.0,
             48.0
           ],
-          "simulated_support_in_real_iqr": 0.016
+          "simulated_support_in_real_iqr": 0.246
         },
         "c0_burst_rate_per_min": {
           "fraction_inside": 1.0,
           "real_median": 9.765,
           "simulated_range": [
             0.0,
-            89.001
+            78.39
           ],
-          "simulated_support_in_real_iqr": 0.048
+          "simulated_support_in_real_iqr": 0.037
         },
         "c0_isi_cv": {
           "fraction_inside": 1.0,
           "real_median": 3.761,
           "simulated_range": [
-            0.0,
-            13.357
+            0.412,
+            12.341
           ],
-          "simulated_support_in_real_iqr": 0.169
+          "simulated_support_in_real_iqr": 0.173
         },
         "c0_mfr_hz": {
           "fraction_inside": 1.0,
           "real_median": 9.581,
           "simulated_range": [
-            0.0,
-            63.495
+            0.6,
+            82.994
           ],
-          "simulated_support_in_real_iqr": 0.318
+          "simulated_support_in_real_iqr": 0.223
         },
         "c0_network_burst_rate_per_min": {
           "fraction_inside": 1.0,
           "real_median": 9.754,
           "simulated_range": [
             0.0,
-            144.0
+            84.0
           ],
-          "simulated_support_in_real_iqr": 0.076
+          "simulated_support_in_real_iqr": 0.049
         },
         "c0_pct_spikes_in_bursts": {
           "fraction_inside": 1.0,
           "real_median": 92.009,
           "simulated_range": [
             0.0,
-            100.0
+            99.862
           ],
-          "simulated_support_in_real_iqr": 0.146
+          "simulated_support_in_real_iqr": 0.145
         },
         "c0_synchrony_index": {
-          "fraction_inside": 0.991,
+          "fraction_inside": 0.982,
           "real_median": 0.749,
           "simulated_range": [
-            0.0,
-            1.0
+            0.001,
+            0.998
           ],
-          "simulated_support_in_real_iqr": 0.079
+          "simulated_support_in_real_iqr": 0.114
         },
         "c1_active_electrodes": {
-          "fraction_inside": 0.973,
+          "fraction_inside": 0.841,
           "real_median": 42.0,
           "simulated_range": [
-            0.0,
+            28.99,
             48.0
           ],
-          "simulated_support_in_real_iqr": 0.027
+          "simulated_support_in_real_iqr": 0.328
         },
         "c1_burst_rate_per_min": {
           "fraction_inside": 1.0,
           "real_median": 10.263,
           "simulated_range": [
             0.0,
-            102.501
+            82.754
           ],
-          "simulated_support_in_real_iqr": 0.048
+          "simulated_support_in_real_iqr": 0.042
         },
         "c1_isi_cv": {
           "fraction_inside": 1.0,
           "real_median": 3.776,
           "simulated_range": [
-            0.0,
-            15.144
+            0.428,
+            14.535
           ],
-          "simulated_support_in_real_iqr": 0.198
+          "simulated_support_in_real_iqr": 0.188
         },
         "c1_mfr_hz": {
-          "fraction_inside": 0.991,
+          "fraction_inside": 1.0,
           "real_median": 6.132,
           "simulated_range": [
-            0.0,
-            79.759
+            0.615,
+            120.118
           ],
-          "simulated_support_in_real_iqr": 0.223
+          "simulated_support_in_real_iqr": 0.126
         },
         "c1_network_burst_rate_per_min": {
           "fraction_inside": 1.0,
           "real_median": 9.879,
           "simulated_range": [
             0.0,
-            144.0
+            84.0
           ],
-          "simulated_support_in_real_iqr": 0.079
+          "simulated_support_in_real_iqr": 0.056
         },
         "c1_pct_spikes_in_bursts": {
           "fraction_inside": 1.0,
           "real_median": 88.112,
           "simulated_range": [
             0.0,
-            100.0
+            99.955
           ],
-          "simulated_support_in_real_iqr": 0.2
+          "simulated_support_in_real_iqr": 0.112
         },
         "c1_synchrony_index": {
-          "fraction_inside": 1.0,
+          "fraction_inside": 0.991,
           "real_median": 0.772,
           "simulated_range": [
-            0.0,
-            1.0
+            0.002,
+            0.999
           ],
-          "simulated_support_in_real_iqr": 0.056
+          "simulated_support_in_real_iqr": 0.075
         },
         "coupling_measured": {
           "fraction_inside": 1.0,
@@ -3935,55 +3936,54 @@
             0.0,
             1.0
           ],
-          "simulated_support_in_real_iqr": 0.659
+          "simulated_support_in_real_iqr": 0.723
         },
         "lag_ms": {
-          "fraction_inside": 0.991,
+          "fraction_inside": 0.912,
           "real_median": 0.0,
           "simulated_range": [
-            -80.0,
-            95.05
+            -20.0,
+            20.0
           ],
-          "simulated_support_in_real_iqr": 0.862
+          "simulated_support_in_real_iqr": 0.824
         },
         "log_rate_ratio": {
-          "fraction_inside": 1.0,
+          "fraction_inside": 0.584,
           "real_median": 0.263,
           "simulated_range": [
-            -6.659,
-            6.659
+            -1.261,
+            0.495
           ],
-          "simulated_support_in_real_iqr": 0.445
+          "simulated_support_in_real_iqr": 0.414
         },
         "peak_correlation": {
-          "fraction_inside": 0.973,
+          "fraction_inside": 0.92,
           "real_median": 0.89,
           "simulated_range": [
-            -0.002,
-            0.985
+            0.041,
+            0.998
           ],
-          "simulated_support_in_real_iqr": 0.218
+          "simulated_support_in_real_iqr": 0.307
         }
       },
-      "mean_fraction_inside": 0.992,
+      "mean_fraction_inside": 0.949,
       "n_real": 113,
       "outside_dimensions": [],
       "support_note": "unsupported_dimensions pass the range test but fewer than 5% of simulated draws land in the real interquartile range, so the posterior is still interpolating across a gap there",
       "unsupported_dimensions": [
         "c0_burst_rate_per_min",
-        "c0_active_electrodes",
-        "c1_burst_rate_per_min",
-        "c1_active_electrodes"
+        "c0_network_burst_rate_per_min",
+        "c1_burst_rate_per_min"
       ]
     },
     "expected": "a GABA-A antagonist should lower gabaa_scale, and lower it further with dose",
     "gabaa_scale_at_baseline": {
       "bootstrap_resamples": 1000,
       "includes_neutral": false,
-      "median": 0.3781,
+      "median": 0.5219,
       "median_ci95": [
-        0.3149,
-        0.4677
+        0.2732,
+        0.8503
       ],
       "n_devices": 16,
       "n_untreated": 16,
@@ -3991,43 +3991,42 @@
     },
     "gabaa_scale_dose_trend": {
       "bootstrap_resamples": 1000,
-      "direction": "rises with dose",
+      "direction": "falls with dose",
       "excludes_zero": false,
       "n_devices": 16,
       "n_recordings": 113,
-      "naive_p_value": 0.2118,
-      "spearman_rho": 0.118,
+      "naive_p_value": 0.2023,
+      "spearman_rho": -0.121,
       "spearman_rho_ci95": [
-        -0.168,
-        0.419
+        -0.3331,
+        0.1148
       ]
     },
     "gabaa_scale_dose_trend_without_ood_dimensions": {
       "bootstrap_resamples": 1000,
       "direction": "rises with dose",
-      "excludes_zero": true,
+      "excludes_zero": false,
       "n_devices": 16,
       "n_recordings": 113,
-      "naive_p_value": 0.0059,
-      "spearman_rho": 0.258,
+      "naive_p_value": 0.8576,
+      "spearman_rho": 0.017,
       "spearman_rho_ci95": [
-        0.0037,
-        0.5205
+        -0.2294,
+        0.2845
       ]
     },
     "label": "posterior trained on SIMULATIONS, applied to REAL recordings",
     "n_recordings": 113,
     "neutralised_dimensions": [
       "c0_burst_rate_per_min",
-      "c0_active_electrodes",
-      "c1_burst_rate_per_min",
-      "c1_active_electrodes"
+      "c0_network_burst_rate_per_min",
+      "c1_burst_rate_per_min"
     ],
     "prior_acceptance": {
-      "fraction_below_1_percent": 0.009,
-      "max_acceptance": 0.926,
-      "median_acceptance": 0.6085,
-      "min_acceptance": 0.0095,
+      "fraction_below_1_percent": 0.389,
+      "max_acceptance": 0.977,
+      "median_acceptance": 0.0345,
+      "min_acceptance": 0.0,
       "n_draws_per_recording": 2000,
       "note": "share of raw posterior draws inside the prior box; low values mean the posterior is extrapolating outside its training region for real inputs"
     },
@@ -6962,12 +6961,12 @@
     "drug_parameter": "gabaa_scale",
     "duration_s": 10.0,
     "held_out_checks": {
-      "contraction": 0.3894,
-      "median_bias": -0.0164,
+      "contraction": 0.5375,
+      "median_bias": -0.0251,
       "n_checked": 300,
       "note": "contraction and rank uniformity, as \u00a77.5 reports them for the absolute posterior",
       "rank_uniform": false,
-      "rank_uniformity_ks_p": 0.0056
+      "rank_uniformity_ks_p": 0.0037
     },
     "label": "posterior trained on PAIRED SIMULATIONS, applied to REAL recordings",
     "n_pairs_held_out": 300,
@@ -6976,11 +6975,11 @@
     "real_data": {
       "gabaa_scale_at_baseline": {
         "bootstrap_resamples": 1000,
-        "includes_neutral": true,
-        "median": 1.0289,
+        "includes_neutral": false,
+        "median": 0.9108,
         "median_ci95": [
-          0.9847,
-          1.056
+          0.8583,
+          0.966
         ],
         "n_untreated": 16,
         "neutral_value": 1.0
@@ -6991,11 +6990,11 @@
         "expected_direction": "falls with dose (a GABA-A antagonist lowers the knob)",
         "n_devices": 16,
         "n_recordings": 97,
-        "naive_p_value": 0.7516,
-        "spearman_rho": -0.0326,
+        "naive_p_value": 0.7309,
+        "spearman_rho": -0.0354,
         "spearman_rho_ci95": [
-          -0.1497,
-          0.131
+          -0.1799,
+          0.0627
         ]
       },
       "n_devices": 16,

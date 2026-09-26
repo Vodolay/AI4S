@@ -8,32 +8,32 @@
   "seed": 0,
   "held_out_checks": {
     "n_checked": 300,
-    "contraction": 0.3894,
-    "rank_uniformity_ks_p": 0.0056,
+    "contraction": 0.5375,
+    "rank_uniformity_ks_p": 0.0037,
     "rank_uniform": false,
-    "median_bias": -0.0164,
+    "median_bias": -0.0251,
     "note": "contraction and rank uniformity, as \u00a77.5 reports them for the absolute posterior"
   },
   "real_data": {
     "n_recordings": 113,
     "n_devices": 16,
     "gabaa_scale_at_baseline": {
-      "median": 1.0289,
+      "median": 0.9108,
       "median_ci95": [
-        0.9847,
-        1.056
+        0.8583,
+        0.966
       ],
       "n_untreated": 16,
       "neutral_value": 1.0,
-      "includes_neutral": true,
+      "includes_neutral": false,
       "bootstrap_resamples": 1000
     },
     "gabaa_scale_dose_trend": {
-      "spearman_rho": -0.0326,
-      "naive_p_value": 0.7516,
+      "spearman_rho": -0.0354,
+      "naive_p_value": 0.7309,
       "spearman_rho_ci95": [
-        -0.1497,
-        0.131
+        -0.1799,
+        0.0627
       ],
       "excludes_zero": false,
       "expected_direction": "falls with dose (a GABA-A antagonist lowers the knob)",

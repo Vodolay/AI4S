@@ -62,10 +62,11 @@ The results that matter are as much negative as positive, and the report leads w
    <!-- metrics.json: axonal_directionality.headline.sign_agreement.fraction --> of 31 chamber
    pairs — chance — and no combination of the four chamber readouts does better (§7.7).
 4. **Neither the twin's posterior nor the features recover bicuculline dose from a real chip.**
-   Untreated chips infer a GABA-A scale of 0.3781
+   Untreated chips infer a GABA-A scale of 0.5219
    <!-- metrics.json: twin_hd15_real_inference.gabaa_scale_at_baseline.median --> where neutral is
-   1.0; an estimator trained on the *change* against each chip's own baseline recovers neutral,
-   1.0289 <!-- metrics.json: twin_hd17_delta_inference.real_data.gabaa_scale_at_baseline.median -->,
+   1.0; an estimator trained on the *change* against each chip's own baseline closes most of that
+   gap but not all of it, 0.9108
+   <!-- metrics.json: twin_hd17_delta_inference.real_data.gabaa_scale_at_baseline.median -->,
    and still finds no trend. **No feature moves monotonically with dose** across the same 113
    recordings <!-- metrics.json: feature_dose_response.n_recordings -->, so the twin was being asked
    to invert a measurement that does not contain the answer (§7.5).
@@ -730,19 +731,22 @@ Per-feature agreement is plotted in Appendix E.
 
 ### 7.5 Simulation-based inference, and what it cannot do
 
-A neural posterior estimator was trained on 3,500 simulations
-<!-- metrics.json: twin_hd14_inference.n_simulations -->.
+A neural posterior estimator was trained on 3,000 simulations
+<!-- metrics.json: twin_hd14_inference.n_simulations -->, at the twin's calibrated cell density.
 
-Per-parameter contraction and rank statistics are in Appendix K. Only excitability is well identified, and only `threshold_scale` passes a rank-uniformity check
-(p = 0.1956 <!-- metrics.json: twin_hd14_inference.rank_uniformity_ks_p.threshold_scale.ks_p -->;
-every other parameter is below 0.01). **Posterior intervals from this estimator should not be quoted
-as calibrated.**
+Per-parameter contraction and rank statistics are in Appendix K. Three of the five parameters now
+pass a rank-uniformity check, `threshold_scale` best at p = 0.6105
+<!-- metrics.json: twin_hd14_inference.rank_uniformity_ks_p.threshold_scale.ks_p -->. `gabaa_scale` does not, at
+0.0174 <!-- metrics.json: twin_hd14_inference.rank_uniformity_ks_p.gabaa_scale.ks_p -->, and it is the parameter
+§7.5 and §7.7 depend on. **Intervals on the inhibitory knob should not be quoted as calibrated.**
+On the sparser network used before, none passed and a fifth of simulations fell silent, against 0
+<!-- metrics.json: twin_hd14_inference.fraction_silent_simulations --> now: matching the inference network to the
+calibrated density is what moved it.
 
-That statement is weaker than it looks: before training was seeded, rerunning identical code on the
-identical cache moved this p-value between 0.46 and 0.0092, which is the honest measure of how much
-weight one rank-uniformity p-value carries. Contraction was stable across the same runs, and a
-learning curve showed connectivity contraction still rising with training-set size but only
-slightly — more simulations alone will not fix it.
+One such p-value carries little weight on its own: before training was seeded, rerunning identical
+code on the identical cache moved it between 0.46 and 0.0092. Contraction was stable across those
+runs, and a learning curve showed connectivity contraction still rising with training-set size but
+only slightly — more simulations alone will not fix it.
 
 The rank histograms are in Appendix E.
 
@@ -752,24 +756,20 @@ The rank histograms are in Appendix E.
 summary values inside the simulated range
 <!-- metrics.json: twin_hd15_real_inference.distribution_check.mean_fraction_inside -->:
 
-- The inferred GABA-A scale shows **no dose trend**: Spearman 0.118
+- The inferred GABA-A scale shows **no dose trend**: Spearman −0.121
   <!-- metrics.json: twin_hd15_real_inference.gabaa_scale_dose_trend.spearman_rho -->,
-  95% CI [−0.168, 0.419]
+  95% CI [−0.3331, 0.1148]
   <!-- metrics.json: twin_hd15_real_inference.gabaa_scale_dose_trend.spearman_rho_ci95 -->,
   clustered over devices.
-- **Untreated recordings already infer 0.3781**
+- **Untreated recordings already infer 0.5219**
   <!-- metrics.json: twin_hd15_real_inference.gabaa_scale_at_baseline.median -->,
-  CI [0.3149, 0.4677]
+  CI [0.2732, 0.8503]
   <!-- metrics.json: twin_hd15_real_inference.gabaa_scale_at_baseline.median_ci95 -->, excluding the
   neutral value of 1.0. The knob is absorbing general model mismatch.
 - Four summary dimensions
   <!-- metrics.json: twin_hd15_real_inference.distribution_check.unsupported_dimensions --> pass a
   range check but have almost no simulated draws where the real values sit: range containment is not
   density containment.
-
-An earlier version of this analysis produced an apparent dose trend (ρ = −0.197, p = 0.036). It was
-an artefact of pseudo-replication — 113 recordings from 16 devices treated as independent — and of
-posterior extrapolation on out-of-distribution dimensions. Both are now checks in code.
 
 **Inferring the change instead of the state fixes the offset and not the trend.** Absolute features
 give the estimator no way to tell "this culture is unlike the simulator" from "this culture had a
@@ -780,24 +780,25 @@ same preparation's own baseline. A second estimator was trained on exactly that,
 recorded twice, same connectivity and thresholds under fresh noise, neutral knob then a prior draw.
 Each of the 16 real devices supplies its own untreated recording as the baseline.
 
-The offset goes away. Untreated recordings now infer 1.0289
+Most of the offset goes away, and not all of it. Untreated recordings now infer 0.9108
 <!-- metrics.json: twin_hd17_delta_inference.real_data.gabaa_scale_at_baseline.median -->, 95% CI
-[0.9847, 1.056]
+[0.8583, 0.966]
 <!-- metrics.json: twin_hd17_delta_inference.real_data.gabaa_scale_at_baseline.median_ci95 -->,
-which contains the neutral value where the absolute version's interval excluded it, and contraction
-rises from 0.323 to 0.3894
+— much nearer neutral than the absolute estimator's 0.5219, on an interval that still stops short of
+1.0. Contraction rises from 0.3
+<!-- metrics.json: twin_hd14_inference.contraction.gabaa_scale.contraction --> to 0.5375
 <!-- metrics.json: twin_hd17_delta_inference.held_out_checks.contraction -->. The dose trend does
-not appear: ρ = −0.0326
+not appear: ρ = −0.0354
 <!-- metrics.json: twin_hd17_delta_inference.real_data.gabaa_scale_dose_trend.spearman_rho -->, 95%
-CI [−0.1497, 0.131]
+CI [−0.1799, 0.0627]
 <!-- metrics.json: twin_hd17_delta_inference.real_data.gabaa_scale_dose_trend.spearman_rho_ci95 -->,
 now at least pointing the way a GABA-A antagonist should rather than the opposite. The held-out rank
-check still fails (KS p = 0.0056
+check still fails (KS p = 0.0037
 <!-- metrics.json: twin_hd17_delta_inference.held_out_checks.rank_uniformity_ks_p -->), so these
-intervals are no more calibrated than §7.5's.
+intervals are not calibrated either.
 
-That is a useful negative: removing a real defect recovered the neutral value almost exactly, which
-says the pairing works as intended, and the dose response still did not come back. Whatever stops
+That is a useful negative: removing a real defect moved the baseline most of the way back to neutral,
+which says the pairing works largely as intended, and the dose response still did not come back. Whatever stops
 the twin reading bicuculline off a real chip is not that the cultures differ from each other.
 
 **The dose signal is not in the features either, which moves the blame off the inverse model.** Both
@@ -1360,13 +1361,21 @@ Referenced from §9.
 
 Referenced from §7.5.
 
-| parameter | posterior contraction | KS statistic |
-|------------------------|-----------------------|--------------|
-| `threshold_scale` | 0.8 <!-- metrics.json: twin_hd14_inference.contraction.threshold_scale.contraction --> | 0.0571 <!-- metrics.json: twin_hd14_inference.rank_uniformity_ks_p.threshold_scale.ks_statistic --> |
-| `ampa_scale` | 0.443 <!-- metrics.json: twin_hd14_inference.contraction.ampa_scale.contraction --> | 0.0871 <!-- metrics.json: twin_hd14_inference.rank_uniformity_ks_p.ampa_scale.ks_statistic --> |
-| `gabaa_scale` | 0.323 <!-- metrics.json: twin_hd14_inference.contraction.gabaa_scale.contraction --> | 0.1093 <!-- metrics.json: twin_hd14_inference.rank_uniformity_ks_p.gabaa_scale.ks_statistic --> |
-| `inter_in_degree` | 0.32 <!-- metrics.json: twin_hd14_inference.contraction.inter_in_degree.contraction --> | 0.1029 <!-- metrics.json: twin_hd14_inference.rank_uniformity_ks_p.inter_in_degree.ks_statistic --> |
-| `log10_forward_ratio` | 0.311 <!-- metrics.json: twin_hd14_inference.contraction.log10_forward_ratio.contraction --> | 0.0957 <!-- metrics.json: twin_hd14_inference.rank_uniformity_ks_p.log10_forward_ratio.ks_statistic --> |
+| parameter | posterior contraction | KS statistic | KS p | rank uniformity |
+|---|---|---|---|---|
+| `threshold_scale` | 0.661 <!-- metrics.json: twin_hd14_inference.contraction.threshold_scale.contraction --> | 0.0433 <!-- metrics.json: twin_hd14_inference.rank_uniformity_ks_p.threshold_scale.ks_statistic --> | 0.6105 <!-- metrics.json: twin_hd14_inference.rank_uniformity_ks_p.threshold_scale.ks_p --> | passes |
+| `ampa_scale` | 0.599 <!-- metrics.json: twin_hd14_inference.contraction.ampa_scale.contraction --> | 0.055 <!-- metrics.json: twin_hd14_inference.rank_uniformity_ks_p.ampa_scale.ks_statistic --> | 0.3128 <!-- metrics.json: twin_hd14_inference.rank_uniformity_ks_p.ampa_scale.ks_p --> | passes |
+| `log10_forward_ratio` | 0.438 <!-- metrics.json: twin_hd14_inference.contraction.log10_forward_ratio.contraction --> | 0.065 <!-- metrics.json: twin_hd14_inference.rank_uniformity_ks_p.log10_forward_ratio.ks_statistic --> | 0.1517 <!-- metrics.json: twin_hd14_inference.rank_uniformity_ks_p.log10_forward_ratio.ks_p --> | passes |
+| `gabaa_scale` | 0.3 <!-- metrics.json: twin_hd14_inference.contraction.gabaa_scale.contraction --> | 0.0883 <!-- metrics.json: twin_hd14_inference.rank_uniformity_ks_p.gabaa_scale.ks_statistic --> | 0.0174 <!-- metrics.json: twin_hd14_inference.rank_uniformity_ks_p.gabaa_scale.ks_p --> | **fails** |
+| `inter_in_degree` | 0.269 <!-- metrics.json: twin_hd14_inference.contraction.inter_in_degree.contraction --> | 0.0917 <!-- metrics.json: twin_hd14_inference.rank_uniformity_ks_p.inter_in_degree.ks_statistic --> | 0.0121 <!-- metrics.json: twin_hd14_inference.rank_uniformity_ks_p.inter_in_degree.ks_p --> | **fails** |
+
+Ordered by whether the rank check passes. Three of five do, which is a change: under the
+sparser inference network used before the calibration was corrected, none did.
+
+**A dose trend this analysis used to report.** An earlier version produced an apparent trend
+(ρ = −0.197, p = 0.036). It was an artefact of pseudo-replication — 113 recordings from 16 devices
+treated as independent — and of posterior extrapolation on out-of-distribution dimensions. Both are
+now checks in code, which is why the trend does not appear above.
 
 ### Appendix L — The rate-only arm: parse and validation
 

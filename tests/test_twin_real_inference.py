@@ -295,3 +295,36 @@ def test_the_real_comparison_refuses_a_cache_from_a_superseded_twin() -> None:
 
     source = inspect.getsource(real_inference.main)
     assert "check_cache_matches_code(cached)" in source
+
+
+def test_a_sensitivity_check_that_cannot_be_sampled_is_recorded_not_raised() -> None:
+    """Low acceptance here is a result about the posterior, not a crash to propagate.
+
+    The headline inference has already succeeded by this point. Neutralising the
+    out-of-distribution dimensions can move the summaries somewhere the posterior
+    puts almost no mass inside the prior, and sbi then aborts rejection sampling.
+    That says the dose trend rests on those dimensions - worth recording.
+    """
+    import numpy as np
+
+    from neuromps.twin.real_inference import sensitivity_or_reason
+
+    class _Refuses:
+        def sample(self, *a, **k):
+            raise RuntimeError("rejection sampling exceeded max_sampling_time")
+
+    result, reason = sensitivity_or_reason(
+        _Refuses(), np.zeros((2, 3)), np.zeros((2, 3)), [], n_samples=5
+    )
+    assert result is None
+    assert reason["status"] == "could not be sampled"
+    assert "rest on those dimensions" in reason["reads_as"]
+
+
+def test_the_caveat_is_derived_from_the_metrics_rather_than_frozen_in_prose() -> None:
+    """It was hardcoded, and said "no parameter passing" long after three did."""
+    from neuromps.twin.real_inference import inference_caveat
+
+    text = inference_caveat()
+    assert "directional evidence at best" in text
+    assert "0.34" not in text, "the frozen value is back"
