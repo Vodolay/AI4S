@@ -744,9 +744,7 @@ On the sparser network used before, none passed and a fifth of simulations fell 
 calibrated density is what moved it.
 
 One such p-value carries little weight on its own: before training was seeded, rerunning identical
-code on the identical cache moved it between 0.46 and 0.0092. Contraction was stable across those
-runs, and a learning curve showed connectivity contraction still rising with training-set size but
-only slightly — more simulations alone will not fix it.
+code on the identical cache moved it between 0.46 and 0.0092.
 
 The rank histograms are in Appendix E.
 
@@ -770,6 +768,14 @@ summary values inside the simulated range
   <!-- metrics.json: twin_hd15_real_inference.distribution_check.unsupported_dimensions --> pass a
   range check but have almost no simulated draws where the real values sit: range containment is not
   density containment.
+- **9 recordings <!-- metrics.json: demo_precompute.posterior_draws.n_short_of_requested --> of 113
+  <!-- metrics.json: demo_precompute.posterior_draws.n_recordings --> could not be sampled properly at all**: rejection
+  sampling timed out before drawing the 200 <!-- metrics.json: demo_precompute.posterior_draws.requested --> asked for, the
+  worst yielding 1 <!-- metrics.json: demo_precompute.posterior_draws.fewest_draws --> draw; 0
+  <!-- metrics.json: demo_precompute.posterior_draws.n_unsampled --> failed outright. Same misspecification as the acceptance
+  rate above, as a failure rather than a small number, and new: it does not occur at the smaller
+  network earlier versions inferred on. Appendix K says why a better simulator causes it.
+
 
 **Inferring the change instead of the state fixes the offset and not the trend.** Absolute features
 give the estimator no way to tell "this culture is unlike the simulator" from "this culture had a
@@ -1376,6 +1382,20 @@ sparser inference network used before the calibration was corrected, none did.
 (ρ = −0.197, p = 0.036). It was an artefact of pseudo-replication — 113 recordings from 16 devices
 treated as independent — and of posterior extrapolation on out-of-distribution dimensions. Both are
 now checks in code, which is why the trend does not appear above.
+
+Contraction is steadier than the rank p-values across reruns, and a learning curve shows
+connectivity contraction still rising with training-set size but only slightly: more simulations
+alone will not fix it.
+
+**Why a better simulator made the inverse harder to apply.** §7.3 moved the twin to a cell density
+at which its baselines sit inside the real band, and the sampling failures noted in §7.5 appeared
+at the same time. The two go together. A posterior trained on a sharper simulator is a less
+forgiving one: an observation it cannot produce falls further outside what it will accept, so
+misspecification that used to show up as a low acceptance rate shows up instead as rejection
+sampling giving up. The remedy sbi suggests — sampling without rejecting outside the prior — would
+remove every one of these failures and return draws from outside the support the estimator was
+trained on. They would plot cleanly and carry less meaning than the failure does, so they are not
+taken.
 
 ### Appendix L — The rate-only arm: parse and validation
 

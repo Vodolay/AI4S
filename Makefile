@@ -1,6 +1,6 @@
 # Convenience targets. The build steps themselves live in run_all.py and
 # report/build_report.sh so that CI and a developer run exactly the same thing.
-.PHONY: help report report-check explainers video test lint quick full clean-report
+.PHONY: help report report-check explainers notebook video test lint quick full clean-report
 
 PYTHON ?= .venv/bin/python
 PAGES_MIN ?= 15
@@ -13,6 +13,7 @@ help:
 	@echo "make quick         python run_all.py --quick"
 	@echo "make full          python run_all.py"
 	@echo "make explainers    build the plain-language companion PDFs"
+	@echo "make notebook      write the Kaggle notebook and stage its dataset"
 	@echo "make test / lint   pytest / ruff"
 
 report:
@@ -24,6 +25,9 @@ report-check:
 # The two plain-language companions. Gitignored, so this target does nothing on a
 # clone that does not have them; it is here so the invocation does not have to be
 # remembered.
+notebook:
+	$(PYTHON) -m neuromps.demo.notebook --dataset-dir outputs/demo/kaggle_dataset
+
 explainers:
 	@test -f report/MODELLING_FOR_BIOLOGISTS.md \
 	  && report/build_report.sh --source report/MODELLING_FOR_BIOLOGISTS.md \

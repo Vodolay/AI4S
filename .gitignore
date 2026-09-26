@@ -34,3 +34,6 @@ report/TECH_REPORT_FOR_BIOLOGISTS.md
 report/MODELLING_FOR_BIOLOGISTS.pdf
 report/APP_WALKTHROUGH.pdf
 report/TECH_REPORT_FOR_BIOLOGISTS.pdf
+
+# Staged copy of files the Kaggle notebook needs; rebuilt by `make notebook`.
+outputs/demo/kaggle_dataset/

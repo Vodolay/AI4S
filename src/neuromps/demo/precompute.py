@@ -96,6 +96,14 @@ def theta_of(point: dict) -> np.ndarray:
     )
 
 
+def calibrated_n_per_compartment(default: int = 250) -> int:
+    """Neurons per compartment from the calibration, or `default` if none is on disk."""
+    from neuromps.twin.calibrate import calibrated_params
+
+    value = calibrated_params().get("n_per_compartment")
+    return int(value) if value else default
+
+
 def simulate_point(point: dict, duration_s: float, seed: int, n_per_compartment: int) -> dict:
     """One simulation, returning what the app needs: features, summary and a raster."""
     theta = theta_of(point)
@@ -200,6 +208,62 @@ def sample_posterior(posterior, x: np.ndarray, n_samples: int, max_seconds: floa
     return samples.detach().numpy() if hasattr(samples, "detach") else np.asarray(samples)
 
 
+def posterior_draw_summary(real: dict, requested: int) -> dict:
+    """How many real recordings the posterior could not fully sample, and how badly."""
+    records = real.get("records")
+    if records is None or "n_posterior_draws" not in getattr(records, "columns", []):
+        return {"requested": requested, "n_recordings": 0}
+    counts = np.asarray(records["n_posterior_draws"], dtype=int)
+    return {
+        "requested": int(requested),
+        "n_recordings": int(counts.size),
+        "n_short_of_requested": int((counts < requested).sum()),
+        "n_unsampled": int((counts == 0).sum()),
+        "fewest_draws": int(counts.min()) if counts.size else 0,
+        "median_draws": int(np.median(counts)) if counts.size else 0,
+        "reads_as": (
+            "rejection sampling could not place enough mass inside the prior for these "
+            "recordings; missing draws are NaN rather than dropped"
+        ),
+    }
+
+
+def draw_or_empty(posterior, x: np.ndarray, n_samples: int) -> np.ndarray:
+    """Posterior draws for one observation, or none if it cannot be sampled.
+
+    `sample_posterior` asks for partial results on a timeout, but sbi *raises*
+    instead when acceptance is so low that nothing is accepted at all. One
+    recording the posterior finds impossible should not destroy the whole demo
+    build, and the fact that it could not be sampled is itself the finding - it
+    is the misspecification HD15 reports as prior acceptance, showing up as a
+    hard failure rather than a small number.
+    """
+    try:
+        return sample_posterior(posterior, x, n_samples)
+    except RuntimeError as error:  # sbi aborts rejection sampling on low acceptance
+        log.warning("a recording could not be sampled at all: %s", str(error)[:120])
+        return np.empty((0, len(PARAMETER_NAMES)))
+
+
+def pad_ragged_samples(drawn: list, n_samples: int) -> tuple[np.ndarray, np.ndarray]:
+    """Stack per-recording posterior draws that may be short, and say how short.
+
+    `sample_posterior` asks for partial results on timeout, so a recording the
+    posterior finds unlikely comes back with fewer draws than requested. Stacking
+    those directly raises, which is how the whole demo stage failed once the twin
+    moved to its calibrated density. Padding with NaN keeps the array rectangular
+    and keeps the shortfall visible; truncating everything to the shortest would
+    hide it and quietly discard good draws from the other recordings.
+    """
+    width = len(PARAMETER_NAMES)
+    counts = np.array([len(np.atleast_2d(d)) for d in drawn], dtype=int)
+    out = np.full((len(drawn), n_samples, width), np.nan)
+    for i, block in enumerate(drawn):
+        block = np.atleast_2d(np.asarray(block, dtype=float))
+        out[i, : len(block)] = block[:n_samples]
+    return out, counts
+
+
 def save_run(path: Path, entry: dict, samples: np.ndarray) -> None:
     """One grid point: parameters, summary, features, raster and posterior samples."""
     np.savez_compressed(
@@ -273,8 +337,29 @@ def real_posteriors(posterior, quick: bool, n_samples: int) -> dict:
             "samples": np.empty((0, n_samples, len(PARAMETER_NAMES))),
             "records": summaries.drop(columns=list(SUMMARY_NAMES)),
         }
-    samples = np.stack([sample_posterior(posterior, row, n_samples) for row in x])
-    return {"samples": samples, "records": summaries.drop(columns=list(SUMMARY_NAMES))}
+    drawn = [draw_or_empty(posterior, row, n_samples) for row in x]
+    samples, counts = pad_ragged_samples(drawn, n_samples)
+    unsampled = int((counts == 0).sum())
+    if unsampled:
+        log.warning(
+            "%d of %d recordings could not be sampled at all; they carry no posterior in the demo",
+            unsampled,
+            len(counts),
+        )
+    short = int((counts < n_samples).sum())
+    if short:
+        log.warning(
+            "%d of %d recordings returned fewer than %d posterior draws (fewest %d): rejection "
+            "sampling timed out, which is the low-acceptance signal HD15 reports as prior "
+            "acceptance. The missing draws are NaN, not silently dropped.",
+            short,
+            len(counts),
+            n_samples,
+            int(counts.min()),
+        )
+    records = summaries.drop(columns=list(SUMMARY_NAMES)).copy()
+    records["n_posterior_draws"] = counts
+    return {"samples": samples, "records": records}
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -300,7 +385,12 @@ def main(argv: list[str] | None = None) -> int:
     axes = grid_axes(args.quick)
     points = grid_points(axes)
     duration_s = 5.0 if args.quick else 10.0
-    n_per_compartment = 80 if args.quick else 150
+    # The full tier follows the calibration, so the demo shows the twin at the
+    # density 7.3 reports rather than the smaller network it used to hardcode -
+    # cell density is what sets the twin's synchrony regime, so a cheaper network
+    # is a different model, not a cheaper view of the same one. `--quick` keeps an
+    # explicit small network, because that tier exists to prove the path runs.
+    n_per_compartment = 80 if args.quick else calibrated_n_per_compartment()
     n_grid_samples = 40 if args.quick else 200
     n_real_samples = 40 if args.quick else 200
 
@@ -349,6 +439,12 @@ def main(argv: list[str] | None = None) -> int:
         "n_grid_points": len(points),
         "n_grid_usable": len(rows),
         "n_real_recordings": int(real["samples"].shape[0]),
+        # How often the posterior could not produce the draws it was asked for on
+        # a real recording. This is the misspecification diagnostic HD15 reports
+        # as prior acceptance, showing up as sampling failure rather than as a
+        # small number, and it appeared only once the twin moved to its
+        # calibrated cell density.
+        "posterior_draws": posterior_draw_summary(real, n_real_samples),
         "posterior_samples_per_point": n_grid_samples,
         "simulated_duration_s": duration_s,
         "n_per_compartment": n_per_compartment,

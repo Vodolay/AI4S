@@ -1394,7 +1394,7 @@
     "label": "precomputed demo inputs; simulated grid plus real-recording posteriors",
     "n_grid_points": 75,
     "n_grid_usable": 75,
-    "n_per_compartment": 150,
+    "n_per_compartment": 967,
     "n_real_recordings": 113,
     "parameter_names": [
       "log10_forward_ratio",
@@ -1403,15 +1403,24 @@
       "ampa_scale",
       "threshold_scale"
     ],
+    "posterior_draws": {
+      "fewest_draws": 1,
+      "median_draws": 200,
+      "n_recordings": 113,
+      "n_short_of_requested": 9,
+      "n_unsampled": 0,
+      "reads_as": "rejection sampling could not place enough mass inside the prior for these recordings; missing draws are NaN rather than dropped",
+      "requested": 200
+    },
     "posterior_file": "outputs/twin/hd14_posterior_simulated.pt",
     "posterior_samples_per_point": 200,
     "quick": false,
     "simulated_duration_s": 10.0,
     "timings_s": {
       "fit_classifier_s": 0.1,
-      "grid_posteriors_s": 14.8,
-      "real_posteriors_s": 24.1,
-      "simulate_grid_s": 27.3
+      "grid_posteriors_s": 5.3,
+      "real_posteriors_s": 305.3,
+      "simulate_grid_s": 43.5
     }
   },
   "extractor_agreement": {
