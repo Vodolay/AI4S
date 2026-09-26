@@ -585,9 +585,6 @@ the fourth apparent effect here dissolved by asking what else differs between th
 The three groups are plotted separately in Appendix E, because the species contrast and the
 preparation contrast are both present in this slice and two groups would let the whole gap be read
 as species.
-three groups are shown separately because the species contrast and the preparation contrast are both
-present in this slice; two groups would let the whole gap be read as species. Burst rate is the one
-feature flat across all three.](../outputs/figures/baseline_species_comparison.png){width=51%}
 
 ---
 
@@ -656,37 +653,61 @@ correlogram, which is why §7.6 residualises rate out rather than filtering it o
 
 ### 7.3 Calibration
 
-A random search over seven tuned parameters
-<!-- metrics.json: twin_hd12_calibration.tuned_parameters --> brought the simulated baseline into the
-real band for `mfr_hz`, `burst_rate_per_min` and `network_burst_rate_per_min`, and **not** for
-`pct_spikes_in_bursts` or `synchrony_index`
-<!-- metrics.json: twin_hd12_calibration.inside_real_band -->. The residual mismatch is precisely the
-burst-structure and synchrony group that §6.5 and §6.6 independently identify as the unreliable part
-of the feature set across species. Three analyses agree about species; the platform contrast of §6.4
+A random search over 9 tuned parameters
+<!-- metrics.json: twin_hd12_calibration.tuned_parameters -->, each draw scored on 2 network seeds
+<!-- metrics.json: twin_hd12_calibration.n_seeds_per_draw --> over 160 draws
+<!-- metrics.json: twin_hd12_calibration.n_draws -->, fits the twin to the interquartile band of 48 real chamber
+baselines <!-- metrics.json: twin_hd12_calibration.targets_real.n_records -->. No chosen value sits on a bound of the
+space it was drawn from, so the optimum is interior rather than clipped
+<!-- metrics.json: twin_hd12_calibration.boundary_hits -->.
+
+| feature | simulated | real band | penalty |
+|---|---|---|---|
+| `synchrony_index` | 0.8387 <!-- metrics.json: twin_hd12_calibration.best.features_simulated.synchrony_index --> | 0.678 to 0.843 <!-- metrics.json: twin_hd12_calibration.targets_real.by_feature.synchrony_index.q75 --> | 0.0665 <!-- metrics.json: twin_hd12_calibration.best.per_feature.synchrony_index --> |
+| `burst_rate_per_min` | 22.9219 <!-- metrics.json: twin_hd12_calibration.best.features_simulated.burst_rate_per_min --> | 12.627 to 29.726 <!-- metrics.json: twin_hd12_calibration.targets_real.by_feature.burst_rate_per_min.q75 --> | 0.0 <!-- metrics.json: twin_hd12_calibration.best.per_feature.burst_rate_per_min --> |
+| `network_burst_rate_per_min` | 24.0 <!-- metrics.json: twin_hd12_calibration.best.features_simulated.network_burst_rate_per_min --> | 11.692 to 22.697 <!-- metrics.json: twin_hd12_calibration.targets_real.by_feature.network_burst_rate_per_min.q75 --> | 0.0582 <!-- metrics.json: twin_hd12_calibration.best.per_feature.network_burst_rate_per_min --> |
+| `mfr_hz` | 5.9862 <!-- metrics.json: twin_hd12_calibration.best.features_simulated.mfr_hz --> | 6.793 to 21.007 <!-- metrics.json: twin_hd12_calibration.targets_real.by_feature.mfr_hz.q75 --> | 0.1283 <!-- metrics.json: twin_hd12_calibration.best.per_feature.mfr_hz --> |
+| `pct_spikes_in_bursts` | 83.8409 <!-- metrics.json: twin_hd12_calibration.best.features_simulated.pct_spikes_in_bursts --> | 84.657 to 93.685 <!-- metrics.json: twin_hd12_calibration.targets_real.by_feature.pct_spikes_in_bursts.q75 --> | 0.1253 <!-- metrics.json: twin_hd12_calibration.best.per_feature.pct_spikes_in_bursts --> |
+
+The first two are inside the band; the others miss by 6%, 12% and 1% of the band edge, the same
+order as the seed-to-seed spread below rather than a different regime.
+
+![SIMULATED against REAL: calibrated baseline features of the twin compared with the real baseline band. Synchrony and burst rate land inside it; network burst rate, mean firing rate and burst fraction sit just outside.](../outputs/twin/hd12_calibration_simulated.png){width=48%}
+
+**An earlier version of this section reported synchrony as unreachable, and that was an artifact of
+the search space**, not of the model. Two parameters had been fixed rather than fitted: cell density,
+at 130 neurons/mm² against roughly 1000 to 3000 in a real culture, and an electrode radius free to
+exceed the electrode pitch. Fitting both moved them to 967
+<!-- metrics.json: twin_hd12_calibration.best.draw.n_per_compartment --> neurons per compartment and 92.5135 µm
+<!-- metrics.json: twin_hd12_calibration.best.draw.detection_radius_um -->, bringing synchrony inside the real band at a
+penalty of 0.0665 <!-- metrics.json: twin_hd12_calibration.best.per_feature.synchrony_index -->. Appendix B has why the
+two had to change together.
+
+**What the headline score leaves out.** Picking the best of 160 draws on two seeds fits the draw to
+those realisations as well as to the data, so the winner is re-run on 5 seeds
+<!-- metrics.json: twin_hd12_calibration.held_out.n_seeds --> the search never saw. It scores 0.1994
+<!-- metrics.json: twin_hd12_calibration.held_out.score_mean --> there against 0.0756
+<!-- metrics.json: twin_hd12_calibration.held_out.selection_score --> at selection, an optimism of 0.1238
+<!-- metrics.json: twin_hd12_calibration.held_out.optimism -->. Synchrony holds up better than the total: 0.7732
+<!-- metrics.json: twin_hd12_calibration.held_out.synchrony_index_mean --> with a spread of 0.0685
+<!-- metrics.json: twin_hd12_calibration.held_out.synchrony_index_sd -->, inside the band on 60% of those seeds
+<!-- metrics.json: twin_hd12_calibration.held_out.synchrony_index_in_band_fraction -->. So: a twin whose synchrony
+sits in the real range on average, with run-to-run variation wide enough that a single simulated
+recording can fall outside it.
+
+**Short-term depression, re-tested against this calibration.** Vesicle depletion at recurrent
+excitatory synapses is the mechanism usually credited with ending a burst the population is driving.
+Against the previous calibration it moved both gap features the predicted way but far too little;
+against this one the best-scoring setting is the control itself, `u0_tau600`
+<!-- metrics.json: twin_hd18_depression.best -->, and only 1
+<!-- metrics.json: twin_hd18_depression.synchrony_index_improves_under --> of the 8 settings tried
+<!-- metrics.json: twin_hd18_depression.n_settings --> improves synchrony at all. It was a reasonable hypothesis
+about a model that was mis-specified elsewhere.
+
+`pct_spikes_in_bursts` is now the twin's worst-fitted feature rather than synchrony, and it is the
+burst-structure group that §6.5 and §6.6 independently identify as the least reliable part of the
+feature set across species. Three analyses agree about species; the platform contrast of §6.4
 disagrees, and that disagreement is itself the finding.
-
-![SIMULATED against REAL: calibrated baseline features of the twin compared with the real baseline band. Rate and burst-rate features land inside it; burst fraction and synchrony do not.](../outputs/twin/hd12_calibration_simulated.png){width=48%}
-
-**The missing mechanism is the right one and is nowhere near large enough.** A reviewer proposed the
-standard explanation: spike-frequency adaptation acts on each cell alone and cannot stop a burst the
-population is driving, while vesicle depletion at recurrent excitatory synapses can. Adding
-Tsodyks-Markram depression to those synapses, with the calibration otherwise held fixed and `u = 0`
-reproducing the model above exactly, moves both gap features the predicted way: the synchrony
-penalty falls from 0.1314
-<!-- metrics.json: twin_hd18_depression.synchrony_index_control_penalty --> to 0.1233
-<!-- metrics.json: twin_hd18_depression.synchrony_index_best_penalty --> and the burst-fraction
-penalty from 0.0211
-<!-- metrics.json: twin_hd18_depression.pct_spikes_in_bursts_control_penalty --> to 0.0149
-<!-- metrics.json: twin_hd18_depression.pct_spikes_in_bursts_best_penalty -->, in five of the seven
-settings tried. It also needs the slow recovery the mechanism is usually quoted with: both settings
-with τ_rec = 300 ms *raised* synchrony, because resources return faster than depression accumulates.
-
-But the effect is small beside the gap. A penalty of 0.13 means simulated synchrony sits about 14%
-above the real band's edge, and the strongest depression closes roughly a twentieth of that while
-pushing the three features already inside the band back out — its overall score is worse than the
-control's, and the best total score belongs to the weakest setting tried. So the explanation holds
-and the fix is not free: depression has to enter the calibration search rather than be bolted on
-after it, which is the twin's next version rather than this one.
 
 
 ### 7.4 Drug knobs
@@ -697,7 +718,7 @@ direction is established by a cluster bootstrap:
 | knob | agrees / scored |
 |---|---|
 | GABA-A block | 4 <!-- metrics.json: twin_hd13_perturbation.knobs.0.n_features_agreeing --> / 5 <!-- metrics.json: twin_hd13_perturbation.knobs.0.n_features_scored --> |
-| GABA-A potentiation | 2 <!-- metrics.json: twin_hd13_perturbation.knobs.1.n_features_agreeing --> / 4 <!-- metrics.json: twin_hd13_perturbation.knobs.1.n_features_scored --> |
+| GABA-A potentiation | 1 <!-- metrics.json: twin_hd13_perturbation.knobs.1.n_features_agreeing --> / 4 <!-- metrics.json: twin_hd13_perturbation.knobs.1.n_features_scored --> |
 | AMPA block | 4 <!-- metrics.json: twin_hd13_perturbation.knobs.2.n_features_agreeing --> / 4 <!-- metrics.json: twin_hd13_perturbation.knobs.2.n_features_scored --> |
 | sodium-channel block | 3 <!-- metrics.json: twin_hd13_perturbation.knobs.3.n_features_agreeing --> / 3 <!-- metrics.json: twin_hd13_perturbation.knobs.3.n_features_scored --> |
 
@@ -1099,7 +1120,7 @@ with the reason attached.
 
 ### Appendix B — Digital twin parameters
 
-Referenced from §7.1. The seven marked *calibrated* are exactly the calibration search space
+Referenced from §7.1 and §7.3. The 9 marked *calibrated* are exactly the calibration search space
 <!-- metrics.json: twin_hd12_calibration.tuned_parameters -->.
 
 | parameter | role | how it was set |
@@ -1109,12 +1130,29 @@ Referenced from §7.1. The seven marked *calibrated* are exactly the calibration
 | `forward_ratio` | forward against backward pathway strength | inferred, prior 1-20 in log space |
 | `excitatory_weight`, `inhibitory_weight` | synaptic conductance steps | calibrated |
 | `background_weight` | Poisson drive | calibrated; drive to the target chamber is a separate scale |
-| `background_rate_hz` | Poisson drive rate | **held at 10 Hz**, not searched |
+| `background_rate_hz` | Poisson drive rate | calibrated, searched over 1-40 Hz |
 | `adaptation_increment` | spike-frequency adaptation step | calibrated |
 | `adaptation_tau_ms` | adaptation time constant | **held at 380 ms**, not searched |
 | `threshold_spread` | per-neuron excitability heterogeneity | calibrated, searched over 0-0.3 |
-| `detection_radius_um` | how far an electrode hears | calibrated, searched over 100-300 µm |
+| `intra_delay_sd_ms` | spread of the recurrent conduction delay | **held at 0**, one delay for every synapse |
+| `connection_sigma_um` | range of the within-compartment wiring rule | **held unset**, i.e. uniform random wiring |
+| `detection_radius_um` | how far an electrode hears | calibrated, searched over 40-100 µm |
+| `n_per_compartment` | neurons per chamber, i.e. cell density | calibrated, searched over 250-1500 |
 | `gabaa_scale`, `ampa_scale`, `threshold_scale` | drug knobs, 1.0 is untreated | inferred |
+
+**Why two of these moved out of the *held* column.** Both had been fixed rather than fitted, and
+between them they let the twin look calibrated while being wrong. `n_per_compartment` at 250 is 130
+neurons/mm² in a 1.92 mm² chamber, against roughly 1000 to 3000 in a dissociated culture.
+`detection_radius_um` could be searched past the electrode pitch, and the search duly went there. A
+radius above half the pitch makes neighbouring catchment discs overlap, so one neuron is heard by
+several electrodes and contributes identical spike times to each: mean pairwise STTC is then
+inflated by the measurement model rather than by anything the network does. The same oversized
+electrode was pooling enough neurons to manufacture a per-electrode firing rate that a culture ten
+times too sparse could not produce. Capping the radius at half the pitch removes the first artifact
+and exposes the second, which is why the two had to change together. Short-term depression was tried
+before the geometry was suspected, and §7.3 reports what it did. The model also carries a
+per-synapse delay spread and a distance-dependent connection range; both are left at the neutral
+values that reproduce a single conduction delay and uniform wiring, and neither is searched.
 
 ### Appendix C — Microchannel detector robustness
 
@@ -1179,7 +1217,7 @@ Referenced from §9.
 
 ### Appendix E — Supporting figures
 
-Referenced from §6.1, §7.4 and §7.5.
+Referenced from §6.1, §6.4, §6.5, §6.7, §6.8, §7.4 and §7.5.
 
 ![Task 1 confusion matrix, REAL data: out-of-fold predictions from grouped cross-validation over 73 treated/baseline pairs. Errors concentrate between the two GABA-A classes.](../outputs/figures/mechanism_confusion.png){width=50%}
 
@@ -1190,6 +1228,9 @@ Referenced from §6.1, §7.4 and §7.5.
 ![Per-feature species shift, REAL data: rat against human baseline distributions, with cluster-bootstrap intervals. Rate and burst-fraction features move least; synchrony moves most.](../outputs/figures/species_shift.png){width=47%}
 
 ![Untreated baseline activity on Axion platforms, by species and preparation. REAL recordings. The
+three groups are shown separately because the species contrast and the preparation contrast are both
+present in this slice; two groups would let the whole gap be read as species. Burst rate is the one
+feature flat across all three.](../outputs/figures/baseline_species_comparison.png){width=51%}
 
 ![Inter-compartment coupling lag by device type, REAL data, one value per device: five CxCx, five HpHp, six CxHp. The two same-tissue types are indistinguishable from each other; the heterogeneous type sits apart.](../outputs/figures/compartment_lag_by_device_type.png){width=55%}
 

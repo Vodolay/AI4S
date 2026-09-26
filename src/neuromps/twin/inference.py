@@ -34,6 +34,8 @@ from neuromps.twin.mea import (
 )
 from neuromps.twin.network import NetworkParams, simulate
 
+# Used only when no calibration is on disk; the calibrated density otherwise.
+DEFAULT_N_PER_COMPARTMENT = 250
 log = logging.getLogger("neuromps.twin")
 REPO_ROOT = Path(__file__).resolve().parents[3]
 POSTERIOR_NAME = "hd14_posterior_simulated.pt"
@@ -93,7 +95,7 @@ def build_prior():
 
 def params_from_vector(
     theta,
-    n_per_compartment: int = 150,
+    n_per_compartment: int | None = None,
     duration_s: float = 10.0,
     seed: int = 0,
     noise_seed: int | None = None,
@@ -104,12 +106,22 @@ def params_from_vector(
     the same simulated chip under different noise, which paired inference needs
     (`twin/delta_inference.py`). Left unset it changes nothing.
     """
-    from neuromps.twin.calibrate import calibrated_params
 
     values = dict(zip(PARAMETER_NAMES, np.asarray(theta, dtype=float), strict=True))
-    tuned = {k: v for k, v in calibrated_params().items() if k in set(NetworkParams().as_record())}
+    # Inference runs thousands of simulations, so it uses a smaller network than
+    # the calibration fitted and the explicit size wins. That is a tractability
+    # choice, not a modelling one; `inference_calibration` is the single
+    # definition of which calibrated values do apply, and the cache is keyed on
+    # the same thing.
+    tuned = inference_calibration()
+    # None means "the density the twin was calibrated at", which is what the
+    # pipeline wants; an explicit value is for callers that deliberately want a
+    # cheap network, such as tests.
+    size = tuned.pop("n_per_compartment", DEFAULT_N_PER_COMPARTMENT)
+    if n_per_compartment is not None:
+        size = n_per_compartment
     return NetworkParams(
-        n_per_compartment=n_per_compartment,
+        n_per_compartment=int(size),
         duration_s=duration_s,
         seed=seed,
         noise_seed=noise_seed,
@@ -161,7 +173,7 @@ def summary_vector(features_by_compartment: dict, coupling: dict) -> np.ndarray:
 
 def simulate_summary(
     theta,
-    n_per_compartment: int = 150,
+    n_per_compartment: int | None = None,
     duration_s: float = 10.0,
     seed: int = 0,
     layout: ElectrodeLayout | None = None,
@@ -211,6 +223,7 @@ def save_simulations(path: Path, theta: np.ndarray, x: np.ndarray, metadata: dic
         **metadata,
         "electrodes_per_compartment": default_layout().electrodes_per_compartment,
         "summary_pipeline_sha256": summary_pipeline_fingerprint(),
+        "calibration_sha256": calibration_fingerprint(),
     }
     np.savez_compressed(
         path,
@@ -265,6 +278,33 @@ def summary_pipeline_fingerprint() -> str:
     return hashlib.sha256("".join(sources).encode()).hexdigest()[:16]
 
 
+def inference_calibration() -> dict:
+    """The calibrated values inference applies to its simulations.
+
+    This includes `n_per_compartment`. Inference used to override cell density
+    with a smaller network for tractability, which meant the posterior was
+    learned on a twin several times sparser than the one §7.3 reports as
+    calibrated - and density is what sets the twin's synchrony regime, so that
+    was not a neutral saving. Measured, the calibrated network costs 1.55x per
+    simulation rather than the 6x its neuron count suggests, most of the work
+    being fixed overhead, so the gap is closed instead of documented. The cache
+    is keyed on this dictionary, and now correctly invalidates when density
+    changes, because the simulations do depend on it.
+    """
+    from neuromps.twin.calibrate import calibrated_params
+
+    keys = set(NetworkParams().as_record())
+    return {k: v for k, v in calibrated_params().items() if k in keys}
+
+
+def calibration_fingerprint() -> str:
+    """Hash of the calibration the simulations were generated under."""
+    import hashlib
+
+    payload = json.dumps(inference_calibration(), sort_keys=True).encode()
+    return hashlib.sha256(payload).hexdigest()
+
+
 def check_cache_matches_code(cached: dict) -> None:
     """Refuse a cache produced under different summaries or a different layout.
 
@@ -289,6 +329,16 @@ def check_cache_matches_code(cached: dict) -> None:
             f"cached simulations were produced by summary code {cached_fingerprint}, "
             f"the current code is {current}; rerun with --rebuild"
         )
+    # Nothing else in the cache changes when the twin is recalibrated - same
+    # prior, same summaries, same layout - so without this the simulations of a
+    # superseded model are reused and the run looks clean.
+    cached_calibration = cached["metadata"].get("calibration_sha256")
+    expected_calibration = calibration_fingerprint()
+    if cached_calibration != expected_calibration:
+        raise SystemExit(
+            f"cached simulations were produced under calibration {cached_calibration}, "
+            f"the current calibration is {expected_calibration}; rerun with --rebuild"
+        )
 
 
 def _simulate_job(args) -> np.ndarray:
@@ -303,7 +353,7 @@ def _simulate_job(args) -> np.ndarray:
 
 def run_simulations(
     n_simulations: int,
-    n_per_compartment: int = 150,
+    n_per_compartment: int | None = None,
     duration_s: float = 10.0,
     seed: int = 0,
     processes: int | None = None,
@@ -482,6 +532,12 @@ def main(argv: list[str] | None = None) -> int:
     results = {
         "label": "SIMULATED - inference trained on simulations only",
         "n_simulations": int(len(theta)),
+        # Recorded because 7.3 shows cell density is what sets the twin's
+        # synchrony regime: a posterior learned at a different density from the
+        # calibration is a posterior for a different model.
+        "n_per_compartment": params_from_vector(
+            np.zeros(len(PARAMETER_NAMES)), duration_s=1.0
+        ).n_per_compartment,
         "n_train": int(len(train_theta)),
         "n_holdout": int(holdout),
         "seed": int(args.seed),

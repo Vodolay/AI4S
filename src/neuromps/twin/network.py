@@ -52,6 +52,22 @@ class NetworkParams:
     forward_ratio: float = 1.0
     intra_delay_ms: float = 1.5
     inter_delay_ms: float = 4.0
+    # Spread of the recurrent conduction delay (Gaussian SD in ms around
+    # `intra_delay_ms`). One delay shared by every synapse makes recurrent
+    # activity arrive in lockstep; real axonal delays are spread over several
+    # ms, and that spread is a standard desynchroniser. 0.0 keeps the single
+    # fixed delay every result before this parameter was produced under.
+    intra_delay_sd_ms: float = 0.0
+    # Range of the within-compartment connection rule, in micrometres: the
+    # Gaussian SD of a neuron's reach. `None` connects uniformly at random, so
+    # every pair of neurons - and therefore every pair of electrodes - is
+    # statistically identical however far apart they sit, and mean pairwise
+    # STTC is pushed to one extreme or the other. A finite range gives near
+    # neighbours more shared input than distant ones, which is what lets the
+    # measured synchrony sit between the two. `None` is what every result
+    # before this parameter was produced under. Density is renormalised so the
+    # requested `intra_in_degree` is preserved either way.
+    connection_sigma_um: float | None = None
     # synapses (dimensionless conductance steps)
     excitatory_weight: float = 0.25
     inhibitory_weight: float = 2.6
@@ -170,12 +186,52 @@ dg_e/dt = -g_e / tau_e : 1
 dg_i/dt = -g_i / tau_i : 1
 dw/dt = -w / tau_w : 1
 v_threshold : 1 (constant)
+x_um : 1 (constant)
+y_um : 1 (constant)
 """
 
 
-def _build(params: NetworkParams):
-    """Assemble the Brian2 network. Returns (network, spike monitor, neuron group)."""
+def _distance_scale(params: NetworkParams, positions: np.ndarray, compartment: np.ndarray) -> float:
+    """Density scale making a Gaussian connection rule give the requested in-degree.
+
+    In-degree, not probability, is the project's parameterisation, so narrowing
+    the range must concentrate the same number of inputs rather than remove
+    them. Both chambers share a geometry, so one is enough to estimate it.
+    """
+    sigma = float(params.connection_sigma_um or 0.0)
+    block = positions[compartment == 0]
+    squared = ((block[:, None, :] - block[None, :, :]) ** 2).sum(-1)
+    kernel = np.exp(-squared / (2.0 * sigma**2))
+    np.fill_diagonal(kernel, 0.0)
+    expected = float(kernel.sum(axis=0).mean())
+    return float(params.intra_in_degree / max(expected, 1e-9))
+
+
+def _intra_connection_p(params: NetworkParams, positions: np.ndarray, compartment: np.ndarray):
+    """Connection probability for within-compartment synapses: a number, or an expression."""
+    if params.connection_sigma_um is None:
+        return intra_probability(params)
+    sigma = float(params.connection_sigma_um)
+    scale = _distance_scale(params, positions, compartment)
+    return (
+        f"clip({scale} * exp(-((x_um_pre - x_um_post)**2 + (y_um_pre - y_um_post)**2)"
+        f" / {2.0 * sigma**2}), 0, 1)"
+    )
+
+
+def _build(params: NetworkParams, layout=None):
+    """Assemble the Brian2 network. Returns (network, spike monitor, neuron group).
+
+    `layout` is the electrode layout the recording will use. The network needs
+    it because neuron positions must be the *same* ones the electrodes later
+    read from, or a distance-dependent wiring rule and the measurement would
+    describe different cultures.
+    """
     import brian2 as b2
+
+    from neuromps.twin.mea import ElectrodeLayout, place_neurons
+
+    layout = ElectrodeLayout() if layout is None else layout
 
     b2.prefs.codegen.target = "numpy"  # portable, and fastest here for short runs
     b2.seed(params.seed)
@@ -201,8 +257,10 @@ def _build(params: NetworkParams):
     neurons.v = "rand() * 0.5"
     spread = max(params.threshold_spread, 0.0)
     neurons.v_threshold = f"{params.threshold_scale} * (1 + {spread} * randn())"
+    positions, _ = place_neurons(params, layout, seed=params.seed)
+    neurons.x_um, neurons.y_um = positions[:, 0], positions[:, 1]
     network = b2.Network(neurons)
-    network.add(_synapses(params, neurons, compartment, excitatory, b2))
+    network.add(_synapses(params, neurons, compartment, excitatory, b2, positions))
     network.add(_background(params, neurons, compartment, b2))
     monitor = b2.SpikeMonitor(neurons)
     network.add(monitor)
@@ -254,12 +312,33 @@ def _background(params: NetworkParams, neurons, compartment, b2) -> list:
     return inputs
 
 
-def _synapses(params: NetworkParams, neurons, compartment, excitatory, b2) -> list:
+# Brian2's default clock step. A delay below it rounds down to zero.
+MIN_DELAY_MS = 0.1
+
+
+def _spread_delays(synapses, params: NetworkParams, rng: np.random.Generator, b2) -> None:
+    """Give each recurrent synapse its own conduction delay, if a spread is asked for.
+
+    Drawn from the build-time generator, like connectivity and thresholds, so
+    one seed fixes the whole chip. Clipped at the clock step, below which a
+    delay would round to zero.
+    """
+    if params.intra_delay_sd_ms <= 0 or not len(synapses):
+        return
+    drawn = rng.normal(params.intra_delay_ms, params.intra_delay_sd_ms, len(synapses))
+    synapses.delay = np.clip(drawn, MIN_DELAY_MS, None) * b2.ms
+
+
+def _synapses(params: NetworkParams, neurons, compartment, excitatory, b2, positions) -> list:
     """Recurrent connections inside each compartment plus the directed pathway between them."""
     exc_weight = params.excitatory_weight * params.ampa_scale
     inh_weight = params.inhibitory_weight * params.gabaa_scale
     blocks = _ranges(params)
     made = []
+    delay_rng = np.random.default_rng(params.seed + 1_000)
+    # A scalar `delay=` makes Brian2 treat the delay as one shared value, which
+    # cannot then be set per synapse, so it is omitted when a spread is wanted.
+    fixed_delay = {} if params.intra_delay_sd_ms > 0 else {"delay": params.intra_delay_ms * b2.ms}
     depressing = params.depression_u > 0
     for kind, weight, target_var in (("exc", exc_weight, "g_e"), ("inh", inh_weight, "g_i")):
         if depressing and kind == "exc":
@@ -272,7 +351,7 @@ def _synapses(params: NetworkParams, neurons, compartment, excitatory, b2) -> li
                 neurons,
                 model="dx/dt = (1 - x) / tau_rec : 1 (event-driven)",
                 on_pre=f"{target_var}_post += {weight} * x; x = x * (1 - u_se)",
-                delay=params.intra_delay_ms * b2.ms,
+                **fixed_delay,
                 namespace={
                     "tau_rec": params.depression_tau_rec_ms * b2.ms,
                     "u_se": params.depression_u,
@@ -283,14 +362,14 @@ def _synapses(params: NetworkParams, neurons, compartment, excitatory, b2) -> li
                 neurons,
                 neurons,
                 on_pre=f"{target_var}_post += {weight}",
-                delay=params.intra_delay_ms * b2.ms,
+                **fixed_delay,
             )
+        connection_p = _intra_connection_p(params, positions, compartment)
         for c in (0, 1):  # recurrent, within each compartment only
-            synapses.connect(
-                _condition(blocks[c][kind], blocks[c]["all"]), p=intra_probability(params)
-            )
+            synapses.connect(_condition(blocks[c][kind], blocks[c]["all"]), p=connection_p)
         if depressing and kind == "exc":
             synapses.x = 1.0
+        _spread_delays(synapses, params, delay_rng, b2)
         made.append(synapses)
     forward_p, backward_p = _inter_probabilities(params)
     for source, target, probability in ((0, 1, forward_p), (1, 0, backward_p)):
@@ -307,12 +386,16 @@ def _synapses(params: NetworkParams, neurons, compartment, excitatory, b2) -> li
     return made
 
 
-def simulate(params: NetworkParams) -> SimulationResult:
-    """Run the two-compartment network and return its simulated spikes."""
+def simulate(params: NetworkParams, layout=None) -> SimulationResult:
+    """Run the two-compartment network and return its simulated spikes.
+
+    `layout` is passed through so the wiring and the electrodes agree on where
+    the neurons are; the default layout is the one `twin/mea.py` uses.
+    """
     import brian2 as b2
 
     with _quiet_brian():
-        network, monitor, compartment, excitatory = _build(params)
+        network, monitor, compartment, excitatory = _build(params, layout)
         if params.noise_seed is not None:
             b2.seed(params.noise_seed)
         network.run(params.duration_s * b2.second)

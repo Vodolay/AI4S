@@ -124,7 +124,7 @@ def _paired_job(args) -> np.ndarray:
 
 def run_paired_simulations(
     n_pairs: int,
-    n_per_compartment: int = 150,
+    n_per_compartment: int | None = None,
     duration_s: float = 10.0,
     seed: int = 0,
     processes: int | None = None,

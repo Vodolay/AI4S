@@ -32,6 +32,7 @@ from neuromps.twin.inference import (
     PARAMETER_NAMES,
     POSTERIOR_NAME,
     SUMMARY_NAMES,
+    check_cache_matches_code,
     load_simulations,
     within_prior,
 )
@@ -425,6 +426,11 @@ def main(argv: list[str] | None = None) -> int:
         log.warning("no simulations at %s; run neuromps.twin.inference first", simulation_cache())
         return 0
     cached = load_simulations(simulation_cache())
+    # The whole point of this stage is asking whether the real recordings fall
+    # inside the simulated range. Against simulations from a superseded twin
+    # that question has no meaning, and nothing about the answer would look
+    # wrong, so the cache is validated here as it is where it is written.
+    check_cache_matches_code(cached)
     inside = within_prior(cached["theta"])
     check = distribution_check(real_x, cached["x"][inside])
     suspect = check["outside_dimensions"] + check["unsupported_dimensions"]

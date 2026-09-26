@@ -236,3 +236,69 @@ def test_source_defaults_its_output_beside_the_source(tmp_path: Path) -> None:
     )
     assert result.returncode == 0, result.stderr
     assert (tmp_path / "doc.pdf").exists()
+
+
+def _report_documents() -> list[Path]:
+    """Every report document, excluding external critiques."""
+    external = {"REVIEW.md", "CONTEXT_FROM_CHAT.md"}
+    return sorted(p for p in (REPO_ROOT / "report").glob("*.md") if p.name not in external)
+
+
+def _malformed_figures(text: str) -> list[str]:
+    """Image references that markdown will not render as images.
+
+    `test_every_figure_referenced_by_the_report_exists` and its caption
+    neighbour both match a complete `![alt](path)`, so a figure whose `![` is
+    missing is invisible to the very checks meant to catch broken figures. One
+    did reach the committed report that way: an edit moved a figure to an
+    appendix and split its caption, leaving an unterminated `![` in the
+    appendix and a stray `](path)` six hundred lines earlier. Both halves
+    render as literal text in the PDF.
+
+    An unterminated `![` is found by asking whether another `![` opens before
+    this one closes, rather than by looking for a closing bracket at all: the
+    stranded opener in the appendix would otherwise borrow the closing bracket
+    of the next figure and look complete.
+    """
+    problems = []
+    openers = [m.start() for m in re.finditer(r"!\[", text)]
+    for position in openers:
+        closing = re.search(r"\]\(", text[position:])
+        following = next((o for o in openers if o > position), None)
+        if closing is None or (following is not None and following < position + closing.start()):
+            problems.append(f"unterminated '![' at line {text[:position].count(chr(10)) + 1}")
+    for match in re.finditer(r"\]\((\.\./[^)]+\.png)\)", text):
+        opener = text.rfind("![", 0, match.start())
+        closer = text.rfind("](", 0, match.start())
+        if opener == -1 or (closer != -1 and closer > opener):
+            problems.append(f"no opening '![' for {match.group(1)}")
+    return problems
+
+
+@pytest.mark.parametrize("document", _report_documents(), ids=lambda p: p.name)
+def test_no_report_has_a_figure_that_will_not_render(document: Path) -> None:
+    assert _malformed_figures(document.read_text()) == [], document.name
+
+
+def test_the_malformed_figure_check_catches_both_halves_of_a_split_caption() -> None:
+    """The check is only worth having if it fails on the shape that got through.
+
+    That shape is not a caption broken over a blank line - markdown renders
+    that fine - but a caption whose two halves ended up in different sections
+    with complete figures between them.
+    """
+    split = (
+        "![Stranded opener, REAL data. The\n\n"
+        "![A whole figure. REAL.](../outputs/figures/whole.png)\n\n"
+        "tail of the stranded caption.](../outputs/figures/split.png){width=51%}\n"
+    )
+    problems = _malformed_figures(split)
+    assert any("unterminated" in p for p in problems), problems
+    assert any("no opening" in p and "split.png" in p for p in problems), problems
+    assert _malformed_figures("![A whole caption. REAL.](../outputs/figures/x.png)\n") == []
+    assert (
+        _malformed_figures(
+            "![A caption wrapped\nover two lines. REAL.](../outputs/figures/x.png)\n"
+        )
+        == []
+    )

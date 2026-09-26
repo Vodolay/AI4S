@@ -162,3 +162,148 @@ def test_two_noise_seeds_on_one_chip_give_different_recordings() -> None:
     a = simulate(NetworkParams(**chip, noise_seed=1))
     b = simulate(NetworkParams(**chip, noise_seed=2))
     assert not np.array_equal(a.spike_times, b.spike_times)
+
+
+def _recurrent_delays_ms(params: NetworkParams) -> np.ndarray:
+    """Delays of the within-compartment synapses of one built network, in ms.
+
+    The inter-compartment pathway carries its own fixed `inter_delay_ms` and is
+    excluded, so it is identified the way the model defines it: a synapse is
+    recurrent when its source and target sit in the same compartment.
+    """
+    import brian2 as b2
+
+    from neuromps.twin.network import _build
+
+    network, _, _, _ = _build(params)
+    n = params.n_per_compartment
+    delays = []
+    # `network.objects` has no stable order, so two builds would otherwise
+    # concatenate the same synapses in different orders.
+    for o in sorted(network.objects, key=lambda o: o.name):
+        if not isinstance(o, b2.Synapses) or not len(o):
+            continue
+        source, target = np.asarray(o.i[:]) // n, np.asarray(o.j[:]) // n
+        if not np.array_equal(source, target):
+            continue  # the pathway between compartments
+        # With no spread the delay is a shared scalar, so broadcast it to one
+        # value per synapse and the two cases stay comparable.
+        value = np.atleast_1d(np.asarray(o.delay / b2.ms, dtype=float))
+        delays.append(np.full(len(o), value[0]) if value.size == 1 else value)
+    return np.concatenate(delays)
+
+
+def test_delay_spread_defaults_to_zero_so_earlier_results_are_unchanged() -> None:
+    """Every result before this parameter existed was produced with one fixed delay."""
+    assert NetworkParams().intra_delay_sd_ms == 0.0
+    delays = _recurrent_delays_ms(NetworkParams(n_per_compartment=40, duration_s=0.1))
+    assert np.allclose(delays, delays[0]), "with sd 0 every synapse must share one delay"
+
+
+def test_delay_spread_jitters_the_recurrent_delays_around_the_mean() -> None:
+    """The mechanism: identical delays lock recurrent activity into volleys."""
+    params = NetworkParams(
+        n_per_compartment=120, duration_s=0.1, intra_delay_ms=1.5, intra_delay_sd_ms=0.6
+    )
+    delays = _recurrent_delays_ms(params)
+    assert delays.size > 200
+    assert delays.std() > 0.2, "requested spread did not reach the synapses"
+    assert 1.0 < delays.mean() < 2.0
+    assert (delays > 0).all(), "a non-positive delay is not physical"
+
+
+def test_delay_spread_is_reproducible_under_a_seed() -> None:
+    """Heterogeneity is drawn at build time, like connectivity and thresholds."""
+    kw = dict(n_per_compartment=60, duration_s=0.1, intra_delay_sd_ms=0.6)
+    first = _recurrent_delays_ms(NetworkParams(seed=3, **kw))
+    again = _recurrent_delays_ms(NetworkParams(seed=3, **kw))
+    other = _recurrent_delays_ms(NetworkParams(seed=4, **kw))
+    assert np.array_equal(first, again)
+    assert not np.array_equal(first, other[: first.size]) or first.size != other.size
+
+
+def _recurrent_pairs_and_positions(params: NetworkParams):
+    """Connected within-compartment (source, target) pairs, and neuron positions."""
+    import brian2 as b2
+
+    from neuromps.twin.mea import ElectrodeLayout, place_neurons
+    from neuromps.twin.network import _build
+
+    layout = ElectrodeLayout()
+    network, _, _, _ = _build(params, layout)
+    n = params.n_per_compartment
+    pairs = []
+    for o in sorted(network.objects, key=lambda o: o.name):
+        if not isinstance(o, b2.Synapses) or not len(o):
+            continue
+        i, j = np.asarray(o.i[:]), np.asarray(o.j[:])
+        if not np.array_equal(i // n, j // n):
+            continue  # the pathway between compartments
+        pairs.append(np.column_stack([i, j]))
+    positions, _ = place_neurons(params, layout, seed=params.seed)
+    return np.vstack(pairs), positions
+
+
+def _distances(pairs: np.ndarray, positions: np.ndarray) -> np.ndarray:
+    return np.hypot(*(positions[pairs[:, 0]] - positions[pairs[:, 1]]).T)
+
+
+def test_connectivity_is_distance_independent_by_default() -> None:
+    """Every result so far was produced with uniform random wiring."""
+    assert NetworkParams().connection_sigma_um is None
+    params = NetworkParams(n_per_compartment=200, duration_s=0.1, intra_in_degree=20.0)
+    pairs, positions = _recurrent_pairs_and_positions(params)
+    connected = _distances(pairs, positions).mean()
+    same_chamber = positions[: params.n_per_compartment]
+    everything = np.hypot(
+        *(same_chamber[:, None, :] - same_chamber[None, :, :]).reshape(-1, 2).T
+    ).mean()
+    assert abs(connected - everything) / everything < 0.10
+
+
+def test_a_connection_range_wires_neighbours_preferentially() -> None:
+    """Uniform wiring makes every electrode pair statistically identical."""
+    params = NetworkParams(
+        n_per_compartment=200, duration_s=0.1, intra_in_degree=20.0, connection_sigma_um=200.0
+    )
+    pairs, positions = _recurrent_pairs_and_positions(params)
+    uniform = NetworkParams(n_per_compartment=200, duration_s=0.1, intra_in_degree=20.0)
+    wide_pairs, wide_positions = _recurrent_pairs_and_positions(uniform)
+    assert _distances(pairs, positions).mean() < 0.6 * _distances(wide_pairs, wide_positions).mean()
+
+
+def test_a_connection_range_preserves_the_requested_in_degree() -> None:
+    """In-degree is the parameterisation; a range must retune density, not change it."""
+    for sigma in (None, 400.0):
+        params = NetworkParams(
+            n_per_compartment=200,
+            duration_s=0.1,
+            intra_in_degree=20.0,
+            connection_sigma_um=sigma,
+        )
+        pairs, _ = _recurrent_pairs_and_positions(params)
+        in_degree = len(pairs) / (2 * params.n_per_compartment)
+        assert 14.0 < in_degree < 27.0, (sigma, in_degree)
+
+
+def test_distance_dependent_wiring_is_reproducible_from_the_seed() -> None:
+    kw = dict(n_per_compartment=120, duration_s=0.1, connection_sigma_um=250.0)
+    first, _ = _recurrent_pairs_and_positions(NetworkParams(seed=5, **kw))
+    again, _ = _recurrent_pairs_and_positions(NetworkParams(seed=5, **kw))
+    assert np.array_equal(first, again)
+
+
+def test_the_wiring_and_the_electrodes_place_neurons_identically() -> None:
+    """A distance rule is meaningless if the electrodes read a different culture."""
+    import brian2 as b2
+
+    from neuromps.twin.mea import ElectrodeLayout, place_neurons
+    from neuromps.twin.network import _build
+
+    layout = ElectrodeLayout(detection_radius_um=75.0)
+    params = NetworkParams(n_per_compartment=60, duration_s=0.1, connection_sigma_um=250.0)
+    network, _, _, _ = _build(params, layout)
+    neurons = next(o for o in network.objects if isinstance(o, b2.NeuronGroup))
+    expected, _ = place_neurons(params, layout, seed=params.seed)
+    assert np.allclose(np.asarray(neurons.x_um[:]), expected[:, 0])
+    assert np.allclose(np.asarray(neurons.y_um[:]), expected[:, 1])

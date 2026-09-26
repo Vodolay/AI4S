@@ -107,3 +107,20 @@ def test_a_silenced_network_reads_as_abolished_not_unknown() -> None:
     for feature in ZERO_WHEN_SILENT:
         assert out[feature] == pytest.approx(np.log2(FLOOR), abs=1e-3)  # same floor as the real ETL
         assert out[feature] < 0
+
+
+def test_the_run_records_the_network_size_it_actually_simulated() -> None:
+    """The calibrated size overrides the argument, so reporting the argument lies.
+
+    `run_knobs` merges the calibration over its own defaults, so a calibrated
+    `n_per_compartment` wins silently. Recording the argument instead of the
+    merged value told the reader one network had been simulated when another
+    had been.
+    """
+    import inspect
+
+    from neuromps.twin import perturbation
+
+    source = inspect.getsource(perturbation.run_knobs)
+    assert '"n_per_compartment": int(base_kwargs["n_per_compartment"])' in source
+    assert '"n_per_compartment": n_per_compartment,\n    }' not in source

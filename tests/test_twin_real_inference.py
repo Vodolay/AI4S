@@ -280,3 +280,18 @@ def test_the_empty_summary_table_still_has_its_columns() -> None:
     assert summaries.empty
     assert set(SUMMARY_NAMES) <= set(summaries.columns)
     assert summaries[list(SUMMARY_NAMES)].to_numpy(dtype=float).shape == (0, len(SUMMARY_NAMES))
+
+
+def test_the_real_comparison_refuses_a_cache_from_a_superseded_twin() -> None:
+    """This stage asks whether real recordings fall inside the simulated range.
+
+    Against simulations from a twin that no longer exists the question is
+    meaningless, and nothing about the answer would look wrong - so the module
+    must validate the cache it reads rather than trusting the stage before it.
+    """
+    import inspect
+
+    from neuromps.twin import real_inference
+
+    source = inspect.getsource(real_inference.main)
+    assert "check_cache_matches_code(cached)" in source

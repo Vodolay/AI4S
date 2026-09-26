@@ -94,6 +94,13 @@ def compare(window: str, value) -> tuple[bool | str, str]:
         if tokens is not None and abs(_to_float(tokens[0]) - len(value)) < 1e-9:
             return True, f"{tokens[0].strip()} (list length)"
         return UNCHECKED, window[-40:].strip()
+    if isinstance(value, (dict, list)) and not value:
+        # An empty collection - "nothing was flagged" - is a real result and a
+        # legitimate thing to cite, but there is no number to compare it with.
+        # It reached `_trailing_numbers(window, 0)`, whose `found[-0:]` returns
+        # every number in the window rather than none, and the strict zip below
+        # then raised and took the whole verification run down with it.
+        return UNCHECKED, window[-40:].strip()
     if isinstance(value, dict) or (
         isinstance(value, list) and any(isinstance(v, (bool, dict, list)) for v in value)
     ):

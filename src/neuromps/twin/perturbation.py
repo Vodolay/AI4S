@@ -211,7 +211,10 @@ def run_knobs(duration_s: float, seed: int, n_per_compartment: int = 250) -> dic
         "treated_features_simulated": treated,
         "layout": layout.as_record(),
         "duration_s": duration_s,
-        "n_per_compartment": n_per_compartment,
+        # What was simulated, not what was asked for: the calibrated network
+        # size overrides the argument above, so reporting the argument told the
+        # reader 250 while the run used the calibrated value.
+        "n_per_compartment": int(base_kwargs["n_per_compartment"]),
     }
 
 

@@ -176,3 +176,17 @@ def test_the_claim_check_catches_a_real_claim_and_spares_model_diagnostics() -> 
     assert banned.search("suitable for diagnostic use")
     assert not banned.search("correction 2, diagnostics: rank-test p-values were compared")
     assert not banned.search("posterior diagnostics and calibration checks")
+
+
+def test_an_empty_collection_is_a_pointer_rather_than_a_crash() -> None:
+    """`boundary_hits: []` means "nothing was flagged" - a result worth citing.
+
+    It used to take the whole verification run down: `_trailing_numbers(window, 0)`
+    slices `found[-0:]`, which returns every number in the window instead of
+    none, and the strict zip that follows then raised ValueError.
+    """
+    for empty in ([], {}):
+        verdict, _ = compare("the optimum is interior rather than clipped", empty)
+        assert verdict == "pointer"
+    verdict, _ = compare("a search that flagged 3 parameters", [])
+    assert verdict == "pointer"

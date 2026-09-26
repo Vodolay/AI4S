@@ -1240,3 +1240,114 @@ work readable and the repository honest about its own state.
 **Next first task.** Unchanged, and all four are the author's: fill the team tables in the report and
 the Writeup, publish the demo video and paste its public link, make the repository public, and submit
 the registration form. Nothing in the code or the documents is waiting on anything.
+
+## 2026-09-25 — Calibrating the twin's synchrony, and what was actually wrong
+
+The session started as "calibrate `synchrony_index` better" and ended by finding that the twin's
+culture was ten times too sparse and an earlier calibration had hidden it inside the electrode.
+
+**The diagnosis came from the stored trials, before any new simulation.** Re-scoring §7.3's 40 saved
+draws showed the loss was the first problem: `score_features` used a log-ratio for every feature,
+which is right for a rate and wrong for a bounded index. Synchrony at 0.964 against a band ending at
+0.843 scored 0.134 - less than a rate off by 15% - so the search could buy rate accuracy with
+synchrony error, and did. The seven draws that *did* reach the synchrony band all ran
+`network_burst_rate_per_min` at 79-185 against a real band of 11.7-22.7, so the twin only looked
+synchronised by firing network-wide continuously.
+
+**Four mechanisms were tried. Three did nothing.**
+
+- *Short-term depression* (HD1.8, already run): 0.011 across the whole grid against a 0.118 gap.
+- *Per-synapse delay heterogeneity* (new `intra_delay_sd_ms`): 0.005, inside the seed noise floor of
+  0.007, and the sign reverses at a smaller electrode. A clean negative for a mechanism that looked
+  obvious - the recurrent delay had been one scalar for every synapse.
+- *Distance-dependent connectivity* (new `connection_sigma_um`): no effect where drive dominates, and
+  the **wrong sign** where recurrence does (0.850 to 0.900 as the range narrows). Concentrating the
+  same in-degree locally makes local clusters tighter, not looser.
+
+**What was actually wrong was geometry and density.** The chamber held 250 neurons in 1.92 mm² - 130
+neurons/mm² against roughly 1000-3000 in a real culture - and `detection_radius_um` was searched up
+to 300 µm against a 200 µm electrode pitch. The oversized electrode compensated twice over: it
+pooled about thirty neurons to manufacture a per-electrode firing rate, and it fed each neuron's
+spikes to 5.7 electrodes on average, inflating pairwise STTC by construction. Capping the radius at
+half the pitch and putting `n_per_compartment` into the search moved them to 92.5 µm and 967 neurons,
+and `synchrony_index` landed **inside the real band for the first time** at 0.8387, with
+`burst_rate_per_min` too; the other three miss by 6%, 12% and 1% of their band edges.
+
+**The headline score is optimistic and now says so.** Best-of-160 chosen on two seeds scores 0.0756;
+re-run on five seeds the search never saw it scores 0.1994, an optimism of 0.1238. Synchrony holds up
+better than the total (0.7732 ± 0.0685, in band on 60% of those seeds). `HELD_OUT_SEEDS` and
+`summarise_held_out` make that a recorded metric rather than a thing someone checked once.
+
+**Other calibration changes.** Draws are scored on more than one network seed; the search runs in
+parallel with refinement in waves; `boundary_hits` reports any value pinned to an edge (the previous
+calibration had two and nothing said so; this one has none). A bounded feature at or below zero is
+now scored rather than treated as a crashed run - STTC spans -1 to 1, so an asynchronous network had
+been scoring identically to a simulation that produced nothing.
+
+**One pattern, four times: a stage trusting an artefact from the stage before it.**
+
+- The sbi simulation cache recorded summaries, geometry and a code fingerprint but **not the
+  calibration**, so a recalibration left no trace and 3,500 stale draws would have been reused
+  silently. Now keyed on the calibration.
+- `real_inference` read that cache without validating it at all - and its whole purpose is asking
+  whether real recordings fall inside the simulated range, which is meaningless against a superseded
+  twin and looks entirely normal.
+- `perturbation` **reported the wrong network**: it recorded its own argument (250) while the
+  dict-merge meant the calibrated 967 actually ran. The only one of the four that produced a
+  confidently false provenance record rather than a crash or a silent reuse.
+- `inference` crashed on the same merge, which is how the other three came to light.
+
+**The inference density gap, closed.** Inference had deliberately run 150 neurons for tractability. I
+estimated that closing it would cost ~6x from the neuron count; measured, it is **1.55x** (15.72 s
+against 10.16 s per simulation), because most of the cost is fixed overhead. `inference_calibration()`
+now includes density and `params_from_vector` defaults to it, so nothing in the pipeline silently
+runs a sparser twin than §7.3 reports; an explicit size still wins, for tests and probes.
+
+**Report.** §7.3 rewritten: a table where every simulated value, band edge and penalty carries its own
+citation, the held-out optimism in the main text, and a plain statement that the previous version was
+wrong. Appendix B updated - it still said "seven", `background_rate_hz` "held at 10 Hz, not searched"
+and radius "100-300 µm". §7.4's GABA-A potentiation cell moved 2/4 to 1/4 after the perturbation
+re-run. 310 citations, 303 verified, 0 failing; 20 pages of main matter, which needed real trimming
+because the report was already at exactly 20.
+
+**A figure was broken in the committed report and no test could see it.** An edit had moved the
+species-comparison figure to Appendix E and split its caption ~600 lines: a stranded `![` in the
+appendix, an orphaned `](path){width=51%}` in §6.8, both rendering as literal text in the PDF. Both
+figure tests match a complete `![alt](path)`, so a *broken* figure was invisible to the checks meant
+to find broken figures. Repaired from git rather than rewritten, with a detector that asks whether
+another `![` opens before this one closes - a stranded opener otherwise borrows the next figure's
+closing bracket and looks complete. Validated by running it against HEAD, where it finds both halves.
+
+**Also fixed:** the citation verifier crashed on an empty collection. `boundary_hits: []` reached
+`_trailing_numbers(window, 0)`, whose `found[-0:]` returns *every* number rather than none, and the
+strict zip took the whole verification run down.
+
+**HD1.9 retired** at the author's request - its 296 µm vs 100 µm premise was obsolete once the
+calibration picked 92.5 µm unprompted. Module, tests, artefacts and metrics key removed; all were
+untracked, so no history was lost. Retiring it made Appendix B's claim of "three synaptic mechanisms
+tried" unsupported (only depression has a reproducible artefact; the connectivity result lived only
+in a scratchpad), so that text now claims only what the repository can regenerate.
+
+### Blocked / open
+
+- **A full downstream chain is mid-run** and its results are not in yet: perturbation, then
+  `inference --rebuild` at the calibrated density, then `real_inference` and `delta_inference`
+  (~2 hours; delta alone is 1,500 pairs = 3,000 simulations). Until it lands, `metrics.json` carries
+  HD1.4/1.5/1.7 numbers from the old calibration and **§7.5 and its appendices are stale**. Expect
+  citation failures there of the same kind §7.4 just had; the checker will name them.
+- **`DIGITAL_TWIN_FOR_BIOLOGISTS.md` fails the citation check.** Its §3.2 and §3.3 describe the old
+  seven-parameter search and tabulate synchrony as an unfixed gap. It needs the §7.3 treatment, not a
+  numeral swap, and it also covers HD1.3/1.4 - so it is best done once, after the chain lands.
+- **The citation checker still has a blind spot.** A count spelled as a word ("seven") is not a
+  number, and a dict like `inside_real_band` returns *pointer*, so prose naming which features passed
+  is never verified. That is exactly how §7.3's claim stayed wrong through many passing runs. The
+  malformed-figure equivalent is now closed; this one is not.
+- **A `pkill -f` killed a sibling job** whose wrapper command line contained the pattern. Bracket
+  escaping stops *grep* matching itself and does nothing about this. The PID-based wait written ten
+  minutes earlier is the habit that works.
+- The email to Ort, Koch and Delev about the Zenodo 21283609 pickles is drafted and unsent; there is
+  no mail transport on this machine.
+
+**Next first task.** When the chain lands: read the citation checker's failures for §7.5 and fix
+them, then regenerate `DIGITAL_TWIN_FOR_BIOLOGISTS.md`. The author's four are unchanged - team
+tables, demo video link, make the repository public, submit the registration form.
