@@ -1394,7 +1394,7 @@
     "label": "precomputed demo inputs; simulated grid plus real-recording posteriors",
     "n_grid_points": 75,
     "n_grid_usable": 75,
-    "n_per_compartment": 150,
+    "n_per_compartment": 967,
     "n_real_recordings": 113,
     "parameter_names": [
       "log10_forward_ratio",
@@ -1403,15 +1403,24 @@
       "ampa_scale",
       "threshold_scale"
     ],
+    "posterior_draws": {
+      "fewest_draws": 1,
+      "median_draws": 200,
+      "n_recordings": 113,
+      "n_short_of_requested": 9,
+      "n_unsampled": 0,
+      "reads_as": "rejection sampling could not place enough mass inside the prior for these recordings; missing draws are NaN rather than dropped",
+      "requested": 200
+    },
     "posterior_file": "outputs/twin/hd14_posterior_simulated.pt",
     "posterior_samples_per_point": 200,
     "quick": false,
     "simulated_duration_s": 10.0,
     "timings_s": {
       "fit_classifier_s": 0.1,
-      "grid_posteriors_s": 14.8,
-      "real_posteriors_s": 24.1,
-      "simulate_grid_s": 27.3
+      "grid_posteriors_s": 5.3,
+      "real_posteriors_s": 305.3,
+      "simulate_grid_s": 43.5
     }
   },
   "extractor_agreement": {
@@ -2937,66 +2946,96 @@
   "twin_hd12_calibration": {
     "best": {
       "draw": {
-        "adaptation_increment": 1.8862,
-        "background_weight": 0.0395,
-        "detection_radius_um": 295.8724,
-        "excitatory_weight": 0.33,
-        "inhibitory_weight": 4.8445,
-        "intra_in_degree": 17.6161,
-        "threshold_spread": 0.0259
+        "adaptation_increment": 1.0093,
+        "background_rate_hz": 3.3596,
+        "background_weight": 0.0692,
+        "detection_radius_um": 92.5135,
+        "excitatory_weight": 0.386,
+        "inhibitory_weight": 5.4261,
+        "intra_in_degree": 18.4929,
+        "n_per_compartment": 967,
+        "threshold_spread": 0.2258
       },
       "features_simulated": {
-        "burst_rate_per_min": 21.015625,
-        "mfr_hz": 6.927604166666667,
-        "network_burst_rate_per_min": 22.5,
-        "pct_spikes_in_bursts": 96.1964616421526,
-        "synchrony_index": 0.9642643440800385
+        "burst_rate_per_min": 22.9219,
+        "mfr_hz": 5.9862,
+        "network_burst_rate_per_min": 24.0,
+        "pct_spikes_in_bursts": 83.8409,
+        "synchrony_index": 0.8387
       },
+      "n_seeds": 2,
       "per_feature": {
         "burst_rate_per_min": 0.0,
-        "mfr_hz": 0.0,
-        "network_burst_rate_per_min": 0.0,
-        "pct_spikes_in_bursts": 0.0265,
-        "synchrony_index": 0.1344
+        "mfr_hz": 0.1283,
+        "network_burst_rate_per_min": 0.0582,
+        "pct_spikes_in_bursts": 0.1253,
+        "synchrony_index": 0.0665
       },
-      "score": 0.0322,
+      "score": 0.0756,
       "stage": "refine"
     },
+    "boundary_hits": [],
     "duration_s": 40.0,
+    "held_out": {
+      "n_seeds": 5,
+      "optimism": 0.1238,
+      "score_mean": 0.1994,
+      "score_sd": 0.1703,
+      "seeds": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "selection_score": 0.0756,
+      "synchrony_index_in_band_fraction": 0.6,
+      "synchrony_index_mean": 0.7732,
+      "synchrony_index_sd": 0.0685
+    },
     "inside_real_band": {
       "burst_rate_per_min": true,
-      "mfr_hz": true,
-      "network_burst_rate_per_min": true,
+      "mfr_hz": false,
+      "network_burst_rate_per_min": false,
       "pct_spikes_in_bursts": false,
-      "synchrony_index": false
+      "synchrony_index": true
     },
     "label": "SIMULATED - calibration of a model, not measured data",
-    "n_draws": 40,
-    "note": "random search over 5 parameters; everything else held at its module default. detection_radius_um is a property of the virtual electrode, not of the culture.",
+    "n_draws": 160,
+    "n_seeds_per_draw": 2,
+    "note": "random search over 9 parameters, each draw scored on 2 network seed(s); everything else held at its module default. detection_radius_um is a property of the virtual electrode, not of the culture, and is capped at 100 um - half the electrode pitch - so no neuron is heard by two electrodes.",
     "search_space": {
       "adaptation_increment": [
         0.5,
         2.5
       ],
+      "background_rate_hz": [
+        1.0,
+        40.0
+      ],
       "background_weight": [
-        0.035,
-        0.05
+        0.005,
+        0.12
       ],
       "detection_radius_um": [
-        100.0,
-        300.0
+        40.0,
+        100.0
       ],
       "excitatory_weight": [
         0.15,
         0.45
       ],
       "inhibitory_weight": [
-        1.5,
-        5.0
+        1.0,
+        7.0
       ],
       "intra_in_degree": [
         10.0,
         35.0
+      ],
+      "n_per_compartment": [
+        250,
+        1500
       ],
       "threshold_spread": [
         0.0,
@@ -3041,12 +3080,14 @@
     },
     "tuned_parameters": [
       "background_weight",
+      "background_rate_hz",
       "excitatory_weight",
       "inhibitory_weight",
       "adaptation_increment",
       "threshold_spread",
       "intra_in_degree",
-      "detection_radius_um"
+      "detection_radius_um",
+      "n_per_compartment"
     ]
   },
   "twin_hd13_perturbation": {
@@ -3059,7 +3100,7 @@
             "real_delta": -0.548,
             "real_direction": "down",
             "real_established": true,
-            "simulated_delta": -0.221,
+            "simulated_delta": -0.003,
             "simulated_direction": "down"
           },
           "isi_cv": {
@@ -3067,7 +3108,7 @@
             "real_delta": 0.038,
             "real_direction": "up",
             "real_established": false,
-            "simulated_delta": 1.221,
+            "simulated_delta": 1.763,
             "simulated_direction": "up"
           },
           "mfr_hz": {
@@ -3075,7 +3116,7 @@
             "real_delta": -0.335,
             "real_direction": "down",
             "real_established": true,
-            "simulated_delta": 2.058,
+            "simulated_delta": 2.706,
             "simulated_direction": "up"
           },
           "network_burst_rate_per_min": {
@@ -3083,7 +3124,7 @@
             "real_delta": -0.66,
             "real_direction": "down",
             "real_established": true,
-            "simulated_delta": -0.322,
+            "simulated_delta": -0.1,
             "simulated_direction": "down"
           },
           "pct_spikes_in_bursts": {
@@ -3091,7 +3132,7 @@
             "real_delta": 0.037,
             "real_direction": "up",
             "real_established": true,
-            "simulated_delta": 0.048,
+            "simulated_delta": 0.278,
             "simulated_direction": "up"
           },
           "synchrony_index": {
@@ -3099,7 +3140,7 @@
             "real_delta": 0.11,
             "real_direction": "up",
             "real_established": true,
-            "simulated_delta": 0.045,
+            "simulated_delta": 0.267,
             "simulated_direction": "up"
           }
         },
@@ -3175,12 +3216,12 @@
           ]
         },
         "simulated_delta": {
-          "burst_rate_per_min": -0.221,
-          "isi_cv": 1.221,
-          "mfr_hz": 2.058,
-          "network_burst_rate_per_min": -0.322,
-          "pct_spikes_in_bursts": 0.048,
-          "synchrony_index": 0.045
+          "burst_rate_per_min": -0.003,
+          "isi_cv": 1.763,
+          "mfr_hz": 2.706,
+          "network_burst_rate_per_min": -0.1,
+          "pct_spikes_in_bursts": 0.278,
+          "synchrony_index": 0.267
         },
         "value": 0.2
       },
@@ -3191,7 +3232,7 @@
             "real_delta": -0.353,
             "real_direction": "down",
             "real_established": true,
-            "simulated_delta": 0.093,
+            "simulated_delta": 0.256,
             "simulated_direction": "up"
           },
           "isi_cv": {
@@ -3199,23 +3240,23 @@
             "real_delta": -0.231,
             "real_direction": "down",
             "real_established": true,
-            "simulated_delta": -0.05,
+            "simulated_delta": -0.028,
             "simulated_direction": "down"
           },
           "mfr_hz": {
-            "agrees": true,
+            "agrees": false,
             "real_delta": -0.471,
             "real_direction": "down",
             "real_established": true,
-            "simulated_delta": -0.018,
-            "simulated_direction": "down"
+            "simulated_delta": 0.015,
+            "simulated_direction": "up"
           },
           "network_burst_rate_per_min": {
             "agrees": null,
             "real_delta": 0.06,
             "real_direction": "up",
             "real_established": false,
-            "simulated_delta": 0.047,
+            "simulated_delta": 0.341,
             "simulated_direction": "up"
           },
           "pct_spikes_in_bursts": {
@@ -3223,7 +3264,7 @@
             "real_delta": -0.282,
             "real_direction": "down",
             "real_established": true,
-            "simulated_delta": 0.005,
+            "simulated_delta": 0.013,
             "simulated_direction": "up"
           },
           "synchrony_index": {
@@ -3231,13 +3272,13 @@
             "real_delta": 0.062,
             "real_direction": "up",
             "real_established": false,
-            "simulated_delta": 0.001,
+            "simulated_delta": 0.031,
             "simulated_direction": "up"
           }
         },
         "knob": "gabaa_potentiate",
         "mechanism": "gabaa_agonist_or_pam",
-        "n_features_agreeing": 2,
+        "n_features_agreeing": 1,
         "n_features_scored": 4,
         "parameter": "gabaa_scale",
         "reads_as": "GABA-A positive modulator (diazepam): inhibition strengthened",
@@ -3307,12 +3348,12 @@
           ]
         },
         "simulated_delta": {
-          "burst_rate_per_min": 0.093,
-          "isi_cv": -0.05,
-          "mfr_hz": -0.018,
-          "network_burst_rate_per_min": 0.047,
-          "pct_spikes_in_bursts": 0.005,
-          "synchrony_index": 0.001
+          "burst_rate_per_min": 0.256,
+          "isi_cv": -0.028,
+          "mfr_hz": 0.015,
+          "network_burst_rate_per_min": 0.341,
+          "pct_spikes_in_bursts": 0.013,
+          "synchrony_index": 0.031
         },
         "value": 2.0
       },
@@ -3331,7 +3372,7 @@
             "real_delta": -0.459,
             "real_direction": "down",
             "real_established": false,
-            "simulated_delta": -2.138,
+            "simulated_delta": -1.977,
             "simulated_direction": "down"
           },
           "mfr_hz": {
@@ -3339,7 +3380,7 @@
             "real_delta": -1.769,
             "real_direction": "down",
             "real_established": true,
-            "simulated_delta": -4.235,
+            "simulated_delta": -2.368,
             "simulated_direction": "down"
           },
           "network_burst_rate_per_min": {
@@ -3363,7 +3404,7 @@
             "real_delta": -4.322,
             "real_direction": "down",
             "real_established": true,
-            "simulated_delta": -3.224,
+            "simulated_delta": -4.322,
             "simulated_direction": "down"
           }
         },
@@ -3439,11 +3480,11 @@
         },
         "simulated_delta": {
           "burst_rate_per_min": -4.322,
-          "isi_cv": -2.138,
-          "mfr_hz": -4.235,
+          "isi_cv": -1.977,
+          "mfr_hz": -2.368,
           "network_burst_rate_per_min": -4.322,
           "pct_spikes_in_bursts": -4.322,
-          "synchrony_index": -3.224
+          "synchrony_index": -4.322
         },
         "value": 0.4
       },
@@ -3462,15 +3503,15 @@
             "real_delta": -0.041,
             "real_direction": "down",
             "real_established": false,
-            "simulated_delta": null,
-            "simulated_direction": null
+            "simulated_delta": -2.145,
+            "simulated_direction": "down"
           },
           "mfr_hz": {
             "agrees": true,
             "real_delta": -0.795,
             "real_direction": "down",
             "real_established": true,
-            "simulated_delta": -4.322,
+            "simulated_delta": -3.672,
             "simulated_direction": "down"
           },
           "network_burst_rate_per_min": {
@@ -3494,8 +3535,8 @@
             "real_delta": -1.932,
             "real_direction": "down",
             "real_established": false,
-            "simulated_delta": null,
-            "simulated_direction": null
+            "simulated_delta": -4.322,
+            "simulated_direction": "down"
           }
         },
         "knob": "sodium_block",
@@ -3570,11 +3611,11 @@
         },
         "simulated_delta": {
           "burst_rate_per_min": -4.322,
-          "isi_cv": null,
-          "mfr_hz": -4.322,
+          "isi_cv": -2.145,
+          "mfr_hz": -3.672,
           "network_burst_rate_per_min": -4.322,
           "pct_spikes_in_bursts": -4.322,
-          "synchrony_index": null
+          "synchrony_index": -4.322
         },
         "value": 1.6
       }
@@ -3583,71 +3624,70 @@
     "simulation": {
       "baseline_features_simulated": {
         "active_electrodes": 48.0,
-        "burst_duration_s": 0.03320863747523532,
-        "burst_rate_per_min": 21.015625,
-        "isi_cv": 3.9244319202346603,
-        "mfr_hz": 6.927604166666667,
+        "burst_duration_s": 0.049980718498730134,
+        "burst_rate_per_min": 21.09375,
+        "isi_cv": 2.285571882949314,
+        "mfr_hz": 5.624479166666666,
         "network_burst_rate_per_min": 22.5,
-        "pct_spikes_in_bursts": 96.1964616421526,
-        "spikes_per_burst": 19.027344026392132,
-        "synchrony_index": 0.9642643440800385
+        "pct_spikes_in_bursts": 81.11492075608362,
+        "spikes_per_burst": 12.981751071755484,
+        "synchrony_index": 0.8161787016273689
       },
       "calibrated_parameters_used": true,
       "duration_s": 40.0,
       "layout": {
         "cols": 8,
-        "detection_radius_um": 295.8724,
+        "detection_radius_um": 92.5135,
         "gap_um": 600.0,
         "margin_um": 100.0,
         "pitch_um": 200.0,
         "rows": 6
       },
-      "n_per_compartment": 250,
+      "n_per_compartment": 967,
       "treated_features_simulated": {
         "ampa_block": {
-          "active_electrodes": 47.5,
+          "active_electrodes": 40.0,
           "burst_duration_s": null,
           "burst_rate_per_min": 0.0,
-          "isi_cv": 0.8913280264246176,
-          "mfr_hz": 0.3677803634751773,
+          "isi_cv": 0.5806165763466411,
+          "mfr_hz": 1.0895012507817385,
           "network_burst_rate_per_min": 0.0,
           "pct_spikes_in_bursts": 0.0,
           "spikes_per_burst": null,
-          "synchrony_index": 0.10320771570675405
+          "synchrony_index": 0.003541676397652002
         },
         "gabaa_block": {
           "active_electrodes": 48.0,
-          "burst_duration_s": 0.049008713896097705,
-          "burst_rate_per_min": 18.03125,
-          "isi_cv": 9.148458626983976,
-          "mfr_hz": 28.854947916666667,
-          "network_burst_rate_per_min": 18.0,
-          "pct_spikes_in_bursts": 99.42745870023103,
-          "spikes_per_burst": 95.4659115484429,
-          "synchrony_index": 0.9946867758554757
+          "burst_duration_s": 0.07298603103601825,
+          "burst_rate_per_min": 21.046875,
+          "isi_cv": 7.756299791571614,
+          "mfr_hz": 36.71249999999999,
+          "network_burst_rate_per_min": 21.0,
+          "pct_spikes_in_bursts": 98.33782455292138,
+          "spikes_per_burst": 102.92398953267403,
+          "synchrony_index": 0.9823793992860206
         },
         "gabaa_potentiate": {
           "active_electrodes": 48.0,
-          "burst_duration_s": 0.03083786110830531,
-          "burst_rate_per_min": 22.421875,
-          "isi_cv": 3.791197587231527,
-          "mfr_hz": 6.841145833333334,
-          "network_burst_rate_per_min": 23.25,
-          "pct_spikes_in_bursts": 96.50855497135024,
-          "spikes_per_burst": 17.664510182516064,
-          "synchrony_index": 0.9651384103155649
+          "burst_duration_s": 0.04015161846684537,
+          "burst_rate_per_min": 25.1875,
+          "isi_cv": 2.241785736452073,
+          "mfr_hz": 5.684635416666667,
+          "network_burst_rate_per_min": 28.5,
+          "pct_spikes_in_bursts": 81.85386141906687,
+          "spikes_per_burst": 11.085556992823925,
+          "synchrony_index": 0.8340177065308576
         },
         "sodium_block": {
-          "active_electrodes": 0.0,
+          "active_electrodes": 3.5,
           "burst_duration_s": null,
           "burst_rate_per_min": 0.0,
-          "isi_cv": null,
-          "mfr_hz": 0.0,
+          "isi_cv": 0.516719327816676,
+          "mfr_hz": 0.44125000000000003,
           "network_burst_rate_per_min": 0.0,
           "pct_spikes_in_bursts": 0.0,
-          "silent": true,
           "spikes_per_burst": null,
-          "synchrony_index": null
+          "synchrony_index": -0.024698046214697594
         }
       }
     }
@@ -3655,36 +3695,37 @@
   "twin_hd14_inference": {
     "contraction": {
       "ampa_scale": {
-        "contraction": 0.443,
-        "posterior_sd": 0.1607,
+        "contraction": 0.599,
+        "posterior_sd": 0.1157,
         "prior_sd": 0.2887
       },
       "gabaa_scale": {
-        "contraction": 0.323,
-        "posterior_sd": 0.3714,
+        "contraction": 0.3,
+        "posterior_sd": 0.384,
         "prior_sd": 0.5485
       },
       "inter_in_degree": {
-        "contraction": 0.321,
-        "posterior_sd": 3.5286,
+        "contraction": 0.269,
+        "posterior_sd": 3.7987,
         "prior_sd": 5.1962
       },
       "log10_forward_ratio": {
-        "contraction": 0.311,
-        "posterior_sd": 0.2585,
+        "contraction": 0.438,
+        "posterior_sd": 0.2109,
         "prior_sd": 0.3753
       },
       "threshold_scale": {
-        "contraction": 0.8,
-        "posterior_sd": 0.0173,
+        "contraction": 0.661,
+        "posterior_sd": 0.0294,
         "prior_sd": 0.0866
       }
     },
-    "fraction_silent_simulations": 0.201,
+    "fraction_silent_simulations": 0.0,
     "label": "SIMULATED - inference trained on simulations only",
-    "n_holdout": 350,
-    "n_simulations": 3500,
-    "n_train": 3150,
+    "n_holdout": 300,
+    "n_per_compartment": 967,
+    "n_simulations": 3000,
+    "n_train": 2700,
     "posterior_samples": 200,
     "prior_bounds": {
       "ampa_scale": [
@@ -3710,29 +3751,29 @@
     },
     "rank_uniformity_ks_p": {
       "ampa_scale": {
-        "ks_p": 0.0092,
-        "ks_statistic": 0.0871,
-        "n_evaluated": 350
+        "ks_p": 0.3128,
+        "ks_statistic": 0.055,
+        "n_evaluated": 300
       },
       "gabaa_scale": {
-        "ks_p": 0.0004,
-        "ks_statistic": 0.1093,
-        "n_evaluated": 350
+        "ks_p": 0.0174,
+        "ks_statistic": 0.0883,
+        "n_evaluated": 300
       },
       "inter_in_degree": {
-        "ks_p": 0.0011,
-        "ks_statistic": 0.1029,
-        "n_evaluated": 350
+        "ks_p": 0.0121,
+        "ks_statistic": 0.0917,
+        "n_evaluated": 300
       },
       "log10_forward_ratio": {
-        "ks_p": 0.003,
-        "ks_statistic": 0.0957,
-        "n_evaluated": 350
+        "ks_p": 0.1517,
+        "ks_statistic": 0.065,
+        "n_evaluated": 300
       },
       "threshold_scale": {
-        "ks_p": 0.1956,
-        "ks_statistic": 0.0571,
-        "n_evaluated": 350
+        "ks_p": 0.6105,
+        "ks_statistic": 0.0433,
+        "n_evaluated": 300
       }
     },
     "seed": 0,
@@ -3759,143 +3800,143 @@
     ]
   },
   "twin_hd15_real_inference": {
-    "caveat": "HD14 found gabaa_scale only weakly identified (contraction 0.34) and no parameter passing the rank-uniformity check, so these medians are directional evidence at best",
+    "caveat": "HD14 identifies gabaa_scale only weakly (contraction 0.3) and it is not among the 3 of 5 parameters passing the rank-uniformity check, so these medians are directional evidence at best",
     "distribution_check": {
       "by_dimension": {
         "asymmetry": {
-          "fraction_inside": 1.0,
+          "fraction_inside": 0.991,
           "real_median": -0.012,
           "simulated_range": [
-            -1.0,
-            1.0
+            -0.439,
+            0.447
           ],
-          "simulated_support_in_real_iqr": 0.469
+          "simulated_support_in_real_iqr": 0.719
         },
         "c0_active_electrodes": {
-          "fraction_inside": 0.92,
+          "fraction_inside": 0.805,
           "real_median": 44.0,
           "simulated_range": [
-            0.0,
+            28.0,
             48.0
           ],
-          "simulated_support_in_real_iqr": 0.016
+          "simulated_support_in_real_iqr": 0.246
         },
         "c0_burst_rate_per_min": {
           "fraction_inside": 1.0,
           "real_median": 9.765,
           "simulated_range": [
             0.0,
-            89.001
+            78.39
           ],
-          "simulated_support_in_real_iqr": 0.048
+          "simulated_support_in_real_iqr": 0.037
         },
         "c0_isi_cv": {
           "fraction_inside": 1.0,
           "real_median": 3.761,
           "simulated_range": [
-            0.0,
-            13.357
+            0.412,
+            12.341
           ],
-          "simulated_support_in_real_iqr": 0.169
+          "simulated_support_in_real_iqr": 0.173
         },
         "c0_mfr_hz": {
           "fraction_inside": 1.0,
           "real_median": 9.581,
           "simulated_range": [
-            0.0,
-            63.495
+            0.6,
+            82.994
           ],
-          "simulated_support_in_real_iqr": 0.318
+          "simulated_support_in_real_iqr": 0.223
         },
         "c0_network_burst_rate_per_min": {
           "fraction_inside": 1.0,
           "real_median": 9.754,
           "simulated_range": [
             0.0,
-            144.0
+            84.0
           ],
-          "simulated_support_in_real_iqr": 0.076
+          "simulated_support_in_real_iqr": 0.049
         },
         "c0_pct_spikes_in_bursts": {
           "fraction_inside": 1.0,
           "real_median": 92.009,
           "simulated_range": [
             0.0,
-            100.0
+            99.862
           ],
-          "simulated_support_in_real_iqr": 0.146
+          "simulated_support_in_real_iqr": 0.145
         },
         "c0_synchrony_index": {
-          "fraction_inside": 0.991,
+          "fraction_inside": 0.982,
           "real_median": 0.749,
           "simulated_range": [
-            0.0,
-            1.0
+            0.001,
+            0.998
           ],
-          "simulated_support_in_real_iqr": 0.079
+          "simulated_support_in_real_iqr": 0.114
         },
         "c1_active_electrodes": {
-          "fraction_inside": 0.973,
+          "fraction_inside": 0.841,
           "real_median": 42.0,
           "simulated_range": [
-            0.0,
+            28.99,
             48.0
           ],
-          "simulated_support_in_real_iqr": 0.027
+          "simulated_support_in_real_iqr": 0.328
         },
         "c1_burst_rate_per_min": {
           "fraction_inside": 1.0,
           "real_median": 10.263,
           "simulated_range": [
             0.0,
-            102.501
+            82.754
           ],
-          "simulated_support_in_real_iqr": 0.048
+          "simulated_support_in_real_iqr": 0.042
         },
         "c1_isi_cv": {
           "fraction_inside": 1.0,
           "real_median": 3.776,
           "simulated_range": [
-            0.0,
-            15.144
+            0.428,
+            14.535
           ],
-          "simulated_support_in_real_iqr": 0.198
+          "simulated_support_in_real_iqr": 0.188
         },
         "c1_mfr_hz": {
-          "fraction_inside": 0.991,
+          "fraction_inside": 1.0,
           "real_median": 6.132,
           "simulated_range": [
-            0.0,
-            79.759
+            0.615,
+            120.118
           ],
-          "simulated_support_in_real_iqr": 0.223
+          "simulated_support_in_real_iqr": 0.126
         },
         "c1_network_burst_rate_per_min": {
           "fraction_inside": 1.0,
           "real_median": 9.879,
           "simulated_range": [
             0.0,
-            144.0
+            84.0
           ],
-          "simulated_support_in_real_iqr": 0.079
+          "simulated_support_in_real_iqr": 0.056
         },
         "c1_pct_spikes_in_bursts": {
           "fraction_inside": 1.0,
           "real_median": 88.112,
           "simulated_range": [
             0.0,
-            100.0
+            99.955
           ],
-          "simulated_support_in_real_iqr": 0.2
+          "simulated_support_in_real_iqr": 0.112
         },
         "c1_synchrony_index": {
-          "fraction_inside": 1.0,
+          "fraction_inside": 0.991,
           "real_median": 0.772,
           "simulated_range": [
-            0.0,
-            1.0
+            0.002,
+            0.999
           ],
-          "simulated_support_in_real_iqr": 0.056
+          "simulated_support_in_real_iqr": 0.075
         },
         "coupling_measured": {
           "fraction_inside": 1.0,
@@ -3904,55 +3945,54 @@
             0.0,
             1.0
           ],
-          "simulated_support_in_real_iqr": 0.659
+          "simulated_support_in_real_iqr": 0.723
         },
         "lag_ms": {
-          "fraction_inside": 0.991,
+          "fraction_inside": 0.912,
           "real_median": 0.0,
           "simulated_range": [
-            -80.0,
-            95.05
+            -20.0,
+            20.0
           ],
-          "simulated_support_in_real_iqr": 0.862
+          "simulated_support_in_real_iqr": 0.824
         },
         "log_rate_ratio": {
-          "fraction_inside": 1.0,
+          "fraction_inside": 0.584,
           "real_median": 0.263,
           "simulated_range": [
-            -6.659,
-            6.659
+            -1.261,
+            0.495
           ],
-          "simulated_support_in_real_iqr": 0.445
+          "simulated_support_in_real_iqr": 0.414
         },
         "peak_correlation": {
-          "fraction_inside": 0.973,
+          "fraction_inside": 0.92,
           "real_median": 0.89,
           "simulated_range": [
-            -0.002,
-            0.985
+            0.041,
+            0.998
           ],
-          "simulated_support_in_real_iqr": 0.218
+          "simulated_support_in_real_iqr": 0.307
         }
       },
-      "mean_fraction_inside": 0.992,
+      "mean_fraction_inside": 0.949,
       "n_real": 113,
       "outside_dimensions": [],
       "support_note": "unsupported_dimensions pass the range test but fewer than 5% of simulated draws land in the real interquartile range, so the posterior is still interpolating across a gap there",
       "unsupported_dimensions": [
         "c0_burst_rate_per_min",
-        "c0_active_electrodes",
-        "c1_burst_rate_per_min",
-        "c1_active_electrodes"
+        "c0_network_burst_rate_per_min",
+        "c1_burst_rate_per_min"
       ]
     },
     "expected": "a GABA-A antagonist should lower gabaa_scale, and lower it further with dose",
     "gabaa_scale_at_baseline": {
       "bootstrap_resamples": 1000,
       "includes_neutral": false,
-      "median": 0.3781,
+      "median": 0.5219,
       "median_ci95": [
-        0.3149,
-        0.4677
+        0.2732,
+        0.8503
       ],
       "n_devices": 16,
       "n_untreated": 16,
@@ -3960,43 +4000,42 @@
     },
     "gabaa_scale_dose_trend": {
       "bootstrap_resamples": 1000,
-      "direction": "rises with dose",
+      "direction": "falls with dose",
       "excludes_zero": false,
       "n_devices": 16,
       "n_recordings": 113,
-      "naive_p_value": 0.2118,
-      "spearman_rho": 0.118,
+      "naive_p_value": 0.2023,
+      "spearman_rho": -0.121,
       "spearman_rho_ci95": [
-        -0.168,
-        0.419
+        -0.3331,
+        0.1148
       ]
     },
     "gabaa_scale_dose_trend_without_ood_dimensions": {
       "bootstrap_resamples": 1000,
       "direction": "rises with dose",
-      "excludes_zero": true,
+      "excludes_zero": false,
       "n_devices": 16,
       "n_recordings": 113,
-      "naive_p_value": 0.0059,
-      "spearman_rho": 0.258,
+      "naive_p_value": 0.8576,
+      "spearman_rho": 0.017,
       "spearman_rho_ci95": [
-        0.0037,
-        0.5205
+        -0.2294,
+        0.2845
       ]
     },
     "label": "posterior trained on SIMULATIONS, applied to REAL recordings",
     "n_recordings": 113,
     "neutralised_dimensions": [
       "c0_burst_rate_per_min",
-      "c0_active_electrodes",
-      "c1_burst_rate_per_min",
-      "c1_active_electrodes"
+      "c0_network_burst_rate_per_min",
+      "c1_burst_rate_per_min"
     ],
     "prior_acceptance": {
-      "fraction_below_1_percent": 0.009,
-      "max_acceptance": 0.926,
-      "median_acceptance": 0.6085,
-      "min_acceptance": 0.0095,
+      "fraction_below_1_percent": 0.389,
+      "max_acceptance": 0.977,
+      "median_acceptance": 0.0345,
+      "min_acceptance": 0.0,
       "n_draws_per_recording": 2000,
       "note": "share of raw posterior draws inside the prior box; low values mean the posterior is extrapolating outside its training region for real inputs"
     },
@@ -6931,12 +6970,12 @@
     "drug_parameter": "gabaa_scale",
     "duration_s": 10.0,
     "held_out_checks": {
-      "contraction": 0.3894,
-      "median_bias": -0.0164,
+      "contraction": 0.5375,
+      "median_bias": -0.0251,
       "n_checked": 300,
       "note": "contraction and rank uniformity, as \u00a77.5 reports them for the absolute posterior",
       "rank_uniform": false,
-      "rank_uniformity_ks_p": 0.0056
+      "rank_uniformity_ks_p": 0.0037
     },
     "label": "posterior trained on PAIRED SIMULATIONS, applied to REAL recordings",
     "n_pairs_held_out": 300,
@@ -6945,11 +6984,11 @@
     "real_data": {
       "gabaa_scale_at_baseline": {
         "bootstrap_resamples": 1000,
-        "includes_neutral": true,
-        "median": 1.0289,
+        "includes_neutral": false,
+        "median": 0.9108,
         "median_ci95": [
-          0.9847,
-          1.056
+          0.8583,
+          0.966
         ],
         "n_untreated": 16,
         "neutral_value": 1.0
@@ -6960,11 +6999,11 @@
         "expected_direction": "falls with dose (a GABA-A antagonist lowers the knob)",
         "n_devices": 16,
         "n_recordings": 97,
-        "naive_p_value": 0.7516,
-        "spearman_rho": -0.0326,
+        "naive_p_value": 0.7309,
+        "spearman_rho": -0.0354,
         "spearman_rho_ci95": [
-          -0.1497,
-          0.131
+          -0.1799,
+          0.0627
         ]
       },
       "n_devices": 16,
@@ -6973,184 +7012,176 @@
     "seed": 0
   },
   "twin_hd18_depression": {
-    "best": "u0.2_tau600",
-    "best_beats_control": true,
+    "best": "u0_tau600",
+    "best_beats_control": false,
     "caveat": "the weights were calibrated without depression, so this shows the direction the mechanism pushes, not what a re-calibrated model would score",
     "control": "u0_tau600",
     "duration_s": 40.0,
     "label": "SIMULATED - a model comparison, not measured data",
     "n_seeds": 3,
     "n_settings": 8,
-    "pct_spikes_in_bursts_best_penalty": 0.0149,
-    "pct_spikes_in_bursts_control_penalty": 0.0211,
-    "pct_spikes_in_bursts_improves_under": [
-      "u0.4_tau600",
-      "u0.6_tau600",
-      "u0.6_tau900"
-    ],
+    "pct_spikes_in_bursts_best_penalty": 0.2296,
+    "pct_spikes_in_bursts_control_penalty": 0.2296,
+    "pct_spikes_in_bursts_improves_under": [],
     "question": "does Tsodyks-Markram depression on recurrent excitatory synapses move pct_spikes_in_bursts and synchrony_index toward the real band",
     "settings": {
       "u0.2_tau300": {
         "depression_tau_rec_ms": 300.0,
         "depression_u": 0.2,
         "features": {
-          "burst_rate_per_min": 21.8698,
-          "mfr_hz": 6.7676,
-          "network_burst_rate_per_min": 23.5,
-          "pct_spikes_in_bursts": 96.2322,
-          "synchrony_index": 0.9645
+          "burst_rate_per_min": 22.4115,
+          "mfr_hz": 5.3256,
+          "network_burst_rate_per_min": 26.5,
+          "pct_spikes_in_bursts": 78.8884,
+          "synchrony_index": 0.7963
         },
         "penalties": {
           "burst_rate_per_min": 0.0,
-          "mfr_hz": 0.0361,
-          "network_burst_rate_per_min": 0.0369,
-          "pct_spikes_in_bursts": 0.0268,
-          "synchrony_index": 0.1346
+          "mfr_hz": 0.2548,
+          "network_burst_rate_per_min": 0.1462,
+          "pct_spikes_in_bursts": 0.3614,
+          "synchrony_index": 0.038
         },
-        "score": 0.0469
+        "score": 0.1601
       },
       "u0.2_tau600": {
         "depression_tau_rec_ms": 600.0,
         "depression_u": 0.2,
         "features": {
-          "burst_rate_per_min": 20.4115,
-          "mfr_hz": 6.4312,
-          "network_burst_rate_per_min": 22.25,
-          "pct_spikes_in_bursts": 95.7627,
-          "synchrony_index": 0.9611
+          "burst_rate_per_min": 18.276,
+          "mfr_hz": 4.6269,
+          "network_burst_rate_per_min": 22.75,
+          "pct_spikes_in_bursts": 73.6996,
+          "synchrony_index": 0.752
         },
         "penalties": {
-          "burst_rate_per_min": 0.0,
-          "mfr_hz": 0.0577,
-          "network_burst_rate_per_min": 0.008,
-          "pct_spikes_in_bursts": 0.0219,
-          "synchrony_index": 0.131
+          "burst_rate_per_min": 0.038,
+          "mfr_hz": 0.4,
+          "network_burst_rate_per_min": 0.0856,
+          "pct_spikes_in_bursts": 0.6332,
+          "synchrony_index": 0.0491
         },
-        "score": 0.0438
+        "score": 0.2412
       },
       "u0.4_tau300": {
         "depression_tau_rec_ms": 300.0,
         "depression_u": 0.4,
         "features": {
-          "burst_rate_per_min": 21.3958,
-          "mfr_hz": 6.5859,
-          "network_burst_rate_per_min": 23.25,
-          "pct_spikes_in_bursts": 95.9643,
-          "synchrony_index": 0.9627
+          "burst_rate_per_min": 18.9896,
+          "mfr_hz": 4.6318,
+          "network_burst_rate_per_min": 22.0,
+          "pct_spikes_in_bursts": 72.399,
+          "synchrony_index": 0.7438
         },
         "penalties": {
-          "burst_rate_per_min": 0.0,
-          "mfr_hz": 0.0401,
-          "network_burst_rate_per_min": 0.0289,
-          "pct_spikes_in_bursts": 0.024,
-          "synchrony_index": 0.1327
+          "burst_rate_per_min": 0.0878,
+          "mfr_hz": 0.4103,
+          "network_burst_rate_per_min": 0.0759,
+          "pct_spikes_in_bursts": 0.6671,
+          "synchrony_index": 0.0917
         },
-        "score": 0.0452
+        "score": 0.2665
       },
       "u0.4_tau600": {
         "depression_tau_rec_ms": 600.0,
         "depression_u": 0.4,
         "features": {
-          "burst_rate_per_min": 20.4167,
-          "mfr_hz": 6.2935,
-          "network_burst_rate_per_min": 23.25,
-          "pct_spikes_in_bursts": 95.5822,
-          "synchrony_index": 0.9589
+          "burst_rate_per_min": 15.2135,
+          "mfr_hz": 3.9274,
+          "network_burst_rate_per_min": 18.0,
+          "pct_spikes_in_bursts": 67.5746,
+          "synchrony_index": 0.7015
         },
         "penalties": {
-          "burst_rate_per_min": 0.0,
-          "mfr_hz": 0.0793,
-          "network_burst_rate_per_min": 0.0388,
-          "pct_spikes_in_bursts": 0.0201,
-          "synchrony_index": 0.1288
+          "burst_rate_per_min": 0.0851,
+          "mfr_hz": 0.5624,
+          "network_burst_rate_per_min": 0.0186,
+          "pct_spikes_in_bursts": 0.9437,
+          "synchrony_index": 0.0908
         },
-        "score": 0.0534
+        "score": 0.3401
       },
       "u0.4_tau900": {
         "depression_tau_rec_ms": 900.0,
         "depression_u": 0.4,
         "features": {
-          "burst_rate_per_min": 20.8958,
-          "mfr_hz": 6.3764,
-          "network_burst_rate_per_min": 23.0,
-          "pct_spikes_in_bursts": 95.7574,
-          "synchrony_index": 0.9601
+          "burst_rate_per_min": 9.1198,
+          "mfr_hz": 2.8927,
+          "network_burst_rate_per_min": 14.0,
+          "pct_spikes_in_bursts": 51.9042,
+          "synchrony_index": 0.5677
         },
         "penalties": {
-          "burst_rate_per_min": 0.0,
-          "mfr_hz": 0.0641,
-          "network_burst_rate_per_min": 0.0369,
-          "pct_spikes_in_bursts": 0.0219,
-          "synchrony_index": 0.1301
+          "burst_rate_per_min": 0.5773,
+          "mfr_hz": 0.8886,
+          "network_burst_rate_per_min": 0.148,
+          "pct_spikes_in_bursts": 1.6448,
+          "synchrony_index": 0.3576
         },
-        "score": 0.0506
+        "score": 0.7233
       },
       "u0.6_tau600": {
         "depression_tau_rec_ms": 600.0,
         "depression_u": 0.6,
         "features": {
-          "burst_rate_per_min": 20.4375,
-          "mfr_hz": 6.2864,
-          "network_burst_rate_per_min": 23.0,
-          "pct_spikes_in_bursts": 95.6408,
-          "synchrony_index": 0.9597
+          "burst_rate_per_min": 12.6719,
+          "mfr_hz": 3.4608,
+          "network_burst_rate_per_min": 16.75,
+          "pct_spikes_in_bursts": 61.938,
+          "synchrony_index": 0.6561
         },
         "penalties": {
-          "burst_rate_per_min": 0.0,
-          "mfr_hz": 0.0807,
-          "network_burst_rate_per_min": 0.0289,
-          "pct_spikes_in_bursts": 0.0206,
-          "synchrony_index": 0.1296
+          "burst_rate_per_min": 0.221,
+          "mfr_hz": 0.6969,
+          "network_burst_rate_per_min": 0.008,
+          "pct_spikes_in_bursts": 1.191,
+          "synchrony_index": 0.1873
         },
-        "score": 0.0519
+        "score": 0.4609
       },
       "u0.6_tau900": {
         "depression_tau_rec_ms": 900.0,
         "depression_u": 0.6,
         "features": {
-          "burst_rate_per_min": 19.4062,
-          "mfr_hz": 6.0444,
-          "network_burst_rate_per_min": 23.25,
-          "pct_spikes_in_bursts": 95.0897,
-          "synchrony_index": 0.9536
+          "burst_rate_per_min": 4.974,
+          "mfr_hz": 2.1615,
+          "network_burst_rate_per_min": 11.5,
+          "pct_spikes_in_bursts": 38.6429,
+          "synchrony_index": 0.4634
         },
         "penalties": {
-          "burst_rate_per_min": 0.0,
-          "mfr_hz": 0.1176,
-          "network_burst_rate_per_min": 0.0369,
-          "pct_spikes_in_bursts": 0.0149,
-          "synchrony_index": 0.1233
+          "burst_rate_per_min": 0.955,
+          "mfr_hz": 1.1471,
+          "network_burst_rate_per_min": 0.0605,
+          "pct_spikes_in_bursts": 2.177,
+          "synchrony_index": 0.6428
         },
-        "score": 0.0585
+        "score": 0.9965
       },
       "u0_tau600": {
         "depression_tau_rec_ms": 600.0,
         "depression_u": 0.0,
         "features": {
-          "burst_rate_per_min": 20.9271,
-          "mfr_hz": 6.6051,
-          "network_burst_rate_per_min": 23.5,
-          "pct_spikes_in_bursts": 95.6829,
-          "synchrony_index": 0.9614
+          "burst_rate_per_min": 21.5573,
+          "mfr_hz": 5.8211,
+          "network_burst_rate_per_min": 22.75,
+          "pct_spikes_in_bursts": 81.9173,
+          "synchrony_index": 0.8186
         },
         "penalties": {
           "burst_rate_per_min": 0.0,
-          "mfr_hz": 0.0358,
+          "mfr_hz": 0.1565,
           "network_burst_rate_per_min": 0.0388,
-          "pct_spikes_in_bursts": 0.0211,
-          "synchrony_index": 0.1314
+          "pct_spikes_in_bursts": 0.2296,
+          "synchrony_index": 0.0443
         },
-        "score": 0.0454
+        "score": 0.0938
       }
     },
-    "synchrony_index_best_penalty": 0.1233,
-    "synchrony_index_control_penalty": 0.1314,
+    "synchrony_index_best_penalty": 0.038,
+    "synchrony_index_control_penalty": 0.0443,
     "synchrony_index_improves_under": [
-      "u0.2_tau600",
-      "u0.4_tau600",
-      "u0.4_tau900",
-      "u0.6_tau600",
-      "u0.6_tau900"
+      "u0.2_tau300"
     ]
   },
   "uncertainty_and_ablations": {

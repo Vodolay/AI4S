@@ -125,11 +125,11 @@ problem from the posterior to the feature layer.
 
 **The twin does not yet recover pharmacology from a real chip.** Applied to 113 real two-chamber
 recordings <!-- metrics.json: twin_hd15_real_inference.n_recordings -->, the inferred GABA-A scale
-shows no bicuculline dose trend (Spearman 0.118
+shows no bicuculline dose trend (Spearman −0.121
 <!-- metrics.json: twin_hd15_real_inference.gabaa_scale_dose_trend.spearman_rho -->, 95% CI
-[−0.168, 0.419]
+[−0.3331, 0.1148]
 <!-- metrics.json: twin_hd15_real_inference.gabaa_scale_dose_trend.spearman_rho_ci95 -->, clustered
-over devices), and **untreated chips already infer 0.3781**
+over devices), and **untreated chips already infer 0.5219**
 <!-- metrics.json: twin_hd15_real_inference.gabaa_scale_at_baseline.median --> where a neutral value
 is 1.0 — the parameter is absorbing model mismatch rather than tracking the compound.
 
@@ -156,7 +156,7 @@ confounded with how many events a chip produced (Spearman −0.494
 dissolved our earlier dose trend. The sample is too small to call this a refutation of the simulated
 result, and too directly aimed to leave out.
 Read as a contrast between two wiring regimes, not as a measurement: the same summaries give a
-posterior contraction of only 0.311
+posterior contraction of only 0.438
 <!-- metrics.json: twin_hd14_inference.contraction.log10_forward_ratio.contraction --> for the
 continuous forward/backward ratio.
 

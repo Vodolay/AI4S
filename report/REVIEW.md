@@ -8,6 +8,11 @@
 
 # Adversarial review — NeuroMPS technical report
 
+> **Historical.** This review was written against an earlier version of the technical report,
+> which has since been rewritten. `report/TECHNICAL_REPORT.md` now holds the replacement, so the
+> filenames, byte counts and section numbers below describe a document that no longer exists in
+> that form.
+
 **Reviewer stance:** skeptical judge. I read `report/TECHNICAL_REPORT.md`, checked its rendering in
 `report/TECHNICAL_REPORT.pdf`, and cross-checked every quantitative claim against
 `outputs/metrics.json`, `outputs/tables/toxcast_mea_endpoints.csv`, `outputs/twin/*.json`,

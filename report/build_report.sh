@@ -175,9 +175,16 @@ HTML
 
 # The Markdown starts with its own H1, a one-line description of what it is, and
 # the disclaimer blockquote - all of which the title page now carries. Strip them
-# so the document opens on the table of contents. Bounded to the opening lines so
+# so the document opens on the table of contents. Bounded to the front matter, so
 # a blockquote used as content further down survives.
-sed -e '1,10{/^# /d; /^\*\*Technical report\.\*\*/d; /^(5th Pazhou/d; /^> /d;}' \
+#
+# The bound is "up to the first section heading", not a line count. A fixed
+# `1,10` window silently split a disclaimer whose opening paragraph ran long: the
+# blockquote's first line fell inside the window and its second did not, so the
+# document opened with a sentence fragment. Nothing between the disclaimer and the
+# first heading matches these patterns in any current document, so widening the
+# range removes only what it was always meant to remove.
+sed -e '0,/^## /{/^# /d; /^\*\*Technical report\.\*\*/d; /^(5th Pazhou/d; /^> /d;}' \
   "${SOURCE}" > "${WORK}/stripped.md"
 
 # The metrics citations are comments for neuromps.report.verify, not content.
@@ -393,10 +400,16 @@ verify_text() {
   # likely to be dropped by a font without the coverage, and are only required
   # of a document whose source actually contains them, so this works for any
   # --source rather than only for the technical report.
+  # Whitespace is collapsed on both sides before comparing: a title long enough
+  # to wrap on the title page is broken by a newline in the extracted text, and
+  # searching for the contiguous string then reports a missing title for a PDF
+  # that is perfectly correct.
+  flat_text="$(tr '\n' ' ' <<<"${text}" | tr -s '[:space:]' ' ')"
   for marker in "${TITLE}" '\u03c1' '\u2265'; do
     expanded="$(printf '%b' "${marker}")"
+    flat_marker="$(tr -s '[:space:]' ' ' <<<"${expanded}")"
     grep -qF -- "${expanded}" "${SOURCE}" >/dev/null 2>&1 || [[ "${expanded}" == "${TITLE}" ]] || continue
-    grep -qF -- "${expanded}" <<<"${text}" || missing+=("${expanded}")
+    grep -qF -- "${flat_marker% }" <<<"${flat_text}" || missing+=("${expanded}")
   done
   if (( ${#missing[@]} )); then
     die "the PDF text layer is missing: ${missing[*]} (a font may lack these glyphs)"

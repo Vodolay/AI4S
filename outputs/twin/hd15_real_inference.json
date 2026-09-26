@@ -7,179 +7,178 @@
     "n_real": 113,
     "unsupported_dimensions": [
       "c0_burst_rate_per_min",
-      "c0_active_electrodes",
-      "c1_burst_rate_per_min",
-      "c1_active_electrodes"
+      "c0_network_burst_rate_per_min",
+      "c1_burst_rate_per_min"
     ],
     "support_note": "unsupported_dimensions pass the range test but fewer than 5% of simulated draws land in the real interquartile range, so the posterior is still interpolating across a gap there",
-    "mean_fraction_inside": 0.992,
+    "mean_fraction_inside": 0.949,
     "outside_dimensions": [],
     "by_dimension": {
       "c0_mfr_hz": {
         "fraction_inside": 1.0,
-        "simulated_support_in_real_iqr": 0.318,
+        "simulated_support_in_real_iqr": 0.223,
         "simulated_range": [
-          0.0,
-          63.495
+          0.6,
+          82.994
         ],
         "real_median": 9.581
       },
       "c0_burst_rate_per_min": {
         "fraction_inside": 1.0,
-        "simulated_support_in_real_iqr": 0.048,
+        "simulated_support_in_real_iqr": 0.037,
         "simulated_range": [
           0.0,
-          89.001
+          78.39
         ],
         "real_median": 9.765
       },
       "c0_pct_spikes_in_bursts": {
         "fraction_inside": 1.0,
-        "simulated_support_in_real_iqr": 0.146,
+        "simulated_support_in_real_iqr": 0.145,
         "simulated_range": [
           0.0,
-          100.0
+          99.862
         ],
         "real_median": 92.009
       },
       "c0_network_burst_rate_per_min": {
         "fraction_inside": 1.0,
-        "simulated_support_in_real_iqr": 0.076,
+        "simulated_support_in_real_iqr": 0.049,
         "simulated_range": [
           0.0,
-          144.0
+          84.0
         ],
         "real_median": 9.754
       },
       "c0_synchrony_index": {
-        "fraction_inside": 0.991,
-        "simulated_support_in_real_iqr": 0.079,
+        "fraction_inside": 0.982,
+        "simulated_support_in_real_iqr": 0.114,
         "simulated_range": [
-          0.0,
-          1.0
+          0.001,
+          0.998
         ],
         "real_median": 0.749
       },
       "c0_isi_cv": {
         "fraction_inside": 1.0,
-        "simulated_support_in_real_iqr": 0.169,
+        "simulated_support_in_real_iqr": 0.173,
         "simulated_range": [
-          0.0,
-          13.357
+          0.412,
+          12.341
         ],
         "real_median": 3.761
       },
       "c0_active_electrodes": {
-        "fraction_inside": 0.92,
-        "simulated_support_in_real_iqr": 0.016,
+        "fraction_inside": 0.805,
+        "simulated_support_in_real_iqr": 0.246,
         "simulated_range": [
-          0.0,
+          28.0,
           48.0
         ],
         "real_median": 44.0
       },
       "c1_mfr_hz": {
-        "fraction_inside": 0.991,
-        "simulated_support_in_real_iqr": 0.223,
+        "fraction_inside": 1.0,
+        "simulated_support_in_real_iqr": 0.126,
         "simulated_range": [
-          0.0,
-          79.759
+          0.615,
+          120.118
         ],
         "real_median": 6.132
       },
       "c1_burst_rate_per_min": {
         "fraction_inside": 1.0,
-        "simulated_support_in_real_iqr": 0.048,
+        "simulated_support_in_real_iqr": 0.042,
         "simulated_range": [
           0.0,
-          102.501
+          82.754
         ],
         "real_median": 10.263
       },
       "c1_pct_spikes_in_bursts": {
         "fraction_inside": 1.0,
-        "simulated_support_in_real_iqr": 0.2,
+        "simulated_support_in_real_iqr": 0.112,
         "simulated_range": [
           0.0,
-          100.0
+          99.955
         ],
         "real_median": 88.112
       },
       "c1_network_burst_rate_per_min": {
         "fraction_inside": 1.0,
-        "simulated_support_in_real_iqr": 0.079,
+        "simulated_support_in_real_iqr": 0.056,
         "simulated_range": [
           0.0,
-          144.0
+          84.0
         ],
         "real_median": 9.879
       },
       "c1_synchrony_index": {
-        "fraction_inside": 1.0,
-        "simulated_support_in_real_iqr": 0.056,
+        "fraction_inside": 0.991,
+        "simulated_support_in_real_iqr": 0.075,
         "simulated_range": [
-          0.0,
-          1.0
+          0.002,
+          0.999
         ],
         "real_median": 0.772
       },
       "c1_isi_cv": {
         "fraction_inside": 1.0,
-        "simulated_support_in_real_iqr": 0.198,
+        "simulated_support_in_real_iqr": 0.188,
         "simulated_range": [
-          0.0,
-          15.144
+          0.428,
+          14.535
         ],
         "real_median": 3.776
       },
       "c1_active_electrodes": {
-        "fraction_inside": 0.973,
-        "simulated_support_in_real_iqr": 0.027,
+        "fraction_inside": 0.841,
+        "simulated_support_in_real_iqr": 0.328,
         "simulated_range": [
-          0.0,
+          28.99,
           48.0
         ],
         "real_median": 42.0
       },
       "log_rate_ratio": {
-        "fraction_inside": 1.0,
-        "simulated_support_in_real_iqr": 0.445,
+        "fraction_inside": 0.584,
+        "simulated_support_in_real_iqr": 0.414,
         "simulated_range": [
-          -6.659,
-          6.659
+          -1.261,
+          0.495
         ],
         "real_median": 0.263
       },
       "peak_correlation": {
-        "fraction_inside": 0.973,
-        "simulated_support_in_real_iqr": 0.218,
+        "fraction_inside": 0.92,
+        "simulated_support_in_real_iqr": 0.307,
         "simulated_range": [
-          -0.002,
-          0.985
+          0.041,
+          0.998
         ],
         "real_median": 0.89
       },
       "lag_ms": {
-        "fraction_inside": 0.991,
-        "simulated_support_in_real_iqr": 0.862,
+        "fraction_inside": 0.912,
+        "simulated_support_in_real_iqr": 0.824,
         "simulated_range": [
-          -80.0,
-          95.05
+          -20.0,
+          20.0
         ],
         "real_median": 0.0
       },
       "asymmetry": {
-        "fraction_inside": 1.0,
-        "simulated_support_in_real_iqr": 0.469,
+        "fraction_inside": 0.991,
+        "simulated_support_in_real_iqr": 0.719,
         "simulated_range": [
-          -1.0,
-          1.0
+          -0.439,
+          0.447
         ],
         "real_median": -0.012
       },
       "coupling_measured": {
         "fraction_inside": 1.0,
-        "simulated_support_in_real_iqr": 0.659,
+        "simulated_support_in_real_iqr": 0.723,
         "simulated_range": [
           0.0,
           1.0
@@ -189,56 +188,55 @@
     }
   },
   "prior_acceptance": {
-    "median_acceptance": 0.6085,
-    "min_acceptance": 0.0095,
-    "max_acceptance": 0.926,
-    "fraction_below_1_percent": 0.009,
+    "median_acceptance": 0.0345,
+    "min_acceptance": 0.0,
+    "max_acceptance": 0.977,
+    "fraction_below_1_percent": 0.389,
     "n_draws_per_recording": 2000,
     "note": "share of raw posterior draws inside the prior box; low values mean the posterior is extrapolating outside its training region for real inputs"
   },
   "gabaa_scale_dose_trend": {
-    "spearman_rho": 0.118,
-    "naive_p_value": 0.2118,
+    "spearman_rho": -0.121,
+    "naive_p_value": 0.2023,
     "n_recordings": 113,
-    "direction": "rises with dose",
+    "direction": "falls with dose",
     "spearman_rho_ci95": [
-      -0.168,
-      0.419
+      -0.3331,
+      0.1148
     ],
     "n_devices": 16,
     "bootstrap_resamples": 1000,
     "excludes_zero": false
   },
   "gabaa_scale_at_baseline": {
-    "median": 0.3781,
+    "median": 0.5219,
     "n_untreated": 16,
     "neutral_value": 1.0,
     "median_ci95": [
-      0.3149,
-      0.4677
+      0.2732,
+      0.8503
     ],
     "includes_neutral": false,
     "bootstrap_resamples": 1000,
     "n_devices": 16
   },
   "gabaa_scale_dose_trend_without_ood_dimensions": {
-    "spearman_rho": 0.258,
-    "naive_p_value": 0.0059,
+    "spearman_rho": 0.017,
+    "naive_p_value": 0.8576,
     "n_recordings": 113,
     "direction": "rises with dose",
     "spearman_rho_ci95": [
-      0.0037,
-      0.5205
+      -0.2294,
+      0.2845
     ],
     "n_devices": 16,
     "bootstrap_resamples": 1000,
-    "excludes_zero": true
+    "excludes_zero": false
   },
   "neutralised_dimensions": [
     "c0_burst_rate_per_min",
-    "c0_active_electrodes",
-    "c1_burst_rate_per_min",
-    "c1_active_electrodes"
+    "c0_network_burst_rate_per_min",
+    "c1_burst_rate_per_min"
   ],
   "expected": "a GABA-A antagonist should lower gabaa_scale, and lower it further with dose",
   "per_recording": [
@@ -247,202 +245,202 @@
       "dose_uM": 1.0,
       "phase": "exposure",
       "log10_forward_ratio": {
-        "median": 0.1475,
+        "median": 0.0194,
         "ci90": [
-          0.0178,
-          0.4547
+          0.0016,
+          0.0907
         ]
       },
       "inter_in_degree": {
-        "median": 6.1388,
+        "median": 13.3675,
         "ci90": [
-          2.5063,
-          11.7179
+          8.5649,
+          18.8587
         ]
       },
       "gabaa_scale": {
-        "median": 0.2688,
+        "median": 1.577,
         "ci90": [
-          0.1135,
-          0.4982
+          0.9624,
+          1.9442
         ]
       },
       "ampa_scale": {
-        "median": 1.0264,
+        "median": 1.1892,
         "ci90": [
-          0.6572,
-          1.3621
+          0.9038,
+          1.367
         ]
       },
       "threshold_scale": {
-        "median": 1.0166,
+        "median": 1.1145,
         "ci90": [
-          0.9853,
-          1.0489
+          1.0725,
+          1.1418
         ]
       },
-      "n_effective_samples": 500
+      "n_effective_samples": 98
     },
     {
       "device_id": "Br18-CxCx-24544",
       "dose_uM": 3.0,
       "phase": "exposure",
       "log10_forward_ratio": {
-        "median": 0.1476,
+        "median": 0.0264,
         "ci90": [
-          0.0128,
-          0.451
+          0.0012,
+          0.1256
         ]
       },
       "inter_in_degree": {
-        "median": 6.4153,
+        "median": 13.6137,
         "ci90": [
-          2.6909,
-          12.1018
+          9.3718,
+          18.2475
         ]
       },
       "gabaa_scale": {
-        "median": 0.2509,
+        "median": 1.7073,
         "ci90": [
-          0.1234,
-          0.5007
+          1.2602,
+          1.9474
         ]
       },
       "ampa_scale": {
-        "median": 1.0277,
+        "median": 1.1903,
         "ci90": [
-          0.6817,
-          1.34
+          0.9469,
+          1.3594
         ]
       },
       "threshold_scale": {
-        "median": 1.0138,
+        "median": 1.1142,
         "ci90": [
-          0.9835,
-          1.048
+          1.0663,
+          1.1446
         ]
       },
-      "n_effective_samples": 500
+      "n_effective_samples": 125
     },
     {
       "device_id": "Br18-CxCx-24544",
       "dose_uM": 10.0,
       "phase": "exposure",
       "log10_forward_ratio": {
-        "median": 0.1475,
+        "median": 0.0261,
         "ci90": [
-          0.0088,
-          0.4887
+          0.0011,
+          0.1144
         ]
       },
       "inter_in_degree": {
-        "median": 6.312,
+        "median": 12.9273,
         "ci90": [
-          2.5494,
-          12.3403
+          8.8263,
+          16.8541
         ]
       },
       "gabaa_scale": {
-        "median": 0.2719,
+        "median": 1.6933,
         "ci90": [
-          0.1198,
-          0.5533
+          1.1961,
+          1.9401
         ]
       },
       "ampa_scale": {
-        "median": 1.0614,
+        "median": 1.2187,
         "ci90": [
-          0.6757,
-          1.3451
+          0.9796,
+          1.3574
         ]
       },
       "threshold_scale": {
-        "median": 1.0129,
+        "median": 1.1075,
         "ci90": [
-          0.9817,
-          1.0478
+          1.0551,
+          1.1401
         ]
       },
-      "n_effective_samples": 500
+      "n_effective_samples": 141
     },
     {
       "device_id": "Br18-CxCx-24544",
       "dose_uM": 30.0,
       "phase": "exposure",
       "log10_forward_ratio": {
-        "median": 0.1273,
+        "median": 0.03,
         "ci90": [
-          0.0101,
-          0.4435
+          0.0012,
+          0.0857
         ]
       },
       "inter_in_degree": {
-        "median": 6.5751,
+        "median": 11.7203,
         "ci90": [
-          2.6601,
-          12.2518
+          8.2573,
+          16.344
         ]
       },
       "gabaa_scale": {
-        "median": 0.286,
+        "median": 1.7338,
         "ci90": [
-          0.1223,
-          0.6387
+          1.3871,
+          1.959
         ]
       },
       "ampa_scale": {
-        "median": 1.0061,
+        "median": 1.205,
         "ci90": [
-          0.67,
-          1.341
+          0.9817,
+          1.3912
         ]
       },
       "threshold_scale": {
-        "median": 1.0227,
+        "median": 1.1045,
         "ci90": [
-          0.9946,
-          1.0498
+          1.0592,
+          1.1392
         ]
       },
-      "n_effective_samples": 500
+      "n_effective_samples": 63
     },
     {
       "device_id": "Br18-CxCx-24544",
       "dose_uM": 0.0,
       "phase": "baseline",
       "log10_forward_ratio": {
-        "median": 0.2984,
+        "median": 0.181,
         "ci90": [
-          0.0378,
-          0.6599
+          0.0446,
+          0.3165
         ]
       },
       "inter_in_degree": {
-        "median": 14.5098,
+        "median": 11.19,
         "ci90": [
-          9.0276,
-          19.1763
+          4.4835,
+          18.3298
         ]
       },
       "gabaa_scale": {
-        "median": 0.3969,
+        "median": 0.2732,
         "ci90": [
-          0.1821,
-          0.8275
+          0.1286,
+          0.4994
         ]
       },
       "ampa_scale": {
-        "median": 0.9732,
+        "median": 1.142,
         "ci90": [
-          0.6397,
-          1.2966
+          0.9689,
+          1.3042
         ]
       },
       "threshold_scale": {
-        "median": 1.0217,
+        "median": 1.1298,
         "ci90": [
-          0.9893,
-          1.0508
+          1.0838,
+          1.1482
         ]
       },
       "n_effective_samples": 500
@@ -452,38 +450,38 @@
       "dose_uM": 1.0,
       "phase": "exposure",
       "log10_forward_ratio": {
-        "median": 0.2052,
+        "median": 0.0356,
         "ci90": [
-          0.0189,
-          0.5652
+          0.004,
+          0.1202
         ]
       },
       "inter_in_degree": {
-        "median": 12.4485,
+        "median": 12.6234,
         "ci90": [
-          5.9233,
-          18.5293
+          6.3369,
+          18.5198
         ]
       },
       "gabaa_scale": {
-        "median": 0.4133,
+        "median": 0.322,
         "ci90": [
-          0.1857,
-          0.8479
+          0.1282,
+          0.6964
         ]
       },
       "ampa_scale": {
-        "median": 1.0127,
+        "median": 1.0962,
         "ci90": [
-          0.6686,
-          1.3253
+          0.9097,
+          1.2748
         ]
       },
       "threshold_scale": {
-        "median": 1.0272,
+        "median": 1.1309,
         "ci90": [
-          0.9946,
-          1.0585
+          1.083,
+          1.1484
         ]
       },
       "n_effective_samples": 500
@@ -493,38 +491,38 @@
       "dose_uM": 3.0,
       "phase": "exposure",
       "log10_forward_ratio": {
-        "median": 0.2327,
+        "median": 0.0317,
         "ci90": [
-          0.0219,
-          0.5752
+          0.0024,
+          0.1246
         ]
       },
       "inter_in_degree": {
-        "median": 13.1543,
+        "median": 11.3543,
         "ci90": [
-          7.0222,
-          18.7633
+          4.8932,
+          18.3708
         ]
       },
       "gabaa_scale": {
-        "median": 0.5018,
+        "median": 0.2552,
         "ci90": [
-          0.173,
-          1.0429
+          0.1252,
+          0.6255
         ]
       },
       "ampa_scale": {
-        "median": 1.0701,
+        "median": 1.1028,
         "ci90": [
-          0.6848,
-          1.3475
+          0.9054,
+          1.2778
         ]
       },
       "threshold_scale": {
-        "median": 1.0363,
+        "median": 1.1325,
         "ci90": [
-          1.0021,
-          1.0674
+          1.0894,
+          1.1484
         ]
       },
       "n_effective_samples": 500
@@ -534,38 +532,38 @@
       "dose_uM": 10.0,
       "phase": "exposure",
       "log10_forward_ratio": {
-        "median": 0.2082,
+        "median": 0.0322,
         "ci90": [
-          0.0231,
-          0.6154
+          0.0025,
+          0.1183
         ]
       },
       "inter_in_degree": {
-        "median": 12.8872,
+        "median": 10.8852,
         "ci90": [
-          6.5132,
-          18.17
+          4.6448,
+          18.3414
         ]
       },
       "gabaa_scale": {
-        "median": 0.4548,
+        "median": 0.248,
         "ci90": [
-          0.1667,
-          0.9617
+          0.1186,
+          0.5865
         ]
       },
       "ampa_scale": {
-        "median": 1.0568,
+        "median": 1.0895,
         "ci90": [
-          0.6497,
-          1.3515
+          0.8931,
+          1.2853
         ]
       },
       "threshold_scale": {
-        "median": 1.0347,
+        "median": 1.1343,
         "ci90": [
-          1.0018,
-          1.0659
+          1.0925,
+          1.1489
         ]
       },
       "n_effective_samples": 500
@@ -575,38 +573,38 @@
       "dose_uM": 30.0,
       "phase": "exposure",
       "log10_forward_ratio": {
-        "median": 0.2059,
+        "median": 0.0297,
         "ci90": [
-          0.0182,
-          0.5942
+          0.0022,
+          0.1125
         ]
       },
       "inter_in_degree": {
-        "median": 12.679,
+        "median": 11.0963,
         "ci90": [
-          6.1476,
-          18.286
+          4.9333,
+          18.0375
         ]
       },
       "gabaa_scale": {
-        "median": 0.4469,
+        "median": 0.2459,
         "ci90": [
-          0.1756,
-          0.9258
+          0.115,
+          0.5339
         ]
       },
       "ampa_scale": {
-        "median": 1.0481,
+        "median": 1.0835,
         "ci90": [
-          0.6755,
-          1.3365
+          0.8921,
+          1.2592
         ]
       },
       "threshold_scale": {
-        "median": 1.0338,
+        "median": 1.1343,
         "ci90": [
-          0.9989,
-          1.0649
+          1.0969,
+          1.1492
         ]
       },
       "n_effective_samples": 500
@@ -616,38 +614,38 @@
       "dose_uM": 0.1,
       "phase": "exposure",
       "log10_forward_ratio": {
-        "median": 0.2072,
+        "median": 0.0375,
         "ci90": [
-          0.0168,
-          0.6141
+          0.004,
+          0.1293
         ]
       },
       "inter_in_degree": {
-        "median": 12.6872,
+        "median": 11.7121,
         "ci90": [
-          6.5685,
-          17.9153
+          5.4615,
+          18.5791
         ]
       },
       "gabaa_scale": {
-        "median": 0.3785,
+        "median": 0.2149,
         "ci90": [
-          0.1603,
-          0.7562
+          0.1169,
+          0.472
         ]
       },
       "ampa_scale": {
-        "median": 0.9934,
+        "median": 1.0596,
         "ci90": [
-          0.6154,
-          1.3285
+          0.907,
+          1.2346
         ]
       },
       "threshold_scale": {
-        "median": 1.0348,
+        "median": 1.1322,
         "ci90": [
-          0.9964,
-          1.0603
+          1.0915,
+          1.1486
         ]
       },
       "n_effective_samples": 500
@@ -657,38 +655,38 @@
       "dose_uM": 100.0,
       "phase": "exposure",
       "log10_forward_ratio": {
-        "median": 0.2151,
+        "median": 0.0315,
         "ci90": [
-          0.0205,
-          0.5999
+          0.003,
+          0.1187
         ]
       },
       "inter_in_degree": {
-        "median": 12.4444,
+        "median": 11.4752,
         "ci90": [
-          6.1892,
-          18.1152
+          5.1374,
+          18.5377
         ]
       },
       "gabaa_scale": {
-        "median": 0.4639,
+        "median": 0.223,
         "ci90": [
-          0.1898,
-          0.9391
+          0.115,
+          0.5452
         ]
       },
       "ampa_scale": {
-        "median": 1.0901,
+        "median": 1.0696,
         "ci90": [
-          0.6685,
-          1.3611
+          0.8962,
+          1.2641
         ]
       },
       "threshold_scale": {
-        "median": 1.0385,
+        "median": 1.1371,
         "ci90": [
-          1.0052,
-          1.0703
+          1.1022,
+          1.1489
         ]
       },
       "n_effective_samples": 500
@@ -698,38 +696,38 @@
       "dose_uM": 300.0,
       "phase": "exposure",
       "log10_forward_ratio": {
-        "median": 0.2116,
+        "median": 0.0387,
         "ci90": [
-          0.0145,
-          0.5975
+          0.0026,
+          0.1287
         ]
       },
       "inter_in_degree": {
-        "median": 13.5126,
+        "median": 11.3041,
         "ci90": [
-          7.1089,
-          18.5185
+          5.5704,
+          18.2334
         ]
       },
       "gabaa_scale": {
-        "median": 0.5265,
+        "median": 0.1827,
         "ci90": [
-          0.186,
-          1.0597
+          0.1074,
+          0.3823
         ]
       },
       "ampa_scale": {
-        "median": 1.1084,
+        "median": 1.038,
         "ci90": [
-          0.6828,
-          1.3719
+          0.8699,
+          1.2097
         ]
       },
       "threshold_scale": {
-        "median": 1.0498,
+        "median": 1.1402,
         "ci90": [
-          1.0143,
-          1.0869
+          1.1116,
+          1.1493
         ]
       },
       "n_effective_samples": 500
@@ -739,38 +737,38 @@
       "dose_uM": 500.0,
       "phase": "exposure",
       "log10_forward_ratio": {
-        "median": 0.2194,
+        "median": 0.0394,
         "ci90": [
-          0.0189,
-          0.561
+          0.0032,
+          0.1332
         ]
       },
       "inter_in_degree": {
-        "median": 13.4741,
+        "median": 11.0344,
         "ci90": [
-          7.5386,
-          18.8515
+          5.1931,
+          18.4145
         ]
       },
       "gabaa_scale": {
-        "median": 0.5393,
+        "median": 0.1811,
         "ci90": [
-          0.1987,
-          1.043
+          0.1084,
+          0.3842
         ]
       },
       "ampa_scale": {
-        "median": 1.1258,
+        "median": 1.0552,
         "ci90": [
-          0.7036,
-          1.3635
+          0.886,
+          1.2385
         ]
       },
       "threshold_scale": {
-        "median": 1.0491,
+        "median": 1.1403,
         "ci90": [
-          1.0169,
-          1.0831
+          1.1184,
+          1.1494
         ]
       },
       "n_effective_samples": 500
@@ -780,38 +778,38 @@
       "dose_uM": 0.0,
       "phase": "baseline",
       "log10_forward_ratio": {
-        "median": 0.2013,
+        "median": 0.0376,
         "ci90": [
-          0.0142,
-          0.5427
+          0.0036,
+          0.1203
         ]
       },
       "inter_in_degree": {
-        "median": 9.7847,
+        "median": 12.997,
         "ci90": [
-          4.4814,
-          15.5596
+          6.4312,
+          19.0842
         ]
       },
       "gabaa_scale": {
-        "median": 0.3271,
+        "median": 0.2218,
         "ci90": [
-          0.1602,
-          0.5365
+          0.112,
+          0.4372
         ]
       },
       "ampa_scale": {
-        "median": 1.0853,
+        "median": 1.0704,
         "ci90": [
-          0.7123,
-          1.343
+          0.8871,
+          1.2303
         ]
       },
       "threshold_scale": {
-        "median": 1.0206,
+        "median": 1.1316,
         "ci90": [
-          0.9874,
-          1.053
+          1.0858,
+          1.1481
         ]
       },
       "n_effective_samples": 500
@@ -821,38 +819,38 @@
       "dose_uM": 1.0,
       "phase": "exposure",
       "log10_forward_ratio": {
-        "median": 0.3025,
+        "median": 0.1767,
         "ci90": [
-          0.0428,
-          0.7635
+          0.0366,
+          0.3753
         ]
       },
       "inter_in_degree": {
-        "median": 15.075,
+        "median": 10.625,
         "ci90": [
-          8.9891,
-          19.1354
+          4.9477,
+          18.0389
         ]
       },
       "gabaa_scale": {
-        "median": 0.6839,
+        "median": 0.3171,
         "ci90": [
-          0.2378,
-          1.3216
+          0.1388,
+          0.6633
         ]
       },
       "ampa_scale": {
-        "median": 1.0976,
+        "median": 1.1259,
         "ci90": [
-          0.7523,
-          1.3489
+          0.9816,
+          1.2799
         ]
       },
       "threshold_scale": {
-        "median": 1.0455,
+        "median": 1.1379,
         "ci90": [
-          1.0166,
-          1.0805
+          1.1078,
+          1.1493
         ]
       },
       "n_effective_samples": 500
@@ -862,38 +860,38 @@
       "dose_uM": 3.0,
       "phase": "exposure",
       "log10_forward_ratio": {
-        "median": 0.3677,
+        "median": 0.3191,
         "ci90": [
-          0.0576,
-          0.8221
+          0.1339,
+          0.519
         ]
       },
       "inter_in_degree": {
-        "median": 15.8719,
+        "median": 10.5544,
         "ci90": [
-          9.8235,
-          19.4984
+          4.8981,
+          17.7374
         ]
       },
       "gabaa_scale": {
-        "median": 0.7342,
+        "median": 0.2885,
         "ci90": [
-          0.2585,
-          1.3448
+          0.1246,
+          0.554
         ]
       },
       "ampa_scale": {
-        "median": 1.1042,
+        "median": 1.1314,
         "ci90": [
-          0.7367,
-          1.3579
+          0.975,
+          1.2712
         ]
       },
       "threshold_scale": {
-        "median": 1.0465,
+        "median": 1.1389,
         "ci90": [
-          1.0189,
-          1.0807
+          1.11,
+          1.1493
         ]
       },
       "n_effective_samples": 500
@@ -903,38 +901,38 @@
       "dose_uM": 10.0,
       "phase": "exposure",
       "log10_forward_ratio": {
-        "median": 0.3534,
+        "median": 0.3166,
         "ci90": [
-          0.0401,
-          0.8218
+          0.117,
+          0.5122
         ]
       },
       "inter_in_degree": {
-        "median": 15.4431,
+        "median": 10.6848,
         "ci90": [
-          9.7713,
-          19.4002
+          4.4019,
+          17.6648
         ]
       },
       "gabaa_scale": {
-        "median": 0.7672,
+        "median": 0.2939,
         "ci90": [
-          0.2592,
-          1.362
+          0.1345,
+          0.5588
         ]
       },
       "ampa_scale": {
-        "median": 1.1145,
+        "median": 1.128,
         "ci90": [
-          0.751,
-          1.3391
+          1.0022,
+          1.2867
         ]
       },
       "threshold_scale": {
-        "median": 1.0467,
+        "median": 1.1405,
         "ci90": [
-          1.0214,
-          1.0853
+          1.1126,
+          1.1493
         ]
       },
       "n_effective_samples": 500
@@ -944,38 +942,38 @@
       "dose_uM": 30.0,
       "phase": "exposure",
       "log10_forward_ratio": {
-        "median": 0.3836,
+        "median": 0.3346,
         "ci90": [
-          0.0691,
-          0.8322
+          0.1432,
+          0.5026
         ]
       },
       "inter_in_degree": {
-        "median": 15.5688,
+        "median": 10.1022,
         "ci90": [
-          9.4704,
-          19.2753
+          4.5991,
+          18.262
         ]
       },
       "gabaa_scale": {
-        "median": 0.7117,
+        "median": 0.2942,
         "ci90": [
-          0.2255,
-          1.3025
+          0.144,
+          0.5715
         ]
       },
       "ampa_scale": {
-        "median": 1.1101,
+        "median": 1.1357,
         "ci90": [
-          0.7516,
-          1.3469
+          0.998,
+          1.2684
         ]
       },
       "threshold_scale": {
-        "median": 1.0468,
+        "median": 1.1399,
         "ci90": [
-          1.0192,
-          1.0851
+          1.1119,
+          1.1493
         ]
       },
       "n_effective_samples": 500
@@ -985,38 +983,38 @@
       "dose_uM": 0.0,
       "phase": "baseline",
       "log10_forward_ratio": {
-        "median": 0.3663,
+        "median": 0.2849,
         "ci90": [
-          0.0521,
-          0.8678
+          0.098,
+          0.4565
         ]
       },
       "inter_in_degree": {
-        "median": 16.0155,
+        "median": 10.6828,
         "ci90": [
-          10.4724,
-          19.5282
+          4.8725,
+          18.0835
         ]
       },
       "gabaa_scale": {
-        "median": 0.5543,
+        "median": 0.1856,
         "ci90": [
-          0.1871,
-          1.0817
+          0.1069,
+          0.3452
         ]
       },
       "ampa_scale": {
-        "median": 1.0922,
+        "median": 1.1055,
         "ci90": [
-          0.72,
-          1.3415
+          0.9653,
+          1.2535
         ]
       },
       "threshold_scale": {
-        "median": 1.0491,
+        "median": 1.1421,
         "ci90": [
-          1.0205,
-          1.0782
+          1.1172,
+          1.1495
         ]
       },
       "n_effective_samples": 500
@@ -1026,38 +1024,38 @@
       "dose_uM": 1.0,
       "phase": "exposure",
       "log10_forward_ratio": {
-        "median": 0.2273,
+        "median": 0.0615,
         "ci90": [
-          0.0214,
-          0.6108
+          0.0064,
+          0.1882
         ]
       },
       "inter_in_degree": {
-        "median": 12.0175,
+        "median": 12.7098,
         "ci90": [
-          6.206,
-          18.0224
+          7.0359,
+          19.0021
         ]
       },
       "gabaa_scale": {
-        "median": 0.3494,
+        "median": 0.2079,
         "ci90": [
-          0.1536,
-          0.6474
+          0.1118,
+          0.429
         ]
       },
       "ampa_scale": {
-        "median": 1.0688,
+        "median": 1.0822,
         "ci90": [
-          0.712,
-          1.3602
+          0.9224,
+          1.2484
         ]
       },
       "threshold_scale": {
-        "median": 1.0332,
+        "median": 1.1315,
         "ci90": [
-          0.9983,
-          1.0669
+          1.0908,
+          1.1484
         ]
       },
       "n_effective_samples": 500
@@ -1067,38 +1065,38 @@
       "dose_uM": 3.0,
       "phase": "exposure",
       "log10_forward_ratio": {
-        "median": 0.2323,
+        "median": 0.0796,
         "ci90": [
-          0.0254,
-          0.5956
+          0.0095,
+          0.1949
         ]
       },
       "inter_in_degree": {
-        "median": 11.9315,
+        "median": 12.1477,
         "ci90": [
-          6.0693,
-          18.3339
+          7.0397,
+          18.4119
         ]
       },
       "gabaa_scale": {
-        "median": 0.3768,
+        "median": 0.1893,
         "ci90": [
-          0.1702,
-          0.711
+          0.1112,
+          0.3671
         ]
       },
       "ampa_scale": {
-        "median": 1.1323,
+        "median": 1.0846,
         "ci90": [
-          0.7419,
-          1.3598
+          0.9244,
+          1.2423
         ]
       },
       "threshold_scale": {
-        "median": 1.0397,
+        "median": 1.1351,
         "ci90": [
-          1.004,
-          1.0672
+          1.1025,
+          1.149
         ]
       },
       "n_effective_samples": 500
@@ -1108,38 +1106,38 @@
       "dose_uM": 10.0,
       "phase": "exposure",
       "log10_forward_ratio": {
-        "median": 0.2527,
+        "median": 0.0966,
         "ci90": [
-          0.0193,
-          0.6708
+          0.0122,
+          0.2189
         ]
       },
       "inter_in_degree": {
-        "median": 12.8448,
+        "median": 12.0267,
         "ci90": [
-          6.7987,
-          18.1786
+          7.1332,
+          18.3625
         ]
       },
       "gabaa_scale": {
-        "median": 0.4349,
+        "median": 0.2159,
         "ci90": [
-          0.1781,
-          0.8654
+          0.1171,
+          0.4345
         ]
       },
       "ampa_scale": {
-        "median": 1.1122,
+        "median": 1.0761,
         "ci90": [
-          0.7129,
-          1.3472
+          0.9275,
+          1.2315
         ]
       },
       "threshold_scale": {
-        "median": 1.0404,
+        "median": 1.1359,
         "ci90": [
-          1.0059,
-          1.0704
+          1.1028,
+          1.1484
         ]
       },
       "n_effective_samples": 500
@@ -1149,38 +1147,38 @@
       "dose_uM": 30.0,
       "phase": "exposure",
       "log10_forward_ratio": {
-        "median": 0.2791,
+        "median": 0.148,
         "ci90": [
-          0.0384,
-          0.7077
+          0.0328,
+          0.2744
         ]
       },
       "inter_in_degree": {
-        "median": 12.4263,
+        "median": 11.3412,
         "ci90": [
-          6.7098,
-          18.7385
+          6.833,
+          18.0942
         ]
       },
       "gabaa_scale": {
-        "median": 0.4397,
+        "median": 0.229,
         "ci90": [
-          0.1636,
-          0.8332
+          0.1155,
+          0.4743
         ]
       },
       "ampa_scale": {
-        "median": 1.1192,
+        "median": 1.1142,
         "ci90": [
-          0.7307,
-          1.3521
+          0.9614,
+          1.2403
         ]
       },
       "threshold_scale": {
-        "median": 1.0408,
+        "median": 1.1363,
         "ci90": [
-          1.0085,
-          1.0717
+          1.1048,
+          1.1488
         ]
       },
       "n_effective_samples": 500
@@ -1190,38 +1188,38 @@
       "dose_uM": 0.0,
       "phase": "baseline",
       "log10_forward_ratio": {
-        "median": 0.2339,
+        "median": 0.0981,
         "ci90": [
-          0.0253,
-          0.6215
+          0.0154,
+          0.2141
         ]
       },
       "inter_in_degree": {
-        "median": 10.1145,
+        "median": 11.4253,
         "ci90": [
-          5.0998,
-          16.199
+          6.1786,
+          18.4706
         ]
       },
       "gabaa_scale": {
-        "median": 0.3095,
+        "median": 0.2201,
         "ci90": [
-          0.1403,
-          0.5221
+          0.1209,
+          0.4031
         ]
       },
       "ampa_scale": {
-        "median": 1.0796,
+        "median": 1.0866,
         "ci90": [
-          0.7134,
-          1.3358
+          0.925,
+          1.2429
         ]
       },
       "threshold_scale": {
-        "median": 1.0278,
+        "median": 1.1267,
         "ci90": [
-          0.9957,
-          1.0593
+          1.0827,
+          1.1472
         ]
       },
       "n_effective_samples": 500
@@ -1231,38 +1229,38 @@
       "dose_uM": 1.0,
       "phase": "exposure",
       "log10_forward_ratio": {
-        "median": 0.3231,
+        "median": 0.223,
         "ci90": [
-          0.045,
-          0.7833
+          0.101,
+          0.3703
         ]
       },
       "inter_in_degree": {
-        "median": 15.5486,
+        "median": 12.0073,
         "ci90": [
-          10.0227,
-          19.4875
+          6.2758,
+          18.7543
         ]
       },
       "gabaa_scale": {
-        "median": 0.4603,
+        "median": 0.1506,
         "ci90": [
-          0.1933,
-          0.8754
+          0.1056,
+          0.2688
         ]
       },
       "ampa_scale": {
-        "median": 1.1799,
+        "median": 1.0965,
         "ci90": [
-          0.7507,
-          1.3752
+          0.958,
+          1.222
         ]
       },
       "threshold_scale": {
-        "median": 1.0546,
+        "median": 1.1427,
         "ci90": [
-          1.0228,
-          1.0963
+          1.1203,
+          1.1493
         ]
       },
       "n_effective_samples": 500
@@ -1272,38 +1270,38 @@
       "dose_uM": 3.0,
       "phase": "exposure",
       "log10_forward_ratio": {
-        "median": 0.3274,
+        "median": 0.2851,
         "ci90": [
-          0.0319,
-          0.7347
+          0.1505,
+          0.4397
         ]
       },
       "inter_in_degree": {
-        "median": 15.9443,
+        "median": 10.6968,
         "ci90": [
-          10.2958,
-          19.4138
+          5.0233,
+          18.2106
         ]
       },
       "gabaa_scale": {
-        "median": 0.4594,
+        "median": 0.1559,
         "ci90": [
-          0.1809,
-          0.8872
+          0.1061,
+          0.2775
         ]
       },
       "ampa_scale": {
-        "median": 1.153,
+        "median": 1.1273,
         "ci90": [
-          0.7683,
-          1.3799
+          0.9859,
+          1.2539
         ]
       },
       "threshold_scale": {
-        "median": 1.0508,
+        "median": 1.1432,
         "ci90": [
-          1.0184,
-          1.0866
+          1.1215,
+          1.1496
         ]
       },
       "n_effective_samples": 500
@@ -1313,201 +1311,242 @@
       "dose_uM": 10.0,
       "phase": "exposure",
       "log10_forward_ratio": {
-        "median": 0.3571,
+        "median": 0.3029,
         "ci90": [
-          0.0351,
-          0.8061
+          0.1467,
+          0.4583
         ]
       },
       "inter_in_degree": {
-        "median": 15.9907,
+        "median": 10.9597,
         "ci90": [
-          10.4745,
-          19.5095
+          4.9489,
+          18.5859
         ]
       },
       "gabaa_scale": {
-        "median": 0.5197,
+        "median": 0.1557,
         "ci90": [
-          0.2134,
-          0.9917
+          0.106,
+          0.2693
         ]
       },
       "ampa_scale": {
-        "median": 1.1919,
+        "median": 1.1166,
         "ci90": [
-          0.7797,
-          1.3762
+          0.991,
+          1.2511
         ]
       },
       "threshold_scale": {
-        "median": 1.0553,
+        "median": 1.1423,
         "ci90": [
-          1.0226,
-          1.0949
+          1.1198,
+          1.1496
         ]
       },
-      "n_effective_samples": 500
+      "n_effective_samples": 436
     },
     {
       "device_id": "Br18-CxCx-34633",
       "dose_uM": 30.0,
       "phase": "exposure",
       "log10_forward_ratio": {
-        "median": 0.374,
+        "median": 0.3667,
         "ci90": [
-          0.0616,
-          0.8605
+          0.2102,
+          0.5142
         ]
       },
       "inter_in_degree": {
-        "median": 16.5818,
+        "median": 11.2959,
         "ci90": [
-          10.9856,
-          19.4981
+          5.201,
+          18.8394
         ]
       },
       "gabaa_scale": {
-        "median": 0.5599,
+        "median": 0.1473,
+        "ci90": [
+          0.1043,
+          0.297
+        ]
+      },
+      "ampa_scale": {
+        "median": 1.1179,
+        "ci90": [
+          0.995,
+          1.2388
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.1428,
+        "ci90": [
+          1.1204,
+          1.1494
+        ]
+      },
+      "n_effective_samples": 500
+    },
+    {
+      "device_id": "Br18-CxCx-34633",
+      "dose_uM": 0.0,
+      "phase": "baseline",
+      "log10_forward_ratio": {
+        "median": 0.3072,
+        "ci90": [
+          0.178,
+          0.4471
+        ]
+      },
+      "inter_in_degree": {
+        "median": 12.8439,
+        "ci90": [
+          6.5591,
+          19.0592
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.134,
+        "ci90": [
+          0.1022,
+          0.2231
+        ]
+      },
+      "ampa_scale": {
+        "median": 1.0867,
+        "ci90": [
+          0.9617,
+          1.2069
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.1432,
+        "ci90": [
+          1.1246,
+          1.1496
+        ]
+      },
+      "n_effective_samples": 500
+    },
+    {
+      "device_id": "Br18-CxHp-34544",
+      "dose_uM": 1.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 1.1061,
+        "ci90": [
+          0.6883,
+          1.2812
+        ]
+      },
+      "inter_in_degree": {
+        "median": 11.6979,
+        "ci90": [
+          6.7286,
+          16.4833
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.9709,
+        "ci90": [
+          0.2669,
+          1.7081
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.9582,
+        "ci90": [
+          0.7624,
+          1.1467
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.1422,
+        "ci90": [
+          1.1216,
+          1.1494
+        ]
+      },
+      "n_effective_samples": 500
+    },
+    {
+      "device_id": "Br18-CxHp-34544",
+      "dose_uM": 3.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 1.0435,
+        "ci90": [
+          0.6375,
+          1.2702
+        ]
+      },
+      "inter_in_degree": {
+        "median": 10.6498,
+        "ci90": [
+          4.9497,
+          16.8186
+        ]
+      },
+      "gabaa_scale": {
+        "median": 1.0412,
+        "ci90": [
+          0.2679,
+          1.7784
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.9769,
+        "ci90": [
+          0.7665,
+          1.1486
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.142,
+        "ci90": [
+          1.1228,
+          1.1493
+        ]
+      },
+      "n_effective_samples": 500
+    },
+    {
+      "device_id": "Br18-CxHp-34544",
+      "dose_uM": 0.1,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.642,
+        "ci90": [
+          0.5013,
+          0.7995
+        ]
+      },
+      "inter_in_degree": {
+        "median": 11.2867,
+        "ci90": [
+          5.313,
+          18.0863
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.3972,
         "ci90": [
           0.1963,
-          1.0324
+          0.7236
         ]
       },
       "ampa_scale": {
-        "median": 1.1842,
+        "median": 1.274,
         "ci90": [
-          0.7993,
-          1.3663
+          1.149,
+          1.367
         ]
       },
       "threshold_scale": {
-        "median": 1.0568,
+        "median": 1.1315,
         "ci90": [
-          1.0261,
-          1.0958
-        ]
-      },
-      "n_effective_samples": 500
-    },
-    {
-      "device_id": "Br18-CxCx-34633",
-      "dose_uM": 0.0,
-      "phase": "baseline",
-      "log10_forward_ratio": {
-        "median": 0.3267,
-        "ci90": [
-          0.0397,
-          0.7516
-        ]
-      },
-      "inter_in_degree": {
-        "median": 15.5449,
-        "ci90": [
-          9.8573,
-          19.3979
-        ]
-      },
-      "gabaa_scale": {
-        "median": 0.3911,
-        "ci90": [
-          0.1678,
-          0.7613
-        ]
-      },
-      "ampa_scale": {
-        "median": 1.0938,
-        "ci90": [
-          0.7228,
-          1.3569
-        ]
-      },
-      "threshold_scale": {
-        "median": 1.0519,
-        "ci90": [
-          1.0187,
-          1.0812
-        ]
-      },
-      "n_effective_samples": 500
-    },
-    {
-      "device_id": "Br18-CxHp-34544",
-      "dose_uM": 1.0,
-      "phase": "exposure",
-      "log10_forward_ratio": {
-        "median": 0.8891,
-        "ci90": [
-          0.4356,
-          1.2237
-        ]
-      },
-      "inter_in_degree": {
-        "median": 10.6687,
-        "ci90": [
-          4.2378,
-          17.3082
-        ]
-      },
-      "gabaa_scale": {
-        "median": 0.2827,
-        "ci90": [
-          0.1148,
-          0.6515
-        ]
-      },
-      "ampa_scale": {
-        "median": 1.1499,
-        "ci90": [
-          0.8388,
-          1.3605
-        ]
-      },
-      "threshold_scale": {
-        "median": 1.1199,
-        "ci90": [
-          1.0887,
-          1.1445
-        ]
-      },
-      "n_effective_samples": 500
-    },
-    {
-      "device_id": "Br18-CxHp-34544",
-      "dose_uM": 3.0,
-      "phase": "exposure",
-      "log10_forward_ratio": {
-        "median": 0.931,
-        "ci90": [
-          0.5543,
-          1.2542
-        ]
-      },
-      "inter_in_degree": {
-        "median": 12.9698,
-        "ci90": [
-          5.684,
-          18.8701
-        ]
-      },
-      "gabaa_scale": {
-        "median": 0.2149,
-        "ci90": [
-          0.1083,
-          0.4421
-        ]
-      },
-      "ampa_scale": {
-        "median": 1.2057,
-        "ci90": [
-          0.8575,
-          1.3789
-        ]
-      },
-      "threshold_scale": {
-        "median": 1.133,
-        "ci90": [
-          1.1006,
+          1.0918,
           1.1484
         ]
       },
@@ -1515,82 +1554,41 @@
     },
     {
       "device_id": "Br18-CxHp-34544",
-      "dose_uM": 0.1,
-      "phase": "exposure",
-      "log10_forward_ratio": {
-        "median": 0.4706,
-        "ci90": [
-          0.1166,
-          0.8918
-        ]
-      },
-      "inter_in_degree": {
-        "median": 7.8834,
-        "ci90": [
-          3.4914,
-          13.4733
-        ]
-      },
-      "gabaa_scale": {
-        "median": 0.315,
-        "ci90": [
-          0.1616,
-          0.5596
-        ]
-      },
-      "ampa_scale": {
-        "median": 0.9496,
-        "ci90": [
-          0.6453,
-          1.2988
-        ]
-      },
-      "threshold_scale": {
-        "median": 0.9994,
-        "ci90": [
-          0.9621,
-          1.0292
-        ]
-      },
-      "n_effective_samples": 500
-    },
-    {
-      "device_id": "Br18-CxHp-34544",
       "dose_uM": 0.3,
       "phase": "exposure",
       "log10_forward_ratio": {
-        "median": 0.9178,
+        "median": 1.1206,
         "ci90": [
-          0.5838,
-          1.2167
+          0.9762,
+          1.2563
         ]
       },
       "inter_in_degree": {
-        "median": 12.5667,
+        "median": 14.2058,
         "ci90": [
-          7.0324,
-          17.8016
+          8.0425,
+          18.9852
         ]
       },
       "gabaa_scale": {
-        "median": 0.2722,
+        "median": 0.2362,
         "ci90": [
-          0.1253,
-          0.5368
+          0.1161,
+          0.5293
         ]
       },
       "ampa_scale": {
-        "median": 0.921,
+        "median": 1.2562,
         "ci90": [
-          0.6355,
-          1.2783
+          1.1538,
+          1.3437
         ]
       },
       "threshold_scale": {
-        "median": 1.014,
+        "median": 1.1388,
         "ci90": [
-          0.9781,
-          1.0464
+          1.1066,
+          1.1488
         ]
       },
       "n_effective_samples": 500
@@ -1600,38 +1598,38 @@
       "dose_uM": 0.0,
       "phase": "baseline",
       "log10_forward_ratio": {
-        "median": 0.6145,
+        "median": 0.7315,
         "ci90": [
-          0.2099,
-          0.9739
+          0.5814,
+          0.8671
         ]
       },
       "inter_in_degree": {
-        "median": 11.2704,
+        "median": 12.0379,
         "ci90": [
-          6.4192,
-          16.714
+          6.1569,
+          16.3574
         ]
       },
       "gabaa_scale": {
-        "median": 0.3347,
+        "median": 0.8247,
         "ci90": [
-          0.1418,
-          0.755
+          0.4523,
+          1.4927
         ]
       },
       "ampa_scale": {
-        "median": 0.8125,
+        "median": 1.2601,
         "ci90": [
-          0.5682,
-          1.1667
+          1.1255,
+          1.3617
         ]
       },
       "threshold_scale": {
-        "median": 0.9875,
+        "median": 1.1054,
         "ci90": [
-          0.9554,
-          1.0175
+          1.0593,
+          1.1396
         ]
       },
       "n_effective_samples": 500
@@ -1641,38 +1639,38 @@
       "dose_uM": 1.0,
       "phase": "exposure",
       "log10_forward_ratio": {
-        "median": 0.1581,
+        "median": 0.0467,
         "ci90": [
-          0.0147,
-          0.5575
+          0.0042,
+          0.1769
         ]
       },
       "inter_in_degree": {
-        "median": 7.0402,
+        "median": 13.5517,
         "ci90": [
-          2.669,
-          11.8449
+          5.4466,
+          18.4522
         ]
       },
       "gabaa_scale": {
-        "median": 0.4148,
+        "median": 1.0812,
         "ci90": [
-          0.1284,
-          0.9264
+          0.226,
+          1.8312
         ]
       },
       "ampa_scale": {
-        "median": 1.0708,
+        "median": 1.1166,
         "ci90": [
-          0.6937,
-          1.3473
+          0.9425,
+          1.3042
         ]
       },
       "threshold_scale": {
-        "median": 1.0496,
+        "median": 1.1412,
         "ci90": [
-          1.0271,
-          1.0802
+          1.1176,
+          1.1494
         ]
       },
       "n_effective_samples": 500
@@ -1682,38 +1680,38 @@
       "dose_uM": 3.0,
       "phase": "exposure",
       "log10_forward_ratio": {
-        "median": 0.1909,
+        "median": 0.1226,
         "ci90": [
-          0.0172,
-          0.5855
+          0.0104,
+          0.3494
         ]
       },
       "inter_in_degree": {
-        "median": 3.6111,
+        "median": 6.2463,
         "ci90": [
-          2.1764,
-          7.008
+          2.4585,
+          12.856
         ]
       },
       "gabaa_scale": {
-        "median": 0.3971,
+        "median": 1.2777,
         "ci90": [
-          0.143,
-          0.9098
+          0.2068,
+          1.9086
         ]
       },
       "ampa_scale": {
-        "median": 1.0129,
+        "median": 1.171,
         "ci90": [
-          0.6253,
-          1.3168
+          0.9791,
+          1.3386
         ]
       },
       "threshold_scale": {
-        "median": 1.0614,
+        "median": 1.1357,
         "ci90": [
-          1.038,
-          1.0843
+          1.1047,
+          1.1491
         ]
       },
       "n_effective_samples": 500
@@ -1723,38 +1721,38 @@
       "dose_uM": 10.0,
       "phase": "exposure",
       "log10_forward_ratio": {
-        "median": 0.1326,
+        "median": 0.0779,
         "ci90": [
-          0.0136,
-          0.4678
+          0.0069,
+          0.2975
         ]
       },
       "inter_in_degree": {
-        "median": 3.1068,
+        "median": 9.2264,
         "ci90": [
-          2.0723,
-          5.7947
+          3.7285,
+          16.3109
         ]
       },
       "gabaa_scale": {
-        "median": 0.5633,
+        "median": 1.4087,
         "ci90": [
-          0.1444,
-          1.1886
+          0.3353,
+          1.9392
         ]
       },
       "ampa_scale": {
-        "median": 0.965,
+        "median": 1.0495,
         "ci90": [
-          0.6494,
-          1.3011
+          0.7883,
+          1.2811
         ]
       },
       "threshold_scale": {
-        "median": 1.042,
+        "median": 1.1357,
         "ci90": [
-          1.0256,
-          1.0665
+          1.1048,
+          1.1488
         ]
       },
       "n_effective_samples": 500
@@ -1764,38 +1762,38 @@
       "dose_uM": 30.0,
       "phase": "exposure",
       "log10_forward_ratio": {
-        "median": 0.2188,
+        "median": 0.138,
         "ci90": [
-          0.0186,
-          0.6461
+          0.0127,
+          0.4602
         ]
       },
       "inter_in_degree": {
-        "median": 3.5725,
+        "median": 6.5006,
         "ci90": [
-          2.1239,
-          7.2889
+          2.8294,
+          13.5858
         ]
       },
       "gabaa_scale": {
-        "median": 0.3941,
+        "median": 1.0908,
         "ci90": [
-          0.1288,
-          0.9293
+          0.246,
+          1.8281
         ]
       },
       "ampa_scale": {
-        "median": 0.9691,
+        "median": 1.079,
         "ci90": [
-          0.5667,
-          1.331
+          0.8415,
+          1.2946
         ]
       },
       "threshold_scale": {
-        "median": 1.0833,
+        "median": 1.1362,
         "ci90": [
-          1.0565,
-          1.1069
+          1.1019,
+          1.1493
         ]
       },
       "n_effective_samples": 500
@@ -1805,38 +1803,38 @@
       "dose_uM": 0.1,
       "phase": "exposure",
       "log10_forward_ratio": {
-        "median": 0.2238,
+        "median": 0.1027,
         "ci90": [
-          0.0282,
-          0.6326
+          0.0124,
+          0.243
         ]
       },
       "inter_in_degree": {
-        "median": 9.8459,
+        "median": 11.9255,
         "ci90": [
-          4.1524,
-          16.0972
+          4.982,
+          18.7507
         ]
       },
       "gabaa_scale": {
-        "median": 0.281,
+        "median": 0.5252,
         "ci90": [
-          0.1292,
-          0.6029
+          0.2165,
+          1.2813
         ]
       },
       "ampa_scale": {
-        "median": 1.107,
+        "median": 1.2309,
         "ci90": [
-          0.7731,
-          1.3589
+          1.0847,
+          1.3557
         ]
       },
       "threshold_scale": {
-        "median": 1.0284,
+        "median": 1.138,
         "ci90": [
-          0.9988,
-          1.0621
+          1.1094,
+          1.1487
         ]
       },
       "n_effective_samples": 500
@@ -1846,2334 +1844,2334 @@
       "dose_uM": 100.0,
       "phase": "exposure",
       "log10_forward_ratio": {
-        "median": 0.1453,
+        "median": 0.073,
         "ci90": [
-          0.016,
-          0.4475
+          0.0061,
+          0.2961
         ]
       },
       "inter_in_degree": {
-        "median": 3.264,
+        "median": 6.4627,
         "ci90": [
-          2.0898,
-          5.6939
+          2.5725,
+          13.9349
         ]
       },
       "gabaa_scale": {
-        "median": 0.3251,
+        "median": 1.0456,
         "ci90": [
-          0.1185,
-          0.8146
-        ]
-      },
-      "ampa_scale": {
-        "median": 1.0455,
-        "ci90": [
-          0.7378,
-          1.3135
-        ]
-      },
-      "threshold_scale": {
-        "median": 1.0977,
-        "ci90": [
-          1.0698,
-          1.1249
-        ]
-      },
-      "n_effective_samples": 500
-    },
-    {
-      "device_id": "Br18-CxHp-34633",
-      "dose_uM": 0.3,
-      "phase": "exposure",
-      "log10_forward_ratio": {
-        "median": 0.1984,
-        "ci90": [
-          0.0203,
-          0.6273
-        ]
-      },
-      "inter_in_degree": {
-        "median": 8.7205,
-        "ci90": [
-          3.4544,
-          14.3539
-        ]
-      },
-      "gabaa_scale": {
-        "median": 0.299,
-        "ci90": [
-          0.1198,
-          0.6711
-        ]
-      },
-      "ampa_scale": {
-        "median": 1.0776,
-        "ci90": [
-          0.7449,
-          1.3522
-        ]
-      },
-      "threshold_scale": {
-        "median": 1.0373,
-        "ci90": [
-          1.0048,
-          1.0701
-        ]
-      },
-      "n_effective_samples": 500
-    },
-    {
-      "device_id": "Br18-CxHp-34633",
-      "dose_uM": 0.0,
-      "phase": "baseline",
-      "log10_forward_ratio": {
-        "median": 0.8553,
-        "ci90": [
-          0.4661,
-          1.2075
-        ]
-      },
-      "inter_in_degree": {
-        "median": 14.5577,
-        "ci90": [
-          9.4903,
-          18.8068
-        ]
-      },
-      "gabaa_scale": {
-        "median": 0.2976,
-        "ci90": [
-          0.1261,
-          0.7694
-        ]
-      },
-      "ampa_scale": {
-        "median": 0.7985,
-        "ci90": [
-          0.5628,
-          1.1442
-        ]
-      },
-      "threshold_scale": {
-        "median": 1.0072,
-        "ci90": [
-          0.9735,
-          1.0301
-        ]
-      },
-      "n_effective_samples": 500
-    },
-    {
-      "device_id": "Br18-CxHp-39173",
-      "dose_uM": 1.0,
-      "phase": "exposure",
-      "log10_forward_ratio": {
-        "median": 0.4727,
-        "ci90": [
-          0.1038,
-          0.8986
-        ]
-      },
-      "inter_in_degree": {
-        "median": 14.2847,
-        "ci90": [
-          8.5197,
-          18.823
-        ]
-      },
-      "gabaa_scale": {
-        "median": 0.676,
-        "ci90": [
-          0.2366,
-          1.2767
-        ]
-      },
-      "ampa_scale": {
-        "median": 0.4892,
-        "ci90": [
-          0.4093,
-          0.6404
-        ]
-      },
-      "threshold_scale": {
-        "median": 0.9839,
-        "ci90": [
-          0.9699,
-          1.0028
-        ]
-      },
-      "n_effective_samples": 500
-    },
-    {
-      "device_id": "Br18-CxHp-39173",
-      "dose_uM": 3.0,
-      "phase": "exposure",
-      "log10_forward_ratio": {
-        "median": 0.582,
-        "ci90": [
-          0.1054,
-          1.1212
-        ]
-      },
-      "inter_in_degree": {
-        "median": 9.4254,
-        "ci90": [
-          3.2078,
-          16.0551
-        ]
-      },
-      "gabaa_scale": {
-        "median": 0.8094,
-        "ci90": [
-          0.1966,
-          1.5445
-        ]
-      },
-      "ampa_scale": {
-        "median": 0.5878,
-        "ci90": [
-          0.4295,
-          0.7853
-        ]
-      },
-      "threshold_scale": {
-        "median": 1.0264,
-        "ci90": [
-          1.0066,
-          1.0483
-        ]
-      },
-      "n_effective_samples": 500
-    },
-    {
-      "device_id": "Br18-CxHp-39173",
-      "dose_uM": 10.0,
-      "phase": "exposure",
-      "log10_forward_ratio": {
-        "median": 1.0806,
-        "ci90": [
-          0.7337,
-          1.2798
-        ]
-      },
-      "inter_in_degree": {
-        "median": 17.7188,
-        "ci90": [
-          11.6524,
-          19.7396
-        ]
-      },
-      "gabaa_scale": {
-        "median": 0.1335,
-        "ci90": [
-          0.1021,
-          0.2176
-        ]
-      },
-      "ampa_scale": {
-        "median": 1.2284,
-        "ci90": [
-          0.9105,
-          1.3856
-        ]
-      },
-      "threshold_scale": {
-        "median": 1.1057,
-        "ci90": [
-          1.0588,
-          1.1437
-        ]
-      },
-      "n_effective_samples": 500
-    },
-    {
-      "device_id": "Br18-CxHp-39173",
-      "dose_uM": 0.1,
-      "phase": "exposure",
-      "log10_forward_ratio": {
-        "median": 0.2416,
-        "ci90": [
-          0.0373,
-          0.594
-        ]
-      },
-      "inter_in_degree": {
-        "median": 8.2206,
-        "ci90": [
-          3.4437,
-          13.5209
-        ]
-      },
-      "gabaa_scale": {
-        "median": 0.3418,
-        "ci90": [
-          0.1551,
-          0.5743
-        ]
-      },
-      "ampa_scale": {
-        "median": 1.0443,
-        "ci90": [
-          0.6791,
-          1.3482
-        ]
-      },
-      "threshold_scale": {
-        "median": 0.9917,
-        "ci90": [
-          0.959,
-          1.023
-        ]
-      },
-      "n_effective_samples": 500
-    },
-    {
-      "device_id": "Br18-CxHp-39173",
-      "dose_uM": 0.3,
-      "phase": "exposure",
-      "log10_forward_ratio": {
-        "median": 0.3384,
-        "ci90": [
-          0.0541,
-          0.7996
-        ]
-      },
-      "inter_in_degree": {
-        "median": 12.725,
-        "ci90": [
-          7.8374,
-          17.4608
-        ]
-      },
-      "gabaa_scale": {
-        "median": 0.358,
-        "ci90": [
-          0.1306,
-          0.7942
-        ]
-      },
-      "ampa_scale": {
-        "median": 0.6965,
-        "ci90": [
-          0.5085,
-          0.9948
-        ]
-      },
-      "threshold_scale": {
-        "median": 1.0067,
-        "ci90": [
-          0.9804,
-          1.0261
-        ]
-      },
-      "n_effective_samples": 500
-    },
-    {
-      "device_id": "Br18-CxHp-39173",
-      "dose_uM": 0.0,
-      "phase": "baseline",
-      "log10_forward_ratio": {
-        "median": 0.4464,
-        "ci90": [
-          0.1113,
-          0.8631
-        ]
-      },
-      "inter_in_degree": {
-        "median": 6.5521,
-        "ci90": [
-          2.7547,
-          11.6276
-        ]
-      },
-      "gabaa_scale": {
-        "median": 0.303,
-        "ci90": [
-          0.142,
-          0.4912
-        ]
-      },
-      "ampa_scale": {
-        "median": 1.0274,
-        "ci90": [
-          0.7014,
-          1.3412
-        ]
-      },
-      "threshold_scale": {
-        "median": 0.9826,
-        "ci90": [
-          0.9493,
-          1.0121
-        ]
-      },
-      "n_effective_samples": 500
-    },
-    {
-      "device_id": "Br18-CxHp-39180",
-      "dose_uM": 1.0,
-      "phase": "exposure",
-      "log10_forward_ratio": {
-        "median": 0.7172,
-        "ci90": [
-          0.3085,
-          1.1049
-        ]
-      },
-      "inter_in_degree": {
-        "median": 5.3456,
-        "ci90": [
-          2.4386,
-          9.6097
-        ]
-      },
-      "gabaa_scale": {
-        "median": 0.2039,
-        "ci90": [
-          0.1111,
-          0.4367
-        ]
-      },
-      "ampa_scale": {
-        "median": 0.9228,
-        "ci90": [
-          0.6236,
-          1.2819
-        ]
-      },
-      "threshold_scale": {
-        "median": 1.0284,
-        "ci90": [
-          0.9975,
-          1.0533
-        ]
-      },
-      "n_effective_samples": 500
-    },
-    {
-      "device_id": "Br18-CxHp-39180",
-      "dose_uM": 3.0,
-      "phase": "exposure",
-      "log10_forward_ratio": {
-        "median": 0.7616,
-        "ci90": [
-          0.3932,
-          1.131
-        ]
-      },
-      "inter_in_degree": {
-        "median": 7.0549,
-        "ci90": [
-          3.2351,
-          12.0345
-        ]
-      },
-      "gabaa_scale": {
-        "median": 0.2087,
-        "ci90": [
-          0.1108,
-          0.525
-        ]
-      },
-      "ampa_scale": {
-        "median": 0.8848,
-        "ci90": [
-          0.6371,
-          1.2197
-        ]
-      },
-      "threshold_scale": {
-        "median": 1.0586,
-        "ci90": [
-          1.0334,
-          1.0768
-        ]
-      },
-      "n_effective_samples": 500
-    },
-    {
-      "device_id": "Br18-CxHp-39180",
-      "dose_uM": 10.0,
-      "phase": "exposure",
-      "log10_forward_ratio": {
-        "median": 0.519,
-        "ci90": [
-          0.1495,
-          0.9484
-        ]
-      },
-      "inter_in_degree": {
-        "median": 3.8295,
-        "ci90": [
-          2.1781,
-          7.5723
-        ]
-      },
-      "gabaa_scale": {
-        "median": 0.2681,
-        "ci90": [
-          0.1181,
-          0.6868
-        ]
-      },
-      "ampa_scale": {
-        "median": 0.9573,
-        "ci90": [
-          0.6656,
-          1.2707
-        ]
-      },
-      "threshold_scale": {
-        "median": 1.0766,
-        "ci90": [
-          1.0528,
-          1.0955
-        ]
-      },
-      "n_effective_samples": 500
-    },
-    {
-      "device_id": "Br18-CxHp-39180",
-      "dose_uM": 30.0,
-      "phase": "exposure",
-      "log10_forward_ratio": {
-        "median": 0.6233,
-        "ci90": [
-          0.1731,
-          1.0998
-        ]
-      },
-      "inter_in_degree": {
-        "median": 4.4316,
-        "ci90": [
-          2.2373,
-          8.8798
-        ]
-      },
-      "gabaa_scale": {
-        "median": 0.3485,
-        "ci90": [
-          0.1224,
-          0.914
-        ]
-      },
-      "ampa_scale": {
-        "median": 0.7129,
-        "ci90": [
-          0.5209,
-          0.9742
-        ]
-      },
-      "threshold_scale": {
-        "median": 1.0809,
-        "ci90": [
-          1.0577,
-          1.1023
-        ]
-      },
-      "n_effective_samples": 500
-    },
-    {
-      "device_id": "Br18-CxHp-39180",
-      "dose_uM": 0.1,
-      "phase": "exposure",
-      "log10_forward_ratio": {
-        "median": 0.5996,
-        "ci90": [
-          0.2267,
-          0.9842
-        ]
-      },
-      "inter_in_degree": {
-        "median": 6.2553,
-        "ci90": [
-          2.7093,
-          10.9835
-        ]
-      },
-      "gabaa_scale": {
-        "median": 0.1978,
-        "ci90": [
-          0.1092,
-          0.4412
-        ]
-      },
-      "ampa_scale": {
-        "median": 0.8687,
-        "ci90": [
-          0.6299,
-          1.2439
-        ]
-      },
-      "threshold_scale": {
-        "median": 0.9912,
-        "ci90": [
-          0.962,
-          1.0162
-        ]
-      },
-      "n_effective_samples": 500
-    },
-    {
-      "device_id": "Br18-CxHp-39180",
-      "dose_uM": 0.3,
-      "phase": "exposure",
-      "log10_forward_ratio": {
-        "median": 0.4914,
-        "ci90": [
-          0.1124,
-          0.8753
-        ]
-      },
-      "inter_in_degree": {
-        "median": 4.6515,
-        "ci90": [
-          2.2533,
-          8.9528
-        ]
-      },
-      "gabaa_scale": {
-        "median": 0.1869,
-        "ci90": [
-          0.1061,
-          0.3482
-        ]
-      },
-      "ampa_scale": {
-        "median": 0.9903,
-        "ci90": [
-          0.6854,
-          1.3105
-        ]
-      },
-      "threshold_scale": {
-        "median": 1.0157,
-        "ci90": [
-          0.9893,
-          1.0405
-        ]
-      },
-      "n_effective_samples": 500
-    },
-    {
-      "device_id": "Br18-CxHp-39180",
-      "dose_uM": 0.0,
-      "phase": "baseline",
-      "log10_forward_ratio": {
-        "median": 0.6422,
-        "ci90": [
-          0.2774,
-          1.0113
-        ]
-      },
-      "inter_in_degree": {
-        "median": 5.804,
-        "ci90": [
-          2.5938,
-          10.8961
-        ]
-      },
-      "gabaa_scale": {
-        "median": 0.2337,
-        "ci90": [
-          0.1152,
-          0.4124
-        ]
-      },
-      "ampa_scale": {
-        "median": 0.9824,
-        "ci90": [
-          0.6851,
-          1.294
-        ]
-      },
-      "threshold_scale": {
-        "median": 0.9439,
-        "ci90": [
-          0.9125,
-          0.9764
-        ]
-      },
-      "n_effective_samples": 500
-    },
-    {
-      "device_id": "Br18-CxHp-39181",
-      "dose_uM": 1.0,
-      "phase": "exposure",
-      "log10_forward_ratio": {
-        "median": 0.3228,
-        "ci90": [
-          0.0495,
-          0.7636
-        ]
-      },
-      "inter_in_degree": {
-        "median": 13.5985,
-        "ci90": [
-          7.6499,
-          19.0762
-        ]
-      },
-      "gabaa_scale": {
-        "median": 0.3425,
-        "ci90": [
-          0.1448,
-          0.6435
-        ]
-      },
-      "ampa_scale": {
-        "median": 1.0211,
-        "ci90": [
-          0.6507,
-          1.3057
-        ]
-      },
-      "threshold_scale": {
-        "median": 1.0412,
-        "ci90": [
-          1.0064,
-          1.0694
-        ]
-      },
-      "n_effective_samples": 500
-    },
-    {
-      "device_id": "Br18-CxHp-39181",
-      "dose_uM": 3.0,
-      "phase": "exposure",
-      "log10_forward_ratio": {
-        "median": 0.2098,
-        "ci90": [
-          0.0248,
-          0.6238
-        ]
-      },
-      "inter_in_degree": {
-        "median": 12.6544,
-        "ci90": [
-          6.4876,
-          17.7983
-        ]
-      },
-      "gabaa_scale": {
-        "median": 0.4481,
-        "ci90": [
-          0.1704,
-          0.9337
-        ]
-      },
-      "ampa_scale": {
-        "median": 1.0582,
-        "ci90": [
-          0.7045,
-          1.3333
-        ]
-      },
-      "threshold_scale": {
-        "median": 1.0506,
-        "ci90": [
-          1.0201,
-          1.0785
-        ]
-      },
-      "n_effective_samples": 500
-    },
-    {
-      "device_id": "Br18-CxHp-39181",
-      "dose_uM": 10.0,
-      "phase": "exposure",
-      "log10_forward_ratio": {
-        "median": 0.2695,
-        "ci90": [
-          0.0346,
-          0.6874
-        ]
-      },
-      "inter_in_degree": {
-        "median": 11.0491,
-        "ci90": [
-          4.9258,
-          16.8875
-        ]
-      },
-      "gabaa_scale": {
-        "median": 0.573,
-        "ci90": [
-          0.1976,
-          1.1183
-        ]
-      },
-      "ampa_scale": {
-        "median": 1.1727,
-        "ci90": [
-          0.825,
-          1.3672
-        ]
-      },
-      "threshold_scale": {
-        "median": 1.057,
-        "ci90": [
-          1.0259,
-          1.0954
-        ]
-      },
-      "n_effective_samples": 500
-    },
-    {
-      "device_id": "Br18-CxHp-39181",
-      "dose_uM": 30.0,
-      "phase": "exposure",
-      "log10_forward_ratio": {
-        "median": 0.5803,
-        "ci90": [
-          0.1909,
-          0.9931
-        ]
-      },
-      "inter_in_degree": {
-        "median": 4.0298,
-        "ci90": [
-          2.2145,
-          7.6076
-        ]
-      },
-      "gabaa_scale": {
-        "median": 0.4162,
-        "ci90": [
-          0.1425,
-          1.0686
-        ]
-      },
-      "ampa_scale": {
-        "median": 0.8051,
-        "ci90": [
-          0.5483,
-          1.1156
-        ]
-      },
-      "threshold_scale": {
-        "median": 1.0513,
-        "ci90": [
-          1.0233,
-          1.0734
-        ]
-      },
-      "n_effective_samples": 500
-    },
-    {
-      "device_id": "Br18-CxHp-39181",
-      "dose_uM": 0.1,
-      "phase": "exposure",
-      "log10_forward_ratio": {
-        "median": 0.4918,
-        "ci90": [
-          0.1366,
-          0.8866
-        ]
-      },
-      "inter_in_degree": {
-        "median": 5.2788,
-        "ci90": [
-          2.3878,
-          10.1727
-        ]
-      },
-      "gabaa_scale": {
-        "median": 0.2427,
-        "ci90": [
-          0.122,
-          0.4007
-        ]
-      },
-      "ampa_scale": {
-        "median": 1.0526,
-        "ci90": [
-          0.7386,
-          1.3566
-        ]
-      },
-      "threshold_scale": {
-        "median": 0.9871,
-        "ci90": [
-          0.9506,
-          1.0169
-        ]
-      },
-      "n_effective_samples": 500
-    },
-    {
-      "device_id": "Br18-CxHp-39181",
-      "dose_uM": 100.0,
-      "phase": "exposure",
-      "log10_forward_ratio": {
-        "median": 0.7056,
-        "ci90": [
-          0.2415,
-          1.1449
-        ]
-      },
-      "inter_in_degree": {
-        "median": 6.2081,
-        "ci90": [
-          2.6577,
-          11.8986
-        ]
-      },
-      "gabaa_scale": {
-        "median": 0.613,
-        "ci90": [
-          0.1817,
-          1.2696
-        ]
-      },
-      "ampa_scale": {
-        "median": 0.6913,
-        "ci90": [
-          0.5093,
-          0.8886
-        ]
-      },
-      "threshold_scale": {
-        "median": 1.0485,
-        "ci90": [
-          1.0303,
-          1.0693
-        ]
-      },
-      "n_effective_samples": 500
-    },
-    {
-      "device_id": "Br18-CxHp-39181",
-      "dose_uM": 0.3,
-      "phase": "exposure",
-      "log10_forward_ratio": {
-        "median": 0.3075,
-        "ci90": [
-          0.0473,
-          0.6864
-        ]
-      },
-      "inter_in_degree": {
-        "median": 11.7988,
-        "ci90": [
-          6.2015,
-          17.344
-        ]
-      },
-      "gabaa_scale": {
-        "median": 0.3019,
-        "ci90": [
-          0.1369,
-          0.6012
-        ]
-      },
-      "ampa_scale": {
-        "median": 1.1051,
-        "ci90": [
-          0.7525,
-          1.3551
-        ]
-      },
-      "threshold_scale": {
-        "median": 1.0438,
-        "ci90": [
-          1.0089,
-          1.0708
-        ]
-      },
-      "n_effective_samples": 500
-    },
-    {
-      "device_id": "Br18-CxHp-39181",
-      "dose_uM": 300.0,
-      "phase": "exposure",
-      "log10_forward_ratio": {
-        "median": 0.7387,
-        "ci90": [
-          0.2364,
-          1.1682
-        ]
-      },
-      "inter_in_degree": {
-        "median": 6.5385,
-        "ci90": [
-          2.6583,
-          11.9479
-        ]
-      },
-      "gabaa_scale": {
-        "median": 0.3657,
-        "ci90": [
-          0.1311,
-          0.8781
-        ]
-      },
-      "ampa_scale": {
-        "median": 0.643,
-        "ci90": [
-          0.4748,
-          0.8532
-        ]
-      },
-      "threshold_scale": {
-        "median": 1.0724,
-        "ci90": [
-          1.0427,
-          1.0929
-        ]
-      },
-      "n_effective_samples": 500
-    },
-    {
-      "device_id": "Br18-CxHp-39181",
-      "dose_uM": 0.0,
-      "phase": "baseline",
-      "log10_forward_ratio": {
-        "median": 0.4059,
-        "ci90": [
-          0.0897,
-          0.8016
-        ]
-      },
-      "inter_in_degree": {
-        "median": 9.431,
-        "ci90": [
-          3.825,
-          15.4364
-        ]
-      },
-      "gabaa_scale": {
-        "median": 0.2788,
-        "ci90": [
-          0.1361,
-          0.4983
-        ]
-      },
-      "ampa_scale": {
-        "median": 0.9982,
-        "ci90": [
-          0.677,
-          1.3285
-        ]
-      },
-      "threshold_scale": {
-        "median": 0.9793,
-        "ci90": [
-          0.9398,
-          1.0127
-        ]
-      },
-      "n_effective_samples": 500
-    },
-    {
-      "device_id": "Br18-CxHp-39184",
-      "dose_uM": 1.0,
-      "phase": "exposure",
-      "log10_forward_ratio": {
-        "median": 0.6019,
-        "ci90": [
-          0.1968,
-          1.0327
-        ]
-      },
-      "inter_in_degree": {
-        "median": 16.9361,
-        "ci90": [
-          11.485,
-          19.6706
-        ]
-      },
-      "gabaa_scale": {
-        "median": 0.3713,
-        "ci90": [
-          0.1405,
-          0.7801
-        ]
-      },
-      "ampa_scale": {
-        "median": 0.7968,
-        "ci90": [
-          0.5493,
-          1.1214
-        ]
-      },
-      "threshold_scale": {
-        "median": 1.0036,
-        "ci90": [
-          0.9714,
-          1.0256
-        ]
-      },
-      "n_effective_samples": 500
-    },
-    {
-      "device_id": "Br18-CxHp-39184",
-      "dose_uM": 3.0,
-      "phase": "exposure",
-      "log10_forward_ratio": {
-        "median": 0.5103,
-        "ci90": [
-          0.1277,
-          0.9051
-        ]
-      },
-      "inter_in_degree": {
-        "median": 15.0481,
-        "ci90": [
-          9.2212,
-          19.1933
-        ]
-      },
-      "gabaa_scale": {
-        "median": 0.4628,
-        "ci90": [
-          0.1824,
-          0.9828
-        ]
-      },
-      "ampa_scale": {
-        "median": 0.8434,
-        "ci90": [
-          0.6064,
-          1.1542
-        ]
-      },
-      "threshold_scale": {
-        "median": 1.0168,
-        "ci90": [
-          0.9893,
-          1.0378
-        ]
-      },
-      "n_effective_samples": 500
-    },
-    {
-      "device_id": "Br18-CxHp-39184",
-      "dose_uM": 10.0,
-      "phase": "exposure",
-      "log10_forward_ratio": {
-        "median": 0.555,
-        "ci90": [
-          0.1559,
-          0.9774
-        ]
-      },
-      "inter_in_degree": {
-        "median": 16.0918,
-        "ci90": [
-          10.0169,
-          19.3922
-        ]
-      },
-      "gabaa_scale": {
-        "median": 0.6461,
-        "ci90": [
-          0.1841,
-          1.301
-        ]
-      },
-      "ampa_scale": {
-        "median": 0.7773,
-        "ci90": [
-          0.5661,
-          1.0435
-        ]
-      },
-      "threshold_scale": {
-        "median": 1.0161,
-        "ci90": [
-          0.9968,
-          1.0441
-        ]
-      },
-      "n_effective_samples": 500
-    },
-    {
-      "device_id": "Br18-CxHp-39184",
-      "dose_uM": 30.0,
-      "phase": "exposure",
-      "log10_forward_ratio": {
-        "median": 0.4027,
-        "ci90": [
-          0.0851,
-          0.8523
-        ]
-      },
-      "inter_in_degree": {
-        "median": 16.4888,
-        "ci90": [
-          10.4636,
-          19.5059
-        ]
-      },
-      "gabaa_scale": {
-        "median": 0.9452,
-        "ci90": [
-          0.4193,
-          1.4673
-        ]
-      },
-      "ampa_scale": {
-        "median": 0.6945,
-        "ci90": [
-          0.5195,
-          0.9319
-        ]
-      },
-      "threshold_scale": {
-        "median": 1.0271,
-        "ci90": [
-          1.0098,
-          1.048
-        ]
-      },
-      "n_effective_samples": 500
-    },
-    {
-      "device_id": "Br18-CxHp-39184",
-      "dose_uM": 0.1,
-      "phase": "exposure",
-      "log10_forward_ratio": {
-        "median": 0.3436,
-        "ci90": [
-          0.0533,
-          0.7712
-        ]
-      },
-      "inter_in_degree": {
-        "median": 14.5179,
-        "ci90": [
-          8.52,
-          19.0054
-        ]
-      },
-      "gabaa_scale": {
-        "median": 0.382,
-        "ci90": [
-          0.1851,
-          0.723
-        ]
-      },
-      "ampa_scale": {
-        "median": 0.9094,
-        "ci90": [
-          0.6236,
-          1.2529
-        ]
-      },
-      "threshold_scale": {
-        "median": 0.9527,
-        "ci90": [
-          0.9082,
-          0.9909
-        ]
-      },
-      "n_effective_samples": 500
-    },
-    {
-      "device_id": "Br18-CxHp-39184",
-      "dose_uM": 100.0,
-      "phase": "exposure",
-      "log10_forward_ratio": {
-        "median": 0.6662,
-        "ci90": [
-          0.169,
-          1.1376
-        ]
-      },
-      "inter_in_degree": {
-        "median": 4.2222,
-        "ci90": [
-          2.2138,
-          8.6961
-        ]
-      },
-      "gabaa_scale": {
-        "median": 0.6526,
-        "ci90": [
-          0.1812,
-          1.2923
-        ]
-      },
-      "ampa_scale": {
-        "median": 0.7895,
-        "ci90": [
-          0.5406,
-          1.084
-        ]
-      },
-      "threshold_scale": {
-        "median": 1.0832,
-        "ci90": [
-          1.0661,
-          1.105
-        ]
-      },
-      "n_effective_samples": 500
-    },
-    {
-      "device_id": "Br18-CxHp-39184",
-      "dose_uM": 0.3,
-      "phase": "exposure",
-      "log10_forward_ratio": {
-        "median": 0.4553,
-        "ci90": [
-          0.1073,
-          0.8743
-        ]
-      },
-      "inter_in_degree": {
-        "median": 13.7122,
-        "ci90": [
-          8.2572,
-          18.925
-        ]
-      },
-      "gabaa_scale": {
-        "median": 0.3804,
-        "ci90": [
-          0.1593,
-          0.6627
-        ]
-      },
-      "ampa_scale": {
-        "median": 0.8951,
-        "ci90": [
-          0.6021,
-          1.226
-        ]
-      },
-      "threshold_scale": {
-        "median": 0.9703,
-        "ci90": [
-          0.9309,
-          1.0041
-        ]
-      },
-      "n_effective_samples": 500
-    },
-    {
-      "device_id": "Br18-CxHp-39184",
-      "dose_uM": 300.0,
-      "phase": "exposure",
-      "log10_forward_ratio": {
-        "median": 0.6305,
-        "ci90": [
-          0.1628,
-          1.097
-        ]
-      },
-      "inter_in_degree": {
-        "median": 5.5542,
-        "ci90": [
-          2.5043,
-          11.3567
-        ]
-      },
-      "gabaa_scale": {
-        "median": 0.6408,
-        "ci90": [
-          0.1836,
-          1.3383
-        ]
-      },
-      "ampa_scale": {
-        "median": 0.6837,
-        "ci90": [
-          0.4996,
-          0.9129
-        ]
-      },
-      "threshold_scale": {
-        "median": 1.0703,
-        "ci90": [
-          1.0461,
-          1.0913
-        ]
-      },
-      "n_effective_samples": 500
-    },
-    {
-      "device_id": "Br18-CxHp-39184",
-      "dose_uM": 0.0,
-      "phase": "baseline",
-      "log10_forward_ratio": {
-        "median": 0.3718,
-        "ci90": [
-          0.0594,
-          0.7234
-        ]
-      },
-      "inter_in_degree": {
-        "median": 14.817,
-        "ci90": [
-          8.9835,
-          19.2262
-        ]
-      },
-      "gabaa_scale": {
-        "median": 0.3811,
-        "ci90": [
-          0.1359,
-          0.781
-        ]
-      },
-      "ampa_scale": {
-        "median": 0.7841,
-        "ci90": [
-          0.5576,
-          1.1119
-        ]
-      },
-      "threshold_scale": {
-        "median": 0.9447,
-        "ci90": [
-          0.9026,
-          0.9777
-        ]
-      },
-      "n_effective_samples": 500
-    },
-    {
-      "device_id": "Br18-HpHp-24549",
-      "dose_uM": 1.0,
-      "phase": "exposure",
-      "log10_forward_ratio": {
-        "median": 0.7284,
-        "ci90": [
-          0.3879,
-          1.0735
-        ]
-      },
-      "inter_in_degree": {
-        "median": 15.6476,
-        "ci90": [
-          10.4788,
-          19.4296
-        ]
-      },
-      "gabaa_scale": {
-        "median": 0.7269,
-        "ci90": [
-          0.2218,
-          1.3486
-        ]
-      },
-      "ampa_scale": {
-        "median": 0.7604,
-        "ci90": [
-          0.5555,
-          0.9849
-        ]
-      },
-      "threshold_scale": {
-        "median": 1.0131,
-        "ci90": [
-          0.9947,
-          1.0371
-        ]
-      },
-      "n_effective_samples": 500
-    },
-    {
-      "device_id": "Br18-HpHp-24549",
-      "dose_uM": 3.0,
-      "phase": "exposure",
-      "log10_forward_ratio": {
-        "median": 0.5525,
-        "ci90": [
-          0.1445,
-          1.0404
-        ]
-      },
-      "inter_in_degree": {
-        "median": 12.7848,
-        "ci90": [
-          6.5051,
-          18.4389
-        ]
-      },
-      "gabaa_scale": {
-        "median": 0.9649,
-        "ci90": [
-          0.368,
-          1.5029
-        ]
-      },
-      "ampa_scale": {
-        "median": 0.7311,
-        "ci90": [
-          0.561,
-          0.9324
-        ]
-      },
-      "threshold_scale": {
-        "median": 1.0211,
-        "ci90": [
-          1.0049,
-          1.0426
-        ]
-      },
-      "n_effective_samples": 500
-    },
-    {
-      "device_id": "Br18-HpHp-24549",
-      "dose_uM": 10.0,
-      "phase": "exposure",
-      "log10_forward_ratio": {
-        "median": 0.5693,
-        "ci90": [
-          0.1665,
-          1.0294
-        ]
-      },
-      "inter_in_degree": {
-        "median": 15.1395,
-        "ci90": [
-          9.1295,
-          19.2771
-        ]
-      },
-      "gabaa_scale": {
-        "median": 0.9294,
-        "ci90": [
-          0.3702,
-          1.5327
-        ]
-      },
-      "ampa_scale": {
-        "median": 0.8564,
-        "ci90": [
-          0.5861,
-          1.1432
-        ]
-      },
-      "threshold_scale": {
-        "median": 1.0807,
-        "ci90": [
-          1.0566,
-          1.1073
-        ]
-      },
-      "n_effective_samples": 500
-    },
-    {
-      "device_id": "Br18-HpHp-24549",
-      "dose_uM": 0.1,
-      "phase": "exposure",
-      "log10_forward_ratio": {
-        "median": 0.5473,
-        "ci90": [
-          0.1455,
-          0.9955
-        ]
-      },
-      "inter_in_degree": {
-        "median": 16.1044,
-        "ci90": [
-          11.0928,
-          19.5419
-        ]
-      },
-      "gabaa_scale": {
-        "median": 0.601,
-        "ci90": [
-          0.1669,
-          1.3388
-        ]
-      },
-      "ampa_scale": {
-        "median": 0.6748,
-        "ci90": [
-          0.4745,
-          0.9053
-        ]
-      },
-      "threshold_scale": {
-        "median": 0.9913,
-        "ci90": [
-          0.9674,
-          1.0129
-        ]
-      },
-      "n_effective_samples": 500
-    },
-    {
-      "device_id": "Br18-HpHp-24549",
-      "dose_uM": 0.3,
-      "phase": "exposure",
-      "log10_forward_ratio": {
-        "median": 0.6507,
-        "ci90": [
-          0.209,
-          1.0617
-        ]
-      },
-      "inter_in_degree": {
-        "median": 16.1986,
-        "ci90": [
-          11.4346,
-          19.5622
-        ]
-      },
-      "gabaa_scale": {
-        "median": 0.6585,
-        "ci90": [
-          0.1864,
-          1.3111
+          0.3166,
+          1.919
         ]
       },
       "ampa_scale": {
         "median": 0.7089,
         "ci90": [
-          0.5088,
-          0.9594
+          0.46,
+          1.0398
         ]
       },
       "threshold_scale": {
-        "median": 1.001,
+        "median": 1.141,
         "ci90": [
-          0.9781,
-          1.024
+          1.113,
+          1.1493
         ]
       },
-      "n_effective_samples": 500
+      "n_effective_samples": 446
     },
     {
-      "device_id": "Br18-HpHp-24549",
-      "dose_uM": 0.0,
-      "phase": "baseline",
-      "log10_forward_ratio": {
-        "median": 0.6347,
-        "ci90": [
-          0.2325,
-          1.0147
-        ]
-      },
-      "inter_in_degree": {
-        "median": 15.8404,
-        "ci90": [
-          10.2708,
-          19.6308
-        ]
-      },
-      "gabaa_scale": {
-        "median": 0.6084,
-        "ci90": [
-          0.1722,
-          1.3492
-        ]
-      },
-      "ampa_scale": {
-        "median": 0.6544,
-        "ci90": [
-          0.4945,
-          0.8577
-        ]
-      },
-      "threshold_scale": {
-        "median": 0.9928,
-        "ci90": [
-          0.9732,
-          1.0137
-        ]
-      },
-      "n_effective_samples": 500
-    },
-    {
-      "device_id": "Br18-HpHp-35882",
-      "dose_uM": 1.0,
-      "phase": "exposure",
-      "log10_forward_ratio": {
-        "median": 0.1795,
-        "ci90": [
-          0.0142,
-          0.5254
-        ]
-      },
-      "inter_in_degree": {
-        "median": 14.3003,
-        "ci90": [
-          8.7417,
-          19.1877
-        ]
-      },
-      "gabaa_scale": {
-        "median": 0.4168,
-        "ci90": [
-          0.1307,
-          0.8923
-        ]
-      },
-      "ampa_scale": {
-        "median": 0.8752,
-        "ci90": [
-          0.5833,
-          1.2794
-        ]
-      },
-      "threshold_scale": {
-        "median": 1.0195,
-        "ci90": [
-          0.992,
-          1.049
-        ]
-      },
-      "n_effective_samples": 500
-    },
-    {
-      "device_id": "Br18-HpHp-35882",
-      "dose_uM": 3.0,
-      "phase": "exposure",
-      "log10_forward_ratio": {
-        "median": 0.5184,
-        "ci90": [
-          0.1649,
-          0.8964
-        ]
-      },
-      "inter_in_degree": {
-        "median": 15.7698,
-        "ci90": [
-          10.5867,
-          19.4913
-        ]
-      },
-      "gabaa_scale": {
-        "median": 0.2258,
-        "ci90": [
-          0.1164,
-          0.418
-        ]
-      },
-      "ampa_scale": {
-        "median": 1.0087,
-        "ci90": [
-          0.6936,
-          1.3072
-        ]
-      },
-      "threshold_scale": {
-        "median": 1.0406,
-        "ci90": [
-          1.0016,
-          1.0731
-        ]
-      },
-      "n_effective_samples": 500
-    },
-    {
-      "device_id": "Br18-HpHp-35882",
-      "dose_uM": 10.0,
-      "phase": "exposure",
-      "log10_forward_ratio": {
-        "median": 0.6859,
-        "ci90": [
-          0.3352,
-          1.0427
-        ]
-      },
-      "inter_in_degree": {
-        "median": 14.084,
-        "ci90": [
-          8.5,
-          19.0659
-        ]
-      },
-      "gabaa_scale": {
-        "median": 0.1815,
-        "ci90": [
-          0.1068,
-          0.3219
-        ]
-      },
-      "ampa_scale": {
-        "median": 1.0444,
-        "ci90": [
-          0.7519,
-          1.3218
-        ]
-      },
-      "threshold_scale": {
-        "median": 1.0319,
-        "ci90": [
-          0.9978,
-          1.062
-        ]
-      },
-      "n_effective_samples": 500
-    },
-    {
-      "device_id": "Br18-HpHp-35882",
-      "dose_uM": 30.0,
-      "phase": "exposure",
-      "log10_forward_ratio": {
-        "median": 0.618,
-        "ci90": [
-          0.2178,
-          1.0075
-        ]
-      },
-      "inter_in_degree": {
-        "median": 15.3129,
-        "ci90": [
-          9.2144,
-          19.4616
-        ]
-      },
-      "gabaa_scale": {
-        "median": 0.2224,
-        "ci90": [
-          0.1128,
-          0.4581
-        ]
-      },
-      "ampa_scale": {
-        "median": 1.0117,
-        "ci90": [
-          0.696,
-          1.3162
-        ]
-      },
-      "threshold_scale": {
-        "median": 1.0415,
-        "ci90": [
-          1.0092,
-          1.0752
-        ]
-      },
-      "n_effective_samples": 500
-    },
-    {
-      "device_id": "Br18-HpHp-35882",
-      "dose_uM": 0.1,
-      "phase": "exposure",
-      "log10_forward_ratio": {
-        "median": 0.1913,
-        "ci90": [
-          0.0206,
-          0.5196
-        ]
-      },
-      "inter_in_degree": {
-        "median": 15.1593,
-        "ci90": [
-          9.4485,
-          19.2136
-        ]
-      },
-      "gabaa_scale": {
-        "median": 0.546,
-        "ci90": [
-          0.1566,
-          1.1939
-        ]
-      },
-      "ampa_scale": {
-        "median": 0.8031,
-        "ci90": [
-          0.5464,
-          1.1598
-        ]
-      },
-      "threshold_scale": {
-        "median": 1.0077,
-        "ci90": [
-          0.9818,
-          1.0381
-        ]
-      },
-      "n_effective_samples": 500
-    },
-    {
-      "device_id": "Br18-HpHp-35882",
-      "dose_uM": 100.0,
-      "phase": "exposure",
-      "log10_forward_ratio": {
-        "median": 0.4883,
-        "ci90": [
-          0.1119,
-          0.8772
-        ]
-      },
-      "inter_in_degree": {
-        "median": 15.9718,
-        "ci90": [
-          9.5688,
-          19.5228
-        ]
-      },
-      "gabaa_scale": {
-        "median": 0.2237,
-        "ci90": [
-          0.1136,
-          0.4423
-        ]
-      },
-      "ampa_scale": {
-        "median": 1.1159,
-        "ci90": [
-          0.7757,
-          1.3387
-        ]
-      },
-      "threshold_scale": {
-        "median": 1.0491,
-        "ci90": [
-          1.0149,
-          1.082
-        ]
-      },
-      "n_effective_samples": 500
-    },
-    {
-      "device_id": "Br18-HpHp-35882",
+      "device_id": "Br18-CxHp-34633",
       "dose_uM": 0.3,
       "phase": "exposure",
       "log10_forward_ratio": {
-        "median": 0.18,
+        "median": 0.0506,
         "ci90": [
-          0.0173,
-          0.5331
+          0.0054,
+          0.172
         ]
       },
       "inter_in_degree": {
-        "median": 14.1463,
+        "median": 12.9117,
         "ci90": [
-          8.7564,
-          19.0902
+          5.1071,
+          18.0986
         ]
       },
       "gabaa_scale": {
-        "median": 0.4327,
+        "median": 0.6967,
         "ci90": [
-          0.1319,
-          0.9663
+          0.1987,
+          1.5872
         ]
       },
       "ampa_scale": {
-        "median": 0.8861,
+        "median": 1.1834,
         "ci90": [
-          0.6043,
-          1.2313
+          1.0232,
+          1.3233
         ]
       },
       "threshold_scale": {
-        "median": 1.0214,
+        "median": 1.1409,
         "ci90": [
-          0.9931,
-          1.0555
+          1.1112,
+          1.1493
         ]
       },
       "n_effective_samples": 500
     },
     {
-      "device_id": "Br18-HpHp-35882",
-      "dose_uM": 300.0,
-      "phase": "exposure",
+      "device_id": "Br18-CxHp-34633",
+      "dose_uM": 0.0,
+      "phase": "baseline",
       "log10_forward_ratio": {
-        "median": 0.1697,
+        "median": 0.8912,
         "ci90": [
-          0.0169,
-          0.5232
+          0.7048,
+          1.0807
         ]
       },
       "inter_in_degree": {
-        "median": 12.4781,
+        "median": 13.2969,
         "ci90": [
-          6.282,
-          17.8564
+          5.6741,
+          19.082
         ]
       },
       "gabaa_scale": {
-        "median": 0.4094,
+        "median": 0.4833,
         "ci90": [
-          0.1354,
-          0.8961
+          0.249,
+          1.0011
         ]
       },
       "ampa_scale": {
-        "median": 1.0775,
+        "median": 1.2559,
         "ci90": [
-          0.7119,
-          1.3477
+          1.1551,
+          1.3531
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.1365,
+        "ci90": [
+          1.1059,
+          1.1486
+        ]
+      },
+      "n_effective_samples": 500
+    },
+    {
+      "device_id": "Br18-CxHp-39173",
+      "dose_uM": 1.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.2,
+        "ci90": [
+          0.0239,
+          0.4882
+        ]
+      },
+      "inter_in_degree": {
+        "median": 10.8294,
+        "ci90": [
+          4.4183,
+          17.7902
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.885,
+        "ci90": [
+          0.3109,
+          1.5859
+        ]
+      },
+      "ampa_scale": {
+        "median": 1.071,
+        "ci90": [
+          0.9014,
+          1.2341
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.127,
+        "ci90": [
+          1.0863,
+          1.1479
+        ]
+      },
+      "n_effective_samples": 500
+    },
+    {
+      "device_id": "Br18-CxHp-39173",
+      "dose_uM": 3.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.6312,
+        "ci90": [
+          0.1605,
+          1.0748
+        ]
+      },
+      "inter_in_degree": {
+        "median": 13.0859,
+        "ci90": [
+          6.4415,
+          19.0267
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.7372,
+        "ci90": [
+          0.2007,
+          1.5309
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.699,
+        "ci90": [
+          0.5538,
+          0.8567
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.1421,
+        "ci90": [
+          1.1213,
+          1.1495
+        ]
+      },
+      "n_effective_samples": 500
+    },
+    {
+      "device_id": "Br18-CxHp-39173",
+      "dose_uM": 10.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 1.1745,
+        "ci90": [
+          0.9159,
+          1.29
+        ]
+      },
+      "inter_in_degree": {
+        "median": 12.8391,
+        "ci90": [
+          8.6528,
+          17.6737
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.8981,
+        "ci90": [
+          0.2715,
+          1.5338
+        ]
+      },
+      "ampa_scale": {
+        "median": 1.1942,
+        "ci90": [
+          1.0343,
+          1.3418
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.1362,
+        "ci90": [
+          1.1132,
+          1.1484
+        ]
+      },
+      "n_effective_samples": 500
+    },
+    {
+      "device_id": "Br18-CxHp-39173",
+      "dose_uM": 0.1,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.3414,
+        "ci90": [
+          0.1931,
+          0.5213
+        ]
+      },
+      "inter_in_degree": {
+        "median": 9.8309,
+        "ci90": [
+          3.458,
+          18.5738
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.4157,
+        "ci90": [
+          0.2546,
+          0.6268
+        ]
+      },
+      "ampa_scale": {
+        "median": 1.2291,
+        "ci90": [
+          1.1004,
+          1.3568
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.1279,
+        "ci90": [
+          1.0831,
+          1.1473
+        ]
+      },
+      "n_effective_samples": 500
+    },
+    {
+      "device_id": "Br18-CxHp-39173",
+      "dose_uM": 0.3,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.2273,
+        "ci90": [
+          0.0507,
+          0.4243
+        ]
+      },
+      "inter_in_degree": {
+        "median": 12.5187,
+        "ci90": [
+          4.2051,
+          19.0524
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.7657,
+        "ci90": [
+          0.361,
+          1.4476
+        ]
+      },
+      "ampa_scale": {
+        "median": 1.1547,
+        "ci90": [
+          0.9904,
+          1.2847
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.1209,
+        "ci90": [
+          1.0769,
+          1.1477
+        ]
+      },
+      "n_effective_samples": 500
+    },
+    {
+      "device_id": "Br18-CxHp-39173",
+      "dose_uM": 0.0,
+      "phase": "baseline",
+      "log10_forward_ratio": {
+        "median": 0.4869,
+        "ci90": [
+          0.3304,
+          0.6779
+        ]
+      },
+      "inter_in_degree": {
+        "median": 9.0253,
+        "ci90": [
+          3.4373,
+          17.8935
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.297,
+        "ci90": [
+          0.1713,
+          0.399
+        ]
+      },
+      "ampa_scale": {
+        "median": 1.2437,
+        "ci90": [
+          1.0906,
+          1.3532
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.1306,
+        "ci90": [
+          1.081,
+          1.1485
+        ]
+      },
+      "n_effective_samples": 500
+    },
+    {
+      "device_id": "Br18-CxHp-39180",
+      "dose_uM": 1.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.6103,
+        "ci90": [
+          0.4025,
+          0.8076
+        ]
+      },
+      "inter_in_degree": {
+        "median": 13.6553,
+        "ci90": [
+          6.0083,
+          19.2569
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.6864,
+        "ci90": [
+          0.3183,
+          1.3185
+        ]
+      },
+      "ampa_scale": {
+        "median": 1.2161,
+        "ci90": [
+          1.082,
+          1.3381
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.1305,
+        "ci90": [
+          1.0835,
+          1.1481
+        ]
+      },
+      "n_effective_samples": 500
+    },
+    {
+      "device_id": "Br18-CxHp-39180",
+      "dose_uM": 3.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.6554,
+        "ci90": [
+          0.4229,
+          0.8859
+        ]
+      },
+      "inter_in_degree": {
+        "median": 13.453,
+        "ci90": [
+          7.1918,
+          18.5323
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.7262,
+        "ci90": [
+          0.2676,
+          1.3717
+        ]
+      },
+      "ampa_scale": {
+        "median": 1.1311,
+        "ci90": [
+          1.0107,
+          1.253
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.137,
+        "ci90": [
+          1.1138,
+          1.1487
+        ]
+      },
+      "n_effective_samples": 500
+    },
+    {
+      "device_id": "Br18-CxHp-39180",
+      "dose_uM": 10.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.2494,
+        "ci90": [
+          0.0382,
+          0.5225
+        ]
+      },
+      "inter_in_degree": {
+        "median": 9.5614,
+        "ci90": [
+          4.537,
+          15.3084
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.8629,
+        "ci90": [
+          0.2801,
+          1.6444
+        ]
+      },
+      "ampa_scale": {
+        "median": 1.0804,
+        "ci90": [
+          0.9069,
+          1.2332
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.1378,
+        "ci90": [
+          1.106,
+          1.149
+        ]
+      },
+      "n_effective_samples": 500
+    },
+    {
+      "device_id": "Br18-CxHp-39180",
+      "dose_uM": 30.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.3115,
+        "ci90": [
+          0.0335,
+          0.6698
+        ]
+      },
+      "inter_in_degree": {
+        "median": 8.7636,
+        "ci90": [
+          3.3599,
+          14.7944
+        ]
+      },
+      "gabaa_scale": {
+        "median": 1.0169,
+        "ci90": [
+          0.3535,
+          1.7023
+        ]
+      },
+      "ampa_scale": {
+        "median": 1.0364,
+        "ci90": [
+          0.8661,
+          1.2205
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.1371,
+        "ci90": [
+          1.1078,
+          1.149
+        ]
+      },
+      "n_effective_samples": 500
+    },
+    {
+      "device_id": "Br18-CxHp-39180",
+      "dose_uM": 0.1,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.5449,
+        "ci90": [
+          0.3648,
+          0.7237
+        ]
+      },
+      "inter_in_degree": {
+        "median": 13.7838,
+        "ci90": [
+          6.9987,
+          18.8986
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.9421,
+        "ci90": [
+          0.4473,
+          1.6656
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.9949,
+        "ci90": [
+          0.845,
+          1.1485
+        ]
+      },
+      "threshold_scale": {
+        "median": 0.9797,
+        "ci90": [
+          0.9383,
+          1.0153
+        ]
+      },
+      "n_effective_samples": 500
+    },
+    {
+      "device_id": "Br18-CxHp-39180",
+      "dose_uM": 0.3,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.49,
+        "ci90": [
+          0.3238,
+          0.6623
+        ]
+      },
+      "inter_in_degree": {
+        "median": 14.2052,
+        "ci90": [
+          6.6765,
+          19.0847
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.8516,
+        "ci90": [
+          0.4154,
+          1.4638
+        ]
+      },
+      "ampa_scale": {
+        "median": 1.1202,
+        "ci90": [
+          0.9723,
+          1.2514
         ]
       },
       "threshold_scale": {
         "median": 1.0476,
         "ci90": [
-          1.0159,
-          1.09
+          1.0039,
+          1.0782
         ]
       },
       "n_effective_samples": 500
     },
     {
-      "device_id": "Br18-HpHp-35882",
+      "device_id": "Br18-CxHp-39180",
       "dose_uM": 0.0,
       "phase": "baseline",
       "log10_forward_ratio": {
-        "median": 0.4882,
+        "median": 0.4683,
         "ci90": [
-          0.1135,
-          0.9438
+          0.3061,
+          0.6474
         ]
       },
       "inter_in_degree": {
-        "median": 17.1371,
+        "median": 14.1212,
         "ci90": [
-          12.4049,
-          19.7304
+          6.0182,
+          19.2122
         ]
       },
       "gabaa_scale": {
-        "median": 0.6857,
+        "median": 0.7931,
         "ci90": [
-          0.1949,
-          1.2758
+          0.4493,
+          1.3622
         ]
       },
       "ampa_scale": {
-        "median": 0.8037,
+        "median": 0.8975,
         "ci90": [
-          0.5584,
-          1.0981
+          0.7539,
+          1.0545
         ]
       },
       "threshold_scale": {
-        "median": 1.0198,
+        "median": 0.9029,
         "ci90": [
-          0.9981,
-          1.0446
+          0.8615,
+          0.9456
         ]
       },
       "n_effective_samples": 500
     },
     {
-      "device_id": "Br18-HpHp-38991",
+      "device_id": "Br18-CxHp-39181",
       "dose_uM": 1.0,
       "phase": "exposure",
       "log10_forward_ratio": {
-        "median": 0.7728,
+        "median": 0.4256,
         "ci90": [
-          0.3316,
-          1.173
+          0.2809,
+          0.5759
         ]
       },
       "inter_in_degree": {
-        "median": 7.4453,
+        "median": 12.1719,
         "ci90": [
-          2.9218,
-          12.5663
+          7.3699,
+          17.632
         ]
       },
       "gabaa_scale": {
-        "median": 0.7967,
+        "median": 0.1654,
         "ci90": [
-          0.2273,
-          1.4366
+          0.105,
+          0.3257
         ]
       },
       "ampa_scale": {
-        "median": 1.2326,
+        "median": 1.1331,
         "ci90": [
-          0.9131,
-          1.383
+          1.0211,
+          1.251
         ]
       },
       "threshold_scale": {
-        "median": 1.1156,
+        "median": 1.1428,
         "ci90": [
-          1.0818,
-          1.1445
+          1.1227,
+          1.1494
         ]
       },
       "n_effective_samples": 500
     },
     {
-      "device_id": "Br18-HpHp-38991",
+      "device_id": "Br18-CxHp-39181",
       "dose_uM": 3.0,
       "phase": "exposure",
       "log10_forward_ratio": {
-        "median": 0.8124,
+        "median": 0.2487,
         "ci90": [
-          0.3889,
-          1.1804
+          0.0911,
+          0.3916
         ]
       },
       "inter_in_degree": {
-        "median": 16.2826,
+        "median": 10.9871,
         "ci90": [
-          10.1067,
-          19.5604
+          6.4702,
+          16.5284
         ]
       },
       "gabaa_scale": {
-        "median": 0.6091,
+        "median": 0.1851,
         "ci90": [
-          0.143,
-          1.1544
+          0.1079,
+          0.3757
         ]
       },
       "ampa_scale": {
-        "median": 1.1446,
+        "median": 1.077,
         "ci90": [
-          0.7821,
-          1.3661
+          0.9638,
+          1.185
         ]
       },
       "threshold_scale": {
-        "median": 1.1338,
+        "median": 1.1439,
         "ci90": [
-          1.1083,
+          1.1258,
+          1.1496
+        ]
+      },
+      "n_effective_samples": 500
+    },
+    {
+      "device_id": "Br18-CxHp-39181",
+      "dose_uM": 10.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.3876,
+        "ci90": [
+          0.2239,
+          0.5234
+        ]
+      },
+      "inter_in_degree": {
+        "median": 11.3394,
+        "ci90": [
+          7.2672,
+          16.599
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.2019,
+        "ci90": [
+          0.1071,
+          0.4412
+        ]
+      },
+      "ampa_scale": {
+        "median": 1.1174,
+        "ci90": [
+          1.0113,
+          1.233
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.1446,
+        "ci90": [
+          1.1296,
+          1.1497
+        ]
+      },
+      "n_effective_samples": 500
+    },
+    {
+      "device_id": "Br18-CxHp-39181",
+      "dose_uM": 30.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.1528,
+        "ci90": [
+          0.0127,
+          0.4356
+        ]
+      },
+      "inter_in_degree": {
+        "median": 8.5012,
+        "ci90": [
+          2.996,
+          16.6111
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.5165,
+        "ci90": [
+          0.1453,
+          1.3011
+        ]
+      },
+      "ampa_scale": {
+        "median": 1.1124,
+        "ci90": [
+          0.8446,
+          1.3381
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.1375,
+        "ci90": [
+          1.105,
+          1.1492
+        ]
+      },
+      "n_effective_samples": 500
+    },
+    {
+      "device_id": "Br18-CxHp-39181",
+      "dose_uM": 0.1,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.7625,
+        "ci90": [
+          0.6074,
+          0.9434
+        ]
+      },
+      "inter_in_degree": {
+        "median": 9.8078,
+        "ci90": [
+          4.0614,
+          17.9945
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.2887,
+        "ci90": [
+          0.1547,
+          0.4135
+        ]
+      },
+      "ampa_scale": {
+        "median": 1.2911,
+        "ci90": [
+          1.162,
+          1.3781
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.1291,
+        "ci90": [
+          1.0845,
+          1.1485
+        ]
+      },
+      "n_effective_samples": 500
+    },
+    {
+      "device_id": "Br18-CxHp-39181",
+      "dose_uM": 100.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.7497,
+        "ci90": [
+          0.2637,
+          1.1486
+        ]
+      },
+      "inter_in_degree": {
+        "median": 10.4125,
+        "ci90": [
+          5.2108,
+          15.8502
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.9142,
+        "ci90": [
+          0.261,
+          1.6813
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5299,
+        "ci90": [
+          0.4097,
+          0.7701
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.1373,
+        "ci90": [
+          1.1142,
           1.1483
         ]
       },
       "n_effective_samples": 500
     },
     {
-      "device_id": "Br18-HpHp-38991",
-      "dose_uM": 10.0,
-      "phase": "exposure",
-      "log10_forward_ratio": {
-        "median": 0.6457,
-        "ci90": [
-          0.2061,
-          1.0775
-        ]
-      },
-      "inter_in_degree": {
-        "median": 16.2426,
-        "ci90": [
-          10.8228,
-          19.5397
-        ]
-      },
-      "gabaa_scale": {
-        "median": 0.4491,
-        "ci90": [
-          0.1422,
-          1.0596
-        ]
-      },
-      "ampa_scale": {
-        "median": 0.6981,
-        "ci90": [
-          0.5171,
-          1.0023
-        ]
-      },
-      "threshold_scale": {
-        "median": 1.02,
-        "ci90": [
-          0.9912,
-          1.0379
-        ]
-      },
-      "n_effective_samples": 500
-    },
-    {
-      "device_id": "Br18-HpHp-38991",
-      "dose_uM": 30.0,
-      "phase": "exposure",
-      "log10_forward_ratio": {
-        "median": 0.7902,
-        "ci90": [
-          0.2513,
-          1.2212
-        ]
-      },
-      "inter_in_degree": {
-        "median": 6.6486,
-        "ci90": [
-          2.8162,
-          12.4265
-        ]
-      },
-      "gabaa_scale": {
-        "median": 0.6419,
-        "ci90": [
-          0.2095,
-          1.2405
-        ]
-      },
-      "ampa_scale": {
-        "median": 0.9567,
-        "ci90": [
-          0.6561,
-          1.2495
-        ]
-      },
-      "threshold_scale": {
-        "median": 1.1047,
-        "ci90": [
-          1.08,
-          1.1283
-        ]
-      },
-      "n_effective_samples": 500
-    },
-    {
-      "device_id": "Br18-HpHp-38991",
-      "dose_uM": 0.1,
-      "phase": "exposure",
-      "log10_forward_ratio": {
-        "median": 0.8221,
-        "ci90": [
-          0.4187,
-          1.1865
-        ]
-      },
-      "inter_in_degree": {
-        "median": 14.0352,
-        "ci90": [
-          9.4451,
-          18.1588
-        ]
-      },
-      "gabaa_scale": {
-        "median": 0.7398,
-        "ci90": [
-          0.2203,
-          1.4259
-        ]
-      },
-      "ampa_scale": {
-        "median": 0.7519,
-        "ci90": [
-          0.554,
-          0.9969
-        ]
-      },
-      "threshold_scale": {
-        "median": 1.0228,
-        "ci90": [
-          1.0068,
-          1.0443
-        ]
-      },
-      "n_effective_samples": 500
-    },
-    {
-      "device_id": "Br18-HpHp-38991",
+      "device_id": "Br18-CxHp-39181",
       "dose_uM": 0.3,
       "phase": "exposure",
       "log10_forward_ratio": {
-        "median": 0.7761,
+        "median": 0.4286,
         "ci90": [
-          0.3741,
-          1.1651
+          0.3076,
+          0.5496
         ]
       },
       "inter_in_degree": {
-        "median": 12.8465,
+        "median": 11.8041,
         "ci90": [
-          7.1796,
-          18.1742
+          7.9678,
+          17.5532
         ]
       },
       "gabaa_scale": {
-        "median": 0.8103,
+        "median": 0.1675,
         "ci90": [
-          0.2741,
-          1.4517
+          0.1079,
+          0.3437
         ]
       },
       "ampa_scale": {
-        "median": 1.1073,
+        "median": 1.1545,
         "ci90": [
-          0.824,
-          1.3337
+          1.0492,
+          1.2643
         ]
       },
       "threshold_scale": {
-        "median": 1.0772,
+        "median": 1.1432,
         "ci90": [
-          1.0513,
-          1.1191
+          1.1219,
+          1.1494
         ]
       },
       "n_effective_samples": 500
     },
     {
-      "device_id": "Br18-HpHp-38991",
+      "device_id": "Br18-CxHp-39181",
+      "dose_uM": 300.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.3814,
+        "ci90": [
+          0.0436,
+          0.8003
+        ]
+      },
+      "inter_in_degree": {
+        "median": 9.301,
+        "ci90": [
+          3.7868,
+          17.0353
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.9242,
+        "ci90": [
+          0.2307,
+          1.61
+        ]
+      },
+      "ampa_scale": {
+        "median": 1.0471,
+        "ci90": [
+          0.8025,
+          1.2677
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.1399,
+        "ci90": [
+          1.1128,
+          1.1492
+        ]
+      },
+      "n_effective_samples": 500
+    },
+    {
+      "device_id": "Br18-CxHp-39181",
       "dose_uM": 0.0,
       "phase": "baseline",
       "log10_forward_ratio": {
-        "median": 0.8171,
+        "median": 0.6654,
         "ci90": [
-          0.4664,
-          1.1626
+          0.5274,
+          0.8009
         ]
       },
       "inter_in_degree": {
-        "median": 14.9157,
+        "median": 12.7838,
         "ci90": [
-          10.0754,
-          18.9419
+          5.4294,
+          18.7235
         ]
       },
       "gabaa_scale": {
-        "median": 0.623,
+        "median": 0.5604,
         "ci90": [
-          0.1765,
-          1.4565
+          0.3295,
+          0.9358
         ]
       },
       "ampa_scale": {
-        "median": 0.56,
+        "median": 1.3112,
         "ci90": [
-          0.4367,
-          0.7062
+          1.1939,
+          1.3885
         ]
       },
       "threshold_scale": {
-        "median": 0.9776,
+        "median": 1.1198,
         "ci90": [
-          0.9602,
-          0.9955
+          1.0748,
+          1.1474
         ]
       },
       "n_effective_samples": 500
     },
     {
-      "device_id": "Br18-HpHp-38992",
+      "device_id": "Br18-CxHp-39184",
       "dose_uM": 1.0,
       "phase": "exposure",
       "log10_forward_ratio": {
-        "median": 0.2563,
+        "median": 0.4154,
         "ci90": [
-          0.0237,
-          0.651
+          0.2593,
+          0.5693
         ]
       },
       "inter_in_degree": {
-        "median": 12.0578,
+        "median": 12.619,
         "ci90": [
-          5.8871,
-          17.6558
+          5.1197,
+          18.5674
         ]
       },
       "gabaa_scale": {
-        "median": 0.4372,
+        "median": 0.5093,
         "ci90": [
-          0.1604,
+          0.2764,
           1.0485
         ]
       },
       "ampa_scale": {
-        "median": 0.8719,
+        "median": 1.1628,
         "ci90": [
-          0.6066,
-          1.2095
+          1.0144,
+          1.3057
         ]
       },
       "threshold_scale": {
-        "median": 1.0079,
+        "median": 1.1232,
         "ci90": [
-          0.9812,
-          1.0331
+          1.0706,
+          1.1477
+        ]
+      },
+      "n_effective_samples": 500
+    },
+    {
+      "device_id": "Br18-CxHp-39184",
+      "dose_uM": 3.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.4691,
+        "ci90": [
+          0.2917,
+          0.6495
+        ]
+      },
+      "inter_in_degree": {
+        "median": 11.1629,
+        "ci90": [
+          4.9665,
+          17.7592
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.4473,
+        "ci90": [
+          0.1915,
+          1.1124
+        ]
+      },
+      "ampa_scale": {
+        "median": 1.1629,
+        "ci90": [
+          1.0227,
+          1.3021
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.1319,
+        "ci90": [
+          1.0885,
+          1.1486
+        ]
+      },
+      "n_effective_samples": 500
+    },
+    {
+      "device_id": "Br18-CxHp-39184",
+      "dose_uM": 10.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.4971,
+        "ci90": [
+          0.2843,
+          0.7028
+        ]
+      },
+      "inter_in_degree": {
+        "median": 11.3742,
+        "ci90": [
+          4.5972,
+          17.5894
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.3433,
+        "ci90": [
+          0.1364,
+          0.7413
+        ]
+      },
+      "ampa_scale": {
+        "median": 1.0939,
+        "ci90": [
+          0.982,
+          1.2316
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.1388,
+        "ci90": [
+          1.1104,
+          1.1493
+        ]
+      },
+      "n_effective_samples": 500
+    },
+    {
+      "device_id": "Br18-CxHp-39184",
+      "dose_uM": 30.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.3004,
+        "ci90": [
+          0.1533,
+          0.4037
+        ]
+      },
+      "inter_in_degree": {
+        "median": 17.2875,
+        "ci90": [
+          11.8845,
+          19.569
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.2389,
+        "ci90": [
+          0.126,
+          0.4039
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.8431,
+        "ci90": [
+          0.7699,
+          0.8723
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.1439,
+        "ci90": [
+          1.1402,
+          1.1492
+        ]
+      },
+      "n_effective_samples": 11
+    },
+    {
+      "device_id": "Br18-CxHp-39184",
+      "dose_uM": 0.1,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.3663,
+        "ci90": [
+          0.2077,
+          0.534
+        ]
+      },
+      "inter_in_degree": {
+        "median": 12.4994,
+        "ci90": [
+          5.4277,
+          17.9058
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.9284,
+        "ci90": [
+          0.4749,
+          1.5697
+        ]
+      },
+      "ampa_scale": {
+        "median": 1.2092,
+        "ci90": [
+          1.0361,
+          1.3587
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.0667,
+        "ci90": [
+          1.0136,
+          1.111
+        ]
+      },
+      "n_effective_samples": 500
+    },
+    {
+      "device_id": "Br18-CxHp-39184",
+      "dose_uM": 100.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.5987,
+        "ci90": [
+          0.2259,
+          1.0011
+        ]
+      },
+      "inter_in_degree": {
+        "median": 13.6445,
+        "ci90": [
+          7.848,
+          18.8246
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.6517,
+        "ci90": [
+          0.187,
+          1.4519
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.8368,
+        "ci90": [
+          0.6904,
+          0.9848
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.1437,
+        "ci90": [
+          1.1269,
+          1.1495
+        ]
+      },
+      "n_effective_samples": 500
+    },
+    {
+      "device_id": "Br18-CxHp-39184",
+      "dose_uM": 0.3,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.4389,
+        "ci90": [
+          0.2919,
+          0.5816
+        ]
+      },
+      "inter_in_degree": {
+        "median": 14.327,
+        "ci90": [
+          5.2098,
+          19.1454
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.6599,
+        "ci90": [
+          0.41,
+          1.1572
+        ]
+      },
+      "ampa_scale": {
+        "median": 1.2122,
+        "ci90": [
+          1.0511,
+          1.3566
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.0959,
+        "ci90": [
+          1.028,
+          1.1392
+        ]
+      },
+      "n_effective_samples": 500
+    },
+    {
+      "device_id": "Br18-CxHp-39184",
+      "dose_uM": 300.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.4578,
+        "ci90": [
+          0.0526,
+          0.9728
+        ]
+      },
+      "inter_in_degree": {
+        "median": 9.5073,
+        "ci90": [
+          3.6381,
+          17.8393
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.8922,
+        "ci90": [
+          0.2095,
+          1.684
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.5249,
+        "ci90": [
+          0.4149,
+          0.7393
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.143,
+        "ci90": [
+          1.1217,
+          1.1495
+        ]
+      },
+      "n_effective_samples": 500
+    },
+    {
+      "device_id": "Br18-CxHp-39184",
+      "dose_uM": 0.0,
+      "phase": "baseline",
+      "log10_forward_ratio": {
+        "median": 0.4334,
+        "ci90": [
+          0.2454,
+          0.6124
+        ]
+      },
+      "inter_in_degree": {
+        "median": 9.6883,
+        "ci90": [
+          5.1915,
+          15.036
+        ]
+      },
+      "gabaa_scale": {
+        "median": 1.1405,
+        "ci90": [
+          0.6785,
+          1.7623
+        ]
+      },
+      "ampa_scale": {
+        "median": 1.1565,
+        "ci90": [
+          0.9754,
+          1.3069
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.0165,
+        "ci90": [
+          0.9719,
+          1.0568
+        ]
+      },
+      "n_effective_samples": 500
+    },
+    {
+      "device_id": "Br18-HpHp-24549",
+      "dose_uM": 1.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.717,
+        "ci90": [
+          0.5259,
+          0.9456
+        ]
+      },
+      "inter_in_degree": {
+        "median": 10.6983,
+        "ci90": [
+          6.2818,
+          16.4725
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.2753,
+        "ci90": [
+          0.1286,
+          0.5306
+        ]
+      },
+      "ampa_scale": {
+        "median": 1.0482,
+        "ci90": [
+          0.946,
+          1.15
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.1434,
+        "ci90": [
+          1.1247,
+          1.1495
+        ]
+      },
+      "n_effective_samples": 500
+    },
+    {
+      "device_id": "Br18-HpHp-24549",
+      "dose_uM": 3.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.45,
+        "ci90": [
+          0.1941,
+          0.7502
+        ]
+      },
+      "inter_in_degree": {
+        "median": 10.6496,
+        "ci90": [
+          5.9569,
+          16.7789
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.3592,
+        "ci90": [
+          0.1399,
+          0.8051
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.9352,
+        "ci90": [
+          0.8413,
+          1.0398
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.1448,
+        "ci90": [
+          1.1295,
+          1.1496
+        ]
+      },
+      "n_effective_samples": 304
+    },
+    {
+      "device_id": "Br18-HpHp-24549",
+      "dose_uM": 10.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.2945,
+        "ci90": [
+          0.1392,
+          0.5345
+        ]
+      },
+      "inter_in_degree": {
+        "median": 14.578,
+        "ci90": [
+          10.042,
+          18.9072
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.3009,
+        "ci90": [
+          0.1286,
+          0.9211
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.7671,
+        "ci90": [
+          0.6346,
+          0.8402
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.145,
+        "ci90": [
+          1.1375,
+          1.1494
+        ]
+      },
+      "n_effective_samples": 10
+    },
+    {
+      "device_id": "Br18-HpHp-24549",
+      "dose_uM": 0.1,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.5391,
+        "ci90": [
+          0.3534,
+          0.7458
+        ]
+      },
+      "inter_in_degree": {
+        "median": 10.3351,
+        "ci90": [
+          4.2935,
+          15.5654
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.6886,
+        "ci90": [
+          0.3757,
+          1.3238
+        ]
+      },
+      "ampa_scale": {
+        "median": 1.1932,
+        "ci90": [
+          1.0652,
+          1.325
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.1349,
+        "ci90": [
+          1.0954,
+          1.1484
+        ]
+      },
+      "n_effective_samples": 500
+    },
+    {
+      "device_id": "Br18-HpHp-24549",
+      "dose_uM": 0.3,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.611,
+        "ci90": [
+          0.3991,
+          0.8446
+        ]
+      },
+      "inter_in_degree": {
+        "median": 10.1555,
+        "ci90": [
+          4.72,
+          15.4145
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.4886,
+        "ci90": [
+          0.2409,
+          0.9239
+        ]
+      },
+      "ampa_scale": {
+        "median": 1.1483,
+        "ci90": [
+          1.034,
+          1.2726
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.137,
+        "ci90": [
+          1.1051,
+          1.1489
+        ]
+      },
+      "n_effective_samples": 500
+    },
+    {
+      "device_id": "Br18-HpHp-24549",
+      "dose_uM": 0.0,
+      "phase": "baseline",
+      "log10_forward_ratio": {
+        "median": 0.616,
+        "ci90": [
+          0.4006,
+          0.8514
+        ]
+      },
+      "inter_in_degree": {
+        "median": 9.9758,
+        "ci90": [
+          4.0562,
+          14.8906
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.8503,
+        "ci90": [
+          0.4065,
+          1.4945
+        ]
+      },
+      "ampa_scale": {
+        "median": 1.1917,
+        "ci90": [
+          1.0482,
+          1.3111
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.1308,
+        "ci90": [
+          1.09,
+          1.1484
+        ]
+      },
+      "n_effective_samples": 500
+    },
+    {
+      "device_id": "Br18-HpHp-35882",
+      "dose_uM": 1.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.0362,
+        "ci90": [
+          0.0025,
+          0.1305
+        ]
+      },
+      "inter_in_degree": {
+        "median": 14.086,
+        "ci90": [
+          4.4502,
+          18.973
+        ]
+      },
+      "gabaa_scale": {
+        "median": 1.5383,
+        "ci90": [
+          0.2274,
+          1.9681
+        ]
+      },
+      "ampa_scale": {
+        "median": 1.1933,
+        "ci90": [
+          1.0003,
+          1.3542
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.1337,
+        "ci90": [
+          1.1012,
+          1.1484
+        ]
+      },
+      "n_effective_samples": 248
+    },
+    {
+      "device_id": "Br18-HpHp-35882",
+      "dose_uM": 3.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.4434,
+        "ci90": [
+          0.2817,
+          0.6541
+        ]
+      },
+      "inter_in_degree": {
+        "median": 12.7115,
+        "ci90": [
+          7.0612,
+          18.5147
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.2075,
+        "ci90": [
+          0.1168,
+          0.3728
+        ]
+      },
+      "ampa_scale": {
+        "median": 1.0855,
+        "ci90": [
+          0.9724,
+          1.2349
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.1362,
+        "ci90": [
+          1.1022,
+          1.1484
+        ]
+      },
+      "n_effective_samples": 500
+    },
+    {
+      "device_id": "Br18-HpHp-35882",
+      "dose_uM": 10.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.4909,
+        "ci90": [
+          0.3278,
+          0.6964
+        ]
+      },
+      "inter_in_degree": {
+        "median": 14.8281,
+        "ci90": [
+          8.7461,
+          19.6046
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.2575,
+        "ci90": [
+          0.1221,
+          0.4873
+        ]
+      },
+      "ampa_scale": {
+        "median": 1.1207,
+        "ci90": [
+          0.963,
+          1.2605
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.1241,
+        "ci90": [
+          1.0791,
+          1.1476
+        ]
+      },
+      "n_effective_samples": 500
+    },
+    {
+      "device_id": "Br18-HpHp-35882",
+      "dose_uM": 30.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.3555,
+        "ci90": [
+          0.1531,
+          0.5753
+        ]
+      },
+      "inter_in_degree": {
+        "median": 13.3883,
+        "ci90": [
+          7.1288,
+          19.2338
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.3297,
+        "ci90": [
+          0.1416,
+          0.7433
+        ]
+      },
+      "ampa_scale": {
+        "median": 1.1455,
+        "ci90": [
+          0.9868,
+          1.2876
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.136,
+        "ci90": [
+          1.0993,
+          1.1489
+        ]
+      },
+      "n_effective_samples": 500
+    },
+    {
+      "device_id": "Br18-HpHp-35882",
+      "dose_uM": 0.1,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.0455,
+        "ci90": [
+          0.0037,
+          0.1668
+        ]
+      },
+      "inter_in_degree": {
+        "median": 11.2586,
+        "ci90": [
+          3.6563,
+          18.4106
+        ]
+      },
+      "gabaa_scale": {
+        "median": 1.4472,
+        "ci90": [
+          0.2757,
+          1.9636
+        ]
+      },
+      "ampa_scale": {
+        "median": 1.1882,
+        "ci90": [
+          0.9858,
+          1.3487
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.1316,
+        "ci90": [
+          1.0932,
+          1.1484
+        ]
+      },
+      "n_effective_samples": 500
+    },
+    {
+      "device_id": "Br18-HpHp-35882",
+      "dose_uM": 100.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.3286,
+        "ci90": [
+          0.1225,
+          0.5375
+        ]
+      },
+      "inter_in_degree": {
+        "median": 12.6163,
+        "ci90": [
+          6.6277,
+          18.8779
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.309,
+        "ci90": [
+          0.1275,
+          0.719
+        ]
+      },
+      "ampa_scale": {
+        "median": 1.1364,
+        "ci90": [
+          1.0104,
+          1.2753
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.1379,
+        "ci90": [
+          1.1053,
+          1.1485
+        ]
+      },
+      "n_effective_samples": 500
+    },
+    {
+      "device_id": "Br18-HpHp-35882",
+      "dose_uM": 0.3,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.0381,
+        "ci90": [
+          0.0022,
+          0.1385
+        ]
+      },
+      "inter_in_degree": {
+        "median": 12.2154,
+        "ci90": [
+          3.5146,
+          18.361
+        ]
+      },
+      "gabaa_scale": {
+        "median": 1.482,
+        "ci90": [
+          0.2963,
+          1.9545
+        ]
+      },
+      "ampa_scale": {
+        "median": 1.1994,
+        "ci90": [
+          1.0108,
+          1.3393
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.1301,
+        "ci90": [
+          1.09,
+          1.1481
+        ]
+      },
+      "n_effective_samples": 500
+    },
+    {
+      "device_id": "Br18-HpHp-35882",
+      "dose_uM": 300.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.0419,
+        "ci90": [
+          0.0035,
+          0.1568
+        ]
+      },
+      "inter_in_degree": {
+        "median": 11.6827,
+        "ci90": [
+          4.2698,
+          18.5633
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.7148,
+        "ci90": [
+          0.1461,
+          1.8374
+        ]
+      },
+      "ampa_scale": {
+        "median": 1.1652,
+        "ci90": [
+          0.9882,
+          1.3373
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.1382,
+        "ci90": [
+          1.1049,
+          1.1487
+        ]
+      },
+      "n_effective_samples": 368
+    },
+    {
+      "device_id": "Br18-HpHp-35882",
+      "dose_uM": 0.0,
+      "phase": "baseline",
+      "log10_forward_ratio": {
+        "median": 0.341,
+        "ci90": [
+          0.1151,
+          0.6539
+        ]
+      },
+      "inter_in_degree": {
+        "median": 11.5058,
+        "ci90": [
+          5.1447,
+          18.4515
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.36,
+        "ci90": [
+          0.144,
+          0.861
+        ]
+      },
+      "ampa_scale": {
+        "median": 1.0771,
+        "ci90": [
+          0.9479,
+          1.2224
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.142,
+        "ci90": [
+          1.1162,
+          1.1495
+        ]
+      },
+      "n_effective_samples": 500
+    },
+    {
+      "device_id": "Br18-HpHp-38991",
+      "dose_uM": 1.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.7675,
+        "ci90": [
+          0.7292,
+          0.8058
+        ]
+      },
+      "inter_in_degree": {
+        "median": 15.9767,
+        "ci90": [
+          14.5589,
+          17.3945
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.1283,
+        "ci90": [
+          0.1052,
+          0.1513
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.873,
+        "ci90": [
+          0.8541,
+          0.8919
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.1409,
+        "ci90": [
+          1.1363,
+          1.1456
+        ]
+      },
+      "n_effective_samples": 2
+    },
+    {
+      "device_id": "Br18-HpHp-38991",
+      "dose_uM": 3.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.9471,
+        "ci90": [
+          0.5862,
+          1.267
+        ]
+      },
+      "inter_in_degree": {
+        "median": 15.9023,
+        "ci90": [
+          10.7053,
+          19.6816
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.3374,
+        "ci90": [
+          0.165,
+          1.2135
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.9359,
+        "ci90": [
+          0.8256,
+          1.0466
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.1465,
+        "ci90": [
+          1.1349,
+          1.1495
+        ]
+      },
+      "n_effective_samples": 29
+    },
+    {
+      "device_id": "Br18-HpHp-38991",
+      "dose_uM": 10.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.9618,
+        "ci90": [
+          0.7969,
+          1.1426
+        ]
+      },
+      "inter_in_degree": {
+        "median": 15.8334,
+        "ci90": [
+          9.469,
+          19.6963
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.1827,
+        "ci90": [
+          0.1088,
+          0.3884
+        ]
+      },
+      "ampa_scale": {
+        "median": 1.1022,
+        "ci90": [
+          0.9776,
+          1.2245
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.1294,
+        "ci90": [
+          1.0926,
+          1.1485
+        ]
+      },
+      "n_effective_samples": 500
+    },
+    {
+      "device_id": "Br18-HpHp-38991",
+      "dose_uM": 30.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.9946,
+        "ci90": [
+          0.572,
+          1.2593
+        ]
+      },
+      "inter_in_degree": {
+        "median": 12.3693,
+        "ci90": [
+          6.3478,
+          18.1423
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.7836,
+        "ci90": [
+          0.2184,
+          1.6121
+        ]
+      },
+      "ampa_scale": {
+        "median": 0.8355,
+        "ci90": [
+          0.6809,
+          0.9793
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.1448,
+        "ci90": [
+          1.1319,
+          1.1496
+        ]
+      },
+      "n_effective_samples": 500
+    },
+    {
+      "device_id": "Br18-HpHp-38991",
+      "dose_uM": 0.1,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.9981,
+        "ci90": [
+          0.7589,
+          1.2125
+        ]
+      },
+      "inter_in_degree": {
+        "median": 13.2642,
+        "ci90": [
+          7.3075,
+          18.6682
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.3762,
+        "ci90": [
+          0.154,
+          0.9945
+        ]
+      },
+      "ampa_scale": {
+        "median": 1.1426,
+        "ci90": [
+          1.0524,
+          1.2399
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.1453,
+        "ci90": [
+          1.1313,
+          1.1496
+        ]
+      },
+      "n_effective_samples": 500
+    },
+    {
+      "device_id": "Br18-HpHp-38991",
+      "dose_uM": 0.3,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.679,
+        "ci90": [
+          0.5503,
+          0.8724
+        ]
+      },
+      "inter_in_degree": {
+        "median": 11.7177,
+        "ci90": [
+          6.0753,
+          18.2644
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.1992,
+        "ci90": [
+          0.1158,
+          0.5884
+        ]
+      },
+      "ampa_scale": {
+        "median": 1.0436,
+        "ci90": [
+          0.9823,
+          1.0909
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.143,
+        "ci90": [
+          1.1213,
+          1.1488
+        ]
+      },
+      "n_effective_samples": 8
+    },
+    {
+      "device_id": "Br18-HpHp-38991",
+      "dose_uM": 0.0,
+      "phase": "baseline",
+      "log10_forward_ratio": {
+        "median": 1.1383,
+        "ci90": [
+          0.9284,
+          1.2846
+        ]
+      },
+      "inter_in_degree": {
+        "median": 13.0451,
+        "ci90": [
+          8.0305,
+          17.4878
+        ]
+      },
+      "gabaa_scale": {
+        "median": 1.0173,
+        "ci90": [
+          0.5341,
+          1.6346
+        ]
+      },
+      "ampa_scale": {
+        "median": 1.2308,
+        "ci90": [
+          1.1281,
+          1.3291
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.1322,
+        "ci90": [
+          1.1034,
+          1.1476
+        ]
+      },
+      "n_effective_samples": 500
+    },
+    {
+      "device_id": "Br18-HpHp-38992",
+      "dose_uM": 1.0,
+      "phase": "exposure",
+      "log10_forward_ratio": {
+        "median": 0.0853,
+        "ci90": [
+          0.0076,
+          0.2109
+        ]
+      },
+      "inter_in_degree": {
+        "median": 10.9622,
+        "ci90": [
+          5.3712,
+          16.4182
+        ]
+      },
+      "gabaa_scale": {
+        "median": 0.7229,
+        "ci90": [
+          0.3113,
+          1.3392
+        ]
+      },
+      "ampa_scale": {
+        "median": 1.1693,
+        "ci90": [
+          0.9741,
+          1.3358
+        ]
+      },
+      "threshold_scale": {
+        "median": 1.1131,
+        "ci90": [
+          1.0599,
+          1.1455
         ]
       },
       "n_effective_samples": 500
@@ -4183,38 +4181,38 @@
       "dose_uM": 3.0,
       "phase": "exposure",
       "log10_forward_ratio": {
-        "median": 0.2788,
+        "median": 0.0957,
         "ci90": [
-          0.0326,
-          0.6764
+          0.0087,
+          0.2445
         ]
       },
       "inter_in_degree": {
-        "median": 13.8465,
+        "median": 12.3851,
         "ci90": [
-          7.769,
-          19.0132
+          5.612,
+          18.269
         ]
       },
       "gabaa_scale": {
-        "median": 0.4283,
+        "median": 0.3787,
         "ci90": [
-          0.1687,
-          0.884
+          0.1546,
+          0.7385
         ]
       },
       "ampa_scale": {
-        "median": 0.9836,
+        "median": 1.1305,
         "ci90": [
-          0.6337,
-          1.2777
+          0.9405,
+          1.2819
         ]
       },
       "threshold_scale": {
-        "median": 1.0243,
+        "median": 1.1268,
         "ci90": [
-          0.9938,
-          1.0533
+          1.0767,
+          1.1481
         ]
       },
       "n_effective_samples": 500
@@ -4224,38 +4222,38 @@
       "dose_uM": 10.0,
       "phase": "exposure",
       "log10_forward_ratio": {
-        "median": 0.2969,
+        "median": 0.2085,
         "ci90": [
-          0.0458,
-          0.7189
+          0.0556,
+          0.381
         ]
       },
       "inter_in_degree": {
-        "median": 12.1066,
+        "median": 8.9821,
         "ci90": [
-          5.8444,
-          17.2992
+          3.0906,
+          17.8208
         ]
       },
       "gabaa_scale": {
-        "median": 0.3713,
+        "median": 0.2892,
         "ci90": [
-          0.1499,
-          0.7432
+          0.1343,
+          0.4872
         ]
       },
       "ampa_scale": {
-        "median": 0.9633,
+        "median": 1.1371,
         "ci90": [
-          0.6195,
-          1.3008
+          0.9709,
+          1.308
         ]
       },
       "threshold_scale": {
-        "median": 1.0227,
+        "median": 1.1307,
         "ci90": [
-          0.9874,
-          1.0534
+          1.0833,
+          1.1485
         ]
       },
       "n_effective_samples": 500
@@ -4265,38 +4263,38 @@
       "dose_uM": 30.0,
       "phase": "exposure",
       "log10_forward_ratio": {
-        "median": 0.3357,
+        "median": 0.198,
         "ci90": [
-          0.0357,
-          0.7756
+          0.0573,
+          0.363
         ]
       },
       "inter_in_degree": {
-        "median": 13.6657,
+        "median": 9.4043,
         "ci90": [
-          7.7828,
-          18.7224
+          3.9131,
+          18.0043
         ]
       },
       "gabaa_scale": {
-        "median": 0.3827,
+        "median": 0.2197,
         "ci90": [
-          0.1453,
-          0.7882
+          0.1201,
+          0.3796
         ]
       },
       "ampa_scale": {
-        "median": 0.9487,
+        "median": 1.1048,
         "ci90": [
-          0.6177,
-          1.3071
+          0.9619,
+          1.2485
         ]
       },
       "threshold_scale": {
-        "median": 1.0315,
+        "median": 1.1357,
         "ci90": [
-          0.9977,
-          1.0561
+          1.0971,
+          1.1491
         ]
       },
       "n_effective_samples": 500
@@ -4306,38 +4304,38 @@
       "dose_uM": 0.1,
       "phase": "exposure",
       "log10_forward_ratio": {
-        "median": 0.2655,
+        "median": 0.1144,
         "ci90": [
-          0.0362,
-          0.6981
+          0.0084,
+          0.2634
         ]
       },
       "inter_in_degree": {
-        "median": 9.9514,
+        "median": 7.6997,
         "ci90": [
-          4.9453,
-          15.3867
+          3.5121,
+          13.165
         ]
       },
       "gabaa_scale": {
-        "median": 0.4441,
+        "median": 1.0855,
         "ci90": [
-          0.1678,
-          1.0193
+          0.5963,
+          1.754
         ]
       },
       "ampa_scale": {
-        "median": 0.8073,
+        "median": 1.2225,
         "ci90": [
-          0.5636,
-          1.1426
+          1.0187,
+          1.3548
         ]
       },
       "threshold_scale": {
-        "median": 0.9812,
+        "median": 1.0799,
         "ci90": [
-          0.9476,
-          1.0059
+          1.026,
+          1.1186
         ]
       },
       "n_effective_samples": 500
@@ -4347,38 +4345,38 @@
       "dose_uM": 100.0,
       "phase": "exposure",
       "log10_forward_ratio": {
-        "median": 0.2604,
+        "median": 0.0761,
         "ci90": [
-          0.0307,
-          0.6301
+          0.011,
+          0.2083
         ]
       },
       "inter_in_degree": {
-        "median": 14.2241,
+        "median": 12.236,
         "ci90": [
-          8.1328,
-          19.0117
+          6.3243,
+          18.6468
         ]
       },
       "gabaa_scale": {
-        "median": 0.4808,
+        "median": 0.2815,
         "ci90": [
-          0.1887,
-          0.9972
+          0.1238,
+          0.6046
         ]
       },
       "ampa_scale": {
-        "median": 1.0118,
+        "median": 1.1068,
         "ci90": [
-          0.6855,
-          1.3079
+          0.9363,
+          1.2523
         ]
       },
       "threshold_scale": {
-        "median": 1.0361,
+        "median": 1.1356,
         "ci90": [
-          1.0057,
-          1.0648
+          1.097,
+          1.1488
         ]
       },
       "n_effective_samples": 500
@@ -4388,38 +4386,38 @@
       "dose_uM": 0.3,
       "phase": "exposure",
       "log10_forward_ratio": {
-        "median": 0.2885,
+        "median": 0.083,
         "ci90": [
-          0.0459,
-          0.7195
+          0.0125,
+          0.2326
         ]
       },
       "inter_in_degree": {
-        "median": 13.1704,
+        "median": 10.3665,
         "ci90": [
-          7.327,
-          18.1468
+          5.6893,
+          16.2673
         ]
       },
       "gabaa_scale": {
-        "median": 0.4434,
+        "median": 0.871,
         "ci90": [
-          0.1426,
-          1.031
+          0.4503,
+          1.4816
         ]
       },
       "ampa_scale": {
-        "median": 0.7964,
+        "median": 1.1619,
         "ci90": [
-          0.5437,
-          1.1111
+          0.9762,
+          1.3338
         ]
       },
       "threshold_scale": {
-        "median": 0.9977,
+        "median": 1.0961,
         "ci90": [
-          0.9676,
-          1.0225
+          1.0478,
+          1.139
         ]
       },
       "n_effective_samples": 500
@@ -4429,38 +4427,38 @@
       "dose_uM": 300.0,
       "phase": "exposure",
       "log10_forward_ratio": {
-        "median": 0.246,
+        "median": 0.0543,
         "ci90": [
-          0.0334,
-          0.6663
+          0.0046,
+          0.1662
         ]
       },
       "inter_in_degree": {
-        "median": 13.8892,
+        "median": 10.8183,
         "ci90": [
-          7.8557,
-          18.7843
+          4.5811,
+          17.521
         ]
       },
       "gabaa_scale": {
-        "median": 0.4513,
+        "median": 0.2598,
         "ci90": [
-          0.154,
-          0.9901
+          0.1227,
+          0.5326
         ]
       },
       "ampa_scale": {
-        "median": 0.9622,
+        "median": 1.0973,
         "ci90": [
-          0.6212,
-          1.2926
+          0.9345,
+          1.2618
         ]
       },
       "threshold_scale": {
-        "median": 1.0325,
+        "median": 1.1366,
         "ci90": [
-          0.9998,
-          1.06
+          1.1026,
+          1.1487
         ]
       },
       "n_effective_samples": 500
@@ -4470,38 +4468,38 @@
       "dose_uM": 0.0,
       "phase": "baseline",
       "log10_forward_ratio": {
-        "median": 0.3853,
+        "median": 0.6415,
         "ci90": [
-          0.0788,
-          0.8327
+          0.4282,
+          0.8411
         ]
       },
       "inter_in_degree": {
-        "median": 10.3998,
+        "median": 5.6961,
         "ci90": [
-          4.7072,
-          15.7492
+          3.2255,
+          9.5564
         ]
       },
       "gabaa_scale": {
-        "median": 0.3751,
+        "median": 1.3843,
         "ci90": [
-          0.1301,
-          0.9274
+          0.8471,
+          1.8636
         ]
       },
       "ampa_scale": {
-        "median": 0.7657,
+        "median": 1.2496,
         "ci90": [
-          0.5286,
-          1.076
+          1.1201,
+          1.3725
         ]
       },
       "threshold_scale": {
-        "median": 0.9556,
+        "median": 1.0435,
         "ci90": [
-          0.916,
-          0.9845
+          1.0067,
+          1.076
         ]
       },
       "n_effective_samples": 500
@@ -4511,38 +4509,38 @@
       "dose_uM": 1.0,
       "phase": "exposure",
       "log10_forward_ratio": {
-        "median": 0.2255,
+        "median": 0.0241,
         "ci90": [
-          0.0218,
-          0.5748
+          0.0017,
+          0.0994
         ]
       },
       "inter_in_degree": {
-        "median": 10.0158,
+        "median": 12.8313,
         "ci90": [
-          4.4421,
-          16.6021
+          4.4238,
+          18.6356
         ]
       },
       "gabaa_scale": {
-        "median": 0.3005,
+        "median": 1.2449,
         "ci90": [
-          0.1251,
-          0.6693
+          0.2483,
+          1.9292
         ]
       },
       "ampa_scale": {
-        "median": 0.804,
+        "median": 1.0073,
         "ci90": [
-          0.5475,
-          1.1662
+          0.7885,
+          1.2565
         ]
       },
       "threshold_scale": {
-        "median": 0.9814,
+        "median": 1.003,
         "ci90": [
-          0.9471,
-          1.0136
+          0.9144,
+          1.0665
         ]
       },
       "n_effective_samples": 500
@@ -4552,38 +4550,38 @@
       "dose_uM": 3.0,
       "phase": "exposure",
       "log10_forward_ratio": {
-        "median": 0.2194,
+        "median": 0.0265,
         "ci90": [
-          0.0336,
-          0.6159
+          0.0025,
+          0.0935
         ]
       },
       "inter_in_degree": {
-        "median": 10.6356,
+        "median": 13.6582,
         "ci90": [
-          5.064,
-          17.4618
+          5.1795,
+          18.6271
         ]
       },
       "gabaa_scale": {
-        "median": 0.2862,
+        "median": 0.9006,
         "ci90": [
-          0.1314,
-          0.5872
+          0.171,
+          1.8038
         ]
       },
       "ampa_scale": {
-        "median": 0.8736,
+        "median": 1.0528,
         "ci90": [
-          0.6178,
-          1.2143
+          0.8267,
+          1.3028
         ]
       },
       "threshold_scale": {
-        "median": 0.9917,
+        "median": 1.0333,
         "ci90": [
-          0.9567,
-          1.0215
+          0.9346,
+          1.1044
         ]
       },
       "n_effective_samples": 500
@@ -4593,38 +4591,38 @@
       "dose_uM": 10.0,
       "phase": "exposure",
       "log10_forward_ratio": {
-        "median": 0.2028,
+        "median": 0.0246,
         "ci90": [
-          0.0176,
-          0.5889
+          0.0016,
+          0.1015
         ]
       },
       "inter_in_degree": {
-        "median": 9.9109,
+        "median": 14.7295,
         "ci90": [
-          3.9381,
-          16.1377
+          7.3725,
+          19.0051
         ]
       },
       "gabaa_scale": {
-        "median": 0.2639,
+        "median": 0.4981,
         "ci90": [
-          0.1176,
-          0.473
+          0.1596,
+          1.3513
         ]
       },
       "ampa_scale": {
-        "median": 0.9552,
+        "median": 1.0575,
         "ci90": [
-          0.66,
-          1.2922
+          0.84,
+          1.3131
         ]
       },
       "threshold_scale": {
-        "median": 1.0074,
+        "median": 1.0614,
         "ci90": [
-          0.9701,
-          1.0355
+          0.9827,
+          1.1265
         ]
       },
       "n_effective_samples": 500
@@ -4634,38 +4632,38 @@
       "dose_uM": 30.0,
       "phase": "exposure",
       "log10_forward_ratio": {
-        "median": 0.2437,
+        "median": 0.0238,
         "ci90": [
-          0.0205,
-          0.5751
+          0.0022,
+          0.0954
         ]
       },
       "inter_in_degree": {
-        "median": 11.1798,
+        "median": 15.3794,
         "ci90": [
-          4.7114,
-          16.9767
+          7.3366,
+          19.4568
         ]
       },
       "gabaa_scale": {
-        "median": 0.2458,
+        "median": 0.5244,
         "ci90": [
-          0.1243,
-          0.5056
+          0.1414,
+          1.4172
         ]
       },
       "ampa_scale": {
-        "median": 0.9152,
+        "median": 1.0716,
         "ci90": [
-          0.6273,
-          1.275
+          0.8133,
+          1.3222
         ]
       },
       "threshold_scale": {
-        "median": 1.0115,
+        "median": 1.0713,
         "ci90": [
-          0.9787,
-          1.0404
+          0.981,
+          1.139
         ]
       },
       "n_effective_samples": 500
@@ -4675,38 +4673,38 @@
       "dose_uM": 0.1,
       "phase": "exposure",
       "log10_forward_ratio": {
-        "median": 0.291,
+        "median": 0.0415,
         "ci90": [
-          0.0321,
-          0.7044
+          0.0046,
+          0.1526
         ]
       },
       "inter_in_degree": {
-        "median": 11.0902,
+        "median": 10.5587,
         "ci90": [
-          5.5332,
-          16.931
+          4.0446,
+          17.4681
         ]
       },
       "gabaa_scale": {
-        "median": 0.3595,
+        "median": 1.0165,
         "ci90": [
-          0.1233,
-          0.9249
+          0.4092,
+          1.8337
         ]
       },
       "ampa_scale": {
-        "median": 0.6903,
+        "median": 0.9118,
         "ci90": [
-          0.4827,
-          1.0288
+          0.7098,
+          1.148
         ]
       },
       "threshold_scale": {
-        "median": 0.9675,
+        "median": 0.9413,
         "ci90": [
-          0.9367,
-          0.9941
+          0.8711,
+          0.9953
         ]
       },
       "n_effective_samples": 500
@@ -4716,38 +4714,38 @@
       "dose_uM": 100.0,
       "phase": "exposure",
       "log10_forward_ratio": {
-        "median": 0.2313,
+        "median": 0.0249,
         "ci90": [
-          0.0256,
-          0.631
+          0.0022,
+          0.0904
         ]
       },
       "inter_in_degree": {
-        "median": 10.4727,
+        "median": 15.467,
         "ci90": [
-          4.311,
-          17.2456
+          7.1151,
+          19.5201
         ]
       },
       "gabaa_scale": {
-        "median": 0.2327,
+        "median": 0.4722,
         "ci90": [
-          0.1172,
-          0.4653
+          0.1375,
+          1.2672
         ]
       },
       "ampa_scale": {
-        "median": 0.9361,
+        "median": 1.0758,
         "ci90": [
-          0.6357,
-          1.2726
+          0.8401,
+          1.2793
         ]
       },
       "threshold_scale": {
-        "median": 1.0139,
+        "median": 1.0829,
         "ci90": [
-          0.9773,
-          1.0438
+          0.9901,
+          1.1385
         ]
       },
       "n_effective_samples": 500
@@ -4757,38 +4755,38 @@
       "dose_uM": 0.3,
       "phase": "exposure",
       "log10_forward_ratio": {
-        "median": 0.2193,
+        "median": 0.0266,
         "ci90": [
-          0.0294,
-          0.6013
+          0.0017,
+          0.1146
         ]
       },
       "inter_in_degree": {
-        "median": 9.0105,
+        "median": 11.4689,
         "ci90": [
-          3.4173,
-          15.8443
+          4.1263,
+          18.381
         ]
       },
       "gabaa_scale": {
-        "median": 0.3371,
+        "median": 1.2389,
         "ci90": [
-          0.1333,
-          0.7015
+          0.3205,
+          1.9093
         ]
       },
       "ampa_scale": {
-        "median": 0.7908,
+        "median": 0.963,
         "ci90": [
-          0.5497,
-          1.1335
+          0.754,
+          1.205
         ]
       },
       "threshold_scale": {
-        "median": 0.9661,
+        "median": 0.9542,
         "ci90": [
-          0.9318,
-          1.0003
+          0.8887,
+          1.0167
         ]
       },
       "n_effective_samples": 500
@@ -4798,38 +4796,38 @@
       "dose_uM": 300.0,
       "phase": "exposure",
       "log10_forward_ratio": {
-        "median": 0.2108,
+        "median": 0.0278,
         "ci90": [
-          0.0214,
-          0.5913
+          0.0018,
+          0.1003
         ]
       },
       "inter_in_degree": {
-        "median": 9.6602,
+        "median": 15.2692,
         "ci90": [
-          3.7012,
-          15.8643
+          6.9704,
+          19.4199
         ]
       },
       "gabaa_scale": {
-        "median": 0.2418,
+        "median": 0.3901,
         "ci90": [
-          0.1166,
-          0.4789
+          0.1282,
+          0.9907
         ]
       },
       "ampa_scale": {
-        "median": 0.9773,
+        "median": 1.0852,
         "ci90": [
-          0.6756,
-          1.3229
+          0.8534,
+          1.2837
         ]
       },
       "threshold_scale": {
-        "median": 1.0147,
+        "median": 1.0903,
         "ci90": [
-          0.9801,
-          1.0451
+          1.0066,
+          1.143
         ]
       },
       "n_effective_samples": 500
@@ -4839,42 +4837,42 @@
       "dose_uM": 0.0,
       "phase": "baseline",
       "log10_forward_ratio": {
-        "median": 0.4998,
+        "median": 0.3533,
         "ci90": [
-          0.1373,
-          0.9294
+          0.1892,
+          0.5316
         ]
       },
       "inter_in_degree": {
-        "median": 15.6938,
+        "median": 12.5938,
         "ci90": [
-          10.557,
-          19.1582
+          5.0108,
+          18.5156
         ]
       },
       "gabaa_scale": {
-        "median": 0.3938,
+        "median": 0.8562,
         "ci90": [
-          0.1319,
-          1.0983
+          0.4091,
+          1.6715
         ]
       },
       "ampa_scale": {
-        "median": 0.6245,
+        "median": 0.9335,
         "ci90": [
-          0.4663,
-          0.8794
+          0.7561,
+          1.1283
         ]
       },
       "threshold_scale": {
-        "median": 0.9719,
+        "median": 0.9879,
         "ci90": [
-          0.9462,
-          0.9945
+          0.9099,
+          1.0442
         ]
       },
       "n_effective_samples": 500
     }
   ],
-  "caveat": "HD14 found gabaa_scale only weakly identified (contraction 0.34) and no parameter passing the rank-uniformity check, so these medians are directional evidence at best"
+  "caveat": "HD14 identifies gabaa_scale only weakly (contraction 0.3) and it is not among the 3 of 5 parameters passing the rank-uniformity check, so these medians are directional evidence at best"
 }

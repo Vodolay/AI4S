@@ -24,9 +24,18 @@
   "n_grid_points": 75,
   "n_grid_usable": 75,
   "n_real_recordings": 113,
+  "posterior_draws": {
+    "requested": 200,
+    "n_recordings": 113,
+    "n_short_of_requested": 9,
+    "n_unsampled": 0,
+    "fewest_draws": 1,
+    "median_draws": 200,
+    "reads_as": "rejection sampling could not place enough mass inside the prior for these recordings; missing draws are NaN rather than dropped"
+  },
   "posterior_samples_per_point": 200,
   "simulated_duration_s": 10.0,
-  "n_per_compartment": 150,
+  "n_per_compartment": 967,
   "parameter_names": [
     "log10_forward_ratio",
     "inter_in_degree",
@@ -41,9 +50,9 @@
   "posterior_file": "outputs/twin/hd14_posterior_simulated.pt",
   "conformal_alpha": 0.1,
   "timings_s": {
-    "simulate_grid_s": 27.3,
-    "grid_posteriors_s": 14.8,
-    "real_posteriors_s": 24.1,
+    "simulate_grid_s": 43.5,
+    "grid_posteriors_s": 5.3,
+    "real_posteriors_s": 305.3,
     "fit_classifier_s": 0.1
   },
   "quick": false

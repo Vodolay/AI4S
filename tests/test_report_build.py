@@ -236,3 +236,182 @@ def test_source_defaults_its_output_beside_the_source(tmp_path: Path) -> None:
     )
     assert result.returncode == 0, result.stderr
     assert (tmp_path / "doc.pdf").exists()
+
+
+def _report_documents() -> list[Path]:
+    """Every report document, excluding external critiques."""
+    external = {"REVIEW.md", "CONTEXT_FROM_CHAT.md"}
+    return sorted(p for p in (REPO_ROOT / "report").glob("*.md") if p.name not in external)
+
+
+def _malformed_figures(text: str) -> list[str]:
+    """Image references that markdown will not render as images.
+
+    `test_every_figure_referenced_by_the_report_exists` and its caption
+    neighbour both match a complete `![alt](path)`, so a figure whose `![` is
+    missing is invisible to the very checks meant to catch broken figures. One
+    did reach the committed report that way: an edit moved a figure to an
+    appendix and split its caption, leaving an unterminated `![` in the
+    appendix and a stray `](path)` six hundred lines earlier. Both halves
+    render as literal text in the PDF.
+
+    An unterminated `![` is found by asking whether another `![` opens before
+    this one closes, rather than by looking for a closing bracket at all: the
+    stranded opener in the appendix would otherwise borrow the closing bracket
+    of the next figure and look complete.
+    """
+    problems = []
+    openers = [m.start() for m in re.finditer(r"!\[", text)]
+    for position in openers:
+        closing = re.search(r"\]\(", text[position:])
+        following = next((o for o in openers if o > position), None)
+        if closing is None or (following is not None and following < position + closing.start()):
+            problems.append(f"unterminated '![' at line {text[:position].count(chr(10)) + 1}")
+    for match in re.finditer(r"\]\((\.\./[^)]+\.png)\)", text):
+        opener = text.rfind("![", 0, match.start())
+        closer = text.rfind("](", 0, match.start())
+        if opener == -1 or (closer != -1 and closer > opener):
+            problems.append(f"no opening '![' for {match.group(1)}")
+    return problems
+
+
+@pytest.mark.parametrize("document", _report_documents(), ids=lambda p: p.name)
+def test_no_report_has_a_figure_that_will_not_render(document: Path) -> None:
+    assert _malformed_figures(document.read_text()) == [], document.name
+
+
+def test_the_malformed_figure_check_catches_both_halves_of_a_split_caption() -> None:
+    """The check is only worth having if it fails on the shape that got through.
+
+    That shape is not a caption broken over a blank line - markdown renders
+    that fine - but a caption whose two halves ended up in different sections
+    with complete figures between them.
+    """
+    split = (
+        "![Stranded opener, REAL data. The\n\n"
+        "![A whole figure. REAL.](../outputs/figures/whole.png)\n\n"
+        "tail of the stranded caption.](../outputs/figures/split.png){width=51%}\n"
+    )
+    problems = _malformed_figures(split)
+    assert any("unterminated" in p for p in problems), problems
+    assert any("no opening" in p and "split.png" in p for p in problems), problems
+    assert _malformed_figures("![A whole caption. REAL.](../outputs/figures/x.png)\n") == []
+    assert (
+        _malformed_figures(
+            "![A caption wrapped\nover two lines. REAL.](../outputs/figures/x.png)\n"
+        )
+        == []
+    )
+
+
+@pytest.mark.skipif(shutil.which("pandoc") is None, reason="pandoc not installed")
+def test_a_long_front_matter_does_not_split_the_disclaimer(tmp_path: Path) -> None:
+    """The disclaimer is stripped whole, however long the opening paragraph is.
+
+    The strip used to be bounded to the first ten lines. A document whose opening
+    paragraph ran long put the disclaimer's first line inside that window and its
+    second line outside, so the built PDF opened with a sentence fragment -
+    visible to a reader, invisible to every check.
+    """
+    source = tmp_path / "long_front_matter.md"
+    filler = "\n".join(
+        f"Opening paragraph line {i}, which exists to run the header long." for i in range(1, 9)
+    )
+    source.write_text(
+        "# A title\n\n"
+        f"**Companion to something.** {filler}\n\n"
+        "> **Research decision-support only.** Nothing here is an efficacy or\n"
+        "> clinical claim, and nothing here should be used to make one.\n\n"
+        "## 1. A section\n\nBody text.\n"
+    )
+    output = tmp_path / "out.pdf"
+    result = subprocess.run(
+        [
+            str(SCRIPT),
+            "--source",
+            str(source),
+            "--output",
+            str(output),
+            "--title",
+            "A title",
+            "--subtitle",
+            "A subtitle",
+        ],
+        capture_output=True,
+        text=True,
+        cwd=REPO_ROOT,
+    )
+    assert result.returncode == 0, result.stderr
+    if shutil.which("pdftotext") is None:
+        return
+    text = subprocess.run(["pdftotext", str(output), "-"], capture_output=True, text=True).stdout
+    flat = " ".join(text.split())
+    assert "should be used to make one" not in flat, (
+        "the disclaimer's second line survived the strip and opens the document as a fragment"
+    )
+
+
+V2 = REPO_ROOT / "report" / "TECHNICAL_REPORT.md"
+
+
+def test_the_v2_report_exists_and_is_tracked() -> None:
+    """v2 is a submission document, not a gitignored companion."""
+    assert V2.exists()
+    ignored = subprocess.run(
+        ["git", "check-ignore", "-q", str(V2.relative_to(REPO_ROOT))],
+        cwd=REPO_ROOT,
+        capture_output=True,
+    )
+    assert ignored.returncode != 0, "the submission report must not be gitignored"
+
+
+def test_the_v2_report_declares_what_the_competition_asks_for() -> None:
+    """Category, team and the AI-assistance disclosure are submission requirements."""
+    text = V2.read_text()
+    assert "Submission category:" in text
+    assert "**Team.**" in text
+    assert "AI assistance disclosure" in text
+    assert "decision-support only" in text
+
+
+def test_the_v2_report_carries_no_audience_specific_framing() -> None:
+    """It was adapted from a companion written for one audience; that framing is gone."""
+    text = V2.read_text().lower()
+    for phrase in (
+        "companion to",
+        "for biologists",
+        "wet-lab expertise",
+        "explained for the bench",
+    ):
+        assert phrase not in text, f"audience framing survived: {phrase}"
+
+
+@pytest.mark.skipif(shutil.which("pandoc") is None, reason="pandoc not installed")
+def test_the_v2_report_builds_inside_the_required_page_range(tmp_path: Path) -> None:
+    output = tmp_path / "v2.pdf"
+    result = subprocess.run(
+        [
+            str(SCRIPT),
+            "--source",
+            str(V2),
+            "--output",
+            str(output),
+            "--title",
+            "NeuroMPS technical report v2",
+            "--subtitle",
+            "Submission",
+            "--check-pages",
+            str(PAGES_MIN),
+            str(PAGES_MAX),
+        ],
+        capture_output=True,
+        text=True,
+        cwd=REPO_ROOT,
+    )
+    assert result.returncode == 0, result.stdout + result.stderr
+    main, total = (
+        int(n)
+        for n in re.search(r"(\d+) pages of main matter, (\d+) including", result.stdout).groups()
+    )
+    assert PAGES_MIN <= main <= PAGES_MAX
+    assert main < total, "appendices should not count toward the page range"

@@ -6,176 +6,168 @@
   "n_settings": 8,
   "n_seeds": 3,
   "control": "u0_tau600",
-  "best": "u0.2_tau600",
-  "best_beats_control": true,
+  "best": "u0_tau600",
+  "best_beats_control": false,
   "settings": {
     "u0_tau600": {
       "depression_u": 0.0,
       "depression_tau_rec_ms": 600.0,
-      "score": 0.0454,
+      "score": 0.0938,
       "penalties": {
-        "mfr_hz": 0.0358,
+        "mfr_hz": 0.1565,
         "burst_rate_per_min": 0.0,
         "network_burst_rate_per_min": 0.0388,
-        "synchrony_index": 0.1314,
-        "pct_spikes_in_bursts": 0.0211
+        "synchrony_index": 0.0443,
+        "pct_spikes_in_bursts": 0.2296
       },
       "features": {
-        "mfr_hz": 6.6051,
-        "burst_rate_per_min": 20.9271,
-        "network_burst_rate_per_min": 23.5,
-        "synchrony_index": 0.9614,
-        "pct_spikes_in_bursts": 95.6829
+        "mfr_hz": 5.8211,
+        "burst_rate_per_min": 21.5573,
+        "network_burst_rate_per_min": 22.75,
+        "synchrony_index": 0.8186,
+        "pct_spikes_in_bursts": 81.9173
       }
     },
     "u0.2_tau300": {
       "depression_u": 0.2,
       "depression_tau_rec_ms": 300.0,
-      "score": 0.0469,
+      "score": 0.1601,
       "penalties": {
-        "mfr_hz": 0.0361,
+        "mfr_hz": 0.2548,
         "burst_rate_per_min": 0.0,
-        "network_burst_rate_per_min": 0.0369,
-        "synchrony_index": 0.1346,
-        "pct_spikes_in_bursts": 0.0268
+        "network_burst_rate_per_min": 0.1462,
+        "synchrony_index": 0.038,
+        "pct_spikes_in_bursts": 0.3614
       },
       "features": {
-        "mfr_hz": 6.7676,
-        "burst_rate_per_min": 21.8698,
-        "network_burst_rate_per_min": 23.5,
-        "synchrony_index": 0.9645,
-        "pct_spikes_in_bursts": 96.2322
+        "mfr_hz": 5.3256,
+        "burst_rate_per_min": 22.4115,
+        "network_burst_rate_per_min": 26.5,
+        "synchrony_index": 0.7963,
+        "pct_spikes_in_bursts": 78.8884
       }
     },
     "u0.2_tau600": {
       "depression_u": 0.2,
       "depression_tau_rec_ms": 600.0,
-      "score": 0.0438,
+      "score": 0.2412,
       "penalties": {
-        "mfr_hz": 0.0577,
-        "burst_rate_per_min": 0.0,
-        "network_burst_rate_per_min": 0.008,
-        "synchrony_index": 0.131,
-        "pct_spikes_in_bursts": 0.0219
+        "mfr_hz": 0.4,
+        "burst_rate_per_min": 0.038,
+        "network_burst_rate_per_min": 0.0856,
+        "synchrony_index": 0.0491,
+        "pct_spikes_in_bursts": 0.6332
       },
       "features": {
-        "mfr_hz": 6.4312,
-        "burst_rate_per_min": 20.4115,
-        "network_burst_rate_per_min": 22.25,
-        "synchrony_index": 0.9611,
-        "pct_spikes_in_bursts": 95.7627
+        "mfr_hz": 4.6269,
+        "burst_rate_per_min": 18.276,
+        "network_burst_rate_per_min": 22.75,
+        "synchrony_index": 0.752,
+        "pct_spikes_in_bursts": 73.6996
       }
     },
     "u0.4_tau300": {
       "depression_u": 0.4,
       "depression_tau_rec_ms": 300.0,
-      "score": 0.0452,
+      "score": 0.2665,
       "penalties": {
-        "mfr_hz": 0.0401,
-        "burst_rate_per_min": 0.0,
-        "network_burst_rate_per_min": 0.0289,
-        "synchrony_index": 0.1327,
-        "pct_spikes_in_bursts": 0.024
+        "mfr_hz": 0.4103,
+        "burst_rate_per_min": 0.0878,
+        "network_burst_rate_per_min": 0.0759,
+        "synchrony_index": 0.0917,
+        "pct_spikes_in_bursts": 0.6671
       },
       "features": {
-        "mfr_hz": 6.5859,
-        "burst_rate_per_min": 21.3958,
-        "network_burst_rate_per_min": 23.25,
-        "synchrony_index": 0.9627,
-        "pct_spikes_in_bursts": 95.9643
+        "mfr_hz": 4.6318,
+        "burst_rate_per_min": 18.9896,
+        "network_burst_rate_per_min": 22.0,
+        "synchrony_index": 0.7438,
+        "pct_spikes_in_bursts": 72.399
       }
     },
     "u0.4_tau600": {
       "depression_u": 0.4,
       "depression_tau_rec_ms": 600.0,
-      "score": 0.0534,
+      "score": 0.3401,
       "penalties": {
-        "mfr_hz": 0.0793,
-        "burst_rate_per_min": 0.0,
-        "network_burst_rate_per_min": 0.0388,
-        "synchrony_index": 0.1288,
-        "pct_spikes_in_bursts": 0.0201
+        "mfr_hz": 0.5624,
+        "burst_rate_per_min": 0.0851,
+        "network_burst_rate_per_min": 0.0186,
+        "synchrony_index": 0.0908,
+        "pct_spikes_in_bursts": 0.9437
       },
       "features": {
-        "mfr_hz": 6.2935,
-        "burst_rate_per_min": 20.4167,
-        "network_burst_rate_per_min": 23.25,
-        "synchrony_index": 0.9589,
-        "pct_spikes_in_bursts": 95.5822
+        "mfr_hz": 3.9274,
+        "burst_rate_per_min": 15.2135,
+        "network_burst_rate_per_min": 18.0,
+        "synchrony_index": 0.7015,
+        "pct_spikes_in_bursts": 67.5746
       }
     },
     "u0.4_tau900": {
       "depression_u": 0.4,
       "depression_tau_rec_ms": 900.0,
-      "score": 0.0506,
+      "score": 0.7233,
       "penalties": {
-        "mfr_hz": 0.0641,
-        "burst_rate_per_min": 0.0,
-        "network_burst_rate_per_min": 0.0369,
-        "synchrony_index": 0.1301,
-        "pct_spikes_in_bursts": 0.0219
+        "mfr_hz": 0.8886,
+        "burst_rate_per_min": 0.5773,
+        "network_burst_rate_per_min": 0.148,
+        "synchrony_index": 0.3576,
+        "pct_spikes_in_bursts": 1.6448
       },
       "features": {
-        "mfr_hz": 6.3764,
-        "burst_rate_per_min": 20.8958,
-        "network_burst_rate_per_min": 23.0,
-        "synchrony_index": 0.9601,
-        "pct_spikes_in_bursts": 95.7574
+        "mfr_hz": 2.8927,
+        "burst_rate_per_min": 9.1198,
+        "network_burst_rate_per_min": 14.0,
+        "synchrony_index": 0.5677,
+        "pct_spikes_in_bursts": 51.9042
       }
     },
     "u0.6_tau600": {
       "depression_u": 0.6,
       "depression_tau_rec_ms": 600.0,
-      "score": 0.0519,
+      "score": 0.4609,
       "penalties": {
-        "mfr_hz": 0.0807,
-        "burst_rate_per_min": 0.0,
-        "network_burst_rate_per_min": 0.0289,
-        "synchrony_index": 0.1296,
-        "pct_spikes_in_bursts": 0.0206
+        "mfr_hz": 0.6969,
+        "burst_rate_per_min": 0.221,
+        "network_burst_rate_per_min": 0.008,
+        "synchrony_index": 0.1873,
+        "pct_spikes_in_bursts": 1.191
       },
       "features": {
-        "mfr_hz": 6.2864,
-        "burst_rate_per_min": 20.4375,
-        "network_burst_rate_per_min": 23.0,
-        "synchrony_index": 0.9597,
-        "pct_spikes_in_bursts": 95.6408
+        "mfr_hz": 3.4608,
+        "burst_rate_per_min": 12.6719,
+        "network_burst_rate_per_min": 16.75,
+        "synchrony_index": 0.6561,
+        "pct_spikes_in_bursts": 61.938
       }
     },
     "u0.6_tau900": {
       "depression_u": 0.6,
       "depression_tau_rec_ms": 900.0,
-      "score": 0.0585,
+      "score": 0.9965,
       "penalties": {
-        "mfr_hz": 0.1176,
-        "burst_rate_per_min": 0.0,
-        "network_burst_rate_per_min": 0.0369,
-        "synchrony_index": 0.1233,
-        "pct_spikes_in_bursts": 0.0149
+        "mfr_hz": 1.1471,
+        "burst_rate_per_min": 0.955,
+        "network_burst_rate_per_min": 0.0605,
+        "synchrony_index": 0.6428,
+        "pct_spikes_in_bursts": 2.177
       },
       "features": {
-        "mfr_hz": 6.0444,
-        "burst_rate_per_min": 19.4062,
-        "network_burst_rate_per_min": 23.25,
-        "synchrony_index": 0.9536,
-        "pct_spikes_in_bursts": 95.0897
+        "mfr_hz": 2.1615,
+        "burst_rate_per_min": 4.974,
+        "network_burst_rate_per_min": 11.5,
+        "synchrony_index": 0.4634,
+        "pct_spikes_in_bursts": 38.6429
       }
     }
   },
-  "pct_spikes_in_bursts_improves_under": [
-    "u0.4_tau600",
-    "u0.6_tau600",
-    "u0.6_tau900"
-  ],
-  "pct_spikes_in_bursts_control_penalty": 0.0211,
-  "pct_spikes_in_bursts_best_penalty": 0.0149,
+  "pct_spikes_in_bursts_improves_under": [],
+  "pct_spikes_in_bursts_control_penalty": 0.2296,
+  "pct_spikes_in_bursts_best_penalty": 0.2296,
   "synchrony_index_improves_under": [
-    "u0.2_tau600",
-    "u0.4_tau600",
-    "u0.4_tau900",
-    "u0.6_tau600",
-    "u0.6_tau900"
+    "u0.2_tau300"
   ],
-  "synchrony_index_control_penalty": 0.1314,
-  "synchrony_index_best_penalty": 0.1233
+  "synchrony_index_control_penalty": 0.0443,
+  "synchrony_index_best_penalty": 0.038
 }

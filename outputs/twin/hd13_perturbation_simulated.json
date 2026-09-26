@@ -3,73 +3,72 @@
   "simulation": {
     "calibrated_parameters_used": true,
     "baseline_features_simulated": {
-      "mfr_hz": 6.927604166666667,
-      "burst_rate_per_min": 21.015625,
-      "burst_duration_s": 0.03320863747523532,
-      "spikes_per_burst": 19.027344026392132,
-      "pct_spikes_in_bursts": 96.1964616421526,
+      "mfr_hz": 5.624479166666666,
+      "burst_rate_per_min": 21.09375,
+      "burst_duration_s": 0.049980718498730134,
+      "spikes_per_burst": 12.981751071755484,
+      "pct_spikes_in_bursts": 81.11492075608362,
       "network_burst_rate_per_min": 22.5,
-      "synchrony_index": 0.9642643440800385,
-      "isi_cv": 3.9244319202346603,
+      "synchrony_index": 0.8161787016273689,
+      "isi_cv": 2.285571882949314,
       "active_electrodes": 48.0
     },
     "treated_features_simulated": {
       "gabaa_block": {
-        "mfr_hz": 28.854947916666667,
-        "burst_rate_per_min": 18.03125,
-        "burst_duration_s": 0.049008713896097705,
-        "spikes_per_burst": 95.4659115484429,
-        "pct_spikes_in_bursts": 99.42745870023103,
-        "network_burst_rate_per_min": 18.0,
-        "synchrony_index": 0.9946867758554757,
-        "isi_cv": 9.148458626983976,
+        "mfr_hz": 36.71249999999999,
+        "burst_rate_per_min": 21.046875,
+        "burst_duration_s": 0.07298603103601825,
+        "spikes_per_burst": 102.92398953267403,
+        "pct_spikes_in_bursts": 98.33782455292138,
+        "network_burst_rate_per_min": 21.0,
+        "synchrony_index": 0.9823793992860206,
+        "isi_cv": 7.756299791571614,
         "active_electrodes": 48.0
       },
       "gabaa_potentiate": {
-        "mfr_hz": 6.841145833333334,
-        "burst_rate_per_min": 22.421875,
-        "burst_duration_s": 0.03083786110830531,
-        "spikes_per_burst": 17.664510182516064,
-        "pct_spikes_in_bursts": 96.50855497135024,
-        "network_burst_rate_per_min": 23.25,
-        "synchrony_index": 0.9651384103155649,
-        "isi_cv": 3.791197587231527,
+        "mfr_hz": 5.684635416666667,
+        "burst_rate_per_min": 25.1875,
+        "burst_duration_s": 0.04015161846684537,
+        "spikes_per_burst": 11.085556992823925,
+        "pct_spikes_in_bursts": 81.85386141906687,
+        "network_burst_rate_per_min": 28.5,
+        "synchrony_index": 0.8340177065308576,
+        "isi_cv": 2.241785736452073,
         "active_electrodes": 48.0
       },
       "ampa_block": {
-        "mfr_hz": 0.3677803634751773,
+        "mfr_hz": 1.0895012507817385,
         "burst_rate_per_min": 0.0,
         "burst_duration_s": null,
         "spikes_per_burst": null,
         "pct_spikes_in_bursts": 0.0,
         "network_burst_rate_per_min": 0.0,
-        "synchrony_index": 0.10320771570675405,
-        "isi_cv": 0.8913280264246176,
-        "active_electrodes": 47.5
+        "synchrony_index": 0.003541676397652002,
+        "isi_cv": 0.5806165763466411,
+        "active_electrodes": 40.0
       },
       "sodium_block": {
-        "mfr_hz": 0.0,
+        "mfr_hz": 0.44125000000000003,
         "burst_rate_per_min": 0.0,
         "burst_duration_s": null,
         "spikes_per_burst": null,
         "pct_spikes_in_bursts": 0.0,
         "network_burst_rate_per_min": 0.0,
-        "synchrony_index": null,
-        "isi_cv": null,
-        "active_electrodes": 0.0,
-        "silent": true
+        "synchrony_index": -0.024698046214697594,
+        "isi_cv": 0.516719327816676,
+        "active_electrodes": 3.5
       }
     },
     "layout": {
       "rows": 6,
       "cols": 8,
       "pitch_um": 200.0,
-      "detection_radius_um": 295.8724,
+      "detection_radius_um": 92.5135,
       "gap_um": 600.0,
       "margin_um": 100.0
     },
     "duration_s": 40.0,
-    "n_per_compartment": 250
+    "n_per_compartment": 967
   },
   "knobs": [
     {
@@ -144,19 +143,19 @@
         }
       },
       "simulated_delta": {
-        "mfr_hz": 2.058,
-        "burst_rate_per_min": -0.221,
-        "pct_spikes_in_bursts": 0.048,
-        "network_burst_rate_per_min": -0.322,
-        "synchrony_index": 0.045,
-        "isi_cv": 1.221
+        "mfr_hz": 2.706,
+        "burst_rate_per_min": -0.003,
+        "pct_spikes_in_bursts": 0.278,
+        "network_burst_rate_per_min": -0.1,
+        "synchrony_index": 0.267,
+        "isi_cv": 1.763
       },
       "agreement": {
         "mfr_hz": {
           "real_delta": -0.335,
           "real_direction": "down",
           "real_established": true,
-          "simulated_delta": 2.058,
+          "simulated_delta": 2.706,
           "simulated_direction": "up",
           "agrees": false
         },
@@ -164,7 +163,7 @@
           "real_delta": -0.548,
           "real_direction": "down",
           "real_established": true,
-          "simulated_delta": -0.221,
+          "simulated_delta": -0.003,
           "simulated_direction": "down",
           "agrees": true
         },
@@ -172,7 +171,7 @@
           "real_delta": 0.037,
           "real_direction": "up",
           "real_established": true,
-          "simulated_delta": 0.048,
+          "simulated_delta": 0.278,
           "simulated_direction": "up",
           "agrees": true
         },
@@ -180,7 +179,7 @@
           "real_delta": -0.66,
           "real_direction": "down",
           "real_established": true,
-          "simulated_delta": -0.322,
+          "simulated_delta": -0.1,
           "simulated_direction": "down",
           "agrees": true
         },
@@ -188,7 +187,7 @@
           "real_delta": 0.11,
           "real_direction": "up",
           "real_established": true,
-          "simulated_delta": 0.045,
+          "simulated_delta": 0.267,
           "simulated_direction": "up",
           "agrees": true
         },
@@ -196,7 +195,7 @@
           "real_delta": 0.038,
           "real_direction": "up",
           "real_established": false,
-          "simulated_delta": 1.221,
+          "simulated_delta": 1.763,
           "simulated_direction": "up",
           "agrees": null
         }
@@ -276,27 +275,27 @@
         }
       },
       "simulated_delta": {
-        "mfr_hz": -0.018,
-        "burst_rate_per_min": 0.093,
-        "pct_spikes_in_bursts": 0.005,
-        "network_burst_rate_per_min": 0.047,
-        "synchrony_index": 0.001,
-        "isi_cv": -0.05
+        "mfr_hz": 0.015,
+        "burst_rate_per_min": 0.256,
+        "pct_spikes_in_bursts": 0.013,
+        "network_burst_rate_per_min": 0.341,
+        "synchrony_index": 0.031,
+        "isi_cv": -0.028
       },
       "agreement": {
         "mfr_hz": {
           "real_delta": -0.471,
           "real_direction": "down",
           "real_established": true,
-          "simulated_delta": -0.018,
-          "simulated_direction": "down",
-          "agrees": true
+          "simulated_delta": 0.015,
+          "simulated_direction": "up",
+          "agrees": false
         },
         "burst_rate_per_min": {
           "real_delta": -0.353,
           "real_direction": "down",
           "real_established": true,
-          "simulated_delta": 0.093,
+          "simulated_delta": 0.256,
           "simulated_direction": "up",
           "agrees": false
         },
@@ -304,7 +303,7 @@
           "real_delta": -0.282,
           "real_direction": "down",
           "real_established": true,
-          "simulated_delta": 0.005,
+          "simulated_delta": 0.013,
           "simulated_direction": "up",
           "agrees": false
         },
@@ -312,7 +311,7 @@
           "real_delta": 0.06,
           "real_direction": "up",
           "real_established": false,
-          "simulated_delta": 0.047,
+          "simulated_delta": 0.341,
           "simulated_direction": "up",
           "agrees": null
         },
@@ -320,7 +319,7 @@
           "real_delta": 0.062,
           "real_direction": "up",
           "real_established": false,
-          "simulated_delta": 0.001,
+          "simulated_delta": 0.031,
           "simulated_direction": "up",
           "agrees": null
         },
@@ -328,13 +327,13 @@
           "real_delta": -0.231,
           "real_direction": "down",
           "real_established": true,
-          "simulated_delta": -0.05,
+          "simulated_delta": -0.028,
           "simulated_direction": "down",
           "agrees": true
         }
       },
       "n_features_scored": 4,
-      "n_features_agreeing": 2
+      "n_features_agreeing": 1
     },
     {
       "knob": "ampa_block",
@@ -407,19 +406,19 @@
         }
       },
       "simulated_delta": {
-        "mfr_hz": -4.235,
+        "mfr_hz": -2.368,
         "burst_rate_per_min": -4.322,
         "pct_spikes_in_bursts": -4.322,
         "network_burst_rate_per_min": -4.322,
-        "synchrony_index": -3.224,
-        "isi_cv": -2.138
+        "synchrony_index": -4.322,
+        "isi_cv": -1.977
       },
       "agreement": {
         "mfr_hz": {
           "real_delta": -1.769,
           "real_direction": "down",
           "real_established": true,
-          "simulated_delta": -4.235,
+          "simulated_delta": -2.368,
           "simulated_direction": "down",
           "agrees": true
         },
@@ -451,7 +450,7 @@
           "real_delta": -4.322,
           "real_direction": "down",
           "real_established": true,
-          "simulated_delta": -3.224,
+          "simulated_delta": -4.322,
           "simulated_direction": "down",
           "agrees": true
         },
@@ -459,7 +458,7 @@
           "real_delta": -0.459,
           "real_direction": "down",
           "real_established": false,
-          "simulated_delta": -2.138,
+          "simulated_delta": -1.977,
           "simulated_direction": "down",
           "agrees": null
         }
@@ -538,19 +537,19 @@
         }
       },
       "simulated_delta": {
-        "mfr_hz": -4.322,
+        "mfr_hz": -3.672,
         "burst_rate_per_min": -4.322,
         "pct_spikes_in_bursts": -4.322,
         "network_burst_rate_per_min": -4.322,
-        "synchrony_index": null,
-        "isi_cv": null
+        "synchrony_index": -4.322,
+        "isi_cv": -2.145
       },
       "agreement": {
         "mfr_hz": {
           "real_delta": -0.795,
           "real_direction": "down",
           "real_established": true,
-          "simulated_delta": -4.322,
+          "simulated_delta": -3.672,
           "simulated_direction": "down",
           "agrees": true
         },
@@ -582,16 +581,16 @@
           "real_delta": -1.932,
           "real_direction": "down",
           "real_established": false,
-          "simulated_delta": null,
-          "simulated_direction": null,
+          "simulated_delta": -4.322,
+          "simulated_direction": "down",
           "agrees": null
         },
         "isi_cv": {
           "real_delta": -0.041,
           "real_direction": "down",
           "real_established": false,
-          "simulated_delta": null,
-          "simulated_direction": null,
+          "simulated_delta": -2.145,
+          "simulated_direction": "down",
           "agrees": null
         }
       },

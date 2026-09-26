@@ -188,13 +188,18 @@ def test_default_layout_matches_the_real_chamber_electrode_count() -> None:
 
 def test_a_cache_from_a_different_layout_is_refused() -> None:
     """Summary names alone do not pin down what the numbers mean; geometry does too."""
-    from neuromps.twin.inference import check_cache_matches_code, summary_pipeline_fingerprint
+    from neuromps.twin.inference import (
+        calibration_fingerprint,
+        check_cache_matches_code,
+        summary_pipeline_fingerprint,
+    )
 
     good = {
         "summary_names": list(SUMMARY_NAMES),
         "metadata": {
             "electrodes_per_compartment": 48,
             "summary_pipeline_sha256": summary_pipeline_fingerprint(),
+            "calibration_sha256": calibration_fingerprint(),
         },
     }
     check_cache_matches_code(good)  # does not raise
@@ -235,3 +240,54 @@ def test_training_is_seeded_before_the_posterior_is_built() -> None:
     seed_line = source.index("torch.manual_seed(args.seed)")
     train_line = source.index("train_posterior(")
     assert seed_line < train_line, "the seed must be set before training"
+
+
+def test_an_explicit_network_size_still_overrides_the_calibration() -> None:
+    """Tests and probes need a small network; the pipeline should not pass one.
+
+    The default is the calibrated density, so nothing in the pipeline silently
+    runs a sparser twin than the one 7.3 reports; an explicit size remains
+    available for callers that deliberately want a cheap network.
+    """
+    vector = np.array([np.log10(8.0), 12.0, 0.5, 0.8, 1.2])
+    params = params_from_vector(vector, n_per_compartment=60, duration_s=1.0, seed=0)
+    assert params.n_per_compartment == 60
+
+
+def test_inference_uses_the_calibrated_density() -> None:
+    """Density is what sets the twin's synchrony regime (7.3).
+
+    Inference used to run a smaller network for tractability, which meant the
+    posterior was learned on a network several times sparser than the one the
+    calibration fitted. Measuring the cost showed it was 1.55x, not the 6x
+    feared, so the gap is closed rather than documented.
+    """
+    from neuromps.twin.calibrate import calibrated_params
+    from neuromps.twin.inference import inference_calibration
+
+    calibrated = calibrated_params().get("n_per_compartment")
+    if calibrated is None:
+        pytest.skip("no calibration on disk")
+    assert inference_calibration().get("n_per_compartment") == calibrated
+    vector = np.array([np.log10(8.0), 12.0, 0.5, 0.8, 1.2])
+    assert params_from_vector(vector, duration_s=1.0, seed=0).n_per_compartment == calibrated
+
+
+def test_a_cache_from_a_different_calibration_is_refused(tmp_path: Path) -> None:
+    """The failure this prevents is silent: a posterior trained on a dead model.
+
+    Nothing else in the cache changes when the calibration does - same prior,
+    same summaries, same layout - so without this the stale simulations are
+    reused and the run looks clean.
+    """
+    from neuromps.twin.inference import calibration_fingerprint, check_cache_matches_code
+
+    path = tmp_path / "sims.npz"
+    save_simulations(path, np.zeros((2, 5)), np.zeros((2, len(SUMMARY_NAMES))), metadata={})
+    cached = load_simulations(path)
+    assert cached["metadata"]["calibration_sha256"] == calibration_fingerprint()
+    check_cache_matches_code(cached)  # the matching case must pass
+
+    cached["metadata"]["calibration_sha256"] = "0" * 64
+    with pytest.raises(SystemExit, match="calibration"):
+        check_cache_matches_code(cached)
