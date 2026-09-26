@@ -640,7 +640,7 @@ def plot_sweep(rows: list[dict], path: Path, title: str, arm: str | None = None)
         ax.set_xlabel("recording length (s)", fontsize=11)
     for row in axes:
         row[0].set_ylabel("AUC", fontsize=11)
-    for ax in flat[len(names):]:
+    for ax in flat[len(names) :]:
         ax.set_visible(False)
     flat[0].legend(fontsize=10)
     fig.suptitle(title, fontsize=12)

@@ -177,17 +177,13 @@ def build_records(
                     },
                     "qc": {
                         "usable": active >= MIN_ACTIVE_ELECTRODES,
-                        "flags": [] if active >= MIN_ACTIVE_ELECTRODES else [
-                            "too_few_active_electrodes"
-                        ],
+                        "flags": []
+                        if active >= MIN_ACTIVE_ELECTRODES
+                        else ["too_few_active_electrodes"],
                         "n_noisy_electrodes": None,
                         "note": (
                             "culture age not recorded in the deposit; session date in plate_id"
-                            + (
-                                "; compound applied but not identified per well"
-                                if treated
-                                else ""
-                            )
+                            + ("; compound applied but not identified per well" if treated else "")
                         ),
                     },
                     "provenance": {

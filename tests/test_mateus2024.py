@@ -1,5 +1,3 @@
-
-
 def test_runs_can_be_traced_along_rows_as_well_as_columns() -> None:
     """The deposit never records how a device was seated, so the axis is an assumption."""
     from neuromps.etl.mateus2024 import channel_runs

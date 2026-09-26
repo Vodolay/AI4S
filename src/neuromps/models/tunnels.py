@@ -50,9 +50,7 @@ def chamber_pairs(records: pd.DataFrame) -> pd.DataFrame:
     """
     rows = []
     for device_id, device in records.groupby("device.device_id"):
-        by_compartment = {
-            str(r["device.compartment_id"]): r for _, r in device.iterrows()
-        }
+        by_compartment = {str(r["device.compartment_id"]): r for _, r in device.iterrows()}
         for first, second in itertools.combinations(sorted(by_compartment), 2):
             link = _link(by_compartment[first], second)
             if link is None or link.get("asymmetry") is None:
@@ -144,8 +142,13 @@ def plot_pairs(pairs: pd.DataFrame, result: dict, path: Path) -> Path:
     for colour, device in zip(colours, devices, strict=False):
         rows = pairs[pairs["device_id"] == device]
         ax.scatter(
-            rows["log2_rate_ratio"], rows["asymmetry"], s=34, color=colour, edgecolor="black",
-            linewidth=0.4, label=device,
+            rows["log2_rate_ratio"],
+            rows["asymmetry"],
+            s=34,
+            color=colour,
+            edgecolor="black",
+            linewidth=0.4,
+            label=device,
         )
     ax.axhline(0, color="grey", linewidth=0.8)
     ax.axvline(0, color="grey", linewidth=0.8)
@@ -192,9 +195,7 @@ def run(records: pd.DataFrame, seed: int = 0) -> dict | None:
         "p90": round(float(imbalance.quantile(0.9)), 3),
         "max": round(float(imbalance.max()), 3),
     }
-    result["pairs_dropped_below_noise_floor"] = int(
-        len(subset) * 3 // 2 - len(pairs)
-    )
+    result["pairs_dropped_below_noise_floor"] = int(len(subset) * 3 // 2 - len(pairs))
     return result
 
 

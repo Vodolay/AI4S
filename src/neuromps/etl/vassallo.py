@@ -103,8 +103,9 @@ def dose_windows(frame: pd.DataFrame) -> list[dict]:
         compound, experiment = row[0], row[1]
         if not isinstance(experiment, str) or not isinstance(compound, str):
             continue
-        windows = [{"label": "baseline", "dose_um": None,
-                    "start_s": float(row[4]), "end_s": float(row[5])}]
+        windows = [
+            {"label": "baseline", "dose_um": None, "start_s": float(row[4]), "end_s": float(row[5])}
+        ]
         for index in range(MAX_DOSE_COLUMNS):
             base = FIRST_DOSE_COLUMN + 3 * index
             if base + 2 >= len(row):
@@ -112,10 +113,21 @@ def dose_windows(frame: pd.DataFrame) -> list[dict]:
             dose, start, end = row[base], row[base + 1], row[base + 2]
             if pd.isna(dose) or pd.isna(start) or pd.isna(end):
                 continue
-            windows.append({"label": f"conc{index + 1}", "dose_um": float(dose),
-                            "start_s": float(start), "end_s": float(end)})
-        rows.append({"compound": compound.strip().lower(),
-                     "experiment": experiment.strip(), "windows": windows})
+            windows.append(
+                {
+                    "label": f"conc{index + 1}",
+                    "dose_um": float(dose),
+                    "start_s": float(start),
+                    "end_s": float(end),
+                }
+            )
+        rows.append(
+            {
+                "compound": compound.strip().lower(),
+                "experiment": experiment.strip(),
+                "windows": windows,
+            }
+        )
     return rows
 
 
@@ -130,8 +142,12 @@ def spike_table(archive: zipfile.ZipFile, member: str) -> pd.DataFrame:
     """Spike ticks and channels for one chip."""
     with archive.open(member) as handle:
         return pd.read_csv(
-            io.BytesIO(handle.read()), sep="\t", header=None, names=["tick", "channel"],
-            dtype={"tick": np.int64, "channel": np.int32}, on_bad_lines="skip",
+            io.BytesIO(handle.read()),
+            sep="\t",
+            header=None,
+            names=["tick", "channel"],
+            dtype={"tick": np.int64, "channel": np.int32},
+            on_bad_lines="skip",
         )
 
 
@@ -143,16 +159,20 @@ def window_spikes(table: pd.DataFrame, start_s: float, end_s: float) -> dict[str
         return {}
     times, channels = seconds[inside] - start_s, table["channel"].to_numpy()[inside]
     return {
-        str(int(channel)): np.sort(times[channels == channel])
-        for channel in np.unique(channels)
+        str(int(channel)): np.sort(times[channels == channel]) for channel in np.unique(channels)
     }
 
 
 def _compound(compound: str, window: dict) -> dict:
     """The compound block for one window."""
     if window["dose_um"] is None:
-        return {"name": "none", "role": "untreated_control", "mechanism_class": None,
-                "dose_value": None, "dose_unit": None}
+        return {
+            "name": "none",
+            "role": "untreated_control",
+            "mechanism_class": None,
+            "dose_value": None,
+            "dose_unit": None,
+        }
     return {
         "name": compound,
         "role": "test",
@@ -187,13 +207,19 @@ def build_records(
                 continue
             table = spike_table(archive, candidates[0])
             records += _chip_records(entry, candidates[0], table, sha, p)
-            log.info("  vassallo %s chip %s (%s): %d windows",
-                     key[0], key[1], entry["compound"], len(entry["windows"]))
+            log.info(
+                "  vassallo %s chip %s (%s): %d windows",
+                key[0],
+                key[1],
+                entry["compound"],
+                len(entry["windows"]),
+            )
     return records
 
 
-def _chip_records(entry: dict, member: str, table: pd.DataFrame, sha: str,
-                  p: FeatureParams) -> list[dict]:
+def _chip_records(
+    entry: dict, member: str, table: pd.DataFrame, sha: str, p: FeatureParams
+) -> list[dict]:
     """Every window of one chip."""
     session, chip = session_and_chip(entry["experiment"])
     out = []
@@ -202,52 +228,54 @@ def _chip_records(entry: dict, member: str, table: pd.DataFrame, sha: str,
         duration_s = float(window["end_s"] - window["start_s"])
         features = extract_features(spikes, duration_s, p)
         active = features.get("active_electrodes") or 0
-        out.append({
-            "record_id": f"{SOURCE}:{session}-{chip}:{window['label']}",
-            "source": SOURCE,
-            "license": "US-Public-Domain",
-            "citation": CITATION,
-            "data_level": "spike_times",
-            "cell_source": dict(CELL_SOURCE),
-            "platform": dict(PLATFORM),
-            "plate_id": session,
-            "unit_id": chip,
-            "culture_age_days": None,
-            "compound": _compound(entry["compound"], window),
-            "recording": {
-                "duration_s": duration_s,
-                "phase": "baseline" if window["dose_um"] is None else "exposure",
-            },
-            "features": {k: _value(features.get(k)) for k in FEATURE_KEYS},
-            "feature_method": {
-                **p.as_method_record(),
-                "spike_detection": (
-                    "publisher: spike times as deposited (sample indices at 25 kHz)"
-                ),
-            },
-            "qc": {
-                "usable": active >= MIN_ACTIVE_ELECTRODES,
-                "flags": [] if active >= MIN_ACTIVE_ELECTRODES else [
-                    "too_few_active_electrodes"
-                ],
-                "n_noisy_electrodes": None,
-                "note": (
-                    f"window {window['start_s']:.0f}-{window['end_s']:.0f} s of a continuous "
-                    "session, from Logfile_EPAv1.xls; spikes between windows are not used"
-                ),
-            },
-            "provenance": {
-                "source_files": [{"path": f"{SOURCE}/{ARCHIVE_NAME}", "sha256": sha}],
-                "transform": [
-                    f"read {member} and {LOGFILE_NAME} from {ARCHIVE_NAME}",
-                    f"slice {window['start_s']:.0f}-{window['end_s']:.0f} s",
-                    "sample indices / 25 kHz -> seconds from the window start",
-                    "features/mea.py extract_features",
-                ],
-                "generated_by": "neuromps.etl.vassallo",
-                "generated_at": utc_now(),
-            },
-        })
+        out.append(
+            {
+                "record_id": f"{SOURCE}:{session}-{chip}:{window['label']}",
+                "source": SOURCE,
+                "license": "US-Public-Domain",
+                "citation": CITATION,
+                "data_level": "spike_times",
+                "cell_source": dict(CELL_SOURCE),
+                "platform": dict(PLATFORM),
+                "plate_id": session,
+                "unit_id": chip,
+                "culture_age_days": None,
+                "compound": _compound(entry["compound"], window),
+                "recording": {
+                    "duration_s": duration_s,
+                    "phase": "baseline" if window["dose_um"] is None else "exposure",
+                },
+                "features": {k: _value(features.get(k)) for k in FEATURE_KEYS},
+                "feature_method": {
+                    **p.as_method_record(),
+                    "spike_detection": (
+                        "publisher: spike times as deposited (sample indices at 25 kHz)"
+                    ),
+                },
+                "qc": {
+                    "usable": active >= MIN_ACTIVE_ELECTRODES,
+                    "flags": []
+                    if active >= MIN_ACTIVE_ELECTRODES
+                    else ["too_few_active_electrodes"],
+                    "n_noisy_electrodes": None,
+                    "note": (
+                        f"window {window['start_s']:.0f}-{window['end_s']:.0f} s of a continuous "
+                        "session, from Logfile_EPAv1.xls; spikes between windows are not used"
+                    ),
+                },
+                "provenance": {
+                    "source_files": [{"path": f"{SOURCE}/{ARCHIVE_NAME}", "sha256": sha}],
+                    "transform": [
+                        f"read {member} and {LOGFILE_NAME} from {ARCHIVE_NAME}",
+                        f"slice {window['start_s']:.0f}-{window['end_s']:.0f} s",
+                        "sample indices / 25 kHz -> seconds from the window start",
+                        "features/mea.py extract_features",
+                    ],
+                    "generated_by": "neuromps.etl.vassallo",
+                    "generated_at": utc_now(),
+                },
+            }
+        )
     return out
 
 

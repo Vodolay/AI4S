@@ -39,9 +39,7 @@ class FakeSession:
         end = int(end) if end else len(self.data) - 1
         self.ranges.append((start, end))
         chunk = self.data[start : end + 1]
-        return FakeResponse(
-            206, chunk, {"Content-Range": f"bytes {start}-{end}/{len(self.data)}"}
-        )
+        return FakeResponse(206, chunk, {"Content-Range": f"bytes {start}-{end}/{len(self.data)}"})
 
     def close(self) -> None:
         pass

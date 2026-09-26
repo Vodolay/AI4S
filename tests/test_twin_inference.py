@@ -291,3 +291,31 @@ def test_a_cache_from_a_different_calibration_is_refused(tmp_path: Path) -> None
     cached["metadata"]["calibration_sha256"] = "0" * 64
     with pytest.raises(SystemExit, match="calibration"):
         check_cache_matches_code(cached)
+
+
+def test_a_stale_cache_is_rebuilt_rather_than_killing_the_pipeline(tmp_path, monkeypatch) -> None:
+    """`run_all.py` passes no --rebuild, so raising here left the whole run dead.
+
+    The guard still raises for `real_inference`, which *reads* the cache and must
+    refuse a superseded one. The writer's answer to a stale artifact is to
+    regenerate it.
+    """
+    from neuromps.twin import inference
+
+    path = tmp_path / "sims.npz"
+    save_simulations(path, np.zeros((2, 5)), np.zeros((2, len(SUMMARY_NAMES))), metadata={})
+    monkeypatch.setattr(inference, "simulation_cache", lambda: path)
+    assert inference.cache_is_usable() is True
+
+    # A cache written under different summary code must be rebuilt, not fatal.
+    monkeypatch.setattr(inference, "summary_pipeline_fingerprint", lambda: "different")
+    assert inference.cache_is_usable() is False
+
+
+def test_the_reader_still_refuses_a_stale_cache_outright() -> None:
+    """Rebuilding is the writer's answer; a reader must not silently compare."""
+    import inspect
+
+    from neuromps.twin import real_inference
+
+    assert "check_cache_matches_code(cached)" in inspect.getsource(real_inference.main)

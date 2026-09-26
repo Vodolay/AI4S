@@ -2,11 +2,19 @@
 
 import ast
 import json
+import subprocess
+import sys
 from pathlib import Path
 
 import pytest
 
-from neuromps.demo.notebook import DATA_FILES, build_notebook, code_cells, write_notebook
+from neuromps.demo.notebook import (
+    DATA_FILES,
+    NOTEBOOK_NAME,
+    build_notebook,
+    code_cells,
+    write_notebook,
+)
 
 
 def test_the_notebook_is_valid_nbformat_4() -> None:
@@ -212,3 +220,20 @@ def test_the_summary_survives_an_asset_with_no_two_chamber_recordings() -> None:
 
     out = posterior_draw_summary({"records": None}, requested=200)
     assert out["n_recordings"] == 0
+
+
+def test_the_generated_notebook_passes_the_linter() -> None:
+    """CI lints the whole repository, and the generated notebook is part of it.
+
+    A stray blank line in a string literal in the generator failed CI while every
+    local check passed, because the notebook is linted like any other file and
+    nothing in the test suite looked at it. The generator formats its cells now;
+    this makes the failure visible from `pytest` rather than only from `ruff`.
+    """
+    path = Path("outputs/demo") / NOTEBOOK_NAME
+    if not path.exists():
+        pytest.skip("notebook not generated in this checkout")
+    ruff = [sys.executable, "-m", "ruff"]
+    for command in ([*ruff, "check", str(path)], [*ruff, "format", "--check", str(path)]):
+        done = subprocess.run(command, capture_output=True, text=True)
+        assert done.returncode == 0, f"{' '.join(command)}:\n{done.stdout}{done.stderr}"

@@ -305,6 +305,25 @@ def calibration_fingerprint() -> str:
     return hashlib.sha256(payload).hexdigest()
 
 
+def cache_is_usable() -> bool:
+    """Whether the cache on disk can be reused, logging the reason when it cannot.
+
+    A stale cache is not a user error, it is an artifact that has been overtaken,
+    and the right answer is to regenerate it. `check_cache_matches_code` raises so
+    that a caller *reading* the cache - `real_inference` - refuses rather than
+    quietly comparing against a superseded model. Here the caller is about to
+    write it, so the pipeline rebuilds instead of aborting: `run_all.py` passes no
+    `--rebuild`, so raising here left the whole run dead on any machine whose
+    cache predated a change to the summary code.
+    """
+    try:
+        check_cache_matches_code(load_simulations(simulation_cache()))
+    except SystemExit as reason:
+        log.warning("%s - rebuilding instead", str(reason).replace("; rerun with --rebuild", ""))
+        return False
+    return True
+
+
 def check_cache_matches_code(cached: dict) -> None:
     """Refuse a cache produced under different summaries or a different layout.
 
@@ -493,9 +512,8 @@ def main(argv: list[str] | None = None) -> int:
     # the whole pipeline, and its contraction numbers are never reported.
     n_simulations = args.simulations or (30 if args.quick else 3000)
 
-    if simulation_cache().exists() and not args.rebuild:
+    if simulation_cache().exists() and not args.rebuild and cache_is_usable():
         cached = load_simulations(simulation_cache())
-        check_cache_matches_code(cached)
         theta, x = cached["theta"], cached["x"]
         inside = within_prior(theta)
         if not inside.all():

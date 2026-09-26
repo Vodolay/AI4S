@@ -144,10 +144,7 @@ def _trujillo_records(hashes: dict[str, str], raw_root: Path, full: bool) -> lis
         built = [
             record
             for record in json.loads(cache.read_text())
-            if all(
-                Path(f["path"]).name in hashes
-                for f in record["provenance"]["source_files"]
-            )
+            if all(Path(f["path"]).name in hashes for f in record["provenance"]["source_files"])
         ]
     else:
         built = trujillo.build_records(spikes_dir, hashes)
