@@ -349,3 +349,69 @@ def test_a_long_front_matter_does_not_split_the_disclaimer(tmp_path: Path) -> No
     assert "should be used to make one" not in flat, (
         "the disclaimer's second line survived the strip and opens the document as a fragment"
     )
+
+
+V2 = REPO_ROOT / "report" / "TECHNICAL_REPORT.md"
+
+
+def test_the_v2_report_exists_and_is_tracked() -> None:
+    """v2 is a submission document, not a gitignored companion."""
+    assert V2.exists()
+    ignored = subprocess.run(
+        ["git", "check-ignore", "-q", str(V2.relative_to(REPO_ROOT))],
+        cwd=REPO_ROOT,
+        capture_output=True,
+    )
+    assert ignored.returncode != 0, "the submission report must not be gitignored"
+
+
+def test_the_v2_report_declares_what_the_competition_asks_for() -> None:
+    """Category, team and the AI-assistance disclosure are submission requirements."""
+    text = V2.read_text()
+    assert "Submission category:" in text
+    assert "**Team.**" in text
+    assert "AI assistance disclosure" in text
+    assert "decision-support only" in text
+
+
+def test_the_v2_report_carries_no_audience_specific_framing() -> None:
+    """It was adapted from a companion written for one audience; that framing is gone."""
+    text = V2.read_text().lower()
+    for phrase in (
+        "companion to",
+        "for biologists",
+        "wet-lab expertise",
+        "explained for the bench",
+    ):
+        assert phrase not in text, f"audience framing survived: {phrase}"
+
+
+@pytest.mark.skipif(shutil.which("pandoc") is None, reason="pandoc not installed")
+def test_the_v2_report_builds_inside_the_required_page_range(tmp_path: Path) -> None:
+    output = tmp_path / "v2.pdf"
+    result = subprocess.run(
+        [
+            str(SCRIPT),
+            "--source",
+            str(V2),
+            "--output",
+            str(output),
+            "--title",
+            "NeuroMPS technical report v2",
+            "--subtitle",
+            "Submission",
+            "--check-pages",
+            str(PAGES_MIN),
+            str(PAGES_MAX),
+        ],
+        capture_output=True,
+        text=True,
+        cwd=REPO_ROOT,
+    )
+    assert result.returncode == 0, result.stdout + result.stderr
+    main, total = (
+        int(n)
+        for n in re.search(r"(\d+) pages of main matter, (\d+) including", result.stdout).groups()
+    )
+    assert PAGES_MIN <= main <= PAGES_MAX
+    assert main < total, "appendices should not count toward the page range"

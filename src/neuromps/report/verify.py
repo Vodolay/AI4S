@@ -157,6 +157,44 @@ def check_text(text: str, metrics: dict) -> list[dict]:
     return problems
 
 
+# Numerals that are never claims about a result: years, and small integers that
+# are section numbers, list markers, counts of plates or panel indices.
+BENIGN_NUMBER = re.compile(r"^(19|20)\d\d$|^\d{1,2}$")
+# Markup that contains digits but says nothing: figure widths and image links.
+MARKUP = re.compile(r"!\[[^\]]*\]\([^)]*\)(\{[^}]*\})?|\{width=[^}]*\}", re.S)
+
+
+def uncited_numbers(text: str) -> list[dict]:
+    """Numbers no citation covers, which are the claims this apparatus cannot check.
+
+    `check_text` verifies that every *cited* number matches the metrics. It says
+    nothing about a number with no citation at all, and that is where a stale
+    figure survives - it was how a "seven parameters" claim outlived the seven.
+    This lists them so the count can be held down rather than discovered later.
+
+    A number is covered when it falls in the window a citation reads backwards,
+    which is how the checker itself decides what a citation refers to, so this
+    agrees with `check_text` by construction rather than by a parallel rule.
+    """
+    covered = set()
+    for found in COMMENT.finditer(text):
+        start = max(0, found.start() - WINDOW)
+        for number in NUMBER.finditer(text[start : found.start()]):
+            covered.add(start + number.start())
+    blanked = COMMENT.sub(lambda m: " " * len(m.group(0)), text)
+    blanked = MARKUP.sub(lambda m: " " * len(m.group(0)), blanked)
+    out = []
+    for number in NUMBER.finditer(blanked):
+        token = number.group(0).strip()
+        if number.start() in covered or BENIGN_NUMBER.match(token.replace(",", "")):
+            continue
+        if "\u00a7" in blanked[max(0, number.start() - 3) : number.start()]:
+            continue  # a section cross-reference, not a value
+        line = blanked.count("\n", 0, number.start()) + 1
+        out.append({"line": line, "number": token})
+    return out
+
+
 def check_documents(paths: list[Path], metrics_path: Path = METRICS) -> dict[str, list[dict]]:
     """Check several documents, returning problems per document."""
     metrics = json.loads(Path(metrics_path).read_text())

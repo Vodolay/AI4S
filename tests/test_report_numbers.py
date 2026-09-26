@@ -190,3 +190,45 @@ def test_an_empty_collection_is_a_pointer_rather_than_a_crash() -> None:
         assert verdict == "pointer"
     verdict, _ = compare("a search that flagged 3 parameters", [])
     assert verdict == "pointer"
+
+
+# Numbers that carry no citation are the claims the apparatus cannot check, and
+# they are where stale figures survive - a "seven parameters" claim outlived the
+# seven that way. These budgets hold the count down so new ones cannot drift in
+# unnoticed. Lower them when a document is cleaned up; never raise one silently.
+UNCITED_BUDGET = {
+    # 70, not the 43 the report carried before the appendices from its first
+    # version were folded in. Those appendices quote intervals and parameter
+    # ranges in prose, and they arrived already uncited; the alternative was to
+    # drop material rather than to inherit its debt. Still well under the 94 the
+    # first version carried, and the budget only ever moves down from here.
+    "TECHNICAL_REPORT.md": 70,
+    "KAGGLE_WRITEUP.md": 10,
+}
+
+
+@pytest.mark.parametrize("document", REPORTS, ids=lambda p: p.name)
+def test_uncited_numbers_do_not_increase(document: Path) -> None:
+    """Every number should be citable; this stops the uncitable ones multiplying."""
+    from neuromps.report.verify import uncited_numbers
+
+    found = uncited_numbers(document.read_text())
+    budget = UNCITED_BUDGET.get(document.name)
+    if budget is None:
+        return  # documents without a budget are not gated, only the submission ones
+    assert len(found) <= budget, (
+        f"{document.name} has {len(found)} uncited numbers, budget {budget}. "
+        f"First few: {[(f['line'], f['number']) for f in found[:5]]}"
+    )
+
+
+def test_the_uncited_check_agrees_with_the_citation_window() -> None:
+    """It must not disagree with `check_text` about what a citation refers to."""
+    from neuromps.report.verify import uncited_numbers
+
+    covered = "The value is 0.537 <!-- metrics.json: some.key --> and that is cited.\n"
+    assert uncited_numbers(covered) == []
+    bare = "The value is 0.537 and nothing points at it.\n"
+    assert [f["number"] for f in uncited_numbers(bare)] == ["0.537"]
+    # A figure width is markup, not a claim.
+    assert uncited_numbers("![A caption. REAL.](../x.png){width=58%}\n") == []

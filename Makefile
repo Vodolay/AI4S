@@ -34,11 +34,6 @@ explainers:
 	       --title "Prediction models, explained" \
 	       --subtitle "A companion to the NeuroMPS technical report, for readers without a machine-learning background" \
 	  || echo "report/MODELLING_FOR_BIOLOGISTS.md not present; skipped"
-	@test -f report/TECH_REPORT_FOR_BIOLOGISTS.md \
-	  && report/build_report.sh --source report/TECH_REPORT_FOR_BIOLOGISTS.md \
-	       --title "NeuroMPS, explained for the bench" \
-	       --subtitle "The technical report for reviewers with wet-lab rather than modelling expertise" \
-	  || echo "report/TECH_REPORT_FOR_BIOLOGISTS.md not present; skipped"
 	@test -f report/APP_WALKTHROUGH.md \
 	  && report/build_report.sh --source report/APP_WALKTHROUGH.md \
 	       --title "The demo app, a walkthrough" \
