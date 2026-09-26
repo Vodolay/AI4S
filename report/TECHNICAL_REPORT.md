@@ -756,10 +756,9 @@ it, and a test fails if any of them drifts from the file. Nothing here was typed
 
 ## 21. AI assistance disclosure
 
-This work was produced in a paired workflow with Anthropic's Claude (Claude Opus 5) via Claude Code.
-The model wrote most of the code, tests and prose here under step-by-step human direction: the human
-set the plan and phase gates, chose the scope, approved each step, and directed the science. Three
-practices kept that honest — numbers are emitted into `metrics.json` and re-checked by
+This work was produced in a paired workflow with Anthropic's Claude Code. The model wrote most of
+the code and tests here under step-by-step human direction: the human set the plan and phase gates,
+chose the scope, approved each step, and directed the science. Three practices kept that honest — numbers are emitted into `metrics.json` and re-checked by
 `neuromps.report.verify` rather than typed; results are reported as observed, including the ones
 that failed; and `report/LAB_NOTEBOOK.md` records what was abandoned.
 
