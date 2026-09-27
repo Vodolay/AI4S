@@ -10,7 +10,12 @@ on:
 # timeout. Supersede rather than pile up; never cancel a run on the default
 # branch, where the result is the record of whether the tree is good.
 concurrency:
-  group: ci-${{ github.ref }}
+  # The event belongs in the key. Without it the push and pull_request runs of
+  # the same commit shared a group and one cancelled the other - a cancelled
+  # check blocks a merge, which is worse than the pile-up this is meant to
+  # prevent. With it, the only thing superseded is an earlier push to the same
+  # branch, which is the intent.
+  group: ci-${{ github.event_name }}-${{ github.ref }}
   cancel-in-progress: ${{ github.ref != 'refs/heads/master' }}
 
 jobs:
