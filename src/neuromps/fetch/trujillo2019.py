@@ -50,7 +50,7 @@ META = {
 
 
 def mat_version(url: str) -> str:
-    """"7.3", "5.0" or "?" - read from the file's 128-byte text header.
+    """ "7.3", "5.0" or "?" - read from the file's 128-byte text header.
 
     This deposit is mixed. Nineteen of the 42 sessions are MATLAB 5, which is
     not HDF5 and cannot be read in place at all: scipy has to have the whole

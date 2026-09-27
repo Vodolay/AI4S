@@ -13,9 +13,9 @@ def _logfile_frame() -> pd.DataFrame:
     """Two header rows then one experiment, shaped like Logfile_EPAv1.xls."""
     row = [None] * 31
     row[0], row[1] = "Domoic Acid ", "102010 15160 10309 DA -- 10309.txt"
-    row[4], row[5] = 300, 3300           # baseline window
-    row[6], row[7], row[8] = 0.01, 3900, 5700     # conc1
-    row[9], row[10], row[11] = 0.1, 6300, 8100    # conc2
+    row[4], row[5] = 300, 3300  # baseline window
+    row[6], row[7], row[8] = 0.01, 3900, 5700  # conc1
+    row[9], row[10], row[11] = 0.1, 6300, 8100  # conc2
     return pd.DataFrame([[None] * 31, [None] * 31, row])
 
 
@@ -64,8 +64,9 @@ def test_spikes_are_cut_to_the_window_and_timed_from_its_start() -> None:
 def test_spikes_between_windows_are_dropped_not_reassigned() -> None:
     """The minutes while a compound is pipetted belong to no concentration."""
     fs = vassallo.SAMPLE_RATE_HZ
-    table = pd.DataFrame({"tick": (np.array([3500.0, 3800.0]) * fs).astype(np.int64),
-                          "channel": [12, 12]})
+    table = pd.DataFrame(
+        {"tick": (np.array([3500.0, 3800.0]) * fs).astype(np.int64), "channel": [12, 12]}
+    )
     assert vassallo.window_spikes(table, 300.0, 3300.0) == {}
     assert vassallo.window_spikes(table, 3900.0, 5700.0) == {}
 
@@ -82,7 +83,13 @@ def test_a_dose_carries_its_mechanism_and_a_baseline_carries_none() -> None:
 
 def test_every_compound_in_the_study_has_a_mechanism() -> None:
     """A missing entry would silently become a null label in the classifier."""
-    expected = {"deltamethrin", "domoic acid", "chlorpyrifos-oxon",
-                "acetaminophen", "glyphosate", "dimethyl phthalate"}
+    expected = {
+        "deltamethrin",
+        "domoic acid",
+        "chlorpyrifos-oxon",
+        "acetaminophen",
+        "glyphosate",
+        "dimethyl phthalate",
+    }
     assert set(vassallo.MECHANISM) == expected
     assert all(vassallo.MECHANISM.values())

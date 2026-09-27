@@ -4,6 +4,15 @@ on:
   push:
   pull_request:
 
+# A push to a branch with an open PR triggers two runs of the same commit, and a
+# second push starts a third while the first two are still going. On a private
+# repository sharing two vCPUs, that is what makes the smoke run miss its
+# timeout. Supersede rather than pile up; never cancel a run on the default
+# branch, where the result is the record of whether the tree is good.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/master' }}
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -19,8 +28,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install torch==2.14.0 --index-url https://download.pytorch.org/whl/cpu
           pip install -e ".[dev]"
+      # One command, the same one a developer runs. When CI checked `ruff check`
+      # and `make lint` also checked `ruff format`, formatting drifted for months
+      # in files nobody linted by hand - and the first thing to fail CI on it was
+      # a generated file. If the two can differ, eventually they will.
       - name: Lint
-        run: ruff check .
+        run: make lint
       - name: Unit tests
         run: pytest -m "not network"
       # Restore and save are split so that only a *successful* run writes the
@@ -91,6 +104,14 @@ jobs:
           curl -fsSL -O "https://github.com/jgm/pandoc/releases/download/${PANDOC_VERSION}/${deb}"
           sudo dpkg -i "${deb}"
           pandoc --version | head -1
+      # The same check the citation apparatus runs locally. A number that drifted
+      # from the metrics is a broken deliverable whether or not the PDF renders,
+      # and finding that out at submission time is too late.
+      - name: Every cited number matches the metrics
+        # Run from the source tree rather than installing: the verifier needs
+        # only the standard library, and `pip install -e .` would pull torch
+        # into a job that exists to render a PDF.
+        run: PYTHONPATH=src python3 -m neuromps.report.verify
       - name: Build the technical report
         run: report/build_report.sh --check-pages 15 20
       - name: Upload the PDF

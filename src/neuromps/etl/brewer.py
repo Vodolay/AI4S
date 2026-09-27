@@ -93,9 +93,9 @@ def _cell(entry) -> object:
 def read_compartment(archive: zipfile.ZipFile, culture: str, region: str) -> tuple[dict, float]:
     """Spike times per electrode (seconds) and the recording duration."""
     member = f"spike_trains_data/{culture}/spikes/mea_{region}.mat"
-    mea = sio.loadmat(
-        io.BytesIO(archive.read(member)), squeeze_me=True, struct_as_record=False
-    )["mea"]
+    mea = sio.loadmat(io.BytesIO(archive.read(member)), squeeze_me=True, struct_as_record=False)[
+        "mea"
+    ]
     sample_rate_hz = float(mea.par.fs)
     names = [str(n) for n in np.atleast_1d(mea.channel_names)]
     spikes, n_samples = {}, 0

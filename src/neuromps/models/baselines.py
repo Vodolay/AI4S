@@ -254,15 +254,14 @@ def plot_comparison(df: pd.DataFrame, path: Path) -> Path:
     return path
 
 
-def compare_groups(df: pd.DataFrame, column: str, left: str, right: str, label: str,
-                   seed: int = 0) -> dict:
+def compare_groups(
+    df: pd.DataFrame, column: str, left: str, right: str, label: str, seed: int = 0
+) -> dict:
     """Per-feature comparison of two groups that differ in `column`, not species."""
     subset = df[df[column].isin([left, right])].copy()
     # Reuse the species machinery by mapping the contrast onto its two sides:
     # the bootstrap asks "left minus right", whatever the sides mean.
-    subset["cell_source.species"] = np.where(
-        subset[column] == left, "human", "rat"
-    )
+    subset["cell_source.species"] = np.where(subset[column] == left, "human", "rat")
     out = compare(subset, label, seed)
     out["contrast"] = {"column": column, "left_as_human": left, "right_as_rat": right}
     return out
@@ -296,9 +295,7 @@ def run(records: pd.DataFrame, seed: int = 0) -> dict:
         "records_by_source": {k: int(v) for k, v in df["source"].value_counts().items()},
         "human_records_by_source": {
             k: int(v)
-            for k, v in df[df["cell_source.species"] == "human"]["source"]
-            .value_counts()
-            .items()
+            for k, v in df[df["cell_source.species"] == "human"]["source"].value_counts().items()
         },
         "vendor_by_species": {
             species: sorted(group["platform.vendor"].dropna().unique())
@@ -344,14 +341,12 @@ def main(argv: list[str] | None = None) -> int:
     records = pd.read_parquet(asset)
     result = run(records, seed=args.seed)
     figure = plot_comparison(
-        baseline_records(records).pipe(
-            lambda d: d[d["platform.vendor"] == "Axion Biosystems"]
-        ),
+        baseline_records(records).pipe(lambda d: d[d["platform.vendor"] == "Axion Biosystems"]),
         figures_dir() / "baseline_species_comparison.png",
     )
-    result["figure"] = str(figure.relative_to(Path.cwd())) if figure.is_relative_to(
-        Path.cwd()
-    ) else str(figure)
+    result["figure"] = (
+        str(figure.relative_to(Path.cwd())) if figure.is_relative_to(Path.cwd()) else str(figure)
+    )
     update_metrics("baseline_activity", result)
     log.info(json.dumps(result["within_vendor"], indent=2, default=str)[:900])
     return 0

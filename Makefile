@@ -2,7 +2,10 @@
 # report/build_report.sh so that CI and a developer run exactly the same thing.
 .PHONY: help report report-check explainers notebook video test lint quick full clean-report
 
-PYTHON ?= .venv/bin/python
+# The project's virtualenv when there is one, otherwise whatever interpreter is
+# on the path. CI has no .venv and a developer does, and hardcoding either meant
+# the two ran different commands - which is how formatting drifted unnoticed.
+PYTHON ?= $(shell test -x .venv/bin/python && echo .venv/bin/python || command -v python3 || command -v python)
 PAGES_MIN ?= 15
 PAGES_MAX ?= 20
 

@@ -299,6 +299,18 @@ def fit_mechanism_model(pairs: pd.DataFrame, alpha: float = 0.1, seed: int = 0) 
     from neuromps.models.conformal import _fit_and_calibrate
     from neuromps.models.dataset import delta_columns
 
+    # An asset with no treated/baseline pairs is what a partial fetch leaves
+    # behind, and it used to reach sklearn as "n_splits=2 greater than the
+    # number of samples: n_samples=0" from three frames down. The demo ships
+    # without a classifier instead, the way it already ships without real
+    # posteriors when the asset holds no two-chamber recordings.
+    if pairs.empty:
+        log.warning(
+            "no treated/baseline pairs in this asset; the demo ships without a classifier. "
+            "On a --quick run this usually means a source was not fetched."
+        )
+        return {}
+
     x = pairs[delta_columns()].to_numpy()
     y = pairs["label"].to_numpy()
     threshold, model = _fit_and_calibrate(x, y, pairs["group"].to_numpy(), alpha, seed)
@@ -454,7 +466,8 @@ def main(argv: list[str] | None = None) -> int:
             "threshold_scale": FIXED_THRESHOLD,
         },
         "posterior_file": str(posterior_path.relative_to(REPO_ROOT)),
-        "conformal_alpha": fitted["alpha"],
+        # None when the asset held no pairs; the app already renders that case.
+        "conformal_alpha": fitted.get("alpha"),
         "timings_s": timings,
         "quick": bool(args.quick),
     }

@@ -109,7 +109,9 @@ def test_a_thin_slice_reports_no_verdict_rather_than_agreement() -> None:
     This is the defect that broke CI: `compare` returns early without a feature
     list when it cannot resample, and the sensitivity check indexed that key.
     """
-    rows = [_record(unit_id="A1"), _record(unit_id="B1", plate_id="h",
-                                           **{"cell_source.species": "human"})]
+    rows = [
+        _record(unit_id="A1"),
+        _record(unit_id="B1", plate_id="h", **{"cell_source.species": "human"}),
+    ]
     result = baselines.run(pd.DataFrame(rows))
     assert result["headline_survives_dropping_exposure_phase_controls"] is None

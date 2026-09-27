@@ -402,9 +402,7 @@ def main(argv: list[str] | None = None) -> int:
     # the set it was designed around, this is where that would show.
     epa = pairs[pairs["source"] == "vassallo2017"]
     if len(epa) >= MIN_PAIRS_FOR_A_TASK:
-        results["task1b_independent_platform"] = summarize(
-            epa, seed=args.seed, quick=args.quick
-        )
+        results["task1b_independent_platform"] = summarize(epa, seed=args.seed, quick=args.quick)
         results["task1b_independent_platform"]["source"] = "vassallo2017"
     contrast = platform_delta_contrast(pairs, "gabaa_antagonist")
     results["task3_platform_contrast"] = contrast

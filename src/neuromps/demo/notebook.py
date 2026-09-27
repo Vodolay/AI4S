@@ -46,23 +46,58 @@ def _md(*lines: str) -> dict:
     return {"cell_type": "markdown", "metadata": {}, "source": [f"{line}\n" for line in lines]}
 
 
+def _as_source_lines(source: str) -> list[str]:
+    """Cell source split the way nbformat stores it: no newline on the last line."""
+    lines = source.strip("\n").splitlines()
+    return [f"{line}\n" for line in lines[:-1]] + lines[-1:] if lines else []
+
+
+def _formatted(source: str) -> str:
+    """Run a cell through `ruff format`, so generated code cannot fail the linter.
+
+    The cells are string literals in this module, and hand-matching them to the
+    formatter is a losing game: the generated notebook is linted like any other
+    file, and a stray blank line in a literal here failed CI while every local
+    check passed. Formatting at generation time removes the class. If ruff is not
+    installed the source is emitted unchanged rather than the build failing.
+    """
+    import subprocess
+    import sys
+
+    # `python -m ruff`, not the `ruff` on PATH: in a virtualenv the binary is in
+    # `.venv/bin` and PATH usually is not set, so a PATH lookup silently skipped
+    # the formatting - and then CI, which does have it, failed on the result.
+    done = subprocess.run(
+        [sys.executable, "-m", "ruff", "format", "--stdin-filename", "cell.py", "-"],
+        input=source,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    return done.stdout if done.returncode == 0 and done.stdout.strip() else source
+
+
 def _code(source: str) -> dict:
     return {
         "cell_type": "code",
         "execution_count": None,
         "metadata": {},
         "outputs": [],
-        "source": [f"{line}\n" for line in source.strip("\n").splitlines()],
+        # nbformat convention: every line ends in a newline except the last.
+        # Appending one to the last line too makes `ruff format --check` want the
+        # file reformatted, which fails CI on a file nothing hand-edits.
+        "source": _as_source_lines(_formatted(source)),
     }
 
 
 SETUP = '''
 # Find the data whether this runs on Kaggle or in a checkout of the repository.
-import json, sys
+import json
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
+
 
 def _find(name, roots=("/kaggle/input", ".", "..", "../..")):
     """First match for `name` under any root. Kaggle mounts datasets under
