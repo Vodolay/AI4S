@@ -201,17 +201,18 @@ positive modulators — which is chemically sensible, and visible in the confusi
 
 ![Task 1 confusion matrix, REAL data: out-of-fold predictions over 73 treated/baseline pairs. Errors concentrate between the two GABA-A classes.](../outputs/figures/mechanism_confusion.png){width=52%}
 
-**On a platform the model has never seen**, the picture changes. Tested on `vassallo2017` — a
-different laboratory, different vendor, six compounds Kapucu never used, 171 pairs
-<!-- metrics.json: mechanism_baselines.task1b_independent_platform.n_pairs --> over 26 chips
-<!-- metrics.json: mechanism_baselines.task1b_independent_platform.n_groups --> in four classes —
-logistic regression reaches 0.333
-<!-- metrics.json: mechanism_baselines.task1b_independent_platform.models.logistic_regression.balanced_accuracy_mean -->
-against a chance of 0.25
-<!-- metrics.json: mechanism_baselines.task1b_independent_platform.chance_balanced_accuracy -->.
+**The same task, re-run on a second laboratory's own data.** `vassallo2017` is a different
+laboratory and vendor, with six compounds Kapucu never used and each baseline on the same chip as
+its doses: 171 pairs <!-- metrics.json: mechanism_baselines.task1b_independent_platform.n_pairs --> over 26 chips
+<!-- metrics.json: mechanism_baselines.task1b_independent_platform.n_groups --> in four classes. Trained and tested within that source by the
+same grouped cross-validation, logistic regression reaches 0.333
+<!-- metrics.json: mechanism_baselines.task1b_independent_platform.models.logistic_regression.balanced_accuracy_mean --> against a chance of
+0.25 <!-- metrics.json: mechanism_baselines.task1b_independent_platform.chance_balanced_accuracy -->, on an interval that contains chance.
 
-That is close to nothing. It is also, we think, the more informative of the two numbers, and it is
-reported rather than buried: **within-platform performance does not transfer.**
+This is **not** a transfer test — nothing trained on Kapucu is applied here, and the two tasks differ
+in class count and compound, so the accuracies are not comparable to each other. What is comparable
+is each against its own chance level: one clears it, the other does not. §6 is where a model trained
+on one laboratory meets another.
 
 **Why we never pooled the platforms into one big training set.** It is tempting, and it would have
 produced a better-looking number. It would also have been meaningless: across the full pool, 97.35%
@@ -222,6 +223,31 @@ of the 9 mechanism classes
 <!-- metrics.json: mechanism_baselines.label_source_confounding.n_labels -->
 appear in one source only. A pooled classifier would score highly by learning which laboratory a
 recording came from. We measured that confound instead of walking into it.
+
+**The structural reason, and a test built around it.** The obstacle is sharper than that
+percentage: the largest number of mechanism classes any two laboratories have in common is 1
+<!-- metrics.json: cross_lab_transfer.max_classes_shared_by_any_two_laboratories -->, and a classifier needs two to
+discriminate between. Leave-one-laboratory-out cross-validation cannot be constructed here at all.
+
+What can be built is a deliberately confounded test. Three classes appear in more than one source
+and all three appear in `kapucu2022`; train there on 20 pairs
+<!-- metrics.json: cross_lab_transfer.n_train --> and test on the other laboratories' versions of the same three,
+535 pairs <!-- metrics.json: cross_lab_transfer.n_test -->. In that test set each class comes from exactly one
+laboratory — a correspondence of 1.0
+<!-- metrics.json: cross_lab_transfer.label_source_correspondence --> — so a model reading laboratory identity
+alone would score perfectly. Only a **low** score is interpretable, and that is the point: the
+confound is helping.
+
+It scores 0.3482 <!-- metrics.json: cross_lab_transfer.balanced_accuracy -->, 95% CI [0.278, 0.4082]
+<!-- metrics.json: cross_lab_transfer.balanced_accuracy_ci95 -->, against a chance of 0.3333
+<!-- metrics.json: cross_lab_transfer.chance -->. Indistinguishable from guessing, with the confound available.
+
+**The control that makes it mean something.** Twenty training pairs is few, so failure could be the
+sample size rather than the change of laboratory. Scoring the same classes and the same 20 pairs
+*inside* Kapucu by grouped cross-validation gives 0.5833
+<!-- metrics.json: cross_lab_transfer.within_source_control.balanced_accuracy -->. Same data, same classes, same
+size: the model learns something when no laboratory is crossed and nothing when one is. That
+separates the two explanations, and it is stronger evidence than the confound statistic on its own.
 
 ---
 
