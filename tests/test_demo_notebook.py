@@ -237,3 +237,18 @@ def test_the_generated_notebook_passes_the_linter() -> None:
     for command in ([*ruff, "check", str(path)], [*ruff, "format", "--check", str(path)]):
         done = subprocess.run(command, capture_output=True, text=True)
         assert done.returncode == 0, f"{' '.join(command)}:\n{done.stdout}{done.stderr}"
+
+
+def test_an_asset_with_no_pairs_skips_the_classifier_rather_than_crashing() -> None:
+    """A partial fetch leaves an asset with no treated/baseline pairs.
+
+    That used to reach sklearn three frames down as "n_splits=2 greater than the
+    number of samples: n_samples=0", which says nothing about the cause. CI hit
+    it on a run whose fetch returned less than the previous run's. The demo ships
+    without a classifier instead, which is the contract the app already handles.
+    """
+    import pandas as pd
+
+    from neuromps.demo.precompute import fit_mechanism_model
+
+    assert fit_mechanism_model(pd.DataFrame()) == {}
