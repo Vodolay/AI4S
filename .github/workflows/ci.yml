@@ -19,9 +19,14 @@ concurrency:
   cancel-in-progress: ${{ github.ref != 'refs/heads/master' }}
 
 jobs:
+  # Lint and unit tests are split from the smoke run because they fail for
+  # unrelated reasons and, run together, shared a single budget: a 25-minute
+  # inner bound on the smoke run inside a 30-minute job left five minutes for
+  # everything else, so the job died whenever the runner was slow rather than
+  # whenever the code was wrong. Split, they also run in parallel.
   test:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -33,14 +38,32 @@ jobs:
           python -m pip install --upgrade pip
           pip install torch==2.14.0 --index-url https://download.pytorch.org/whl/cpu
           pip install -e ".[dev]"
-      # One command, the same one a developer runs. When CI checked `ruff check`
-      # and `make lint` also checked `ruff format`, formatting drifted for months
-      # in files nobody linted by hand - and the first thing to fail CI on it was
-      # a generated file. If the two can differ, eventually they will.
       - name: Lint
+        # One command, the same one a developer runs. When CI checked
+        # `ruff check` and `make lint` also checked `ruff format`, formatting
+        # drifted for months in files nobody linted by hand - and the first
+        # thing to fail CI on it was a generated file. If the two can differ,
+        # eventually they will.
         run: make lint
       - name: Unit tests
         run: pytest -m "not network"
+
+  smoke:
+    # `run_all.py --quick` end to end. Its own job, so a slow runner costs it
+    # time rather than costing the unit tests their result.
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - name: Install (CPU-only torch to avoid multi-GB CUDA wheels)
+        run: |
+          python -m pip install --upgrade pip
+          pip install torch==2.14.0 --index-url https://download.pytorch.org/whl/cpu
+          pip install -e ".[dev]"
       # Restore and save are split so that only a *successful* run writes the
       # cache. A run whose fetch was refused by a host leaves a partial
       # data/raw behind, and caching that tree made every later run start from
@@ -53,19 +76,15 @@ jobs:
           path: data/raw
           key: raw-${{ hashFiles('src/neuromps/fetch/**') }}
       - name: Smoke run (quick)
-        # The project's promise is that --quick finishes inside ten minutes on
-        # a CPU, and it does on the development machine: 401 s. This runner is
-        # not that machine. A private repository gets **two** shared vCPUs, so
-        # `worker_processes` correctly asks for 2 where the development machine
-        # uses 16, and the twin stage - four serial Brian2 runs plus the draws -
-        # takes most of the budget on its own. Measured here: fetch 105 s, data
-        # 113 s, models 42 s before the twin starts.
-        #
-        # So the bound is sized to the machine rather than to the promise. It
-        # is still a bound, and its job is to catch a stage that has stopped
-        # terminating rather than one that is merely slow. The honest number
-        # for a reader is in the report: 401 s here, about 800 s there.
-        run: timeout 1500 python run_all.py --quick
+        # The project's promise is ten minutes on a CPU, and it holds on the
+        # development machine: 401 s over 16 cores. A private repository gets
+        # two shared vCPUs, and a contended runner has taken more than twice
+        # that. The bound is sized to the machine, not to the promise, and its
+        # job is to catch a stage that has stopped terminating rather than one
+        # that is merely slow. It sits well inside the job timeout so that a
+        # slow run reports *which* stage overran instead of the job dying
+        # first.
+        run: timeout 2100 python run_all.py --quick
       - name: Save raw downloads
         if: success() && steps.raw_downloads.outputs.cache-hit != 'true'
         uses: actions/cache/save@v4
