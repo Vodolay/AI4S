@@ -57,6 +57,7 @@ def main(argv: list[str] | None = None) -> int:
             from neuromps.models.axonal import main as run_axonal
             from neuromps.models.baselines import main as run_baselines
             from neuromps.models.conformal import main as run_uncertainty
+            from neuromps.models.cross_lab import main as run_cross_lab
             from neuromps.models.dose_response import main as run_dose_response
             from neuromps.models.extractor_agreement import main as run_extractor_agreement
             from neuromps.models.mechanism import main as run_models
@@ -77,6 +78,7 @@ def main(argv: list[str] | None = None) -> int:
             run_models(quick)
             run_transfer(quick)
             run_uncertainty(quick)
+            run_cross_lab(quick)
             run_baselines(quick)
             run_tunnels(quick)
             # Ground truth for the tunnel result: the axons themselves.

@@ -1310,6 +1310,44 @@
       "test": "Mann-Whitney U, two-sided, one value per device"
     }
   },
+  "cross_lab_transfer": {
+    "balanced_accuracy": 0.3482,
+    "balanced_accuracy_ci95": [
+      0.278,
+      0.4082
+    ],
+    "chance": 0.3333,
+    "classes": [
+      "gabaa_agonist_or_pam",
+      "gabaa_antagonist",
+      "glutamatergic_agonist"
+    ],
+    "confound_ceiling": 1.0,
+    "interpretable": true,
+    "label": "REAL pairs, trained on one laboratory and tested on the others",
+    "label_source_correspondence": 1.0,
+    "max_classes_shared_by_any_two_laboratories": 1,
+    "n_test": 535,
+    "n_train": 20,
+    "predicted_counts": {
+      "gabaa_agonist_or_pam": 2,
+      "gabaa_antagonist": 415,
+      "glutamatergic_agonist": 118
+    },
+    "reads_as": "Each test class comes from one laboratory, so laboratory identity alone would score perfectly and only a low score carries information. This score is low: the model failed although the confound was helping it.",
+    "recall_by_class": {
+      "gabaa_agonist_or_pam": 0.1538,
+      "gabaa_antagonist": 0.7706,
+      "glutamatergic_agonist": 0.12
+    },
+    "train_source": "kapucu2022",
+    "within_source_control": {
+      "balanced_accuracy": 0.5833,
+      "n_pairs": 20,
+      "n_splits": 3,
+      "reads_as": "same classes and sample size, no laboratory crossed; compare with the cross-laboratory score to separate small-sample failure from laboratory shift"
+    }
+  },
   "data_asset": {
     "counts": {
       "by_data_level": {
