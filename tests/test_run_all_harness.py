@@ -13,8 +13,9 @@ from pathlib import Path
 
 import pytest
 
-import run_all
-from neuromps import paths
+from neuromps import harness, paths
+
+STAGES = ["fetch", "data", "models", "twin", "demo"]
 
 
 @pytest.fixture
@@ -35,7 +36,7 @@ def test_a_quick_run_records_its_wall_clock_where_the_report_can_cite_it(
     canonical: Path,
 ) -> None:
     """The timing lands in the full root, under a key that names its tier."""
-    run_all._record_harness({"models": 64.9}, 412.2, quick=True, stages=list(run_all.STAGES))
+    harness.record({"models": 64.9}, 412.2, quick=True, stages=STAGES, all_stages=STAGES)
     recorded = json.loads(canonical.read_text())["harness_quick"]
     assert recorded["total_s"] == 412.2
     assert recorded["total_is_complete_pass"] is True
@@ -45,7 +46,7 @@ def test_a_quick_run_records_its_wall_clock_where_the_report_can_cite_it(
 
 def test_a_quick_run_touches_no_other_key_in_the_full_metrics(canonical: Path) -> None:
     """The exception is one key. Any result it reached would be a reduced-tier number."""
-    run_all._record_harness({"models": 64.9}, 412.2, quick=True, stages=list(run_all.STAGES))
+    harness.record({"models": 64.9}, 412.2, quick=True, stages=STAGES, all_stages=STAGES)
     recorded = json.loads(canonical.read_text())
     assert recorded["mechanism_baselines"] == {"balanced_accuracy": 0.537}
     assert set(recorded) == {"mechanism_baselines", "harness_quick"}
@@ -53,8 +54,8 @@ def test_a_quick_run_touches_no_other_key_in_the_full_metrics(canonical: Path) -
 
 def test_a_partial_run_does_not_shrink_the_end_to_end_timing(canonical: Path) -> None:
     """`--stage models` must not leave the appendix claiming the pipeline takes a minute."""
-    run_all._record_harness({"models": 64.9}, 412.2, quick=True, stages=list(run_all.STAGES))
-    run_all._record_harness({"models": 61.0}, 61.0, quick=True, stages=["models"])
+    harness.record({"models": 64.9}, 412.2, quick=True, stages=STAGES, all_stages=STAGES)
+    harness.record({"models": 61.0}, 61.0, quick=True, stages=["models"], all_stages=STAGES)
     recorded = json.loads(canonical.read_text())["harness_quick"]
     assert recorded["total_s"] == 412.2, "a one-stage run replaced the end-to-end figure"
     assert recorded["by_stage_s"]["models"] == 61.0, "the stage's own time should update"
@@ -65,4 +66,24 @@ def test_the_pinned_versions_are_read_from_what_actually_imported() -> None:
     """Reading pyproject would let the appendix describe an environment that never ran."""
     import numpy
 
-    assert run_all._pinned_versions()["numpy"] == numpy.__version__
+    assert harness.pinned_versions()["numpy"] == numpy.__version__
+
+
+def test_the_tier_is_named_in_the_key() -> None:
+    """A full run and a quick run must not overwrite each other's wall clock."""
+    assert harness.key_for(quick=True) != harness.key_for(quick=False)
+    quick_key, _ = harness.harness_record({}, 1.0, True, STAGES, STAGES)
+    full_key, _ = harness.harness_record({}, 1.0, False, STAGES, STAGES)
+    assert quick_key == "harness_quick" and full_key == "harness_full"
+
+
+def test_run_all_delegates_rather_than_keeping_its_own_copy() -> None:
+    """These functions moved into the package so they could be imported by a test.
+
+    `import run_all` only worked because `python -m pytest` puts the working
+    directory on the path; CI calls `pytest` directly, where it does not, and the
+    module failed to import there.
+    """
+    source = (Path(__file__).resolve().parents[1] / "run_all.py").read_text()
+    assert "harness.record(" in source
+    assert "def _pinned_versions" not in source, "the copy in run_all.py came back"

@@ -10,10 +10,10 @@ whose numbers the report cites. See :mod:`neuromps.paths`.
 
 import argparse
 import logging
-import os
 import sys
 import time
 
+from neuromps import harness
 from neuromps.paths import FULL, QUICK, outputs_dir, processed_dir, set_run_mode
 
 STAGES = ["fetch", "data", "models", "twin", "demo"]
@@ -129,7 +129,7 @@ def main(argv: list[str] | None = None) -> int:
     elapsed = round(time.time() - t0, 1)
     logging.info("run_all finished in %.1f s; results in %s", elapsed, outputs_dir())
     _record_timings(timings, elapsed, quick=args.quick, stages=stages)
-    _record_harness(timings, elapsed, quick=args.quick, stages=stages)
+    harness.record(timings, elapsed, quick=args.quick, stages=stages, all_stages=STAGES)
     return 0
 
 
@@ -162,72 +162,6 @@ def _record_timings(timings: dict, elapsed: float, quick: bool, stages: list[str
             "by_stage_s": merged,
             "stages_run": list(stages),
         },
-    )
-
-
-def _pinned_versions() -> dict[str, str]:
-    """The versions this run actually imported, not the ones pyproject asks for.
-
-    The report states the pins in its reproducibility appendix. Reading them from
-    the installed distributions means the appendix describes the environment that
-    produced the numbers beside it, and cannot drift from it.
-    """
-    import platform
-    from importlib.metadata import PackageNotFoundError, version
-
-    pinned = {"python": platform.python_version()}
-    for package in ("numpy", "brian2", "torch", "sbi", "scikit-learn"):
-        try:
-            pinned[package.replace("-", "_")] = version(package)
-        except PackageNotFoundError:  # an environment without the optional stack
-            continue
-    return pinned
-
-
-def _record_harness(timings: dict, elapsed: float, quick: bool, stages: list[str]) -> None:
-    """Record what the harness itself cost, in the metrics root the report cites.
-
-    The reproducibility appendix quotes a wall-clock time and the pinned versions
-    it ran under. Neither had a key, which made them the only numbers in a
-    document that promises every number has one that nothing could check - and
-    the one place a stale figure could outlive a rebuild.
-
-    This writes to the FULL metrics.json from either tier. That is the single
-    deliberate exception to the quick run's isolation, and a narrow one: the key
-    names its tier, only that key is touched, and a test holds it to that. How
-    long the harness takes is a property of the harness, not a result of the data
-    tier, so a quick run reporting its own wall clock overwrites nothing.
-
-    ``total_s`` is only replaced by a run that executed every stage. A partial
-    run - ``--stage models`` while debugging - updates its own stage time and
-    leaves the end-to-end figure the report cites alone, rather than quietly
-    reducing it to the length of one stage.
-    """
-    import json
-
-    from neuromps.metrics import update_metrics
-    from neuromps.paths import full_run_equivalent, metrics_path
-
-    canonical = full_run_equivalent(metrics_path())
-    key = "harness_quick" if quick else "harness_full"
-    previous = json.loads(canonical.read_text()).get(key, {}) if canonical.exists() else {}
-    merged = {**previous.get("by_stage_s", {}), **timings}
-    complete = set(stages) >= set(STAGES)
-    update_metrics(
-        key,
-        {
-            "label": (
-                f"wall clock and environment for the most recent complete "
-                f"{'--quick' if quick else 'full'} run"
-            ),
-            "total_s": elapsed if complete else previous.get("total_s"),
-            "total_is_complete_pass": complete or bool(previous.get("total_is_complete_pass")),
-            "by_stage_s": merged,
-            "stages_run": list(stages),
-            "cpu_count": os.cpu_count(),
-            **_pinned_versions(),
-        },
-        path=canonical,
     )
 
 
