@@ -13,6 +13,7 @@ import logging
 import sys
 import time
 
+from neuromps import harness
 from neuromps.paths import FULL, QUICK, outputs_dir, processed_dir, set_run_mode
 
 STAGES = ["fetch", "data", "models", "twin", "demo"]
@@ -88,6 +89,7 @@ def main(argv: list[str] | None = None) -> int:
             # the case on the quick tier.
             run_microchannels(quick)
         elif stage == "twin":
+            from neuromps.report.diagrams import main as draw_model_diagrams
             from neuromps.twin.calibrate import main as calibrate_twin
             from neuromps.twin.delta_inference import main as run_delta_inference
             from neuromps.twin.depression import main as run_depression
@@ -109,6 +111,10 @@ def main(argv: list[str] | None = None) -> int:
             # baseline, rather than to one recording's absolute features.
             run_delta_inference(quick)
             run_directionality(quick)
+            # Last, because the three model diagrams quote the calibration and the
+            # inference this stage has just written, as well as the classifier the
+            # models stage wrote before it.
+            draw_model_diagrams(quick)
         elif stage == "demo":
             from neuromps.demo.precompute import main as precompute_demo
 
@@ -123,6 +129,7 @@ def main(argv: list[str] | None = None) -> int:
     elapsed = round(time.time() - t0, 1)
     logging.info("run_all finished in %.1f s; results in %s", elapsed, outputs_dir())
     _record_timings(timings, elapsed, quick=args.quick, stages=stages)
+    harness.record(timings, elapsed, quick=args.quick, stages=stages, all_stages=STAGES)
     return 0
 
 

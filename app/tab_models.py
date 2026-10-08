@@ -1,4 +1,4 @@
-"""Tab 2: mechanism prediction with a conformal set, and the transfer results."""
+"""Tab 1: mechanism prediction with a conformal set, and the transfer results."""
 
 from __future__ import annotations
 
@@ -19,11 +19,26 @@ def render(stamps: dict[str, float]) -> None:
     if not fitted:
         st.warning(loaders.MISSING_DEMO)
         return
+    _model_diagram()
     left, right = st.columns([1, 1])
     with left:
         _prediction_panel(fitted, stamps)
     with right:
         _transfer_panel(metrics)
+
+
+def _model_diagram() -> None:
+    """What the classifier is, before the panel that runs it."""
+    figure = loaders.diagram("mechanism_classifier_real.png")
+    if figure is None:
+        return
+    with st.container(border=True):
+        st.image(str(figure), width="stretch")
+        st.caption(
+            "One linear model over nine paired log-ratios. Cross-validation groups by culture, "
+            "which is why the accuracy below is lower than most published numbers and why it is "
+            "the honest one. Drawn by `neuromps.report.diagrams` from `outputs/metrics.json`."
+        )
 
 
 def _prediction_panel(fitted: dict, stamps: dict[str, float]) -> None:

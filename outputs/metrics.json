@@ -1800,6 +1800,32 @@
       "reading": "no feature moves monotonically with dose after correction, so there is no dose signal in these summaries for any estimator to recover"
     }
   },
+  "harness_quick": {
+    "brian2": "2.9.0",
+    "by_stage_s": {
+      "data": 55.4,
+      "demo": 40.7,
+      "fetch": 16.0,
+      "models": 88.2,
+      "twin": 344.3
+    },
+    "cpu_count": 20,
+    "label": "wall clock and environment for the most recent complete --quick run",
+    "numpy": "2.3.5",
+    "python": "3.11.16",
+    "sbi": "0.27.0",
+    "scikit_learn": "1.9.1",
+    "stages_run": [
+      "fetch",
+      "data",
+      "models",
+      "twin",
+      "demo"
+    ],
+    "torch": "2.14.0",
+    "total_is_complete_pass": true,
+    "total_s": 544.7
+  },
   "mechanism_baselines": {
     "label_source_confounding": {
       "by_label": {

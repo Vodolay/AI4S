@@ -1,6 +1,6 @@
 # Convenience targets. The build steps themselves live in run_all.py and
 # report/build_report.sh so that CI and a developer run exactly the same thing.
-.PHONY: help report report-check explainers notebook video test lint quick full clean-report
+.PHONY: help report report-check report-latex explainers notebook video test lint quick full clean-report
 
 # The project's virtualenv when there is one, otherwise whatever interpreter is
 # on the path. CI has no .venv and a developer does, and hardcoding either meant
@@ -19,11 +19,20 @@ help:
 	@echo "make notebook      write the Kaggle notebook and stage its dataset"
 	@echo "make test / lint   pytest / ruff"
 
+# The technical report is the Word build: it carries the table design a reviewer
+# asked for, and the PDF is LibreOffice's rendering of that .docx, so the two
+# cannot drift apart. build_report.sh is the LaTeX path, kept for the companions
+# below and as a second opinion; it writes to the SAME TECHNICAL_REPORT.pdf, so
+# do not run it expecting the Word one to survive.
 report:
-	report/build_report.sh
+	report/build_docx.sh
 
 report-check:
-	report/build_report.sh --check-pages $(PAGES_MIN) $(PAGES_MAX)
+	report/build_docx.sh --check-pages $(PAGES_MIN) $(PAGES_MAX)
+
+report-latex:
+	report/build_report.sh --output report/TECHNICAL_REPORT_latex.pdf \
+	  --check-pages $(PAGES_MIN) $(PAGES_MAX)
 
 # The two plain-language companions. Gitignored, so this target does nothing on a
 # clone that does not have them; it is here so the invocation does not have to be

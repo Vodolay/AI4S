@@ -45,15 +45,60 @@ def test_each_shot_says_something() -> None:
         assert shot.seconds >= 5
 
 
-def test_the_plan_sections_are_all_covered() -> None:
-    sections = {shot.section for shot in SHOTS}
-    assert {
+def test_the_running_order_covers_every_act() -> None:
+    """The sections, and the order they appear in.
+
+    PLAN.md budgeted this as problem, data, transfer, twin, reproducibility. The
+    running order was deliberately rebalanced: the models lead, the data asset
+    follows rather than opening, and the time cut from the asset went into the
+    three model diagrams. Changing it again should be a decision, not a drift.
+    """
+    order = list(dict.fromkeys(shot.section for shot in SHOTS if shot.section))
+    assert order == [
         "Problem",
-        "Data asset & standard",
-        "Transfer",
-        "Twin & inference",
+        "Mechanism",
+        "Twin",
+        "Inversion",
+        "Data asset",
         "Reproducibility",
-    } <= sections
+    ]
+
+
+def test_the_models_get_more_time_than_the_data_asset() -> None:
+    """The rebalance this running order exists for, held in place by a number."""
+    spend = {}
+    for shot in SHOTS:
+        spend[shot.section] = spend.get(shot.section, 0) + shot.seconds
+    models = spend["Mechanism"] + spend["Twin"] + spend["Inversion"]
+    assert models >= 3 * spend["Data asset"], (models, spend["Data asset"])
+
+
+def test_each_model_diagram_gets_a_shot_of_its_own() -> None:
+    """The three diagrams are the point of this cut; a dropped one should fail here."""
+    from neuromps.video import shots as shot_module
+
+    wanted = {
+        shot_module.CLASSIFIER_DIAGRAM,
+        shot_module.TWIN_DIAGRAM,
+        shot_module.INVERSION_DIAGRAM,
+    }
+    shown = {shot.image for shot in SHOTS if shot.image in wanted}
+    assert shown == wanted, sorted(wanted - shown)
+
+
+def test_the_diagrams_are_used_as_files_not_cropped_out_of_a_screenshot() -> None:
+    """Screenshotting a diagram the app rendered meant racing the app's slowest panel.
+
+    The video kept catching a half-painted page. The diagrams are generated PNGs
+    already, so the video uses the original and the race disappears.
+    """
+    from neuromps.video import shots as shot_module
+
+    for name in ("CLASSIFIER_DIAGRAM", "TWIN_DIAGRAM", "INVERSION_DIAGRAM"):
+        path = getattr(shot_module, name)
+        assert path.startswith("outputs/figures/"), path
+        matching = [shot for shot in SHOTS if shot.image == path]
+        assert matching and all(shot.crop is None for shot in matching), path
 
 
 def test_the_numbers_come_from_metrics_not_from_the_script() -> None:
@@ -88,3 +133,17 @@ def test_the_encoder_is_wired_to_ffmpeg() -> None:
     source = (REPO_ROOT / "src" / "neuromps" / "video" / "build.py").read_text()
     assert '"ffmpeg"' in source
     assert "libx264" in source
+
+
+def test_the_live_simulation_gets_a_frame() -> None:
+    """The claim that the twin is a simulator needs the frame that shows it running.
+
+    This still is the one a screenshot tool cannot take by clicking. It is
+    reachable because `?live=1` runs the simulation on load and the result is
+    cached on its parameter tuple, so the capture script pays for Brian2 on a
+    warm-up load and photographs the cached render.
+    """
+    live = [shot for shot in SHOTS if shot.image == "outputs/video/stills/twin_live.png"]
+    assert len(live) == 1, "the live Brian2 frame is missing"
+    assert live[0].section == "Twin"
+    assert "wall clock" in live[0].caption

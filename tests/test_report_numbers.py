@@ -202,7 +202,9 @@ UNCITED_BUDGET = {
     # ranges in prose, and they arrived already uncited; the alternative was to
     # drop material rather than to inherit its debt. Still well under the 94 the
     # first version carried, and the budget only ever moves down from here.
-    "TECHNICAL_REPORT.md": 70,
+    # 32, down from 70, after the report was rewritten in the v3 structure with
+    # a citation attached to every value carried over from it.
+    "TECHNICAL_REPORT.md": 32,
     "KAGGLE_WRITEUP.md": 10,
 }
 

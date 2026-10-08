@@ -1393,3 +1393,62 @@ gate at 20 pages of main matter, which needed a historical paragraph moved into 
 [the open PR](https://github.com/Vodolay/AI4S/pull/1), whose description predates the whole
 downstream re-run. Then the author's four, unchanged: team tables, demo video link, make the
 repository public, submit the registration form.
+
+## 2026-10-07: Phase 4, HD18 (branch `word-report-and-demo-refresh`)
+
+### Done
+
+**The report builds in Word, and the PDF is a rendering of it.** A reviewer's Word export read
+better than the LaTeX build - filled table headers, striped rows - but it had been edited by hand
+and had drifted: §5 had lost its three closing paragraphs with the whole cross-laboratory test,
+Appendix I had lost four of the nine searched parameters, Appendix D&E had lost the cache-meaning
+invariant, and Appendix M quoted the dose series at 30 µM, which is neither its endpoint nor its
+maximum. `neuromps.report.docx` keeps the design and throws away the fork: it renders the same
+Markdown `report.verify` checks, into `report/reference.docx` (that export with its body emptied),
+and `report/build_docx.sh` converts with LibreOffice. 22 pages, 16 of main matter, all 11 figures.
+`make report` is now the Word path; the LaTeX one is `make report-latex` and writes to its own file,
+because both used to target the same PDF.
+
+**Three defects in that renderer, two of which failed silently.** `tblPr` has a mandatory element
+order, and an out-of-sequence `tblBorders` made LibreOffice discard every computed column width - the
+tables looked untouched through two builds. The template's `List Bullet` style carries no numbering,
+so style-only bullets rendered as bare indents. And a citation ending a line was treated as a
+multi-line comment, deleting the line break and welding the next line on ("0.48at 100 µM"). All
+three have tests; the last was swept for across the whole rebuilt PDF.
+
+**Timings and pinned versions have a metrics key.** They were the only numbers in a document that
+promises every number has one that nothing could check. `run_all.py` now writes `harness_quick` /
+`harness_full` into the canonical metrics root - the one deliberate exception to the quick run's
+isolation, fenced by four tests including one that a quick run touches no other key, and one that a
+partial `--stage` run cannot shrink the end-to-end figure. Appendix J gained the pooled Kruskal p
+(0.63969, not the 0.6400 the fork carried) and the dropout event counts; Appendix M now quotes the
+whole dose series rather than stopping at its rising midpoint.
+
+**Three model diagrams, drawn from the metrics.** `neuromps.report.diagrams` emits the classifier
+(paired wells → nine log-ratios → logistic regression → six classes, with the culture-grouped folds
+drawn), the twin (two chambers, axon diode, electrode catchments against the pitch) and the
+inversion (prior → twin → summaries → posterior estimator, with the rank-uniformity gate). Six tests
+hold them to the metrics, including one that changes a value and asserts the picture changes.
+
+**The app leads with the models.** Tabs are now Mechanism, Twin, Data asset; the data tab's schema
+walkthrough and provenance narrative moved behind an expander. Deep links are slugs (`?tab=twin`)
+because the numbers moved. A frozen caption was found and fixed: the posterior panel still claimed
+"only `threshold_scale` is well identified (contraction 0.8)", and the density correction had made
+both halves of that wrong.
+
+**The video is recut and its stills regenerate.** 20 shots, 4:45. Data is down from 55 s to 26 s, the
+Tukker/Mateus licence card is gone, and the three diagrams carry the middle. `neuromps.video.stills`
+drives headless Chrome instead of the hand-capture that let the old stills survive a density fix, a
+cross-laboratory result and an inference re-run while showing numbers the report had stopped making.
+It warms up, retries, and checks how far down each page actually painted - which caught a blank
+skeleton frame and a page that had rendered one column. The live Brian2 frame is reachable because
+`?live=1` runs it on load, gated on a server-side opt-in so that following that link to a deployed
+app still costs a visitor nothing.
+
+### Not done
+- `report/OLD_TECHNICAL_REPORT.pdf` is untracked and left alone; delete it when you are sure.
+- PLAN.md still states the old video budget (60 s data, 60 s transfer). The running order departed
+  from it deliberately and a test documents the departure, but the plan was not edited.
+
+**Next first task.** Open the PR for this branch. Then the author's four, unchanged: team tables,
+demo video link, make the repository public, submit the registration form.

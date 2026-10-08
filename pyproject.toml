@@ -30,7 +30,12 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["pytest==9.1.1", "ruff==0.16.7"]
+dev = [
+    "pytest==9.1.1",
+    "ruff==0.16.7",
+    "python-docx==1.2.0",  # render report/TECHNICAL_REPORT.md into the Word house style;
+                           # the PDF is then produced from the .docx by LibreOffice
+]
 
 [tool.setuptools.packages.find]
 where = ["src"]

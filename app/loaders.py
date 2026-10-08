@@ -63,6 +63,17 @@ def run_root_note() -> str:
     )
 
 
+def diagram(name: str) -> Path | None:
+    """A generated model diagram, or None when the figures have not been drawn.
+
+    The three diagrams are written by `neuromps.report.diagrams` during the twin
+    stage. A clone that has not run the pipeline has the metrics but not the
+    figures, and the app should say so rather than break.
+    """
+    candidate = FIGURES / name
+    return candidate if candidate.exists() else None
+
+
 MISSING_DEMO = (
     "The demo inputs are missing. Run `python run_all.py --quick` (or "
     "`python run_all.py --stage demo`) to precompute them."

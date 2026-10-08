@@ -1,4 +1,4 @@
-"""Tab 1: the data asset and the standard it validates against."""
+"""Tab 3: the data asset and the standard it validates against."""
 
 from __future__ import annotations
 
@@ -42,11 +42,15 @@ def render(stamps: dict[str, float]) -> None:
     else:
         _records_table(records)
     st.divider()
-    left, right = st.columns(2)
-    with left:
-        _schema_panel(stamps)
-    with right:
-        _provenance_panel(metrics, stamps)
+    # The standard and the provenance machinery are what make the asset worth
+    # having, and they are also the part a first-time reader does not need open.
+    # They are one click away rather than occupying the page.
+    with st.expander("The standard, and how provenance is enforced"):
+        left, right = st.columns(2)
+        with left:
+            _schema_panel(stamps)
+        with right:
+            _provenance_panel(metrics, stamps)
 
 
 def _dataset_card(metrics: dict) -> None:
