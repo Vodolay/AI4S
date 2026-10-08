@@ -1446,9 +1446,21 @@ skeleton frame and a page that had rendered one column. The live Brian2 frame is
 app still costs a visitor nothing.
 
 ### Not done
-- `report/OLD_TECHNICAL_REPORT.pdf` is untracked and left alone; delete it when you are sure.
-- PLAN.md still states the old video budget (60 s data, 60 s transfer). The running order departed
-  from it deliberately and a test documents the departure, but the plan was not edited.
+- CI gates the LaTeX build (`.github/workflows/ci.yml`), not the Word one that is now the
+  deliverable. It passes at 20 main-matter pages, but switching it over means installing LibreOffice
+  on the runner - a real cost on every push, and not a decision to make quietly.
+- The `--quick` wall clock is not stable on the development machine: three runs of identical code
+  gave 401.0 s, 544.7 s and 613.3 s, and the slowest crossed the ten minutes CLAUDE.md promises.
+  Appendix K says so rather than quoting the best of the three. The twin stage is 63% of the
+  runtime, so its `--quick` draw count is the lever if the promise is to be defended instead.
 
-**Next first task.** Open the PR for this branch. Then the author's four, unchanged: team tables,
-demo video link, make the repository public, submit the registration form.
+Merged as [#4](https://github.com/Vodolay/AI4S/pull/4). CI caught three defects the local suite did
+not, two of them because the local environment was lying: `import run_all` resolved only under
+`python -m pytest`, and `outputs/quick/metrics.json` still carried a calibration key from a run made
+when the full data was present, so the local quick tier was not a quick tier. The third was a write
+across the quick/full boundary that the smoke job's `git diff --exit-code` refused.
+
+`report/OLD_TECHNICAL_REPORT.pdf` deleted; PLAN.md's video budget updated to the one that was built.
+
+**Next first task.** The author's four, unchanged: team tables, demo video link, make the repository
+public, submit the registration form.
