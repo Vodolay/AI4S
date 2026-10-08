@@ -876,12 +876,14 @@ confound is measurable and reported: chips with fewer propagation events look mo
 like. Condition is also confounded with culture batch by the deposit's own design
 <!-- metrics.json: microchannel_directionality.batch_confound -->.
 
-**Appendix K.** `--quick` completes end to end in 401.0 s
+**Appendix K.** `--quick` completes end to end in 544.7 s
 <!-- metrics.json: harness_quick.total_s --> on a workstation CPU with 20 cores
 <!-- metrics.json: harness_quick.cpu_count -->, and in under twenty minutes on a
 dual-vCPU CI runner; the two differ because `worker_processes` correctly asks for the cores it is
 given. That figure is written by the run itself, and only by a run that executed every stage, so a
-partial re-run cannot quietly reduce it. The longest stage is the twin at 259.6 s
+partial re-run cannot quietly reduce it. It is one measurement rather than a bound: repeat runs on
+the same machine vary with whatever else that machine is doing, and the slowest we have seen crossed
+ten minutes. The longest stage is the twin at 344.3 s
 <!-- metrics.json: harness_quick.by_stage_s.twin -->. Full reproduction runs through
 `python run_all.py` after a full data-tier fetch. The environment is pinned in `pyproject.toml` and
 recorded from what actually imported: Python `3.11.16` <!-- metrics.json: harness_quick.python -->,

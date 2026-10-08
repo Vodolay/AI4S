@@ -1803,11 +1803,11 @@
   "harness_quick": {
     "brian2": "2.9.0",
     "by_stage_s": {
-      "data": 36.7,
-      "demo": 32.1,
-      "fetch": 6.4,
-      "models": 66.1,
-      "twin": 259.6
+      "data": 55.4,
+      "demo": 40.7,
+      "fetch": 16.0,
+      "models": 88.2,
+      "twin": 344.3
     },
     "cpu_count": 20,
     "label": "wall clock and environment for the most recent complete --quick run",
@@ -1824,7 +1824,7 @@
     ],
     "torch": "2.14.0",
     "total_is_complete_pass": true,
-    "total_s": 401.0
+    "total_s": 544.7
   },
   "mechanism_baselines": {
     "label_source_confounding": {
