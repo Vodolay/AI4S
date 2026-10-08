@@ -17,6 +17,7 @@ package metadata, not copied by hand.
 | `pandas` | 3.0.5 | BSD License |
 | `pyarrow` | 25.0.1 | Apache-2.0 |
 | `pytest` | 9.1.1 | MIT |
+| `python-docx` | 1.2.0 | MIT License |
 | `requests` | 2.34.2 | Apache Software License |
 | `ruff` | 0.16.7 | MIT |
 | `sbi` | 0.27.0 | Apache Software License |
