@@ -50,7 +50,21 @@ ATTEMPTS = 6
 # the simulation and the shot that counts renders from the cache.
 STILLS = {
     "models.png": ("?tab=models", SETTLE_MS, 1700, 0),
-    "twin.png": ("?tab=twin", SETTLE_MS, 1600, 0),
+    # 2200, not 1600: at 1600 the gate accepted a twin tab whose posterior panel
+    # had not rendered, because the feature strip above it already cleared the
+    # bar. A depth target has to sit below the LAST thing on the page, not below
+    # whatever happens to be tall.
+    # 1850 is a ceiling, not a preference. At 1600 the gate accepted a twin tab
+    # whose feature strip had rendered and whose posterior panel had not, because
+    # the strip alone cleared the bar. Raising it to 2200 revealed that the
+    # posterior panel never paints under headless Chrome at all: it is the last
+    # matplotlib figure in that column, and the capture plateaus at row 1894
+    # whatever the virtual-clock budget or the warm-up pause. The panel is fine
+    # in a real browser - AppTest renders it and its caption - so this is a limit
+    # of the capture tool. The gate sits just below the reachable depth so that a
+    # genuinely partial render still fails, and app/README.md says what the
+    # screenshot is missing rather than implying it shows the whole tab.
+    "twin.png": ("?tab=twin", SETTLE_MS, 1850, 15),
     "twin_live.png": ("?tab=twin&live=1", SETTLE_MS, 2200, 20),
     "data.png": ("?tab=data", SETTLE_MS, 1500, 0),
 }
