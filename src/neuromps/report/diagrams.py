@@ -31,10 +31,22 @@ PANEL = "#FFFFFF"
 SHADE = "#DCEBF7"
 WARN = "#FBE3D6"
 
+# figure -> (drawing function, the top-level metrics keys it needs).
+#
+# The requirement is declared rather than discovered, because the quick tier does
+# not fetch `screenneuropharm_bic` and so never calibrates: `twin_hd12_calibration`
+# is simply absent there, and the twin stage already falls back to the full run's
+# calibration file for everything else. A diagram whose tier has no numbers is
+# skipped out loud. A diagram whose numbers are present but malformed still
+# raises - that distinction is the point, and collapsing it would turn a stale
+# figure into a silent one.
 FIGURES = {
-    "mechanism_classifier_real.png": "draw_classifier",
-    "twin_architecture_simulated.png": "draw_twin",
-    "inference_network_simulated.png": "draw_inference",
+    "mechanism_classifier_real.png": ("draw_classifier", ("mechanism_baselines",)),
+    "twin_architecture_simulated.png": (
+        "draw_twin",
+        ("twin_hd12_calibration", "twin_hd13_perturbation"),
+    ),
+    "inference_network_simulated.png": ("draw_inference", ("twin_hd14_inference",)),
 }
 
 
@@ -563,7 +575,11 @@ def main(argv: list[str] | None = None) -> int:
     parser.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
     metrics = json.loads(metrics_path().read_text())
-    for name, function in FIGURES.items():
+    for name, (function, required) in FIGURES.items():
+        missing = [key for key in required if key not in metrics]
+        if missing:
+            log.warning("skipping %s: this run's metrics have no %s", name, ", ".join(missing))
+            continue
         globals()[function](metrics, figures_dir() / name)
     return 0
 
