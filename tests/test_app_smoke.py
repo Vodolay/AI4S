@@ -46,12 +46,37 @@ def test_the_app_runs_without_raising(app: AppTest) -> None:
     assert app.exception == [], [str(e.value) for e in app.exception]
 
 
-def test_the_three_tabs_are_present(app: AppTest) -> None:
+def test_the_tabs_are_in_the_order_the_app_declares(app: AppTest) -> None:
+    """The models lead and the asset follows; the order is the app's, not a guess."""
+    from app.app import TABS
+
     labels = [tab.label for tab in app.tabs]
-    assert len(labels) == 3
-    assert "Data asset" in labels[0]
-    assert "Mechanism" in labels[1]
-    assert "twin" in labels[2].lower()
+    assert labels == [label for _, label in TABS]
+    assert "Mechanism" in labels[0]
+    assert "twin" in labels[1].lower()
+    assert "Data asset" in labels[2]
+
+
+@pytest.mark.parametrize("slug,expected", [("models", 0), ("twin", 1), ("data", 2)])
+def test_a_tab_can_be_deep_linked_by_slug(slug: str, expected: int) -> None:
+    """The video screenshots one tab at a time, and the numbers moved when the order did."""
+    from app.app import TABS
+
+    at = AppTest.from_file(str(APP), default_timeout=120)
+    at.query_params["tab"] = slug
+    at.run()
+    assert at.exception == [], [str(e.value) for e in at.exception]
+    assert at.tabs == [], "a deep link should render one tab, not the tab strip"
+    assert TABS[expected][1] in [s.value for s in at.subheader]
+
+
+def test_an_unknown_tab_value_falls_back_to_the_full_strip() -> None:
+    """A stale link must not render a blank page."""
+    at = AppTest.from_file(str(APP), default_timeout=120)
+    at.query_params["tab"] = "provenance"
+    at.run()
+    assert at.exception == []
+    assert len(at.tabs) == 3
 
 
 def test_the_research_use_banner_is_shown(app: AppTest) -> None:
@@ -131,11 +156,33 @@ def test_switching_to_manual_features_exposes_one_slider_per_feature() -> None:
 
 
 def test_the_live_simulation_is_not_wired_into_page_load() -> None:
-    """Brian2 must never run as a side effect of opening the app."""
+    """Brian2 must never run as a side effect of opening the app.
+
+    `?live=1` exists so the demo video's capture script can photograph the panel,
+    and it is inert unless the server was started with the opt-in set. Opening
+    the app, or following that link to a deployed one, must still cost nothing.
+    """
     source = (REPO_ROOT / "app" / "tab_twin.py").read_text()
     call = source.index("loaders.live_simulation")
-    guard = source.index('if not st.button("Run one live simulation')
+    guard = source.index('clicked = st.button("Run one live simulation')
     assert guard < call, "the live run must sit behind the button"
+    assert 'os.environ.get(LIVE_ON_LOAD_ENV, "") != "1"' in source, (
+        "the URL alone must not be able to start a simulation"
+    )
+
+
+def test_the_url_alone_does_not_start_a_simulation(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Without the server-side opt-in, `?live=1` is ignored."""
+    from app.tab_twin import LIVE_ON_LOAD_ENV
+
+    monkeypatch.delenv(LIVE_ON_LOAD_ENV, raising=False)
+    at = AppTest.from_file(str(APP), default_timeout=120)
+    at.query_params["tab"] = "twin"
+    at.query_params["live"] = "1"
+    at.run()
+    assert at.exception == []
+    reported = " ".join(element.value for element in at.success)
+    assert "wall clock" not in reported, "a link started a Brian2 run"
 
 
 @needs_demo
@@ -158,3 +205,25 @@ def test_brian2_runs_in_its_own_interpreter() -> None:
     source = (REPO_ROOT / "app" / "loaders.py").read_text()
     assert "subprocess.run" in source
     assert "neuromps.demo.simulate_one" in source
+
+
+@needs_demo
+def test_the_live_simulation_can_be_asked_for_by_url(monkeypatch: pytest.MonkeyPatch) -> None:
+    """With the opt-in set, `?live=1` runs it without a click.
+
+    That is how the video gets its frame. Without it the still has to be captured
+    by hand, and a hand-captured still is one that stays on disk through the next
+    correction - which is exactly what happened to the first set.
+    """
+    from app.tab_twin import LIVE_ON_LOAD_ENV
+
+    monkeypatch.setenv(LIVE_ON_LOAD_ENV, "1")
+    at = AppTest.from_file(str(APP), default_timeout=300)
+    at.query_params["tab"] = "twin"
+    at.query_params["live"] = "1"
+    at.run()
+    assert at.exception == [], [str(e.value) for e in at.exception]
+    text = " ".join(element.value for element in at.success) + " ".join(
+        element.value for element in at.error
+    )
+    assert "wall clock" in text or "Brian2" in text, "the live run did not report back"

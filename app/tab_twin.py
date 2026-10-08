@@ -1,6 +1,8 @@
-"""Tab 3: the digital twin, its posterior, and what it does on real recordings."""
+"""Tab 2: the digital twin, its posterior, and what it does on real recordings."""
 
 from __future__ import annotations
+
+import os
 
 import numpy as np
 import pandas as pd
@@ -23,12 +25,40 @@ def render(stamps: dict[str, float]) -> None:
     if grid.empty or not meta:
         st.warning(loaders.MISSING_DEMO)
         return
+    _architecture_diagram()
     point, run = _slider_panel(grid, meta)
     _simulation_panel(point, run, meta, stamps)
     st.divider()
+    _inversion_diagram()
     _real_recordings_panel(stamps)
     st.divider()
     _directionality_panel(stamps)
+
+
+def _architecture_diagram() -> None:
+    """What the twin is, before the sliders that move it."""
+    figure = loaders.diagram("twin_architecture_simulated.png")
+    if figure is None:
+        return
+    with st.container(border=True):
+        st.image(str(figure), width="stretch")
+        st.caption(
+            "The sliders below move the two knobs marked inferred, plus the spike threshold. "
+            "Every other value shown is the calibrated draw, read from `outputs/metrics.json`."
+        )
+
+
+def _inversion_diagram() -> None:
+    """What inference does, before the posteriors it produces."""
+    figure = loaders.diagram("inference_network_simulated.png")
+    if figure is None:
+        return
+    with st.container(border=True):
+        st.image(str(figure), width="stretch")
+        st.caption(
+            "The same twin, run backwards. Two of the five parameters fail the rank-uniformity "
+            "check, so their intervals below are shown but are not claimed to be calibrated."
+        )
 
 
 def _slider_panel(grid: pd.DataFrame, meta: dict) -> tuple[pd.Series, dict]:
@@ -90,10 +120,34 @@ def _simulation_panel(point: pd.Series, run: dict, meta: dict, stamps: dict[str,
                     shown, real, "SIMULATED features against the REAL baseline distribution"
                 )
             )
-        _posterior_panel(run, meta)
+        _posterior_panel(run, meta, stamps)
 
 
-def _posterior_panel(run: dict, meta: dict) -> None:
+def _identifiability_note(metrics: dict) -> str:
+    """What the posterior may be read as, written from the metrics not from memory.
+
+    This caption used to say "only threshold_scale is well identified
+    (contraction 0.8)". The density correction changed both halves of that: the
+    contraction is no longer 0.8 and three parameters now pass, not one. A
+    sentence the checker cannot see is a sentence that outlives its result.
+    """
+    inference = metrics.get("twin_hd14_inference", {})
+    contraction = inference.get("contraction", {})
+    ks_p = inference.get("rank_uniformity_ks_p", {})
+    if not contraction or not ks_p:
+        return "Posterior diagnostics are not in this run's metrics."
+    passing = sorted(name for name, value in ks_p.items() if value["ks_p"] > 0.05)
+    failing = sorted(name for name, value in ks_p.items() if value["ks_p"] <= 0.05)
+    best = max(contraction, key=lambda name: contraction[name]["contraction"])
+    return (
+        f"{len(passing)} of {len(ks_p)} parameters pass the rank-uniformity check; "
+        f"`{'`, `'.join(failing)}` do not, so their intervals are shown but are not "
+        f"calibrated. The tightest posterior is `{best}` at contraction "
+        f"{contraction[best]['contraction']}. The twin supports a contrast, not a measurement."
+    )
+
+
+def _posterior_panel(run: dict, meta: dict, stamps: dict[str, float]) -> None:
     """Posterior marginals for this run, with the generating values marked."""
     names = meta["parameter_names"]
     st.pyplot(
@@ -104,15 +158,39 @@ def _posterior_panel(run: dict, meta: dict) -> None:
             "SIMULATED: posterior given this run (dashed = value that generated it)",
         )
     )
-    st.caption(
-        "HD14: only `threshold_scale` is well identified (contraction 0.8). The connectivity "
-        "parameters stay wide, which is why the twin supports a contrast, not a measurement."
-    )
+    st.caption(_identifiability_note(loaders.load_metrics(stamps["metrics"])))
+
+
+# Opening a page must never cost a visitor four seconds of CPU, so `?live=1` is
+# inert unless the server was started with this set. The capture script sets it
+# on the server it starts itself; a deployed app does not, and the query
+# parameter then does nothing at all.
+LIVE_ON_LOAD_ENV = "NEUROMPS_ALLOW_LIVE_ON_LOAD"
+
+
+def _live_requested() -> bool:
+    """Whether `?live=1` asks for the simulation to run without a click.
+
+    A screenshot tool cannot press a button, and the demo video wants a frame of
+    this panel. The run is cached on its parameter tuple, so a capture script can
+    load the page twice: the first load pays for Brian2, the second renders from
+    the cache fast enough to be photographed. Moving a slider still runs it fresh.
+
+    This is gated on the environment rather than on the URL alone, because a URL
+    is exactly how a visitor would trip it by accident.
+    """
+    if os.environ.get(LIVE_ON_LOAD_ENV, "") != "1":
+        return False
+    value = st.query_params.get("live")
+    if isinstance(value, (list, tuple)):
+        value = value[0] if value else None
+    return str(value).strip().lower() in {"1", "true", "yes"}
 
 
 def _live_run(point: pd.Series) -> None:
     """One real Brian2 run at the current values, so the demo is not canned."""
-    if not st.button("Run one live simulation (Brian2)", type="primary"):
+    clicked = st.button("Run one live simulation (Brian2)", type="primary")
+    if not clicked and not _live_requested():
         return
     with st.spinner("Running Brian2..."):
         result = loaders.live_simulation(

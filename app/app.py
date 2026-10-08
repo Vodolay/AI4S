@@ -45,17 +45,36 @@ BANNER = (
 )
 
 
-def _requested_tab() -> str | None:
-    """The `?tab=` value, as a string.
+# Slug per tab, in display order. The slugs exist because the numbers moved:
+# the data tab was first and is now last, so `?tab=1` no longer means what it
+# meant in an older screenshot caption. A slug says which tab it wants.
+TABS = (
+    ("models", "1 · Mechanism & transfer"),
+    ("twin", "2 · Digital twin & inference"),
+    ("data", "3 · Data asset & standard"),
+)
 
-    The running server hands back a string; the AppTest harness hands back a
-    list of strings. Accepting only one of those silently disables the deep link
-    in whichever context was not checked.
+
+def _requested_tab() -> int | None:
+    """The index the `?tab=` value asks for, or None.
+
+    Accepts a slug or a 1-based number. The running server hands the value back
+    as a string; the AppTest harness hands back a list of strings, and accepting
+    only one of those silently disables the deep link in whichever context was
+    not checked.
     """
     value = st.query_params.get("tab")
     if isinstance(value, (list, tuple)):
         value = value[0] if value else None
-    return str(value) if value is not None else None
+    if value is None:
+        return None
+    value = str(value).strip().lower()
+    for index, (slug, _) in enumerate(TABS):
+        if value == slug:
+            return index
+    if value.isdigit() and 1 <= int(value) <= len(TABS):
+        return int(value) - 1
+    return None
 
 
 def main() -> None:
@@ -75,20 +94,18 @@ def main() -> None:
     if stamps["demo"] == 0.0:
         st.info(loaders.MISSING_DEMO)
 
-    renderers = [
-        ("1 · Data asset & standard", tab_data.render),
-        ("2 · Mechanism & transfer", tab_models.render),
-        ("3 · Digital twin & inference", tab_twin.render),
-    ]
-    # `?tab=2` renders one tab on its own. Streamlit tabs cannot be selected
+    # The models lead and the asset follows: a reader wants to know what was
+    # found before how the records were shelved.
+    renderers = [tab_models.render, tab_twin.render, tab_data.render]
+    # `?tab=twin` renders one tab on its own. Streamlit tabs cannot be selected
     # programmatically, so this is what makes a tab linkable - and screenshottable.
     requested = _requested_tab()
-    if requested in {"1", "2", "3"}:
-        label, render = renderers[int(requested) - 1]
-        st.subheader(label)
-        render(stamps)
+    if requested is not None:
+        st.subheader(TABS[requested][1])
+        renderers[requested](stamps)
         return
-    for tab, (_, render) in zip(st.tabs([label for label, _ in renderers]), renderers, strict=True):
+    labels = [label for _, label in TABS]
+    for tab, render in zip(st.tabs(labels), renderers, strict=True):
         with tab:
             render(stamps)
 
