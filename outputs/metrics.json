@@ -2710,9 +2710,14 @@
         "chance_balanced_accuracy": 0.2,
         "human_within": {
           "balanced_accuracy": 0.646,
+          "balanced_accuracy_ci95": [
+            0.483,
+            0.78
+          ],
           "balanced_accuracy_sd": 0.139,
           "n": 32,
           "n_splits": 4,
+          "pooled_out_of_fold_balanced_accuracy": 0.647,
           "repeats": 5
         },
         "rat_to_human": {
@@ -2727,9 +2732,14 @@
         },
         "rat_within": {
           "balanced_accuracy": 0.543,
+          "balanced_accuracy_ci95": [
+            0.458,
+            0.7
+          ],
           "balanced_accuracy_sd": 0.067,
           "n": 37,
           "n_splits": 2,
+          "pooled_out_of_fold_balanced_accuracy": 0.543,
           "repeats": 5
         },
         "shared_labels": [
@@ -2745,9 +2755,14 @@
         "chance_balanced_accuracy": 0.2,
         "human_within": {
           "balanced_accuracy": 0.646,
+          "balanced_accuracy_ci95": [
+            0.483,
+            0.78
+          ],
           "balanced_accuracy_sd": 0.139,
           "n": 32,
           "n_splits": 4,
+          "pooled_out_of_fold_balanced_accuracy": 0.647,
           "repeats": 5
         },
         "rat_to_human": {
@@ -2762,9 +2777,14 @@
         },
         "rat_within": {
           "balanced_accuracy": 0.543,
+          "balanced_accuracy_ci95": [
+            0.458,
+            0.7
+          ],
           "balanced_accuracy_sd": 0.067,
           "n": 37,
           "n_splits": 2,
+          "pooled_out_of_fold_balanced_accuracy": 0.543,
           "repeats": 5
         },
         "shared_labels": [
@@ -2780,9 +2800,14 @@
         "chance_balanced_accuracy": 0.2,
         "human_within": {
           "balanced_accuracy": 0.646,
+          "balanced_accuracy_ci95": [
+            0.483,
+            0.78
+          ],
           "balanced_accuracy_sd": 0.139,
           "n": 32,
           "n_splits": 4,
+          "pooled_out_of_fold_balanced_accuracy": 0.647,
           "repeats": 5
         },
         "rat_to_human": {
@@ -2797,9 +2822,14 @@
         },
         "rat_within": {
           "balanced_accuracy": 0.543,
+          "balanced_accuracy_ci95": [
+            0.458,
+            0.7
+          ],
           "balanced_accuracy_sd": 0.067,
           "n": 37,
           "n_splits": 2,
+          "pooled_out_of_fold_balanced_accuracy": 0.543,
           "repeats": 5
         },
         "shared_labels": [
@@ -3757,6 +3787,14 @@
     }
   },
   "twin_hd14_inference": {
+    "amortized_inference": {
+      "forward_simulated_duration_s": 10.0,
+      "forward_simulation_seconds": 6.69,
+      "median_seconds_per_posterior": 0.3061,
+      "n_observations": 20,
+      "posterior_draws": 1000,
+      "torch_threads": 20
+    },
     "contraction": {
       "ampa_scale": {
         "contraction": 0.599,
@@ -3783,6 +3821,14 @@
         "posterior_sd": 0.0294,
         "prior_sd": 0.0866
       }
+    },
+    "density_estimator": {
+      "family": "masked autoregressive flow",
+      "hidden_units_per_layer": 50,
+      "n_autoregressive_transforms": 5,
+      "n_parameters": 34550,
+      "n_permutations": 5,
+      "requested": "maf"
     },
     "fraction_silent_simulations": 0.0,
     "label": "SIMULATED - inference trained on simulations only",

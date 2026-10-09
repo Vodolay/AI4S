@@ -319,3 +319,53 @@ def test_the_reader_still_refuses_a_stale_cache_outright() -> None:
     from neuromps.twin import real_inference
 
     assert "check_cache_matches_code(cached)" in inspect.getsource(real_inference.main)
+
+
+class _CountingPosterior:
+    """Stands in for a trained posterior: records what it was asked for."""
+
+    def __init__(self) -> None:
+        self.calls: list[int] = []
+
+    def sample(self, shape, x, show_progress_bars=False):  # noqa: ARG002
+        import torch
+
+        self.calls.append(shape[0])
+        return torch.zeros((shape[0], len(PARAMETER_NAMES)))
+
+
+def test_amortized_timing_asks_every_observation_for_the_stated_draws() -> None:
+    """The report quotes seconds per posterior; it must be per observation, at that size."""
+    from neuromps.twin.inference import amortized_timing
+
+    posterior = _CountingPosterior()
+    out = amortized_timing(posterior, np.zeros((7, len(SUMMARY_NAMES))), n_draws=250)
+    assert posterior.calls == [250] * 7
+    assert out["n_observations"] == 7 and out["posterior_draws"] == 250
+    assert out["median_seconds_per_posterior"] >= 0
+    assert "forward_simulation_seconds" not in out  # nothing simulated, nothing claimed
+
+
+def test_amortized_timing_times_the_simulator_only_when_given_one() -> None:
+    """The comparison is the point: a posterior against one run of the simulator."""
+    from neuromps.twin.inference import amortized_timing
+
+    ran = []
+    out = amortized_timing(
+        _CountingPosterior(),
+        np.zeros((2, len(SUMMARY_NAMES))),
+        simulate=lambda: ran.append(True),
+        simulated_s=10.0,
+    )
+    assert ran == [True]
+    assert out["forward_simulation_seconds"] >= 0
+    assert out["forward_simulated_duration_s"] == 10.0
+
+
+def test_a_full_run_records_the_timing_with_the_other_results() -> None:
+    """Recorded only by a separate command, a full rerun would silently drop it."""
+    import inspect
+
+    from neuromps.twin import inference
+
+    assert '"amortized_inference": amortized_timing(' in inspect.getsource(inference.main)

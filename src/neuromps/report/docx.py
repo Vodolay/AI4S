@@ -79,7 +79,7 @@ class Body:
     """A paragraph, a bullet, or a numbered item, already joined from its lines."""
 
     text: str
-    kind: str = "paragraph"  # paragraph | bullet | ordered | quote
+    kind: str = "paragraph"  # paragraph | bullet | ordered | quote | display
     marker: str = ""  # the glyph drawn in the hanging indent, for list items
 
 
@@ -103,9 +103,11 @@ Block = Heading | Body | Table | Figure
 
 # --- parsing ------------------------------------------------------------------
 
-OPENS_WITH_PUNCTUATION = re.compile(r"^[ \t]*[,.;:)%]")
+# Not a fenced-div fence, which also opens with a colon and must stay on its own line.
+OPENS_WITH_PUNCTUATION = re.compile(r"^[ \t]*(?!:::)[,.;:)%]")
 IMAGE = re.compile(r"^!\[(?P<caption>.*)\]\((?P<path>[^)]+)\)(?:\{width=(?P<width>\d+)%\})?\s*$")
-INLINE = re.compile(r"(\*\*.+?\*\*|\*.+?\*|`[^`]+`)", re.S)
+# Bold, italic, code, and Pandoc's `~subscript~`, which takes no whitespace.
+INLINE = re.compile(r"(\*\*.+?\*\*|\*.+?\*|`[^`]+`|~[^~\s]+~)", re.S)
 TABLE_RULE = re.compile(r"^\|[\s:|-]*-[\s:|-]*\|\s*$")
 NUMERIC_CELL = re.compile(r"^[\d\s.,%±+\-−–—()\[\]/:µ]*\d[\d\s.,%±+\-−–—()\[\]/:µ]*$")
 
@@ -162,6 +164,7 @@ def parse_blocks(text: str) -> list[Block]:
     buffer: list[str] = []
     kind, marker = "paragraph", ""
     rows: list[tuple[str, ...]] = []
+    display = False  # inside a `::: equation` div
 
     def close_table() -> None:
         if rows:
@@ -181,6 +184,11 @@ def parse_blocks(text: str) -> list[Block]:
         elif match := re.match(r"^(#{1,6}) (.+)$", stripped):
             _flush(buffer, kind, blocks, marker)
             blocks.append(Heading(len(match.group(1)), match.group(2).strip()))
+        elif stripped.startswith(":::"):
+            # Pandoc's fenced div: `::: equation` opens a displayed line, `:::` closes it.
+            _flush(buffer, kind, blocks, marker)
+            display = stripped[3:].strip() == "equation"
+            kind, marker = ("display" if display else "paragraph"), ""
         elif image := IMAGE.match(stripped):
             _flush(buffer, kind, blocks, marker)
             width = int(image.group("width") or 100) / 100
@@ -196,7 +204,7 @@ def parse_blocks(text: str) -> list[Block]:
             buffer.append(match.group(2))
         else:
             if not buffer:
-                kind, marker = "paragraph", ""
+                kind, marker = ("display" if display else "paragraph"), ""
             buffer.append(stripped)
     _flush(buffer, kind, blocks, marker)
     close_table()
@@ -235,13 +243,24 @@ def add_rich_text(
         bold = piece.startswith("**")
         italic = not bold and piece.startswith("*")
         code = piece.startswith("`")
-        run = paragraph.add_run(piece.strip("*`"))
+        run = paragraph.add_run(_plain(piece))
         colour = LEAD_IN_RGB if (bold and first and lead_in) else rgb
         _style_run(run, size=size, rgb=colour, bold=bold, italic=italic)
         if code:
             run.font.name = CODE_FONT
             run.font.size = Pt(size - 1)
+        run.font.subscript = _is_subscript(piece) or None
         first = False
+
+
+def _is_subscript(piece: str) -> bool:
+    """Whether an `INLINE` piece is a `~subscript~` span."""
+    return len(piece) > 2 and piece[0] == piece[-1] == "~"
+
+
+def _plain(piece: str) -> str:
+    """The text of an `INLINE` piece without its markup."""
+    return piece[1:-1] if _is_subscript(piece) else piece.strip("*`")
 
 
 def _shade(cell: _Cell, fill: str) -> None:
@@ -296,7 +315,7 @@ def _measure(text: str) -> tuple[float, float]:
     for piece in INLINE.split(text):
         if not piece:
             continue
-        plain = piece.strip("*`")
+        plain = _plain(piece)
         advance = CODE_CHAR_IN if piece.startswith("`") else CHAR_IN
         total += len(plain) * advance
         for word in plain.split():
@@ -386,6 +405,11 @@ def render_body(document: Document, body: Body, subtitle: bool) -> None:
         paragraph.paragraph_format.left_indent = Inches(0.3)
         paragraph.paragraph_format.first_line_indent = Inches(-0.18)
         _style_run(paragraph.add_run(f"{body.marker}\t"), size=BODY_PT, rgb=BODY_RGB)
+    if body.kind == "display":
+        paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        paragraph.paragraph_format.space_before = Pt(2)
+        add_rich_text(paragraph, body.text, size=BODY_PT + 1, lead_in=False)
+        return
     if body.kind == "quote":
         paragraph.paragraph_format.left_indent = Inches(0.25)
         add_rich_text(paragraph, body.text, size=BODY_PT, rgb=SUBTITLE_RGB, lead_in=False)
@@ -400,14 +424,25 @@ def render_body(document: Document, body: Body, subtitle: bool) -> None:
     add_rich_text(paragraph, body.text)
 
 
-def _fill_cell(cell: _Cell, text: str, *, header: bool, band: bool, first_column: bool) -> None:
-    """One table cell, in the header band or a body row."""
+def _is_centred(text: str) -> bool:
+    """Numbers, dashes and empty cells are centred; prose is set left."""
+    plain = re.sub(r"[*`]", "", text)
+    return bool(NUMERIC_CELL.match(plain)) or plain in {"", "—"}
+
+
+def _fill_cell(
+    cell: _Cell, text: str, *, header: bool, band: bool, first_column: bool, centre: bool
+) -> None:
+    """One table cell, in the header band or a body row.
+
+    A header follows its column (`centre`): a centred label over left-set prose
+    reads as misaligned, which is how a reviewer described the team table.
+    """
     _shade(cell, HEADER_FILL if header else (BAND_FILL if band else PLAIN_FILL))
     cell.vertical_alignment = 1  # WD_ALIGN_VERTICAL.CENTER
     paragraph = cell.paragraphs[0]
     paragraph.paragraph_format.space_after = Pt(0)
-    plain = re.sub(r"[*`]", "", text)
-    if header or NUMERIC_CELL.match(plain) or plain in {"", "—"}:
+    if centre if header else _is_centred(text):
         paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
     rgb = HEADER_RGB if header else BODY_RGB
     add_rich_text(paragraph, text, size=TABLE_PT, rgb=rgb, lead_in=False)
@@ -433,6 +468,8 @@ def render_table(document: Document, block: Table) -> None:
     table.alignment = WD_TABLE_ALIGNMENT.CENTER
     _outer_border_only(table)
     _apply_widths(table, column_shares(rows))
+    body = rows[1:] if has_header else rows
+    centred = [all(_is_centred(row[column]) for row in body) for column in range(len(rows[0]))]
     for index, source in enumerate(rows):
         header = has_header and index == 0
         band = bool((index - (1 if has_header else 0)) % 2)
@@ -443,6 +480,7 @@ def render_table(document: Document, block: Table) -> None:
                 header=header,
                 band=band,
                 first_column=column == 0 and not header,
+                centre=centred[column],
             )
     for index, row in enumerate(table.rows):
         _keep_row_whole(row, with_next=index < len(table.rows) - 1)
@@ -460,6 +498,9 @@ def render_figure(document: Document, figure: Figure, source: Path, number: int)
     holder.alignment = WD_ALIGN_PARAGRAPH.CENTER
     holder.paragraph_format.space_before = Pt(6)
     holder.paragraph_format.space_after = Pt(2)
+    # An image at the foot of a page with its caption at the top of the next
+    # reads as two unrelated things; the first full build did exactly that.
+    holder.paragraph_format.keep_with_next = True
     holder.add_run().add_picture(str(resolved), width=Inches(TEXT_WIDTH_IN * figure.width_fraction))
     caption = document.add_paragraph()
     caption.alignment = WD_ALIGN_PARAGRAPH.CENTER
@@ -513,8 +554,6 @@ def _render_contents(document: Document, blocks: list[Block]) -> None:
             for line_number, line in enumerate(text.split("\n")):
                 paragraph = cell.paragraphs[0] if line_number == 0 else cell.add_paragraph()
                 paragraph.paragraph_format.space_after = Pt(0)
-                if header:
-                    paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
                 run = paragraph.add_run(line)
                 _style_run(
                     run,
@@ -526,6 +565,18 @@ def _render_contents(document: Document, blocks: list[Block]) -> None:
         _keep_row_whole(row, with_next=index < len(table.rows) - 1)
     _repeat_header(table.rows[0])
     document.add_paragraph().add_run().add_break(WD_BREAK.PAGE)
+
+
+def _keep_with_what_it_introduces(document: Document, blocks: list[Block], index: int) -> None:
+    """Hold a paragraph to the table or figure that follows it.
+
+    Tables are kept whole, so a long one jumps to the next page and leaves the
+    sentence introducing it - and the heading above that - stranded at the foot
+    of the previous one. Two appendices came out that way.
+    """
+    following = blocks[index + 1] if index + 1 < len(blocks) else None
+    if isinstance(following, (Table, Figure)):
+        document.paragraphs[-1].paragraph_format.keep_with_next = True
 
 
 def render(source: Path, template: Path, output: Path) -> Path:
@@ -548,6 +599,7 @@ def render(source: Path, template: Path, output: Path) -> Path:
             seen_title = True
         elif isinstance(block, Body):
             render_body(document, block, subtitle=index == 1)
+            _keep_with_what_it_introduces(document, blocks, index)
         elif isinstance(block, Table):
             render_table(document, block)
         else:

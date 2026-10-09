@@ -39,6 +39,7 @@ DEFAULT_N_PER_COMPARTMENT = 250
 log = logging.getLogger("neuromps.twin")
 REPO_ROOT = Path(__file__).resolve().parents[3]
 POSTERIOR_NAME = "hd14_posterior_simulated.pt"
+DENSITY_ESTIMATOR = "maf"  # a masked autoregressive flow
 
 PARAMETER_NAMES = (
     "log10_forward_ratio",
@@ -397,12 +398,138 @@ def run_simulations(
     return theta[usable], x[usable]
 
 
+def estimator_architecture(posterior) -> dict:
+    """The density estimator inside a trained posterior, read off the network itself.
+
+    Recorded from the artifact rather than from the call that built it, so what
+    the report states is what was trained - including after a library upgrade.
+    """
+    flow = getattr(posterior.posterior_estimator, "net", posterior.posterior_estimator)
+    kinds = [type(module).__name__ for module in flow.modules()]
+    made = [module for module in flow.modules() if type(module).__name__ == "MADE"]
+    widths = sorted(
+        {
+            int(layer.weight.shape[0])
+            for block in made
+            for layer in block.modules()
+            if type(layer).__name__ == "MaskedLinear"
+        }
+    )
+    return {
+        "family": "masked autoregressive flow",
+        "requested": DENSITY_ESTIMATOR,
+        "n_autoregressive_transforms": kinds.count("MaskedAffineAutoregressiveTransform"),
+        "n_permutations": kinds.count("RandomPermutation"),
+        "hidden_units_per_layer": max(widths) if widths else None,
+        "n_parameters": int(sum(t.numel() for t in flow.parameters())),
+    }
+
+
+TIMING_DRAWS = 1000
+TIMING_OBSERVATIONS = 20
+SIMULATED_S = 10.0  # the duration every full-tier training simulation runs for
+
+
+def holdout_size(n_simulations: int) -> int:
+    """Simulations held out from training: a tenth, and never fewer than twenty."""
+    return max(20, int(0.1 * n_simulations))
+
+
+def amortized_timing(
+    posterior,
+    observations: np.ndarray,
+    simulate=None,
+    simulated_s: float | None = None,
+    n_draws: int = TIMING_DRAWS,
+) -> dict:
+    """Wall-clock cost of a full posterior once the estimator is trained.
+
+    The point of amortized inference is that the simulator is not run again: a
+    new recording costs one pass through the flow and the sampling. Timed per
+    held-out observation and summarised by the median, so one slow first call
+    does not set the figure. When a simulator is given it is timed once beside
+    it, so the two costs can be put side by side. A wall clock depends on the
+    machine, so the thread count is recorded with it.
+    """
+    import time
+
+    import torch
+
+    seconds = []
+    for observation in observations:
+        start = time.perf_counter()
+        posterior.sample(
+            (n_draws,),
+            x=torch.as_tensor(observation, dtype=torch.float32),
+            show_progress_bars=False,
+        )
+        seconds.append(time.perf_counter() - start)
+    out = {
+        "posterior_draws": int(n_draws),
+        "n_observations": len(seconds),
+        "median_seconds_per_posterior": round(float(np.median(seconds)), 4),
+        "torch_threads": int(torch.get_num_threads()),
+    }
+    if simulate is not None:
+        start = time.perf_counter()
+        simulate()
+        out["forward_simulation_seconds"] = round(time.perf_counter() - start, 2)
+        out["forward_simulated_duration_s"] = simulated_s
+    return out
+
+
+def reference_simulator(duration_s: float = SIMULATED_S):
+    """One forward run at the centre of the prior, warmed up before it is timed.
+
+    The untimed short run absorbs Brian2's one-time code generation, which a
+    sweep of thousands of draws pays once and a single timed run should not.
+    """
+    centre = np.array([sum(PRIOR_BOUNDS[name]) / 2 for name in PARAMETER_NAMES])
+    simulate_summary(centre, duration_s=1.0, seed=0)
+    return lambda: simulate_summary(centre, duration_s=duration_s, seed=0)
+
+
+def _timed_simulator(quick: bool) -> dict:
+    """The forward-model timing arguments; the quick tier skips the simulation."""
+    if quick:
+        return {}
+    return {"simulate": reference_simulator(), "simulated_s": SIMULATED_S}
+
+
+def describe_saved_posterior() -> dict:
+    """Add the trained estimator's architecture and timing to this run's metrics.
+
+    For a run whose posterior already exists: it reads the saved network, times
+    it on the held-out simulations it was checked against, and writes nothing
+    else, so the stage's other results are left as they were.
+    """
+    import torch
+
+    from neuromps.metrics import update_metrics
+    from neuromps.paths import metrics_path
+
+    posterior = torch.load(twin_dir() / POSTERIOR_NAME, weights_only=False)
+    cached = load_simulations(simulation_cache())
+    x = cached["x"][within_prior(cached["theta"])]
+    held_out = x[-holdout_size(len(x)) :][:TIMING_OBSERVATIONS]
+    section = json.loads(metrics_path().read_text())["twin_hd14_inference"]
+    section["density_estimator"] = estimator_architecture(posterior)
+    section["amortized_inference"] = amortized_timing(
+        posterior, held_out, **_timed_simulator(quick=False)
+    )
+    update_metrics("twin_hd14_inference", section)
+    return {key: section[key] for key in ("density_estimator", "amortized_inference")}
+
+
 def train_posterior(theta: np.ndarray, x: np.ndarray, max_epochs: int | None = None):
     """Train a neural posterior estimator (NPE) on cached simulations."""
     import torch
     from sbi.inference import NPE
 
-    inference = NPE(prior=build_prior())
+    # Named rather than left to the library default: the report states the
+    # architecture, and a default that changed in an sbi upgrade would change the
+    # model without changing a line here.
+    inference = NPE(prior=build_prior(), density_estimator=DENSITY_ESTIMATOR)
     inference.append_simulations(
         torch.as_tensor(theta, dtype=torch.float32), torch.as_tensor(x, dtype=torch.float32)
     )
@@ -471,7 +598,9 @@ def plot_ranks(ranks: np.ndarray, n_samples: int, path, title: str) -> None:
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
 
-    fig, axes = plt.subplots(1, len(PARAMETER_NAMES), figsize=(13, 2.8), sharey=True)
+    # Drawn near the width it prints at: at 13 in it was shown at under 4 and its
+    # labels printed at about 2 pt. Takes effect on the next inference run.
+    fig, axes = plt.subplots(1, len(PARAMETER_NAMES), figsize=(7.6, 2.4), sharey=True)
     for i, (ax, name) in enumerate(zip(axes, PARAMETER_NAMES, strict=True)):
         ax.hist(ranks[:, i], bins=10, range=(0, n_samples), color="#0072B2")
         expected = len(ranks) / 10
@@ -479,9 +608,9 @@ def plot_ranks(ranks: np.ndarray, n_samples: int, path, title: str) -> None:
         ax.set_title(name, fontsize=8)
         ax.set_xlabel("rank", fontsize=8)
     axes[0].set_ylabel("count", fontsize=8)
-    fig.suptitle(title, fontsize=10)
+    fig.suptitle(title, fontsize=8.5)
     fig.tight_layout()
-    fig.savefig(path, dpi=150)
+    fig.savefig(path, dpi=300, bbox_inches="tight")
     plt.close(fig)
 
 
@@ -498,7 +627,16 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--simulations", type=int, default=None)
     p.add_argument("--rebuild", action="store_true", help="ignore the simulation cache")
     p.add_argument("--seed", type=int, default=0)
+    p.add_argument(
+        "--describe-saved",
+        action="store_true",
+        help="record the saved posterior's architecture and timing in metrics, nothing else",
+    )
     args = p.parse_args(argv)
+    if args.describe_saved:
+        logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+        print(json.dumps(describe_saved_posterior(), indent=2))
+        return 0
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
     twin_dir().mkdir(parents=True, exist_ok=True)
     # Training a neural posterior estimator is stochastic: weight initialisation,
@@ -530,7 +668,7 @@ def main(argv: list[str] | None = None) -> int:
         )
         save_simulations(simulation_cache(), theta, x, metadata={"n_requested": n_simulations})
 
-    holdout = max(20, int(0.1 * len(theta)))
+    holdout = holdout_size(len(theta))
     train_theta, train_x = theta[:-holdout], x[:-holdout]
     test_theta, test_x = theta[-holdout:], x[-holdout:]
     if args.quick:
@@ -565,6 +703,10 @@ def main(argv: list[str] | None = None) -> int:
         "rank_uniformity_ks_p": _rank_uniformity(ranks, n_samples),
         "prior_bounds": {k: list(v) for k, v in PRIOR_BOUNDS.items()},
         "summary_names": list(SUMMARY_NAMES),
+        "density_estimator": estimator_architecture(posterior),
+        "amortized_inference": amortized_timing(
+            posterior, test_x[:TIMING_OBSERVATIONS], **_timed_simulator(args.quick)
+        ),
     }
     plot_ranks(
         ranks,

@@ -1446,9 +1446,6 @@ skeleton frame and a page that had rendered one column. The live Brian2 frame is
 app still costs a visitor nothing.
 
 ### Not done
-- CI gates the LaTeX build (`.github/workflows/ci.yml`), not the Word one that is now the
-  deliverable. It passes at 20 main-matter pages, but switching it over means installing LibreOffice
-  on the runner - a real cost on every push, and not a decision to make quietly.
 - The `--quick` wall clock is not stable on the development machine: three runs of identical code
   gave 401.0 s, 544.7 s and 613.3 s, and the slowest crossed the ten minutes CLAUDE.md promises.
   Appendix K says so rather than quoting the best of the three. The twin stage is 63% of the
@@ -1464,3 +1461,94 @@ across the quick/full boundary that the smoke job's `git diff --exit-code` refus
 
 **Next first task.** The author's four, unchanged: team tables, demo video link, make the repository
 public, submit the registration form.
+
+## 2026-10-09: Phase 4, HD20 (branch `readme-venv-commands`)
+
+### Done
+
+**The technical report is rewritten in a direct, first-person style** throughout - "we require",
+"we found", the reason given in plain terms - modelled on a paragraph the author rewrote by hand.
+261 citations, 0 failing, and no metrics key that was cited before has been lost. Eleven values
+that had been quoted bare now carry citations, so uncited numerals fell from 31 to 21 and the
+test budget was lowered to match.
+
+**It now covers every item on the competition's checklist.** New: the system-architecture figure
+and the three model diagrams in the main matter; an application-scenario paragraph in §1; a
+step-by-step reproduction table in §21 that uses the `.venv` commands; and Appendix O, listing
+third-party libraries by license, stating that no pretrained models are used, and naming the AI
+tool. Two figures moved to the appendices that discuss them. The team table carries both members.
+
+**Section titles follow the author's edits** to the contents table in the .docx (§7, §10, §13,
+§18). The contents table is generated from the headings, so the headings were changed, not the
+table; the regenerated table matches the author's cell for cell.
+
+**The page range is now checked on the submitted PDF.** CI and the local test used to gate the
+LaTeX build, which set the rewritten report at 22 pages of main matter while the submitted Word
+build sat at 18. The CI report job now installs LibreOffice and Carlito (the same versions as the
+proofing machine) and runs `build_docx.sh --check-pages 15 20`; the LaTeX path still renders the
+companions but no longer claims to gate the submission. `build_docx.sh --outdir` lets the test
+run the real build without overwriting a hand-edited .docx, and the test asserts it did not.
+
+**An outside review of the report was triaged, not adopted wholesale.** The reviewer saw only the
+report and the scoring rubric. Taken: a "what to do instead" column in §18; the NPE architecture
+stated in §16 and drawn in the inference diagram, now a metrics key
+(`twin_hd14_inference.density_estimator`: masked autoregressive flow, 5 transforms, 50 hidden units,
+34,550 weights); the twin described as the labelled-data generator it already is for the NPE; the
+log-ratio written out in §4; the radius rule r <= p/2 stated as a rule in §13; the support-rejection
+behavior framed as an unvalidated out-of-distribution flag; the within-species intervals in
+Appendix N (cluster bootstrap over pooled out-of-fold predictions, new keys); a repository row in
+the front matter; one factual sentence on the FDA Modernization Act 2.0 with a no-qualification
+caveat. Not taken: the proposed §5 wording (it claimed chance-level accuracy proves the model
+rejects laboratory artifacts, which is the wrong inference - a model trained in one laboratory
+cannot learn a laboratory-to-class map at all); a "4-6 weeks" CRO saving (nothing measured
+supports a number); the team-label and section-title changes (both the author's own).
+
+**Two errors the review led to.** §18 row 1 quoted p = 0.751 for the nine-feature dose test; that
+p belongs to Task 2's detection-rate correlation. And the dose test covered 7 of the 9 features
+(burst duration and spikes per burst had too few points), not 9, with Holm over seven. Both fixed
+and cited (`feature_dose_response.absolute.n_features_tested`). Separately, §5 and the executive
+summary said the cross-laboratory confound "was helping" the model; it was not, since the model was
+trained in one laboratory. The passage now says what a low score can and cannot mean.
+
+**Figures drawn near their printed width.** The reviewer's "blurred Figure 1" was not resolution
+(263-551 effective dpi) but text shrunk to 27-57% by drawing at 9-13 in and printing at 3-5 in.
+Architecture, extractor agreement, confusion matrix, axonal flow and the three diagrams are redrawn
+at 6.7-7.6 in and 300 dpi and placed at 72-100% width; no metric changed. The posterior-rank
+figure's plotting is fixed for the next inference run, and is shown at full width meanwhile.
+Uncited numerals: 20 (budget lowered from 21).
+
+**A second review, triaged the same way.** Taken:
+- **The PDF re-encoded every figure as lossy JPEG.** LibreOffice's PDF export also resamples to
+  300 ppi, which is what the reviewer saw as artifacts on Figure 1. `build_docx.sh` now exports
+  losslessly at full resolution and fails the build if a JPEG appears.
+- **The §4 equation was misread as x0/x0.** The Unicode subscript e printed like a subscript zero.
+  The renderer now supports Pandoc's `~subscript~` and a centred `::: equation` div, both tested.
+- **Table headers follow their column.** They are left-aligned over prose and centred over
+  numbers; centred headers over left-set text were the misalignment in the team table.
+- **The posterior is now timed rather than described as fast.** On 20 held-out simulations it
+  gives 1,000 draws in a median of 0.3061 s, against 6.69 s for one 10-second forward simulation
+  (`twin_hd14_inference.amortized_inference`). This is recorded by every inference run and by
+  `--describe-saved`. The reviewer's "milliseconds" was wrong by two orders of magnitude, which is
+  why it was measured rather than quoted.
+- **A hedged sentence on the twin as a pre-training data generator.** It says this has not been
+  done, and why.
+- **A sentence on the provenance chain as a traceability template for NAM data.** It also says
+  this is not a qualification process.
+
+Not taken:
+- the "6-8 weeks and thousands of dollars" saving, which nothing measured supports;
+- renaming the team roles, which is the author's call. One line per row would need a shorter
+  background entry; the column widths cannot absorb it.
+- a public cloud app URL and a CI badge, which both need the repository public and a deployment
+  decision.
+
+### Not done
+- Nothing committed yet on this branch beyond the two README/screenshot commits.
+- Main matter is exactly 20 pages, the top of the 15-20 range, with §22 ending a few lines from
+  the foot of page 20. Any addition to the main matter needs an equal cut, or it spills a page;
+  `make report-check` says so.
+- Seven figures not flagged by the review still print at 30-55% of drawn size (species shift,
+  baseline comparison, platform contrast, HD12 calibration, HD13 drug knobs, compartment lag,
+  microchannel asymmetry); the twin ones need their stage re-run to redraw.
+
+**Next first task.** Commit, open the PR, and watch the first CI run of the LibreOffice report job.

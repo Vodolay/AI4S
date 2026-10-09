@@ -21,7 +21,7 @@ BOXES = [
         0.21,
         0.26,
         "fetch/",
-        "eight public deposits\nlicence re-checked\nURL, SHA256, time",
+        "eight public deposits\nlicense re-checked\nURL, SHA256, time",
     ),
     (
         0.28,
@@ -37,7 +37,7 @@ BOXES = [
         0.21,
         0.26,
         "features/mea.py",
-        "the nine-feature vector\nthe only extractor\n(3.5 measures it)",
+        "the nine-feature vector\nthe only extractor\n(§3 measures it)",
     ),
     (
         0.80,
@@ -86,7 +86,7 @@ def draw(path: Path) -> Path:
 
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
-    fig, ax = plt.subplots(figsize=(9.2, 4.2))
+    fig, ax = plt.subplots(figsize=(7.4, 3.5))
     ax.set_xlim(0, 1)
     ax.set_ylim(-0.10, 1)
     ax.axis("off")
@@ -108,7 +108,7 @@ def draw(path: Path) -> Path:
             title,
             ha="center",
             va="center",
-            fontsize=9.5,
+            fontsize=8.6,
             fontweight="bold",
             family="monospace",
         )
@@ -168,7 +168,7 @@ def draw(path: Path) -> Path:
         color="#444444",
     )
     fig.tight_layout()
-    fig.savefig(path, dpi=150, bbox_inches="tight")
+    fig.savefig(path, dpi=300, bbox_inches="tight")
     plt.close(fig)
     return path
 

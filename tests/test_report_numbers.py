@@ -203,8 +203,12 @@ UNCITED_BUDGET = {
     # drop material rather than to inherit its debt. Still well under the 94 the
     # first version carried, and the budget only ever moves down from here.
     # 32, down from 70, after the report was rewritten in the v3 structure with
-    # a citation attached to every value carried over from it.
-    "TECHNICAL_REPORT.md": 32,
+    # a citation attached to every value carried over from it. 21 after the
+    # conversational rewrite cited eleven values that had been quoted bare -
+    # which also paid for the two license versions Appendix O has to name.
+    # 20 after the review pass: two bare values gained citations, which paid
+    # for the one number in a statute's name (FDA Modernization Act 2.0, §20).
+    "TECHNICAL_REPORT.md": 20,
     "KAGGLE_WRITEUP.md": 10,
 }
 

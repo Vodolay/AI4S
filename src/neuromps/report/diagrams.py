@@ -40,6 +40,8 @@ WARN = "#FBE3D6"
 # skipped out loud. A diagram whose numbers are present but malformed still
 # raises - that distinction is the point, and collapsing it would turn a stale
 # figure into a silent one.
+PRINT_SCALE = 0.8
+
 FIGURES = {
     "mechanism_classifier_real.png": ("draw_classifier", ("mechanism_baselines",)),
     "twin_architecture_simulated.png": (
@@ -143,7 +145,10 @@ def _canvas(width, height, title, subtitle=""):
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
 
-    fig, ax = plt.subplots(figsize=(width, height))
+    # Drawn smaller than the nominal size so that text prints larger: the report
+    # shows these about 5.3 in wide, and at the nominal 10 in their labels printed
+    # at 3-4 pt. Layout is in axes fractions, so only the text-to-box ratio moves.
+    fig, ax = plt.subplots(figsize=(width * PRINT_SCALE, height * PRINT_SCALE))
     ax.set_xlim(0, 1)
     ax.set_ylim(0, 1)
     ax.axis("off")
@@ -161,7 +166,7 @@ def _footer(ax, text):
 def _save(fig, path: Path) -> Path:
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(path, dpi=160, bbox_inches="tight", facecolor="white")
+    fig.savefig(path, dpi=300, bbox_inches="tight", facecolor="white")
     import matplotlib.pyplot as plt
 
     plt.close(fig)
@@ -252,13 +257,13 @@ def draw_classifier(metrics: dict, path: Path) -> Path:
     fig, ax, aspect = _canvas(
         10.0, 4.8, "How a mechanism is called", "REAL recordings, Kapucu 2022"
     )
-    _box(ax, 0.015, 0.558, 0.155, 0.215, "one culture", "baseline well\nexposed well", mono=False)
-    _delta_vector(ax, 0.285, 0.515, 0.165, 0.300)
+    _box(ax, 0.010, 0.558, 0.150, 0.215, "one culture", "baseline well\nexposed well", mono=False)
+    _delta_vector(ax, 0.250, 0.515, 0.210, 0.300)
     _box(
         ax,
-        0.545,
+        0.520,
         0.580,
-        0.175,
+        0.215,
         0.170,
         "logistic regression",
         "L2 penalty\none linear boundary",
@@ -268,18 +273,18 @@ def draw_classifier(metrics: dict, path: Path) -> Path:
     )
     _box(
         ax,
-        0.790,
-        0.515,
-        0.195,
-        0.300,
+        0.780,
+        0.455,
+        0.215,
+        0.380,
         f"{len(classes)} classes",
         "\n".join(name.replace("_", " ") for name in classes),
         mono=False,
     )
-    _arrow(ax, (0.175, 0.665), (0.280, 0.665))
-    ax.text(0.2275, 0.695, "paired,\nper well", ha="center", fontsize=6.2, color=MUTED)
-    _arrow(ax, (0.455, 0.665), (0.540, 0.665))
-    _arrow(ax, (0.725, 0.665), (0.785, 0.665))
+    _arrow(ax, (0.165, 0.665), (0.245, 0.665))
+    ax.text(0.205, 0.695, "paired,\nper well", ha="center", fontsize=6.2, color=MUTED)
+    _arrow(ax, (0.465, 0.665), (0.515, 0.665))
+    _arrow(ax, (0.740, 0.665), (0.775, 0.665))
     _grouped_folds(
         ax, 0.235, m(f"{task}.n_pairs"), m(f"{task}.n_groups"), m(f"{task}.n_splits"), aspect
     )
@@ -303,7 +308,7 @@ def _compartment(ax, x, y, w, h, label, n_neurons, seed):
     rng = np.random.default_rng(seed)
     # A sample of the population, not the population: 967 dots is mud.
     drawn = 80
-    points = rng.uniform([x + 0.014, y + 0.055], [x + w - 0.014, y + h - 0.055], size=(drawn, 2))
+    points = rng.uniform([x + 0.014, y + 0.070], [x + w - 0.014, y + h - 0.075], size=(drawn, 2))
     inhibitory = rng.random(drawn) < 0.2
     ax.scatter(*points[~inhibitory].T, s=8, color=BLUE, zorder=2, linewidths=0)
     ax.scatter(*points[inhibitory].T, s=10, color=ORANGE, marker="s", zorder=2, linewidths=0)
@@ -344,8 +349,8 @@ def _excitation_legend(ax, x, y):
     """Which marker is which, rather than leaving the colours to be guessed."""
     ax.scatter([x], [y], s=8, color=BLUE, linewidths=0)
     ax.text(x + 0.016, y, "excitatory (80%)", va="center", fontsize=6.4, color=MUTED)
-    ax.scatter([x + 0.145], [y], s=10, color=ORANGE, marker="s", linewidths=0)
-    ax.text(x + 0.161, y, "inhibitory (20%)", va="center", fontsize=6.4, color=MUTED)
+    ax.scatter([x + 0.175], [y], s=10, color=ORANGE, marker="s", linewidths=0)
+    ax.text(x + 0.191, y, "inhibitory (20%)", va="center", fontsize=6.4, color=MUTED)
 
 
 def draw_twin(metrics: dict, path: Path) -> Path:
@@ -361,16 +366,18 @@ def draw_twin(metrics: dict, path: Path) -> Path:
     pitch = round(m("twin_hd13_perturbation.simulation.layout.pitch_um"))
 
     fig, ax, aspect = _canvas(10.0, 5.0, "The two-compartment digital twin", "SIMULATED")
-    _excitation_legend(ax, 0.350, 0.145)
+    _excitation_legend(ax, 0.340, 0.145)
     for left, index in ((0.050, 0), (0.465, 1)):
         _compartment(ax, left, 0.45, 0.28, 0.30, f"compartment {index}", neurons, seed=index)
         _electrodes(ax, left, 0.390, 0.28, aspect)
         _arrow(ax, (left + 0.065, 0.775), (left + 0.215, 0.775), colour=BLUE, rad=-0.75, width=1.0)
+        # Beside the arc rather than under it, where the arc ran through the words.
         ax.text(
-            left + 0.14,
-            0.845,
-            f"recurrent, in-degree {in_degree}",
-            ha="center",
+            left + 0.225,
+            0.800,
+            f"recurrent\nin-degree {in_degree}",
+            ha="left",
+            va="center",
             fontsize=6.6,
             color=BLUE,
         )
@@ -379,8 +386,8 @@ def draw_twin(metrics: dict, path: Path) -> Path:
     ax.text(0.3975, 0.690, "axon diode", ha="center", fontsize=7.4, fontweight="bold")
     ax.text(0.3975, 0.600, "forward", ha="center", fontsize=5.8, color=ORANGE)
     ax.text(0.3975, 0.530, "back", ha="center", fontsize=5.8, color=MUTED)
-    _box(ax, 0.800, 0.520, 0.175, 0.190, "features/mea.py", "the nine features", fill=SHADE)
-    _arrow(ax, (0.745, 0.615), (0.795, 0.615))
+    _box(ax, 0.795, 0.520, 0.190, 0.190, "features/mea.py", "the nine features", fill=SHADE)
+    _arrow(ax, (0.745, 0.615), (0.790, 0.615))
     ax.text(
         0.5,
         0.295,
@@ -446,7 +453,7 @@ def _uniformity_panel(ax, y, contraction, ks_p):
 
     ax.text(
         0.5,
-        y + 0.125,
+        y + 0.140,
         "Before any posterior is quoted: how much was learned, and are the intervals honest?",
         ha="center",
         fontsize=7.4,
@@ -462,16 +469,16 @@ def _uniformity_panel(ax, y, contraction, ks_p):
             Rectangle(
                 (x, y),
                 width,
-                0.085,
+                0.110,
                 linewidth=0.9,
                 edgecolor=INK,
                 facecolor=SHADE if passes else WARN,
             )
         )
-        ax.text(x + width / 2, y + 0.066, name, ha="center", fontsize=5.5, family="monospace")
+        ax.text(x + width / 2, y + 0.084, name, ha="center", fontsize=5.5, family="monospace")
         ax.text(
             x + width / 2,
-            y + 0.044,
+            y + 0.059,
             f"contraction {contraction[name]['contraction']}",
             ha="center",
             fontsize=5.4,
@@ -479,7 +486,7 @@ def _uniformity_panel(ax, y, contraction, ks_p):
         )
         ax.text(
             x + width / 2,
-            y + 0.022,
+            y + 0.035,
             f"KS p {ks_p[name]['ks_p']}",
             ha="center",
             fontsize=5.4,
@@ -487,7 +494,7 @@ def _uniformity_panel(ax, y, contraction, ks_p):
         )
         ax.text(
             x + width / 2,
-            y + 0.006,
+            y + 0.011,
             "calibrated" if passes else "over-confident",
             ha="center",
             fontsize=5.4,
@@ -507,54 +514,57 @@ def draw_inference(metrics: dict, path: Path) -> Path:
     contraction = m(f"{hd14}.contraction")
     ks_p = m(f"{hd14}.rank_uniformity_ks_p")
     passing = sum(1 for name in ks_p if ks_p[name]["ks_p"] > 0.05)
+    flow = m(f"{hd14}.density_estimator")
 
     fig, ax, _ = _canvas(10.0, 5.6, "Running the twin backwards", "SIMULATED")
-    _prior_block(ax, 0.020, 0.600, 0.185, 0.230, bounds)
+    _prior_block(ax, 0.010, 0.600, 0.235, 0.230, bounds)
     _box(
         ax,
-        0.275,
-        0.655,
-        0.140,
-        0.135,
+        0.325,
+        0.640,
+        0.110,
+        0.165,
         "the twin",
         f"{simulations:,} draws\n{silent:.0%} silent",
         fill=SHADE,
     )
-    _box(ax, 0.495, 0.655, 0.140, 0.135, "summaries", f"{len(summaries)} features\nper draw")
+    _box(ax, 0.520, 0.640, 0.110, 0.165, "summaries", f"{len(summaries)} features\nper draw")
     _box(
         ax,
-        0.715,
+        0.700,
         0.475,
-        0.260,
+        0.290,
         0.315,
         "neural posterior estimator",
-        "a density over the parameters,\nlearned from simulated pairs\nof (parameters, features)",
+        f"a {flow['family']}:\n{flow['n_autoregressive_transforms']} transforms, "
+        f"{flow['hidden_units_per_layer']} hidden units,\n{flow['n_parameters']:,} weights, "
+        "trained on\n(parameters, features) pairs\nsimulated by the twin",
         fill=SHADE,
         mono=False,
         fontsize=7.8,
     )
-    ax.text(0.020, 0.868, "TRAINED ONCE", fontsize=6.6, fontweight="bold", color=MUTED)
-    _arrow(ax, (0.210, 0.7225), (0.270, 0.7225), "sample")
-    _arrow(ax, (0.420, 0.7225), (0.490, 0.7225), "simulate")
-    _arrow(ax, (0.640, 0.7225), (0.710, 0.7225), "train")
-    ax.text(0.020, 0.540, "THEN USED", fontsize=6.6, fontweight="bold", color=BLUE)
+    ax.text(0.010, 0.868, "TRAINED ONCE", fontsize=6.6, fontweight="bold", color=MUTED)
+    _arrow(ax, (0.250, 0.7225), (0.320, 0.7225), "sample")
+    _arrow(ax, (0.440, 0.7225), (0.515, 0.7225), "simulate")
+    _arrow(ax, (0.635, 0.7225), (0.695, 0.7225), "train")
+    ax.text(0.010, 0.540, "THEN USED", fontsize=6.6, fontweight="bold", color=BLUE)
     _box(
-        ax, 0.495, 0.495, 0.140, 0.115, "a real recording", "its features", mono=False, fontsize=7.4
+        ax, 0.465, 0.495, 0.165, 0.115, "a real recording", "its features", mono=False, fontsize=7.4
     )
-    _arrow(ax, (0.640, 0.5525), (0.710, 0.5525), "ask", colour=BLUE, width=1.3)
+    _arrow(ax, (0.635, 0.5525), (0.695, 0.5525), "ask", colour=BLUE, width=1.3)
     _box(
         ax,
-        0.715,
-        0.330,
-        0.260,
-        0.115,
+        0.700,
+        0.315,
+        0.290,
+        0.135,
         "posterior",
         f"{len(bounds)} parameters, with intervals",
         mono=False,
         fontsize=7.8,
     )
     _arrow(ax, (0.845, 0.472), (0.845, 0.448), colour=BLUE, width=1.3)
-    _uniformity_panel(ax, 0.150, contraction, ks_p)
+    _uniformity_panel(ax, 0.120, contraction, ks_p)
     _footer(
         ax,
         f"{passing} of {len(ks_p)} parameters pass rank uniformity. The two that fail are reported "

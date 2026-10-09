@@ -262,7 +262,9 @@ def plot_agreement(table: pd.DataFrame, by_feature: dict, path: Path) -> Path:
     path.parent.mkdir(parents=True, exist_ok=True)
     columns = 4
     rows_n = int(np.ceil(len(features) / columns))
-    fig, axes = plt.subplots(rows_n, columns, figsize=(11.0, 3.0 * rows_n))
+    # Drawn at about the width it prints at; drawn at 11 in and shown at under 4,
+    # its tick labels printed at about 2 pt.
+    fig, axes = plt.subplots(rows_n, columns, figsize=(7.6, 2.5 * rows_n))
     axes = np.atleast_1d(axes).ravel()
     colours = {"hPSC_MEA1": "#0072B2", "hPSC_MEA2": "#E69F00", "Rat_MEA1": "#009E73"}
     for ax, feature in zip(axes, features, strict=False):
@@ -299,22 +301,21 @@ def plot_agreement(table: pd.DataFrame, by_feature: dict, path: Path) -> Path:
         rho = entry.get("spearman_rho")
         ax.set_title(
             f"{feature}\nrho {rho}, ratio {ratio}" if rho is not None else str(feature),
-            fontsize=8,
+            fontsize=7.5,
         )
-        ax.tick_params(labelsize=7)
+        ax.tick_params(labelsize=7.5)
     for ax in axes[len(features) :]:
         ax.set_visible(False)
     axes[0].legend(fontsize=6)
-    fig.supxlabel("meaRtools value, as the depositors published it", fontsize=9)
-    fig.supylabel("our features/mea.py value", fontsize=9)
+    fig.supxlabel("meaRtools value, as the depositors published it", fontsize=8.5)
+    fig.supylabel("our features/mea.py value", fontsize=8.5)
     fig.suptitle(
-        "REAL recordings, two implementations of the same features: ours against the "
-        "depositors' meaRtools output.\nDashed line is equality. Only burst fraction lands on "
-        "it; the rest differ by a definitional choice, named in the text.",
-        fontsize=9,
+        "REAL recordings, two implementations of the same features:\nours against the "
+        "depositors' meaRtools output. Dashed line is equality.",
+        fontsize=8.5,
     )
     fig.tight_layout()
-    fig.savefig(path, dpi=150)
+    fig.savefig(path, dpi=300)
     plt.close(fig)
     return path
 

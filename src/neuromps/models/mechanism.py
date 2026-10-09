@@ -263,7 +263,7 @@ def plot_confusion(matrix: np.ndarray, labels: list[str], path, title: str) -> N
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
 
-    fig, ax = plt.subplots(figsize=(6.5, 5.5))
+    fig, ax = plt.subplots(figsize=(5.4, 4.6))  # near its printed size
     image = ax.imshow(matrix, cmap="cividis", vmin=0, vmax=1)
     ax.set_xticks(range(len(labels)), labels, rotation=45, ha="right", fontsize=8)
     ax.set_yticks(range(len(labels)), labels, fontsize=8)
@@ -280,10 +280,12 @@ def plot_confusion(matrix: np.ndarray, labels: list[str], path, title: str) -> N
             )
     ax.set_xlabel("predicted")
     ax.set_ylabel("true")
-    ax.set_title(title, fontsize=10)
+    ax.set_title(title, fontsize=9)
     fig.colorbar(image, ax=ax, label="fraction of true class")
     fig.tight_layout()
-    fig.savefig(path, dpi=150)
+    # The title is wider than the axes at this size; let the image grow to fit it
+    # rather than clip it at the right edge.
+    fig.savefig(path, dpi=300, bbox_inches="tight")
     plt.close(fig)
 
 

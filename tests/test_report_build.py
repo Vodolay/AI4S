@@ -104,11 +104,29 @@ def test_the_makefile_exposes_the_report_targets() -> None:
         assert f"\n{target}" in makefile
 
 
-def test_the_workflow_builds_the_pdf_and_keeps_it() -> None:
+def test_the_workflow_checks_the_pdf_that_is_submitted() -> None:
+    """The page range is a property of the submitted PDF, which is the Word build.
+
+    CI used to gate the LaTeX build. Once the report carried its model diagrams
+    the two disagreed by four pages - the LaTeX one failing at 22 while the
+    submitted one sat at 18 - so the gate was enforcing a limit on a document
+    nobody submits.
+    """
     workflow = WORKFLOW.read_text()
-    assert "report/build_report.sh --check-pages" in workflow
-    assert "texlive-xetex" in workflow
+    assert "report/build_docx.sh --check-pages" in workflow
+    assert "build_report.sh --check-pages" not in workflow
+    assert "libreoffice-writer-nogui" in workflow
+    # Without Carlito, LibreOffice substitutes a wider face for Calibri and every
+    # table reflows, so CI would count different pages from the author's machine.
+    assert "fonts-crosextra-carlito" in workflow
     assert "upload-artifact" in workflow
+
+
+def test_the_workflow_installs_the_renderer_at_the_pinned_version() -> None:
+    """The report job installs python-docx alone; the pin must not drift from pyproject."""
+    pinned = re.search(r'"python-docx==([\d.]+)"', (REPO_ROOT / "pyproject.toml").read_text())
+    assert pinned, "python-docx is not pinned in pyproject.toml"
+    assert f"python-docx=={pinned.group(1)}" in WORKFLOW.read_text()
 
 
 def test_the_fallback_stylesheet_matches_the_latex_geometry() -> None:
@@ -128,27 +146,30 @@ def test_the_script_rejects_an_unknown_engine() -> None:
 
 
 @pytest.mark.skipif(shutil.which("pandoc") is None, reason="pandoc not installed")
-def test_the_pdf_builds_and_lands_in_the_required_page_range(tmp_path: Path) -> None:
-    """The real build, when the toolchain is present (CI, and any dev box with pandoc)."""
+def test_the_latex_path_still_renders_and_counts_main_matter(tmp_path: Path) -> None:
+    """The LaTeX path still builds the companions, so it must still render and count.
+
+    It no longer gates the technical report's length: its wider margins and 11 pt
+    serif set the same text several pages longer than the submitted Word build,
+    so its count says nothing about the submission.
+    """
     output = tmp_path / "report.pdf"
     result = subprocess.run(
-        [str(SCRIPT), "--output", str(output), "--check-pages", str(PAGES_MIN), str(PAGES_MAX)],
+        [str(SCRIPT), "--output", str(output)],
         capture_output=True,
         text=True,
         cwd=REPO_ROOT,
     )
     assert result.returncode == 0, result.stderr
     assert output.exists() and output.stat().st_size > 50_000
-    # The gate must be counting main matter, not the whole document: the report
-    # has appendices, so the two numbers have to differ and the range has to be
-    # applied to the smaller one.
+    # The counter must separate main matter from appendices, because the
+    # companions built through this path are checked the same way.
     assert "pages of main matter" in result.stdout, result.stdout
     main, total = (
         int(n)
         for n in re.search(r"(\d+) pages of main matter, (\d+) including", result.stdout).groups()
     )
     assert main < total, "appendices should not count toward the page range"
-    assert PAGES_MIN <= main <= PAGES_MAX
 
 
 def test_every_figure_in_the_report_is_tracked_by_git() -> None:
@@ -386,20 +407,19 @@ def test_the_v2_report_carries_no_audience_specific_framing() -> None:
         assert phrase not in text, f"audience framing survived: {phrase}"
 
 
-@pytest.mark.skipif(shutil.which("pandoc") is None, reason="pandoc not installed")
-def test_the_v2_report_builds_inside_the_required_page_range(tmp_path: Path) -> None:
-    output = tmp_path / "v2.pdf"
+@pytest.mark.skipif(shutil.which("soffice") is None, reason="LibreOffice not installed")
+def test_the_submitted_report_builds_inside_the_required_page_range(tmp_path: Path) -> None:
+    """15-20 pages of main matter, counted on the Word build that is submitted.
+
+    Built into a temporary directory: the default writes beside the source, which
+    would overwrite the committed .docx - possibly one just edited by hand.
+    """
+    committed = (REPO_ROOT / "report" / "TECHNICAL_REPORT.docx").read_bytes()
     result = subprocess.run(
         [
-            str(SCRIPT),
-            "--source",
-            str(V2),
-            "--output",
-            str(output),
-            "--title",
-            "NeuroMPS technical report v2",
-            "--subtitle",
-            "Submission",
+            str(REPO_ROOT / "report" / "build_docx.sh"),
+            "--outdir",
+            str(tmp_path),
             "--check-pages",
             str(PAGES_MIN),
             str(PAGES_MAX),
@@ -409,9 +429,10 @@ def test_the_v2_report_builds_inside_the_required_page_range(tmp_path: Path) -> 
         cwd=REPO_ROOT,
     )
     assert result.returncode == 0, result.stdout + result.stderr
-    main, total = (
-        int(n)
-        for n in re.search(r"(\d+) pages of main matter, (\d+) including", result.stdout).groups()
-    )
+    main = int(re.search(r"main matter (\d+) pages", result.stdout).group(1))
+    total = int(re.search(r" - (\d+) pages,", result.stdout).group(1))
     assert PAGES_MIN <= main <= PAGES_MAX
     assert main < total, "appendices should not count toward the page range"
+    assert (REPO_ROOT / "report" / "TECHNICAL_REPORT.docx").read_bytes() == committed, (
+        "the test build overwrote the committed .docx"
+    )

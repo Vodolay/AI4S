@@ -12,6 +12,7 @@
 #   report/build_docx.sh                       # .docx and .pdf for the technical report
 #   report/build_docx.sh --docx-only           # skip the PDF conversion
 #   report/build_docx.sh --check-pages 15 20   # also gate the main-matter length
+#   report/build_docx.sh --outdir /tmp/x       # write somewhere other than report/
 #   report/build_docx.sh --source report/KAGGLE_WRITEUP.md
 set -euo pipefail
 
@@ -19,6 +20,7 @@ REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 SOURCE="${REPO_ROOT}/report/TECHNICAL_REPORT.md"
 TEMPLATE="${REPO_ROOT}/report/reference.docx"
 docx_only=""
+outdir=""
 min_pages=""
 max_pages=""
 
@@ -27,9 +29,10 @@ while [[ $# -gt 0 ]]; do
     --source) SOURCE="${2:?--source needs a path}"; shift 2 ;;
     --template) TEMPLATE="${2:?--template needs a path}"; shift 2 ;;
     --docx-only) docx_only="yes"; shift ;;
+    --outdir) outdir="${2:?--outdir needs a directory}"; shift 2 ;;
     --check-pages)
       min_pages="${2:?--check-pages needs MIN and MAX}"; max_pages="${3:?--check-pages needs MIN and MAX}"; shift 3 ;;
-    -h|--help) sed -n '2,13p' "${BASH_SOURCE[0]}"; exit 0 ;;
+    -h|--help) sed -n '2,16p' "${BASH_SOURCE[0]}"; exit 0 ;;
     *) echo "unknown argument: $1" >&2; exit 2 ;;
   esac
 done
@@ -40,8 +43,18 @@ die() { echo "build_docx: $*" >&2; exit 1; }
 [[ -f "${TEMPLATE}" ]] || die "missing style template: ${TEMPLATE}"
 
 PYTHON="${PYTHON:-$(test -x "${REPO_ROOT}/.venv/bin/python" && echo "${REPO_ROOT}/.venv/bin/python" || command -v python3)}"
-DOCX="${SOURCE%.md}.docx"
-PDF="${SOURCE%.md}.pdf"
+# By default the outputs land beside the source, which is where the committed
+# deliverables live. --outdir exists so a test can run the real build without
+# overwriting them - including a .docx someone has just edited by hand.
+if [[ -n "${outdir}" ]]; then
+  mkdir -p "${outdir}"
+  stem="$(basename "${SOURCE%.md}")"
+  DOCX="${outdir}/${stem}.docx"
+  PDF="${outdir}/${stem}.pdf"
+else
+  DOCX="${SOURCE%.md}.docx"
+  PDF="${SOURCE%.md}.pdf"
+fi
 
 PYTHONPATH="${REPO_ROOT}/src" "${PYTHON}" -m neuromps.report.docx \
   --source "${SOURCE}" --template "${TEMPLATE}" --output "${DOCX}" \
@@ -55,12 +68,24 @@ command -v soffice >/dev/null || die "soffice is required to convert the .docx (
 # shares the desktop profile fails when one is already open. Give it its own.
 PROFILE="$(mktemp -d)"
 trap 'rm -rf "${PROFILE}"' EXIT
+# By default the PDF export re-encodes every figure as JPEG and resamples it to
+# 300 ppi, which smears the edges of small text: a reviewer read the result as a
+# blurred architecture figure. The figures are lossless PNGs drawn for print, so
+# they go into the PDF as they are.
+EXPORT='pdf:writer_pdf_Export:{"UseLosslessCompression":{"type":"boolean","value":"true"},'
+EXPORT+='"ReduceImageResolution":{"type":"boolean","value":"false"}}'
 soffice --headless --norestore \
   "-env:UserInstallation=file://${PROFILE}" \
-  --convert-to pdf --outdir "$(dirname "${PDF}")" "${DOCX}" >/dev/null \
+  --convert-to "${EXPORT}" --outdir "$(dirname "${PDF}")" "${DOCX}" >/dev/null \
   || die "LibreOffice failed to convert ${DOCX}"
 
 [[ -s "${PDF}" ]] || die "no PDF produced at ${PDF}"
+
+# The figures must arrive as they were drawn. A JPEG among them means the
+# export options above were ignored, which is silent unless it is checked.
+if command -v pdfimages >/dev/null && pdfimages -list "${PDF}" | awk 'NR > 2 {print $9}' | grep -qx jpeg; then
+  die "the PDF re-encoded a figure as JPEG; the lossless export options were not applied"
+fi
 
 # A conversion that silently drops the images is the failure worth catching: it
 # is exactly what happened to the export this design came from.

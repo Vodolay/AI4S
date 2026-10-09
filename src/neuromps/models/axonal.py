@@ -263,7 +263,7 @@ def plot_flow(flow: pd.DataFrame, chamber: pd.DataFrame, path: Path) -> Path:
         "CA3->DG": "#009E73",
         "DG->EC": "#D55E00",
     }
-    fig, axes = plt.subplots(1, 2, figsize=(9.0, 4.0), sharey=True)
+    fig, axes = plt.subplots(1, 2, figsize=(7.2, 3.4), sharey=True)  # near its printed size
     for ax, column, label in (
         (axes[0], "asymmetry", "chamber coupling asymmetry"),
         (axes[1], "log2_rate_ratio", "chamber rate imbalance (log2 ratio)"),
@@ -288,10 +288,10 @@ def plot_flow(flow: pd.DataFrame, chamber: pd.DataFrame, path: Path) -> Path:
         "REAL Brewer 2021 devices: measured axonal direction against the chamber measure.\n"
         "Each point is one chamber pair of one culture; positive is flow toward the "
         "second chamber named.",
-        fontsize=9,
+        fontsize=8.5,
     )
     fig.tight_layout()
-    fig.savefig(path, dpi=150)
+    fig.savefig(path, dpi=300)
     plt.close(fig)
     return path
 

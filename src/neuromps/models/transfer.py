@@ -152,14 +152,29 @@ def _within_species(pairs: pd.DataFrame, seed: int, n_splits: int = 4, repeats: 
     y = pairs["label"].to_numpy()
     groups = pairs["group"].to_numpy()
     scores = []
+    truth, predicted, culture = [], [], []
     for repeat in range(repeats):
         splitter = StratifiedGroupKFold(n_splits=n_splits, shuffle=True, random_state=seed + repeat)
         for train_idx, test_idx in splitter.split(x, y, groups):
             fitted = MODELS["logistic_regression"].fit(x[train_idx], y[train_idx])
-            scores.append(balanced_accuracy_score(y[test_idx], fitted.predict(x[test_idx])))
+            fold_prediction = fitted.predict(x[test_idx])
+            scores.append(balanced_accuracy_score(y[test_idx], fold_prediction))
+            truth.extend(y[test_idx])
+            predicted.extend(fold_prediction)
+            culture.extend(groups[test_idx])
+    # The interval is on the out-of-fold predictions pooled over every repeat,
+    # resampling cultures: a drawn culture brings all of its rows, from every
+    # repeat, so repeating the split never makes one culture count as several.
+    # These two rows of the species table had no interval at all, beside rows
+    # that did - which read as missing data rather than as a deliberate choice.
+    interval = _bootstrap_ci(np.asarray(truth), np.asarray(predicted), seed, np.asarray(culture))
     return {
         "balanced_accuracy": round(float(np.mean(scores)), 3),
         "balanced_accuracy_sd": round(float(np.std(scores)), 3),
+        "balanced_accuracy_ci95": interval,
+        "pooled_out_of_fold_balanced_accuracy": round(
+            float(balanced_accuracy_score(truth, predicted)), 3
+        ),
         "n": int(len(pairs)),
         "n_splits": n_splits,
         "repeats": repeats,

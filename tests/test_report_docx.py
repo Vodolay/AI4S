@@ -16,6 +16,7 @@ import pytest
 pytest.importorskip("docx")
 
 from docx import Document  # noqa: E402
+from docx.enum.text import WD_ALIGN_PARAGRAPH  # noqa: E402
 from docx.oxml.ns import qn  # noqa: E402
 
 from neuromps.report.docx import (  # noqa: E402
@@ -26,6 +27,7 @@ from neuromps.report.docx import (  # noqa: E402
     Figure,
     Heading,
     Table,
+    add_rich_text,
     column_shares,
     contents_rows,
     parse_blocks,
@@ -168,7 +170,9 @@ def test_the_table_header_band_is_filled_and_white(rendered: Document) -> None:
 
 def test_a_table_written_without_a_header_gets_no_dark_band(rendered: Document) -> None:
     """The front-matter harness table has an empty header row; it must not render one."""
-    harness = next(t for t in rendered.tables if t.rows[0].cells[0].text == "Verification harness")
+    harness = next(
+        t for t in rendered.tables if any(r.cells[0].text == "Verification harness" for r in t.rows)
+    )
     assert 'w:fill="1F4E79"' not in harness.rows[0].cells[0]._tc.xml
 
 
@@ -227,3 +231,61 @@ def test_a_citation_ending_a_line_does_not_weld_the_next_line_on() -> None:
         "and falls\n"
     )
     assert strip_citations(text) == "peaks at 0.48\nat 100 uM\nand falls\n"
+
+
+def test_a_figure_image_is_kept_with_its_caption(rendered: Document) -> None:
+    """An image at a page foot with its caption on the next page reads as two things."""
+    holders = [p for p in rendered.paragraphs if p._p.xpath(".//pic:pic") and not p.text.strip()]
+    assert holders, "no image paragraphs found"
+    assert all(p.paragraph_format.keep_with_next for p in holders)
+
+
+def test_the_sentence_introducing_a_table_stays_with_it(rendered: Document) -> None:
+    """Tables are kept whole, so an unanchored intro gets stranded when one jumps a page."""
+    intro = next(
+        p for p in rendered.paragraphs if p.text.startswith("Calibrated values are the chosen draw")
+    )
+    assert intro.paragraph_format.keep_with_next
+
+
+def test_a_tilde_span_is_set_as_a_true_subscript() -> None:
+    """Pandoc's `x~sub~`. The Unicode glyph that stood in for it, a subscript e,
+    printed so like a subscript zero that a reviewer read the definition as x0/x0."""
+    document = Document()
+    add_rich_text(document.add_paragraph(), "*x*~exposure~ / *x*~baseline~")
+    runs = [(r.text, bool(r.font.subscript), bool(r.italic)) for r in document.paragraphs[0].runs]
+    assert runs == [
+        ("x", False, True),
+        ("exposure", True, False),
+        (" / ", False, False),
+        ("x", False, True),
+        ("baseline", True, False),
+    ]
+
+
+def test_a_tilde_with_spaces_around_it_stays_text() -> None:
+    """Only a span with no whitespace is a subscript, as in Pandoc."""
+    document = Document()
+    add_rich_text(document.add_paragraph(), "roughly ~ 9 minutes ~ end to end")
+    assert document.paragraphs[0].text == "roughly ~ 9 minutes ~ end to end"
+
+
+def test_an_equation_div_becomes_one_displayed_line() -> None:
+    """A fenced `::: equation` div; Pandoc's LaTeX path renders it as a plain paragraph."""
+    blocks = parse_blocks("text\n\n::: equation\nΔ = log₂(a / b)\n:::\n\nafter\n")
+    assert blocks == [Body("text"), Body("Δ = log₂(a / b)", "display"), Body("after")]
+
+
+def test_the_report_equation_is_centred_with_real_subscripts(rendered: Document) -> None:
+    """The one definition every model rests on must not be misreadable."""
+    equation = next(p for p in rendered.paragraphs if p.text.startswith("Δ = log"))
+    assert equation.alignment == WD_ALIGN_PARAGRAPH.CENTER
+    assert [r.text for r in equation.runs if r.font.subscript] == ["2", "exposure", "baseline"]
+
+
+def test_a_header_lines_up_with_the_column_beneath_it(rendered: Document) -> None:
+    """Centred headers over left-set text read as misaligned; numbers stay centred."""
+    team = next(t for t in rendered.tables if t.rows[0].cells[0].text == "member")
+    assert team.rows[0].cells[1].paragraphs[0].alignment != WD_ALIGN_PARAGRAPH.CENTER
+    models = next(t for t in rendered.tables if t.rows[0].cells[0].text == "model")
+    assert models.rows[0].cells[1].paragraphs[0].alignment == WD_ALIGN_PARAGRAPH.CENTER

@@ -102,45 +102,46 @@ jobs:
   report:
     # The PDF is a deliverable, so its build is checked on every push rather
     # than discovered to be broken at submission time. The page range is a
-    # requirement of the submission, not a style preference.
+    # requirement of the submission, not a style preference - which is why it is
+    # checked on the PDF that is submitted. That is the Word build: LibreOffice's
+    # rendering of report/TECHNICAL_REPORT.docx. This job used to gate the LaTeX
+    # build instead, a denser-margined document nobody submits, and once the
+    # report gained its model diagrams the two disagreed by four pages.
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
-      - name: Install pandoc, xelatex and poppler
-        env:
-          # Pinned, not apt's pandoc. pandoc carries the LaTeX template, so a
-          # different version is a different document: Ubuntu's older pandoc
-          # loaded neither the font packages nor caption, and its line breaking
-          # could differ enough to move the page count past the limit checked
-          # below. This is the version the report is written and proofed
-          # against, so CI renders what the author renders.
-          PANDOC_VERSION: "3.11"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install LibreOffice, Carlito and poppler
+        # The same LibreOffice (24.2) and the same Carlito package as the machine
+        # the report is proofed on, so CI paginates what the author paginates.
+        # Carlito is metric-compatible with Calibri, the font the Word design
+        # names; without it LibreOffice substitutes a wider face and every table
+        # reflows. DejaVu covers the monospace fallback for code spans.
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
-            texlive-xetex texlive-fonts-recommended texlive-latex-recommended \
-            texlive-latex-extra lmodern fonts-dejavu-core fontconfig poppler-utils
-          # texlive-latex-extra carries unicode-math, footnotehyper and xurl, which
-          # pandoc's xelatex template loads; fontconfig provides fc-list, without
-          # which the build cannot find a font with Greek and arrows.
-          deb="pandoc-${PANDOC_VERSION}-1-amd64.deb"
-          curl -fsSL -O "https://github.com/jgm/pandoc/releases/download/${PANDOC_VERSION}/${deb}"
-          sudo dpkg -i "${deb}"
-          pandoc --version | head -1
+            libreoffice-writer-nogui fonts-crosextra-carlito fonts-dejavu-core \
+            fontconfig poppler-utils
+          soffice --version
+      - name: Install the renderer's one dependency
+        # Not `pip install -e .`, which would pull torch into a job that exists to
+        # render a document. The pin must match pyproject.toml; a test checks it.
+        run: python -m pip install python-docx==1.2.0
       # The same check the citation apparatus runs locally. A number that drifted
       # from the metrics is a broken deliverable whether or not the PDF renders,
       # and finding that out at submission time is too late.
       - name: Every cited number matches the metrics
-        # Run from the source tree rather than installing: the verifier needs
-        # only the standard library, and `pip install -e .` would pull torch
-        # into a job that exists to render a PDF.
         run: PYTHONPATH=src python3 -m neuromps.report.verify
-      - name: Build the technical report
-        run: report/build_report.sh --check-pages 15 20
-      - name: Upload the PDF
+      - name: Build the technical report and check its length
+        run: report/build_docx.sh --check-pages 15 20
+      - name: Upload the report
         uses: actions/upload-artifact@v4
         with:
           name: technical-report
-          path: report/TECHNICAL_REPORT.pdf
+          path: |
+            report/TECHNICAL_REPORT.pdf
+            report/TECHNICAL_REPORT.docx
           if-no-files-found: error
