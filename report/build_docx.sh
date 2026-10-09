@@ -13,7 +13,7 @@
 #   report/build_docx.sh --docx-only           # skip the PDF conversion
 #   report/build_docx.sh --check-pages 15 20   # also gate the main-matter length
 #   report/build_docx.sh --outdir /tmp/x       # write somewhere other than report/
-#   report/build_docx.sh --source report/KAGGLE_WRITEUP.md
+#   report/build_docx.sh --source report/LAB_NOTEBOOK.md
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"

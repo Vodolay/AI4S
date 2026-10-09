@@ -18,7 +18,7 @@ The PDF is produced from the .docx by LibreOffice, so the two cannot disagree.
 
 Usage:
     python -m neuromps.report.docx
-    python -m neuromps.report.docx --source report/KAGGLE_WRITEUP.md
+    python -m neuromps.report.docx --source report/LAB_NOTEBOOK.md
 """
 
 from __future__ import annotations

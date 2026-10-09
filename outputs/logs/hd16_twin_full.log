@@ -1,500 +1,0 @@
-2026-09-20 19:20:51,281 INFO simulated baseline features: {'mfr_hz': 4.477604166666667, 'burst_rate_per_min': 25.34375, 'burst_duration_s': 0.02679556103575831, 'spikes_per_burst': 5.79284833538841, 'pct_spikes_in_bursts': 54.64696987321159, 'network_burst_rate_per_min': 53.0, 'synchrony_index': 0.8298518265897853, 'isi_cv': 1.7101395601151226, 'active_electrodes': 32}
-2026-09-20 19:30:45,443 INFO wrote /home/lacsi/AI4S/outputs/twin/hd11_validation_simulated.json
-2026-09-20 19:30:45,494 INFO calibrating against screenneuropharm_bic chamber baselines (n=48 records)
-2026-09-20 19:31:02,794 INFO   draw 1/40 (random) score 0.880
-2026-09-20 19:31:18,904 INFO   draw 2/40 (random) score 0.832
-2026-09-20 19:31:35,052 INFO   draw 3/40 (random) score 1.005
-2026-09-20 19:31:51,647 INFO   draw 4/40 (random) score 0.459
-2026-09-20 19:32:08,230 INFO   draw 5/40 (random) score 0.654
-2026-09-20 19:32:24,481 INFO   draw 6/40 (random) score 0.337
-2026-09-20 19:32:40,801 INFO   draw 7/40 (random) score 0.717
-2026-09-20 19:32:57,054 INFO   draw 8/40 (random) score 0.398
-2026-09-20 19:33:13,804 INFO   draw 9/40 (random) score 0.388
-2026-09-20 19:33:30,194 INFO   draw 10/40 (random) score 0.593
-2026-09-20 19:33:46,826 INFO   draw 11/40 (random) score 0.543
-2026-09-20 19:34:04,032 INFO   draw 12/40 (random) score 0.791
-2026-09-20 19:34:20,622 INFO   draw 13/40 (random) score 0.417
-2026-09-20 19:34:37,427 INFO   draw 14/40 (random) score 0.882
-2026-09-20 19:34:54,478 INFO   draw 15/40 (random) score 0.798
-2026-09-20 19:35:11,059 INFO   draw 16/40 (random) score 0.591
-2026-09-20 19:35:27,422 INFO   draw 17/40 (random) score 0.851
-2026-09-20 19:35:43,322 INFO   draw 18/40 (random) score 0.794
-2026-09-20 19:36:00,246 INFO   draw 19/40 (random) score 0.682
-2026-09-20 19:36:16,499 INFO   draw 20/40 (random) score 0.486
-2026-09-20 19:36:32,856 INFO   draw 21/40 (random) score 0.567
-2026-09-20 19:36:50,038 INFO   draw 22/40 (random) score 0.698
-2026-09-20 19:37:06,955 INFO   draw 23/40 (random) score 0.483
-2026-09-20 19:37:23,208 INFO   draw 24/40 (random) score 0.320
-2026-09-20 19:37:39,608 INFO   draw 25/40 (refine) score 0.320
-2026-09-20 19:37:56,279 INFO   draw 26/40 (refine) score 0.457
-2026-09-20 19:38:12,629 INFO   draw 27/40 (refine) score 0.294
-2026-09-20 19:38:28,939 INFO   draw 28/40 (refine) score 0.216
-2026-09-20 19:38:45,187 INFO   draw 29/40 (refine) score 0.143
-2026-09-20 19:39:01,285 INFO   draw 30/40 (refine) score 2.678
-2026-09-20 19:39:17,060 INFO   draw 31/40 (refine) score 2.678
-2026-09-20 19:39:33,122 INFO   draw 32/40 (refine) score 0.990
-2026-09-20 19:39:49,894 INFO   draw 33/40 (refine) score 0.220
-2026-09-20 19:40:05,899 INFO   draw 34/40 (refine) score 0.084
-2026-09-20 19:40:22,190 INFO   draw 35/40 (refine) score 0.194
-2026-09-20 19:40:38,656 INFO   draw 36/40 (refine) score 0.212
-2026-09-20 19:40:55,082 INFO   draw 37/40 (refine) score 0.277
-2026-09-20 19:41:11,258 INFO   draw 38/40 (refine) score 0.032
-2026-09-20 19:41:27,722 INFO   draw 39/40 (refine) score 0.109
-2026-09-20 19:41:44,160 INFO   draw 40/40 (refine) score 0.168
-2026-09-20 19:41:44,303 INFO best score 0.032 with {'background_weight': 0.0395, 'excitatory_weight': 0.33, 'inhibitory_weight': 4.8445, 'adaptation_increment': 1.8862, 'threshold_spread': 0.0259, 'intra_in_degree': 17.6161, 'detection_radius_um': 295.8724}
-2026-09-20 19:42:00,285 INFO simulated untreated baseline: mfr 6.93 Hz
-2026-09-20 19:42:17,220 INFO   gabaa_block (gabaa_scale=0.2) done
-2026-09-20 19:42:33,414 INFO   gabaa_potentiate (gabaa_scale=2.0) done
-2026-09-20 19:42:49,092 INFO   ampa_block (ampa_scale=0.4) done
-2026-09-20 19:43:04,940 INFO   sodium_block (threshold_scale=1.6) done
-2026-09-20 19:43:06,212 INFO reusing 3500 cached simulations
-{
-  "baseline_features": {
-    "mfr_hz": 4.477604166666667,
-    "burst_rate_per_min": 25.34375,
-    "burst_duration_s": 0.02679556103575831,
-    "spikes_per_burst": 5.79284833538841,
-    "pct_spikes_in_bursts": 54.64696987321159,
-    "network_burst_rate_per_min": 53.0,
-    "synchrony_index": 0.8298518265897853,
-    "isi_cv": 1.7101395601151226,
-    "active_electrodes": 32
-  },
-  "within_real_range": {
-    "mfr_hz": true,
-    "burst_rate_per_min": false,
-    "network_burst_rate_per_min": false,
-    "synchrony_index": false
-  }
-}
-  ratio   1.0 drive   1.0 -> asym 0.109, lag 1.667 ms, rate ratio 0.978
-  ratio   1.0 drive  0.85 -> asym 0.494, lag 5.0 ms, rate ratio 0.692
-  ratio   1.0 drive   0.7 -> asym 0.681, lag 8.333 ms, rate ratio 0.599
-  ratio   4.0 drive   1.0 -> asym 0.005, lag 0.0 ms, rate ratio 1.225
-  ratio   4.0 drive  0.85 -> asym 0.535, lag 5.0 ms, rate ratio 0.895
-  ratio   4.0 drive   0.7 -> asym 0.759, lag 5.0 ms, rate ratio 0.762
-  ratio  16.0 drive   1.0 -> asym 0.143, lag 5.0 ms, rate ratio 1.474
-  ratio  16.0 drive  0.85 -> asym 0.502, lag 5.0 ms, rate ratio 0.997
-  ratio  16.0 drive   0.7 -> asym 0.83, lag 5.0 ms, rate ratio 0.859
-{
-  "best": {
-    "draw": {
-      "background_weight": 0.0395,
-      "excitatory_weight": 0.33,
-      "inhibitory_weight": 4.8445,
-      "adaptation_increment": 1.8862,
-      "threshold_spread": 0.0259,
-      "intra_in_degree": 17.6161,
-      "detection_radius_um": 295.8724
-    },
-    "stage": "refine",
-    "features_simulated": {
-      "mfr_hz": 6.927604166666667,
-      "burst_rate_per_min": 21.015625,
-      "network_burst_rate_per_min": 22.5,
-      "synchrony_index": 0.9642643440800385,
-      "pct_spikes_in_bursts": 96.1964616421526
-    },
-    "score": 0.0322,
-    "per_feature": {
-      "mfr_hz": 0.0,
-      "burst_rate_per_min": 0.0,
-      "network_burst_rate_per_min": 0.0,
-      "synchrony_index": 0.1344,
-      "pct_spikes_in_bursts": 0.0265
-    }
-  },
-  "inside_real_band": {
-    "mfr_hz": true,
-    "burst_rate_per_min": true,
-    "network_burst_rate_per_min": true,
-    "synchrony_index": false,
-    "pct_spikes_in_bursts": false
-  }
-}
-gabaa_block        4/5 features agree  (GABA-A antagonist (bicuculline, gabazine): inhibition removed)
-gabaa_potentiate   2/4 features agree  (GABA-A positive modulator (diazepam): inhibition strengthened)
-ampa_block         4/4 features agree  (glutamatergic antagonist (CNQX, D-AP5): excitation reduced)
-sodium_block       3/3 features agree  (sodium-channel blocker (TTX): spike threshold raised)
- Training neural network. Epochs trained: 1 Training neural network. Epochs trained: 2 Training neural network. Epochs trained: 3 Training neural network. Epochs trained: 4 Training neural network. Epochs trained: 5 Training neural network. Epochs trained: 6 Training neural network. Epochs trained: 7 Training neural network. Epochs trained: 8 Training neural network. Epochs trained: 9 Training neural network. Epochs trained: 10 Training neural network. Epochs trained: 11 Training neural network. Epochs trained: 12 Training neural network. Epochs trained: 13 Training neural network. Epochs trained: 14 Training neural network. Epochs trained: 15 Training neural network. Epochs trained: 16 Training neural network. Epochs trained: 17 Training neural network. Epochs trained: 18 Training neural network. Epochs trained: 19 Training neural network. Epochs trained: 20 Training neural network. Epochs trained: 21 Training neural network. Epochs trained: 22 Training neural network. Epochs trained: 23 Training neural network. Epochs trained: 24 Training neural network. Epochs trained: 25 Training neural network. Epochs trained: 26 Training neural network. Epochs trained: 27 Training neural network. Epochs trained: 28 Training neural network. Epochs trained: 29 Training neural network. Epochs trained: 30 Training neural network. Epochs trained: 31 Training neural network. Epochs trained: 32 Training neural network. Epochs trained: 33 Training neural network. Epochs trained: 34 Training neural network. Epochs trained: 35 Training neural network. Epochs trained: 36 Training neural network. Epochs trained: 37 Training neural network. Epochs trained: 38 Training neural network. Epochs trained: 39 Training neural network. Epochs trained: 40 Training neural network. Epochs trained: 41 Training neural network. Epochs trained: 42 Training neural network. Epochs trained: 43 Training neural network. Epochs trained: 44 Training neural network. Epochs trained: 45 Training neural network. Epochs trained: 46 Training neural network. Epochs trained: 47 Training neural network. Epochs trained: 48 Training neural network. Epochs trained: 49 Training neural network. Epochs trained: 50 Training neural network. Epochs trained: 51 Training neural network. Epochs trained: 52 Training neural network. Epochs trained: 53 Training neural network. Epochs trained: 54 Training neural network. Epochs trained: 55 Training neural network. Epochs trained: 56 Training neural network. Epochs trained: 57 Training neural network. Epochs trained: 58 Training neural network. Epochs trained: 59 Training neural network. Epochs trained: 60 Training neural network. Epochs trained: 61 Training neural network. Epochs trained: 62 Training neural network. Epochs trained: 63 Training neural network. Epochs trained: 64 Training neural network. Epochs trained: 65 Training neural network. Epochs trained: 66 Training neural network. Epochs trained: 67 Training neural network. Epochs trained: 68 Training neural network. Epochs trained: 69 Training neural network. Epochs trained: 70 Training neural network. Epochs trained: 71 Training neural network. Epochs trained: 72 Training neural network. Epochs trained: 73 Training neural network. Epochs trained: 74 Training neural network. Epochs trained: 75 Training neural network. Epochs trained: 76 Training neural network. Epochs trained: 77 Training neural network. Epochs trained: 78 Training neural network. Epochs trained: 79 Training neural network. Epochs trained: 80 Training neural network. Epochs trained: 81 Training neural network. Epochs trained: 82 Training neural network. Epochs trained: 83 Training neural network. Epochs trained: 84 Training neural network. Epochs trained: 85 Training neural network. Epochs trained: 86 Training neural network. Epochs trained: 87 Training neural network. Epochs trained: 88 Training neural network. Epochs trained: 89 Training neural network. Epochs trained: 90 Training neural network. Epochs trained: 91 Training neural network. Epochs trained: 92 Training neural network. Epochs trained: 93 Training neural network. Epochs trained: 94 Training neural network. Epochs trained: 95 Training neural network. Epochs trained: 96 Training neural network. Epochs trained: 97 Training neural network. Epochs trained: 98 Training neural network. Epochs trained: 99 Training neural network. Epochs trained: 100 Training neural network. Epochs trained: 101 Training neural network. Epochs trained: 102 Training neural network. Epochs trained: 103 Training neural network. Epochs trained: 104 Training neural network. Epochs trained: 105 Training neural network. Epochs trained: 106 Training neural network. Epochs trained: 107 Training neural network. Epochs trained: 108 Training neural network. Epochs trained: 109 Training neural network. Epochs trained: 110 Training neural network. Epochs trained: 111 Training neural network. Epochs trained: 112 Training neural network. Epochs trained: 113 Training neural network. Epochs trained: 114 Training neural network. Epochs trained: 115 Training neural network. Epochs trained: 116 Training neural network. Epochs trained: 117 Training neural network. Epochs trained: 118 Training neural network. Epochs trained: 119 Neural network successfully converged after 119 epochs.{
-  "n_simulations": 3500,
-  "fraction_silent_simulations": 0.201,
-  "contraction": {
-    "log10_forward_ratio": {
-      "prior_sd": 0.3753,
-      "posterior_sd": 0.2647,
-      "contraction": 0.295
-    },
-    "inter_in_degree": {
-      "prior_sd": 5.1962,
-      "posterior_sd": 3.5359,
-      "contraction": 0.32
-    },
-    "gabaa_scale": {
-      "prior_sd": 0.5485,
-      "posterior_sd": 0.369,
-      "contraction": 0.327
-    },
-    "ampa_scale": {
-      "prior_sd": 0.2887,
-      "posterior_sd": 0.1603,
-      "contraction": 0.445
-    },
-    "threshold_scale": {
-      "prior_sd": 0.0866,
-      "posterior_sd": 0.0159,
-      "contraction": 0.816
-    }
-  },
-  "rank_uniformity_ks_p": {
-    "log10_forward_ratio": {
-      "ks_statistic": 0.0864,
-      "ks_p": 0.0101,
-      "n_evaluated": 350
-    },
-    "inter_in_degree": {
-      "ks_statistic": 0.1136,
-      "ks_p": 0.0002,
-      "n_evaluated": 350
-    },
-    "gabaa_scale": {
-      "ks_statistic": 0.1043,
-      "ks_p": 0.0009,
-      "n_evaluated": 350
-    },
-    "ampa_scale": {
-      "ks_statistic": 0.0607,
-      "ks_p": 0.1454,
-      "n_evaluated": 350
-    },
-    "threshold_scale": {
-      "ks_statistic": 0.045,
-      "ks_p": 0.4644,
-      "n_evaluated": 350
-    }
-  }
-}2026-09-20 19:45:22,440 INFO distribution check: 99% inside the simulated range; outside: []; unsupported: ['c0_burst_rate_per_min', 'c0_active_electrodes', 'c1_burst_rate_per_min', 'c1_active_electrodes']
-2026-09-20 19:45:38,821 INFO prior acceptance: median 67.1000%, 2% of recordings below 1%
-2026-09-20 19:45:44,581 WARNING Only 0.095% proposal samples are
-                    accepted. It may take a long time to collect the remaining
-                    490 samples. You can prevent very long runtimes by
-                    setting `max_sampling_time` to limit runtime, or disabling
-                    rejection sampling (e.g. via `reject_outside_prior=False` in
-                    `posterior.sample()` when available).Alternatively, consider interrupting (Ctrl-C)
-                    and switching to `build_posterior(..., sample_with='mcmc')`.
-2026-09-20 19:45:58,706 WARNING Only 0.086% proposal samples are
-                    accepted. It may take a long time to collect the remaining
-                    491 samples. You can prevent very long runtimes by
-                    setting `max_sampling_time` to limit runtime, or disabling
-                    rejection sampling (e.g. via `reject_outside_prior=False` in
-                    `posterior.sample()` when available).Alternatively, consider interrupting (Ctrl-C)
-                    and switching to `build_posterior(..., sample_with='mcmc')`.
-2026-09-20 19:46:22,727 WARNING Only 0.514% proposal samples are
-                    accepted. It may take a long time to collect the remaining
-                    446 samples. You can prevent very long runtimes by
-                    setting `max_sampling_time` to limit runtime, or disabling
-                    rejection sampling (e.g. via `reject_outside_prior=False` in
-                    `posterior.sample()` when available).Alternatively, consider interrupting (Ctrl-C)
-                    and switching to `build_posterior(..., sample_with='mcmc')`.
-2026-09-20 19:46:27,240 WARNING Only 0.476% proposal samples are
-                    accepted. It may take a long time to collect the remaining
-                    450 samples. You can prevent very long runtimes by
-                    setting `max_sampling_time` to limit runtime, or disabling
-                    rejection sampling (e.g. via `reject_outside_prior=False` in
-                    `posterior.sample()` when available).Alternatively, consider interrupting (Ctrl-C)
-                    and switching to `build_posterior(..., sample_with='mcmc')`.
-2026-09-20 19:46:28,729 WARNING Only 0.010% proposal samples are
-                    accepted. It may take a long time to collect the remaining
-                    499 samples. You can prevent very long runtimes by
-                    setting `max_sampling_time` to limit runtime, or disabling
-                    rejection sampling (e.g. via `reject_outside_prior=False` in
-                    `posterior.sample()` when available).Alternatively, consider interrupting (Ctrl-C)
-                    and switching to `build_posterior(..., sample_with='mcmc')`.
-2026-09-20 19:46:45,226 WARNING Only 0.010% proposal samples are
-                    accepted. It may take a long time to collect the remaining
-                    499 samples. You can prevent very long runtimes by
-                    setting `max_sampling_time` to limit runtime, or disabling
-                    rejection sampling (e.g. via `reject_outside_prior=False` in
-                    `posterior.sample()` when available).Alternatively, consider interrupting (Ctrl-C)
-                    and switching to `build_posterior(..., sample_with='mcmc')`.
-2026-09-20 19:47:00,961 WARNING Only 0.048% proposal samples are
-                    accepted. It may take a long time to collect the remaining
-                    495 samples. You can prevent very long runtimes by
-                    setting `max_sampling_time` to limit runtime, or disabling
-                    rejection sampling (e.g. via `reject_outside_prior=False` in
-                    `posterior.sample()` when available).Alternatively, consider interrupting (Ctrl-C)
-                    and switching to `build_posterior(..., sample_with='mcmc')`.
-2026-09-20 19:47:15,728 WARNING Only 0.019% proposal samples are
-                    accepted. It may take a long time to collect the remaining
-                    498 samples. You can prevent very long runtimes by
-                    setting `max_sampling_time` to limit runtime, or disabling
-                    rejection sampling (e.g. via `reject_outside_prior=False` in
-                    `posterior.sample()` when available).Alternatively, consider interrupting (Ctrl-C)
-                    and switching to `build_posterior(..., sample_with='mcmc')`.
-2026-09-20 19:47:40,630 INFO simulating 8 networks on 16 processes
-
-{
-  "distribution_check": {
-    "n_real": 113,
-    "mean_fraction_inside": 0.992,
-    "outside_dimensions": [],
-    "unsupported_dimensions": [
-      "c0_burst_rate_per_min",
-      "c0_active_electrodes",
-      "c1_burst_rate_per_min",
-      "c1_active_electrodes"
-    ]
-  },
-  "prior_acceptance": {
-    "median_acceptance": 0.671,
-    "min_acceptance": 0.0005,
-    "max_acceptance": 0.962,
-    "fraction_below_1_percent": 0.018,
-    "n_draws_per_recording": 2000,
-    "note": "share of raw posterior draws inside the prior box; low values mean the posterior is extrapolating outside its training region for real inputs"
-  },
-  "gabaa_scale_dose_trend": {
-    "spearman_rho": 0.083,
-    "naive_p_value": 0.3841,
-    "n_recordings": 113,
-    "direction": "rises with dose",
-    "spearman_rho_ci95": [
-      -0.2275,
-      0.4305
-    ],
-    "n_devices": 16,
-    "bootstrap_resamples": 1000,
-    "excludes_zero": false
-  },
-  "gabaa_scale_at_baseline": {
-    "median": 0.4149,
-    "n_untreated": 16,
-    "neutral_value": 1.0,
-    "median_ci95": [
-      0.3692,
-      0.4693
-    ],
-    "includes_neutral": false,
-    "bootstrap_resamples": 1000,
-    "n_devices": 16
-  },
-  "gabaa_scale_dose_trend_without_ood_dimensions": {
-    "spearman_rho": 0.196,
-    "naive_p_value": 0.0377,
-    "n_recordings": 113,
-    "direction": "rises with dose",
-    "spearman_rho_ci95": [
-      -0.1084,
-      0.5122
-    ],
-    "n_devices": 16,
-    "bootstrap_resamples": 1000,
-    "excludes_zero": false
-  }
-}
-2026-09-20 19:47:45,468 INFO simulating 8 networks on 16 processes
-2026-09-20 19:47:52,210 INFO   ratio 3.0 drive 10.0/1.00 -> rates 8.92/10.47 (target 10.29/9.93)
-2026-09-20 19:47:52,211 INFO simulating 8 networks on 16 processes
-2026-09-20 19:47:58,905 INFO   ratio 3.0 drive 10.0/0.95 -> rates 8.36/8.51 (target 10.29/9.93)
-2026-09-20 19:47:58,906 INFO simulating 8 networks on 16 processes
-2026-09-20 19:48:03,378 INFO   ratio 3.0 drive 10.0/0.90 -> rates 7.50/7.22 (target 10.29/9.93)
-2026-09-20 19:48:03,380 INFO simulating 8 networks on 16 processes
-2026-09-20 19:48:08,279 INFO   ratio 3.0 drive 10.0/0.85 -> rates 7.22/7.06 (target 10.29/9.93)
-2026-09-20 19:48:08,282 INFO simulating 8 networks on 16 processes
-2026-09-20 19:48:15,892 INFO   ratio 3.0 drive 10.0/0.75 -> rates 6.57/4.83 (target 10.29/9.93)
-2026-09-20 19:48:15,893 INFO simulating 8 networks on 16 processes
-2026-09-20 19:48:22,560 INFO   ratio 3.0 drive 10.0/0.65 -> rates 6.67/4.65 (target 10.29/9.93)
-2026-09-20 19:48:22,561 INFO simulating 8 networks on 16 processes
-2026-09-20 19:48:27,170 INFO   ratio 3.0 drive 11.0/1.00 -> rates 13.79/16.17 (target 10.29/9.93)
-2026-09-20 19:48:27,176 INFO simulating 8 networks on 16 processes
-2026-09-20 19:48:34,766 INFO   ratio 3.0 drive 11.0/0.95 -> rates 13.07/13.80 (target 10.29/9.93)
-2026-09-20 19:48:34,767 INFO simulating 8 networks on 16 processes
-2026-09-20 19:48:41,537 INFO   ratio 3.0 drive 11.0/0.90 -> rates 12.92/12.46 (target 10.29/9.93)
-2026-09-20 19:48:41,538 INFO simulating 8 networks on 16 processes
-2026-09-20 19:48:48,367 INFO   ratio 3.0 drive 11.0/0.85 -> rates 12.74/11.45 (target 10.29/9.93)
-2026-09-20 19:48:48,373 INFO simulating 8 networks on 16 processes
-2026-09-20 19:48:55,969 INFO   ratio 3.0 drive 11.0/0.75 -> rates 12.14/9.85 (target 10.29/9.93)
-2026-09-20 19:48:55,974 INFO simulating 8 networks on 16 processes
-2026-09-20 19:49:03,874 INFO   ratio 3.0 drive 11.0/0.65 -> rates 12.00/8.73 (target 10.29/9.93)
-2026-09-20 19:49:03,875 INFO simulating 8 networks on 16 processes
-2026-09-20 19:49:10,704 INFO   ratio 3.0 drive 12.0/1.00 -> rates 17.57/19.89 (target 10.29/9.93)
-2026-09-20 19:49:10,708 INFO simulating 8 networks on 16 processes
-2026-09-20 19:49:17,673 INFO   ratio 3.0 drive 12.0/0.95 -> rates 17.18/18.52 (target 10.29/9.93)
-2026-09-20 19:49:17,674 INFO simulating 8 networks on 16 processes
-2026-09-20 19:49:24,532 INFO   ratio 3.0 drive 12.0/0.90 -> rates 17.11/17.15 (target 10.29/9.93)
-2026-09-20 19:49:24,534 INFO simulating 8 networks on 16 processes
-2026-09-20 19:49:32,547 INFO   ratio 3.0 drive 12.0/0.85 -> rates 16.57/15.28 (target 10.29/9.93)
-2026-09-20 19:49:32,554 INFO simulating 8 networks on 16 processes
-2026-09-20 19:49:40,601 INFO   ratio 3.0 drive 12.0/0.75 -> rates 16.19/12.96 (target 10.29/9.93)
-2026-09-20 19:49:40,602 INFO simulating 8 networks on 16 processes
-2026-09-20 19:49:47,373 INFO   ratio 3.0 drive 12.0/0.65 -> rates 16.21/12.21 (target 10.29/9.93)
-2026-09-20 19:49:47,374 INFO simulating 8 networks on 16 processes
-2026-09-20 19:49:54,103 INFO   ratio 10.0 drive 10.0/1.00 -> rates 7.46/10.49 (target 10.29/9.93)
-2026-09-20 19:49:54,104 INFO simulating 8 networks on 16 processes
-2026-09-20 19:49:58,526 INFO   ratio 10.0 drive 10.0/0.95 -> rates 7.40/8.93 (target 10.29/9.93)
-2026-09-20 19:49:58,527 INFO simulating 8 networks on 16 processes
-2026-09-20 19:50:03,129 INFO   ratio 10.0 drive 10.0/0.90 -> rates 7.00/8.02 (target 10.29/9.93)
-2026-09-20 19:50:03,131 INFO simulating 8 networks on 16 processes
-2026-09-20 19:50:08,237 INFO   ratio 10.0 drive 10.0/0.85 -> rates 6.94/7.53 (target 10.29/9.93)
-2026-09-20 19:50:08,242 INFO simulating 8 networks on 16 processes
-2026-09-20 19:50:16,201 INFO   ratio 10.0 drive 10.0/0.75 -> rates 6.23/6.04 (target 10.29/9.93)
-2026-09-20 19:50:16,205 INFO simulating 8 networks on 16 processes
-2026-09-20 19:50:23,325 INFO   ratio 10.0 drive 10.0/0.65 -> rates 6.18/5.37 (target 10.29/9.93)
-2026-09-20 19:50:23,326 INFO simulating 8 networks on 16 processes
-2026-09-20 19:50:30,111 INFO   ratio 10.0 drive 11.0/1.00 -> rates 12.43/16.50 (target 10.29/9.93)
-2026-09-20 19:50:30,112 INFO simulating 8 networks on 16 processes
-2026-09-20 19:50:34,671 INFO   ratio 10.0 drive 11.0/0.95 -> rates 12.52/15.34 (target 10.29/9.93)
-2026-09-20 19:50:34,672 INFO simulating 8 networks on 16 processes
-2026-09-20 19:50:39,159 INFO   ratio 10.0 drive 11.0/0.90 -> rates 12.08/13.00 (target 10.29/9.93)
-2026-09-20 19:50:39,161 INFO simulating 8 networks on 16 processes
-2026-09-20 19:50:44,161 INFO   ratio 10.0 drive 11.0/0.85 -> rates 11.99/12.01 (target 10.29/9.93)
-2026-09-20 19:50:44,164 INFO simulating 8 networks on 16 processes
-2026-09-20 19:50:52,227 INFO   ratio 10.0 drive 11.0/0.75 -> rates 11.72/10.52 (target 10.29/9.93)
-2026-09-20 19:50:52,232 INFO simulating 8 networks on 16 processes
-2026-09-20 19:50:59,463 INFO   ratio 10.0 drive 11.0/0.65 -> rates 11.64/10.24 (target 10.29/9.93)
-2026-09-20 19:50:59,464 INFO simulating 8 networks on 16 processes
-2026-09-20 19:51:06,274 INFO   ratio 10.0 drive 12.0/1.00 -> rates 16.74/21.21 (target 10.29/9.93)
-2026-09-20 19:51:06,275 INFO simulating 8 networks on 16 processes
-2026-09-20 19:51:10,917 INFO   ratio 10.0 drive 12.0/0.95 -> rates 16.51/19.18 (target 10.29/9.93)
-2026-09-20 19:51:10,919 INFO simulating 8 networks on 16 processes
-2026-09-20 19:51:16,428 INFO   ratio 10.0 drive 12.0/0.90 -> rates 16.23/18.04 (target 10.29/9.93)
-2026-09-20 19:51:16,430 INFO simulating 8 networks on 16 processes
-2026-09-20 19:51:23,809 INFO   ratio 10.0 drive 12.0/0.85 -> rates 16.04/16.25 (target 10.29/9.93)
-2026-09-20 19:51:23,814 INFO simulating 8 networks on 16 processes
-2026-09-20 19:51:28,693 INFO   ratio 10.0 drive 12.0/0.75 -> rates 15.69/13.73 (target 10.29/9.93)
-2026-09-20 19:51:28,697 INFO simulating 8 networks on 16 processes
-2026-09-20 19:51:35,664 INFO   ratio 10.0 drive 12.0/0.65 -> rates 15.83/12.97 (target 10.29/9.93)
-2026-09-20 19:51:35,666 INFO rate-matching drives: {1.0: {'background_rate_hz': 10.0, 'background_scale_target': 1.0}, 3.0: {'background_rate_hz': 11.0, 'background_scale_target': 0.75}, 10.0: {'background_rate_hz': 11.0, 'background_scale_target': 0.65}}
-2026-09-20 19:51:35,702 INFO reusing cached grid: 2880 rows
-2026-09-20 19:53:02,499 INFO run_all finished in 1956.4 s
-{
-  "n_networks": 120,
-  "rate_imbalance_by_arm": {
-    "free_rate": {
-      "1.0": 0.0046,
-      "3.0": -0.2756,
-      "10.0": -0.518
-    },
-    "rate_matched": {
-      "1.0": 0.0046,
-      "3.0": 0.3116,
-      "10.0": 0.2377
-    }
-  },
-  "matching_quality": {
-    "free_rate": {
-      "worst_relative_rate_gap": 0.2248,
-      "relative_rate_gap_by_ratio": {
-        "3.0": {
-          "c0_mfr_hz": 0.1064,
-          "c1_mfr_hz": 0.0744
-        },
-        "10.0": {
-          "c0_mfr_hz": 0.2248,
-          "c1_mfr_hz": 0.1225
-        }
-      }
-    },
-    "rate_matched": {
-      "worst_relative_rate_gap": 0.26,
-      "relative_rate_gap_by_ratio": {
-        "3.0": {
-          "c0_mfr_hz": 0.26,
-          "c1_mfr_hz": 0.0049
-        },
-        "10.0": {
-          "c0_mfr_hz": 0.2067,
-          "c1_mfr_hz": 0.0123
-        }
-      }
-    }
-  },
-  "cheapest_configuration": {
-    "rate_matched_residualized": {
-      "duration_s": 10.0,
-      "electrodes_per_compartment": 6,
-      "feature_set": "all_rate_residualized",
-      "rate_residualized": true,
-      "auc": 0.9784,
-      "auc_ci95": [
-        0.9481,
-        0.9983
-      ],
-      "n_simulations": 120,
-      "bootstrap_resamples": 1000,
-      "better_than_chance": true,
-      "classifier": "linear",
-      "arm": "rate_matched"
-    },
-    "free_rate_residualized": {
-      "duration_s": 10.0,
-      "electrodes_per_compartment": 24,
-      "feature_set": "all_rate_residualized",
-      "rate_residualized": true,
-      "auc": 0.9359,
-      "auc_ci95": [
-        0.893,
-        0.9739
-      ],
-      "n_simulations": 120,
-      "bootstrap_resamples": 1000,
-      "better_than_chance": true,
-      "classifier": "linear",
-      "arm": "free_rate"
-    },
-    "free_rate_all_features": {
-      "duration_s": 10.0,
-      "electrodes_per_compartment": 6,
-      "feature_set": "all",
-      "rate_residualized": false,
-      "auc": 0.9219,
-      "auc_ci95": [
-        0.875,
-        0.9619
-      ],
-      "n_simulations": 120,
-      "bootstrap_resamples": 1000,
-      "better_than_chance": true,
-      "classifier": "linear",
-      "arm": "free_rate"
-    }
-  },
-  "validity_check_rate_only_residualized": [
-    {
-      "arm": "free_rate",
-      "duration_s": 10.0,
-      "auc": 0.4344,
-      "better_than_chance": false
-    },
-    {
-      "arm": "free_rate",
-      "duration_s": 30.0,
-      "auc": 0.4697,
-      "better_than_chance": false
-    },
-    {
-      "arm": "free_rate",
-      "duration_s": 60.0,
-      "auc": 0.4103,
-      "better_than_chance": false
-    },
-    {
-      "arm": "rate_matched",
-      "duration_s": 10.0,
-      "auc": 0.5656,
-      "better_than_chance": false
-    },
-    {
-      "arm": "rate_matched",
-      "duration_s": 30.0,
-      "auc": 0.5166,
-      "better_than_chance": false
-    },
-    {
-      "arm": "rate_matched",
-      "duration_s": 60.0,
-      "auc": 0.53,
-      "better_than_chance": false
-    }
-  ]
-}

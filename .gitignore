@@ -19,9 +19,6 @@ outputs/**/*.pdf
 .ipynb_checkpoints/
 sbi-logs/
 
-# Built video: reproduced by `make video` from the tracked stills.
-outputs/video/frames/
-outputs/video/frames.txt
 
 # Explainers written for readers without a machine-learning background. Kept out
 # of the repository at the author's request; they are companions to

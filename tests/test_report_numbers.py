@@ -209,7 +209,6 @@ UNCITED_BUDGET = {
     # 20 after the review pass: two bare values gained citations, which paid
     # for the one number in a statute's name (FDA Modernization Act 2.0, §20).
     "TECHNICAL_REPORT.md": 20,
-    "KAGGLE_WRITEUP.md": 10,
 }
 
 
