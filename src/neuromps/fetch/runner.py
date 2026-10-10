@@ -84,6 +84,26 @@ def run_fetchers(
     return manifest
 
 
+INCOMPLETE = frozenset({"partial", "blocked"})
+
+
+def incomplete_sources(manifest: Manifest) -> list[SourceRecord]:
+    """Sources whose download did not finish. ``skipped`` is a decision, not a failure."""
+    return [record for record in manifest.sources.values() if record.status in INCOMPLETE]
+
+
+def incomplete_message(records: list[SourceRecord]) -> str:
+    """What a reader needs after a failed fetch: which sources, why, and what to do."""
+    lines = [f"  {record.name}: {record.note}" for record in records]
+    return (
+        f"{len(records)} source(s) did not finish downloading:\n"
+        + "\n".join(lines)
+        + "\nThese are usually a busy or unreachable host. Files that finished are kept and"
+        " verified, so rerun the same command to fetch only what is missing. Stopping here"
+        " rather than analysing an incomplete data set."
+    )
+
+
 def main(argv: list[str] | None = None) -> int:
     """CLI: ``python -m neuromps.fetch.runner [--full] [--only NAME ...]``."""
     p = argparse.ArgumentParser(description=__doc__)

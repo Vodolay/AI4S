@@ -22,6 +22,7 @@ from collections import OrderedDict
 
 import requests
 
+from neuromps.fetch import download
 from neuromps.fetch.download import USER_AGENT
 
 BLOCK_SIZE = 1 << 20
@@ -43,7 +44,7 @@ class CachedRangeReader(io.RawIOBase):
         self.block_size = block_size
         self.max_blocks = max_blocks
         self.timeout = timeout
-        self._session = session or requests.Session()
+        self._session = session or download.retrying_session()
         self._blocks: OrderedDict[int, bytes] = OrderedDict()
         self.bytes_fetched = 0
         self.requests_made = 0

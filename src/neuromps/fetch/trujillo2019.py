@@ -57,11 +57,9 @@ def mat_version(url: str) -> str:
     file. One range request of 140 bytes tells us which kind we are looking at,
     before committing to either a fast read or a gigabyte download.
     """
-    import requests
+    from neuromps.fetch.download import USER_AGENT, retrying_session
 
-    from neuromps.fetch.download import USER_AGENT
-
-    response = requests.get(
+    response = retrying_session().get(
         url,
         headers={"Range": "bytes=0-140", "Accept-Encoding": "identity", "User-Agent": USER_AGENT},
         timeout=60,
