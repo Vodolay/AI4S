@@ -18,7 +18,11 @@ from streamlit.testing.v1 import AppTest
 REPO_ROOT = Path(__file__).resolve().parents[1]
 APP = REPO_ROOT / "app" / "app.py"
 DEMO_READY = (REPO_ROOT / "outputs" / "demo" / "meta.json").exists()
-ASSET_BUILT = (REPO_ROOT / "data" / "processed" / "neuromps.parquet").exists()
+# Either run's asset: the app falls back to the quick one, so after a fresh
+# clone's `run_all.py --quick` the table renders and the "missing" note does not.
+ASSET_BUILT = any(
+    (REPO_ROOT / "data" / "processed" / sub / "neuromps.parquet").exists() for sub in ("", "quick")
+)
 INTERACTION_BUDGET_S = 1.0
 # What this budget is for: catching a callback that has started doing real work.
 # A live Brian2 run in the app takes about four seconds, so anything that slow
@@ -134,14 +138,23 @@ def test_changing_a_twin_slider_responds_within_the_budget() -> None:
     """The app's promise: an interaction never waits on a simulator."""
     at = AppTest.from_file(str(APP), default_timeout=120)
     at.run()
+    # What a rerun with no input costs on this machine. A slider rerenders the
+    # page, so it can never beat this; on a busy or slower machine a fixed one
+    # second failed with the slider costing exactly a plain rerun. A simulator
+    # call costs seconds on top, so twice the plain rerun still catches it.
+    started = time.time()
+    at.run()
+    plain = time.time() - started
+    budget = max(interaction_budget_s, 2 * plain)
     slider = next(s for s in at.select_slider if s.label == "GABA-A scale")
     options = list(slider.options)
     started = time.time()
     slider.set_value(options[-1]).run()
     elapsed = time.time() - started
     assert at.exception == [], [str(e.value) for e in at.exception]
-    assert elapsed < interaction_budget_s, (
-        f"slider took {elapsed:.2f}s, over the {interaction_budget_s:.1f}s budget"
+    assert elapsed < budget, (
+        f"slider took {elapsed:.2f}s, over the {budget:.1f}s budget "
+        f"(a plain rerun took {plain:.2f}s)"
     )
 
 

@@ -8,7 +8,7 @@ from pathlib import Path
 
 from neuromps.fetch.excluded import excluded_records
 from neuromps.fetch.manifest import Manifest, SourceRecord
-from neuromps.paths import manifest_path
+from neuromps.paths import FULL, QUICK, manifest_path, set_run_mode
 
 log = logging.getLogger("neuromps.fetch")
 
@@ -91,6 +91,10 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--only", nargs="*", help="restrict to these source names")
     args = p.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+    # The tier fetched decides the manifest written. Run on its own, this used to
+    # follow the default full mode, so a small-tier fetch replaced the committed
+    # full-tier entries with fewer files. `run_all.py` sets the mode itself.
+    set_run_mode(FULL if args.full else QUICK)
     manifest = run_fetchers(names=args.only, full=args.full)
     print(f"\n{'source':<22}{'status':<10}{'files':>6}{'MB':>10}  license")
     for s in manifest.sources.values():

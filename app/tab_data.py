@@ -36,7 +36,7 @@ def render(stamps: dict[str, float]) -> None:
     if records.empty:
         st.info(
             "The built asset is not in this checkout, so the record table is unavailable. "
-            "Run `python run_all.py --quick` to build it; the numbers above come from "
+            "Run `.venv/bin/python run_all.py --quick` to build it; the numbers above come from "
             "`outputs/metrics.json`, which is committed."
         )
     else:

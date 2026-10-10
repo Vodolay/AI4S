@@ -1,4 +1,4 @@
-"""The experiment-design lookup over the §7.6 grid."""
+"""The experiment-design lookup over the §17 grid."""
 
 import json
 from pathlib import Path
@@ -88,7 +88,7 @@ def test_every_answer_carries_the_simulation_caveat() -> None:
     for answer in (cheapest_for(_rows(), 0.80), at_configuration(_rows(), 6, 10.0)):
         assert answer["caveat"] == CAVEAT
         assert "SIMULATED" in answer["caveat"]
-        assert "7.7" in answer["caveat"], "the null on real devices must travel with the number"
+        assert "section 15" in answer["caveat"], "the real-device null must travel with the number"
 
 
 def test_the_table_is_sorted_and_carries_the_lower_bound() -> None:
@@ -104,7 +104,7 @@ def test_sweep_rows_is_empty_rather_than_raising_when_the_twin_has_not_run() -> 
 
 @pytest.mark.skipif(not METRICS.exists(), reason="no full-run metrics")
 def test_the_tool_reproduces_the_reports_own_headline_configuration() -> None:
-    """The tool and §7.6 must not drift: same grid, same target, same answer."""
+    """The tool and §17 must not drift: same grid, same target, same answer."""
     metrics = json.loads(METRICS.read_text())
     block = metrics.get("twin_hd16_directionality", {})
     reported = block.get("cheapest_configuration", {}).get("free_rate_residualized")

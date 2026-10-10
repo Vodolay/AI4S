@@ -108,7 +108,11 @@ jobs:
     # build instead, a denser-margined document nobody submits, and once the
     # report gained its model diagrams the two disagreed by four pages.
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    # LibreOffice is ~150 MB of packages. The runner's Ubuntu mirror usually
+    # serves that in a minute or two, but on 2026-10-09 it took eight minutes
+    # for one 20 MB package and the job was cancelled at 20 before rendering a
+    # page. The budget is for the download, not the build.
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -121,8 +125,11 @@ jobs:
         # names; without it LibreOffice substitutes a wider face and every table
         # reflows. DejaVu covers the monospace fallback for code spans.
         run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends \
+          # Skip rebuilding the man-page index after install, which nothing here reads.
+          sudo rm -f /var/lib/man-db/auto-update
+          sudo apt-get update -o Acquire::Retries=3
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+            -o Acquire::Retries=3 \
             libreoffice-writer-nogui fonts-crosextra-carlito fonts-dejavu-core \
             fontconfig poppler-utils
           soffice --version

@@ -49,16 +49,29 @@ documents that cite it. Full account: [report/TECHNICAL_REPORT.md](report/TECHNI
 
 ## Setup
 
+Linux or macOS, with `git` and `curl`. CI runs on Ubuntu 24.04. uv fetches Python 3.11 itself
+if the machine does not have it.
+
 ```bash
-pip install uv
+git clone https://github.com/Vodolay/AI4S
+cd AI4S
+curl -LsSf https://astral.sh/uv/install.sh | sh     # installs uv into ~/.local/bin
+export PATH="$HOME/.local/bin:$PATH"                 # so this terminal finds it
 uv venv --python 3.11 .venv
 uv pip install --python .venv/bin/python -e ".[dev]"
 ```
 
+If uv is already installed, skip the `curl` line. `pip install uv` also works where pip may install
+into the system Python; recent Ubuntu, Debian and Homebrew Pythons refuse it ("externally managed
+environment"), which is why the installer comes first. On a machine without an NVIDIA GPU, add
+`--torch-backend cpu` to the last command to skip several gigabytes of CUDA libraries.
+
+Every command below is run from the `AI4S` folder.
+
 ## Reproduce
 
 ```bash
-.venv/bin/python run_all.py --quick     # CI path, < 10 min on CPU
+.venv/bin/python run_all.py --quick     # CI path: ~10 min on 20 cores, + ~3 min of downloads the first time
 .venv/bin/python run_all.py --full      # complete run, larger downloads
 ```
 
@@ -82,18 +95,19 @@ Fetch data only:
 ```
 
 Downloads land in `data/raw/<source>/`. Every file's URL, license, SHA256, size and download time are recorded in
-`data/raw/MANIFEST.json`. Source decisions are in [data/SOURCES.md](data/SOURCES.md).
+`data/raw/MANIFEST.json`, or in `data/raw/MANIFEST.quick.json` for the small tier fetched without
+`--full`, so a partial fetch never rewrites the committed record of the full one. Source decisions are in [data/SOURCES.md](data/SOURCES.md).
 
 `run_all.py` is the only thing that picks a run root. A stage module run on its
 own follows the environment, so the quick root is reachable from anywhere:
 
 ```bash
-NEUROMPS_RUN_MODE=quick .venv/bin/python -m neuromps.twin.calibrate --quick
+NEUROMPS_RUN_MODE=quick .venv/bin/python -m neuromps.twin.validate --quick
 ```
 
 ## Experiment design
 
-The §7.6 grid answers a question a chip user has *before* running an experiment, so it is exposed as
+The §17 grid answers a question a chip user has *before* running an experiment, so it is exposed as
 a lookup rather than left in a figure:
 
 ```bash
@@ -104,7 +118,7 @@ a lookup rather than left in a figure:
 
 Every answer carries the caveat it needs: the grid is simulated, the classifier was trained on the
 same generative model that produced its test set, and the equivalent question put to real devices
-in §7.7 was null. Treat a row as an upper bound on what the measurement could do.
+in §15 was null. Treat a row as an upper bound on what the measurement could do.
 
 ## Interactive demo
 
@@ -153,7 +167,7 @@ Numbers in these documents cite the `outputs/metrics.json` key that produced the
 ```
 
 fails if any citation disagrees with the live metrics. `CITATIONS.md` and `THIRD_PARTY.md` are
-regenerated with `python -m neuromps.report.attribution`.
+regenerated with `.venv/bin/python -m neuromps.report.attribution`.
 
 ## Layout
 

@@ -48,7 +48,10 @@ def main(argv: list[str] | None = None) -> int:
         if stage == "fetch":
             from neuromps.fetch.runner import run_fetchers
 
-            run_fetchers(full=args.full)
+            # A bare run is the full run, so it fetches the full tier: passing
+            # `args.full` here left a bare run fetching the small tier into the
+            # full run's manifest, replacing each source's entry with fewer files.
+            run_fetchers(full=not args.quick)
         elif stage == "data":
             from neuromps.etl.build import main as build_data
 

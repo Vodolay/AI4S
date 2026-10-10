@@ -58,7 +58,7 @@ def run_root_note() -> str:
         return ""
     return (
         f"Showing a `--quick` run for: {', '.join(quick)}. That run uses the small-tier "
-        "sources with fewer draws. Run `python run_all.py --full` for the numbers the "
+        "sources with fewer draws. Run `.venv/bin/python run_all.py --full` for the numbers the "
         "report cites."
     )
 
@@ -75,8 +75,8 @@ def diagram(name: str) -> Path | None:
 
 
 MISSING_DEMO = (
-    "The demo inputs are missing. Run `python run_all.py --quick` (or "
-    "`python run_all.py --stage demo`) to precompute them."
+    "The demo inputs are missing. Run `.venv/bin/python run_all.py --quick` (or "
+    "`.venv/bin/python run_all.py --stage demo`) to precompute them."
 )
 
 

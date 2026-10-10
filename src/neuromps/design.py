@@ -1,6 +1,6 @@
 """What can a two-chamber recording of this length, on this many electrodes, detect?
 
-§7.6 sweeps a grid - electrode count against recording length, seven feature
+§17 sweeps a grid - electrode count against recording length, seven feature
 sets, two arms - and reports the AUC with which symmetric and asymmetric wiring
 separate. That grid answers a question a chip user asks *before* running an
 experiment, and this exposes it as a lookup rather than leaving it in a figure.
@@ -9,7 +9,7 @@ experiment, and this exposes it as a lookup rather than leaving it in a figure.
 mislead.** The grid is simulated, so it measures identifiability under a model
 we wrote rather than performance on tissue. The classifier was trained on the
 same generative model that produced its test set, which is the friendliest
-possible case. And §7.7 put the same question to real devices whose geometry was
+possible case. And §15 put the same question to real devices whose geometry was
 fabricated rather than simulated and found no separation at all. Treat a row
 here as an upper bound on what the measurement could do, not as a promise.
 
@@ -26,18 +26,18 @@ from pathlib import Path
 log = logging.getLogger("neuromps.design")
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
-# The arm and feature set §7.6 reports as its result: rate residualised out, and
+# The arm and feature set §17 reports as its result: rate residualised out, and
 # drive left alone. The rate-matched arm fails its own validity check.
 HEADLINE_ARM = "free_rate"
 HEADLINE_FEATURES = "all_rate_residualized"
 CAVEAT = (
     "SIMULATED upper bound: identifiability under a correct model, classifier trained on the "
-    "same generative model, and the equivalent real-device test in report section 7.7 was null."
+    "same generative model, and the equivalent real-device test in report section 15 was null."
 )
 
 
 def sweep_rows(metrics: dict) -> list[dict]:
-    """The §7.6 grid, or an empty list when the twin stage has not run."""
+    """The §17 grid, or an empty list when the twin stage has not run."""
     return list(metrics.get("twin_hd16_directionality", {}).get("sweep") or [])
 
 
@@ -50,7 +50,7 @@ def _lower_bound(row: dict) -> float:
 def candidates(
     rows: list[dict], arm: str = HEADLINE_ARM, feature_set: str = HEADLINE_FEATURES
 ) -> list[dict]:
-    """The grid restricted to the arm and feature set §7.6 reports."""
+    """The grid restricted to the arm and feature set §17 reports."""
     return [r for r in rows if r.get("arm") == arm and r.get("feature_set") == feature_set]
 
 
@@ -66,7 +66,7 @@ def cheapest_for(rows: list[dict], target_auc: float, **kwargs) -> dict | None:
     """The smallest recording whose interval *lower bound* clears the target.
 
     Selected on the lower bound rather than the point estimate, for the reason
-    section 7.6 gives: choosing on the estimate picks whichever cell was lucky.
+    section 17 gives: choosing on the estimate picks whichever cell was lucky.
     Cost is electrodes times seconds, since both are what an experiment pays.
     """
     qualifying = [r for r in candidates(rows, **kwargs) if _lower_bound(r) >= target_auc]
@@ -99,7 +99,7 @@ def table(rows: list[dict], **kwargs) -> list[dict]:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """CLI: read the §7.6 grid and answer a design question against it."""
+    """CLI: read the §17 grid and answer a design question against it."""
     import argparse
 
     from neuromps.paths import for_reading, outputs_dir

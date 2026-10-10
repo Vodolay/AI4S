@@ -369,3 +369,14 @@ def test_a_full_run_records_the_timing_with_the_other_results() -> None:
     from neuromps.twin import inference
 
     assert '"amortized_inference": amortized_timing(' in inspect.getsource(inference.main)
+
+
+def test_the_quick_tier_times_a_token_sample_and_no_simulation() -> None:
+    """Its five-epoch posterior rejection-samples slowly: twenty 1,000-draw posteriors
+    from it ran a fresh clone's quick run far past its ten minutes, and the quick
+    tier's timings are never reported."""
+    from neuromps.twin.inference import TIMING_DRAWS, _timing_arguments
+
+    quick = _timing_arguments(quick=True)
+    assert "simulate" not in quick
+    assert quick["n_observations"] <= 2 and quick["n_draws"] < TIMING_DRAWS

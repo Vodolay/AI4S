@@ -441,6 +441,7 @@ def amortized_timing(
     simulate=None,
     simulated_s: float | None = None,
     n_draws: int = TIMING_DRAWS,
+    n_observations: int | None = None,
 ) -> dict:
     """Wall-clock cost of a full posterior once the estimator is trained.
 
@@ -456,7 +457,7 @@ def amortized_timing(
     import torch
 
     seconds = []
-    for observation in observations:
+    for observation in observations[:n_observations]:
         start = time.perf_counter()
         posterior.sample(
             (n_draws,),
@@ -489,11 +490,20 @@ def reference_simulator(duration_s: float = SIMULATED_S):
     return lambda: simulate_summary(centre, duration_s=duration_s, seed=0)
 
 
-def _timed_simulator(quick: bool) -> dict:
-    """The forward-model timing arguments; the quick tier skips the simulation."""
+def _timing_arguments(quick: bool) -> dict:
+    """How much `amortized_timing` asks for: the quick tier times a token sample only.
+
+    Its posterior is trained for five epochs and rejection-samples slowly, so the
+    full-size request - twenty posteriors of 1,000 draws - ran a fresh clone's
+    quick pass far past its ten minutes. Its timings are never reported.
+    """
     if quick:
-        return {}
-    return {"simulate": reference_simulator(), "simulated_s": SIMULATED_S}
+        return {"n_observations": 2, "n_draws": 100}
+    return {
+        "n_observations": TIMING_OBSERVATIONS,
+        "simulate": reference_simulator(),
+        "simulated_s": SIMULATED_S,
+    }
 
 
 def describe_saved_posterior() -> dict:
@@ -511,11 +521,11 @@ def describe_saved_posterior() -> dict:
     posterior = torch.load(twin_dir() / POSTERIOR_NAME, weights_only=False)
     cached = load_simulations(simulation_cache())
     x = cached["x"][within_prior(cached["theta"])]
-    held_out = x[-holdout_size(len(x)) :][:TIMING_OBSERVATIONS]
+    held_out = x[-holdout_size(len(x)) :]
     section = json.loads(metrics_path().read_text())["twin_hd14_inference"]
     section["density_estimator"] = estimator_architecture(posterior)
     section["amortized_inference"] = amortized_timing(
-        posterior, held_out, **_timed_simulator(quick=False)
+        posterior, held_out, **_timing_arguments(quick=False)
     )
     update_metrics("twin_hd14_inference", section)
     return {key: section[key] for key in ("density_estimator", "amortized_inference")}
@@ -704,9 +714,7 @@ def main(argv: list[str] | None = None) -> int:
         "prior_bounds": {k: list(v) for k, v in PRIOR_BOUNDS.items()},
         "summary_names": list(SUMMARY_NAMES),
         "density_estimator": estimator_architecture(posterior),
-        "amortized_inference": amortized_timing(
-            posterior, test_x[:TIMING_OBSERVATIONS], **_timed_simulator(args.quick)
-        ),
+        "amortized_inference": amortized_timing(posterior, test_x, **_timing_arguments(args.quick)),
     }
     plot_ranks(
         ranks,

@@ -817,7 +817,7 @@ To reproduce everything from a clean machine, run these steps in a terminal:
 | step | command | what it does |
 |---|---|---|
 | 1. get the code | `git clone https://github.com/Vodolay/AI4S`, then `cd AI4S` | downloads the repository |
-| 2. create the environment | `pip install uv`, then `uv venv --python 3.11 .venv` | an isolated environment with the pinned Python |
+| 2. create the environment | install uv as the README shows, then `uv venv --python 3.11 .venv` | an isolated environment with the pinned Python |
 | 3. install | `uv pip install --python .venv/bin/python -e ".[dev]"` | NeuroMPS and its pinned dependencies |
 | 4. quick run | `.venv/bin/python run_all.py --quick` | every stage end to end on the reduced data tier |
 | 5. full run | `.venv/bin/python run_all.py` | the full data tier, 3,000 <!-- metrics.json: twin_hd14_inference.n_simulations --> forward simulations, every figure |

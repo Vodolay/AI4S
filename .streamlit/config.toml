@@ -1,0 +1,8 @@
+# Read by `streamlit run app/app.py` from the repository root.
+[server]
+# A first run otherwise stops at an interactive email prompt before serving,
+# which on a fresh machine looks exactly like a hang.
+showEmailPrompt = false
+
+[browser]
+gatherUsageStats = false
