@@ -18,11 +18,10 @@ interactive demo sits on top.
 | **Yi Nuo Zhao** | Team Leader | Health science student |
 | **Ivan T. Ivanov** | Machine Learning Specialist | Professor of Mathematics and ML/AI developer |
 
-<!-- FILL IN before submitting: add a "**Video**" row below with the published link. -->
-
 | | |
 |---|---|
 | **Code and demo** | https://github.com/Vodolay/AI4S; the interactive demo runs locally with one command (§21) |
+| **Video** | https://www.youtube.com/watch?v=WnnD-oSFdcI, a walkthrough of the project and the demo |
 | **Verification harness** | `python run_all.py --quick` runs the complete pipeline, models and metrics |
 | **Audit discipline** | `python -m neuromps.report.verify` checks every number in this report against `outputs/metrics.json` |
 | **Regulatory position** | Research decision-support only. We make no clinical, diagnostic, efficacy or safety claim. |

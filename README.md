@@ -5,6 +5,8 @@ digital twin of an asymmetric two-compartment neural chip calibrated on it.
 Entry for the AI4S Open Innovation: AI + Organ-on-a-Chip challenge (5th Pazhou Algorithm
 Competition), submission category **End-to-End System**.
 
+**Video walkthrough:** https://www.youtube.com/watch?v=WnnD-oSFdcI
+
 **Research decision-support only.** Nothing in this repository makes efficacy, safety,
 diagnostic or clinical claims.
 
