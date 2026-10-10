@@ -220,7 +220,14 @@ def plot_comparison(df: pd.DataFrame, path: Path) -> Path:
     }
     df = df.copy()
     df["group"] = df.apply(preparation_group, axis=1)
-    fig, axes = plt.subplots(3, 3, figsize=(11.5, 9))
+    # Drawn near its printed width. At 11.5 in, nine panels printed at half a column
+    # had 2 pt tick labels; two-line group labels leave room for the data.
+    short = {
+        "rat monolayer": "rat mono",
+        "human monolayer": "human mono",
+        "human organoid": "organoid",
+    }
+    fig, axes = plt.subplots(3, 3, figsize=(5.6, 4.4))
     panels = [f if f != COVERAGE else COVERAGE_FRACTION for f in FEATURES]
     for ax, feature in zip(axes.ravel(), panels, strict=False):
         column = f"features.{feature}"
@@ -229,7 +236,7 @@ def plot_comparison(df: pd.DataFrame, path: Path) -> Path:
             values = pd.to_numeric(df.loc[df["group"] == group, column], errors="coerce").dropna()
             if len(values):
                 data.append(values.to_numpy())
-                labels.append(f"{group.replace(' ', chr(10))}\n(n={len(values)})")
+                labels.append(f"{short[group]}\nn={len(values)}")
                 used.append(group)
         if not data:
             ax.set_visible(False)
@@ -240,16 +247,17 @@ def plot_comparison(df: pd.DataFrame, path: Path) -> Path:
             patch.set_alpha(0.55)
         for median in parts["medians"]:
             median.set_color("black")
-        ax.set_title(feature, fontsize=9)
-        ax.tick_params(labelsize=7)
+        ax.set_title(feature, fontsize=6.5)
+        ax.tick_params(axis="y", labelsize=5.5)
+        ax.tick_params(axis="x", labelsize=5.5, length=0)
     fig.suptitle(
         "Untreated baseline activity on Axion platforms, by species and preparation "
         "(REAL recordings)",
-        fontsize=11,
+        fontsize=7.5,
     )
-    fig.tight_layout()
+    fig.tight_layout(h_pad=0.6, w_pad=0.6)
     path.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(path, dpi=150)
+    fig.savefig(path, dpi=300, bbox_inches="tight")
     plt.close(fig)
     return path
 

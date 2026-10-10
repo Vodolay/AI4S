@@ -480,7 +480,7 @@ def plot_calibration(best: dict, targets: dict, path, title: str) -> None:
     import matplotlib.pyplot as plt
 
     features = list(targets["by_feature"])
-    fig, ax = plt.subplots(figsize=(8, 4.2))
+    fig, ax = plt.subplots(figsize=(4.2, 2.6))  # near its printed size
     for i, feature in enumerate(features):
         band = targets["by_feature"][feature]
         scale = max(band["median"], 1e-9)
@@ -496,21 +496,22 @@ def plot_calibration(best: dict, targets: dict, path, title: str) -> None:
         ax.plot([i - 0.3, i + 0.3], [1.0, 1.0], color="#0072B2", lw=2)
         value = best["features_simulated"].get(feature)
         if value is not None:
-            ax.plot(i, value / scale, "o", color="#D55E00", markersize=9)
+            ax.plot(i, value / scale, "o", color="#D55E00", markersize=5)
     ax.set_yscale("log")
-    ax.set_xticks(range(len(features)), features, rotation=30, ha="right", fontsize=8)
-    ax.set_ylabel("value / real median (log scale)")
-    ax.set_title(title, fontsize=10)
+    ax.set_xticks(range(len(features)), features, rotation=30, ha="right", fontsize=6.5)
+    ax.tick_params(which="both", labelsize=6.5)  # the log axis labels minor ticks too
+    ax.set_ylabel("value / real median (log)", fontsize=7)
+    ax.set_title(title, fontsize=7.5)
     ax.grid(axis="y", alpha=0.3)
     ax.legend(
         handles=[
             plt.Line2D([], [], color="#0072B2", lw=6, alpha=0.4, label="real interquartile band"),
             plt.Line2D([], [], marker="o", color="#D55E00", lw=0, label="SIMULATED (calibrated)"),
         ],
-        fontsize=8,
+        fontsize=6,
     )
     fig.tight_layout()
-    fig.savefig(path, dpi=150)
+    fig.savefig(path, dpi=300, bbox_inches="tight")
     plt.close(fig)
 
 
