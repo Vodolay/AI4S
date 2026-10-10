@@ -23,13 +23,13 @@
       "background_scale_target": 1.0
     },
     "3.0": {
-      "background_rate_hz": 11.0,
-      "background_scale_target": 0.75
+      "background_rate_hz": 10.0,
+      "background_scale_target": 1.0
     },
     "10.0": {
       "background_rate_hz": 11.0,
       "background_scale_target": 0.65
     }
   },
-  "summary_pipeline_sha256": "060b0231a0b795dd"
+  "summary_pipeline_sha256": "1520eac0462f1bc5"
 }

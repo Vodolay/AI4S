@@ -31,11 +31,13 @@ negative as positive. Four confounds that published practice would have carried:
   p = 0.036) dissolved once 113 recordings were recognised as coming from 16 devices; a microchannel
   geometry effect dissolved once 57 recordings were recognised as coming from 26 chips
   <!-- metrics.json: microchannel_directionality.n_chips -->.
-- **In-sample leakage inflated a classifier.** Fitting the rate-residualiser outside the training
-  fold moved an AUC from 0.9359 to 0.8825
-  <!-- metrics.json: twin_hd16_directionality.cheapest_configuration.free_rate_residualized.auc -->
-  and the cheapest qualifying configuration from 24 electrodes per compartment to 6
-  <!-- metrics.json: twin_hd16_directionality.cheapest_configuration.free_rate_residualized.electrodes_per_compartment -->.
+- **Much of the simulated direction signal is firing rate.** Telling asymmetric from symmetric
+  wiring at an AUC of 0.8 takes 24 electrodes per compartment
+  <!-- metrics.json: twin_hd16_directionality.cheapest_configuration.free_rate_all_features.electrodes_per_compartment -->
+  on all features, and 48
+  <!-- metrics.json: twin_hd16_directionality.cheapest_configuration.free_rate_residualized.electrodes_per_compartment -->
+  once firing rate is regressed out inside each training fold (AUC 0.8969
+  <!-- metrics.json: twin_hd16_directionality.cheapest_configuration.free_rate_residualized.auc -->).
 - **Rate and burst-fraction measures survive a species change; synchrony and network-burst measures
   do not — and across *platforms* none of them is safe**, with mean firing rate itself reversing
   sign.

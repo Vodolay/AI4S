@@ -683,9 +683,9 @@ report it as a behavior, not as a validated detector.
 One thing a twin is genuinely good at is telling you how much experiment you need. Across 120
 simulated networks <!-- metrics.json: twin_hd16_directionality.n_networks --> with known wiring, the
 cheapest configuration that reaches our target distinguishes asymmetric from symmetric wiring with an
-AUC of 0.9219
+AUC of 0.8928
 <!-- metrics.json: twin_hd16_directionality.cheapest_configuration.free_rate_all_features.auc -->,
-using only 6 electrodes per compartment
+using 24 electrodes per compartment
 <!-- metrics.json: twin_hd16_directionality.cheapest_configuration.free_rate_all_features.electrodes_per_compartment -->
 and a 10-second recording
 <!-- metrics.json: twin_hd16_directionality.cheapest_configuration.free_rate_all_features.duration_s -->.
@@ -697,9 +697,11 @@ receiving chamber's background drive, measured coupling asymmetry moves from 0.1
 <!-- metrics.json: twin_hd11_validation.directionality_sweep.2.asymmetry_mean --> with the wiring
 unchanged. Across the sweep, drive moves the measure further than wiring does: a span of 0.671
 <!-- metrics.json: twin_hd11_validation.confound_summary.raw.drive_span --> against 0.109
-<!-- metrics.json: twin_hd11_validation.confound_summary.raw.wiring_span -->. Six electrodes and ten
-seconds will tell these cultures apart, but claiming that this reflects directional communication
-requires explicit rate-matching controls.
+<!-- metrics.json: twin_hd11_validation.confound_summary.raw.wiring_span -->. Regress firing rate
+out of the features, inside each training fold, and the cheapest configuration doubles to 48
+<!-- metrics.json: twin_hd16_directionality.cheapest_configuration.free_rate_residualized.electrodes_per_compartment -->
+electrodes per compartment. Twenty-four electrodes and ten seconds will tell these cultures apart,
+but claiming that this reflects directional communication requires explicit rate-matching controls.
 
 ---
 
@@ -796,7 +798,7 @@ metrics (§3, §11). A smaller, more reliable feature vector is the more reprodu
 
 **3. Cheaper assay design in silico.** Plating human iPSCs is expensive and takes weeks. The twin
 gives you a testbed for pre-registering an assay: the power sweep in §17 sets a minimum electrode
-count (6 electrodes, 10-second recordings) for distinguishing wiring regimes, and the
+count (24 electrodes per compartment, 10-second recordings) for distinguishing wiring regimes, and the
 listening-radius finding in §13 gives you a way to diagnose electrode catchment overlap in physical
 recordings.
 
@@ -823,10 +825,10 @@ To reproduce everything from a clean machine, run these steps in a terminal:
 | 6. check the numbers | `.venv/bin/python -m neuromps.report.verify` | re-reads every citation in this report and fails on any disagreement |
 | 7. open the demo | `.venv/bin/streamlit run app/app.py` | interactive mechanism prediction, twin sweeps and record browser |
 
-Use the environment's own `python` and `streamlit`, as shown: the app imports NeuroMPS, which is
-installed only inside `.venv`, so a system-wide Streamlit cannot find it. Provenance is guarded the
-same way throughout: `data/raw/MANIFEST.json` records every source's URL, license and checksum, and
-the build halts on any mismatch.
+Use the environment's own `python` and `streamlit`, as shown. We ran these steps on a fresh clone,
+and every cited number reproduced exactly except ten that depend on the machine: the timings, and
+the counts and intervals from posterior sampling that stops at a time limit (§16). Provenance is
+guarded throughout: `data/raw/MANIFEST.json` records every source's URL, license and checksum.
 
 ## 22. AI assistance disclosure
 

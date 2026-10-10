@@ -4166,48 +4166,48 @@
     "cheapest_configuration": {
       "free_rate_all_features": {
         "arm": "free_rate",
-        "auc": 0.9219,
+        "auc": 0.8928,
         "auc_ci95": [
-          0.875,
-          0.9619
+          0.8324,
+          0.9461
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
         "classifier": "linear",
         "duration_s": 10.0,
-        "electrodes_per_compartment": 6,
+        "electrodes_per_compartment": 24,
         "feature_set": "all",
         "n_simulations": 120,
         "rate_residualized": false
       },
       "free_rate_residualized": {
         "arm": "free_rate",
-        "auc": 0.8825,
+        "auc": 0.8969,
         "auc_ci95": [
-          0.8184,
-          0.9359
+          0.8336,
+          0.9483
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
         "classifier": "linear",
         "duration_s": 10.0,
-        "electrodes_per_compartment": 6,
+        "electrodes_per_compartment": 48,
         "feature_set": "all_rate_residualized",
         "n_simulations": 120,
         "rate_residualized": true
       },
       "rate_matched_residualized": {
         "arm": "rate_matched",
-        "auc": 0.9869,
+        "auc": 0.8925,
         "auc_ci95": [
-          0.9654,
-          1.0
+          0.8296,
+          0.9488
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
         "classifier": "linear",
         "duration_s": 10.0,
-        "electrodes_per_compartment": 6,
+        "electrodes_per_compartment": 48,
         "feature_set": "all_rate_residualized",
         "n_simulations": 120,
         "rate_residualized": true
@@ -4238,8 +4238,8 @@
           "background_scale_target": 0.65
         },
         "3.0": {
-          "background_rate_hz": 11.0,
-          "background_scale_target": 0.75
+          "background_rate_hz": 10.0,
+          "background_scale_target": 1.0
         }
       },
       "ratios": [
@@ -4247,35 +4247,35 @@
         3.0,
         10.0
       ],
-      "summary_pipeline_sha256": "060b0231a0b795dd"
+      "summary_pipeline_sha256": "1520eac0462f1bc5"
     },
     "label": "SIMULATED - directionality discrimination, ground-truth wiring known",
     "matching_quality": {
       "free_rate": {
         "relative_rate_gap_by_ratio": {
           "10.0": {
-            "c0_mfr_hz": 0.2248,
-            "c1_mfr_hz": 0.1225
+            "c0_mfr_hz": 0.2107,
+            "c1_mfr_hz": 0.1123
           },
           "3.0": {
-            "c0_mfr_hz": 0.1064,
-            "c1_mfr_hz": 0.0744
+            "c0_mfr_hz": 0.106,
+            "c1_mfr_hz": 0.0772
           }
         },
-        "worst_relative_rate_gap": 0.2248
+        "worst_relative_rate_gap": 0.2107
       },
       "rate_matched": {
         "relative_rate_gap_by_ratio": {
           "10.0": {
-            "c0_mfr_hz": 0.2067,
-            "c1_mfr_hz": 0.0123
+            "c0_mfr_hz": 0.183,
+            "c1_mfr_hz": 0.0044
           },
           "3.0": {
-            "c0_mfr_hz": 0.26,
-            "c1_mfr_hz": 0.0049
+            "c0_mfr_hz": 0.106,
+            "c1_mfr_hz": 0.0772
           }
         },
-        "worst_relative_rate_gap": 0.26
+        "worst_relative_rate_gap": 0.183
       }
     },
     "n_networks": 120,
@@ -4283,14 +4283,14 @@
     "quick": false,
     "rate_imbalance_by_arm": {
       "free_rate": {
-        "1.0": 0.0046,
-        "10.0": -0.518,
-        "3.0": -0.2756
+        "1.0": 0.0045,
+        "10.0": -0.5048,
+        "3.0": -0.2639
       },
       "rate_matched": {
-        "1.0": 0.0046,
-        "10.0": 0.2377,
-        "3.0": 0.3116
+        "1.0": 0.0045,
+        "10.0": 0.2546,
+        "3.0": -0.2639
       }
     },
     "rate_only_is_the_validity_check": "in the rate-matched arm the rate_only AUC should fall towards chance; if it does not, the matching failed and that arm says nothing about direction",
@@ -4298,88 +4298,88 @@
       "free_rate": {
         "all": {
           "all_better_than_chance": true,
-          "max": 0.9863,
-          "min": 0.9219,
+          "max": 0.9575,
+          "min": 0.7284,
           "n_cells": 12
         },
         "all_nonlinear": {
           "all_better_than_chance": true,
-          "max": 0.9937,
-          "min": 0.8813,
+          "max": 0.9397,
+          "min": 0.6484,
           "n_cells": 12
         },
         "all_rate_residualized": {
           "all_better_than_chance": true,
-          "max": 0.9234,
-          "min": 0.7706,
+          "max": 0.9156,
+          "min": 0.6903,
           "n_cells": 12
         },
         "coupling_only": {
           "all_better_than_chance": true,
-          "max": 0.9434,
-          "min": 0.8684,
+          "max": 0.9359,
+          "min": 0.76,
           "n_cells": 12
         },
         "coupling_only_rate_residualized": {
           "all_better_than_chance": true,
-          "max": 0.8925,
-          "min": 0.7719,
+          "max": 0.9203,
+          "min": 0.7622,
           "n_cells": 12
         },
         "rate_only": {
           "all_better_than_chance": true,
-          "max": 0.9841,
-          "min": 0.8644,
+          "max": 0.9275,
+          "min": 0.6734,
           "n_cells": 12
         },
         "rate_only_rate_residualized": {
           "all_better_than_chance": false,
-          "max": 0.6213,
-          "min": 0.4772,
+          "max": 0.6153,
+          "min": 0.345,
           "n_cells": 12
         }
       },
       "rate_matched": {
         "all": {
           "all_better_than_chance": true,
-          "max": 1.0,
-          "min": 1.0,
+          "max": 0.9331,
+          "min": 0.6669,
           "n_cells": 12
         },
         "all_nonlinear": {
           "all_better_than_chance": true,
-          "max": 1.0,
-          "min": 0.9681,
+          "max": 0.9278,
+          "min": 0.7678,
           "n_cells": 12
         },
         "all_rate_residualized": {
           "all_better_than_chance": true,
-          "max": 0.9997,
-          "min": 0.9275,
+          "max": 0.9166,
+          "min": 0.675,
           "n_cells": 12
         },
         "coupling_only": {
           "all_better_than_chance": true,
-          "max": 1.0,
-          "min": 0.9903,
+          "max": 0.8831,
+          "min": 0.7369,
           "n_cells": 12
         },
         "coupling_only_rate_residualized": {
           "all_better_than_chance": true,
-          "max": 0.9978,
-          "min": 0.8569,
+          "max": 0.88,
+          "min": 0.7444,
           "n_cells": 12
         },
         "rate_only": {
-          "all_better_than_chance": true,
-          "max": 0.9859,
-          "min": 0.8587,
+          "all_better_than_chance": false,
+          "max": 0.6306,
+          "min": 0.5238,
           "n_cells": 12
         },
         "rate_only_rate_residualized": {
           "all_better_than_chance": false,
-          "max": 0.6009,
-          "min": 0.5278,
+          "max": 0.6391,
+          "min": 0.4272,
           "n_cells": 12
         }
       }
@@ -4387,10 +4387,10 @@
     "sweep": [
       {
         "arm": "free_rate",
-        "auc": 0.9219,
+        "auc": 0.7284,
         "auc_ci95": [
-          0.875,
-          0.9619
+          0.6297,
+          0.8248
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -4403,10 +4403,10 @@
       },
       {
         "arm": "free_rate",
-        "auc": 0.8813,
+        "auc": 0.6484,
         "auc_ci95": [
-          0.8134,
-          0.9361
+          0.54,
+          0.7513
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -4419,10 +4419,10 @@
       },
       {
         "arm": "free_rate",
-        "auc": 0.8684,
+        "auc": 0.76,
         "auc_ci95": [
-          0.7994,
-          0.9218
+          0.6692,
+          0.8446
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -4435,10 +4435,10 @@
       },
       {
         "arm": "free_rate",
-        "auc": 0.8644,
+        "auc": 0.6794,
         "auc_ci95": [
-          0.8037,
-          0.926
+          0.565,
+          0.7838
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -4451,16 +4451,1024 @@
       },
       {
         "arm": "free_rate",
-        "auc": 0.8825,
+        "auc": 0.6903,
         "auc_ci95": [
-          0.8184,
-          0.9359
+          0.5852,
+          0.7946
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
         "classifier": "linear",
         "duration_s": 10.0,
         "electrodes_per_compartment": 6,
+        "feature_set": "all_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.7878,
+        "auc_ci95": [
+          0.6881,
+          0.8722
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "coupling_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.5831,
+        "auc_ci95": [
+          0.4682,
+          0.6931
+        ],
+        "better_than_chance": false,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "rate_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.7994,
+        "auc_ci95": [
+          0.7122,
+          0.874
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "all",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.7647,
+        "auc_ci95": [
+          0.6767,
+          0.845
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "nonlinear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "all_nonlinear",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.8466,
+        "auc_ci95": [
+          0.7694,
+          0.9106
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "coupling_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.6762,
+        "auc_ci95": [
+          0.5752,
+          0.7712
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "rate_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.7081,
+        "auc_ci95": [
+          0.6081,
+          0.8002
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "all_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.7622,
+        "auc_ci95": [
+          0.668,
+          0.845
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "coupling_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.5062,
+        "auc_ci95": [
+          0.3905,
+          0.622
+        ],
+        "better_than_chance": false,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "rate_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.8928,
+        "auc_ci95": [
+          0.8324,
+          0.9461
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "all",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.8269,
+        "auc_ci95": [
+          0.733,
+          0.9083
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "nonlinear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "all_nonlinear",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.8812,
+        "auc_ci95": [
+          0.8123,
+          0.9394
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "coupling_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.8247,
+        "auc_ci95": [
+          0.744,
+          0.9014
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "rate_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.8313,
+        "auc_ci95": [
+          0.7534,
+          0.9047
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "all_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.8303,
+        "auc_ci95": [
+          0.7536,
+          0.8985
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "coupling_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.5103,
+        "auc_ci95": [
+          0.397,
+          0.6172
+        ],
+        "better_than_chance": false,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "rate_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.94,
+        "auc_ci95": [
+          0.8955,
+          0.976
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "all",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9031,
+        "auc_ci95": [
+          0.8328,
+          0.9616
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "nonlinear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "all_nonlinear",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.8844,
+        "auc_ci95": [
+          0.8209,
+          0.9396
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "coupling_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9053,
+        "auc_ci95": [
+          0.8429,
+          0.9562
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "rate_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.8969,
+        "auc_ci95": [
+          0.8336,
+          0.9483
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "all_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9203,
+        "auc_ci95": [
+          0.8666,
+          0.9634
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "coupling_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.4919,
+        "auc_ci95": [
+          0.3795,
+          0.5987
+        ],
+        "better_than_chance": false,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "rate_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.8303,
+        "auc_ci95": [
+          0.7462,
+          0.9044
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "all",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.8106,
+        "auc_ci95": [
+          0.7236,
+          0.8863
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "nonlinear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "all_nonlinear",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.8137,
+        "auc_ci95": [
+          0.7311,
+          0.8912
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "coupling_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.6803,
+        "auc_ci95": [
+          0.5671,
+          0.79
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "rate_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.7997,
+        "auc_ci95": [
+          0.7014,
+          0.876
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "all_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.87,
+        "auc_ci95": [
+          0.7917,
+          0.9336
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "coupling_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.6153,
+        "auc_ci95": [
+          0.5026,
+          0.7227
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "rate_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.8784,
+        "auc_ci95": [
+          0.814,
+          0.9372
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "all",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.8669,
+        "auc_ci95": [
+          0.8021,
+          0.9294
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "nonlinear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "all_nonlinear",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.8869,
+        "auc_ci95": [
+          0.8254,
+          0.9375
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "coupling_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.7069,
+        "auc_ci95": [
+          0.605,
+          0.8007
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "rate_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.8166,
+        "auc_ci95": [
+          0.7353,
+          0.8913
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "all_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.8494,
+        "auc_ci95": [
+          0.7782,
+          0.911
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "coupling_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.4859,
+        "auc_ci95": [
+          0.3779,
+          0.5947
+        ],
+        "better_than_chance": false,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "rate_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.8878,
+        "auc_ci95": [
+          0.8264,
+          0.9451
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "all",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.8525,
+        "auc_ci95": [
+          0.784,
+          0.9136
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "nonlinear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "all_nonlinear",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.8769,
+        "auc_ci95": [
+          0.8158,
+          0.9373
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "coupling_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.8281,
+        "auc_ci95": [
+          0.7483,
+          0.9044
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "rate_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.8191,
+        "auc_ci95": [
+          0.74,
+          0.8947
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "all_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.8488,
+        "auc_ci95": [
+          0.7749,
+          0.9108
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "coupling_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.345,
+        "auc_ci95": [
+          0.2373,
+          0.4494
+        ],
+        "better_than_chance": false,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "rate_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9463,
+        "auc_ci95": [
+          0.9053,
+          0.9778
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "all",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.8653,
+        "auc_ci95": [
+          0.79,
+          0.9284
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "nonlinear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "all_nonlinear",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9009,
+        "auc_ci95": [
+          0.8468,
+          0.9512
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "coupling_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9169,
+        "auc_ci95": [
+          0.8639,
+          0.9605
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "rate_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9156,
+        "auc_ci95": [
+          0.8594,
+          0.9586
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "all_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9,
+        "auc_ci95": [
+          0.8411,
+          0.9499
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "coupling_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.4094,
+        "auc_ci95": [
+          0.2976,
+          0.5288
+        ],
+        "better_than_chance": false,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "rate_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.89,
+        "auc_ci95": [
+          0.8312,
+          0.9432
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "all",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.8387,
+        "auc_ci95": [
+          0.7639,
+          0.9063
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "nonlinear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "all_nonlinear",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.8581,
+        "auc_ci95": [
+          0.7839,
+          0.9209
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "coupling_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.6734,
+        "auc_ci95": [
+          0.5594,
+          0.7791
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "rate_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.8578,
+        "auc_ci95": [
+          0.7855,
+          0.9135
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "all_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.8828,
+        "auc_ci95": [
+          0.8182,
+          0.9366
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "coupling_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.6019,
+        "auc_ci95": [
+          0.492,
+          0.7104
+        ],
+        "better_than_chance": false,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "rate_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.8934,
+        "auc_ci95": [
+          0.8363,
+          0.946
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "all",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.8728,
+        "auc_ci95": [
+          0.8079,
+          0.9279
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "nonlinear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "all_nonlinear",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.9028,
+        "auc_ci95": [
+          0.8416,
+          0.9525
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "coupling_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.7137,
+        "auc_ci95": [
+          0.6138,
+          0.8062
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "rate_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "free_rate",
+        "auc": 0.8413,
+        "auc_ci95": [
+          0.7668,
+          0.9051
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 12,
         "feature_set": "all_rate_residualized",
         "n_simulations": 120,
         "rate_residualized": true
@@ -4469,125 +5477,13 @@
         "arm": "free_rate",
         "auc": 0.855,
         "auc_ci95": [
-          0.7846,
+          0.7825,
           0.9151
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
         "classifier": "linear",
-        "duration_s": 10.0,
-        "electrodes_per_compartment": 6,
-        "feature_set": "coupling_only_rate_residualized",
-        "n_simulations": 120,
-        "rate_residualized": true
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.6213,
-        "auc_ci95": [
-          0.5174,
-          0.7274
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 10.0,
-        "electrodes_per_compartment": 6,
-        "feature_set": "rate_only_rate_residualized",
-        "n_simulations": 120,
-        "rate_residualized": true
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.9475,
-        "auc_ci95": [
-          0.911,
-          0.9778
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 10.0,
-        "electrodes_per_compartment": 12,
-        "feature_set": "all",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.9522,
-        "auc_ci95": [
-          0.9082,
-          0.9854
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "nonlinear",
-        "duration_s": 10.0,
-        "electrodes_per_compartment": 12,
-        "feature_set": "all_nonlinear",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.8866,
-        "auc_ci95": [
-          0.8222,
-          0.9386
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 10.0,
-        "electrodes_per_compartment": 12,
-        "feature_set": "coupling_only",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.9319,
-        "auc_ci95": [
-          0.8843,
-          0.9687
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 10.0,
-        "electrodes_per_compartment": 12,
-        "feature_set": "rate_only",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.8028,
-        "auc_ci95": [
-          0.7248,
-          0.8742
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 10.0,
-        "electrodes_per_compartment": 12,
-        "feature_set": "all_rate_residualized",
-        "n_simulations": 120,
-        "rate_residualized": true
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.7719,
-        "auc_ci95": [
-          0.6784,
-          0.8507
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 10.0,
+        "duration_s": 60.0,
         "electrodes_per_compartment": 12,
         "feature_set": "coupling_only_rate_residualized",
         "n_simulations": 120,
@@ -4595,15 +5491,15 @@
       },
       {
         "arm": "free_rate",
-        "auc": 0.4772,
+        "auc": 0.5006,
         "auc_ci95": [
-          0.3572,
-          0.5968
+          0.3846,
+          0.603
         ],
         "better_than_chance": false,
         "bootstrap_resamples": 1000,
         "classifier": "linear",
-        "duration_s": 10.0,
+        "duration_s": 60.0,
         "electrodes_per_compartment": 12,
         "feature_set": "rate_only_rate_residualized",
         "n_simulations": 120,
@@ -4611,15 +5507,15 @@
       },
       {
         "arm": "free_rate",
-        "auc": 0.9769,
+        "auc": 0.9222,
         "auc_ci95": [
-          0.9512,
-          0.997
+          0.8718,
+          0.9661
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
         "classifier": "linear",
-        "duration_s": 10.0,
+        "duration_s": 60.0,
         "electrodes_per_compartment": 24,
         "feature_set": "all",
         "n_simulations": 120,
@@ -4627,15 +5523,15 @@
       },
       {
         "arm": "free_rate",
-        "auc": 0.9831,
+        "auc": 0.8697,
         "auc_ci95": [
-          0.962,
-          1.0
+          0.8034,
+          0.9286
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
         "classifier": "nonlinear",
-        "duration_s": 10.0,
+        "duration_s": 60.0,
         "electrodes_per_compartment": 24,
         "feature_set": "all_nonlinear",
         "n_simulations": 120,
@@ -4643,15 +5539,15 @@
       },
       {
         "arm": "free_rate",
-        "auc": 0.8962,
+        "auc": 0.9316,
         "auc_ci95": [
-          0.8332,
-          0.9464
+          0.889,
+          0.9701
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
         "classifier": "linear",
-        "duration_s": 10.0,
+        "duration_s": 60.0,
         "electrodes_per_compartment": 24,
         "feature_set": "coupling_only",
         "n_simulations": 120,
@@ -4659,15 +5555,15 @@
       },
       {
         "arm": "free_rate",
-        "auc": 0.9681,
+        "auc": 0.8269,
         "auc_ci95": [
-          0.9386,
-          0.9892
+          0.7465,
+          0.9019
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
         "classifier": "linear",
-        "duration_s": 10.0,
+        "duration_s": 60.0,
         "electrodes_per_compartment": 24,
         "feature_set": "rate_only",
         "n_simulations": 120,
@@ -4675,479 +5571,31 @@
       },
       {
         "arm": "free_rate",
-        "auc": 0.8941,
+        "auc": 0.7881,
         "auc_ci95": [
-          0.8311,
-          0.9479
+          0.6961,
+          0.8652
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
         "classifier": "linear",
-        "duration_s": 10.0,
+        "duration_s": 60.0,
         "electrodes_per_compartment": 24,
         "feature_set": "all_rate_residualized",
         "n_simulations": 120,
         "rate_residualized": true
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.8616,
-        "auc_ci95": [
-          0.793,
-          0.9224
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 10.0,
-        "electrodes_per_compartment": 24,
-        "feature_set": "coupling_only_rate_residualized",
-        "n_simulations": 120,
-        "rate_residualized": true
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.5581,
-        "auc_ci95": [
-          0.445,
-          0.6866
-        ],
-        "better_than_chance": false,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 10.0,
-        "electrodes_per_compartment": 24,
-        "feature_set": "rate_only_rate_residualized",
-        "n_simulations": 120,
-        "rate_residualized": true
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.9831,
-        "auc_ci95": [
-          0.9641,
-          0.9971
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 10.0,
-        "electrodes_per_compartment": 48,
-        "feature_set": "all",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.9678,
-        "auc_ci95": [
-          0.9393,
-          0.9899
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "nonlinear",
-        "duration_s": 10.0,
-        "electrodes_per_compartment": 48,
-        "feature_set": "all_nonlinear",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.8838,
-        "auc_ci95": [
-          0.8178,
-          0.9371
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 10.0,
-        "electrodes_per_compartment": 48,
-        "feature_set": "coupling_only",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.9691,
-        "auc_ci95": [
-          0.9392,
-          0.9905
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 10.0,
-        "electrodes_per_compartment": 48,
-        "feature_set": "rate_only",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.9197,
-        "auc_ci95": [
-          0.8659,
-          0.9672
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 10.0,
-        "electrodes_per_compartment": 48,
-        "feature_set": "all_rate_residualized",
-        "n_simulations": 120,
-        "rate_residualized": true
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.8722,
-        "auc_ci95": [
-          0.8104,
-          0.9278
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 10.0,
-        "electrodes_per_compartment": 48,
-        "feature_set": "coupling_only_rate_residualized",
-        "n_simulations": 120,
-        "rate_residualized": true
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.5484,
-        "auc_ci95": [
-          0.4393,
-          0.674
-        ],
-        "better_than_chance": false,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 10.0,
-        "electrodes_per_compartment": 48,
-        "feature_set": "rate_only_rate_residualized",
-        "n_simulations": 120,
-        "rate_residualized": true
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.9438,
-        "auc_ci95": [
-          0.9028,
-          0.9764
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 30.0,
-        "electrodes_per_compartment": 6,
-        "feature_set": "all",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.9534,
-        "auc_ci95": [
-          0.9114,
-          0.9884
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "nonlinear",
-        "duration_s": 30.0,
-        "electrodes_per_compartment": 6,
-        "feature_set": "all_nonlinear",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.9041,
-        "auc_ci95": [
-          0.8476,
-          0.955
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 30.0,
-        "electrodes_per_compartment": 6,
-        "feature_set": "coupling_only",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.8731,
-        "auc_ci95": [
-          0.8105,
-          0.9325
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 30.0,
-        "electrodes_per_compartment": 6,
-        "feature_set": "rate_only",
-        "n_simulations": 120,
-        "rate_residualized": false
       },
       {
         "arm": "free_rate",
         "auc": 0.8109,
         "auc_ci95": [
-          0.7247,
-          0.8943
+          0.7287,
+          0.879
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
         "classifier": "linear",
-        "duration_s": 30.0,
-        "electrodes_per_compartment": 6,
-        "feature_set": "all_rate_residualized",
-        "n_simulations": 120,
-        "rate_residualized": true
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.7831,
-        "auc_ci95": [
-          0.701,
-          0.8658
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 30.0,
-        "electrodes_per_compartment": 6,
-        "feature_set": "coupling_only_rate_residualized",
-        "n_simulations": 120,
-        "rate_residualized": true
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.5813,
-        "auc_ci95": [
-          0.4747,
-          0.6909
-        ],
-        "better_than_chance": false,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 30.0,
-        "electrodes_per_compartment": 6,
-        "feature_set": "rate_only_rate_residualized",
-        "n_simulations": 120,
-        "rate_residualized": true
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.9569,
-        "auc_ci95": [
-          0.9218,
-          0.9837
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 30.0,
-        "electrodes_per_compartment": 12,
-        "feature_set": "all",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.9075,
-        "auc_ci95": [
-          0.8444,
-          0.9587
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "nonlinear",
-        "duration_s": 30.0,
-        "electrodes_per_compartment": 12,
-        "feature_set": "all_nonlinear",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.91,
-        "auc_ci95": [
-          0.8505,
-          0.9603
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 30.0,
-        "electrodes_per_compartment": 12,
-        "feature_set": "coupling_only",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.9388,
-        "auc_ci95": [
-          0.8938,
-          0.974
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 30.0,
-        "electrodes_per_compartment": 12,
-        "feature_set": "rate_only",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.7834,
-        "auc_ci95": [
-          0.6933,
-          0.8654
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 30.0,
-        "electrodes_per_compartment": 12,
-        "feature_set": "all_rate_residualized",
-        "n_simulations": 120,
-        "rate_residualized": true
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.7931,
-        "auc_ci95": [
-          0.7042,
-          0.8707
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 30.0,
-        "electrodes_per_compartment": 12,
-        "feature_set": "coupling_only_rate_residualized",
-        "n_simulations": 120,
-        "rate_residualized": true
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.5491,
-        "auc_ci95": [
-          0.4307,
-          0.6673
-        ],
-        "better_than_chance": false,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 30.0,
-        "electrodes_per_compartment": 12,
-        "feature_set": "rate_only_rate_residualized",
-        "n_simulations": 120,
-        "rate_residualized": true
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.9763,
-        "auc_ci95": [
-          0.9508,
-          0.996
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 30.0,
-        "electrodes_per_compartment": 24,
-        "feature_set": "all",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.9731,
-        "auc_ci95": [
-          0.939,
-          0.9967
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "nonlinear",
-        "duration_s": 30.0,
-        "electrodes_per_compartment": 24,
-        "feature_set": "all_nonlinear",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.9022,
-        "auc_ci95": [
-          0.8447,
-          0.9527
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 30.0,
-        "electrodes_per_compartment": 24,
-        "feature_set": "coupling_only",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.9684,
-        "auc_ci95": [
-          0.9371,
-          0.9916
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 30.0,
-        "electrodes_per_compartment": 24,
-        "feature_set": "rate_only",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.8953,
-        "auc_ci95": [
-          0.826,
-          0.9452
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 30.0,
-        "electrodes_per_compartment": 24,
-        "feature_set": "all_rate_residualized",
-        "n_simulations": 120,
-        "rate_residualized": true
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.8925,
-        "auc_ci95": [
-          0.8305,
-          0.9445
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 30.0,
+        "duration_s": 60.0,
         "electrodes_per_compartment": 24,
         "feature_set": "coupling_only_rate_residualized",
         "n_simulations": 120,
@@ -5155,128 +5603,16 @@
       },
       {
         "arm": "free_rate",
-        "auc": 0.5613,
+        "auc": 0.4091,
         "auc_ci95": [
-          0.4327,
-          0.6903
+          0.2959,
+          0.5204
         ],
         "better_than_chance": false,
         "bootstrap_resamples": 1000,
         "classifier": "linear",
-        "duration_s": 30.0,
+        "duration_s": 60.0,
         "electrodes_per_compartment": 24,
-        "feature_set": "rate_only_rate_residualized",
-        "n_simulations": 120,
-        "rate_residualized": true
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.9766,
-        "auc_ci95": [
-          0.9502,
-          0.9931
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 30.0,
-        "electrodes_per_compartment": 48,
-        "feature_set": "all",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.9719,
-        "auc_ci95": [
-          0.9424,
-          0.9929
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "nonlinear",
-        "duration_s": 30.0,
-        "electrodes_per_compartment": 48,
-        "feature_set": "all_nonlinear",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.895,
-        "auc_ci95": [
-          0.8357,
-          0.946
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 30.0,
-        "electrodes_per_compartment": 48,
-        "feature_set": "coupling_only",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.9759,
-        "auc_ci95": [
-          0.9491,
-          0.9941
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 30.0,
-        "electrodes_per_compartment": 48,
-        "feature_set": "rate_only",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.8766,
-        "auc_ci95": [
-          0.8071,
-          0.9302
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 30.0,
-        "electrodes_per_compartment": 48,
-        "feature_set": "all_rate_residualized",
-        "n_simulations": 120,
-        "rate_residualized": true
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.8691,
-        "auc_ci95": [
-          0.7985,
-          0.9299
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 30.0,
-        "electrodes_per_compartment": 48,
-        "feature_set": "coupling_only_rate_residualized",
-        "n_simulations": 120,
-        "rate_residualized": true
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.5434,
-        "auc_ci95": [
-          0.4276,
-          0.672
-        ],
-        "better_than_chance": false,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 30.0,
-        "electrodes_per_compartment": 48,
         "feature_set": "rate_only_rate_residualized",
         "n_simulations": 120,
         "rate_residualized": true
@@ -5285,381 +5621,45 @@
         "arm": "free_rate",
         "auc": 0.9575,
         "auc_ci95": [
-          0.9253,
-          0.9834
+          0.9244,
+          0.9837
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
         "classifier": "linear",
         "duration_s": 60.0,
-        "electrodes_per_compartment": 6,
+        "electrodes_per_compartment": 48,
         "feature_set": "all",
         "n_simulations": 120,
         "rate_residualized": false
       },
       {
         "arm": "free_rate",
-        "auc": 0.9631,
+        "auc": 0.9397,
         "auc_ci95": [
-          0.9271,
-          0.9872
+          0.8991,
+          0.9742
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
         "classifier": "nonlinear",
         "duration_s": 60.0,
-        "electrodes_per_compartment": 6,
+        "electrodes_per_compartment": 48,
         "feature_set": "all_nonlinear",
         "n_simulations": 120,
         "rate_residualized": false
       },
       {
         "arm": "free_rate",
-        "auc": 0.9366,
+        "auc": 0.9359,
         "auc_ci95": [
-          0.8944,
+          0.8929,
           0.9727
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
         "classifier": "linear",
         "duration_s": 60.0,
-        "electrodes_per_compartment": 6,
-        "feature_set": "coupling_only",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.8803,
-        "auc_ci95": [
-          0.8194,
-          0.9347
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 60.0,
-        "electrodes_per_compartment": 6,
-        "feature_set": "rate_only",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.8781,
-        "auc_ci95": [
-          0.8145,
-          0.9265
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 60.0,
-        "electrodes_per_compartment": 6,
-        "feature_set": "all_rate_residualized",
-        "n_simulations": 120,
-        "rate_residualized": true
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.8503,
-        "auc_ci95": [
-          0.7777,
-          0.9058
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 60.0,
-        "electrodes_per_compartment": 6,
-        "feature_set": "coupling_only_rate_residualized",
-        "n_simulations": 120,
-        "rate_residualized": true
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.575,
-        "auc_ci95": [
-          0.4656,
-          0.6842
-        ],
-        "better_than_chance": false,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 60.0,
-        "electrodes_per_compartment": 6,
-        "feature_set": "rate_only_rate_residualized",
-        "n_simulations": 120,
-        "rate_residualized": true
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.9716,
-        "auc_ci95": [
-          0.9388,
-          0.9926
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 60.0,
-        "electrodes_per_compartment": 12,
-        "feature_set": "all",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.9594,
-        "auc_ci95": [
-          0.9225,
-          0.9872
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "nonlinear",
-        "duration_s": 60.0,
-        "electrodes_per_compartment": 12,
-        "feature_set": "all_nonlinear",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.9434,
-        "auc_ci95": [
-          0.8995,
-          0.9799
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 60.0,
-        "electrodes_per_compartment": 12,
-        "feature_set": "coupling_only",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.9419,
-        "auc_ci95": [
-          0.8968,
-          0.9761
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 60.0,
-        "electrodes_per_compartment": 12,
-        "feature_set": "rate_only",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.7706,
-        "auc_ci95": [
-          0.6811,
-          0.8499
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 60.0,
-        "electrodes_per_compartment": 12,
-        "feature_set": "all_rate_residualized",
-        "n_simulations": 120,
-        "rate_residualized": true
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.8044,
-        "auc_ci95": [
-          0.7297,
-          0.8817
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 60.0,
-        "electrodes_per_compartment": 12,
-        "feature_set": "coupling_only_rate_residualized",
-        "n_simulations": 120,
-        "rate_residualized": true
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.5069,
-        "auc_ci95": [
-          0.3909,
-          0.6274
-        ],
-        "better_than_chance": false,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 60.0,
-        "electrodes_per_compartment": 12,
-        "feature_set": "rate_only_rate_residualized",
-        "n_simulations": 120,
-        "rate_residualized": true
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.9816,
-        "auc_ci95": [
-          0.9575,
-          0.998
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 60.0,
-        "electrodes_per_compartment": 24,
-        "feature_set": "all",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.9859,
-        "auc_ci95": [
-          0.9653,
-          0.9991
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "nonlinear",
-        "duration_s": 60.0,
-        "electrodes_per_compartment": 24,
-        "feature_set": "all_nonlinear",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.9403,
-        "auc_ci95": [
-          0.8964,
-          0.9772
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 60.0,
-        "electrodes_per_compartment": 24,
-        "feature_set": "coupling_only",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.9788,
-        "auc_ci95": [
-          0.9554,
-          0.9954
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 60.0,
-        "electrodes_per_compartment": 24,
-        "feature_set": "rate_only",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.9234,
-        "auc_ci95": [
-          0.8697,
-          0.9685
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 60.0,
-        "electrodes_per_compartment": 24,
-        "feature_set": "all_rate_residualized",
-        "n_simulations": 120,
-        "rate_residualized": true
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.8884,
-        "auc_ci95": [
-          0.8292,
-          0.9426
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 60.0,
-        "electrodes_per_compartment": 24,
-        "feature_set": "coupling_only_rate_residualized",
-        "n_simulations": 120,
-        "rate_residualized": true
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.5334,
-        "auc_ci95": [
-          0.4154,
-          0.6609
-        ],
-        "better_than_chance": false,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 60.0,
-        "electrodes_per_compartment": 24,
-        "feature_set": "rate_only_rate_residualized",
-        "n_simulations": 120,
-        "rate_residualized": true
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.9863,
-        "auc_ci95": [
-          0.9679,
-          0.9983
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 60.0,
-        "electrodes_per_compartment": 48,
-        "feature_set": "all",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.9937,
-        "auc_ci95": [
-          0.9817,
-          1.0
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "nonlinear",
-        "duration_s": 60.0,
-        "electrodes_per_compartment": 48,
-        "feature_set": "all_nonlinear",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "free_rate",
-        "auc": 0.9369,
-        "auc_ci95": [
-          0.8927,
-          0.9741
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 60.0,
         "electrodes_per_compartment": 48,
         "feature_set": "coupling_only",
         "n_simulations": 120,
@@ -5667,10 +5667,10 @@
       },
       {
         "arm": "free_rate",
-        "auc": 0.9841,
+        "auc": 0.9275,
         "auc_ci95": [
-          0.96,
-          0.9984
+          0.8769,
+          0.9686
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -5683,10 +5683,10 @@
       },
       {
         "arm": "free_rate",
-        "auc": 0.9172,
+        "auc": 0.8934,
         "auc_ci95": [
-          0.862,
-          0.9607
+          0.8309,
+          0.944
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -5699,10 +5699,10 @@
       },
       {
         "arm": "free_rate",
-        "auc": 0.8894,
+        "auc": 0.8981,
         "auc_ci95": [
-          0.8128,
-          0.9508
+          0.8411,
+          0.946
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -5715,10 +5715,10 @@
       },
       {
         "arm": "free_rate",
-        "auc": 0.4912,
+        "auc": 0.4888,
         "auc_ci95": [
-          0.3706,
-          0.6166
+          0.3654,
+          0.5976
         ],
         "better_than_chance": false,
         "bootstrap_resamples": 1000,
@@ -5731,10 +5731,10 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 1.0,
+        "auc": 0.7009,
         "auc_ci95": [
-          1.0,
-          1.0
+          0.603,
+          0.7938
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -5747,10 +5747,10 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.9981,
+        "auc": 0.7819,
         "auc_ci95": [
-          0.9938,
-          1.0
+          0.6946,
+          0.8641
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -5763,10 +5763,10 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.9903,
+        "auc": 0.7369,
         "auc_ci95": [
-          0.9777,
-          0.9991
+          0.6479,
+          0.8198
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -5779,12 +5779,12 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.8587,
+        "auc": 0.555,
         "auc_ci95": [
-          0.782,
-          0.9244
+          0.4423,
+          0.6544
         ],
-        "better_than_chance": true,
+        "better_than_chance": false,
         "bootstrap_resamples": 1000,
         "classifier": "linear",
         "duration_s": 10.0,
@@ -5795,10 +5795,10 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.9869,
+        "auc": 0.7087,
         "auc_ci95": [
-          0.9654,
-          1.0
+          0.6143,
+          0.8007
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -5811,10 +5811,10 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.9403,
+        "auc": 0.7444,
         "auc_ci95": [
-          0.8862,
-          0.9878
+          0.6551,
+          0.8287
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -5827,191 +5827,191 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.545,
+        "auc": 0.4528,
         "auc_ci95": [
-          0.4397,
+          0.3496,
+          0.5683
+        ],
+        "better_than_chance": false,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "rate_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.795,
+        "auc_ci95": [
+          0.711,
+          0.8715
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "all",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.78,
+        "auc_ci95": [
+          0.6937,
+          0.8614
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "nonlinear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "all_nonlinear",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.8369,
+        "auc_ci95": [
+          0.7576,
+          0.9029
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "coupling_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.55,
+        "auc_ci95": [
+          0.4368,
+          0.6518
+        ],
+        "better_than_chance": false,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "rate_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.8166,
+        "auc_ci95": [
+          0.7395,
+          0.8877
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "all_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.8462,
+        "auc_ci95": [
+          0.7714,
+          0.9155
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 10.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "coupling_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.5547,
+        "auc_ci95": [
+          0.4501,
           0.66
         ],
         "better_than_chance": false,
         "bootstrap_resamples": 1000,
         "classifier": "linear",
         "duration_s": 10.0,
-        "electrodes_per_compartment": 6,
+        "electrodes_per_compartment": 12,
         "feature_set": "rate_only_rate_residualized",
         "n_simulations": 120,
         "rate_residualized": true
       },
       {
         "arm": "rate_matched",
-        "auc": 1.0,
+        "auc": 0.8325,
         "auc_ci95": [
-          1.0,
-          1.0
+          0.7607,
+          0.8994
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
         "classifier": "linear",
         "duration_s": 10.0,
-        "electrodes_per_compartment": 12,
+        "electrodes_per_compartment": 24,
         "feature_set": "all",
         "n_simulations": 120,
         "rate_residualized": false
       },
       {
         "arm": "rate_matched",
-        "auc": 1.0,
+        "auc": 0.7953,
         "auc_ci95": [
-          1.0,
-          1.0
+          0.7073,
+          0.8775
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
         "classifier": "nonlinear",
         "duration_s": 10.0,
-        "electrodes_per_compartment": 12,
+        "electrodes_per_compartment": 24,
         "feature_set": "all_nonlinear",
         "n_simulations": 120,
         "rate_residualized": false
       },
       {
         "arm": "rate_matched",
-        "auc": 0.9928,
+        "auc": 0.8791,
         "auc_ci95": [
-          0.9818,
-          1.0
+          0.8145,
+          0.9362
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
         "classifier": "linear",
         "duration_s": 10.0,
-        "electrodes_per_compartment": 12,
+        "electrodes_per_compartment": 24,
         "feature_set": "coupling_only",
         "n_simulations": 120,
         "rate_residualized": false
       },
       {
         "arm": "rate_matched",
-        "auc": 0.9256,
+        "auc": 0.5819,
         "auc_ci95": [
-          0.8694,
-          0.971
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 10.0,
-        "electrodes_per_compartment": 12,
-        "feature_set": "rate_only",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "rate_matched",
-        "auc": 0.9975,
-        "auc_ci95": [
-          0.9914,
-          1.0
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 10.0,
-        "electrodes_per_compartment": 12,
-        "feature_set": "all_rate_residualized",
-        "n_simulations": 120,
-        "rate_residualized": true
-      },
-      {
-        "arm": "rate_matched",
-        "auc": 0.9722,
-        "auc_ci95": [
-          0.9397,
-          0.9959
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 10.0,
-        "electrodes_per_compartment": 12,
-        "feature_set": "coupling_only_rate_residualized",
-        "n_simulations": 120,
-        "rate_residualized": true
-      },
-      {
-        "arm": "rate_matched",
-        "auc": 0.6009,
-        "auc_ci95": [
-          0.4851,
-          0.6971
+          0.4699,
+          0.6863
         ],
         "better_than_chance": false,
         "bootstrap_resamples": 1000,
         "classifier": "linear",
         "duration_s": 10.0,
-        "electrodes_per_compartment": 12,
-        "feature_set": "rate_only_rate_residualized",
-        "n_simulations": 120,
-        "rate_residualized": true
-      },
-      {
-        "arm": "rate_matched",
-        "auc": 1.0,
-        "auc_ci95": [
-          1.0,
-          1.0
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 10.0,
-        "electrodes_per_compartment": 24,
-        "feature_set": "all",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "rate_matched",
-        "auc": 1.0,
-        "auc_ci95": [
-          1.0,
-          1.0
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "nonlinear",
-        "duration_s": 10.0,
-        "electrodes_per_compartment": 24,
-        "feature_set": "all_nonlinear",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "rate_matched",
-        "auc": 0.9925,
-        "auc_ci95": [
-          0.9812,
-          0.9994
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 10.0,
-        "electrodes_per_compartment": 24,
-        "feature_set": "coupling_only",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "rate_matched",
-        "auc": 0.9731,
-        "auc_ci95": [
-          0.9449,
-          0.9909
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 10.0,
         "electrodes_per_compartment": 24,
         "feature_set": "rate_only",
         "n_simulations": 120,
@@ -6019,10 +6019,10 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.9994,
+        "auc": 0.8303,
         "auc_ci95": [
-          0.9969,
-          1.0
+          0.7532,
+          0.9015
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -6035,10 +6035,10 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.9803,
+        "auc": 0.8741,
         "auc_ci95": [
-          0.9603,
-          0.9951
+          0.8077,
+          0.9318
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -6051,10 +6051,10 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.5516,
+        "auc": 0.5494,
         "auc_ci95": [
-          0.445,
-          0.6482
+          0.4506,
+          0.6577
         ],
         "better_than_chance": false,
         "bootstrap_resamples": 1000,
@@ -6067,10 +6067,10 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 1.0,
+        "auc": 0.9094,
         "auc_ci95": [
-          1.0,
-          1.0
+          0.8518,
+          0.9555
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -6083,10 +6083,10 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 1.0,
+        "auc": 0.8866,
         "auc_ci95": [
-          1.0,
-          1.0
+          0.8218,
+          0.9411
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -6099,10 +6099,10 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.9941,
+        "auc": 0.8559,
         "auc_ci95": [
-          0.9846,
-          0.9994
+          0.7915,
+          0.9152
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -6115,10 +6115,10 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.9769,
+        "auc": 0.6203,
         "auc_ci95": [
-          0.9524,
-          0.9929
+          0.5069,
+          0.7149
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -6131,10 +6131,10 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.9909,
+        "auc": 0.8925,
         "auc_ci95": [
-          0.97,
-          1.0
+          0.8296,
+          0.9488
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -6147,10 +6147,10 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.9537,
+        "auc": 0.8666,
         "auc_ci95": [
-          0.915,
-          0.9825
+          0.8018,
+          0.9272
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -6163,12 +6163,12 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.5703,
+        "auc": 0.6172,
         "auc_ci95": [
-          0.4615,
-          0.6628
+          0.5158,
+          0.7182
         ],
-        "better_than_chance": false,
+        "better_than_chance": true,
         "bootstrap_resamples": 1000,
         "classifier": "linear",
         "duration_s": 10.0,
@@ -6179,10 +6179,10 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 1.0,
+        "auc": 0.6669,
         "auc_ci95": [
-          1.0,
-          1.0
+          0.567,
+          0.7642
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -6195,10 +6195,10 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.9681,
+        "auc": 0.82,
         "auc_ci95": [
-          0.9302,
-          0.9953
+          0.7398,
+          0.8925
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -6211,10 +6211,10 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.9988,
+        "auc": 0.7375,
         "auc_ci95": [
-          0.9951,
-          1.0
+          0.6462,
+          0.82
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -6224,466 +6224,18 @@
         "feature_set": "coupling_only",
         "n_simulations": 120,
         "rate_residualized": false
-      },
-      {
-        "arm": "rate_matched",
-        "auc": 0.8706,
-        "auc_ci95": [
-          0.7947,
-          0.9292
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 30.0,
-        "electrodes_per_compartment": 6,
-        "feature_set": "rate_only",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "rate_matched",
-        "auc": 0.9769,
-        "auc_ci95": [
-          0.9369,
-          0.9992
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 30.0,
-        "electrodes_per_compartment": 6,
-        "feature_set": "all_rate_residualized",
-        "n_simulations": 120,
-        "rate_residualized": true
-      },
-      {
-        "arm": "rate_matched",
-        "auc": 0.9772,
-        "auc_ci95": [
-          0.9503,
-          0.9964
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 30.0,
-        "electrodes_per_compartment": 6,
-        "feature_set": "coupling_only_rate_residualized",
-        "n_simulations": 120,
-        "rate_residualized": true
-      },
-      {
-        "arm": "rate_matched",
-        "auc": 0.5294,
-        "auc_ci95": [
-          0.4197,
-          0.6383
-        ],
-        "better_than_chance": false,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 30.0,
-        "electrodes_per_compartment": 6,
-        "feature_set": "rate_only_rate_residualized",
-        "n_simulations": 120,
-        "rate_residualized": true
-      },
-      {
-        "arm": "rate_matched",
-        "auc": 1.0,
-        "auc_ci95": [
-          1.0,
-          1.0
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 30.0,
-        "electrodes_per_compartment": 12,
-        "feature_set": "all",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "rate_matched",
-        "auc": 0.9875,
-        "auc_ci95": [
-          0.9571,
-          1.0
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "nonlinear",
-        "duration_s": 30.0,
-        "electrodes_per_compartment": 12,
-        "feature_set": "all_nonlinear",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "rate_matched",
-        "auc": 0.9991,
-        "auc_ci95": [
-          0.9961,
-          1.0
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 30.0,
-        "electrodes_per_compartment": 12,
-        "feature_set": "coupling_only",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "rate_matched",
-        "auc": 0.9322,
-        "auc_ci95": [
-          0.8762,
-          0.9766
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 30.0,
-        "electrodes_per_compartment": 12,
-        "feature_set": "rate_only",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "rate_matched",
-        "auc": 0.9997,
-        "auc_ci95": [
-          0.9981,
-          1.0
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 30.0,
-        "electrodes_per_compartment": 12,
-        "feature_set": "all_rate_residualized",
-        "n_simulations": 120,
-        "rate_residualized": true
-      },
-      {
-        "arm": "rate_matched",
-        "auc": 0.99,
-        "auc_ci95": [
-          0.9776,
-          0.9987
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 30.0,
-        "electrodes_per_compartment": 12,
-        "feature_set": "coupling_only_rate_residualized",
-        "n_simulations": 120,
-        "rate_residualized": true
-      },
-      {
-        "arm": "rate_matched",
-        "auc": 0.5813,
-        "auc_ci95": [
-          0.476,
-          0.6834
-        ],
-        "better_than_chance": false,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 30.0,
-        "electrodes_per_compartment": 12,
-        "feature_set": "rate_only_rate_residualized",
-        "n_simulations": 120,
-        "rate_residualized": true
-      },
-      {
-        "arm": "rate_matched",
-        "auc": 1.0,
-        "auc_ci95": [
-          1.0,
-          1.0
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 30.0,
-        "electrodes_per_compartment": 24,
-        "feature_set": "all",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "rate_matched",
-        "auc": 1.0,
-        "auc_ci95": [
-          1.0,
-          1.0
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "nonlinear",
-        "duration_s": 30.0,
-        "electrodes_per_compartment": 24,
-        "feature_set": "all_nonlinear",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "rate_matched",
-        "auc": 0.9994,
-        "auc_ci95": [
-          0.9972,
-          1.0
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 30.0,
-        "electrodes_per_compartment": 24,
-        "feature_set": "coupling_only",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "rate_matched",
-        "auc": 0.9744,
-        "auc_ci95": [
-          0.9478,
-          0.992
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 30.0,
-        "electrodes_per_compartment": 24,
-        "feature_set": "rate_only",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "rate_matched",
-        "auc": 0.9644,
-        "auc_ci95": [
-          0.9245,
-          0.992
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 30.0,
-        "electrodes_per_compartment": 24,
-        "feature_set": "all_rate_residualized",
-        "n_simulations": 120,
-        "rate_residualized": true
-      },
-      {
-        "arm": "rate_matched",
-        "auc": 0.9444,
-        "auc_ci95": [
-          0.9034,
-          0.9769
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 30.0,
-        "electrodes_per_compartment": 24,
-        "feature_set": "coupling_only_rate_residualized",
-        "n_simulations": 120,
-        "rate_residualized": true
-      },
-      {
-        "arm": "rate_matched",
-        "auc": 0.5381,
-        "auc_ci95": [
-          0.4264,
-          0.6338
-        ],
-        "better_than_chance": false,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 30.0,
-        "electrodes_per_compartment": 24,
-        "feature_set": "rate_only_rate_residualized",
-        "n_simulations": 120,
-        "rate_residualized": true
-      },
-      {
-        "arm": "rate_matched",
-        "auc": 1.0,
-        "auc_ci95": [
-          1.0,
-          1.0
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 30.0,
-        "electrodes_per_compartment": 48,
-        "feature_set": "all",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "rate_matched",
-        "auc": 0.9938,
-        "auc_ci95": [
-          0.98,
-          1.0
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "nonlinear",
-        "duration_s": 30.0,
-        "electrodes_per_compartment": 48,
-        "feature_set": "all_nonlinear",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "rate_matched",
-        "auc": 0.9994,
-        "auc_ci95": [
-          0.9972,
-          1.0
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 30.0,
-        "electrodes_per_compartment": 48,
-        "feature_set": "coupling_only",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "rate_matched",
-        "auc": 0.9828,
-        "auc_ci95": [
-          0.9641,
-          0.9959
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 30.0,
-        "electrodes_per_compartment": 48,
-        "feature_set": "rate_only",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "rate_matched",
-        "auc": 0.9909,
-        "auc_ci95": [
-          0.978,
-          0.9994
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 30.0,
-        "electrodes_per_compartment": 48,
-        "feature_set": "all_rate_residualized",
-        "n_simulations": 120,
-        "rate_residualized": true
-      },
-      {
-        "arm": "rate_matched",
-        "auc": 0.9681,
-        "auc_ci95": [
-          0.939,
-          0.9906
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 30.0,
-        "electrodes_per_compartment": 48,
-        "feature_set": "coupling_only_rate_residualized",
-        "n_simulations": 120,
-        "rate_residualized": true
       },
       {
         "arm": "rate_matched",
         "auc": 0.5309,
         "auc_ci95": [
-          0.4185,
-          0.6295
+          0.4127,
+          0.6358
         ],
         "better_than_chance": false,
         "bootstrap_resamples": 1000,
         "classifier": "linear",
         "duration_s": 30.0,
-        "electrodes_per_compartment": 48,
-        "feature_set": "rate_only_rate_residualized",
-        "n_simulations": 120,
-        "rate_residualized": true
-      },
-      {
-        "arm": "rate_matched",
-        "auc": 1.0,
-        "auc_ci95": [
-          1.0,
-          1.0
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 60.0,
-        "electrodes_per_compartment": 6,
-        "feature_set": "all",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "rate_matched",
-        "auc": 0.9812,
-        "auc_ci95": [
-          0.9488,
-          1.0
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "nonlinear",
-        "duration_s": 60.0,
-        "electrodes_per_compartment": 6,
-        "feature_set": "all_nonlinear",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "rate_matched",
-        "auc": 0.9991,
-        "auc_ci95": [
-          0.9961,
-          1.0
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 60.0,
-        "electrodes_per_compartment": 6,
-        "feature_set": "coupling_only",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "rate_matched",
-        "auc": 0.8763,
-        "auc_ci95": [
-          0.7996,
-          0.9348
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 60.0,
         "electrodes_per_compartment": 6,
         "feature_set": "rate_only",
         "n_simulations": 120,
@@ -6691,15 +6243,15 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.9994,
+        "auc": 0.675,
         "auc_ci95": [
-          0.997,
-          1.0
+          0.567,
+          0.7729
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
         "classifier": "linear",
-        "duration_s": 60.0,
+        "duration_s": 30.0,
         "electrodes_per_compartment": 6,
         "feature_set": "all_rate_residualized",
         "n_simulations": 120,
@@ -6707,15 +6259,15 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.9978,
+        "auc": 0.7512,
         "auc_ci95": [
-          0.9908,
-          1.0
+          0.6658,
+          0.8322
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
         "classifier": "linear",
-        "duration_s": 60.0,
+        "duration_s": 30.0,
         "electrodes_per_compartment": 6,
         "feature_set": "coupling_only_rate_residualized",
         "n_simulations": 120,
@@ -6723,15 +6275,15 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.5278,
+        "auc": 0.4275,
         "auc_ci95": [
-          0.4136,
-          0.6411
+          0.327,
+          0.5438
         ],
         "better_than_chance": false,
         "bootstrap_resamples": 1000,
         "classifier": "linear",
-        "duration_s": 60.0,
+        "duration_s": 30.0,
         "electrodes_per_compartment": 6,
         "feature_set": "rate_only_rate_residualized",
         "n_simulations": 120,
@@ -6739,15 +6291,15 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 1.0,
+        "auc": 0.8369,
         "auc_ci95": [
-          1.0,
-          1.0
+          0.7545,
+          0.9116
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
         "classifier": "linear",
-        "duration_s": 60.0,
+        "duration_s": 30.0,
         "electrodes_per_compartment": 12,
         "feature_set": "all",
         "n_simulations": 120,
@@ -6755,15 +6307,15 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.9875,
+        "auc": 0.8641,
         "auc_ci95": [
-          0.9571,
-          1.0
+          0.7931,
+          0.9281
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
         "classifier": "nonlinear",
-        "duration_s": 60.0,
+        "duration_s": 30.0,
         "electrodes_per_compartment": 12,
         "feature_set": "all_nonlinear",
         "n_simulations": 120,
@@ -6771,15 +6323,15 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.9997,
+        "auc": 0.8378,
         "auc_ci95": [
-          0.9981,
-          1.0
+          0.7632,
+          0.8996
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
         "classifier": "linear",
-        "duration_s": 60.0,
+        "duration_s": 30.0,
         "electrodes_per_compartment": 12,
         "feature_set": "coupling_only",
         "n_simulations": 120,
@@ -6787,15 +6339,15 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.9394,
+        "auc": 0.5628,
         "auc_ci95": [
-          0.8847,
-          0.9814
+          0.4521,
+          0.6706
         ],
-        "better_than_chance": true,
+        "better_than_chance": false,
         "bootstrap_resamples": 1000,
         "classifier": "linear",
-        "duration_s": 60.0,
+        "duration_s": 30.0,
         "electrodes_per_compartment": 12,
         "feature_set": "rate_only",
         "n_simulations": 120,
@@ -6803,15 +6355,15 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.9991,
+        "auc": 0.8253,
         "auc_ci95": [
-          0.996,
-          1.0
+          0.7393,
+          0.9034
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
         "classifier": "linear",
-        "duration_s": 60.0,
+        "duration_s": 30.0,
         "electrodes_per_compartment": 12,
         "feature_set": "all_rate_residualized",
         "n_simulations": 120,
@@ -6819,15 +6371,15 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.9791,
+        "auc": 0.8391,
         "auc_ci95": [
-          0.9522,
-          0.9981
+          0.766,
+          0.9067
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
         "classifier": "linear",
-        "duration_s": 60.0,
+        "duration_s": 30.0,
         "electrodes_per_compartment": 12,
         "feature_set": "coupling_only_rate_residualized",
         "n_simulations": 120,
@@ -6835,15 +6387,15 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.5841,
+        "auc": 0.5509,
         "auc_ci95": [
-          0.4652,
-          0.6839
+          0.45,
+          0.6566
         ],
         "better_than_chance": false,
         "bootstrap_resamples": 1000,
         "classifier": "linear",
-        "duration_s": 60.0,
+        "duration_s": 30.0,
         "electrodes_per_compartment": 12,
         "feature_set": "rate_only_rate_residualized",
         "n_simulations": 120,
@@ -6851,15 +6403,15 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 1.0,
+        "auc": 0.8288,
         "auc_ci95": [
-          1.0,
-          1.0
+          0.7538,
+          0.8977
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
         "classifier": "linear",
-        "duration_s": 60.0,
+        "duration_s": 30.0,
         "electrodes_per_compartment": 24,
         "feature_set": "all",
         "n_simulations": 120,
@@ -6867,15 +6419,15 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.9875,
+        "auc": 0.8356,
         "auc_ci95": [
-          0.9583,
-          1.0
+          0.7623,
+          0.903
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
         "classifier": "nonlinear",
-        "duration_s": 60.0,
+        "duration_s": 30.0,
         "electrodes_per_compartment": 24,
         "feature_set": "all_nonlinear",
         "n_simulations": 120,
@@ -6883,15 +6435,15 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.9997,
+        "auc": 0.8278,
         "auc_ci95": [
-          0.9982,
-          1.0
+          0.752,
+          0.8997
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
         "classifier": "linear",
-        "duration_s": 60.0,
+        "duration_s": 30.0,
         "electrodes_per_compartment": 24,
         "feature_set": "coupling_only",
         "n_simulations": 120,
@@ -6899,15 +6451,15 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.9825,
+        "auc": 0.5766,
         "auc_ci95": [
-          0.9602,
-          0.9969
+          0.4658,
+          0.6788
         ],
-        "better_than_chance": true,
+        "better_than_chance": false,
         "bootstrap_resamples": 1000,
         "classifier": "linear",
-        "duration_s": 60.0,
+        "duration_s": 30.0,
         "electrodes_per_compartment": 24,
         "feature_set": "rate_only",
         "n_simulations": 120,
@@ -6915,15 +6467,15 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.9275,
+        "auc": 0.8228,
         "auc_ci95": [
-          0.8768,
-          0.9691
+          0.7431,
+          0.8957
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
         "classifier": "linear",
-        "duration_s": 60.0,
+        "duration_s": 30.0,
         "electrodes_per_compartment": 24,
         "feature_set": "all_rate_residualized",
         "n_simulations": 120,
@@ -6931,15 +6483,15 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.8569,
+        "auc": 0.8259,
         "auc_ci95": [
-          0.7854,
-          0.9237
+          0.7487,
+          0.8985
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
         "classifier": "linear",
-        "duration_s": 60.0,
+        "duration_s": 30.0,
         "electrodes_per_compartment": 24,
         "feature_set": "coupling_only_rate_residualized",
         "n_simulations": 120,
@@ -6947,97 +6499,17 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.5322,
+        "auc": 0.5231,
         "auc_ci95": [
-          0.4156,
-          0.636
+          0.4219,
+          0.6299
         ],
         "better_than_chance": false,
         "bootstrap_resamples": 1000,
         "classifier": "linear",
-        "duration_s": 60.0,
+        "duration_s": 30.0,
         "electrodes_per_compartment": 24,
         "feature_set": "rate_only_rate_residualized",
-        "n_simulations": 120,
-        "rate_residualized": true
-      },
-      {
-        "arm": "rate_matched",
-        "auc": 1.0,
-        "auc_ci95": [
-          1.0,
-          1.0
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 60.0,
-        "electrodes_per_compartment": 48,
-        "feature_set": "all",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "rate_matched",
-        "auc": 1.0,
-        "auc_ci95": [
-          1.0,
-          1.0
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "nonlinear",
-        "duration_s": 60.0,
-        "electrodes_per_compartment": 48,
-        "feature_set": "all_nonlinear",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "rate_matched",
-        "auc": 1.0,
-        "auc_ci95": [
-          1.0,
-          1.0
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 60.0,
-        "electrodes_per_compartment": 48,
-        "feature_set": "coupling_only",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "rate_matched",
-        "auc": 0.9859,
-        "auc_ci95": [
-          0.9697,
-          0.9973
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 60.0,
-        "electrodes_per_compartment": 48,
-        "feature_set": "rate_only",
-        "n_simulations": 120,
-        "rate_residualized": false
-      },
-      {
-        "arm": "rate_matched",
-        "auc": 0.9481,
-        "auc_ci95": [
-          0.9081,
-          0.9799
-        ],
-        "better_than_chance": true,
-        "bootstrap_resamples": 1000,
-        "classifier": "linear",
-        "duration_s": 60.0,
-        "electrodes_per_compartment": 48,
-        "feature_set": "all_rate_residualized",
         "n_simulations": 120,
         "rate_residualized": true
       },
@@ -7045,8 +6517,536 @@
         "arm": "rate_matched",
         "auc": 0.9166,
         "auc_ci95": [
+          0.8608,
+          0.9609
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "all",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.885,
+        "auc_ci95": [
+          0.8246,
+          0.9342
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "nonlinear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "all_nonlinear",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.8831,
+        "auc_ci95": [
+          0.8242,
+          0.9356
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "coupling_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.6306,
+        "auc_ci95": [
+          0.5184,
+          0.7313
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "rate_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.9072,
+        "auc_ci95": [
+          0.8489,
+          0.9528
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "all_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.88,
+        "auc_ci95": [
+          0.8175,
+          0.9328
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "coupling_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.6391,
+        "auc_ci95": [
+          0.5415,
+          0.7366
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 30.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "rate_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.7259,
+        "auc_ci95": [
+          0.6318,
+          0.8079
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "all",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.7678,
+        "auc_ci95": [
+          0.6769,
+          0.8481
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "nonlinear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "all_nonlinear",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.7659,
+        "auc_ci95": [
+          0.689,
+          0.8463
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "coupling_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.5238,
+        "auc_ci95": [
+          0.4092,
+          0.6312
+        ],
+        "better_than_chance": false,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "rate_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.7228,
+        "auc_ci95": [
+          0.6283,
+          0.8085
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "all_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.78,
+        "auc_ci95": [
+          0.6983,
+          0.8577
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "coupling_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.4272,
+        "auc_ci95": [
+          0.3214,
+          0.5399
+        ],
+        "better_than_chance": false,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 6,
+        "feature_set": "rate_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.8503,
+        "auc_ci95": [
+          0.7811,
+          0.9157
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "all",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.8712,
+        "auc_ci95": [
+          0.8056,
+          0.9289
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "nonlinear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "all_nonlinear",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.7947,
+        "auc_ci95": [
+          0.7141,
+          0.866
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "coupling_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.5466,
+        "auc_ci95": [
+          0.4339,
+          0.66
+        ],
+        "better_than_chance": false,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "rate_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.845,
+        "auc_ci95": [
+          0.7717,
+          0.9114
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "all_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.8241,
+        "auc_ci95": [
+          0.7493,
+          0.8895
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "coupling_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.5475,
+        "auc_ci95": [
+          0.4377,
+          0.652
+        ],
+        "better_than_chance": false,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 12,
+        "feature_set": "rate_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.8506,
+        "auc_ci95": [
+          0.7812,
+          0.915
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "all",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.8491,
+        "auc_ci95": [
+          0.777,
+          0.9115
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "nonlinear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "all_nonlinear",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.8447,
+        "auc_ci95": [
+          0.7733,
+          0.9074
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "coupling_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.5606,
+        "auc_ci95": [
+          0.4419,
+          0.6631
+        ],
+        "better_than_chance": false,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "rate_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.8447,
+        "auc_ci95": [
+          0.7692,
+          0.9114
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "all_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.84,
+        "auc_ci95": [
+          0.7703,
+          0.9049
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "coupling_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.5397,
+        "auc_ci95": [
+          0.4335,
+          0.6451
+        ],
+        "better_than_chance": false,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 24,
+        "feature_set": "rate_only_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.9331,
+        "auc_ci95": [
+          0.884,
+          0.9716
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "all",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.9278,
+        "auc_ci95": [
+          0.878,
+          0.9695
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "nonlinear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "all_nonlinear",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.8234,
+        "auc_ci95": [
+          0.7541,
+          0.8915
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "coupling_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.6259,
+        "auc_ci95": [
+          0.5116,
+          0.7237
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "rate_only",
+        "n_simulations": 120,
+        "rate_residualized": false
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.9166,
+        "auc_ci95": [
           0.864,
-          0.96
+          0.9593
+        ],
+        "better_than_chance": true,
+        "bootstrap_resamples": 1000,
+        "classifier": "linear",
+        "duration_s": 60.0,
+        "electrodes_per_compartment": 48,
+        "feature_set": "all_rate_residualized",
+        "n_simulations": 120,
+        "rate_residualized": true
+      },
+      {
+        "arm": "rate_matched",
+        "auc": 0.865,
+        "auc_ci95": [
+          0.7909,
+          0.9281
         ],
         "better_than_chance": true,
         "bootstrap_resamples": 1000,
@@ -7059,12 +7059,12 @@
       },
       {
         "arm": "rate_matched",
-        "auc": 0.5444,
+        "auc": 0.6209,
         "auc_ci95": [
-          0.4268,
-          0.648
+          0.5233,
+          0.7149
         ],
-        "better_than_chance": false,
+        "better_than_chance": true,
         "bootstrap_resamples": 1000,
         "classifier": "linear",
         "duration_s": 60.0,
