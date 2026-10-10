@@ -380,3 +380,42 @@ def test_the_quick_tier_times_a_token_sample_and_no_simulation() -> None:
     quick = _timing_arguments(quick=True)
     assert "simulate" not in quick
     assert quick["n_observations"] <= 2 and quick["n_draws"] < TIMING_DRAWS
+
+
+def test_training_starts_from_the_same_random_state_with_or_without_the_cache(
+    tmp_path, monkeypatch
+) -> None:
+    """A fresh clone's full run matched the report; rerunning it from the cache did not.
+
+    Drawing the parameters consumes torch's random stream, and only the fresh path
+    drew them, so a cached rerun trained a different network and moved every
+    calibration statistic. Both paths must hand training the same state.
+    """
+    import torch
+
+    from neuromps.twin import inference
+
+    monkeypatch.setattr(inference, "simulation_cache", lambda: tmp_path / "sims.npz")
+    monkeypatch.setattr(inference, "twin_dir", lambda: tmp_path)
+    monkeypatch.setattr(inference, "cache_is_usable", lambda: True)
+
+    def fake_simulations(n, duration_s=10.0, seed=0, **kwargs):
+        theta = inference.draw_parameters(n, seed)
+        return theta, np.zeros((n, len(SUMMARY_NAMES)))
+
+    states = []
+
+    class _Stop(Exception):
+        pass
+
+    def capture(theta, x, max_epochs=None):
+        states.append(torch.get_rng_state().clone())
+        raise _Stop
+
+    monkeypatch.setattr(inference, "run_simulations", fake_simulations)
+    monkeypatch.setattr(inference, "train_posterior", capture)
+    for _ in range(2):  # the first run simulates and writes the cache; the second reuses it
+        with pytest.raises(_Stop):
+            inference.main(["--simulations", "40"])
+    assert len(states) == 2
+    assert torch.equal(states[0], states[1])

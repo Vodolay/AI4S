@@ -371,6 +371,19 @@ def _simulate_job(args) -> np.ndarray:
         return np.full(len(SUMMARY_NAMES), np.nan)
 
 
+def draw_parameters(n_simulations: int, seed: int) -> np.ndarray:
+    """The prior draws a run simulates, from torch's stream reseeded with ``seed``.
+
+    Called on the cached path too, where the draws themselves are not needed:
+    drawing advances the random stream training then uses, so skipping it on a
+    rerun trained a different network from the same simulations.
+    """
+    import torch
+
+    torch.manual_seed(seed)
+    return build_prior().sample((n_simulations,)).numpy()
+
+
 def run_simulations(
     n_simulations: int,
     n_per_compartment: int | None = None,
@@ -381,11 +394,7 @@ def run_simulations(
     """Draw from the prior and simulate, in parallel. Failed draws are dropped."""
     import multiprocessing as mp
 
-    import torch
-
-    torch.manual_seed(seed)
-    prior = build_prior()
-    theta = prior.sample((n_simulations,)).numpy()
+    theta = draw_parameters(n_simulations, seed)
     jobs = [(theta[i], n_per_compartment, duration_s, seed + i) for i in range(n_simulations)]
     processes = processes or worker_processes()
     log.info("simulating %d draws on %d processes", n_simulations, processes)
@@ -672,6 +681,8 @@ def main(argv: list[str] | None = None) -> int:
             )
             theta, x = theta[inside], x[inside]
         log.info("reusing %d cached simulations", len(theta))
+        # Leave the random stream where simulating would have: see draw_parameters.
+        draw_parameters(int(cached["metadata"].get("n_requested", n_simulations)), args.seed)
     else:
         theta, x = run_simulations(
             n_simulations, duration_s=5.0 if args.quick else 10.0, seed=args.seed
