@@ -240,9 +240,13 @@ def sensitivity_or_reason(
     has already succeeded by this point, so the run continues and records both.
     """
     try:
-        return sensitivity_without_dimensions(
-            posterior, x, simulated_x, dimensions, n_samples
-        ), None
+        rows = sensitivity_without_dimensions(posterior, x, simulated_x, dimensions, n_samples)
+        if not sampled_mask(rows).all():
+            # The headline inference records an unsampleable recording and goes
+            # on; this check is all or nothing, as it was when sbi's error
+            # propagated, so a trend over a subset is never presented as it.
+            raise RuntimeError(f"{int((~sampled_mask(rows)).sum())} recording(s) got no draws")
+        return rows, None
     except RuntimeError as error:  # sbi aborts rejection sampling on low acceptance
         log.warning("sensitivity re-inference could not be sampled: %s", error)
         return None, {
@@ -327,13 +331,22 @@ def infer_parameters(
 
     out = []
     for observation in x:
-        samples = posterior.sample(
-            (n_samples,),
-            x=torch.as_tensor(observation, dtype=torch.float32),
-            show_progress_bars=False,
-            max_sampling_time=max_seconds,
-            return_partial_on_timeout=True,
-        )
+        try:
+            samples = posterior.sample(
+                (n_samples,),
+                x=torch.as_tensor(observation, dtype=torch.float32),
+                show_progress_bars=False,
+                max_sampling_time=max_seconds,
+                return_partial_on_timeout=True,
+            )
+        except RuntimeError as error:
+            # sbi returns a partial sample on timeout only if it accepted at least
+            # one draw; otherwise it raises. Whether that happens depends on the
+            # machine's speed, and it stopped a fresh clone's full run. The
+            # recording is the finding - one the twin cannot produce - not a crash.
+            log.warning("a recording could not be sampled at all: %s", str(error)[:100])
+            out.append(_unsampled_row())
+            continue
         samples = samples.detach().numpy() if hasattr(samples, "detach") else np.asarray(samples)
         row = {
             name: {
@@ -348,6 +361,18 @@ def infer_parameters(
         row["n_effective_samples"] = int(len(samples))
         out.append(row)
     return out
+
+
+def _unsampled_row() -> dict:
+    """A recording the posterior accepted no draws for: NaN, and counted as such."""
+    row = {name: {"median": float("nan"), "ci90": [float("nan")] * 2} for name in PARAMETER_NAMES}
+    row["n_effective_samples"] = 0
+    return row
+
+
+def sampled_mask(inferred: list[dict]) -> np.ndarray:
+    """Which recordings have posterior draws; the others stay out of every statistic."""
+    return np.array([row["n_effective_samples"] > 0 for row in inferred], dtype=bool)
 
 
 def baseline_offset(
@@ -507,8 +532,13 @@ def main(argv: list[str] | None = None) -> int:
     doses_um = np.where(units == "nM", doses / 1000.0, doses)
     devices = summaries["device_id"].to_numpy()
     resamples = 100 if args.quick else 1000
-    trend = dose_trend(doses_um, gabaa, groups=devices, n_resamples=resamples)
-    baseline = baseline_offset(gabaa, doses_um, groups=devices, n_resamples=resamples)
+    sampled = sampled_mask(inferred)
+    trend = dose_trend(
+        doses_um[sampled], gabaa[sampled], groups=devices[sampled], n_resamples=resamples
+    )
+    baseline = baseline_offset(
+        gabaa[sampled], doses_um[sampled], groups=devices[sampled], n_resamples=resamples
+    )
     patched, patched_failure = sensitivity_or_reason(
         posterior, real_x, cached["x"][inside], suspect, 60 if args.quick else 500
     )
@@ -516,13 +546,18 @@ def main(argv: list[str] | None = None) -> int:
         trend_patched = patched_failure
     else:
         gabaa_patched = np.array([row["gabaa_scale"]["median"] for row in patched])
+        kept = sampled_mask(patched)
         trend_patched = dose_trend(
-            doses_um, gabaa_patched, groups=devices, n_resamples=100 if args.quick else 1000
+            doses_um[kept],
+            gabaa_patched[kept],
+            groups=devices[kept],
+            n_resamples=100 if args.quick else 1000,
         )
 
     results = {
         "label": "posterior trained on SIMULATIONS, applied to REAL recordings",
         "n_recordings": int(len(summaries)),
+        "n_recordings_unsampled": int((~sampled).sum()),
         "subsampled": bool(limit),
         "seed": int(args.seed),
         "distribution_check": check,
@@ -545,8 +580,8 @@ def main(argv: list[str] | None = None) -> int:
     }
     (twin_dir() / "hd15_real_inference.json").write_text(json.dumps(results, indent=2) + "\n")
     plot_dose_response(
-        doses_um,
-        gabaa,
+        doses_um[sampled],
+        gabaa[sampled],
         trend,
         twin_dir() / "hd15_real_dose_response.png",
         "Inferred GABA-A scale for REAL bicuculline recordings (posterior trained on simulations)",

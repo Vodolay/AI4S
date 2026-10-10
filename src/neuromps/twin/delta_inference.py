@@ -168,13 +168,16 @@ def _sample(posterior, context: np.ndarray, n_samples: int, max_seconds: float) 
     """Posterior draws for one conditioning vector, time-capped as §7.5's are."""
     import torch
 
-    samples = posterior.sample(
-        (n_samples,),
-        x=torch.as_tensor(np.asarray(context, dtype=np.float32)),
-        show_progress_bars=False,
-        max_sampling_time=max_seconds,
-        return_partial_on_timeout=True,
-    )
+    try:
+        samples = posterior.sample(
+            (n_samples,),
+            x=torch.as_tensor(np.asarray(context, dtype=np.float32)),
+            show_progress_bars=False,
+            max_sampling_time=max_seconds,
+            return_partial_on_timeout=True,
+        )
+    except RuntimeError:  # nothing accepted within the cap: no draws, not a crash
+        return np.empty(0)
     samples = samples.detach().numpy() if hasattr(samples, "detach") else np.asarray(samples)
     return np.asarray(samples).reshape(-1)
 
@@ -186,6 +189,10 @@ def posterior_medians(
     out = []
     for row in np.atleast_2d(context):
         samples = _sample(posterior, row, n_samples, max_seconds)
+        if samples.size == 0:
+            nan = float("nan")
+            out.append({"median": nan, "ci90": [nan, nan], "n_effective_samples": 0})
+            continue
         out.append(
             {
                 "median": round(float(np.median(samples)), 4),
@@ -392,7 +399,11 @@ def main(argv: list[str] | None = None) -> int:
             pairs = pairs.groupby("device_id", group_keys=False).head(2).reset_index(drop=True)
         stacked = np.vstack(pairs["context"].to_numpy())
         medians = posterior_medians(posterior, stacked, n_samples=100 if args.quick else 500)
+        sampled = np.array([m["n_effective_samples"] > 0 for m in medians], dtype=bool)
+        pairs = pairs[sampled].reset_index(drop=True)
+        medians = [m for m, keep in zip(medians, sampled, strict=True) if keep]
         result["real_data"] = {
+            "n_recordings_unsampled": int((~sampled).sum()),
             "n_recordings": int(len(pairs)),
             "n_devices": int(pairs["device_id"].nunique()),
             "gabaa_scale_at_baseline": neutral_recovery(pairs, medians, args.seed),

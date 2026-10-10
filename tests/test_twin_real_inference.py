@@ -328,3 +328,48 @@ def test_the_caveat_is_derived_from_the_metrics_rather_than_frozen_in_prose() ->
     text = inference_caveat()
     assert "directional evidence at best" in text
     assert "0.34" not in text, "the frozen value is back"
+
+
+class _SometimesImpossiblePosterior:
+    """Samples normally, except for observations it accepts nothing for, as sbi does."""
+
+    def __init__(self, impossible: set[int]) -> None:
+        self.impossible, self.calls = impossible, 0
+
+    def sample(self, shape, x, **kwargs):
+        import torch
+
+        call, self.calls = self.calls, self.calls + 1
+        if call in self.impossible:
+            raise RuntimeError("Sampling aborted early because rejection sampling exceeded ...")
+        return torch.ones((shape[0], 5))
+
+
+def test_a_recording_with_no_accepted_draws_is_recorded_not_fatal() -> None:
+    """sbi raises when nothing is accepted in the time cap. Whether that happens depends
+    on the machine's speed, and on a fresh clone's full run it stopped the whole stage."""
+    import math
+
+    from neuromps.twin.real_inference import infer_parameters, sampled_mask
+
+    rows = infer_parameters(_SometimesImpossiblePosterior({1}), np.zeros((3, 4)), n_samples=10)
+    assert [row["n_effective_samples"] for row in rows] == [10, 0, 10]
+    assert math.isnan(rows[1]["gabaa_scale"]["median"])
+    assert rows[0]["gabaa_scale"]["median"] == 1.0
+    assert sampled_mask(rows).tolist() == [True, False, True]
+
+
+def test_the_delta_posterior_survives_an_unsampleable_vector_too() -> None:
+    import math
+
+    from neuromps.twin.delta_inference import posterior_medians
+
+    class _Posterior(_SometimesImpossiblePosterior):
+        def sample(self, shape, x, **kwargs):
+            import torch
+
+            return super().sample(shape, x, **kwargs)[:, :1] * torch.ones((shape[0], 1))
+
+    rows = posterior_medians(_Posterior({0}), np.zeros((2, 3)), n_samples=8)
+    assert [row["n_effective_samples"] for row in rows] == [0, 8]
+    assert math.isnan(rows[0]["median"])
