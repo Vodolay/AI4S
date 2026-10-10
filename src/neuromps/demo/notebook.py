@@ -360,7 +360,7 @@ def build_notebook() -> dict:
             "A posterior trained only on simulations, applied to real bicuculline recordings. Two",
             "things to look for, and both are negative results: untreated recordings do not come",
             "back at the neutral value of 1.0, and the inferred scale does not track dose. The",
-            "report's §7.5 shows the second is a property of the measurement rather than of the",
+            "report's §18 shows the second is a property of the measurement rather than of the",
             "estimator — no feature in this set moves monotonically with dose.",
         ),
         _code(POSTERIOR_VIEW),
