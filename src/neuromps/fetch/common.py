@@ -49,8 +49,17 @@ def fetch_many(
 
     if workers <= 1 or len(items) <= 1:
         return [one((i, item))[1] for i, item in enumerate(items)]
-    with ThreadPoolExecutor(max_workers=workers) as pool:
-        done = list(pool.map(one, enumerate(items)))
+    pool = ThreadPoolExecutor(max_workers=workers)
+    futures = [pool.submit(one, item) for item in enumerate(items)]
+    try:
+        done = [future.result() for future in futures]
+    except BaseException:
+        # Cancel what has not started. Leaving the pool's context used to wait
+        # for every queued file first, so a host that hung on each connection
+        # took hours to report the failure the first file had already shown.
+        pool.shutdown(wait=True, cancel_futures=True)
+        raise
+    pool.shutdown()
     return [record for _, record in sorted(done, key=lambda pair: pair[0])]
 
 

@@ -6,7 +6,7 @@ This file records the human decisions behind each source.
 
 | Source key | What | License | Access | Status (2026-09-16) |
 |---|---|---|---|---|
-| `kapucu2022` | Kapucu et al. 2022 *Sci Data* 9:120: hPSC-derived vs rat cortical networks on 48-well MEA; development (DIV 2–77) + one pharmacology plate per species | CC-BY-4.0 (data, `Data/LICENSE.txt`); article CC-BY-4.0 | G-Node GIN, plain HTTPS, pinned commit `0f0f135` | arrived (full tier: 239 files, 1.2 GB) |
+| `kapucu2022` | Kapucu et al. 2022 *Sci Data* 9:120: hPSC-derived vs rat cortical networks on 48-well MEA; development (DIV 2–77) + one pharmacology plate per species | CC-BY-4.0 (data, `Data/LICENSE.txt`); article CC-BY-4.0 | G-Node GIN, plain HTTPS, pinned commit `0f0f135`; quick tier also mirrored (below) | arrived (full tier: 239 files, 1.2 GB) |
 | `toxcast_mea` | US EPA ToxCast invitrodb v4.3, `CCTE_Shafer_MEA_acute_*` (rat cortical, acute) and `CCTE_Shafer_MEA_dev_*` (network formation) | CC0-1.0 (figshare record 6062623 v14) | EPA Clowder API, anonymous | arrived (full tier: 42 files, 2.57 GB) |
 | `iras_mea` | Tukker et al. 2020 *Toxicol Sci* 178:71–87: hiPSC co-cultures vs rat cortical MEA, seizure-liability compounds | **CC-BY-NC-4.0** | Europe PMC REST | **excluded** (license); recorded as `skipped` in MANIFEST |
 | `sharf2022` | Sharf et al.: human iPSC brain organoid slices, MaxWell MaxOne HD-MEA (26,400 electrodes); **diazepam dose–response** control/3/10/30/50 µM in 4 organoids; Kilosort2 spike output | CC0-1.0 | Zenodo record 6578989 | arrived (full: kilosort2.zip) |
@@ -15,6 +15,18 @@ This file records the human decisions behind each source.
 | `axon_diode` | Asymmetric-microchannel chip papers (Renault 2015, Lassus 2018, Courte 2020): design parameters only | CC-BY-4.0 each (read from article XML) | Europe PMC REST | arrived |
 
 ## Decisions
+
+### Kapucu quick tier mirrored (2026-10-10)
+
+GIN is Kapucu's only host, and every run needs Kapucu. During the first end-to-end full run from a
+fresh clone, gin.g-node.org stopped accepting connections and the run could not proceed. The quick
+tier's 169 files are therefore also published as a release asset of this repository,
+[`data-mirror-kapucu2022-quick`](https://github.com/Vodolay/AI4S/releases/tag/data-mirror-kapucu2022-quick):
+unmodified copies of GIN commit `0f0f135`, redistributed under CC BY 4.0 with the citation inside the
+archive. The fetcher uses it only for the quick tier, only when GIN does not answer or fails part-way,
+and only after the archive's SHA-256 matches the value pinned in `src/neuromps/fetch/kapucu2022.py`.
+Each file's hash then matches the GIN copy recorded in `MANIFEST.json`, and the source's note says the
+mirror was used. The full tier is not mirrored; a full run still needs GIN.
 
 ### Dataset expansion review (2026-09-21)
 

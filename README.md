@@ -96,7 +96,10 @@ Fetch data only:
 
 Downloads land in `data/raw/<source>/`. Every file's URL, license, SHA256, size and download time are recorded in
 `data/raw/MANIFEST.json`, or in `data/raw/MANIFEST.quick.json` for the small tier fetched without
-`--full`, so a partial fetch never rewrites the committed record of the full one. Source decisions are in [data/SOURCES.md](data/SOURCES.md).
+`--full`, so a partial fetch never rewrites the committed record of the full one. If a download
+breaks off, the run stops after the fetch and names the source; rerun the same command and only the
+missing files are fetched. Kapucu's quick tier falls back to a checksummed mirror when its host,
+G-Node GIN, is down (see [data/SOURCES.md](data/SOURCES.md)). Source decisions are in [data/SOURCES.md](data/SOURCES.md).
 
 `run_all.py` is the only thing that picks a run root. A stage module run on its
 own follows the environment, so the quick root is reachable from anywhere:
