@@ -35,6 +35,31 @@ FLOOR = 0.05  # counts a silent recording as this fraction of its baseline, not 
 CONTROL = "control"
 
 
+# Every unit a dose is recorded in here, as a multiple of uM.
+DOSE_TO_UM = {"nM": 1e-3, "uM": 1.0, "\u00b5M": 1.0, "mM": 1e3}
+
+
+def doses_in_um(
+    frame: pd.DataFrame, value: str = "dose_value", unit: str = "dose_unit"
+) -> np.ndarray:
+    """Doses on one scale, in uM, so that they can be ranked against each other.
+
+    ScreenNeuroPharm records its two lowest bicuculline doses in nM and the rest
+    in uM. Three analyses ranked the raw values, so 100 nM sat among the highest
+    doses, and a dose trend the burst rates carry was reported as absent. A
+    missing dose is an untreated recording (0); a missing unit is read as uM,
+    the unit every source here uses when it gives none. An unknown unit raises.
+    """
+    values = pd.to_numeric(frame[value], errors="coerce").fillna(0.0).to_numpy(dtype=float)
+    if unit not in frame:
+        return values
+    units = frame[unit].where(frame[unit].notna(), "uM").astype(str).to_numpy()
+    unknown = sorted(set(units) - set(DOSE_TO_UM))
+    if unknown:
+        raise ValueError(f"no conversion to uM for dose unit(s) {unknown}")
+    return values * np.array([DOSE_TO_UM[u] for u in units])
+
+
 def delta_columns() -> list[str]:
     """Column names of the delta feature block."""
     return [f"delta.{f}" for f in DELTA_FEATURES]

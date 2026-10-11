@@ -22,11 +22,12 @@ negative as positive. Four confounds that published practice would have carried:
   agrees with the axons on a fraction 0.419
   <!-- metrics.json: axonal_directionality.headline.sign_agreement.fraction --> of 31 pairs, which is
   chance.
-- **The twin could not read bicuculline dose off a real chip, and neither could the features.** No
-  feature moves monotonically with dose across 113 recordings
-  <!-- metrics.json: feature_dose_response.n_recordings --> and 16 devices, absolute or differenced
-  against each device's own baseline — so the inverse model was being asked to invert a measurement
-  that does not contain the answer.
+- **The twin could not read bicuculline dose off a real chip, though the features can.** Burst rate
+  and network burst rate fall with dose across 113 recordings
+  <!-- metrics.json: feature_dose_response.n_recordings --> and 16 devices, absolute and differenced
+  against each device's own baseline, while the twin's inferred inhibition does not follow them: it
+  is the inverse model that fails. An earlier version said the opposite, because it ranked doses
+  recorded in nM and µM as if they were on one scale.
 - **Pseudo-replication manufactured a dose trend.** An apparent bicuculline response (ρ = −0.197,
   p = 0.036) dissolved once 113 recordings were recognised as coming from 16 devices; a microchannel
   geometry effect dissolved once 57 recordings were recognised as coming from 26 chips

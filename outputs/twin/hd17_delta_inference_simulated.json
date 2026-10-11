@@ -15,6 +15,7 @@
     "note": "contraction and rank uniformity, as \u00a77.5 reports them for the absolute posterior"
   },
   "real_data": {
+    "n_recordings_unsampled": 0,
     "n_recordings": 113,
     "n_devices": 16,
     "gabaa_scale_at_baseline": {
@@ -29,11 +30,11 @@
       "bootstrap_resamples": 1000
     },
     "gabaa_scale_dose_trend": {
-      "spearman_rho": -0.0354,
-      "naive_p_value": 0.7309,
+      "spearman_rho": 0.0327,
+      "naive_p_value": 0.7506,
       "spearman_rho_ci95": [
-        -0.1799,
-        0.0627
+        -0.2974,
+        0.4035
       ],
       "excludes_zero": false,
       "expected_direction": "falls with dose (a GABA-A antagonist lowers the knob)",

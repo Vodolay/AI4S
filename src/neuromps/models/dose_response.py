@@ -29,6 +29,7 @@ import numpy as np
 import pandas as pd
 
 from neuromps.features.mea import FEATURE_NAMES
+from neuromps.models.dataset import doses_in_um
 
 log = logging.getLogger("neuromps.models")
 
@@ -56,7 +57,7 @@ def baseline_subtracted(summaries: pd.DataFrame, feature: str) -> pd.DataFrame:
     frame = pd.DataFrame(
         {
             "device_id": summaries["device_id"].to_numpy(),
-            "dose": summaries["dose_value"].fillna(0.0).to_numpy(dtype=float),
+            "dose": doses_in_um(summaries),
             "value": values.to_numpy(dtype=float),
         }
     )
@@ -77,7 +78,7 @@ def absolute_values(summaries: pd.DataFrame, feature: str) -> pd.DataFrame:
     return pd.DataFrame(
         {
             "device_id": summaries["device_id"].to_numpy(),
-            "dose": summaries["dose_value"].fillna(0.0).to_numpy(dtype=float),
+            "dose": doses_in_um(summaries),
             "value": chamber_mean(summaries, feature).to_numpy(dtype=float),
         }
     )

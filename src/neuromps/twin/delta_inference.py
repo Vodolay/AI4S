@@ -249,20 +249,22 @@ def real_pairs(summaries: pd.DataFrame) -> pd.DataFrame:
     estimator is that it is never asked to judge a culture it has not seen
     untreated.
     """
+    from neuromps.models.dataset import doses_in_um
+
     rows = []
     for device, group in summaries.groupby("device_id"):
-        doses = group["dose_value"].fillna(0.0).to_numpy(dtype=float)
+        doses = doses_in_um(group)
         untreated = group[doses <= 0]
         if untreated.empty:
             log.info("device %s has no untreated recording; skipped", device)
             continue
         baseline = untreated.iloc[0][list(SUMMARY_NAMES)].to_numpy(dtype=float)
-        for _, row in group.iterrows():
+        for dose, (_, row) in zip(doses, group.iterrows(), strict=True):
             treated = row[list(SUMMARY_NAMES)].to_numpy(dtype=float)
             rows.append(
                 {
                     "device_id": device,
-                    "dose_value": float(row["dose_value"] or 0.0),
+                    "dose_value": float(dose),  # uM, whatever unit the recording used
                     "is_the_baseline_itself": bool(np.array_equal(treated, baseline)),
                     "context": context_vector(baseline, treated),
                 }
