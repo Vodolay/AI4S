@@ -25,7 +25,8 @@ dependencies = [
     "sbi==0.27.0",
     "torch==2.14.0",
     "streamlit==1.64.0",
-    "altair==6.3.0",  # streamlit's charting library, pinned so the environment is the one tested
+    "altair==6.3.0",  # already present via streamlit; pinned because the Kaggle notebook
+                      # imports it directly for charts that stay interactive without a kernel
 ]
 
 [project.optional-dependencies]

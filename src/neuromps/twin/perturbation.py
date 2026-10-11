@@ -235,26 +235,18 @@ def plot_validation(rows: list[dict], path, title: str) -> None:
                 grid[i, j] = 1.0
             elif entry.get("agrees") is False:
                 grid[i, j] = 0.0
-    fig, ax = plt.subplots(figsize=(4.3, 2.3))  # near its printed size
+    fig, ax = plt.subplots(figsize=(8, 3.6))
     ax.imshow(grid, cmap="RdYlBu", vmin=0, vmax=1, aspect="auto")
     for i in range(len(knobs)):
         for j, feature in enumerate(features):
             entry = rows[i]["agreement"].get(feature, {})
             mark = {True: "agree", False: "differ", None: "n/e"}[entry.get("agrees")]
-            ax.text(
-                j,
-                i,
-                mark,
-                ha="center",
-                va="center",
-                fontsize=6,
-                color="white" if mark != "n/e" else "black",
-            )
-    ax.set_xticks(range(len(features)), features, rotation=35, ha="right", fontsize=6.5)
-    ax.set_yticks(range(len(knobs)), knobs, fontsize=6.5)
-    ax.set_title(title, fontsize=7.5)
+            ax.text(j, i, mark, ha="center", va="center", fontsize=7)
+    ax.set_xticks(range(len(features)), features, rotation=35, ha="right", fontsize=8)
+    ax.set_yticks(range(len(knobs)), knobs, fontsize=8)
+    ax.set_title(title, fontsize=10)
     fig.tight_layout()
-    fig.savefig(path, dpi=300, bbox_inches="tight")
+    fig.savefig(path, dpi=150)
     plt.close(fig)
 
 

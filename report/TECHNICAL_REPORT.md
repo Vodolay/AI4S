@@ -448,9 +448,9 @@ mechanism on two platforms, mean firing rate reverses sign while synchrony agree
 say synchrony is the unreliable family, and one says it is the reliable one. We do not resolve that
 tension; we report it.
 
-![Per-feature species shift, REAL data: rat against human baseline distributions with cluster-bootstrap intervals. Rate and burst-fraction features move least; synchrony moves most.](../outputs/figures/species_shift.png){width=61%}
+![Per-feature species shift, REAL data: rat against human baseline distributions with cluster-bootstrap intervals. Rate and burst-fraction features move least; synchrony moves most.](../outputs/figures/species_shift.png){width=50%}
 
-![Untreated baseline activity, REAL recordings, by species and preparation. Burst rate is the one feature flat across all three groups.](../outputs/figures/baseline_species_comparison.png){width=75%}
+![Untreated baseline activity, REAL recordings, by species and preparation. Burst rate is the one feature flat across all three groups.](../outputs/figures/baseline_species_comparison.png){width=58%}
 
 ## 11. The cross-platform reversal paradox
 
@@ -509,7 +509,7 @@ at a boundary
 | `mfr_hz` | 5.9862 <!-- metrics.json: twin_hd12_calibration.best.features_simulated.mfr_hz --> | 6.793 to 21.007 <!-- metrics.json: twin_hd12_calibration.targets_real.by_feature.mfr_hz.q75 --> | minor undershoot |
 | `pct_spikes_in_bursts` | 83.8409 <!-- metrics.json: twin_hd12_calibration.best.features_simulated.pct_spikes_in_bursts --> | 84.657 to 93.685 <!-- metrics.json: twin_hd12_calibration.targets_real.by_feature.pct_spikes_in_bursts.q75 --> | near lower bound |
 
-![SIMULATED against REAL: the calibrated twin's baseline features against the real baseline band from rat two-chamber devices.](../outputs/twin/hd12_calibration_simulated.png){width=58%}
+![SIMULATED against REAL: the calibrated twin's baseline features against the real baseline band from rat two-chamber devices.](../outputs/twin/hd12_calibration_simulated.png){width=54%}
 
 Getting to this table took us longer than anything else, and the story is a warning for anyone who
 simulates cultures.
@@ -561,7 +561,7 @@ scored features whose real direction is established by a cluster bootstrap.
 | GABA-A antagonism | downscale inhibition | 4 <!-- metrics.json: twin_hd13_perturbation.knobs.0.n_features_agreeing --> / 5 <!-- metrics.json: twin_hd13_perturbation.knobs.0.n_features_scored --> |
 | GABA-A potentiation | upscale inhibition | 1 <!-- metrics.json: twin_hd13_perturbation.knobs.1.n_features_agreeing --> / 4 <!-- metrics.json: twin_hd13_perturbation.knobs.1.n_features_scored --> |
 
-![SIMULATED drug knobs against REAL pharmacology directions, per feature. Only features whose real direction is established by a cluster bootstrap are scored.](../outputs/twin/hd13_drug_knob_validation_simulated.png){width=59%}
+![SIMULATED drug knobs against REAL pharmacology directions, per feature. Only features whose real direction is established by a cluster bootstrap are scored.](../outputs/twin/hd13_drug_knob_validation_simulated.png){width=52%}
 
 Blocking excitation and blocking sodium channels behave correctly on every scored feature. Blocking
 inhibition is mostly right. Potentiating inhibition is mostly wrong — and that is the knob with the
@@ -588,8 +588,6 @@ than devices pairing a tissue with itself, median 0.094
 <!-- metrics.json: compartment_asymmetry.pooled_heterogeneous_vs_homogeneous.p_value -->. What the
 chambers contain matters more than the fact that they are connected.
 
-![Inter-compartment coupling lag by device type, REAL data, one value per device: five CxCx, five HpHp, six CxHp. The two same-tissue types are indistinguishable; the heterogeneous type sits apart.](../outputs/figures/compartment_lag_by_device_type.png){width=56%}
-
 **The directionality null.** One deposit recorded axonal crossings directly inside the tunnels, on
 10 cultures <!-- metrics.json: axonal_directionality.n_cultures --> (Brewer 2021). That let us ask
 the question a chamber readout exists to answer: if you had only the chamber recordings, could you
@@ -603,6 +601,8 @@ analysis could have detected a balanced accuracy of 0.6438
 had been there. We could only recover direction by instrumenting the microchannels themselves.
 
 ![Measured axonal flow against chamber-level readouts, REAL recordings. The chamber measures do not order the cultures by the direction their axons actually fired.](../outputs/figures/axonal_flow_vs_chamber.png){width=100%}
+
+![Inter-compartment coupling lag by device type, REAL data, one value per device: five CxCx, five HpHp, six CxHp. The two same-tissue types are indistinguishable; the heterogeneous type sits apart.](../outputs/figures/compartment_lag_by_device_type.png){width=56%}
 
 ## 16. Running the model backwards, and what that cannot do
 
@@ -1002,7 +1002,7 @@ counting artifact looks like. Condition is also confounded with culture batch by
 design
 <!-- metrics.json: microchannel_directionality.batch_confound -->.
 
-![Microchannel propagation asymmetry by device geometry, REAL recordings.](../outputs/figures/microchannel_asymmetry_real.png){width=85%}
+![Microchannel propagation asymmetry by device geometry, REAL recordings.](../outputs/figures/microchannel_asymmetry_real.png){width=52%}
 
 **Appendix K.** `--quick` completes end to end in 544.7 s
 <!-- metrics.json: harness_quick.total_s --> on a workstation CPU with 20 cores

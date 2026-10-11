@@ -30,3 +30,5 @@ report/APP_WALKTHROUGH.md
 report/MODELLING_FOR_BIOLOGISTS.pdf
 report/APP_WALKTHROUGH.pdf
 
+# Staged copy of files the Kaggle notebook needs; rebuilt by `make notebook`.
+outputs/demo/kaggle_dataset/

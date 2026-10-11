@@ -241,19 +241,18 @@ def plot_platform_contrast(contrast: dict, path, title: str) -> None:
     features = list(contrast["by_source"][sources[0]]["median_delta"])
     width, positions = 0.38, np.arange(len(features))
     colours = ["#0072B2", "#E69F00"]  # colourblind-safe
-    fig, ax = plt.subplots(figsize=(4.4, 2.7))  # near its printed size
+    fig, ax = plt.subplots(figsize=(9, 4.5))
     for i, source in enumerate(sources):
         values = [contrast["by_source"][source]["median_delta"][f] for f in features]
         label = f"{source} ({', '.join(contrast['by_source'][source]['compounds'])})"
         ax.bar(positions + (i - 0.5) * width, values, width, label=label, color=colours[i % 2])
     ax.axhline(0, color="black", linewidth=0.8)
-    ax.set_xticks(positions, features, rotation=40, ha="right", fontsize=6.5)
-    ax.tick_params(labelsize=6.5)
-    ax.set_ylabel("median log2 change", fontsize=7)
-    ax.set_title(title, fontsize=7.5)
-    ax.legend(fontsize=6)
+    ax.set_xticks(positions, features, rotation=40, ha="right", fontsize=8)
+    ax.set_ylabel("median log2(exposure / baseline)")
+    ax.set_title(title, fontsize=10)
+    ax.legend(fontsize=8)
     fig.tight_layout()
-    fig.savefig(path, dpi=300, bbox_inches="tight")
+    fig.savefig(path, dpi=150)
     plt.close(fig)
 
 

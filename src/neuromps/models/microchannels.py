@@ -276,28 +276,26 @@ def plot_by_condition(chips: pd.DataFrame, path: Path, title: str) -> None:
         "tesla_v2": "#D55E00",
     }
     rng = np.random.default_rng(0)
-    fig, ax = plt.subplots(figsize=(5.2, 3.1))  # near its printed size
+    fig, ax = plt.subplots(figsize=(7.2, 4.2))
     for index, condition in enumerate(order):
         values = chips.loc[chips["condition"] == condition, "abs_asymmetry"].to_numpy()
         ax.scatter(
             index + rng.normal(0, 0.06, values.size),
             values,
-            s=22,
+            s=42,
             alpha=0.85,
             color=colours.get(condition, "#555555"),
             linewidths=0,
             label=f"{condition} (n={values.size})",
         )
         ax.hlines(np.median(values), index - 0.24, index + 0.24, color="black", lw=2)
-    ax.set_xticks(range(len(order)), order, fontsize=7)
-    ax.tick_params(labelsize=7)
-    ax.set_ylabel("|propagation asymmetry| per chip", fontsize=7)
+    ax.set_xticks(range(len(order)), order, fontsize=9)
+    ax.set_ylabel("|propagation asymmetry| per chip", fontsize=9)
     ax.set_ylim(0, 1.05)
-    # Outside the axes: inside, it covered a tesla_v2 chip at the bottom right.
-    ax.legend(fontsize=6, loc="center left", bbox_to_anchor=(1.01, 0.5), frameon=False)
-    ax.set_title(title, fontsize=7.5)
+    ax.legend(fontsize=7.5, loc="lower right")
+    ax.set_title(title, fontsize=9)
     fig.tight_layout()
-    fig.savefig(path, dpi=300, bbox_inches="tight")
+    fig.savefig(path, dpi=150)
     plt.close(fig)
 
 
