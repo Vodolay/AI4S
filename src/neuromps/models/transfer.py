@@ -257,7 +257,8 @@ def plot_species_shift(shift: dict, path, title: str) -> None:
     rat = [shift["by_feature"][f]["rat_median"] or 0 for f in features]
     human = [shift["by_feature"][f]["human_median"] or 0 for f in features]
     positions, width = np.arange(len(features)), 0.38
-    fig, axes = plt.subplots(2, 1, figsize=(9, 7.0), sharex=True)
+    # Drawn near its printed width; at 9 in and printed under 3, its labels read at 3 pt.
+    fig, axes = plt.subplots(2, 1, figsize=(4.6, 3.8), sharex=True)
     axes[0].bar(
         positions - width / 2, rat, width, label=f"rat (n={shift['n_rat']})", color="#0072B2"
     )
@@ -265,13 +266,15 @@ def plot_species_shift(shift: dict, path, title: str) -> None:
         positions + width / 2, human, width, label=f"human (n={shift['n_human']})", color="#D55E00"
     )
     axes[0].axhline(0, color="black", linewidth=0.8)
-    axes[0].set_ylabel("median log2(exposure / baseline)", fontsize=9)
-    axes[0].legend(fontsize=8)
+    axes[0].set_ylabel("median log2 change", fontsize=7)
+    axes[0].legend(fontsize=6.5)
+    axes[0].tick_params(labelsize=6.5)
     _difference_panel(axes[1], shift, features, positions)
-    axes[1].set_xticks(positions, features, rotation=40, ha="right", fontsize=8)
-    fig.suptitle(title, fontsize=10)
+    axes[1].set_xticks(positions, features, rotation=40, ha="right", fontsize=6.5)
+    axes[1].tick_params(labelsize=6.5)
+    fig.suptitle(title, fontsize=7.5)
     fig.tight_layout()
-    fig.savefig(path, dpi=150)
+    fig.savefig(path, dpi=300, bbox_inches="tight")
     plt.close(fig)
 
 
@@ -293,13 +296,14 @@ def _difference_panel(axis, shift: dict, features: list[str], positions) -> None
         fmt="o",
         color="black",
         ecolor="black",
-        capsize=3,
+        capsize=2,
         markersize=0,
+        elinewidth=0.9,
     )
-    axis.scatter(positions, differences, color=colours, zorder=3, s=36)
+    axis.scatter(positions, differences, color=colours, zorder=3, s=16)
     axis.axhline(0, color="black", linewidth=0.8)
-    axis.set_ylabel("rat - human, log2 units", fontsize=9)
-    axis.set_title("green = interval excludes zero; grey = compatible with no shift", fontsize=8)
+    axis.set_ylabel("rat - human, log2", fontsize=7)
+    axis.set_title("green = interval excludes zero; grey = compatible with no shift", fontsize=6.5)
 
 
 def main(argv: list[str] | None = None) -> int:

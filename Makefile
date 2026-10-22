@@ -1,6 +1,6 @@
 # Convenience targets. The build steps themselves live in run_all.py and
 # report/build_docx.sh so that CI and a developer run exactly the same thing.
-.PHONY: help report report-check report-latex notebook test lint quick full clean-report
+.PHONY: help report report-check report-latex test lint quick full clean-report
 
 # The project's virtualenv when there is one, otherwise whatever interpreter is
 # on the path. CI has no .venv and a developer does, and hardcoding either meant
@@ -14,7 +14,6 @@ help:
 	@echo "make report-check  build it and require $(PAGES_MIN)-$(PAGES_MAX) pages"
 	@echo "make quick         python run_all.py --quick"
 	@echo "make full          python run_all.py"
-	@echo "make notebook      write the Kaggle notebook and stage its dataset"
 	@echo "make test / lint   pytest / ruff"
 
 # The technical report is the Word build: it carries the table design a reviewer
@@ -33,9 +32,6 @@ report-check:
 
 report-latex:
 	report/build_report.sh --output report/TECHNICAL_REPORT_latex.pdf
-
-notebook:
-	$(PYTHON) -m neuromps.demo.notebook --dataset-dir outputs/demo/kaggle_dataset
 
 quick:
 	$(PYTHON) run_all.py --quick

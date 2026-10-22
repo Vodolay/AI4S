@@ -175,7 +175,7 @@ def plot_device_types(devices: pd.DataFrame, column: str, path, title: str, ylab
     order = ["CxCx", "HpHp", "CxHp"]
     colours = {"CxCx": "#0072B2", "HpHp": "#009E73", "CxHp": "#D55E00"}
     rng = np.random.default_rng(0)
-    fig, ax = plt.subplots(figsize=(6, 4.2))
+    fig, ax = plt.subplots(figsize=(4.2, 3.0))  # near its printed size
     for i, device_type in enumerate(order):
         values = devices[devices["device_type"] == device_type][column].to_numpy()
         if not len(values):
@@ -183,19 +183,20 @@ def plot_device_types(devices: pd.DataFrame, column: str, path, title: str, ylab
         ax.scatter(
             i + rng.uniform(-0.08, 0.08, len(values)),
             values,
-            s=45,
+            s=20,
             color=colours[device_type],
             label=f"{device_type} (n={len(values)})",
             zorder=3,
         )
         ax.hlines(np.median(values), i - 0.22, i + 0.22, color="black", linewidth=2, zorder=4)
     ax.set_xticks(range(len(order)), ["CxCx\n(same)", "HpHp\n(same)", "CxHp\n(different)"])
-    ax.set_ylabel(ylabel)
-    ax.set_title(title, fontsize=10)
-    ax.legend(fontsize=8)
+    ax.tick_params(labelsize=7)
+    ax.set_ylabel(ylabel, fontsize=7)
+    ax.set_title(title, fontsize=7.5)
+    ax.legend(fontsize=6.5)
     ax.grid(axis="y", alpha=0.3)
     fig.tight_layout()
-    fig.savefig(path, dpi=150)
+    fig.savefig(path, dpi=300, bbox_inches="tight")
     plt.close(fig)
 
 
