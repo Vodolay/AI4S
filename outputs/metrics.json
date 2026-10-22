@@ -1581,14 +1581,14 @@
       "by_feature": {
         "active_electrodes": {
           "excludes_zero": false,
-          "holm_p": 1.0,
+          "holm_p": 0.958096,
           "n": 113,
           "n_devices": 16,
-          "naive_p_value": 0.419211,
-          "spearman_rho": -0.0767,
+          "naive_p_value": 0.281159,
+          "spearman_rho": -0.1023,
           "spearman_rho_ci95": [
-            -0.257,
-            0.0654
+            -0.38,
+            0.059
           ],
           "survives_correction": false
         },
@@ -1597,67 +1597,67 @@
           "note": "too few points or doses to fit a trend"
         },
         "burst_rate_per_min": {
-          "excludes_zero": false,
-          "holm_p": 1.0,
+          "excludes_zero": true,
+          "holm_p": 0.0,
           "n": 113,
           "n_devices": 16,
-          "naive_p_value": 0.314733,
-          "spearman_rho": -0.0954,
+          "naive_p_value": 0.0,
+          "spearman_rho": -0.5813,
           "spearman_rho_ci95": [
-            -0.2529,
-            0.0203
+            -0.7234,
+            -0.4445
           ],
-          "survives_correction": false
+          "survives_correction": true
         },
         "isi_cv": {
           "excludes_zero": false,
-          "holm_p": 1.0,
+          "holm_p": 0.958096,
           "n": 113,
           "n_devices": 16,
-          "naive_p_value": 0.710698,
-          "spearman_rho": -0.0353,
+          "naive_p_value": 0.383135,
+          "spearman_rho": 0.0828,
           "spearman_rho_ci95": [
-            -0.2223,
-            0.1414
+            -0.2035,
+            0.3498
           ],
           "survives_correction": false
         },
         "mfr_hz": {
           "excludes_zero": false,
-          "holm_p": 1.0,
+          "holm_p": 0.11942,
           "n": 113,
           "n_devices": 16,
-          "naive_p_value": 0.895242,
-          "spearman_rho": -0.0125,
+          "naive_p_value": 0.023884,
+          "spearman_rho": -0.2124,
           "spearman_rho_ci95": [
-            -0.1994,
-            0.1453
+            -0.5341,
+            0.0926
           ],
           "survives_correction": false
         },
         "network_burst_rate_per_min": {
-          "excludes_zero": false,
-          "holm_p": 1.0,
+          "excludes_zero": true,
+          "holm_p": 0.0,
           "n": 107,
           "n_devices": 16,
-          "naive_p_value": 0.712515,
-          "spearman_rho": -0.036,
+          "naive_p_value": 0.0,
+          "spearman_rho": -0.604,
           "spearman_rho_ci95": [
-            -0.1651,
-            0.0771
+            -0.7627,
+            -0.4473
           ],
-          "survives_correction": false
+          "survives_correction": true
         },
         "pct_spikes_in_bursts": {
           "excludes_zero": false,
-          "holm_p": 1.0,
+          "holm_p": 0.958096,
           "n": 113,
           "n_devices": 16,
-          "naive_p_value": 0.547296,
-          "spearman_rho": 0.0572,
+          "naive_p_value": 0.304123,
+          "spearman_rho": 0.0975,
           "spearman_rho_ci95": [
-            -0.1014,
-            0.2146
+            -0.3016,
+            0.4565
           ],
           "survives_correction": false
         },
@@ -1667,34 +1667,37 @@
         },
         "synchrony_index": {
           "excludes_zero": false,
-          "holm_p": 1.0,
+          "holm_p": 0.958096,
           "n": 113,
           "n_devices": 16,
-          "naive_p_value": 0.6219,
-          "spearman_rho": -0.0469,
+          "naive_p_value": 0.239524,
+          "spearman_rho": 0.1115,
           "spearman_rho_ci95": [
-            -0.1947,
-            0.1245
+            -0.1848,
+            0.357
           ],
           "survives_correction": false
         }
       },
-      "features_moving_with_dose": [],
-      "n_features_moving": 0,
+      "features_moving_with_dose": [
+        "burst_rate_per_min",
+        "network_burst_rate_per_min"
+      ],
+      "n_features_moving": 2,
       "n_features_tested": 7
     },
     "baseline_subtracted": {
       "by_feature": {
         "active_electrodes": {
           "excludes_zero": false,
-          "holm_p": 1.0,
+          "holm_p": 0.581945,
           "n": 97,
           "n_devices": 16,
-          "naive_p_value": 0.365787,
-          "spearman_rho": -0.0928,
+          "naive_p_value": 0.126938,
+          "spearman_rho": -0.156,
           "spearman_rho_ci95": [
-            -0.285,
-            0.1064
+            -0.4243,
+            0.0339
           ],
           "survives_correction": false
         },
@@ -1703,67 +1706,67 @@
           "note": "too few points or doses to fit a trend"
         },
         "burst_rate_per_min": {
-          "excludes_zero": false,
-          "holm_p": 1.0,
+          "excludes_zero": true,
+          "holm_p": 0.004879,
           "n": 97,
           "n_devices": 16,
-          "naive_p_value": 0.850666,
-          "spearman_rho": 0.0194,
+          "naive_p_value": 0.000697,
+          "spearman_rho": -0.3384,
           "spearman_rho_ci95": [
-            -0.1785,
-            0.183
+            -0.5498,
+            -0.1901
           ],
-          "survives_correction": false
+          "survives_correction": true
         },
         "isi_cv": {
           "excludes_zero": false,
-          "holm_p": 1.0,
+          "holm_p": 0.803835,
           "n": 97,
           "n_devices": 16,
-          "naive_p_value": 0.657215,
-          "spearman_rho": 0.0456,
+          "naive_p_value": 0.267945,
+          "spearman_rho": -0.1136,
           "spearman_rho_ci95": [
-            -0.116,
-            0.2422
+            -0.4475,
+            0.1917
           ],
           "survives_correction": false
         },
         "mfr_hz": {
           "excludes_zero": false,
-          "holm_p": 1.0,
+          "holm_p": 0.581945,
           "n": 97,
           "n_devices": 16,
-          "naive_p_value": 0.844622,
-          "spearman_rho": 0.0202,
+          "naive_p_value": 0.116389,
+          "spearman_rho": -0.1605,
           "spearman_rho_ci95": [
-            -0.1626,
-            0.1677
+            -0.4823,
+            0.1291
           ],
           "survives_correction": false
         },
         "network_burst_rate_per_min": {
-          "excludes_zero": false,
-          "holm_p": 1.0,
+          "excludes_zero": true,
+          "holm_p": 0.045828,
           "n": 91,
           "n_devices": 16,
-          "naive_p_value": 0.634366,
-          "spearman_rho": 0.0505,
+          "naive_p_value": 0.007638,
+          "spearman_rho": -0.278,
           "spearman_rho_ci95": [
-            -0.1427,
-            0.2709
+            -0.4966,
+            -0.106
           ],
-          "survives_correction": false
+          "survives_correction": true
         },
         "pct_spikes_in_bursts": {
           "excludes_zero": false,
-          "holm_p": 1.0,
+          "holm_p": 0.803835,
           "n": 97,
           "n_devices": 16,
-          "naive_p_value": 0.295808,
-          "spearman_rho": 0.1072,
+          "naive_p_value": 0.297729,
+          "spearman_rho": -0.1068,
           "spearman_rho_ci95": [
-            -0.0361,
-            0.2612
+            -0.4488,
+            0.2002
           ],
           "survives_correction": false
         },
@@ -1773,20 +1776,23 @@
         },
         "synchrony_index": {
           "excludes_zero": false,
-          "holm_p": 1.0,
+          "holm_p": 0.822348,
           "n": 97,
           "n_devices": 16,
-          "naive_p_value": 0.746317,
-          "spearman_rho": 0.0333,
+          "naive_p_value": 0.822348,
+          "spearman_rho": -0.0231,
           "spearman_rho_ci95": [
-            -0.1312,
-            0.2048
+            -0.4269,
+            0.3381
           ],
           "survives_correction": false
         }
       },
-      "features_moving_with_dose": [],
-      "n_features_moving": 0,
+      "features_moving_with_dose": [
+        "burst_rate_per_min",
+        "network_burst_rate_per_min"
+      ],
+      "n_features_moving": 2,
       "n_features_tested": 7
     },
     "bootstrap_resamples": 1000,
@@ -1795,9 +1801,9 @@
     "n_recordings": 113,
     "question": "does the dose signal exist in the summary features, or only fail to be recovered by the twin's posterior",
     "verdict": {
-      "n_features_moving_absolute": 0,
-      "n_features_moving_baseline_subtracted": 0,
-      "reading": "no feature moves monotonically with dose after correction, so there is no dose signal in these summaries for any estimator to recover"
+      "n_features_moving_absolute": 2,
+      "n_features_moving_baseline_subtracted": 2,
+      "reading": "the features carry a dose signal that the twin's posterior does not recover, so the inverse model is what fails"
     }
   },
   "harness_quick": {
@@ -2172,8 +2178,8 @@
           }
         ],
         "detection_rate": 0.366,
-        "dose_spearman": 0.014,
-        "dose_spearman_p": 0.751,
+        "dose_spearman": -0.059,
+        "dose_spearman_p": 0.189,
         "mean_probability": 0.418,
         "n": 497,
         "positive_class": "gabaa_antagonist"
@@ -7109,15 +7115,16 @@
         "expected_direction": "falls with dose (a GABA-A antagonist lowers the knob)",
         "n_devices": 16,
         "n_recordings": 97,
-        "naive_p_value": 0.7309,
-        "spearman_rho": -0.0354,
+        "naive_p_value": 0.7506,
+        "spearman_rho": 0.0327,
         "spearman_rho_ci95": [
-          -0.1799,
-          0.0627
+          -0.2974,
+          0.4035
         ]
       },
       "n_devices": 16,
-      "n_recordings": 113
+      "n_recordings": 113,
+      "n_recordings_unsampled": 0
     },
     "seed": 0
   },

@@ -29,7 +29,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 
 from neuromps.models.bootstrap import group_bootstrap_metric, resample_count
-from neuromps.models.dataset import delta_columns
+from neuromps.models.dataset import delta_columns, doses_in_um
 
 # Below this a classifier is fitting noise rather than a mechanism.
 MIN_PAIRS_FOR_A_TASK = 30
@@ -165,7 +165,7 @@ def external_check(train_pairs: pd.DataFrame, external_pairs: pd.DataFrame, posi
         "detection_rate": round(float(np.mean(predicted == positive)), 3),
         "mean_probability": round(float(np.mean(probability)), 3),
     }
-    doses = pd.to_numeric(external_pairs.get("dose_value"), errors="coerce")
+    doses = pd.Series(doses_in_um(external_pairs)) if "dose_value" in external_pairs else None
     if doses is not None and doses.notna().sum() > 3 and doses.nunique() > 2:
         rho, p_value = spearmanr(doses, probability, nan_policy="omit")
         out["dose_spearman"] = round(float(rho), 3)
@@ -173,10 +173,9 @@ def external_check(train_pairs: pd.DataFrame, external_pairs: pd.DataFrame, posi
     return out
 
 
-def dose_in_um(pairs: pd.DataFrame) -> pd.Series:
+def dose_in_um(pairs: pd.DataFrame) -> np.ndarray:
     """Doses on one scale, so nM and uM conditions can be ordered together."""
-    value = pd.to_numeric(pairs["dose_value"], errors="coerce")
-    return np.where(pairs["dose_unit"] == "nM", value / 1000.0, value)
+    return doses_in_um(pairs)
 
 
 def detection_by_dose(

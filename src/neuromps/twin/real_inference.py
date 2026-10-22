@@ -527,9 +527,9 @@ def main(argv: list[str] | None = None) -> int:
     )
     inferred = infer_parameters(posterior, real_x, n_samples=60 if args.quick else 500)
     gabaa = np.array([row["gabaa_scale"]["median"] for row in inferred])
-    doses = summaries["dose_value"].fillna(0.0).to_numpy(dtype=float)
-    units = summaries["dose_unit"].fillna("uM").to_numpy()
-    doses_um = np.where(units == "nM", doses / 1000.0, doses)
+    from neuromps.models.dataset import doses_in_um
+
+    doses_um = doses_in_um(summaries)
     devices = summaries["device_id"].to_numpy()
     resamples = 100 if args.quick else 1000
     sampled = sampled_mask(inferred)

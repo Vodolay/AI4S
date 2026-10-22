@@ -81,7 +81,8 @@ pushed. It has four parts.
   the microchannels (0.3854
   <!-- metrics.json: axonal_directionality.chamber_readouts_predict_direction.balanced_accuracy -->
   against 0.5 <!-- metrics.json: axonal_directionality.chamber_readouts_predict_direction.chance -->
-  chance), and no summary feature we could test tracks dose monotonically. In §20 we turn these
+  chance), and the twin's inverse model misses a bicuculline dose trend that two burst-rate
+  features carry. In §20 we turn these
   findings into recommendations for chip designers, assay developers and analysis pipelines.
 
 ---
@@ -347,12 +348,12 @@ diazepam recordings — a GABA-A positive modulator, the opposite pharmacology �
 A model that simply shouted "GABA-A antagonist" at anything unusual would have fired on both. Ours
 does not.
 
-**The dose signal is absent.** Within the bicuculline series, detection probability shows no
-relationship with dose: Spearman ρ = 0.014
-<!-- metrics.json: mechanism_baselines.task2_external_detection.screenneuropharm_bicuculline.dose_spearman -->, p = 0.751
+**Detection does not track dose.** Within the bicuculline series, detection probability shows no
+relationship with dose: Spearman ρ = −0.059
+<!-- metrics.json: mechanism_baselines.task2_external_detection.screenneuropharm_bicuculline.dose_spearman -->, p = 0.189
 <!-- metrics.json: mechanism_baselines.task2_external_detection.screenneuropharm_bicuculline.dose_spearman_p -->.
-Mechanism and dose are different questions, and this model only answers the first. As §18 shows,
-this turned out to be a property of the measurement, not of the model.
+Mechanism and dose are different questions, and this model only answers the first. The recordings
+do carry a dose signal, as §18 shows; a classifier built to tell mechanisms apart does not read it.
 
 ## 7. Rat to human
 
@@ -716,7 +717,7 @@ what we would do instead.
 
 | # | finding | evidence | what to do instead |
 |---|---|---|---|
-| 1 | no monotonic dose trend in the summary features | 0 <!-- metrics.json: feature_dose_response.verdict.n_features_moving_absolute --> of 7 <!-- metrics.json: feature_dose_response.absolute.n_features_tested --> testable features move with dose | do not read concentration from summary tables; keep the spike times so other features can be tried |
+| 1 | the twin misses a dose trend the features carry | 2 <!-- metrics.json: feature_dose_response.verdict.n_features_moving_absolute --> of 7 <!-- metrics.json: feature_dose_response.absolute.n_features_tested --> features fall with dose; inferred inhibition does not (ρ = −0.121 <!-- metrics.json: twin_hd15_real_inference.gabaa_scale_dose_trend.spearman_rho -->) | read dose from burst rates against each device's own baseline; do not use the twin's dose inference until it recovers that trend |
 | 2 | chamber readouts miss direction | chamber classifier 0.3854 <!-- metrics.json: axonal_directionality.chamber_readouts_predict_direction.balanced_accuracy --> against 0.5 chance | put electrodes inside the microchannels |
 | 3 | no cross-laboratory transfer | 0.3482 <!-- metrics.json: cross_lab_transfer.balanced_accuracy --> against 0.3333 <!-- metrics.json: cross_lab_transfer.chance --> chance | validate inside one laboratory; a cross-laboratory test needs two laboratories sharing at least two classes |
 | 4 | domain adaptation backfires | CORAL drops transfer to 0.442 <!-- metrics.json: species_transfer.transfer.coral.rat_to_human.balanced_accuracy -->, standardization to 0.408 <!-- metrics.json: species_transfer.transfer.standardize.rat_to_human.balanced_accuracy --> | report the unadapted transfer first; adapt only once it beats that on held-out cultures |
@@ -726,18 +727,24 @@ what we would do instead.
 | 8 | support rejection | the calibrated twin cannot sample 9 <!-- metrics.json: demo_precompute.posterior_draws.n_short_of_requested --> of 113 <!-- metrics.json: demo_precompute.posterior_draws.n_recordings --> real recordings | treat a refusal as an out-of-distribution flag and send the recording to a person |
 
 **On the first, which matters most.** §6 showed that the mechanism classifier had no dose
-relationship, and §16 showed that the inverse model could not recover dose either. It would be
-natural to blame the models, so we asked the question directly: across 113 bicuculline recordings
+relationship, and §16 showed that the inverse model could not recover dose either. So we asked
+whether the signal is in the features at all: across 113 bicuculline recordings
 <!-- metrics.json: feature_dose_response.n_recordings --> on 16 devices
 <!-- metrics.json: feature_dose_response.n_devices -->, does *any* feature move monotonically with
 dose? Seven of the nine had enough points to test; the two burst-shape features, burst duration and
-spikes per burst, did not. Using raw values, 0
+spikes per burst, did not. Using raw values, 2
 <!-- metrics.json: feature_dose_response.verdict.n_features_moving_absolute --> of the 7
-<!-- metrics.json: feature_dose_response.absolute.n_features_tested --> do. After subtracting each
-device's own baseline, 0
-<!-- metrics.json: feature_dose_response.verdict.n_features_moving_baseline_subtracted --> do — in
-both cases after a Holm correction for testing seven features at once. The models were not failing to
-extract a signal. The signal simply was not there.
+<!-- metrics.json: feature_dose_response.absolute.n_features_tested --> do: burst rate (ρ = −0.58
+<!-- metrics.json: feature_dose_response.absolute.by_feature.burst_rate_per_min.spearman_rho -->)
+and network burst rate (ρ = −0.60
+<!-- metrics.json: feature_dose_response.absolute.by_feature.network_burst_rate_per_min.spearman_rho -->)
+fall with dose. After subtracting each device's own baseline, the same 2
+<!-- metrics.json: feature_dose_response.verdict.n_features_moving_baseline_subtracted --> do, in
+both cases after a Holm correction for testing seven features at once. The signal is there, and the
+twin's posterior does not recover it, so the inverse model is the part to fix. An earlier version of
+this analysis ranked doses without their units, which put the two lowest doses, recorded in nM,
+among the highest, and concluded the opposite. Another entry in this challenge, NeuroChip Twin,
+found the trend; tracing that disagreement found our error.
 
 ## 19. What you cannot conclude from this work
 
@@ -752,8 +759,8 @@ extract a signal. The signal simply was not there.
   human testing pairs, which supports the direction of the effect rather than its size.
 - **The simulator is not fully reconciled.** The twin sits inside the real band on two of five
   features, varies from seed to seed, and gets GABA-A potentiation mostly wrong.
-- **There is no monotonic dose tracking.** The feature deltas contain no monotonic concentration
-  signal across the bicuculline series.
+- **The twin does not track dose.** Burst rates fall with bicuculline dose, but the twin's inferred
+  inhibition does not, so its dose inference is not usable yet.
 - **The species balance is severe.** Our asset holds 21,530 rat
   <!-- metrics.json: data_asset.counts.by_species.rat --> against 357 human
   <!-- metrics.json: data_asset.counts.by_species.human --> records — a consequence of open-access
@@ -1043,8 +1050,8 @@ and falls to 0.091
 <!-- metrics.json: mechanism_baselines.task2_external_detection.screenneuropharm_bicuculline.by_dose.8.detection_rate --> at the
 top of it, 500 µM
 <!-- metrics.json: mechanism_baselines.task2_external_detection.screenneuropharm_bicuculline.by_dose.8.dose_uM -->.
-The overall rank correlation is not significant (ρ = 0.014
-<!-- metrics.json: mechanism_baselines.task2_external_detection.screenneuropharm_bicuculline.dose_spearman -->, p = 0.751
+The overall rank correlation is not significant (ρ = −0.059
+<!-- metrics.json: mechanism_baselines.task2_external_detection.screenneuropharm_bicuculline.dose_spearman -->, p = 0.189
 <!-- metrics.json: mechanism_baselines.task2_external_detection.screenneuropharm_bicuculline.dose_spearman_p -->).
 
 **Appendix N, species transfer, all settings.**
