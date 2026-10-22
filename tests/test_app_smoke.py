@@ -176,7 +176,7 @@ def test_the_live_simulation_is_not_wired_into_page_load() -> None:
     the app, or following that link to a deployed one, must still cost nothing.
     """
     source = (REPO_ROOT / "app" / "tab_twin.py").read_text()
-    call = source.index("loaders.live_simulation")
+    call = source.index("loaders.live_simulation(")
     guard = source.index('clicked = st.button("Run one live simulation')
     assert guard < call, "the live run must sit behind the button"
     assert 'os.environ.get(LIVE_ON_LOAD_ENV, "") != "1"' in source, (

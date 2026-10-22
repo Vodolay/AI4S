@@ -189,6 +189,12 @@ def _live_requested() -> bool:
 
 def _live_run(point: pd.Series) -> None:
     """One real Brian2 run at the current values, so the demo is not canned."""
+    if not loaders.live_simulation_available():
+        st.info(
+            "The live Brian2 run needs the full local install (see Setup in the README). "
+            "This copy shows the precomputed simulations above, which are the same model."
+        )
+        return
     clicked = st.button("Run one live simulation (Brian2)", type="primary")
     if not clicked and not _live_requested():
         return

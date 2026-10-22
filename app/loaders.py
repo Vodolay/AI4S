@@ -14,7 +14,9 @@ screen. Resolution happens at import: a run finishes before the app starts.
 
 from __future__ import annotations
 
+import importlib.util
 import json
+import os
 import pickle
 from pathlib import Path
 
@@ -205,6 +207,16 @@ def real_baseline_features(_stamp_value: float = 0.0) -> dict[str, list[float]]:
     }
 
 
+def live_simulation_available() -> bool:
+    """Whether this server can run the simulator at all.
+
+    The hosted demo installs only the light requirements, without Brian2, so the
+    live run belongs to a local install; everything else on the page is
+    precomputed and works either way.
+    """
+    return importlib.util.find_spec("brian2") is not None
+
+
 @st.cache_data(show_spinner=True)
 def live_simulation(ratio: float, gabaa: float, ampa: float, duration_s: float = 6.0) -> dict:
     """Run Brian2 once at these values, in its own interpreter. Cached on the tuple.
@@ -243,6 +255,14 @@ def live_simulation(ratio: float, gabaa: float, ampa: float, duration_s: float =
             timeout=180,
             cwd=REPO_ROOT,
             check=False,
+            # The child imports neuromps too; on a copy that was never installed
+            # it lives in src/, as it does for the app itself.
+            env={
+                **os.environ,
+                "PYTHONPATH": os.pathsep.join(
+                    p for p in (str(REPO_ROOT / "src"), os.environ.get("PYTHONPATH")) if p
+                ),
+            },
         )
         if completed.returncode != 0 or not target.exists():
             return {"error": (completed.stderr or "simulation failed").strip()[-600:]}

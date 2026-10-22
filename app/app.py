@@ -33,6 +33,10 @@ while _HERE in sys.path:
     sys.path.remove(_HERE)
 if str(REPO_ROOT) not in sys.path:  # `streamlit run` does not add the repo root
     sys.path.insert(0, str(REPO_ROOT))
+# A hosted copy (Streamlit Community Cloud) installs app/requirements.txt and never
+# `pip install -e .`, so `neuromps` is found in src/ instead of site-packages.
+if str(REPO_ROOT / "src") not in sys.path:
+    sys.path.append(str(REPO_ROOT / "src"))
 _running_script = sys.modules.get("app")
 if _running_script is not None and not hasattr(_running_script, "__path__"):
     del sys.modules["app"]  # the runner keeps its own reference to this module

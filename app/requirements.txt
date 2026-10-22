@@ -1,0 +1,13 @@
+# Dependencies for the hosted demo (Streamlit Community Cloud), which runs
+# app/app.py from the repository without installing the package. The simulator
+# stack (Brian2, torch, sbi) is left out: the hosted page shows precomputed runs,
+# and the live Brian2 button explains that it needs the full install.
+# Versions match pyproject.toml; tests/test_app_hosted.py checks that they do.
+streamlit==1.64.0
+altair==6.3.0
+numpy==2.3.5
+pandas==3.0.5
+pyarrow==25.0.1
+scipy==1.17.1
+scikit-learn==1.9.1
+matplotlib==3.11.2
