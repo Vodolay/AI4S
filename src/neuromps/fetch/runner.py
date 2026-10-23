@@ -15,6 +15,9 @@ log = logging.getLogger("neuromps.fetch")
 Fetcher = Callable[[Path, Manifest, bool], SourceRecord]
 REPO_ROOT = Path(__file__).resolve().parents[3]
 RAW_ROOT = REPO_ROOT / "data" / "raw"
+# Fetched only when named: the fly connectome (about 350 MB) serves the fly
+# stage alone, and no chip analysis reads it.
+OPTIONAL = frozenset({"flywire783"})
 
 
 def registry() -> dict[str, tuple[Fetcher, dict[str, str]]]:
@@ -22,6 +25,7 @@ def registry() -> dict[str, tuple[Fetcher, dict[str, str]]]:
     from neuromps.fetch import (
         axon_diode,
         brewer2021,
+        flywire783,
         fofie2025,
         kapucu2022,
         mateus2024,
@@ -43,6 +47,7 @@ def registry() -> dict[str, tuple[Fetcher, dict[str, str]]]:
         trujillo2019,
         brewer2021,
         vassallo2017,
+        flywire783,
     ]
     return {m.SOURCE: (m.fetch, m.META) for m in mods}
 
@@ -59,7 +64,7 @@ def run_fetchers(
         log.info("[%s] skipped (excluded, see data/SOURCES.md)", record.name)
     manifest.save()
     for name, (fetch, meta) in registry().items():
-        if names and name not in names:
+        if (names and name not in names) or (not names and name in OPTIONAL):
             continue
         log.info("[%s] fetching (full=%s)", name, full)
         try:

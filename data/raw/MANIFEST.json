@@ -60,6 +60,67 @@
         }
       ]
     },
+    "flywire783": {
+      "name": "flywire783",
+      "status": "ok",
+      "landing_url": "https://doi.org/10.5281/zenodo.10676866",
+      "license": "CC-BY-4.0 (FlyWire data, annotations); MIT (Shiu et al. model files)",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "citation": "Dorkenwald S, et al. Neuronal wiring diagram of an adult brain. Nature 634, 124-138 (2024); FlyWire connectivity data, doi:10.5281/zenodo.10676866. Schlegel P, et al. Whole-brain annotation and multi-connectome cell typing of Drosophila. Nature 634, 139-152 (2024); annotations v3.2.0, doi:10.5281/zenodo.23037340. Shiu PK, et al. A Drosophila computational brain model reveals sensorimotor processing. Nature 634, 210-219 (2024); code github.com/philshiu/Drosophila_brain_model",
+      "note": "optional (fly stage only); Shiu et al. model files at commit 91bdd1e7dcf1; Zenodo 10676866 neuropil counts; Zenodo 23037340 annotations archive (the GitHub copy has no license and is not used)",
+      "checked_at": "2026-10-23T02:04:01+00:00",
+      "files": [
+        {
+          "path": "flywire783/2023_03_23_completeness_630_final.csv",
+          "url": "https://raw.githubusercontent.com/philshiu/Drosophila_brain_model/91bdd1e7dcf193f3e7ca5a8933497fcef63b7960/2023_03_23_completeness_630_final.csv",
+          "sha256": "e6b71e17671a9bdb05f55e4bc6774640a1418cb7a05125e0fc994ad40f9bfdfb",
+          "bytes": 3057611,
+          "downloaded_at": "2026-10-23T02:03:49+00:00"
+        },
+        {
+          "path": "flywire783/2023_03_23_connectivity_630_final.parquet",
+          "url": "https://raw.githubusercontent.com/philshiu/Drosophila_brain_model/91bdd1e7dcf193f3e7ca5a8933497fcef63b7960/2023_03_23_connectivity_630_final.parquet",
+          "sha256": "94db8c650533bc36ffa3223f2e62325d5648b8d6bd31c3a4e1c804628c7557b3",
+          "bytes": 86630944,
+          "downloaded_at": "2026-10-23T02:04:01+00:00"
+        },
+        {
+          "path": "flywire783/Completeness_783.csv",
+          "url": "https://raw.githubusercontent.com/philshiu/Drosophila_brain_model/91bdd1e7dcf193f3e7ca5a8933497fcef63b7960/Completeness_783.csv",
+          "sha256": "bbb847a4cc2caaa7a16349722d220c087317b946d148d4d592d94d250617a311",
+          "bytes": 3327347,
+          "downloaded_at": "2026-10-23T01:35:14+00:00"
+        },
+        {
+          "path": "flywire783/Connectivity_783.parquet",
+          "url": "https://raw.githubusercontent.com/philshiu/Drosophila_brain_model/91bdd1e7dcf193f3e7ca5a8933497fcef63b7960/Connectivity_783.parquet",
+          "sha256": "efeb23fb99098e9c390f6869969b2a121a2ee92c833cfc45ecb2c1d8e1af0347",
+          "bytes": 100804642,
+          "downloaded_at": "2026-10-23T01:35:28+00:00"
+        },
+        {
+          "path": "flywire783/LICENSE",
+          "url": "https://raw.githubusercontent.com/philshiu/Drosophila_brain_model/91bdd1e7dcf193f3e7ca5a8933497fcef63b7960/LICENSE",
+          "sha256": "3621f6d6476189190e2960fa43f11b275ba4eca848fdac50a1ba2925de6223e8",
+          "bytes": 1085,
+          "downloaded_at": "2026-10-23T01:35:13+00:00"
+        },
+        {
+          "path": "flywire783/flywire_annotations-v3.2.0.zip",
+          "url": "https://zenodo.org/api/records/23037340/files/flyconnectome/flywire_annotations-v3.2.0.zip/content",
+          "sha256": "a84dfa27caad35fe7d470e43e0198920ce8fd3cb3d600de4d9e0914929055b83",
+          "bytes": 12153637,
+          "downloaded_at": "2026-10-23T01:35:32+00:00"
+        },
+        {
+          "path": "flywire783/per_neuron_neuropil_count_post_783.feather",
+          "url": "https://zenodo.org/api/records/10676866/files/per_neuron_neuropil_count_post_783.feather/content",
+          "sha256": "e2418f4794fe47984bb4bc15ffc194003ea8e349a428551f30af94947d85d712",
+          "bytes": 233843050,
+          "downloaded_at": "2026-10-23T01:40:11+00:00"
+        }
+      ]
+    },
     "fofie2025": {
       "name": "fofie2025",
       "status": "ok",
@@ -87,7 +148,7 @@
       "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
       "citation": "Tukker AM, Wijnolts FMJ, de Groot A, Westerink RHS. Toxicol Sci 178(1):71-87 (2020). doi:10.1093/toxsci/kfaa136",
       "note": "EXCLUDED 2026-09-16 (PI decision): non-commercial license is incompatible with a prize-bearing submission released under an open license. Revisit only if the competition rules clearly keep submissions under the entrant's own open license.",
-      "checked_at": "2026-09-22T22:48:30+00:00",
+      "checked_at": "2026-10-23T02:03:48+00:00",
       "files": []
     },
     "kapucu2022": {
