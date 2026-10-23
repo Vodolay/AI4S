@@ -59,9 +59,10 @@ def test_the_tabs_are_in_the_order_the_app_declares(app: AppTest) -> None:
     assert "Mechanism" in labels[0]
     assert "twin" in labels[1].lower()
     assert "Data asset" in labels[2]
+    assert "chip to animal" in labels[3]
 
 
-@pytest.mark.parametrize("slug,expected", [("models", 0), ("twin", 1), ("data", 2)])
+@pytest.mark.parametrize("slug,expected", [("models", 0), ("twin", 1), ("data", 2), ("fly", 3)])
 def test_a_tab_can_be_deep_linked_by_slug(slug: str, expected: int) -> None:
     """The video screenshots one tab at a time, and the numbers moved when the order did."""
     from app.app import TABS
@@ -80,7 +81,9 @@ def test_an_unknown_tab_value_falls_back_to_the_full_strip() -> None:
     at.query_params["tab"] = "provenance"
     at.run()
     assert at.exception == []
-    assert len(at.tabs) == 3
+    from app.app import TABS
+
+    assert len(at.tabs) == len(TABS)
 
 
 def test_the_research_use_banner_is_shown(app: AppTest) -> None:
@@ -240,3 +243,19 @@ def test_the_live_simulation_can_be_asked_for_by_url(monkeypatch: pytest.MonkeyP
         element.value for element in at.error
     )
     assert "wall clock" in text or "Brian2" in text, "the live run did not report back"
+
+
+FLY_READY = (REPO_ROOT / "outputs" / "fly" / "conditions_SIMULATED.csv").exists()
+
+
+@pytest.mark.skipif(not FLY_READY, reason="needs the fly stage's outputs")
+def test_the_fly_tab_moves_both_readouts_with_the_dose_slider() -> None:
+    at = AppTest.from_file(str(APP), default_timeout=120)
+    at.query_params["tab"] = "fly"
+    at.run()
+    assert at.exception == [], [str(e.value) for e in at.exception]
+    firing = [m.value for m in at.metric if m.label == "Firing rate"]
+    at.select_slider[0].set_value("untreated").run()
+    assert at.exception == []
+    assert [m.value for m in at.metric if m.label == "Firing rate"] == ["+0.00"]
+    assert firing != ["+0.00"]

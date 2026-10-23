@@ -31,6 +31,18 @@ Each fetcher re-checks its source's advertised license at download time.
 
 *Note:* tier=full; Zenodo record 4679064; 10 cultures, four hippocampal subregions each over a 60-electrode MCS array, 300 s spontaneous at 25 kHz; the analysis scripts in the record are not fetched
 
+### `flywire783`
+
+- **License:** CC-BY-4.0 (FlyWire data, annotations); MIT (Shiu et al. model files)
+- **License URL:** https://creativecommons.org/licenses/by/4.0/
+- **Source:** https://doi.org/10.5281/zenodo.10676866
+- **Files recorded:** 7
+- **Status:** ok
+
+> Dorkenwald S, et al. Neuronal wiring diagram of an adult brain. Nature 634, 124-138 (2024); FlyWire connectivity data, doi:10.5281/zenodo.10676866. Schlegel P, et al. Whole-brain annotation and multi-connectome cell typing of Drosophila. Nature 634, 139-152 (2024); annotations v3.2.0, doi:10.5281/zenodo.23037340. Shiu PK, et al. A Drosophila computational brain model reveals sensorimotor processing. Nature 634, 210-219 (2024); code github.com/philshiu/Drosophila_brain_model
+
+*Note:* optional (fly stage only); Shiu et al. model files at commit 91bdd1e7dcf1; Zenodo 10676866 neuropil counts; Zenodo 23037340 annotations archive (the GitHub copy has no license and is not used)
+
 ### `fofie2025`
 
 - **License:** CC0-1.0
@@ -54,6 +66,18 @@ Each fetcher re-checks its source's advertised license at download time.
 > Kapucu FE, Vinogradov A, Hyvärinen T, Ylä-Outinen L, Narkilahti S. Comparative microelectrode array data of the functional development of hPSC-derived and rat neuronal networks. Sci Data 9, 120 (2022). doi:10.1038/s41597-022-01242-4
 
 *Note:* tier=full; GIN commit 0f0f13517bf6cfc382b5f3c3f9219f13d76d798a; raw .h5 excluded by design
+
+### `malecns`
+
+- **License:** CC-BY-4.0 (stated on the project home page as 'licensed under CC-BY')
+- **License URL:** https://creativecommons.org/licenses/by/4.0/
+- **Source:** https://male-cns.janelia.org/
+- **Files recorded:** 3
+- **Status:** ok
+
+> Berg S, Beckett IR, Costa M, et al. Sexual dimorphism in the complete connectome of the Drosophila male central nervous system. Nature (2026); MaleCNS v1.0, https://male-cns.janelia.org/
+
+*Note:* optional (fly replication only); v1.0 flat connectome, minconf 0.5
 
 ### `mateus2024`
 

@@ -46,7 +46,12 @@ PROVENANCE = ASSET.parent / "provenance.json"
 SCHEMA = REPO_ROOT / "schema" / "neuromps_schema.json"
 FIGURES = _shown(paths.OUTPUTS_ROOT / "figures", paths.OUTPUTS_ROOT / paths.QUICK / "figures")
 TWIN_FIGURES = _shown(paths.OUTPUTS_ROOT / "twin", paths.OUTPUTS_ROOT / paths.QUICK / "twin")
-SHOWN_PATHS = (DEMO_DIR, METRICS, ASSET, FIGURES, TWIN_FIGURES)
+FLY = _shown(paths.OUTPUTS_ROOT / "fly", paths.OUTPUTS_ROOT / paths.QUICK / "fly")
+SHOWN_PATHS = (DEMO_DIR, METRICS, ASSET, FIGURES, TWIN_FIGURES, FLY)
+MISSING_FLY = (
+    "The fly-brain results are not here yet. They come from `python run_all.py --stage fly` "
+    "(a 1.5 GB download and about 7 GB of memory per worker)."
+)
 
 
 def run_root_note() -> str:
@@ -285,4 +290,12 @@ def stamps() -> dict[str, float]:
         "metrics": _stamp(METRICS),
         "asset": _stamp(ASSET),
         "demo": _stamp(DEMO_DIR / "meta.json"),
+        "fly": _stamp(FLY / "conditions_SIMULATED.csv"),
     }
+
+
+@st.cache_data(show_spinner=False)
+def load_fly_conditions(_stamp_value: float = 0.0) -> pd.DataFrame:
+    """Per-condition chip and behaviour readouts of the simulated fly brain."""
+    path = FLY / "conditions_SIMULATED.csv"
+    return pd.read_csv(path) if path.exists() else pd.DataFrame()
