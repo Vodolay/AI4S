@@ -1086,12 +1086,28 @@ package's license as read from its installed metadata.
 
 Brian2's license is the most restrictive in the list; we use it unmodified, as a library.
 
-**Models.** We use no pretrained or external models. Every statistical model in this report —
+**Models.** We use no pretrained models. Every statistical model in this report —
 logistic regression, gradient boosting and the neural posterior estimator — is trained from scratch
-on the data described here.
+on the data described here. The fly study of Appendix P adopts the equations and constants of the
+whole-brain model of Shiu et al. (2024; code under the MIT license), reimplemented in our own code.
 
 **Data.** Every dataset we used, with its license and status, is listed in Appendix C.
 
 **AI tools.** We developed the project with Anthropic's Claude Code (§22), a commercial tool used
 under Anthropic's terms of service. It is not part of the delivered pipeline, and nothing it wrote is
 accepted without passing the same tests and citation checks as the rest of the code.
+
+## Appendix P — From chip to animal (after round 1)
+
+After round 1 we applied the twin's drug knobs to a simulated whole adult fly brain: the
+connectome-constrained model of Shiu et al. (2024) on the FlyWire connectome, replicated on the
+male central nervous system connectome. The same brain was read as a chip, by a virtual
+electrode array scored with `features/mea.py`, and as an animal, by the neurons the published
+model validated against feeding, aversive gating and grooming. The design and its predictions
+were committed before the simulations were run. The chip's firing rate ranked the drugs by how
+much they disrupted behaviour, but in every drug family behaviour failed at a lower dose than the
+registered chip threshold flagged; GABA block was the hardest to catch in time. A feature that
+seemed to fix this turned out to be noise. Spontaneous activity did not recover the direction of
+wiring between brain regions. The full account, with every number cited, is in
+`report/FLY_CHIP_TO_ANIMAL.md`; the demo app shows it in the tab "From chip to animal". All of it
+is simulated.
