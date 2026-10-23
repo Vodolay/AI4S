@@ -32,7 +32,7 @@ PROTOCOLS = ("sugar", "sugar_bitter", "jon_ce")
 MEMORY_PER_WORKER_GB = 7.0
 
 
-def memory_bounded_workers(cap: int = 16) -> int:
+def memory_bounded_workers(cap: int = 16, per_worker_gb: float = MEMORY_PER_WORKER_GB) -> int:
     """Workers that fit in available memory: each holds the whole brain (about 7 GB)."""
     try:
         meminfo = Path("/proc/meminfo").read_text()
@@ -41,7 +41,7 @@ def memory_bounded_workers(cap: int = 16) -> int:
                 line.split()[1] for line in meminfo.splitlines() if line.startswith("MemAvailable")
             )
         )
-        fits = max(1, int(kb / 1e6 / MEMORY_PER_WORKER_GB))
+        fits = max(1, int(kb / 1e6 / per_worker_gb))
     except (OSError, StopIteration, ValueError):
         fits = 2
     return min(worker_processes(cap=cap), fits)

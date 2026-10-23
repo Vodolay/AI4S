@@ -30,10 +30,23 @@ class Context:
     spec: dict
     pairs: pd.DataFrame
     descending: np.ndarray
+    # Root (or body) IDs of the stimulus and readout neurons; None reads the
+    # published FlyWire sets. The male CNS run passes its matched sets.
+    sets: dict | None = None
+
+
+def _sets() -> dict:
+    return _STATE["context"].sets or behaviour.neuron_sets()
 
 
 def init(context: Context, release: str = "783") -> None:
     """Worker initialiser: load the connectome and the fixed array once per process."""
+    if release == "malecns":
+        from neuromps.fly import malecns
+
+        con, ann = malecns.cached()
+        _STATE.update(context=context, con=con, array=malecns.array(con, ann))
+        return
     con = connectome.cached() if release == "783" else connectome.load_630()
     _STATE.update(context=context, con=con)
     if release == "783":
@@ -100,7 +113,7 @@ def spontaneous(overrides: dict, seed: int, with_direction: bool) -> dict:
 def behaviour_trial(overrides: dict, protocol: str, seed: int) -> dict:
     """Readout rates of one 1 s trial of a published protocol (no background)."""
     ctx, con = _STATE["context"], _STATE["con"]
-    sets = behaviour.neuron_sets()
+    sets = _sets()
     rate = ctx.spec["design"]["behaviour"]["stim_rate_hz"]
     drive = {
         "sugar": ("sugar_grn_right", None),

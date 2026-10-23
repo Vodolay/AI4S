@@ -72,3 +72,11 @@ def test_run_all_fetches_the_tier_of_the_run_it_is(
     monkeypatch.setattr(run_all, "_record_timings", lambda *a, **k: None)
     run_all.main([*argv, "--stage", "fetch"])
     assert fetch_calls == [expected]
+
+
+def test_a_quick_run_leaves_the_fly_stage_out_unless_asked() -> None:
+    module = _run_all()
+    assert "fly" not in module.select_stages("all", quick=True, with_fly=False)
+    assert module.select_stages("all", quick=True, with_fly=True)[-1] == "fly"
+    assert module.select_stages("all", quick=False, with_fly=False)[-1] == "fly"
+    assert module.select_stages("fly", quick=True, with_fly=False) == ["fly"]

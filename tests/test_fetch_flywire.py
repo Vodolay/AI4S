@@ -95,3 +95,10 @@ def _ok(name: str):
     from neuromps.fetch.manifest import SourceRecord
 
     return SourceRecord(name, "skipped", "u", "", "", "", files=[])
+
+
+def test_the_bucket_md5_is_converted_to_the_hex_the_downloader_checks() -> None:
+    from neuromps.fetch import malecns
+
+    assert malecns.md5_hex("UKdxh3DFciDxYLpPQxq4ng==") == "50a7718770c57220f160ba4f431ab89e"
+    assert malecns.SOURCE in runner.OPTIONAL
