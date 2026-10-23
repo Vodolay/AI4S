@@ -236,15 +236,53 @@ def score(tables_: dict, context, spec: dict, scored: bool) -> dict:
         "quick": not scored,
         "predictions": predictions,
         "direction": tables_["direction"],
-        "exploratory": exploratory(frame),
+        "exploratory": exploratory(frame, spec if scored else None),
     }
     if scored:
         out["agreement"] = agree
+        out["sensitivity"] = sensitivity(frame, spec)
     return out
 
 
-def exploratory(frame: pd.DataFrame) -> dict:
-    """Not registered: which chip feature's change tracks behavioural disruption best."""
+def sensitivity(frame: pd.DataFrame, spec: dict) -> dict:
+    """Registered: the sentinel test at the two sensitivity thresholds of the chip readout."""
+    d = spec["design"]
+    drugs = frame[frame["family"] != "vehicle"]
+    return analysis.sentinel_sensitivity(
+        drugs, d["chip_detection"]["sensitivity_thresholds"], d["behaviour_impairment_threshold"]
+    )
+
+
+def _leave_one_out(frame: pd.DataFrame, spec: dict) -> dict:
+    """The sentinel test with each behaviour readout left out of the disruption index."""
+    d = spec["design"]
+    vehicle = frame[frame["family"] == "vehicle"].iloc[0]
+    out = {}
+    for readout in analysis.READOUTS:
+        rows = frame[frame["family"] != "vehicle"].copy()
+        rows["disruption"] = [
+            analysis.disruption(r, vehicle, leave_out=readout) for _, r in rows.iterrows()
+        ]
+        verdict = analysis.sentinel(
+            rows, d["chip_detection"]["abs_log2_threshold"], d["behaviour_impairment_threshold"]
+        )
+        out[f"without_{readout}"] = {k: v["chip_first"] for k, v in verdict.items()}
+    return out
+
+
+def _earliest_feature(frame: pd.DataFrame, threshold: float) -> dict:
+    """Per family and chip feature, the lowest dose whose |log2 change| reaches the threshold."""
+    out = {}
+    for family, rows in frame[frame["family"] != "vehicle"].groupby("family"):
+        out[family] = {}
+        for feature in COMPARE_FEATURES:
+            hit = rows[rows[f"delta.{feature}"].abs() >= threshold]
+            out[family][feature] = None if hit.empty else float(hit["dose"].min())
+    return out
+
+
+def exploratory(frame: pd.DataFrame, spec: dict | None = None) -> dict:
+    """Not registered: which chip feature tracks disruption, and how robust the sentinel is."""
     drugs = frame[frame["family"] != "vehicle"]
     out = {}
     for feature in COMPARE_FEATURES:
@@ -253,7 +291,12 @@ def exploratory(frame: pd.DataFrame) -> dict:
         if ok.sum() > 3:
             rho = spearmanr(values[ok], drugs.loc[ok, "disruption"])[0]
             out[feature] = None if not np.isfinite(rho) else round(float(rho), 3)
-    return {"spearman_abs_delta_vs_disruption": out}
+    result = {"spearman_abs_delta_vs_disruption": out}
+    if spec is not None:
+        threshold = spec["design"]["chip_detection"]["abs_log2_threshold"]
+        result["sentinel_chip_first_leaving_one_readout_out"] = _leave_one_out(frame, spec)
+        result["first_detecting_dose_by_chip_feature"] = _earliest_feature(frame, threshold)
+    return result
 
 
 def clean(value):

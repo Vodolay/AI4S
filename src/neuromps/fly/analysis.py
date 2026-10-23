@@ -14,9 +14,10 @@ def log_change(treated: float, vehicle: float) -> float:
     return float(np.log2((treated + 1.0) / (vehicle + 1.0)))
 
 
-def disruption(treated: dict, vehicle: dict) -> float:
-    """Mean absolute log change of the four behavioural readouts."""
-    return float(np.mean([abs(log_change(treated[k], vehicle[k])) for k in READOUTS]))
+def disruption(treated: dict, vehicle: dict, leave_out: str | None = None) -> float:
+    """Mean absolute log change of the four behavioural readouts (optionally one left out)."""
+    keys = [k for k in READOUTS if k != leave_out]
+    return float(np.mean([abs(log_change(treated[k], vehicle[k])) for k in keys]))
 
 
 def trend(doses, values) -> float | None:
@@ -30,7 +31,12 @@ def _first(rows: pd.DataFrame, column: str, threshold: float) -> float | None:
     return None if hit.empty else float(hit["dose"].min())
 
 
-def sentinel(rows: pd.DataFrame, chip_threshold: float, behaviour_threshold: float) -> dict:
+def sentinel(
+    rows: pd.DataFrame,
+    chip_threshold: float,
+    behaviour_threshold: float,
+    chip_column: str = "abs_delta_mfr",
+) -> dict:
     """Per family: lowest dose the chip detects, lowest that impairs behaviour, which comes first.
 
     ``chip_first`` is None for a family that never impairs behaviour: there is
@@ -38,8 +44,18 @@ def sentinel(rows: pd.DataFrame, chip_threshold: float, behaviour_threshold: flo
     """
     out = {}
     for family, rows_f in rows.groupby("family"):
-        chip = _first(rows_f, "abs_delta_mfr", chip_threshold)
+        chip = _first(rows_f, chip_column, chip_threshold)
         animal = _first(rows_f, "disruption", behaviour_threshold)
         first = None if animal is None else bool(chip is not None and chip <= animal)
         out[family] = {"first_chip_dose": chip, "first_behaviour_dose": animal, "chip_first": first}
     return out
+
+
+def sentinel_sensitivity(
+    rows: pd.DataFrame, chip_thresholds: list[float], behaviour_threshold: float
+) -> dict:
+    """:func:`sentinel` at each registered sensitivity threshold of the chip readout."""
+    return {
+        f"{t:g}" if t != int(t) else f"{t:.1f}": sentinel(rows, t, behaviour_threshold)
+        for t in chip_thresholds
+    }

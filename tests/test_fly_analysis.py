@@ -105,3 +105,39 @@ def test_a_family_that_never_impairs_behaviour_is_not_scored() -> None:
 
 def test_monotone_trend_includes_the_vehicle_as_dose_zero() -> None:
     assert analysis.trend([0.0, 0.2, 0.4], [1.0, 2.0, 3.0]) == pytest.approx(1.0)
+
+
+def test_disruption_can_leave_one_readout_out() -> None:
+    vehicle = {"mn9_sugar": 79.0, "mn9_sugar_bitter": 3.0, "abn1_jon_ce": 15.0, "dn_recruited": 1}
+    treated = {**vehicle, "mn9_sugar_bitter": 15.0}
+    assert analysis.disruption(treated, vehicle) == pytest.approx(0.5)
+    assert analysis.disruption(treated, vehicle, leave_out="mn9_sugar_bitter") == 0.0
+
+
+def test_sensitivity_reruns_the_sentinel_at_each_registered_threshold() -> None:
+    rows = pd.DataFrame(
+        {
+            "family": ["f"] * 3,
+            "dose": [0.2, 0.5, 0.8],
+            "abs_delta_mfr": [0.3, 0.7, 1.2],
+            "disruption": [0.6, 0.6, 0.9],
+        }
+    )
+    got = analysis.sentinel_sensitivity(rows, [0.25, 1.0], behaviour_threshold=0.5)
+    assert got["0.25"]["f"]["chip_first"] is True
+    assert got["1.0"]["f"]["chip_first"] is False
+
+
+def test_the_sentinel_can_score_any_chip_feature() -> None:
+    rows = pd.DataFrame(
+        {
+            "family": ["f"] * 2,
+            "dose": [0.2, 0.5],
+            "abs_delta_mfr": [0.1, 0.7],
+            "abs_delta_network": [0.9, 2.0],
+            "disruption": [0.6, 0.9],
+        }
+    )
+    assert analysis.sentinel(rows, 0.5, 0.5)["f"]["chip_first"] is False
+    got = analysis.sentinel(rows, 0.5, 0.5, chip_column="abs_delta_network")
+    assert got["f"]["chip_first"] is True

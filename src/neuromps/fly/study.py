@@ -131,19 +131,75 @@ def run_sweep(context: jobs.Context, regions: list[str], workers: int, quick: bo
     return out
 
 
+def _save_raw(raw: dict) -> None:
+    """Every job's summary, so a later analysis never needs the sweep run again."""
+    import pickle
+
+    from neuromps.paths import INTERIM_ROOT, is_quick
+
+    path = INTERIM_ROOT / "fly" / ("raw_783_quick.pkl" if is_quick() else "raw_783.pkl")
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_bytes(pickle.dumps(raw))
+
+
+def rescore() -> int:
+    """Recompute sensitivity and exploratory analyses from the saved condition table.
+
+    The registered predictions are re-derived too, and must come out as they
+    were: they read the same table, so a difference means the code changed.
+    """
+    import pandas as pd
+
+    spec = design.registration()
+    out_dir = outputs_dir() / "fly"
+    frame = pd.read_csv(out_dir / "conditions_SIMULATED.csv")
+    path = out_dir / "chip_to_animal_SIMULATED.json"
+    result = json.loads(path.read_text())
+    again = {
+        **scoring._behaviour_predictions(frame),
+        **scoring._chip_predictions(frame, spec["design"]),
+    }
+    for name, (_, ok) in again.items():
+        stored = result["predictions"][name]["outcome"]
+        if stored != scoring._outcome(bool(ok)):
+            raise SystemExit(f"{name}: stored {stored}, recomputed {scoring._outcome(bool(ok))}")
+    result["sensitivity"] = scoring.sensitivity(frame, spec)
+    result["exploratory"] = scoring.exploratory(frame, spec)
+    path.write_text(json.dumps(scoring.clean(result), indent=2) + "\n")
+    figures.all_figures({"conditions": frame}, result, figures_dir())
+    update_metrics("fly_chip_to_animal", scoring.metrics_payload(result))
+    print(
+        json.dumps(
+            scoring.clean(
+                {"sensitivity": result["sensitivity"], "exploratory": result["exploratory"]}
+            ),
+            indent=1,
+        )
+    )
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     """CLI: run, score and write the study."""
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--quick", action="store_true", help="CI-sized run; scores nothing")
     p.add_argument("--workers", type=int, default=None)
+    p.add_argument(
+        "--rescore",
+        action="store_true",
+        help="recompute the analyses that need only the saved condition table; no simulation",
+    )
     args = p.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+    if args.rescore:
+        return rescore()
     spec = design.registration()
     spec = quick_spec(spec) if args.quick else spec
     con = connectome.cached()
     context, regions = _context(spec, con)
     workers = args.workers or memory_bounded_workers()
     raw = run_sweep(context, regions, workers, args.quick)
+    _save_raw(raw)
     tables = scoring.tables(raw, context)
     result = scoring.score(tables, context, spec, scored=not args.quick)
     result["registration"] = design.provenance()
