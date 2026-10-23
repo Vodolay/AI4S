@@ -141,3 +141,20 @@ def test_the_sentinel_can_score_any_chip_feature() -> None:
     assert analysis.sentinel(rows, 0.5, 0.5)["f"]["chip_first"] is False
     got = analysis.sentinel(rows, 0.5, 0.5, chip_column="abs_delta_network")
     assert got["f"]["chip_first"] is True
+
+
+def test_the_pooled_count_uses_only_out_of_sample_verdicts() -> None:
+    from neuromps.fly import confirm
+
+    def verdict(net_first: bool, rate_first: bool) -> dict:
+        return {
+            "network_bursts": {"f": {"chip_first": net_first}},
+            "firing_rate": {"f": {"chip_first": rate_first}},
+        }
+
+    pooled = confirm.pooled([verdict(True, False), verdict(False, True)])
+    assert pooled == {
+        "tests": 2,
+        "network_bursts_at_or_before_behaviour": 1,
+        "firing_rate_at_or_before_behaviour": 1,
+    }

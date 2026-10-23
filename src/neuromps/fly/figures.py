@@ -102,3 +102,53 @@ def all_figures(tables: dict, result: dict, out_dir: Path) -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
     dose_panels(tables["conditions"], out_dir / "fly_chip_to_animal_dose_SIMULATED.png")
     direction_panel(result["direction"], out_dir / "fly_direction_SIMULATED.png")
+
+
+def sentinel_ladder(panels: list[tuple[str, dict]], path: Path) -> None:
+    """Per mechanism: first dose that impairs behaviour, and first each chip feature detects.
+
+    `panels` is a list of (title, verdicts), verdicts as written by `fly.confirm.verdicts`.
+    A missing marker means the readout never reached its threshold.
+    """
+    plt = _plt()
+    fig, axes = plt.subplots(
+        1, len(panels), figsize=(3.2 * len(panels), 2.6), sharey=True, sharex=True, squeeze=False
+    )
+    families = list(COLOURS)
+    marks = (
+        ("behaviour", "#000000", "s", "behaviour impaired"),
+        ("network_bursts", "#009E73", "o", "chip: network-burst rate"),
+        ("firing_rate", "#D55E00", "D", "chip: firing rate"),
+    )
+    for ax, (title, v) in zip(axes[0], panels, strict=True):
+        for row, family in enumerate(families):
+            entry = v["network_bursts"].get(family)
+            if entry is None:
+                continue
+            doses = {
+                "behaviour": entry["first_behaviour_dose"],
+                "network_bursts": entry["first_chip_dose"],
+                "firing_rate": v["firing_rate"][family]["first_chip_dose"],
+            }
+            for k, (key, colour, marker, label) in enumerate(marks):
+                if doses[key] is not None:
+                    ax.scatter(
+                        doses[key],
+                        row + (k - 1) * 0.18,
+                        color=colour,
+                        marker=marker,
+                        s=22,
+                        label=label if row == 0 else None,
+                        zorder=3,
+                    )
+        ax.set_yticks(range(len(families)), [LABELS[f] for f in families], fontsize=6.5)
+        ax.set_xlabel("knob change from untreated (first dose reaching threshold)", fontsize=6)
+        ax.set_title(title, fontsize=7)
+        ax.tick_params(labelsize=6)
+        ax.grid(axis="x", lw=0.3, alpha=0.5)
+        ax.invert_yaxis()
+    axes[0][0].legend(fontsize=5.5, frameon=False, loc="lower right")
+    fig.suptitle("SIMULATED fly brain: which readout raises the alarm first?", fontsize=8)
+    fig.tight_layout()
+    fig.savefig(path, dpi=300, bbox_inches="tight")
+    plt.close(fig)

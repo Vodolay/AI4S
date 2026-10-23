@@ -65,6 +65,25 @@ def verdicts(frame: pd.DataFrame, spec: dict) -> dict:
     }
 
 
+def pooled(out_of_sample: list[dict]) -> dict:
+    """Mechanism tests, pooled over the out-of-sample runs, in which each feature was not late."""
+    out = {
+        "tests": 0,
+        "network_bursts_at_or_before_behaviour": 0,
+        "firing_rate_at_or_before_behaviour": 0,
+    }
+    for v in out_of_sample:
+        for family, entry in v["network_bursts"].items():
+            if entry["chip_first"] is None:
+                continue
+            out["tests"] += 1
+            out["network_bursts_at_or_before_behaviour"] += int(entry["chip_first"])
+            out["firing_rate_at_or_before_behaviour"] += int(
+                bool(v["firing_rate"][family]["chip_first"])
+            )
+    return out
+
+
 def _counts(v: dict) -> tuple[int, int, int]:
     """(families scored, network first-or-tie, firing rate strictly later)."""
     scored = [f for f, e in v["network_bursts"].items() if e["chip_first"] is not None]
@@ -91,7 +110,7 @@ def score(flywire: dict, malecns: dict | None, m0_passed: bool | None, addendum:
             outcome = "uninterpretable"
         out[name] = {
             "test": addendum["predictions"][name]["test"],
-            "value": f"{k} of {total} families",
+            "value": {"families_meeting": k, "families_scored": total},
             "outcome": outcome,
         }
     return out
@@ -105,6 +124,21 @@ def _malecns() -> tuple[dict | None, bool | None]:
     result = json.loads((out_dir / "malecns_replication_SIMULATED.json").read_text())
     m0 = result["predictions"]["M0_feeding_circuit_exists"]["outcome"] == "pass"
     return verdicts(pd.read_csv(path), design.registration()), m0
+
+
+def _ladder(spec: dict, flywire: dict, malecns: dict | None) -> None:
+    """The sentinel figure: registered sweep, fresh seeds, and the male CNS when present."""
+    from neuromps.fly import figures
+    from neuromps.paths import figures_dir
+
+    first = verdicts(pd.read_csv(outputs_dir() / "fly" / "conditions_SIMULATED.csv"), spec)
+    panels = [
+        ("FlyWire 783: sweep (feature chosen here)", first),
+        ("FlyWire 783: fresh seeds (out of sample)", flywire),
+    ]
+    if malecns is not None:
+        panels.append(("MaleCNS v1.0, male CNS (out of sample)", malecns))
+    figures.sentinel_ladder(panels, figures_dir() / "fly_sentinel_ladder_SIMULATED.png")
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -131,11 +165,14 @@ def main(argv: list[str] | None = None) -> int:
         "flywire": flywire,
         "malecns": malecns,
         "registration": design.provenance(ADDENDUM),
+        # Not a registered test: the two out-of-sample runs pooled, for the summary line.
+        "pooled_out_of_sample": pooled([v for v in (flywire, malecns) if v is not None]),
     }
     (out_dir / "confirm_network_bursts_SIMULATED.json").write_text(
         json.dumps(scoring.clean(result), indent=2) + "\n"
     )
     update_metrics("fly_confirm_network_bursts", scoring.clean(result))
+    _ladder(spec, flywire, malecns)
     for name, entry in result["predictions"].items():
         print(f"{name:52s} {entry['outcome']:>15}  {entry['value']}")
     return 0

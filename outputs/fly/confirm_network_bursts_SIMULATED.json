@@ -1,0 +1,160 @@
+{
+  "label": "SIMULATED confirmation of the network-burst sentinel (FlyWire, MaleCNS)",
+  "predictions": {
+    "N1_network_bursts_are_an_early_sentinel_flywire": {
+      "test": "in all five families with any impairment: first network_burst dose <= first behaviour dose",
+      "value": {
+        "families_meeting": 3,
+        "families_scored": 5
+      },
+      "outcome": "fail"
+    },
+    "N2_firing_rate_lags_flywire": {
+      "test": "first mfr dose > first behaviour dose in at least 4 of the families with any impairment",
+      "value": {
+        "families_meeting": 5,
+        "families_scored": 5
+      },
+      "outcome": "pass"
+    },
+    "N3_network_bursts_are_an_early_sentinel_malecns": {
+      "test": "first network_burst dose <= first behaviour dose in at least 4 of the families with any impairment; reported as uninterpretable if MaleCNS M0 fails",
+      "value": {
+        "families_meeting": 5,
+        "families_scored": 5
+      },
+      "outcome": "pass"
+    },
+    "N4_firing_rate_lags_malecns": {
+      "test": "first mfr dose > first behaviour dose in at least 4 of the families with any impairment; uninterpretable if M0 fails",
+      "value": {
+        "families_meeting": 2,
+        "families_scored": 5
+      },
+      "outcome": "fail"
+    }
+  },
+  "flywire": {
+    "network_bursts": {
+      "ach_block": {
+        "first_chip_dose": 0.4,
+        "first_behaviour_dose": 0.1999999999999999,
+        "chip_first": false
+      },
+      "excitability_block": {
+        "first_chip_dose": 0.1,
+        "first_behaviour_dose": 0.1999999999999999,
+        "chip_first": true
+      },
+      "gaba_block": {
+        "first_chip_dose": 0.1999999999999999,
+        "first_behaviour_dose": 0.1999999999999999,
+        "chip_first": true
+      },
+      "gaba_potentiate": {
+        "first_chip_dose": 0.5,
+        "first_behaviour_dose": 0.25,
+        "chip_first": false
+      },
+      "glucl_block": {
+        "first_chip_dose": 0.1999999999999999,
+        "first_behaviour_dose": 0.4,
+        "chip_first": true
+      }
+    },
+    "firing_rate": {
+      "ach_block": {
+        "first_chip_dose": 0.4,
+        "first_behaviour_dose": 0.1999999999999999,
+        "chip_first": false
+      },
+      "excitability_block": {
+        "first_chip_dose": 0.6000000000000001,
+        "first_behaviour_dose": 0.1999999999999999,
+        "chip_first": false
+      },
+      "gaba_block": {
+        "first_chip_dose": 0.6,
+        "first_behaviour_dose": 0.1999999999999999,
+        "chip_first": false
+      },
+      "gaba_potentiate": {
+        "first_chip_dose": 1.0,
+        "first_behaviour_dose": 0.25,
+        "chip_first": false
+      },
+      "glucl_block": {
+        "first_chip_dose": 0.8,
+        "first_behaviour_dose": 0.4,
+        "chip_first": false
+      }
+    }
+  },
+  "malecns": {
+    "network_bursts": {
+      "ach_block": {
+        "first_chip_dose": 0.1999999999999999,
+        "first_behaviour_dose": 0.4,
+        "chip_first": true
+      },
+      "excitability_block": {
+        "first_chip_dose": 0.3999999999999999,
+        "first_behaviour_dose": 0.3999999999999999,
+        "chip_first": true
+      },
+      "gaba_block": {
+        "first_chip_dose": 0.1999999999999999,
+        "first_behaviour_dose": 0.4,
+        "chip_first": true
+      },
+      "gaba_potentiate": {
+        "first_chip_dose": 0.25,
+        "first_behaviour_dose": 1.0,
+        "chip_first": true
+      },
+      "glucl_block": {
+        "first_chip_dose": 0.1999999999999999,
+        "first_behaviour_dose": 0.6,
+        "chip_first": true
+      }
+    },
+    "firing_rate": {
+      "ach_block": {
+        "first_chip_dose": 0.4,
+        "first_behaviour_dose": 0.4,
+        "chip_first": true
+      },
+      "excitability_block": {
+        "first_chip_dose": 0.3999999999999999,
+        "first_behaviour_dose": 0.3999999999999999,
+        "chip_first": true
+      },
+      "gaba_block": {
+        "first_chip_dose": 0.6,
+        "first_behaviour_dose": 0.4,
+        "chip_first": false
+      },
+      "gaba_potentiate": {
+        "first_chip_dose": 1.0,
+        "first_behaviour_dose": 1.0,
+        "chip_first": true
+      },
+      "glucl_block": {
+        "first_chip_dose": 0.8,
+        "first_behaviour_dose": 0.6,
+        "chip_first": false
+      }
+    }
+  },
+  "registration": {
+    "file": "preregistration/fly_confirm_network_bursts.json",
+    "sha256": "e3de7aa605a106caa9dd3a0a2e044bd33b75d1a715357b17fc52190fb6c75307",
+    "registered_in_commit": "f6511fc95faf52e5b6fa0c960acfd23e5b52f515",
+    "committed_at": "2026-10-22T23:15:07-04:00"
+  },
+  "pooled_out_of_sample": {
+    "tests": 10,
+    "network_bursts_at_or_before_behaviour": 8,
+    "firing_rate_at_or_before_behaviour": 3
+  }
+}

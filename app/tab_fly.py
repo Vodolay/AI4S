@@ -40,6 +40,7 @@ def render(stamps: dict[str, float]) -> None:
     family, row, vehicle, rows = _controls(frame)
     _readouts(row, vehicle)
     _dose_chart(rows, vehicle, row)
+    _ladder(metrics)
     st.divider()
     _scorecard(metrics)
     st.divider()
@@ -140,6 +141,7 @@ def _scorecard(metrics: dict) -> None:
     for section, label in (
         ("fly_chip_to_animal", "FlyWire"),
         ("fly_malecns_replication", "MaleCNS"),
+        ("fly_confirm_network_bursts", "Confirmation"),
     ):
         for name, entry in metrics.get(section, {}).get("predictions", {}).items():
             rows.append(
@@ -175,4 +177,21 @@ def _direction(metrics: dict) -> None:
             f"{d.get('n_pairs')} region pairs joined by 2,000 or more synapses; the connectome "
             "gives the true direction. The chip's cross-correlation measure on spontaneous "
             "activity against pulsed stimulation read 5-30 ms after each pulse. SIMULATED."
+        )
+
+
+def _ladder(metrics: dict) -> None:
+    figure = loaders.FIGURES / "fly_sentinel_ladder_SIMULATED.png"
+    if not figure.exists():
+        return
+    st.subheader("Which readout raises the alarm first?")
+    st.image(str(figure), width="stretch")
+    pooled = metrics.get("fly_confirm_network_bursts", {}).get("pooled_out_of_sample", {})
+    if pooled:
+        st.caption(
+            "First dose at which behaviour is impaired (disruption >= 0.5) and at which each chip "
+            "feature changes by 0.5 log2 or more. Out of sample (fresh seeds, and the male CNS), "
+            f"network-burst rate was not later than behaviour in "
+            f"{pooled['network_bursts_at_or_before_behaviour']} of {pooled['tests']} mechanism "
+            f"tests; firing rate in {pooled['firing_rate_at_or_before_behaviour']}. SIMULATED."
         )

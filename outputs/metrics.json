@@ -1806,6 +1806,744 @@
       "reading": "the features carry a dose signal that the twin's posterior does not recover, so the inverse model is what fails"
     }
   },
+  "fly_chip_to_animal": {
+    "agreement": {
+      "by_family": {
+        "ach_block": {
+          "condition": "ach_block_0.4",
+          "fly_agreeing": 4,
+          "fly_scored": 4,
+          "mechanism": "glutamatergic_antagonist",
+          "table": {
+            "burst_rate_per_min": {
+              "agrees": true,
+              "real_delta": -2.683,
+              "real_direction": "down",
+              "real_established": true,
+              "simulated_delta": -1.366,
+              "simulated_direction": "down"
+            },
+            "isi_cv": {
+              "agrees": null,
+              "real_delta": -0.459,
+              "real_direction": "down",
+              "real_established": false,
+              "simulated_delta": 0.316,
+              "simulated_direction": "up"
+            },
+            "mfr_hz": {
+              "agrees": true,
+              "real_delta": -1.769,
+              "real_direction": "down",
+              "real_established": true,
+              "simulated_delta": -1.483,
+              "simulated_direction": "down"
+            },
+            "network_burst_rate_per_min": {
+              "agrees": null,
+              "real_delta": -4.322,
+              "real_direction": "down",
+              "real_established": false,
+              "simulated_delta": -4.322,
+              "simulated_direction": "down"
+            },
+            "pct_spikes_in_bursts": {
+              "agrees": true,
+              "real_delta": -1.702,
+              "real_direction": "down",
+              "real_established": true,
+              "simulated_delta": -0.186,
+              "simulated_direction": "down"
+            },
+            "synchrony_index": {
+              "agrees": true,
+              "real_delta": -4.322,
+              "real_direction": "down",
+              "real_established": true,
+              "simulated_delta": -1.156,
+              "simulated_direction": "down"
+            }
+          },
+          "twin_agreeing": 4
+        },
+        "excitability_block": {
+          "condition": "excitability_block_1.6",
+          "fly_agreeing": 3,
+          "fly_scored": 3,
+          "mechanism": "na_channel_blocker",
+          "table": {
+            "burst_rate_per_min": {
+              "agrees": true,
+              "real_delta": -1.737,
+              "real_direction": "down",
+              "real_established": true,
+              "simulated_delta": -4.322,
+              "simulated_direction": "down"
+            },
+            "isi_cv": {
+              "agrees": null,
+              "real_delta": -0.041,
+              "real_direction": "down",
+              "real_established": false,
+              "simulated_delta": null,
+              "simulated_direction": null
+            },
+            "mfr_hz": {
+              "agrees": true,
+              "real_delta": -0.795,
+              "real_direction": "down",
+              "real_established": true,
+              "simulated_delta": -4.322,
+              "simulated_direction": "down"
+            },
+            "network_burst_rate_per_min": {
+              "agrees": null,
+              "real_delta": -4.322,
+              "real_direction": "down",
+              "real_established": false,
+              "simulated_delta": -4.322,
+              "simulated_direction": "down"
+            },
+            "pct_spikes_in_bursts": {
+              "agrees": true,
+              "real_delta": -1.188,
+              "real_direction": "down",
+              "real_established": true,
+              "simulated_delta": -4.322,
+              "simulated_direction": "down"
+            },
+            "synchrony_index": {
+              "agrees": null,
+              "real_delta": -1.932,
+              "real_direction": "down",
+              "real_established": false,
+              "simulated_delta": null,
+              "simulated_direction": null
+            }
+          },
+          "twin_agreeing": 3
+        },
+        "gaba_block": {
+          "condition": "gaba_block_0.2",
+          "fly_agreeing": 2,
+          "fly_scored": 5,
+          "mechanism": "gabaa_antagonist",
+          "table": {
+            "burst_rate_per_min": {
+              "agrees": false,
+              "real_delta": -0.548,
+              "real_direction": "down",
+              "real_established": true,
+              "simulated_delta": 0.172,
+              "simulated_direction": "up"
+            },
+            "isi_cv": {
+              "agrees": null,
+              "real_delta": 0.038,
+              "real_direction": "up",
+              "real_established": false,
+              "simulated_delta": -0.626,
+              "simulated_direction": "down"
+            },
+            "mfr_hz": {
+              "agrees": false,
+              "real_delta": -0.335,
+              "real_direction": "down",
+              "real_established": true,
+              "simulated_delta": 1.006,
+              "simulated_direction": "up"
+            },
+            "network_burst_rate_per_min": {
+              "agrees": false,
+              "real_delta": -0.66,
+              "real_direction": "down",
+              "real_established": true,
+              "simulated_delta": 4.719,
+              "simulated_direction": "up"
+            },
+            "pct_spikes_in_bursts": {
+              "agrees": true,
+              "real_delta": 0.037,
+              "real_direction": "up",
+              "real_established": true,
+              "simulated_delta": 0.069,
+              "simulated_direction": "up"
+            },
+            "synchrony_index": {
+              "agrees": true,
+              "real_delta": 0.11,
+              "real_direction": "up",
+              "real_established": true,
+              "simulated_delta": 1.098,
+              "simulated_direction": "up"
+            }
+          },
+          "twin_agreeing": 4
+        },
+        "gaba_potentiate": {
+          "condition": "gaba_potentiate_2",
+          "fly_agreeing": 3,
+          "fly_scored": 4,
+          "mechanism": "gabaa_agonist_or_pam",
+          "table": {
+            "burst_rate_per_min": {
+              "agrees": true,
+              "real_delta": -0.353,
+              "real_direction": "down",
+              "real_established": true,
+              "simulated_delta": -0.362,
+              "simulated_direction": "down"
+            },
+            "isi_cv": {
+              "agrees": false,
+              "real_delta": -0.231,
+              "real_direction": "down",
+              "real_established": true,
+              "simulated_delta": 0.228,
+              "simulated_direction": "up"
+            },
+            "mfr_hz": {
+              "agrees": true,
+              "real_delta": -0.471,
+              "real_direction": "down",
+              "real_established": true,
+              "simulated_delta": -0.992,
+              "simulated_direction": "down"
+            },
+            "network_burst_rate_per_min": {
+              "agrees": null,
+              "real_delta": 0.06,
+              "real_direction": "up",
+              "real_established": false,
+              "simulated_delta": -4.322,
+              "simulated_direction": "down"
+            },
+            "pct_spikes_in_bursts": {
+              "agrees": true,
+              "real_delta": -0.282,
+              "real_direction": "down",
+              "real_established": true,
+              "simulated_delta": -0.133,
+              "simulated_direction": "down"
+            },
+            "synchrony_index": {
+              "agrees": null,
+              "real_delta": 0.062,
+              "real_direction": "up",
+              "real_established": false,
+              "simulated_delta": -0.62,
+              "simulated_direction": "down"
+            }
+          },
+          "twin_agreeing": 1
+        }
+      },
+      "fly_total": 12,
+      "twin_total": 12
+    },
+    "deviations": {
+      "regions_driven_whole_because_smaller_than_registered_drive": {
+        "AME_L": 16,
+        "AME_R": 16,
+        "ATL_R": 15,
+        "GOR_L": 13,
+        "GOR_R": 10,
+        "MB_PED_L": 15,
+        "MB_PED_R": 9,
+        "MB_VL_L": 13
+      }
+    },
+    "direction": {
+      "array": {
+        "evoked": {
+          "n_pairs": 698,
+          "n_strong": 180,
+          "sign_agreement": 0.5057,
+          "sign_agreement_strong": 0.4889,
+          "spearman": 0.0102,
+          "spearman_p": 0.7871422123074189
+        },
+        "spontaneous": {
+          "n_pairs": 3,
+          "n_strong": 0,
+          "sign_agreement": 0.6667,
+          "sign_agreement_strong": null,
+          "spearman": -0.5,
+          "spearman_p": 0.6666666666666666
+        }
+      },
+      "n_pairs": 698,
+      "whole_region": {
+        "evoked": {
+          "n_pairs": 698,
+          "n_strong": 180,
+          "sign_agreement": 0.5415,
+          "sign_agreement_strong": 0.6222,
+          "spearman": 0.2005,
+          "spearman_p": 9.124434488995001e-08
+        },
+        "spontaneous": {
+          "n_pairs": 401,
+          "n_strong": 93,
+          "sign_agreement": 0.4863,
+          "sign_agreement_strong": 0.4946,
+          "spearman": -0.0263,
+          "spearman_p": 0.5991168111864816
+        }
+      }
+    },
+    "exploratory": {
+      "first_detecting_dose_by_chip_feature": {
+        "ach_block": {
+          "burst_rate_per_min": 0.1999999999999999,
+          "isi_cv": null,
+          "mfr_hz": 0.4,
+          "network_burst_rate_per_min": 0.1999999999999999,
+          "pct_spikes_in_bursts": 0.8,
+          "synchrony_index": 0.4
+        },
+        "excitability_block": {
+          "burst_rate_per_min": 0.1,
+          "isi_cv": null,
+          "mfr_hz": 0.3999999999999999,
+          "network_burst_rate_per_min": 0.1,
+          "pct_spikes_in_bursts": 0.3999999999999999,
+          "synchrony_index": 0.1999999999999999
+        },
+        "gaba_block": {
+          "burst_rate_per_min": null,
+          "isi_cv": 0.8,
+          "mfr_hz": 0.6,
+          "network_burst_rate_per_min": 0.1999999999999999,
+          "pct_spikes_in_bursts": null,
+          "synchrony_index": 0.6
+        },
+        "gaba_potentiate": {
+          "burst_rate_per_min": null,
+          "isi_cv": null,
+          "mfr_hz": 1.0,
+          "network_burst_rate_per_min": 0.25,
+          "pct_spikes_in_bursts": null,
+          "synchrony_index": 1.0
+        },
+        "glucl_block": {
+          "burst_rate_per_min": null,
+          "isi_cv": 1.0,
+          "mfr_hz": 0.8,
+          "network_burst_rate_per_min": 0.1999999999999999,
+          "pct_spikes_in_bursts": null,
+          "synchrony_index": 0.6
+        }
+      },
+      "sentinel_chip_first_leaving_one_readout_out": {
+        "without_abn1_jon_ce": {
+          "ach_block": false,
+          "excitability_block": false,
+          "gaba_block": false,
+          "gaba_potentiate": false,
+          "glucl_block": false
+        },
+        "without_dn_recruited": {
+          "ach_block": false,
+          "excitability_block": false,
+          "gaba_block": false,
+          "gaba_potentiate": false,
+          "glucl_block": false
+        },
+        "without_mn9_sugar": {
+          "ach_block": false,
+          "excitability_block": false,
+          "gaba_block": false,
+          "gaba_potentiate": false,
+          "glucl_block": false
+        },
+        "without_mn9_sugar_bitter": {
+          "ach_block": false,
+          "excitability_block": true,
+          "gaba_block": false,
+          "gaba_potentiate": false,
+          "glucl_block": null
+        }
+      },
+      "spearman_abs_delta_vs_disruption": {
+        "burst_rate_per_min": 0.513,
+        "isi_cv": 0.614,
+        "mfr_hz": 0.863,
+        "network_burst_rate_per_min": 0.415,
+        "pct_spikes_in_bursts": 0.827,
+        "synchrony_index": 0.657
+      }
+    },
+    "label": "SIMULATED fly brain (FlyWire 783) vs chip readouts",
+    "predictions": {
+      "A1_direction_agreement_with_real_chips": {
+        "outcome": "pass",
+        "test": "sum of fly agreeing features >= sum of twin agreeing features, scored on the same established real features",
+        "value": {
+          "fly": 12,
+          "twin": 12
+        }
+      },
+      "B1_disinhibition_releases_feeding_from_bitter": {
+        "outcome": "pass",
+        "test": "Spearman(block fraction, MN9|sugar+bitter) over vehicle + 5 gaba_block levels >= 0.8",
+        "value": 1.0
+      },
+      "B2_excitation_block_silences_motor_output": {
+        "outcome": "pass",
+        "test": "Spearman(block fraction, readout) <= -0.8 for both readouts over vehicle + 4 ach_block levels",
+        "value": {
+          "abn1_jon_ce": -0.9746794344808964,
+          "mn9_sugar": -0.8944271909999157
+        }
+      },
+      "B3_disinhibition_recruits_off_target_descending_neurons": {
+        "outcome": "pass",
+        "test": "Spearman(block fraction, descending recruited) >= 0.8",
+        "value": 1.0
+      },
+      "C1_chip_tracks_disruption": {
+        "outcome": "pass",
+        "test": "Spearman(|delta log2 mfr|, disruption index) >= 0.6",
+        "value": 0.8632673401059827
+      },
+      "C2_chip_is_the_earlier_sentinel": {
+        "outcome": "fail",
+        "test": "for each condition family with any impairment: first level with |delta log2 mfr| >= 0.5 comes at or before the first level with disruption >= 0.5",
+        "value": {
+          "ach_block": {
+            "chip_first": false,
+            "first_behaviour_dose": 0.19999999999999996,
+            "first_chip_dose": 0.4
+          },
+          "excitability_block": {
+            "chip_first": false,
+            "first_behaviour_dose": 0.10000000000000009,
+            "first_chip_dose": 0.3999999999999999
+          },
+          "gaba_block": {
+            "chip_first": false,
+            "first_behaviour_dose": 0.19999999999999996,
+            "first_chip_dose": 0.6
+          },
+          "gaba_potentiate": {
+            "chip_first": false,
+            "first_behaviour_dose": 0.25,
+            "first_chip_dose": 1.0
+          },
+          "glucl_block": {
+            "chip_first": false,
+            "first_behaviour_dose": 0.4,
+            "first_chip_dose": 0.8
+          }
+        }
+      },
+      "D1_spontaneous_direction_is_near_chance": {
+        "outcome": "pass",
+        "test": "whole-region sign agreement on strongly asymmetric pairs < 0.65",
+        "value": 0.4946
+      },
+      "D2_pulsed_stimulation_recovers_direction": {
+        "outcome": "fail",
+        "test": "whole-region sign agreement on strongly asymmetric pairs >= 0.70 and exceeds the spontaneous value by >= 0.10",
+        "value": {
+          "evoked": 0.6222,
+          "spontaneous": 0.4946
+        }
+      },
+      "D3_an_electrode_array_sees_it_too": {
+        "outcome": "fail",
+        "test": "array sign agreement on strongly asymmetric pairs >= 0.65",
+        "value": 0.4889
+      },
+      "R1_replication": {
+        "outcome": "pass",
+        "test": "abs(rate_783 / rate_630 - 1) <= 0.20",
+        "value": {
+          "mn9_630_hz": 77.375,
+          "mn9_783_hz": 76.75,
+          "ratio": 0.9919224555735057
+        }
+      }
+    },
+    "quick": false,
+    "registration": {
+      "committed_at": "2026-10-22T22:23:00-04:00",
+      "file": "preregistration/fly_chip_to_animal.json",
+      "registered_in_commit": "c83eb14d20f18ce1ebd923bdd061256880a5330d",
+      "sha256": "6b70053be3cc188e967643006f17d1aaded2890018ccde2dd717e5f43d91bc03"
+    },
+    "sensitivity": {
+      "0.25": {
+        "ach_block": {
+          "chip_first": true,
+          "first_behaviour_dose": 0.1999999999999999,
+          "first_chip_dose": 0.1999999999999999
+        },
+        "excitability_block": {
+          "chip_first": false,
+          "first_behaviour_dose": 0.1,
+          "first_chip_dose": 0.3999999999999999
+        },
+        "gaba_block": {
+          "chip_first": false,
+          "first_behaviour_dose": 0.1999999999999999,
+          "first_chip_dose": 0.4
+        },
+        "gaba_potentiate": {
+          "chip_first": false,
+          "first_behaviour_dose": 0.25,
+          "first_chip_dose": 0.5
+        },
+        "glucl_block": {
+          "chip_first": true,
+          "first_behaviour_dose": 0.4,
+          "first_chip_dose": 0.4
+        }
+      },
+      "1.0": {
+        "ach_block": {
+          "chip_first": false,
+          "first_behaviour_dose": 0.1999999999999999,
+          "first_chip_dose": 0.6
+        },
+        "excitability_block": {
+          "chip_first": false,
+          "first_behaviour_dose": 0.1,
+          "first_chip_dose": 0.3999999999999999
+        },
+        "gaba_block": {
+          "chip_first": false,
+          "first_behaviour_dose": 0.1999999999999999,
+          "first_chip_dose": 0.8
+        },
+        "gaba_potentiate": {
+          "chip_first": false,
+          "first_behaviour_dose": 0.25,
+          "first_chip_dose": null
+        },
+        "glucl_block": {
+          "chip_first": false,
+          "first_behaviour_dose": 0.4,
+          "first_chip_dose": null
+        }
+      }
+    }
+  },
+  "fly_confirm_network_bursts": {
+    "flywire": {
+      "firing_rate": {
+        "ach_block": {
+          "chip_first": false,
+          "first_behaviour_dose": 0.1999999999999999,
+          "first_chip_dose": 0.4
+        },
+        "excitability_block": {
+          "chip_first": false,
+          "first_behaviour_dose": 0.1999999999999999,
+          "first_chip_dose": 0.6000000000000001
+        },
+        "gaba_block": {
+          "chip_first": false,
+          "first_behaviour_dose": 0.1999999999999999,
+          "first_chip_dose": 0.6
+        },
+        "gaba_potentiate": {
+          "chip_first": false,
+          "first_behaviour_dose": 0.25,
+          "first_chip_dose": 1.0
+        },
+        "glucl_block": {
+          "chip_first": false,
+          "first_behaviour_dose": 0.4,
+          "first_chip_dose": 0.8
+        }
+      },
+      "network_bursts": {
+        "ach_block": {
+          "chip_first": false,
+          "first_behaviour_dose": 0.1999999999999999,
+          "first_chip_dose": 0.4
+        },
+        "excitability_block": {
+          "chip_first": true,
+          "first_behaviour_dose": 0.1999999999999999,
+          "first_chip_dose": 0.1
+        },
+        "gaba_block": {
+          "chip_first": true,
+          "first_behaviour_dose": 0.1999999999999999,
+          "first_chip_dose": 0.1999999999999999
+        },
+        "gaba_potentiate": {
+          "chip_first": false,
+          "first_behaviour_dose": 0.25,
+          "first_chip_dose": 0.5
+        },
+        "glucl_block": {
+          "chip_first": true,
+          "first_behaviour_dose": 0.4,
+          "first_chip_dose": 0.1999999999999999
+        }
+      }
+    },
+    "label": "SIMULATED confirmation of the network-burst sentinel (FlyWire, MaleCNS)",
+    "malecns": {
+      "firing_rate": {
+        "ach_block": {
+          "chip_first": true,
+          "first_behaviour_dose": 0.4,
+          "first_chip_dose": 0.4
+        },
+        "excitability_block": {
+          "chip_first": true,
+          "first_behaviour_dose": 0.3999999999999999,
+          "first_chip_dose": 0.3999999999999999
+        },
+        "gaba_block": {
+          "chip_first": false,
+          "first_behaviour_dose": 0.4,
+          "first_chip_dose": 0.6
+        },
+        "gaba_potentiate": {
+          "chip_first": true,
+          "first_behaviour_dose": 1.0,
+          "first_chip_dose": 1.0
+        },
+        "glucl_block": {
+          "chip_first": false,
+          "first_behaviour_dose": 0.6,
+          "first_chip_dose": 0.8
+        }
+      },
+      "network_bursts": {
+        "ach_block": {
+          "chip_first": true,
+          "first_behaviour_dose": 0.4,
+          "first_chip_dose": 0.1999999999999999
+        },
+        "excitability_block": {
+          "chip_first": true,
+          "first_behaviour_dose": 0.3999999999999999,
+          "first_chip_dose": 0.3999999999999999
+        },
+        "gaba_block": {
+          "chip_first": true,
+          "first_behaviour_dose": 0.4,
+          "first_chip_dose": 0.1999999999999999
+        },
+        "gaba_potentiate": {
+          "chip_first": true,
+          "first_behaviour_dose": 1.0,
+          "first_chip_dose": 0.25
+        },
+        "glucl_block": {
+          "chip_first": true,
+          "first_behaviour_dose": 0.6,
+          "first_chip_dose": 0.1999999999999999
+        }
+      }
+    },
+    "pooled_out_of_sample": {
+      "firing_rate_at_or_before_behaviour": 3,
+      "network_bursts_at_or_before_behaviour": 8,
+      "tests": 10
+    },
+    "predictions": {
+      "N1_network_bursts_are_an_early_sentinel_flywire": {
+        "outcome": "fail",
+        "test": "in all five families with any impairment: first network_burst dose <= first behaviour dose",
+        "value": {
+          "families_meeting": 3,
+          "families_scored": 5
+        }
+      },
+      "N2_firing_rate_lags_flywire": {
+        "outcome": "pass",
+        "test": "first mfr dose > first behaviour dose in at least 4 of the families with any impairment",
+        "value": {
+          "families_meeting": 5,
+          "families_scored": 5
+        }
+      },
+      "N3_network_bursts_are_an_early_sentinel_malecns": {
+        "outcome": "pass",
+        "test": "first network_burst dose <= first behaviour dose in at least 4 of the families with any impairment; reported as uninterpretable if MaleCNS M0 fails",
+        "value": {
+          "families_meeting": 5,
+          "families_scored": 5
+        }
+      },
+      "N4_firing_rate_lags_malecns": {
+        "outcome": "fail",
+        "test": "first mfr dose > first behaviour dose in at least 4 of the families with any impairment; uninterpretable if M0 fails",
+        "value": {
+          "families_meeting": 2,
+          "families_scored": 5
+        }
+      }
+    },
+    "registration": {
+      "committed_at": "2026-10-22T23:15:07-04:00",
+      "file": "preregistration/fly_confirm_network_bursts.json",
+      "registered_in_commit": "f6511fc95faf52e5b6fa0c960acfd23e5b52f515",
+      "sha256": "e3de7aa605a106caa9dd3a0a2e044bd33b75d1a715357b17fc52190fb6c75307"
+    }
+  },
+  "fly_malecns_replication": {
+    "deviations": {
+      "neuron_sets": "types also matched through MaleCNS's flywireType cross-reference, not only by type name: by name alone no body matches FlyWire MN9 (CB0701). Decided before any MaleCNS simulation."
+    },
+    "label": "SIMULATED male CNS (MaleCNS v1.0) replication of the fly study",
+    "neuron_set_sizes": {
+      "abn1": 1,
+      "adn1": 1,
+      "bitter_grn": 19,
+      "jon_ce": 203,
+      "jon_f": 49,
+      "mn9": 1,
+      "sugar_grn_right": 32
+    },
+    "predictions": {
+      "M0_feeding_circuit_exists": {
+        "outcome": "pass",
+        "test": "MN9|sugar (vehicle) >= 20 Hz and MN9|sugar+bitter <= 0.5 x MN9|sugar",
+        "value": {
+          "mn9_sugar_bitter_hz": 0.0,
+          "mn9_sugar_hz": 31.625
+        }
+      },
+      "M_B1": {
+        "outcome": "pass",
+        "test": "Spearman(block fraction, MN9|sugar+bitter) over vehicle + 5 gaba_block levels >= 0.8",
+        "value": 0.9411239481143202
+      },
+      "M_B2": {
+        "outcome": "pass",
+        "test": "Spearman(block fraction, readout) <= -0.8 for MN9|sugar and aBN1|JO-CE",
+        "value": {
+          "abn1_jon_ce": -0.9999999999999999,
+          "mn9_sugar": -0.8944271909999157
+        }
+      },
+      "M_B3": {
+        "outcome": "pass",
+        "test": "Spearman(block fraction, descending recruited) >= 0.8",
+        "value": 1.0
+      },
+      "M_C1": {
+        "outcome": "pass",
+        "test": "Spearman(|delta log2 mfr|, disruption index) >= 0.6 over the 21 drug conditions",
+        "value": 0.877922077922078
+      }
+    },
+    "registration": {
+      "committed_at": "2026-10-22T22:32:39-04:00",
+      "file": "preregistration/fly_malecns_replication.json",
+      "registered_in_commit": "886ddde74dcc8d056c46636162200b6c29638e0e",
+      "sha256": "617cd7dd3595fe7d9dd58ebbdd19d441e1ebb7869eb2d004362da2b660f2629b"
+    }
+  },
   "harness_quick": {
     "brian2": "2.9.0",
     "by_stage_s": {
