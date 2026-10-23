@@ -322,3 +322,18 @@ def metrics_payload(result: dict) -> dict:
     if "agreement" in payload:
         payload["agreement"] = {k: v for k, v in payload["agreement"].items()}
     return clean(payload)
+
+
+def model_sizes() -> dict:
+    """Neurons, connections and synapses of the two fly-brain models, as built."""
+    from neuromps.fly import connectome, malecns
+
+    out = {}
+    for name, con in (("flywire783", connectome.cached()), ("malecns", malecns.cached()[0])):
+        out[name] = {
+            "neurons": con.n_neurons,
+            "connections": int(con.pre.size),
+            "synapses": int(con.synapses.sum()),
+            "inhibitory_connections": int((con.sign < 0).sum()),
+        }
+    return out

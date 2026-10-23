@@ -1806,6 +1806,45 @@
       "reading": "the features carry a dose signal that the twin's posterior does not recover, so the inverse model is what fails"
     }
   },
+  "fly_checks": {
+    "false_alarm_rate_untreated": {
+      "by_feature": {
+        "burst_rate_per_min": 0.0,
+        "isi_cv": 0.0,
+        "mfr_hz": 0.0,
+        "network_burst_rate_per_min": 0.382,
+        "pct_spikes_in_bursts": 0.0,
+        "q95_abs_log2": {
+          "burst_rate_per_min": 0.075,
+          "isi_cv": 0.037,
+          "mfr_hz": 0.028,
+          "network_burst_rate_per_min": 1.0,
+          "pct_spikes_in_bursts": 0.002,
+          "synchrony_index": 0.325
+        },
+        "synchrony_index": 0.0
+      },
+      "group": 3,
+      "seeds": 12,
+      "splits": 500,
+      "threshold": 0.5
+    },
+    "network_bursts_vs_shifted_trains": {
+      "gaba_block_0.8": {
+        "n_shifts": 20,
+        "network_bursts_per_min": 48.0,
+        "shifted_max": 42.0,
+        "shifted_mean": 26.7
+      },
+      "vehicle": {
+        "n_shifts": 20,
+        "network_bursts_per_min": 0.0,
+        "shifted_max": 36.0,
+        "shifted_mean": 12.0
+      }
+    },
+    "seed": 900
+  },
   "fly_chip_to_animal": {
     "agreement": {
       "by_family": {
@@ -2449,6 +2488,41 @@
       "network_bursts_at_or_before_behaviour": 8,
       "tests": 10
     },
+    "precision": {
+      "abs_log2_mfr_change_at_behavioural_onset": {
+        "flywire_fresh_seeds": {
+          "ach_block": 0.314,
+          "excitability_block": 0.18,
+          "gaba_block": 0.144,
+          "gaba_potentiate": 0.205,
+          "glucl_block": 0.244
+        },
+        "flywire_sweep": {
+          "ach_block": 0.304,
+          "excitability_block": 0.124,
+          "gaba_block": 0.149,
+          "gaba_potentiate": 0.199,
+          "glucl_block": 0.263
+        },
+        "malecns": {
+          "ach_block": 1.164,
+          "excitability_block": 0.621,
+          "gaba_block": 0.23,
+          "gaba_potentiate": 1.459,
+          "glucl_block": 0.318
+        }
+      },
+      "real_chip_noise": {
+        "kapucu2022_control": {
+          "n": 10,
+          "q95_abs_log2": 0.156
+        },
+        "vassallo2017_inactive": {
+          "n": 74,
+          "q95_abs_log2": 1.752
+        }
+      }
+    },
     "predictions": {
       "N1_network_bursts_are_an_early_sentinel_flywire": {
         "outcome": "fail",
@@ -2542,6 +2616,20 @@
       "file": "preregistration/fly_malecns_replication.json",
       "registered_in_commit": "886ddde74dcc8d056c46636162200b6c29638e0e",
       "sha256": "617cd7dd3595fe7d9dd58ebbdd19d441e1ebb7869eb2d004362da2b660f2629b"
+    }
+  },
+  "fly_models": {
+    "flywire783": {
+      "connections": 15091983,
+      "inhibitory_connections": 6032681,
+      "neurons": 138639,
+      "synapses": 54492922
+    },
+    "malecns": {
+      "connections": 25563096,
+      "inhibitory_connections": 9802138,
+      "neurons": 165122,
+      "synapses": 124024573
     }
   },
   "harness_quick": {

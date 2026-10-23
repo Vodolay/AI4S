@@ -158,3 +158,37 @@ def test_the_pooled_count_uses_only_out_of_sample_verdicts() -> None:
         "network_bursts_at_or_before_behaviour": 1,
         "firing_rate_at_or_before_behaviour": 1,
     }
+
+
+def test_a_circular_shift_keeps_each_rate_and_breaks_coincidence() -> None:
+    from neuromps.fly import checks
+
+    rng = np.random.default_rng(0)
+    trains = [np.arange(0.5, 10, 1.0) for _ in range(4)]  # perfectly coincident
+    moved = checks.shifted(trains, 10.0, rng)
+    assert [t.size for t in moved] == [t.size for t in trains]
+    assert all(np.all((t >= 0) & (t < 10)) for t in moved)
+    assert len({round(float(t[0]), 6) for t in moved}) == 4
+
+
+def test_false_alarms_count_untreated_splits_that_cross_the_threshold() -> None:
+    from neuromps.fly import checks
+
+    steady = [{"mfr_hz": 10.0, "network_burst_rate_per_min": 10.0} for _ in range(6)]
+    jumpy = [{"mfr_hz": 10.0, "network_burst_rate_per_min": v} for v in (1, 40, 1, 40, 1, 40)]
+    assert checks.false_alarms(steady, 0.5, splits=50)["network_burst_rate_per_min"] == 0.0
+    assert checks.false_alarms(jumpy, 0.5, splits=50)["network_burst_rate_per_min"] > 0.3
+    assert checks.false_alarms(jumpy, 0.5, splits=50)["mfr_hz"] == 0.0
+
+
+def test_precision_needed_reads_the_chip_change_at_behavioural_onset() -> None:
+    rows = pd.DataFrame(
+        {
+            "family": ["f", "f", "g"],
+            "dose": [0.2, 0.4, 0.2],
+            "delta.mfr_hz": [-0.1, -0.6, 0.3],
+            "disruption": [0.2, 0.9, 0.1],
+        }
+    )
+    got = analysis.precision_needed(rows, 0.5, "delta.mfr_hz")
+    assert got == {"f": pytest.approx(0.6), "g": None}

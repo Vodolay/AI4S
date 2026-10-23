@@ -59,3 +59,16 @@ def sentinel_sensitivity(
         f"{t:g}" if t != int(t) else f"{t:.1f}": sentinel(rows, t, behaviour_threshold)
         for t in chip_thresholds
     }
+
+
+def precision_needed(rows: pd.DataFrame, behaviour_threshold: float, column: str) -> dict:
+    """Per family: |change| in a chip feature at the first dose that impairs behaviour.
+
+    A chip whose untreated noise is below this value would flag the drug no later
+    than the behaviour readouts fail; one whose noise is above it would not.
+    """
+    out = {}
+    for family, rows_f in rows.groupby("family"):
+        hit = rows_f[rows_f["disruption"] >= behaviour_threshold].sort_values("dose")
+        out[family] = None if hit.empty else float(abs(hit.iloc[0][column]))
+    return out

@@ -84,6 +84,41 @@ def pooled(out_of_sample: list[dict]) -> dict:
     return out
 
 
+def real_noise_floors(quantile: float = 0.95) -> dict:
+    """Real chips' untreated variation in firing rate: |log2 change| of no-mechanism pairs.
+
+    Kapucu's vehicle controls and Vassallo's inactive compounds are the only
+    pairs in the asset with no drug mechanism; they differ a lot, so both are
+    reported rather than pooled.
+    """
+    from neuromps.models.dataset import load_pairs
+
+    pairs = load_pairs()
+    out = {}
+    for (label, source), rows in pairs[pairs["label"].isin(["control", "inactive"])].groupby(
+        ["label", "source"]
+    ):
+        values = rows["delta.mfr_hz"].abs().dropna()
+        out[f"{source}_{label}"] = {
+            "n": int(values.size),
+            "q95_abs_log2": round(float(values.quantile(quantile)), 3),
+        }
+    return out
+
+
+def precision(tables: dict[str, pd.DataFrame], spec: dict) -> dict:
+    """Exploratory: the firing-rate change a chip must resolve to flag each mechanism in time."""
+    impair = spec["design"]["behaviour_impairment_threshold"]
+    needed = {}
+    for name, frame in tables.items():
+        drugs = frame[frame["family"] != "vehicle"]
+        needed[name] = analysis.precision_needed(drugs, impair, "delta.mfr_hz")
+    return {
+        "abs_log2_mfr_change_at_behavioural_onset": needed,
+        "real_chip_noise": real_noise_floors(),
+    }
+
+
 def _counts(v: dict) -> tuple[int, int, int]:
     """(families scored, network first-or-tie, firing rate strictly later)."""
     scored = [f for f, e in v["network_bursts"].items() if e["chip_first"] is not None]
@@ -141,6 +176,18 @@ def _ladder(spec: dict, flywire: dict, malecns: dict | None) -> None:
     figures.sentinel_ladder(panels, figures_dir() / "fly_sentinel_ladder_SIMULATED.png")
 
 
+def _tables(fresh: pd.DataFrame) -> dict[str, pd.DataFrame]:
+    out_dir = outputs_dir() / "fly"
+    tables = {
+        "flywire_sweep": pd.read_csv(out_dir / "conditions_SIMULATED.csv"),
+        "flywire_fresh_seeds": fresh,
+    }
+    male = out_dir / "malecns_conditions_SIMULATED.csv"
+    if male.exists():
+        tables["malecns"] = pd.read_csv(male)
+    return tables
+
+
 def main(argv: list[str] | None = None) -> int:
     """CLI: run the fresh-seed FlyWire runs (unless --score-only) and score N1-N4."""
     p = argparse.ArgumentParser(description=__doc__)
@@ -165,6 +212,7 @@ def main(argv: list[str] | None = None) -> int:
         "flywire": flywire,
         "malecns": malecns,
         "registration": design.provenance(ADDENDUM),
+        "precision": precision(_tables(frame), spec),
         # Not a registered test: the two out-of-sample runs pooled, for the summary line.
         "pooled_out_of_sample": pooled([v for v in (flywire, malecns) if v is not None]),
     }

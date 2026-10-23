@@ -30,9 +30,11 @@ def render(stamps: dict[str, float]) -> None:
     if frame.empty:
         st.info(loaders.MISSING_FLY)
         return
+    size = metrics.get("fly_models", {}).get("flywire783", {}).get("neurons")
+    neurons = f"{size:,} neurons, " if size else ""
     st.markdown(
         "The digital twin's drug knobs, applied to a **simulated** whole adult fly brain "
-        "(138,639 neurons, FlyWire 783, the Shiu et al. 2024 model). The same brain is read two "
+        f"({neurons}FlyWire 783, the Shiu et al. 2024 model). The same brain is read two "
         "ways: by a virtual electrode array scored with the chip's own feature extractor, and "
         "by the behaviour neurons the published model validated. Which chip changes come with "
         "behavioural ones?"
@@ -62,7 +64,7 @@ def _controls(frame: pd.DataFrame):
     rows = frame[frame["family"] == family].sort_values("dose")
     levels = ["untreated", *[f"{v:g}" for v in rows["level"]]]
     pick = st.select_slider(
-        f"Knob level ({rows['condition'].iloc[0].rsplit('_', 1)[0]}; 1 = untreated)",
+        f"{FAMILIES[family]}: knob level (1 = untreated)",
         options=levels,
         value=levels[-1],
         key=f"fly_level_{family}",
@@ -120,7 +122,11 @@ def _dose_chart(rows: pd.DataFrame, vehicle: pd.Series, row: pd.Series) -> None:
         .encode(
             x="knob change from untreated:Q",
             y="value:Q",
-            color=alt.Color("readout:N", scale=alt.Scale(range=["#0072B2", "#D55E00"])),
+            color=alt.Color(
+                "readout:N",
+                scale=alt.Scale(range=["#0072B2", "#D55E00"]),
+                legend=alt.Legend(orient="bottom", labelLimit=400, title=None),
+            ),
         )
     )
     marker = (
@@ -186,12 +192,34 @@ def _ladder(metrics: dict) -> None:
         return
     st.subheader("Which readout raises the alarm first?")
     st.image(str(figure), width="stretch")
-    pooled = metrics.get("fly_confirm_network_bursts", {}).get("pooled_out_of_sample", {})
-    if pooled:
+    confirm = metrics.get("fly_confirm_network_bursts", {})
+    alarms = metrics.get("fly_checks", {}).get("false_alarm_rate_untreated", {})
+    pooled = confirm.get("pooled_out_of_sample", {})
+    if pooled and alarms:
         st.caption(
             "First dose at which behaviour is impaired (disruption >= 0.5) and at which each chip "
-            "feature changes by 0.5 log2 or more. Out of sample (fresh seeds, and the male CNS), "
-            f"network-burst rate was not later than behaviour in "
-            f"{pooled['network_bursts_at_or_before_behaviour']} of {pooled['tests']} mechanism "
-            f"tests; firing rate in {pooled['firing_rate_at_or_before_behaviour']}. SIMULATED."
+            "feature changes by 0.5 log2. Network-burst rate looks early "
+            f"({pooled['network_bursts_at_or_before_behaviour']} of {pooled['tests']} "
+            "out-of-sample tests), but it is noise: two groups of untreated recordings already "
+            f"differ by 0.5 log2 in {alarms['by_feature']['network_burst_rate_per_min']:.0%} of "
+            "random splits. Firing rate never does, and it is late. SIMULATED."
         )
+    _precision(confirm.get("precision", {}))
+
+
+def _precision(precision: dict) -> None:
+    needed = precision.get("abs_log2_mfr_change_at_behavioural_onset", {})
+    if not needed:
+        return
+    st.subheader("How precise must a chip be to flag each mechanism in time?")
+    table = pd.DataFrame(needed).rename(index=FAMILIES)
+    table.columns = [c.replace("_", " ") for c in table.columns]
+    st.dataframe(table, width="stretch")
+    noise = precision.get("real_chip_noise", {})
+    floors = ", ".join(f"{k.replace('_', ' ')}: {v['q95_abs_log2']}" for k, v in noise.items())
+    st.caption(
+        "The |log2| change in the array's firing rate at the first dose that impairs behaviour: a "
+        "chip must resolve a change this small to flag the drug no later than the behaviour "
+        f"readouts fail. Untreated variation measured on real chips (95th percentile): {floors}. "
+        "SIMULATED."
+    )

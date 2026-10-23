@@ -168,6 +168,7 @@ def rescore() -> int:
     path.write_text(json.dumps(scoring.clean(result), indent=2) + "\n")
     figures.all_figures({"conditions": frame}, result, figures_dir())
     update_metrics("fly_chip_to_animal", scoring.metrics_payload(result))
+    update_metrics("fly_models", scoring.model_sizes())
     print(
         json.dumps(
             scoring.clean(
@@ -216,6 +217,7 @@ def main(argv: list[str] | None = None) -> int:
     )
     figures.all_figures(tables, result, figures_dir())
     update_metrics("fly_chip_to_animal", scoring.metrics_payload(result))
+    update_metrics("fly_models", scoring.model_sizes())
     for name, entry in result.get("predictions", {}).items():
         print(f"{name:55s} {entry['outcome']:>6}  {entry['value']}")
     return 0
