@@ -14,6 +14,8 @@ from __future__ import annotations
 import json
 import logging
 from concurrent.futures import ProcessPoolExecutor
+from dataclasses import dataclass, field
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -32,6 +34,28 @@ DURATION_S = 1.0
 TAU_S = 0.02
 WORKERS_GB = 12.0
 _STATE: dict = {}
+SHIU_W_SYN_MV = 0.275
+PREDICTIONS = (
+    "S1a_antennal_drive_brings_the_claw_to_the_head",
+    "S1b_it_is_a_movement_toward_the_head",
+    "S1c_the_activation_scale_does_not_decide_it",
+)
+
+
+@dataclass(frozen=True)
+class Config:
+    """What distinguishes one registered run of this design from another."""
+
+    registration: Path = REGISTRATION
+    seeds: tuple[int, ...] = tuple(SEEDS)
+    w_syn_mv: float = SHIU_W_SYN_MV
+    predictions: tuple[str, str, str] = PREDICTIONS
+    metrics_key: str = "embodied_stage1"
+    stem: str = "embodied_stage1"
+    extra: dict = field(default_factory=dict)
+    # False when a registered precondition failed: the leg predictions are then
+    # reported as uninterpretable rather than as passes or failures.
+    interpretable: bool = True
 
 
 def _init(context: jobs.Context) -> None:
@@ -46,10 +70,10 @@ def _init(context: jobs.Context) -> None:
 
 def _trial(job) -> dict:
     """One 1 s trial: spike times of every mapped left front-leg motor neuron."""
-    drive, seed = job
+    drive, seed, w_syn = job
     ctx, con = jobs._STATE["context"], jobs._STATE["con"]
     sets = {"jon_ce": "jon_ce", "sugar": "sugar_grn_right", "none": None}[drive]
-    params = jobs._base(duration_s=DURATION_S, stim_rate_hz=150.0, seed=seed)
+    params = jobs._base(duration_s=DURATION_S, stim_rate_hz=150.0, seed=seed, w_syn_mv=w_syn)
     excite = con.index_of(ctx.sets[sets]) if sets else []
     spikes = model.simulate(con, params, excite=excite)
     neurons = sorted({n for v in _STATE["assignment"].neurons_by_muscle.values() for n in v})
@@ -82,8 +106,8 @@ def activations(trial: dict, r_full: float, names: list[str]) -> np.ndarray:
     )
 
 
-def score(table: pd.DataFrame, spec: dict) -> dict:
-    """S1a-S1c with values and outcomes."""
+def score(table: pd.DataFrame, spec: dict, names: tuple[str, ...] = PREDICTIONS) -> dict:
+    """The three registered leg predictions (S1a-S1c, or their stage-1b twins)."""
 
     def s1a(scale):
         med = table[table["r_full"] == scale].groupby("drive")["min_distance_mm"].median()
@@ -95,12 +119,12 @@ def score(table: pd.DataFrame, spec: dict) -> dict:
     below = int((jon["min_distance_mm"] < body.REST_DISTANCE_MM).sum())
     others = {f"r_full_{s:g}": s1a(s) for s in (10.0, 40.0)}
     found = {
-        "S1a_antennal_drive_brings_the_claw_to_the_head": (primary, ok_a),
-        "S1b_it_is_a_movement_toward_the_head": (
+        names[0]: (primary, ok_a),
+        names[1]: (
             {"trials_below_rest": below, "trials": int(len(jon))},
             below >= 6,
         ),
-        "S1c_the_activation_scale_does_not_decide_it": (
+        names[2]: (
             {k: v[0] for k, v in others.items()},
             all(v[1] for v in others.values()),
         ),
@@ -109,6 +133,12 @@ def score(table: pd.DataFrame, spec: dict) -> dict:
         n: {"test": spec["predictions"][n]["test"], "value": v, "outcome": "pass" if ok else "fail"}
         for n, (v, ok) in found.items()
     }
+
+
+def _gate(predictions: dict, config: Config) -> dict:
+    if config.interpretable:
+        return predictions
+    return {k: {**v, "outcome": "uninterpretable"} for k, v in predictions.items()}
 
 
 def _move(args) -> dict:
@@ -167,15 +197,16 @@ def plot(moves: list[dict], names: list[str], path) -> None:
     plt.close(fig)
 
 
-def main(argv: list[str] | None = None) -> int:
-    """CLI: run the registered stage-1 design and score it."""
+def main(argv: list[str] | None = None, config: Config | None = None) -> int:
+    """CLI: run a registered stage-1 design and score it."""
     from neuromps.fly.replication import _context
     from neuromps.paths import figures_dir
 
+    config = config or Config()
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
-    spec = json.loads(REGISTRATION.read_text())
+    spec = json.loads(config.registration.read_text())
     context = _context(design.registration())
-    work = [(d, s) for d in DRIVES for s in SEEDS]
+    work = [(d, s, config.w_syn_mv) for d in DRIVES for s in config.seeds]
     with ProcessPoolExecutor(
         memory_bounded_workers(per_worker_gb=WORKERS_GB), initializer=_init, initargs=(context,)
     ) as pool:
@@ -199,21 +230,22 @@ def main(argv: list[str] | None = None) -> int:
     )
     result = {
         "label": "SIMULATED male CNS driving the FlyMimic leg (open loop)",
-        "predictions": score(table, spec),
+        "predictions": {**config.extra, **_gate(score(table, spec, config.predictions), config)},
+        "w_syn_mv": config.w_syn_mv,
         "coverage": trials[0]["assignment"].coverage,
         "mean_activation_by_drive": activation.groupby("drive")[names]
         .mean()
         .round(4)
         .to_dict(orient="index"),
-        "registration": design.provenance(REGISTRATION),
+        "registration": design.provenance(config.registration),
     }
     out = outputs_dir() / "fly"
-    table.to_csv(out / "embodied_stage1_SIMULATED.csv", index=False)
-    (out / "embodied_stage1_SIMULATED.json").write_text(
+    table.to_csv(out / f"{config.stem}_SIMULATED.csv", index=False)
+    (out / f"{config.stem}_SIMULATED.json").write_text(
         json.dumps(scoring.clean(result), indent=2) + "\n"
     )
-    update_metrics("embodied_stage1", scoring.clean(result))
-    plot(moves, names, figures_dir() / "embodied_stage1_leg_SIMULATED.png")
+    update_metrics(config.metrics_key, scoring.clean(result))
+    plot(moves, names, figures_dir() / f"{config.stem}_leg_SIMULATED.png")
     for name, entry in result["predictions"].items():
         print(f"{name:48s} {entry['outcome']:>5}  {entry['value']}")
     print("coverage", result["coverage"])
