@@ -1,0 +1,35 @@
+{
+  "title": "Embodied fly, stage 2f: Pugliese et al.'s rate model on the male nerve cord with every command neuron driven to the same rate, two size rules, the corrected rhythm measure (SIMULATED, fictive: no body)",
+  "registered": "2026-10-24",
+  "status": "registered before any stage-2f simulation",
+  "parent": "preregistration/embodied_stage2e_rate_model_walking.json",
+  "relation_to_parent": "Stage 2e failed (2 of 8, one vacuous) and stays failed. Its registered size rule (total synapse count, because the male CNS has no volumes) put DNg100 at 17.8 times the median size, so the shared input of 250 drove it to about 6.5 Hz while the grooming neurons and DNb08 reached about 50 Hz: the walking command was barely on and Pugliese et al.'s result was not tested. Two things change, both because of what stage 2e showed, which is why the test runs on fresh draws: (1) each driven neuron receives the input that brings it, with no network input, to the same rate, computed from its own drawn parameters; (2) size is run two ways, as in stage 2e and not at all, because no volume is available. Rhythm, period and phase use the corrected measure of the rhythm-measure audit.",
+  "seen_before_registration": [
+    "every result of stages 2a-2e and of the rhythm-measure audit (under the corrected measure no stage-2e condition, DNb08 and grooming included, has a rhythm)",
+    "stage 2e: under input 250 the grooming neurons' and DNb08's drive-only rates (mean parameters) were 45-54 Hz; grooming and DNb08 drive recruited about 7,000 neurons",
+    "no simulation with per-neuron drive or without size scaling has been run"
+  ],
+  "design": {
+    "model": "exactly stage 2e (fly.rate_model: Pugliese et al.'s equation and parameter distributions, weights 0.03 per synapse, >= 5 synapses; the stage-1c male nerve cord; forward Euler 0.1 ms; 2 s)",
+    "size_rules": {"synapse_count": "as stage 2e: total synapse count, median-normalized", "none": "every size 1 (gain and threshold as drawn)"},
+    "drive": "each driven neuron, in each draw, receives from 0.02 s the step input I = theta + (r_max / a) artanh(target / r_max) with its own (size-scaled) theta, a and r_max, which gives it the target rate when it receives nothing else",
+    "target": "50 Hz primary (the rate stage 2e's input gave the grooming neurons and DNb08); 25 and 100 Hz as sensitivity for S1",
+    "drives": {"forward_walking": "DNg100, both", "grooming": "DNg62 + DNge078, both sides", "dnb08": "DNb08, all four (reported, no prediction)", "none": "no input"},
+    "lesion": "forward walking with the 18 neurons of IN17A001, INXXX466 and IN16B036 held at 0",
+    "replicates": "32 parameter draws per condition (seeds 900-931), shared across conditions and size rules",
+    "measures": "stage 2a's pools and tests, with the corrected measure (kinematics.rhythm: an autocorrelation peak with prominence >= 0.1; its lag is the period and the phase uses it); also reported: the DNg100 rate, active neurons, the fraction of active leg motor neurons with a corrected rhythm >= 0.5"
+  },
+  "predictions": {
+    "S0_the_command_is_on": {"statement": "Precondition: under forward-walking drive DNg100 fires near the target", "test": "median over draws of the DNg100 neurons' mean rate (0.2-2.0 s) within 0.5x-2x the target (50 Hz); if not, S1-S6 are uninterpretable for that size rule"},
+    "S1_the_walking_command_makes_a_rhythm": {"statement": "Pugliese et al.'s result, in the male nerve cord", "test": "median corrected L1 flexor rhythm under forward walking >= 0.3 at target 50 Hz; reported at 25 and 100 Hz"},
+    "S2_more_than_grooming": {"statement": "As W1: the walking command's rhythm is stronger than the grooming neurons'", "test": "median corrected L1 flexor rhythm under forward walking above the grooming median"},
+    "S3_antagonists_alternate": {"statement": "As W2", "test": "median circular distance of phase(L1 flexor -> L1 extensor) from 0.5 <= 0.15"},
+    "S4_left_and_right_alternate": {"statement": "As W3 (Pugliese et al. found no consistent left-right phase)", "test": "median circular distance of phase(L1 flexor -> R1 flexor) from 0.5 <= 0.15"},
+    "S5_a_tripod": {"statement": "As W4", "test": "median circular distance of phase(L1 -> L2 flexor) from 0.5 <= 0.15 and of phase(L1 -> L3 flexor) from 0 <= 0.15"},
+    "S6_the_rhythm_needs_the_three_neuron_circuit": {"statement": "Pugliese et al.'s necessity result; interpretable only if S1 passes (otherwise reported as uninterpretable, not as a pass)", "test": "S1 passes, and with the 18 circuit neurons silenced the median corrected L1 flexor rhythm < 0.3 and at most half the intact median"},
+    "S7_a_fly_like_step_period": {"statement": "As stage 2c's A6", "test": "median corrected L1 flexor period under forward walking between 60 and 200 ms"}
+  },
+  "scoring": "every prediction is scored separately for each size rule; no result combines the two",
+  "not_claimed_even_if_all_pass": "that the fly's nerve cord works this way, or that its parameters or sizes are these: they are Pugliese et al.'s distributions with a stated size rule; a pass of S1 and S6 means their result holds in an independent reimplementation on a different connectome; S3-S5 test coordinated walking",
+  "reporting": "Every prediction for both size rules, pass, fail or uninterpretable; the sensitivity targets; DNb08; the activity level."
+}

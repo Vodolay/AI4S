@@ -1,0 +1,239 @@
+{
+  "label": "SIMULATED rate model of the male nerve cord, command neurons driven alike",
+  "synapse_count": {
+    "predictions": {
+      "S0_the_command_is_on": {
+        "test": "median over draws of the DNg100 neurons' mean rate (0.2-2.0 s) within 0.5x-2x the target (50 Hz); if not, S1-S6 are uninterpretable for that size rule",
+        "value": 0.18,
+        "outcome": "fail"
+      },
+      "S1_the_walking_command_makes_a_rhythm": {
+        "test": "median corrected L1 flexor rhythm under forward walking >= 0.3 at target 50 Hz; reported at 25 and 100 Hz",
+        "value": {
+          "forward_walking": 0.0,
+          "forward_walking_25": 0.0,
+          "forward_walking_100": 0.0
+        },
+        "outcome": "uninterpretable"
+      },
+      "S2_more_than_grooming": {
+        "test": "median corrected L1 flexor rhythm under forward walking above the grooming median",
+        "value": {
+          "forward_walking": 0.0,
+          "grooming": 0.0
+        },
+        "outcome": "uninterpretable"
+      },
+      "S3_antagonists_alternate": {
+        "test": "median circular distance of phase(L1 flexor -> L1 extensor) from 0.5 <= 0.15",
+        "value": null,
+        "outcome": "uninterpretable"
+      },
+      "S4_left_and_right_alternate": {
+        "test": "median circular distance of phase(L1 flexor -> R1 flexor) from 0.5 <= 0.15",
+        "value": null,
+        "outcome": "uninterpretable"
+      },
+      "S5_a_tripod": {
+        "test": "median circular distance of phase(L1 -> L2 flexor) from 0.5 <= 0.15 and of phase(L1 -> L3 flexor) from 0 <= 0.15",
+        "value": {
+          "L1_L2_from_half": null,
+          "L1_L3_from_zero": null
+        },
+        "outcome": "uninterpretable"
+      },
+      "S6_the_rhythm_needs_the_three_neuron_circuit": {
+        "test": "S1 passes, and with the 18 circuit neurons silenced the median corrected L1 flexor rhythm < 0.3 and at most half the intact median",
+        "value": {
+          "forward_walking": 0.0,
+          "lesion": 0.0
+        },
+        "outcome": "uninterpretable"
+      },
+      "S7_a_fly_like_step_period": {
+        "test": "median corrected L1 flexor period under forward walking between 60 and 200 ms",
+        "value": null,
+        "outcome": "uninterpretable"
+      }
+    },
+    "reported": {
+      "forward_walking": {
+        "rhythmicity_L1_flexor": 0.0,
+        "period_ms": null,
+        "active_neurons": 6416,
+        "leg_mn_rhythmic_fraction": 0.019,
+        "flexor_hz": 6.86,
+        "extensor_hz": 48.71
+      },
+      "forward_walking_25": {
+        "rhythmicity_L1_flexor": 0.0,
+        "period_ms": null,
+        "active_neurons": 6346,
+        "leg_mn_rhythmic_fraction": 0.021,
+        "flexor_hz": 5.63,
+        "extensor_hz": 47.06
+      },
+      "forward_walking_100": {
+        "rhythmicity_L1_flexor": 0.0,
+        "period_ms": null,
+        "active_neurons": 6537,
+        "leg_mn_rhythmic_fraction": 0.018,
+        "flexor_hz": 9.97,
+        "extensor_hz": 49.09
+      },
+      "grooming": {
+        "rhythmicity_L1_flexor": 0.0,
+        "period_ms": null,
+        "active_neurons": 6920,
+        "leg_mn_rhythmic_fraction": 0.017,
+        "flexor_hz": 7.23,
+        "extensor_hz": 52.96
+      },
+      "dnb08": {
+        "rhythmicity_L1_flexor": 0.0,
+        "period_ms": null,
+        "active_neurons": 6993,
+        "leg_mn_rhythmic_fraction": 0.013,
+        "flexor_hz": 6.75,
+        "extensor_hz": 45.56
+      },
+      "none": {
+        "rhythmicity_L1_flexor": 0.0,
+        "period_ms": null,
+        "active_neurons": 0,
+        "leg_mn_rhythmic_fraction": null,
+        "flexor_hz": 0.0,
+        "extensor_hz": 0.0
+      },
+      "lesion": {
+        "rhythmicity_L1_flexor": 0.0,
+        "period_ms": null,
+        "active_neurons": 6373,
+        "leg_mn_rhythmic_fraction": 0.018,
+        "flexor_hz": 8.41,
+        "extensor_hz": 41.45
+      }
+    }
+  },
+  "none": {
+    "predictions": {
+      "S0_the_command_is_on": {
+        "test": "median over draws of the DNg100 neurons' mean rate (0.2-2.0 s) within 0.5x-2x the target (50 Hz); if not, S1-S6 are uninterpretable for that size rule",
+        "value": 0.0,
+        "outcome": "fail"
+      },
+      "S1_the_walking_command_makes_a_rhythm": {
+        "test": "median corrected L1 flexor rhythm under forward walking >= 0.3 at target 50 Hz; reported at 25 and 100 Hz",
+        "value": {
+          "forward_walking": 0.0,
+          "forward_walking_25": 0.0,
+          "forward_walking_100": 0.0
+        },
+        "outcome": "uninterpretable"
+      },
+      "S2_more_than_grooming": {
+        "test": "median corrected L1 flexor rhythm under forward walking above the grooming median",
+        "value": {
+          "forward_walking": 0.0,
+          "grooming": 0.0
+        },
+        "outcome": "uninterpretable"
+      },
+      "S3_antagonists_alternate": {
+        "test": "median circular distance of phase(L1 flexor -> L1 extensor) from 0.5 <= 0.15",
+        "value": null,
+        "outcome": "uninterpretable"
+      },
+      "S4_left_and_right_alternate": {
+        "test": "median circular distance of phase(L1 flexor -> R1 flexor) from 0.5 <= 0.15",
+        "value": null,
+        "outcome": "uninterpretable"
+      },
+      "S5_a_tripod": {
+        "test": "median circular distance of phase(L1 -> L2 flexor) from 0.5 <= 0.15 and of phase(L1 -> L3 flexor) from 0 <= 0.15",
+        "value": {
+          "L1_L2_from_half": null,
+          "L1_L3_from_zero": null
+        },
+        "outcome": "uninterpretable"
+      },
+      "S6_the_rhythm_needs_the_three_neuron_circuit": {
+        "test": "S1 passes, and with the 18 circuit neurons silenced the median corrected L1 flexor rhythm < 0.3 and at most half the intact median",
+        "value": {
+          "forward_walking": 0.0,
+          "lesion": 0.0
+        },
+        "outcome": "uninterpretable"
+      },
+      "S7_a_fly_like_step_period": {
+        "test": "median corrected L1 flexor period under forward walking between 60 and 200 ms",
+        "value": null,
+        "outcome": "uninterpretable"
+      }
+    },
+    "reported": {
+      "forward_walking": {
+        "rhythmicity_L1_flexor": 0.0,
+        "period_ms": null,
+        "active_neurons": 8453,
+        "leg_mn_rhythmic_fraction": 0.0,
+        "flexor_hz": 5.05,
+        "extensor_hz": 13.25
+      },
+      "forward_walking_25": {
+        "rhythmicity_L1_flexor": 0.0,
+        "period_ms": null,
+        "active_neurons": 8454,
+        "leg_mn_rhythmic_fraction": 0.003,
+        "flexor_hz": 4.71,
+        "extensor_hz": 14.88
+      },
+      "forward_walking_100": {
+        "rhythmicity_L1_flexor": 0.0,
+        "period_ms": null,
+        "active_neurons": 8527,
+        "leg_mn_rhythmic_fraction": 0.0,
+        "flexor_hz": 4.86,
+        "extensor_hz": 13.55
+      },
+      "grooming": {
+        "rhythmicity_L1_flexor": 0.0,
+        "period_ms": null,
+        "active_neurons": 8890,
+        "leg_mn_rhythmic_fraction": 0.006,
+        "flexor_hz": 5.04,
+        "extensor_hz": 13.39
+      },
+      "dnb08": {
+        "rhythmicity_L1_flexor": 0.0,
+        "period_ms": null,
+        "active_neurons": 8542,
+        "leg_mn_rhythmic_fraction": 0.006,
+        "flexor_hz": 4.72,
+        "extensor_hz": 12.3
+      },
+      "none": {
+        "rhythmicity_L1_flexor": 0.0,
+        "period_ms": null,
+        "active_neurons": 0,
+        "leg_mn_rhythmic_fraction": null,
+        "flexor_hz": 0.0,
+        "extensor_hz": 0.0
+      },
+      "lesion": {
+        "rhythmicity_L1_flexor": 0.0,
+        "period_ms": null,
+        "active_neurons": 8310,
+        "leg_mn_rhythmic_fraction": 0.0,
+        "flexor_hz": 7.27,
+        "extensor_hz": 17.34
+      }
+    }
+  },
+  "registration": {
+    "file": "preregistration/embodied_stage2f_rate_model_driven.json",
+    "sha256": "9f405ce98036473009e7e4de67988b7c7666ae43ac1ab3ba40e135a38ea7966b",
+    "registered_in_commit": "7e36cfb21d9406b72e4931dbd09ae71332c5bcb6",
+    "committed_at": "2026-10-24T17:58:42-04:00"
+  }
+}

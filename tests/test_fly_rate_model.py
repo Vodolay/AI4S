@@ -59,3 +59,13 @@ def test_silenced_neurons_stay_at_zero() -> None:
         w, p, [0], 50.0, record=np.array([0, 1]), duration_s=0.2, silenced=np.array([0])
     )
     assert run.rates[:, 0].max() == 0.0 and run.rates[:, 1].max() == 0.0
+
+
+def test_the_drive_input_brings_an_isolated_neuron_to_the_target_rate() -> None:
+    con = _net()
+    w = rate_model.weights(con)
+    p = rate_model.draw(np.array([1.0, 3.0, 0.5]), [7, 8])
+    amp = rate_model.drive_input(p, np.array([0, 2]), 50.0)
+    assert amp.shape == (2, 2)
+    run = rate_model.simulate(w, p, [0, 2], amp, record=np.array([0, 2]), duration_s=0.5)
+    np.testing.assert_allclose(run.rates[-1], 50.0, rtol=1e-3)

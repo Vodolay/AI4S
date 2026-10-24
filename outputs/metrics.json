@@ -5930,6 +5930,849 @@
       }
     }
   },
+  "embodied_stage2f": {
+    "label": "SIMULATED rate model of the male nerve cord, command neurons driven alike",
+    "none": {
+      "predictions": {
+        "S0_the_command_is_on": {
+          "outcome": "fail",
+          "test": "median over draws of the DNg100 neurons' mean rate (0.2-2.0 s) within 0.5x-2x the target (50 Hz); if not, S1-S6 are uninterpretable for that size rule",
+          "value": 0.0
+        },
+        "S1_the_walking_command_makes_a_rhythm": {
+          "outcome": "uninterpretable",
+          "test": "median corrected L1 flexor rhythm under forward walking >= 0.3 at target 50 Hz; reported at 25 and 100 Hz",
+          "value": {
+            "forward_walking": 0.0,
+            "forward_walking_100": 0.0,
+            "forward_walking_25": 0.0
+          }
+        },
+        "S2_more_than_grooming": {
+          "outcome": "uninterpretable",
+          "test": "median corrected L1 flexor rhythm under forward walking above the grooming median",
+          "value": {
+            "forward_walking": 0.0,
+            "grooming": 0.0
+          }
+        },
+        "S3_antagonists_alternate": {
+          "outcome": "uninterpretable",
+          "test": "median circular distance of phase(L1 flexor -> L1 extensor) from 0.5 <= 0.15",
+          "value": null
+        },
+        "S4_left_and_right_alternate": {
+          "outcome": "uninterpretable",
+          "test": "median circular distance of phase(L1 flexor -> R1 flexor) from 0.5 <= 0.15",
+          "value": null
+        },
+        "S5_a_tripod": {
+          "outcome": "uninterpretable",
+          "test": "median circular distance of phase(L1 -> L2 flexor) from 0.5 <= 0.15 and of phase(L1 -> L3 flexor) from 0 <= 0.15",
+          "value": {
+            "L1_L2_from_half": null,
+            "L1_L3_from_zero": null
+          }
+        },
+        "S6_the_rhythm_needs_the_three_neuron_circuit": {
+          "outcome": "uninterpretable",
+          "test": "S1 passes, and with the 18 circuit neurons silenced the median corrected L1 flexor rhythm < 0.3 and at most half the intact median",
+          "value": {
+            "forward_walking": 0.0,
+            "lesion": 0.0
+          }
+        },
+        "S7_a_fly_like_step_period": {
+          "outcome": "uninterpretable",
+          "test": "median corrected L1 flexor period under forward walking between 60 and 200 ms",
+          "value": null
+        }
+      },
+      "reported": {
+        "dnb08": {
+          "active_neurons": 8542,
+          "extensor_hz": 12.3,
+          "flexor_hz": 4.72,
+          "leg_mn_rhythmic_fraction": 0.006,
+          "period_ms": null,
+          "rhythmicity_L1_flexor": 0.0
+        },
+        "forward_walking": {
+          "active_neurons": 8453,
+          "extensor_hz": 13.25,
+          "flexor_hz": 5.05,
+          "leg_mn_rhythmic_fraction": 0.0,
+          "period_ms": null,
+          "rhythmicity_L1_flexor": 0.0
+        },
+        "forward_walking_100": {
+          "active_neurons": 8527,
+          "extensor_hz": 13.55,
+          "flexor_hz": 4.86,
+          "leg_mn_rhythmic_fraction": 0.0,
+          "period_ms": null,
+          "rhythmicity_L1_flexor": 0.0
+        },
+        "forward_walking_25": {
+          "active_neurons": 8454,
+          "extensor_hz": 14.88,
+          "flexor_hz": 4.71,
+          "leg_mn_rhythmic_fraction": 0.003,
+          "period_ms": null,
+          "rhythmicity_L1_flexor": 0.0
+        },
+        "grooming": {
+          "active_neurons": 8890,
+          "extensor_hz": 13.39,
+          "flexor_hz": 5.04,
+          "leg_mn_rhythmic_fraction": 0.006,
+          "period_ms": null,
+          "rhythmicity_L1_flexor": 0.0
+        },
+        "lesion": {
+          "active_neurons": 8310,
+          "extensor_hz": 17.34,
+          "flexor_hz": 7.27,
+          "leg_mn_rhythmic_fraction": 0.0,
+          "period_ms": null,
+          "rhythmicity_L1_flexor": 0.0
+        },
+        "none": {
+          "active_neurons": 0,
+          "extensor_hz": 0.0,
+          "flexor_hz": 0.0,
+          "leg_mn_rhythmic_fraction": null,
+          "period_ms": null,
+          "rhythmicity_L1_flexor": 0.0
+        }
+      }
+    },
+    "registration": {
+      "committed_at": "2026-10-24T17:58:42-04:00",
+      "file": "preregistration/embodied_stage2f_rate_model_driven.json",
+      "registered_in_commit": "7e36cfb21d9406b72e4931dbd09ae71332c5bcb6",
+      "sha256": "9f405ce98036473009e7e4de67988b7c7666ae43ac1ab3ba40e135a38ea7966b"
+    },
+    "synapse_count": {
+      "predictions": {
+        "S0_the_command_is_on": {
+          "outcome": "fail",
+          "test": "median over draws of the DNg100 neurons' mean rate (0.2-2.0 s) within 0.5x-2x the target (50 Hz); if not, S1-S6 are uninterpretable for that size rule",
+          "value": 0.18
+        },
+        "S1_the_walking_command_makes_a_rhythm": {
+          "outcome": "uninterpretable",
+          "test": "median corrected L1 flexor rhythm under forward walking >= 0.3 at target 50 Hz; reported at 25 and 100 Hz",
+          "value": {
+            "forward_walking": 0.0,
+            "forward_walking_100": 0.0,
+            "forward_walking_25": 0.0
+          }
+        },
+        "S2_more_than_grooming": {
+          "outcome": "uninterpretable",
+          "test": "median corrected L1 flexor rhythm under forward walking above the grooming median",
+          "value": {
+            "forward_walking": 0.0,
+            "grooming": 0.0
+          }
+        },
+        "S3_antagonists_alternate": {
+          "outcome": "uninterpretable",
+          "test": "median circular distance of phase(L1 flexor -> L1 extensor) from 0.5 <= 0.15",
+          "value": null
+        },
+        "S4_left_and_right_alternate": {
+          "outcome": "uninterpretable",
+          "test": "median circular distance of phase(L1 flexor -> R1 flexor) from 0.5 <= 0.15",
+          "value": null
+        },
+        "S5_a_tripod": {
+          "outcome": "uninterpretable",
+          "test": "median circular distance of phase(L1 -> L2 flexor) from 0.5 <= 0.15 and of phase(L1 -> L3 flexor) from 0 <= 0.15",
+          "value": {
+            "L1_L2_from_half": null,
+            "L1_L3_from_zero": null
+          }
+        },
+        "S6_the_rhythm_needs_the_three_neuron_circuit": {
+          "outcome": "uninterpretable",
+          "test": "S1 passes, and with the 18 circuit neurons silenced the median corrected L1 flexor rhythm < 0.3 and at most half the intact median",
+          "value": {
+            "forward_walking": 0.0,
+            "lesion": 0.0
+          }
+        },
+        "S7_a_fly_like_step_period": {
+          "outcome": "uninterpretable",
+          "test": "median corrected L1 flexor period under forward walking between 60 and 200 ms",
+          "value": null
+        }
+      },
+      "reported": {
+        "dnb08": {
+          "active_neurons": 6993,
+          "extensor_hz": 45.56,
+          "flexor_hz": 6.75,
+          "leg_mn_rhythmic_fraction": 0.013,
+          "period_ms": null,
+          "rhythmicity_L1_flexor": 0.0
+        },
+        "forward_walking": {
+          "active_neurons": 6416,
+          "extensor_hz": 48.71,
+          "flexor_hz": 6.86,
+          "leg_mn_rhythmic_fraction": 0.019,
+          "period_ms": null,
+          "rhythmicity_L1_flexor": 0.0
+        },
+        "forward_walking_100": {
+          "active_neurons": 6537,
+          "extensor_hz": 49.09,
+          "flexor_hz": 9.97,
+          "leg_mn_rhythmic_fraction": 0.018,
+          "period_ms": null,
+          "rhythmicity_L1_flexor": 0.0
+        },
+        "forward_walking_25": {
+          "active_neurons": 6346,
+          "extensor_hz": 47.06,
+          "flexor_hz": 5.63,
+          "leg_mn_rhythmic_fraction": 0.021,
+          "period_ms": null,
+          "rhythmicity_L1_flexor": 0.0
+        },
+        "grooming": {
+          "active_neurons": 6920,
+          "extensor_hz": 52.96,
+          "flexor_hz": 7.23,
+          "leg_mn_rhythmic_fraction": 0.017,
+          "period_ms": null,
+          "rhythmicity_L1_flexor": 0.0
+        },
+        "lesion": {
+          "active_neurons": 6373,
+          "extensor_hz": 41.45,
+          "flexor_hz": 8.41,
+          "leg_mn_rhythmic_fraction": 0.018,
+          "period_ms": null,
+          "rhythmicity_L1_flexor": 0.0
+        },
+        "none": {
+          "active_neurons": 0,
+          "extensor_hz": 0.0,
+          "flexor_hz": 0.0,
+          "leg_mn_rhythmic_fraction": null,
+          "period_ms": null,
+          "rhythmicity_L1_flexor": 0.0
+        }
+      }
+    }
+  },
+  "embodied_stage2f_diagnostic": {
+    "label": "EXPLORATORY, not registered: why DNg100 is off (SIMULATED, draw 900)",
+    "none": {
+      "t_1050ms": {
+        "active_neurons": 5871,
+        "dng100_hz": 0.0,
+        "excitatory_input": 5004.8,
+        "inhibitory_input": -16523.0
+      },
+      "t_1850ms": {
+        "active_neurons": 5838,
+        "dng100_hz": 0.0,
+        "excitatory_input": 2478.9,
+        "inhibitory_input": -15695.7
+      },
+      "t_250ms": {
+        "active_neurons": 5796,
+        "dng100_hz": 0.0,
+        "excitatory_input": 4075.6,
+        "inhibitory_input": -13769.5
+      },
+      "t_450ms": {
+        "active_neurons": 5928,
+        "dng100_hz": 0.0,
+        "excitatory_input": 4449.0,
+        "inhibitory_input": -16279.0
+      },
+      "t_50ms": {
+        "active_neurons": 3470,
+        "dng100_hz": 3.4,
+        "excitatory_input": 421.6,
+        "inhibitory_input": -5319.2
+      }
+    },
+    "synapse_count": {
+      "t_1050ms": {
+        "active_neurons": 5239,
+        "dng100_hz": 0.0,
+        "excitatory_input": 1758.5,
+        "inhibitory_input": -9229.2
+      },
+      "t_1850ms": {
+        "active_neurons": 5247,
+        "dng100_hz": 0.0,
+        "excitatory_input": 1760.9,
+        "inhibitory_input": -9254.4
+      },
+      "t_250ms": {
+        "active_neurons": 5608,
+        "dng100_hz": 1.76,
+        "excitatory_input": 2165.1,
+        "inhibitory_input": -4452.5
+      },
+      "t_450ms": {
+        "active_neurons": 5276,
+        "dng100_hz": 0.0,
+        "excitatory_input": 1581.7,
+        "inhibitory_input": -8055.2
+      },
+      "t_50ms": {
+        "active_neurons": 443,
+        "dng100_hz": 42.67,
+        "excitatory_input": 255.8,
+        "inhibitory_input": -128.7
+      }
+    }
+  },
+  "embodied_stage2g": {
+    "label": "SIMULATED left front-leg network of the male CNS (Pugliese et al. construction)",
+    "network": {
+      "motor": 68,
+      "neurons": 2133,
+      "pool_sizes": {
+        "extensor": 2,
+        "flexor": 5,
+        "promotor": 4,
+        "remotor": 2
+      }
+    },
+    "none": {
+      "predictions": {
+        "P0_the_rule_finds_a_working_input": {
+          "outcome": "fail",
+          "test": "at least 16 of 32 draws feasible; if not, P1-P6 are uninterpretable for that size rule",
+          "value": 15
+        },
+        "P1_the_walking_command_makes_a_leg_rhythm": {
+          "outcome": "uninterpretable",
+          "test": "median over feasible draws of the motor rhythm score under forward walking >= 0.3",
+          "value": 0.8747
+        },
+        "P2_promotor_and_remotor_keep_a_reliable_offset": {
+          "outcome": "uninterpretable",
+          "test": "phase(promotor -> remotor) defined in at least half the feasible forward-walking draws, and R >= 0.7 over those",
+          "value": {
+            "R": 0.932,
+            "defined": 2,
+            "feasible": 15
+          }
+        },
+        "P3_tibia_flexor_and_extensor_alternate": {
+          "outcome": "uninterpretable",
+          "test": "median circular distance of phase(tibia flexor -> tibia extensor) from 0.5 <= 0.15 over feasible draws (undefined phases count as failures, as in W2)",
+          "value": null
+        },
+        "P4_the_walking_command_drives_the_rhythm_best": {
+          "outcome": "uninterpretable",
+          "test": "median motor rhythm score under forward walking above the grooming median (each over its own feasible draws)",
+          "value": {
+            "forward_walking": 0.8747,
+            "grooming": 0.0
+          }
+        },
+        "P5_the_rhythm_needs_the_three_neuron_circuit": {
+          "outcome": "uninterpretable",
+          "test": "P1 passes, and with the circuit silenced the median motor rhythm score < 0.3 and at most half the intact median",
+          "value": {
+            "forward_walking": 0.8747,
+            "lesion": 0.0
+          }
+        },
+        "P6_a_fly_like_step_period": {
+          "outcome": "uninterpretable",
+          "test": "median over feasible forward-walking draws of the median corrected period over active motor neurons with a peak, between 60 and 200 ms",
+          "value": 154.0
+        }
+      },
+      "reported": {
+        "dnb08": {
+          "feasible": 0,
+          "infeasible_median_recruited_when_too_many": 1011.0,
+          "infeasible_too_few": 23,
+          "infeasible_too_many": 9,
+          "median_active_motor": null,
+          "median_input": null,
+          "median_period_ms": null,
+          "median_recruited": null,
+          "median_score": null
+        },
+        "forward_walking": {
+          "feasible": 15,
+          "infeasible_median_recruited_when_too_many": 1041.0,
+          "infeasible_too_few": 6,
+          "infeasible_too_many": 11,
+          "median_active_motor": 2.0,
+          "median_input": 7.8125,
+          "median_period_ms": 154.0,
+          "median_recruited": 14.0,
+          "median_score": 0.8747
+        },
+        "grooming": {
+          "feasible": 0,
+          "infeasible_median_recruited_when_too_many": 1045.5,
+          "infeasible_too_few": 0,
+          "infeasible_too_many": 32,
+          "median_active_motor": null,
+          "median_input": null,
+          "median_period_ms": null,
+          "median_recruited": null,
+          "median_score": null
+        },
+        "lesion": {
+          "feasible": 15,
+          "infeasible_median_recruited_when_too_many": 1016.0,
+          "infeasible_too_few": 15,
+          "infeasible_too_many": 2,
+          "median_active_motor": 0.0,
+          "median_input": 7.8125,
+          "median_period_ms": 256.0,
+          "median_recruited": 4.0,
+          "median_score": 0.0
+        },
+        "none": {
+          "feasible": 32,
+          "infeasible_median_recruited_when_too_many": null,
+          "infeasible_too_few": 0,
+          "infeasible_too_many": 0,
+          "median_active_motor": 0.0,
+          "median_input": 0.0,
+          "median_period_ms": null,
+          "median_recruited": 0.0,
+          "median_score": 0.0
+        }
+      }
+    },
+    "registration": {
+      "committed_at": "2026-10-24T18:27:28-04:00",
+      "file": "preregistration/embodied_stage2g_front_leg_network.json",
+      "registered_in_commit": "00cefa1d7e577623ceeca0672fd96a8a842e61d5",
+      "sha256": "d29247036ec1b3a3ed9da3956923b8a481fbf8cb3b48b16ef38392404b8204cc"
+    },
+    "runs_used": {
+      "none/dnb08": 10,
+      "none/forward_walking": 10,
+      "none/grooming": 10,
+      "none/none": 1,
+      "synapse_count/dnb08": 10,
+      "synapse_count/forward_walking": 10,
+      "synapse_count/grooming": 10,
+      "synapse_count/none": 1
+    },
+    "synapse_count": {
+      "predictions": {
+        "P0_the_rule_finds_a_working_input": {
+          "outcome": "fail",
+          "test": "at least 16 of 32 draws feasible; if not, P1-P6 are uninterpretable for that size rule",
+          "value": 12
+        },
+        "P1_the_walking_command_makes_a_leg_rhythm": {
+          "outcome": "uninterpretable",
+          "test": "median over feasible draws of the motor rhythm score under forward walking >= 0.3",
+          "value": 0.8145
+        },
+        "P2_promotor_and_remotor_keep_a_reliable_offset": {
+          "outcome": "uninterpretable",
+          "test": "phase(promotor -> remotor) defined in at least half the feasible forward-walking draws, and R >= 0.7 over those",
+          "value": {
+            "R": null,
+            "defined": 0,
+            "feasible": 12
+          }
+        },
+        "P3_tibia_flexor_and_extensor_alternate": {
+          "outcome": "uninterpretable",
+          "test": "median circular distance of phase(tibia flexor -> tibia extensor) from 0.5 <= 0.15 over feasible draws (undefined phases count as failures, as in W2)",
+          "value": null
+        },
+        "P4_the_walking_command_drives_the_rhythm_best": {
+          "outcome": "uninterpretable",
+          "test": "median motor rhythm score under forward walking above the grooming median (each over its own feasible draws)",
+          "value": {
+            "forward_walking": 0.8145,
+            "grooming": 0.0
+          }
+        },
+        "P5_the_rhythm_needs_the_three_neuron_circuit": {
+          "outcome": "uninterpretable",
+          "test": "P1 passes, and with the circuit silenced the median motor rhythm score < 0.3 and at most half the intact median",
+          "value": {
+            "forward_walking": 0.8145,
+            "lesion": 0.8145
+          }
+        },
+        "P6_a_fly_like_step_period": {
+          "outcome": "uninterpretable",
+          "test": "median over feasible forward-walking draws of the median corrected period over active motor neurons with a peak, between 60 and 200 ms",
+          "value": 80.5
+        }
+      },
+      "reported": {
+        "dnb08": {
+          "feasible": 3,
+          "infeasible_median_recruited_when_too_many": 1045.0,
+          "infeasible_too_few": 1,
+          "infeasible_too_many": 28,
+          "median_active_motor": 0.0,
+          "median_input": 31.25,
+          "median_period_ms": null,
+          "median_recruited": 8.0,
+          "median_score": 0.0
+        },
+        "forward_walking": {
+          "feasible": 12,
+          "infeasible_median_recruited_when_too_many": 1044.0,
+          "infeasible_too_few": 0,
+          "infeasible_too_many": 20,
+          "median_active_motor": 1.0,
+          "median_input": 125.0,
+          "median_period_ms": 80.5,
+          "median_recruited": 27.5,
+          "median_score": 0.8145
+        },
+        "grooming": {
+          "feasible": 0,
+          "infeasible_median_recruited_when_too_many": 1043.0,
+          "infeasible_too_few": 0,
+          "infeasible_too_many": 32,
+          "median_active_motor": null,
+          "median_input": null,
+          "median_period_ms": null,
+          "median_recruited": null,
+          "median_score": null
+        },
+        "lesion": {
+          "feasible": 12,
+          "infeasible_median_recruited_when_too_many": 1033.5,
+          "infeasible_too_few": 0,
+          "infeasible_too_many": 20,
+          "median_active_motor": 1.0,
+          "median_input": 125.0,
+          "median_period_ms": 80.5,
+          "median_recruited": 27.5,
+          "median_score": 0.8145
+        },
+        "none": {
+          "feasible": 32,
+          "infeasible_median_recruited_when_too_many": null,
+          "infeasible_too_few": 0,
+          "infeasible_too_many": 0,
+          "median_active_motor": 0.0,
+          "median_input": 0.0,
+          "median_period_ms": null,
+          "median_recruited": 0.0,
+          "median_score": 0.0
+        }
+      }
+    }
+  },
+  "embodied_stage2h": {
+    "label": "SIMULATED left front-leg network of the male CNS, fine input search",
+    "none": {
+      "predictions": {
+        "H0_a_working_input_exists": {
+          "outcome": "pass",
+          "test": "at least 16 of 32 draws feasible; if not, H1-H6 are uninterpretable for that size rule",
+          "value": 18
+        },
+        "H1_the_walking_command_makes_a_leg_rhythm": {
+          "outcome": "pass",
+          "test": "median over feasible draws of the motor rhythm score under forward walking >= 0.3",
+          "value": 0.8886
+        },
+        "H2_promotor_and_remotor_keep_a_reliable_offset": {
+          "outcome": "fail",
+          "test": "phase(promotor -> remotor) defined in at least half the feasible forward-walking draws, and R >= 0.7 over those",
+          "value": {
+            "R": 1.0,
+            "defined": 1,
+            "feasible": 18
+          }
+        },
+        "H3_tibia_flexor_and_extensor_alternate": {
+          "outcome": "fail",
+          "test": "median circular distance of phase(tibia flexor -> tibia extensor) from 0.5 <= 0.15 over feasible draws (undefined phases count as failures)",
+          "value": null
+        },
+        "H4_the_walking_command_drives_the_rhythm_best": {
+          "outcome": "pass",
+          "test": "median motor rhythm score under forward walking above the grooming median (each over its own feasible draws)",
+          "value": {
+            "forward_walking": 0.8886,
+            "grooming": 0.0
+          }
+        },
+        "H5_the_rhythm_needs_the_three_neuron_circuit": {
+          "outcome": "pass",
+          "test": "H1 passes, and with the circuit silenced the median motor rhythm score < 0.3 and at most half the intact median",
+          "value": {
+            "forward_walking": 0.8886,
+            "lesion": 0.0
+          }
+        },
+        "H6_a_fly_like_step_period": {
+          "outcome": "pass",
+          "test": "median over feasible forward-walking draws of the median corrected period over active motor neurons with a peak, between 60 and 200 ms",
+          "value": 196.5
+        }
+      },
+      "reported": {
+        "dnb08": {
+          "feasible": 6,
+          "infeasible_median_recruited_when_too_many": 1012.0,
+          "infeasible_too_few": 13,
+          "infeasible_too_many": 13,
+          "median_active_motor": 3.5,
+          "median_input": 8.070980199537228,
+          "median_period_ms": 231.0,
+          "median_recruited": 50.0,
+          "median_score": 0.3911
+        },
+        "forward_walking": {
+          "feasible": 18,
+          "infeasible_bracket_ratio_median": 1.0000001652591795,
+          "infeasible_median_recruited_when_too_many": 1040.0,
+          "infeasible_never_bracketed": 0,
+          "infeasible_too_few": 7,
+          "infeasible_too_many": 7,
+          "median_active_motor": 3.0,
+          "median_input": 7.8125,
+          "median_period_ms": 196.5,
+          "median_recruited": 27.0,
+          "median_score": 0.8886
+        },
+        "grooming": {
+          "feasible": 0,
+          "infeasible_median_recruited_when_too_many": 1001.0,
+          "infeasible_too_few": 12,
+          "infeasible_too_many": 20,
+          "median_active_motor": null,
+          "median_input": null,
+          "median_period_ms": null,
+          "median_recruited": null,
+          "median_score": null
+        },
+        "lesion": {
+          "feasible": 18,
+          "infeasible_median_recruited_when_too_many": null,
+          "infeasible_too_few": 14,
+          "infeasible_too_many": 0,
+          "median_active_motor": 0.0,
+          "median_input": 7.8125,
+          "median_period_ms": 159.00000000000003,
+          "median_recruited": 4.0,
+          "median_score": 0.0
+        },
+        "none": {
+          "feasible": 32,
+          "infeasible_median_recruited_when_too_many": null,
+          "infeasible_too_few": 0,
+          "infeasible_too_many": 0,
+          "median_active_motor": 0.0,
+          "median_input": 0.0,
+          "median_period_ms": null,
+          "median_recruited": 0.0,
+          "median_score": 0.0
+        }
+      }
+    },
+    "registration": {
+      "committed_at": "2026-10-24T18:49:08-04:00",
+      "file": "preregistration/embodied_stage2h_front_leg_bisection.json",
+      "registered_in_commit": "c6d787450b97a7e9775d8569fd7dfb37b4c55272",
+      "sha256": "258d949f2c20667730cf46de950fe37f1af71658f58b4096a80f6f373f42696f"
+    },
+    "runs_used": {
+      "none/dnb08": 30,
+      "none/forward_walking": 30,
+      "none/grooming": 30,
+      "none/none": 1,
+      "synapse_count/dnb08": 13,
+      "synapse_count/forward_walking": 9,
+      "synapse_count/grooming": 30,
+      "synapse_count/none": 1
+    },
+    "synapse_count": {
+      "predictions": {
+        "H0_a_working_input_exists": {
+          "outcome": "pass",
+          "test": "at least 16 of 32 draws feasible; if not, H1-H6 are uninterpretable for that size rule",
+          "value": 32
+        },
+        "H1_the_walking_command_makes_a_leg_rhythm": {
+          "outcome": "pass",
+          "test": "median over feasible draws of the motor rhythm score under forward walking >= 0.3",
+          "value": 0.6808
+        },
+        "H2_promotor_and_remotor_keep_a_reliable_offset": {
+          "outcome": "fail",
+          "test": "phase(promotor -> remotor) defined in at least half the feasible forward-walking draws, and R >= 0.7 over those",
+          "value": {
+            "R": null,
+            "defined": 0,
+            "feasible": 32
+          }
+        },
+        "H3_tibia_flexor_and_extensor_alternate": {
+          "outcome": "fail",
+          "test": "median circular distance of phase(tibia flexor -> tibia extensor) from 0.5 <= 0.15 over feasible draws (undefined phases count as failures)",
+          "value": null
+        },
+        "H4_the_walking_command_drives_the_rhythm_best": {
+          "outcome": "pass",
+          "test": "median motor rhythm score under forward walking above the grooming median (each over its own feasible draws)",
+          "value": {
+            "forward_walking": 0.6808,
+            "grooming": 0.0
+          }
+        },
+        "H5_the_rhythm_needs_the_three_neuron_circuit": {
+          "outcome": "fail",
+          "test": "H1 passes, and with the circuit silenced the median motor rhythm score < 0.3 and at most half the intact median",
+          "value": {
+            "forward_walking": 0.6808,
+            "lesion": 0.6808
+          }
+        },
+        "H6_a_fly_like_step_period": {
+          "outcome": "pass",
+          "test": "median over feasible forward-walking draws of the median corrected period over active motor neurons with a peak, between 60 and 200 ms",
+          "value": 94.5
+        }
+      },
+      "reported": {
+        "dnb08": {
+          "feasible": 32,
+          "infeasible_median_recruited_when_too_many": null,
+          "infeasible_too_few": 0,
+          "infeasible_too_many": 0,
+          "median_active_motor": 0.0,
+          "median_input": 28.65637635014598,
+          "median_period_ms": null,
+          "median_recruited": 7.5,
+          "median_score": 0.0
+        },
+        "forward_walking": {
+          "feasible": 32,
+          "infeasible_bracket_ratio_median": null,
+          "infeasible_median_recruited_when_too_many": null,
+          "infeasible_never_bracketed": 0,
+          "infeasible_too_few": 0,
+          "infeasible_too_many": 0,
+          "median_active_motor": 1.0,
+          "median_input": 88.38834764831844,
+          "median_period_ms": 94.5,
+          "median_recruited": 23.5,
+          "median_score": 0.6808
+        },
+        "grooming": {
+          "feasible": 0,
+          "infeasible_median_recruited_when_too_many": 1031.5,
+          "infeasible_too_few": 16,
+          "infeasible_too_many": 16,
+          "median_active_motor": null,
+          "median_input": null,
+          "median_period_ms": null,
+          "median_recruited": null,
+          "median_score": null
+        },
+        "lesion": {
+          "feasible": 32,
+          "infeasible_median_recruited_when_too_many": null,
+          "infeasible_too_few": 0,
+          "infeasible_too_many": 0,
+          "median_active_motor": 1.0,
+          "median_input": 88.38834764831844,
+          "median_period_ms": 94.5,
+          "median_recruited": 23.5,
+          "median_score": 0.6808
+        },
+        "none": {
+          "feasible": 32,
+          "infeasible_median_recruited_when_too_many": null,
+          "infeasible_too_few": 0,
+          "infeasible_too_many": 0,
+          "median_active_motor": 0.0,
+          "median_input": 0.0,
+          "median_period_ms": null,
+          "median_recruited": 0.0,
+          "median_score": 0.0
+        }
+      }
+    }
+  },
+  "embodied_stage2h_check": {
+    "label": "EXPLORATORY, not registered: stage-2h circuit check (SIMULATED)",
+    "none": {
+      "all_three": {
+        "median_active_motor": 0.0,
+        "median_recruited": 4.0,
+        "median_score": 0.0
+      },
+      "intact": {
+        "median_active_motor": 3.0,
+        "median_recruited": 27.0,
+        "median_score": 0.8886
+      },
+      "keep_relay_silence_INXXX466_IN16B036": {
+        "median_active_motor": 7.0,
+        "median_recruited": 474.5,
+        "median_score": 0.0483
+      },
+      "relay_only_IN17A001": {
+        "median_active_motor": 0.0,
+        "median_recruited": 4.0,
+        "median_score": 0.0
+      },
+      "rhythmic_motor_neuron_types": {
+        "Acc. ti flexor MN": 3,
+        "Pleural remotor/abductor MN": 4,
+        "Sternal posterior rotator MN": 9,
+        "Sternotrochanter MN": 6,
+        "Tergopleural/Pleural promotor MN": 33,
+        "Tr extensor MN": 1
+      }
+    },
+    "synapse_count": {
+      "all_three": {
+        "median_active_motor": 1.0,
+        "median_recruited": 23.5,
+        "median_score": 0.6808
+      },
+      "intact": {
+        "median_active_motor": 1.0,
+        "median_recruited": 23.5,
+        "median_score": 0.6808
+      },
+      "keep_relay_silence_INXXX466_IN16B036": {
+        "median_active_motor": 1.0,
+        "median_recruited": 23.5,
+        "median_score": 0.6808
+      },
+      "relay_only_IN17A001": {
+        "median_active_motor": 1.0,
+        "median_recruited": 23.5,
+        "median_score": 0.6808
+      },
+      "rhythmic_motor_neuron_types": {
+        "Acc. ti flexor MN": 14,
+        "Pleural remotor/abductor MN": 16,
+        "Sternal posterior rotator MN": 2,
+        "Tr flexor MN": 2
+      }
+    }
+  },
   "extractor_agreement": {
     "by_feature": {
       "active_electrodes": {

@@ -1,0 +1,61 @@
+{
+  "label": "EXPLORATORY, not registered: stage-2h circuit check (SIMULATED)",
+  "synapse_count": {
+    "intact": {
+      "median_score": 0.6808,
+      "median_recruited": 23.5,
+      "median_active_motor": 1.0
+    },
+    "rhythmic_motor_neuron_types": {
+      "Pleural remotor/abductor MN": 16,
+      "Acc. ti flexor MN": 14,
+      "Tr flexor MN": 2,
+      "Sternal posterior rotator MN": 2
+    },
+    "all_three": {
+      "median_score": 0.6808,
+      "median_recruited": 23.5,
+      "median_active_motor": 1.0
+    },
+    "relay_only_IN17A001": {
+      "median_score": 0.6808,
+      "median_recruited": 23.5,
+      "median_active_motor": 1.0
+    },
+    "keep_relay_silence_INXXX466_IN16B036": {
+      "median_score": 0.6808,
+      "median_recruited": 23.5,
+      "median_active_motor": 1.0
+    }
+  },
+  "none": {
+    "intact": {
+      "median_score": 0.8886,
+      "median_recruited": 27.0,
+      "median_active_motor": 3.0
+    },
+    "rhythmic_motor_neuron_types": {
+      "Tergopleural/Pleural promotor MN": 33,
+      "Sternal posterior rotator MN": 9,
+      "Sternotrochanter MN": 6,
+      "Pleural remotor/abductor MN": 4,
+      "Acc. ti flexor MN": 3,
+      "Tr extensor MN": 1
+    },
+    "all_three": {
+      "median_score": 0.0,
+      "median_recruited": 4.0,
+      "median_active_motor": 0.0
+    },
+    "relay_only_IN17A001": {
+      "median_score": 0.0,
+      "median_recruited": 4.0,
+      "median_active_motor": 0.0
+    },
+    "keep_relay_silence_INXXX466_IN16B036": {
+      "median_score": 0.0483,
+      "median_recruited": 474.5,
+      "median_active_motor": 7.0
+    }
+  }
+}

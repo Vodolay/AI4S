@@ -31,6 +31,9 @@ the bottom.*
 | 20 | 2026-10-24 | Embodied stage 2d: the glutamate sign rule | 1 of 7 at the selected cell | `edbf611` … `a0ccff7` |
 | 21 | 2026-10-24 | Embodied stage 2e: the Pugliese et al. rate model; a flaw in our rhythm measure | 2 of 8 (one vacuous); the size stand-in starves DNg100 | `21df803` … `7a13eba` |
 | 22 | 2026-10-24 | The registered rhythm-measure audit | one earlier pass (1d D2) withdrawn; all else stands; originals reproduce | `76611c0` … this branch |
+| 23 | 2026-10-24 | Embodied stage 2f: command neurons driven alike, two size rules | precondition fails in both; the command is silenced by the activity it starts | `7e36cfb` … this branch |
+| 24 | 2026-10-24 | Embodied stage 2g: the published front-leg network, rebuilt from the male CNS | precondition fails narrowly (12 and 15 of 32); exploratory: a regular motor rhythm in the feasible draws | `00cefa1` … this branch |
+| 25 | 2026-10-24 | Embodied stage 2h: the front-leg network with a fine input search | 4 of 7 (synapse-count sizes) and 5 of 7 (no size scaling) pass, one of them vacuously in each; a leg rhythm under DNg100; circuit-dependent without size scaling; no alternation | `c6d7874` … this branch |
 
 ---
 
@@ -538,6 +541,71 @@ reproduce exactly.*
 - **Why it matters for the interview.** A worked example of the discipline under pressure: the
   flaw found by ourselves, the fix registered before use, the earlier claim withdrawn in public.
 - **Evidence.** Roadmap §7 and figure; `outputs/fly/rhythm_audit_SIMULATED.json`.
+
+---
+
+## 23. The walking command is switched off by the activity it starts
+
+**Slide message:** *Driven fairly, the walking command neuron starts a wave of activity that grows
+until it silences the command itself; the whole nerve cord then runs on its own. The published
+model avoids this by simulating only the front-leg network and capping recruitment at 500
+neurons. That is what we test next.*
+
+- **What changed.** `rate_model.drive_input` gives each driven neuron the input that alone
+  brings it to a target rate; `src/neuromps/fly/embodied_stage2f.py` runs the registered stage
+  2f (two size rules, corrected rhythm measure, a precondition that the command is on, a lesion
+  test that counts only if a rhythm exists).
+- **Effect.** The precondition fails in both size rules (DNg100
+  0.18 <!-- metrics.json: embodied_stage2f.synapse_count.predictions.S0_the_command_is_on.value --> and
+  0.0 <!-- metrics.json: embodied_stage2f.none.predictions.S0_the_command_is_on.value --> Hz), so the other predictions are
+  uninterpretable. Exploratory trace: DNg100 at
+  42.67 <!-- metrics.json: embodied_stage2f_diagnostic.synapse_count.t_50ms.dng100_hz --> Hz after 50 ms, silenced by 0.25 s under
+  -4452.5 <!-- metrics.json: embodied_stage2f_diagnostic.synapse_count.t_250ms.inhibitory_input --> inhibitory input;
+  5,247 <!-- metrics.json: embodied_stage2f_diagnostic.synapse_count.t_1850ms.active_neurons --> neurons stay active without it.
+- **Evidence.** Roadmap §7 and figure; `outputs/fly/embodied_stage2f_*`.
+
+---
+
+## 24. The published front-leg network, rebuilt from the male CNS
+
+**Slide message:** *Rebuilt as published, the male fly's front-leg network does produce a regular
+motor rhythm, but too few runs found a working input for the registered test to count. The
+network is nearly all-or-none, so the published input rule overshoots it. A finer input search
+is next.*
+
+- **What changed.** `src/neuromps/fly/embodied_stage2g.py` builds Pugliese et al.'s front-leg
+  network from the male nerve cord (2,133 <!-- metrics.json: embodied_stage2g.network.neurons --> neurons) and applies their
+  recruitment rule, with the corrected rhythm measure.
+- **Effect.** Precondition failed narrowly
+  (12 <!-- metrics.json: embodied_stage2g.synapse_count.predictions.P0_the_rule_finds_a_working_input.value --> and
+  15 <!-- metrics.json: embodied_stage2g.none.predictions.P0_the_rule_finds_a_working_input.value --> of 32 draws; 16 needed), so
+  the predictions are uninterpretable. Exploratory: in feasible draws, a regular low-rate
+  oscillation in one or two motor-neuron pools (score
+  0.8747 <!-- metrics.json: embodied_stage2g.none.reported.forward_walking.median_score -->, period
+  154.0 <!-- metrics.json: embodied_stage2g.none.reported.forward_walking.median_period_ms --> ms without size scaling), removed
+  by silencing the three-neuron circuit in that size rule only.
+- **Evidence.** Roadmap §7 and figure; `outputs/fly/embodied_stage2g_SIMULATED.*`.
+
+---
+
+## 25. The published walking rhythm, reproduced on the male CNS, with its limits
+
+**Slide message:** *In our own reimplementation on a different fly's connectome, the walking
+command drives a front-leg motor rhythm at a walking fly's tempo. Without size scaling it needs
+the published three-neuron circuit, and not just as a relay. But it still does not alternate
+antagonist muscles.*
+
+- **What changed.** `src/neuromps/fly/embodied_stage2h.py`: stage 2g's network with a geometric
+  bisection of the input; `--check` adds the exploratory silencing variants.
+- **Effect.** A working input in 32 <!-- metrics.json: embodied_stage2h.synapse_count.predictions.H0_a_working_input_exists.value --> and
+  18 <!-- metrics.json: embodied_stage2h.none.predictions.H0_a_working_input_exists.value --> of 32 draws; a leg rhythm in both size
+  rules (0.8886 <!-- metrics.json: embodied_stage2h.none.predictions.H1_the_walking_command_makes_a_leg_rhythm.value --> without
+  size scaling, period 196.5 <!-- metrics.json: embodied_stage2h.none.predictions.H6_a_fly_like_step_period.value --> ms), removed
+  by silencing the circuit only without size scaling. Exploratory: keeping the relay and
+  silencing the other two neurons also removes it
+  (0.0483 <!-- metrics.json: embodied_stage2h_check.none.keep_relay_silence_INXXX466_IN16B036.median_score -->). No reliable
+  promotor-remotor offset, no tibia alternation; the grooming comparison passes vacuously.
+- **Evidence.** Roadmap §7 and figure; `outputs/fly/embodied_stage2h_*`.
 
 ---
 
