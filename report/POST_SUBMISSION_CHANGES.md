@@ -36,6 +36,7 @@ the bottom.*
 | 25 | 2026-10-24 | Embodied stage 2h: the front-leg network with a fine input search | 4 of 7 (synapse-count sizes) and 5 of 7 (no size scaling) pass, one of them vacuously in each; a leg rhythm under DNg100; circuit-dependent without size scaling; no alternation | `c6d7874` … this branch |
 | 26 | 2026-10-24 | Embodied stage 3a: the first closed loop (claw-neuron feedback, grooming leg) | 3 of 5; go/no-go fails: feedback shifts motor pools toward resistance but barely moves a held leg, and a sham does the same | `5cdeba9` … this branch |
 | 27 | 2026-10-24 | Embodied stage 3b: a push on the tibia during the grooming hold | 2 of 5; the loop does not speed the return; the front leg's proprioceptors are thinly traced | `cd0a711` … this branch |
+| 28 | 2026-10-24 | Embodied stage 4a: the drug design with movement as the readout | 3 of 6; the chip flags after movement fails in all five families; the tract no longer leads | `b1a49df` … this branch |
 
 ---
 
@@ -648,6 +649,26 @@ state, and to fix with a better-traced leg.*
   open loop (2 of 5 pass; contingency uninterpretable). Left front leg: 4 <!-- metrics.json: embodied_stage3b_check.chordotonal_by_leg.front_L.claw -->
   claw neurons; left hind leg: 22 <!-- metrics.json: embodied_stage3b_check.chordotonal_by_leg.hind_L.claw -->.
 - **Evidence.** Roadmap §7 and figure; `outputs/fly/embodied_stage3b_*`.
+
+---
+
+## 28. Drugs in the loop: the chip is still late when the readout is movement
+
+**Slide message:** *We reran the drug study with the simulated fly's own movements as the
+behaviour. In every drug family, feeding and grooming change at a lower dose than the chip first
+notices. The chip is late at every level we have looked at: neurons, motor neurons, and now
+movement.*
+
+- **What changed.** The stage-2b and relay trials take a drug knob (stage 2b reruns
+  byte-identical); `src/neuromps/fly/embodied_stage4a.py` runs the parent's 22 conditions on the
+  proboscis and the grooming reach and compares each family's movement onset with the recorded
+  chip and tract detections.
+- **Effect.** 3 of 6 pass: the movements are there under vehicle, acetylcholine block stops them,
+  and movement never fails before the neural readouts. The chip flags after movement fails in all
+  five families (GABA-A block: movement 0.2 <!-- metrics.json: embodied_stage4a.predictions.N3_the_chip_flags_before_movement_fails.value.gaba_block.movement -->,
+  chip 0.6 <!-- metrics.json: embodied_stage4a.predictions.N3_the_chip_flags_before_movement_fails.value.gaba_block.chip -->); the tract no longer leads (4 families each); the bitter
+  gate's release is not monotonic.
+- **Evidence.** Roadmap §7 and figure; `outputs/fly/embodied_stage4a_*`.
 
 ---
 

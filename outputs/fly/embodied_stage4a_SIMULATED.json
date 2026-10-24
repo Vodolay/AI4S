@@ -1,0 +1,279 @@
+{
+  "label": "SIMULATED drug knobs with movement as the readout",
+  "predictions": {
+    "N0_the_movements_are_there": {
+      "test": "vehicle median proboscis_sugar >= 0.1 mm and median reach_depth >= 0.3 mm; if not, N1-N5 are uninterpretable",
+      "value": {
+        "proboscis_sugar": 0.3044,
+        "reach_depth": 0.9932
+      },
+      "outcome": "pass"
+    },
+    "N1_disinhibition_releases_the_bitter_gate_in_movement": {
+      "test": "Spearman(block fraction, median proboscis_sugar_bitter) over vehicle + 5 GABA-A block levels >= 0.8",
+      "value": -0.0286,
+      "outcome": "fail"
+    },
+    "N2_excitation_block_stops_movement": {
+      "test": "Spearman(block fraction, median readout) <= -0.8 for proboscis_sugar and for reach_depth over vehicle + 4 ACh block levels",
+      "value": {
+        "proboscis_sugar": -0.8944,
+        "reach_depth": -0.8944
+      },
+      "outcome": "pass"
+    },
+    "N3_the_chip_flags_before_movement_fails": {
+      "test": "for every family with any movement impairment, the chip's first detection dose <= the first movement-impairment dose",
+      "value": {
+        "ach_block": {
+          "chip": 0.4,
+          "movement": 0.1999999999999999,
+          "chip_first": false
+        },
+        "excitability_block": {
+          "chip": 0.3999999999999999,
+          "movement": 0.1999999999999999,
+          "chip_first": false
+        },
+        "gaba_block": {
+          "chip": 0.6,
+          "movement": 0.1999999999999999,
+          "chip_first": false
+        },
+        "gaba_potentiate": {
+          "chip": 1.0,
+          "movement": 0.5,
+          "chip_first": false
+        },
+        "glucl_block": {
+          "chip": 0.8,
+          "movement": 0.4,
+          "chip_first": false
+        }
+      },
+      "outcome": "fail"
+    },
+    "N4_the_output_tract_still_leads": {
+      "test": "the tract_64 array flags at or before movement onset in more families than the planar_64 array",
+      "value": {
+        "tract_64": 4,
+        "planar_64": 4
+      },
+      "outcome": "fail"
+    },
+    "N5_movement_fails_no_earlier_than_neural_behaviour": {
+      "test": "in every family with both onsets, the first movement-impairment dose >= the parent's first behaviour-impairment dose",
+      "value": {
+        "ach_block": {
+          "movement": 0.1999999999999999,
+          "neural_behaviour": 0.1999999999999999
+        },
+        "excitability_block": {
+          "movement": 0.1999999999999999,
+          "neural_behaviour": 0.1
+        },
+        "gaba_block": {
+          "movement": 0.1999999999999999,
+          "neural_behaviour": 0.1999999999999999
+        },
+        "gaba_potentiate": {
+          "movement": 0.5,
+          "neural_behaviour": 0.25
+        },
+        "glucl_block": {
+          "movement": 0.4,
+          "neural_behaviour": 0.4
+        }
+      },
+      "outcome": "pass"
+    }
+  },
+  "onsets": {
+    "movement": {
+      "ach_block": 0.1999999999999999,
+      "excitability_block": 0.1999999999999999,
+      "gaba_block": 0.1999999999999999,
+      "gaba_potentiate": 0.5,
+      "glucl_block": 0.4
+    },
+    "neural_behaviour": {
+      "ach_block": 0.1999999999999999,
+      "excitability_block": 0.1,
+      "gaba_block": 0.1999999999999999,
+      "gaba_potentiate": 0.25,
+      "glucl_block": 0.4
+    },
+    "chip": {
+      "ach_block": 0.4,
+      "excitability_block": 0.3999999999999999,
+      "gaba_block": 0.6,
+      "gaba_potentiate": 1.0,
+      "glucl_block": 0.8
+    }
+  },
+  "flagged_in_time": {
+    "tract_64": {
+      "ach_block": true,
+      "excitability_block": false,
+      "gaba_block": true,
+      "gaba_potentiate": true,
+      "glucl_block": true
+    },
+    "planar_64": {
+      "ach_block": true,
+      "excitability_block": true,
+      "gaba_block": false,
+      "gaba_potentiate": true,
+      "glucl_block": true
+    }
+  },
+  "movement_onset_eps_005mm": {
+    "ach_block": 0.1999999999999999,
+    "excitability_block": 0.3999999999999999,
+    "gaba_block": 0.1999999999999999,
+    "gaba_potentiate": 0.5,
+    "glucl_block": 0.4
+  },
+  "movement_disruption": {
+    "vehicle": 0.0,
+    "gaba_block_0.8": 0.7323,
+    "gaba_block_0.6": 1.0101,
+    "gaba_block_0.4": 1.0948,
+    "gaba_block_0.2": 2.865,
+    "gaba_block_0": 3.6828,
+    "gaba_potentiate_1.25": 0.4789,
+    "gaba_potentiate_1.5": 1.0887,
+    "gaba_potentiate_2": 1.9985,
+    "glucl_block_0.8": 0.2818,
+    "glucl_block_0.6": 0.8897,
+    "glucl_block_0.4": 1.0506,
+    "glucl_block_0.2": 1.0601,
+    "glucl_block_0": 1.0204,
+    "ach_block_0.8": 3.0161,
+    "ach_block_0.6": 4.7492,
+    "ach_block_0.4": 4.7492,
+    "ach_block_0.2": 4.7492,
+    "excitability_block_1.1": 0.2001,
+    "excitability_block_1.2": 0.6099,
+    "excitability_block_1.4": 2.9198,
+    "excitability_block_1.6": 4.4814
+  },
+  "medians": {
+    "ach_block_0.2": {
+      "proboscis_sugar": 0.0,
+      "proboscis_sugar_bitter": 0.0,
+      "reach_depth": 0.0025
+    },
+    "ach_block_0.4": {
+      "proboscis_sugar": 0.0,
+      "proboscis_sugar_bitter": 0.0,
+      "reach_depth": 0.0025
+    },
+    "ach_block_0.6": {
+      "proboscis_sugar": 0.0,
+      "proboscis_sugar_bitter": 0.0,
+      "reach_depth": 0.0025
+    },
+    "ach_block_0.8": {
+      "proboscis_sugar": 0.0931,
+      "proboscis_sugar_bitter": 0.0,
+      "reach_depth": 0.0345
+    },
+    "excitability_block_1.1": {
+      "proboscis_sugar": 0.2975,
+      "proboscis_sugar_bitter": 0.0425,
+      "reach_depth": 0.9848
+    },
+    "excitability_block_1.2": {
+      "proboscis_sugar": 0.2882,
+      "proboscis_sugar_bitter": 0.0206,
+      "reach_depth": 0.7393
+    },
+    "excitability_block_1.4": {
+      "proboscis_sugar": 0.1155,
+      "proboscis_sugar_bitter": 0.0034,
+      "reach_depth": 0.0234
+    },
+    "excitability_block_1.6": {
+      "proboscis_sugar": 0.0075,
+      "proboscis_sugar_bitter": 0.0,
+      "reach_depth": 0.0025
+    },
+    "gaba_block_0": {
+      "proboscis_sugar": 0.0017,
+      "proboscis_sugar_bitter": 0.0025,
+      "reach_depth": -0.0146
+    },
+    "gaba_block_0.2": {
+      "proboscis_sugar": 0.1724,
+      "proboscis_sugar_bitter": 0.214,
+      "reach_depth": 0.003
+    },
+    "gaba_block_0.4": {
+      "proboscis_sugar": 0.2732,
+      "proboscis_sugar_bitter": 0.2734,
+      "reach_depth": 0.4099
+    },
+    "gaba_block_0.6": {
+      "proboscis_sugar": 0.2979,
+      "proboscis_sugar_bitter": 0.2452,
+      "reach_depth": 0.4049
+    },
+    "gaba_block_0.8": {
+      "proboscis_sugar": 0.3059,
+      "proboscis_sugar_bitter": 0.1412,
+      "reach_depth": 0.4211
+    },
+    "gaba_potentiate_1.25": {
+      "proboscis_sugar": 0.2711,
+      "proboscis_sugar_bitter": 0.022,
+      "reach_depth": 0.9884
+    },
+    "gaba_potentiate_1.5": {
+      "proboscis_sugar": 0.1405,
+      "proboscis_sugar_bitter": 0.0068,
+      "reach_depth": 0.9881
+    },
+    "gaba_potentiate_2": {
+      "proboscis_sugar": 0.0238,
+      "proboscis_sugar_bitter": 0.0017,
+      "reach_depth": 0.9529
+    },
+    "glucl_block_0": {
+      "proboscis_sugar": 0.3219,
+      "proboscis_sugar_bitter": 0.3164,
+      "reach_depth": 0.5271
+    },
+    "glucl_block_0.2": {
+      "proboscis_sugar": 0.3209,
+      "proboscis_sugar_bitter": 0.3027,
+      "reach_depth": 0.4623
+    },
+    "glucl_block_0.4": {
+      "proboscis_sugar": 0.32,
+      "proboscis_sugar_bitter": 0.285,
+      "reach_depth": 0.4432
+    },
+    "glucl_block_0.6": {
+      "proboscis_sugar": 0.3128,
+      "proboscis_sugar_bitter": 0.1974,
+      "reach_depth": 0.4255
+    },
+    "glucl_block_0.8": {
+      "proboscis_sugar": 0.3068,
+      "proboscis_sugar_bitter": 0.101,
+      "reach_depth": 0.8002
+    },
+    "vehicle": {
+      "proboscis_sugar": 0.3044,
+      "proboscis_sugar_bitter": 0.0671,
+      "reach_depth": 0.9932
+    }
+  },
+  "registration": {
+    "file": "preregistration/embodied_stage4a_drugs_and_movement.json",
+    "sha256": "ba27f3575f7a03bfc786c93cdcf7a241f9f02cf85c00199c733df20fa404dbf2",
+    "registered_in_commit": "b1a49df7989977bf8dd4668363e9db4ad5175b66",
+    "committed_at": "2026-10-24T19:38:28-04:00"
+  }
+}
