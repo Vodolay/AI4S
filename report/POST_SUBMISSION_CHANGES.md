@@ -463,6 +463,26 @@ neurons inhibit the flexors about twice as much as they excite them.*
 
 ---
 
+## 20. The glutamate sign is not the missing piece
+
+**Slide message:** *Making glutamate excitatory switches the silent flexors on, but the cord then
+fires as one slow wave, not as alternating legs. Three registered attempts agree that this
+wiring, in this neuron model, has no walking rhythm generator. That negative result is
+reportable.*
+
+- **What changed.** `connectome.make_excitatory`; `src/neuromps/fly/embodied_stage2d.py` builds
+  two registered bounds on where glutamate excites (onto motor neurons; everywhere), each
+  without adaptation and over stage 2c's grid, through stage 2c's code (a rerun of stage 2c is
+  byte-identical).
+- **Effect.** Onto motor neurons: flexors 1.76 <!-- metrics.json: embodied_stage2d.sweep.cells.0.flexor_hz --> Hz, no cell passes a
+  walking test. Everywhere: flexors 40.4 <!-- metrics.json: embodied_stage2d.sweep.cells.37.flexor_hz --> Hz with
+  7,118 <!-- metrics.json: embodied_stage2d.sweep.cells.37.active_neurons --> active neurons, rhythm in
+  5 <!-- metrics.json: embodied_stage2d.sweep.cells_passing.glut_all.W1_the_walking_command_makes_a_rhythm --> cells, alternation
+  in none; the selected cell passes only silence without drive on fresh seeds.
+- **Evidence.** Roadmap §7 and figure; `outputs/fly/embodied_stage2d_*`.
+
+---
+
 ## Work queue (decided 2026-10-24, from the post-round-1 review)
 
 | Item | Status | Registered before running |

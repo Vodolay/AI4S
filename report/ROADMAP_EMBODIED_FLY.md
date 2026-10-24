@@ -308,6 +308,36 @@ feedback from the leg (stage 3), or a different intrinsic property (post-inhibit
 
 ![The whole registered SIMULATED adaptation sweep: no cell passes a walking test; adaptation lowers the tibia extensor pools smoothly, while the flexor pools stay near zero everywhere.](../outputs/figures/embodied_stage2c_sweep_SIMULATED.png){width=95%}
 
+**Stage 2d: the glutamate sign rule is not what keeps the cord from walking (1 of 7 at the
+selected cell).** The model, like the published one, treats every glutamate synapse as
+inhibitory, and the stage-2c diagnostic showed that the flexors' net inhibition depends on that
+rule. No settled rule says where fly glutamate excites, so stage 2d registered two bounds.
+Glutamate onto motor neurons became excitatory in one; glutamate everywhere in the other. Each
+ran without adaptation and over stage 2c's grid
+(37 <!-- metrics.json: embodied_stage2d.sweep.cells_per_rule --> cells per rule), with the
+same selection rule and confirmation. Onto motor neurons only, the flexors stay weak
+(1.76 <!-- metrics.json: embodied_stage2d.sweep.cells.0.flexor_hz --> Hz without adaptation) and no cell passes any walking test.
+Everywhere, the flexors switch on
+(40.4 <!-- metrics.json: embodied_stage2d.sweep.cells.37.flexor_hz --> Hz), but the cord becomes far more active
+(7,118 <!-- metrics.json: embodied_stage2d.sweep.cells.37.active_neurons --> neurons at 1 Hz or more, against
+2,136 <!-- metrics.json: embodied_stage2d.sweep.cells.0.active_neurons --> with glutamate onto motor neurons only). A rhythm appears in
+5 <!-- metrics.json: embodied_stage2d.sweep.cells_passing.glut_all.W1_the_walking_command_makes_a_rhythm --> cells, as slow
+waves of the whole population, but no cell alternates antagonists or legs
+(0 <!-- metrics.json: embodied_stage2d.sweep.cells_passing.glut_all.W2_antagonists_alternate --> cells). The rule
+selected the one cell that passed the tripod test on exploration seeds; on fresh seeds that pass
+did not replicate. The left front flexor and extensor fire in phase there (distance
+0.49 <!-- metrics.json: embodied_stage2d.predictions.D2_antagonists_alternate.value --> from the alternation target),
+the right front flexor stays silent, the rhythm's period is
+317.5 <!-- metrics.json: embodied_stage2d.predictions.D6_a_fly_like_step_period.value --> ms, slower than a walking fly's,
+and only silence without drive passes. **Three registered attempts now agree.** The male nerve
+cord's wiring, run as leaky integrate-and-fire neurons under the walking command, does not
+produce alternation: not as published (2a), not with adaptation (2c), not with either
+glutamate rule (2d). This is a result for the paper. A connectome alone, in this model class,
+does not contain a working walking rhythm generator. The roadmap's own answer is the next
+stage, sensory feedback from the legs (stage 3), which the fly also needs to walk.
+
+![The whole registered SIMULATED stage-2d sweep, both glutamate rules: walking tests passed, tibia flexor rate and the number of active neurons in every cell. Glutamate onto motor neurons leaves the flexors weak; glutamate everywhere turns them on with a large rise in activity, and no cell alternates.](../outputs/figures/embodied_stage2d_sweep_SIMULATED.png){width=95%}
+
 ## 8. What carries over unchanged
 
 Pre-registration before every run; licensed data with checksums in the manifest; every reported
