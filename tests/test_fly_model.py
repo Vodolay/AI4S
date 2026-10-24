@@ -249,3 +249,22 @@ def test_a_subnetwork_keeps_only_connections_among_the_kept_neurons() -> None:
     assert list(zip(sub.pre.tolist(), sub.post.tolist(), strict=True)) == [(0, 1), (2, 1)]
     assert sub.pre_class.tolist() == ["ach", "gaba"]
     assert sub.neuropil.tolist() == ["LH_R", "LH_R", "LH_R"]
+
+
+@pytest.mark.slow
+def test_replayed_spikes_make_their_target_fire_at_those_times() -> None:
+    con = connectome.Connectome(
+        root_ids=np.arange(5),
+        pre=np.array([0]),
+        post=np.array([1]),
+        synapses=np.array([0]),
+        sign=np.array([1]),
+        pre_class=np.array(["ach"], dtype=object),
+        neuropil=np.array(["A"] * 5, dtype=object),
+    )
+    times = np.array([0.1, 0.3, 0.5])
+    got = model.simulate(con, model.FlyParams(duration_s=0.7), replay={3: times})
+    fired = got.times[got.neurons == 3]
+    assert fired.size == 3
+    assert np.allclose(fired, times, atol=0.002)
+    assert set(got.neurons.tolist()) == {3}

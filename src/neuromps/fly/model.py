@@ -107,7 +107,33 @@ rfc : second
 """
 
 
-def _network(con: Connectome, params: FlyParams, excite, excite2, b2):
+def _replay(neurons, replay: dict, params: FlyParams, b2) -> list:
+    """Recorded spike trains delivered to chosen neurons, each spike a suprathreshold input.
+
+    Used to pass one model's descending-neuron spikes into another model's nerve
+    cord; the weight is the published stimulus weight (w_syn x f_poi).
+    """
+    if not replay:
+        return []
+    targets = sorted(replay)
+    indices = np.concatenate([np.full(len(replay[t]), k) for k, t in enumerate(targets)])
+    times = np.concatenate([np.asarray(replay[t], dtype=float) for t in targets])
+    if times.size == 0:
+        return []
+    source = b2.SpikeGeneratorGroup(
+        len(targets), indices, times * b2.second, name="fly_replay_source"
+    )
+    link = b2.Synapses(
+        source,
+        neurons,
+        on_pre=f"v_post += {params.w_syn_mv * params.f_poi} * mV",
+        name="fly_replay_link",
+    )
+    link.connect(i=np.arange(len(targets)), j=np.asarray(targets, dtype=int))
+    return [source, link]
+
+
+def _network(con: Connectome, params: FlyParams, excite, excite2, b2, replay=None):
     mv, ms = b2.mV, b2.ms
     namespace = {
         "v_0": params.v_0_mv * mv,
@@ -146,6 +172,7 @@ def _network(con: Connectome, params: FlyParams, excite, excite2, b2):
         objects += _stimulus(neurons, np.asarray(indices, dtype=int), rate, label, params, b2)
     if params.background_mean_mv > 0:
         objects.append(_background(neurons, params, b2))
+    objects += _replay(neurons, replay or {}, params, b2)
     monitor = b2.SpikeMonitor(neurons, name="fly_monitor")
     objects.append(monitor)
     # Fixed names: Brian2 writes object names into the code it compiles, so the
@@ -202,17 +229,19 @@ def simulate(
     excite: Sequence[int] = (),
     excite2: Sequence[int] = (),
     record: Sequence[int] | None = None,
+    replay: dict[int, np.ndarray] | None = None,
 ) -> FlySpikes:
     """One trial: drive `excite` at `stim_rate_hz` (and `excite2` at `stim2_rate_hz`).
 
     `record` limits the spike monitor to those model indices; None records all.
+    `replay` maps model indices to spike times (s) delivered to them as inputs.
     """
     import brian2 as b2
 
     with _quiet_brian():
         b2.start_scope()
         b2.seed(params.seed)
-        network, monitor = _network(con, params, excite, excite2, b2)
+        network, monitor = _network(con, params, excite, excite2, b2, replay)
         network.run(params.duration_s * b2.second)
         times = np.asarray(monitor.t / b2.second, dtype=float)
         neurons = np.asarray(monitor.i, dtype=int)
