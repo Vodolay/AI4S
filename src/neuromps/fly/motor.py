@@ -226,6 +226,47 @@ def score(frame: pd.DataFrame, chip: pd.DataFrame, spec: dict) -> dict:
     return out
 
 
+def summary(frame: pd.DataFrame, spec: dict) -> dict:
+    """Citable per-family onsets at each level, and how the chip compares with motor output."""
+    d = spec["design"]
+    motor_onset = first_doses(frame, "motor_disruption", d["impairment_threshold"])
+    interneuron = first_doses(frame, "disruption", d["impairment_threshold"])
+    chip = first_doses(frame, "abs_delta_mfr", d["chip_detection_threshold"])
+    scored = [f for f, v in motor_onset.items() if v is not None]
+    return {
+        "first_dose": {"motor": motor_onset, "interneuron": interneuron, "chip": chip},
+        "families_chip_later_than_motor": int(
+            sum(chip[f] is None or chip[f] > motor_onset[f] for f in scored)
+        ),
+        "families_chip_tied_with_motor": int(sum(chip[f] == motor_onset[f] for f in scored)),
+        "families_chip_earlier_than_motor": int(
+            sum(chip[f] is not None and chip[f] < motor_onset[f] for f in scored)
+        ),
+        "families_motor_earlier_than_interneuron": int(
+            sum(interneuron.get(f) is not None and motor_onset[f] < interneuron[f] for f in scored)
+        ),
+        "families_scored": len(scored),
+    }
+
+
+def rescore() -> int:
+    """Rewrite the summary and figure from the saved table, without simulating."""
+    from neuromps.paths import figures_dir
+
+    spec = json.loads(REGISTRATION.read_text())
+    out = outputs_dir() / "fly"
+    frame = pd.read_csv(out / "malecns_motor_SIMULATED.csv")
+    result = json.loads((out / "malecns_motor_SIMULATED.json").read_text())
+    result["summary"] = summary(frame, spec)
+    (out / "malecns_motor_SIMULATED.json").write_text(
+        json.dumps(scoring.clean(result), indent=2) + "\n"
+    )
+    update_metrics("fly_motor_readout", scoring.clean(result))
+    plot(frame, spec, figures_dir() / "fly_motor_onsets_SIMULATED.png")
+    print(json.dumps(result["summary"], indent=1))
+    return 0
+
+
 def plot(frame: pd.DataFrame, spec: dict, path) -> None:
     """Per family: first dose impairing interneuron readouts, motor readouts, and chip detection."""
     import matplotlib
@@ -303,8 +344,10 @@ def main(argv: list[str] | None = None) -> int:
         "label": "SIMULATED male CNS: motor-neuron readouts",
         "predictions": score(frame, chip, spec),
         "pool_sizes": _pool_sizes(),
+        "summary": None,
         "registration": design.provenance(REGISTRATION),
     }
+    result["summary"] = summary(frame, spec)
     out = outputs_dir() / "fly"
     frame.to_csv(out / "malecns_motor_SIMULATED.csv", index=False)
     (out / "malecns_motor_SIMULATED.json").write_text(
@@ -318,4 +361,6 @@ def main(argv: list[str] | None = None) -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    import sys
+
+    raise SystemExit(rescore() if "--rescore" in sys.argv else main())

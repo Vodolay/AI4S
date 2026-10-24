@@ -18,6 +18,7 @@ the bottom.*
 | 7 | 2026-10-24 | Vesicle depletion tested as the cause of the GABA-A reversal | registered prediction failed; new negative result | `3071ab4`, `8fb5065` |
 | 8 | 2026-10-24 | The twin as a source of labelled data, and as a prior for the classifier | 1 of 3 registered predictions pass | `761068e`, `93bb4f6` |
 | 9 | 2026-10-24 | Electrodes on the fly brain's output tract against a planar array | 4 of 4 registered predictions pass | `cd074b3`, `2c66067` |
+| 10 | 2026-10-24 | Behaviour read at the motor neurons of the male CNS | 6 of 7 registered predictions pass | `a1c5f27`, this merge |
 
 ---
 
@@ -232,6 +233,33 @@ not.*
   descending-neuron behaviour readout is not what drives it.
 - **Evidence.** Report §24 ("Where to put the electrode") and figure; §20, fifth area.
 
+## 10. One step closer to behaviour: the motor neurons
+
+**Slide message:** *Read at the motor neurons that move the fly's mouthparts and legs, the chip
+is never ahead of behaviour: it is late in three drug families and level in two.*
+
+- **What changed.** `src/neuromps/fly/motor.py` repeats the male-CNS replication's behaviour
+  trials (same seeds) and reads them at the proboscis motor pool (feeding and its bitter gate),
+  the front-leg motor pool (antennal grooming) and all motor neurons (recruitment). Registered
+  before any drug condition was run (`preregistration/fly_motor_readout.json`).
+- **Why.** The behaviour readouts were firing rates of interneurons; the male connectome includes
+  the nerve cord, so behaviour can be read where it leaves the nervous system. This is the
+  first step toward a closed-loop, embodied fly, which needs a body and sensory feedback on top.
+- **Effect.** Six of seven predictions pass. The interneuron readouts reproduce exactly; sugar
+  drives the proboscis pool at
+  31.405 <!-- metrics.json: fly_motor_readout.predictions.MR1_the_motor_pools_carry_the_behaviours.value.proboscis_sugar -->
+  Hz and bitter cuts it to
+  5.625 <!-- metrics.json: fly_motor_readout.predictions.MR1_the_motor_pools_carry_the_behaviours.value.proboscis_sugar_bitter -->;
+  the chip tracks motor disruption (Spearman
+  0.8922 <!-- metrics.json: fly_motor_readout.predictions.MR4_chip_tracks_motor_disruption.value -->).
+  The chip-is-late prediction failed narrowly: late in
+  3 <!-- metrics.json: fly_motor_readout.summary.families_chip_later_than_motor -->, tied in
+  2 <!-- metrics.json: fly_motor_readout.summary.families_chip_tied_with_motor -->, earlier in
+  0 <!-- metrics.json: fly_motor_readout.summary.families_chip_earlier_than_motor --> (four late
+  were needed). Motor output fails no later than the interneurons in every family.
+- **Evidence.** Report §25 ("One step closer to behaviour") and figure;
+  `outputs/fly/malecns_motor_SIMULATED.csv`.
+
 ---
 
 ## Work queue (decided 2026-10-24, from the post-round-1 review)
@@ -243,9 +271,11 @@ not.*
 | Output-tract electrode | done, entry 9 (4 of 4 pass; 7 of 10 draws) | yes |
 | Brain and nerve cord as a two-chamber chip (male CNS) | scoped out: one chamber pair is an anecdote, and FlyWire already tested 698 <!-- metrics.json: fly_chip_to_animal.direction.n_pairs --> region pairs (§25) | — |
 | Twin posteriors as classifier features | done as a twin-fitted prior, entry 8 (the delta posterior infers one knob, outside Task 1's domain) | yes |
-| Random-graph-to-connectome blend for organoids; embodied fly | dropped | — |
+| Random-graph-to-connectome blend for organoids | dropped | — |
+| Embodied, closed-loop fly (body, nerve cord to muscles, sensory feedback) | roadmap after the final; its first step, motor-neuron readouts, is entry 10 | — |
 
-Why the last two were dropped: grafting fly wiring onto a model of a mammalian cortical culture
-has no biological basis, and organoid–monolayer differences have many confounds, so a match
-would prove nothing; an embodied (physics-simulated) fly is weeks of work for a question the
-behaviour neurons already answer.
+Why the blend was dropped: grafting fly wiring onto a model of a mammalian cortical culture has
+no biological basis, and organoid–monolayer differences have many confounds, so a match would
+prove nothing. The embodied fly is not dropped but scheduled: it adds new information only with
+the loop closed (nerve cord to muscles, body, sensory feedback), which is a research project
+for after the final; reading the motor neurons (entry 10) is its first step.

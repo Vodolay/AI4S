@@ -148,6 +148,8 @@ def _scorecard(metrics: dict) -> None:
         ("fly_chip_to_animal", "FlyWire"),
         ("fly_malecns_replication", "MaleCNS"),
         ("fly_confirm_network_bursts", "Confirmation"),
+        ("fly_output_tract", "Output tract"),
+        ("fly_motor_readout", "MaleCNS motor neurons"),
     ):
         for name, entry in metrics.get(section, {}).get("predictions", {}).items():
             rows.append(
