@@ -435,6 +435,41 @@ their within-leg predictions. It is registered next as stage 2g.
 
 ![SIMULATED firing-rate network of the male nerve cord with each command neuron driven to 50 Hz, both size rules: no corrected rhythm in any condition; the cord's own activity silences the walking command.](../outputs/figures/embodied_stage2f_rate_model_driven_SIMULATED.png){width=80%}
 
+**Stage 2g: Pugliese et al.'s front-leg network on the male CNS (precondition failed narrowly;
+suggestive, not yet a test).** Stage 2g rebuilt their network from the male CNS: the left front
+leg's motor neurons, the premotor neurons onto them and the descending neurons onto those
+(2,133 <!-- metrics.json: embodied_stage2g.network.neurons --> neurons). It used their recruitment
+rule: start at 250, halve the input above 500 recruited neurons, double it below 5, for up to
+10 runs. Rhythm was scored with the corrected measure. The registered precondition, a working
+input in at least 16 of 32 draws, fails narrowly in both size rules:
+12 <!-- metrics.json: embodied_stage2g.synapse_count.predictions.P0_the_rule_finds_a_working_input.value --> draws with synapse-count sizes,
+15 <!-- metrics.json: embodied_stage2g.none.predictions.P0_the_rule_finds_a_working_input.value --> without size scaling. So every
+prediction is uninterpretable as registered. The rule fails because this network is close to
+all-or-none. In
+20 <!-- metrics.json: embodied_stage2g.synapse_count.reported.forward_walking.infeasible_too_many --> draws (synapse-count sizes) and
+11 <!-- metrics.json: embodied_stage2g.none.reported.forward_walking.infeasible_too_many --> (none), halving and doubling flip
+between almost nothing and about
+1,044 <!-- metrics.json: embodied_stage2g.synapse_count.reported.forward_walking.infeasible_median_recruited_when_too_many --> recruited
+neurons, never landing between 5 and 500. What the feasible draws show is exploratory, not a
+test. A genuine, regular oscillation appears in the few motor neurons that are active (median
+1.0 <!-- metrics.json: embodied_stage2g.synapse_count.reported.forward_walking.median_active_motor --> and
+2.0 <!-- metrics.json: embodied_stage2g.none.reported.forward_walking.median_active_motor -->, as their own "2-5 motor neurons").
+Its corrected score is
+0.8145 <!-- metrics.json: embodied_stage2g.synapse_count.reported.forward_walking.median_score --> and
+0.8747 <!-- metrics.json: embodied_stage2g.none.reported.forward_walking.median_score -->, with periods of
+80.5 <!-- metrics.json: embodied_stage2g.synapse_count.reported.forward_walking.median_period_ms --> and
+154.0 <!-- metrics.json: embodied_stage2g.none.reported.forward_walking.median_period_ms --> ms, within a walking fly's range. The
+rates are low (a few Hz). Without size scaling, silencing the three-neuron circuit removes the
+rhythm (median
+0.0 <!-- metrics.json: embodied_stage2g.none.reported.lesion.median_score -->); with synapse-count sizes it does not
+(0.8145 <!-- metrics.json: embodied_stage2g.synapse_count.reported.lesion.median_score -->), so there the rhythm runs through another path.
+The tibia flexor and extensor pools are silent in these draws. The next registered step keeps
+their 5-500 criterion but searches the input finely (bisection between the last input that
+recruited too few and the first that recruited too many), on fresh draws. Then their
+within-leg result can be tested on every draw that has a working input at all.
+
+![SIMULATED left front-leg network of the male CNS (Pugliese et al.'s construction). Left: one feasible draw per size rule under DNg100: a regular low-rate oscillation in one or two motor-neuron pools. Right: corrected motor rhythm score over feasible draws, per condition.](../outputs/figures/embodied_stage2g_front_leg_SIMULATED.png){width=80%}
+
 ## 8. What carries over unchanged
 
 Pre-registration before every run; licensed data with checksums in the manifest; every reported

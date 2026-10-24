@@ -285,6 +285,16 @@ def reported(table: pd.DataFrame) -> dict:
             "median_recruited": float(f["recruited"].median()) if len(f) else None,
             "median_active_motor": float(f["active_motor"].median()) if len(f) else None,
             "median_score": round(float(f["score"].median()), 4) if len(f) else None,
+            "median_period_ms": float(f["period_ms"].median())
+            if f["period_ms"].notna().any()
+            else None,
+            "infeasible_too_few": int(((~g["feasible"]) & (g["recruited"] < FEWEST)).sum()),
+            "infeasible_too_many": int(((~g["feasible"]) & (g["recruited"] > MOST)).sum()),
+            "infeasible_median_recruited_when_too_many": (
+                float(g.loc[(~g["feasible"]) & (g["recruited"] > MOST), "recruited"].median())
+                if ((~g["feasible"]) & (g["recruited"] > MOST)).any()
+                else None
+            ),
         }
     return out
 

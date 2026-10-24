@@ -32,6 +32,7 @@ the bottom.*
 | 21 | 2026-10-24 | Embodied stage 2e: the Pugliese et al. rate model; a flaw in our rhythm measure | 2 of 8 (one vacuous); the size stand-in starves DNg100 | `21df803` … `7a13eba` |
 | 22 | 2026-10-24 | The registered rhythm-measure audit | one earlier pass (1d D2) withdrawn; all else stands; originals reproduce | `76611c0` … this branch |
 | 23 | 2026-10-24 | Embodied stage 2f: command neurons driven alike, two size rules | precondition fails in both; the command is silenced by the activity it starts | `7e36cfb` … this branch |
+| 24 | 2026-10-24 | Embodied stage 2g: the published front-leg network, rebuilt from the male CNS | precondition fails narrowly (12 and 15 of 32); exploratory: a regular motor rhythm in the feasible draws | `00cefa1` … this branch |
 
 ---
 
@@ -561,6 +562,28 @@ neurons. That is what we test next.*
   -4452.5 <!-- metrics.json: embodied_stage2f_diagnostic.synapse_count.t_250ms.inhibitory_input --> inhibitory input;
   5,247 <!-- metrics.json: embodied_stage2f_diagnostic.synapse_count.t_1850ms.active_neurons --> neurons stay active without it.
 - **Evidence.** Roadmap §7 and figure; `outputs/fly/embodied_stage2f_*`.
+
+---
+
+## 24. The published front-leg network, rebuilt from the male CNS
+
+**Slide message:** *Rebuilt as published, the male fly's front-leg network does produce a regular
+motor rhythm, but too few runs found a working input for the registered test to count. The
+network is nearly all-or-none, so the published input rule overshoots it. A finer input search
+is next.*
+
+- **What changed.** `src/neuromps/fly/embodied_stage2g.py` builds Pugliese et al.'s front-leg
+  network from the male nerve cord (2,133 <!-- metrics.json: embodied_stage2g.network.neurons --> neurons) and applies their
+  recruitment rule, with the corrected rhythm measure.
+- **Effect.** Precondition failed narrowly
+  (12 <!-- metrics.json: embodied_stage2g.synapse_count.predictions.P0_the_rule_finds_a_working_input.value --> and
+  15 <!-- metrics.json: embodied_stage2g.none.predictions.P0_the_rule_finds_a_working_input.value --> of 32 draws; 16 needed), so
+  the predictions are uninterpretable. Exploratory: in feasible draws, a regular low-rate
+  oscillation in one or two motor-neuron pools (score
+  0.8747 <!-- metrics.json: embodied_stage2g.none.reported.forward_walking.median_score -->, period
+  154.0 <!-- metrics.json: embodied_stage2g.none.reported.forward_walking.median_period_ms --> ms without size scaling), removed
+  by silencing the three-neuron circuit in that size rule only.
+- **Evidence.** Roadmap §7 and figure; `outputs/fly/embodied_stage2g_SIMULATED.*`.
 
 ---
 
