@@ -22,7 +22,8 @@ the bottom.*
 | 11 | 2026-10-24 | The motor-level ties resolved on a finer dose grid | 1 of 2 registered predictions pass; one tie resolves | `69db4e6`, `796a33b` |
 | 12 | 2026-10-24 | Roadmap to an embodied, closed-loop fly | plan, no new results | `42ee520` |
 | 13 | 2026-10-24 | Embodied stage 1: the male CNS drives a muscle-driven leg | both registered tests fail; finding the cause changes the plan | `cbdd6d6` … this branch |
-| 14 | 2026-10-24 | Embodied stage 1c: the male nerve cord from descending neurons, brain removed | 3 of 5 registered predictions pass | `739f6f0` … this branch |
+| 14 | 2026-10-24 | Embodied stage 1c: the male nerve cord from descending neurons, brain removed | 3 of 5 registered predictions pass | `739f6f0` … `e576cd9` |
+| 15 | 2026-10-24 | Embodied stage 1d: a held reach against a rhythmic swing, fresh seeds | 4 of 4 registered predictions pass | `66502eb` … this branch |
 
 ---
 
@@ -352,6 +353,25 @@ neurons swing it instead.*
   at the bottom of a rhythmic swing. A sustained reach and a swing need a different readout,
   to be registered as stage 1d.
 - **Evidence.** Roadmap §7 and figure; `outputs/fly/embodied_stage1c_SIMULATED.*`.
+
+## 15. The fly's grooming neurons hold its leg at its head
+
+**Slide message:** *On fresh seeds and with readouts registered in advance: driving the fly's
+antennal-grooming neurons brings the simulated front leg to the head and holds it there for
+nearly the whole second; walking neurons swing it, escape neurons extend it.*
+
+- **What changed.** `src/neuromps/fly/kinematics.py` adds two readouts (time near the head;
+  rhythmicity), `src/neuromps/fly/embodied_stage1d.py` reruns stage 1c's design on fresh seeds.
+  The readouts were suggested by stage 1c's traces, so they were registered before this run
+  (`preregistration/embodied_stage1d_reach_versus_swing.json`) and tested out of sample.
+- **Effect.** All four predictions pass: time near the head
+  0.9665 <!-- metrics.json: embodied_stage1d.predictions.D1_grooming_holds_the_claw_at_the_head.value.grooming -->
+  under grooming drive against at most
+  0.368 <!-- metrics.json: embodied_stage1d.predictions.D1_grooming_holds_the_claw_at_the_head.value.forward_walking -->
+  under any other; forward walking more rhythmic than grooming; the same at every activation
+  scale; the front-leg specificity of stage 1c replicates. Stage 1c's failed predictions stay
+  failed.
+- **Evidence.** Roadmap §7 and figure; `outputs/fly/embodied_stage1d_SIMULATED.*`.
 
 ---
 

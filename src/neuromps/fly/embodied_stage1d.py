@@ -128,7 +128,7 @@ def plot(table: pd.DataFrame, path) -> None:
     ax.set_ylabel("rhythmicity of the claw's movement", fontsize=7)
     ax.set_xlim(-0.03, 1.03)
     ax.tick_params(labelsize=6.5)
-    ax.legend(fontsize=5.5, frameon=False, loc="upper center")
+    ax.legend(fontsize=5.5, frameon=False, loc="upper right")
     ax.set_title("SIMULATED male nerve cord moving the FlyMimic leg: reach or swing?", fontsize=7.5)
     fig.tight_layout()
     fig.savefig(path, dpi=300, bbox_inches="tight")

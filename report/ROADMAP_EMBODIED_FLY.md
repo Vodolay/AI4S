@@ -164,6 +164,31 @@ next (stage 1d, fresh seeds), not a reason to re-score this one.
 
 ![The SIMULATED male nerve cord, brain removed, driven from descending neurons: claw-to-antenna distance of the FlyMimic leg, and the motor pools of the three left legs, per drive.](../outputs/figures/embodied_stage1c_leg_SIMULATED.png){width=95%}
 
+**Stage 1d: all four registered predictions pass, on fresh seeds.** Read as the time the claw
+spends near the head and as the rhythmicity of its movement, the two drives separate cleanly:
+under grooming drive the claw is near the head for
+0.9665 <!-- metrics.json: embodied_stage1d.predictions.D1_grooming_holds_the_claw_at_the_head.value.grooming -->
+of the second, under forward-walking drive for
+0.368 <!-- metrics.json: embodied_stage1d.predictions.D1_grooming_holds_the_claw_at_the_head.value.forward_walking -->,
+and never under the giant fibre or without drive; forward walking moves the leg more
+rhythmically
+(0.4599 <!-- metrics.json: embodied_stage1d.predictions.D2_forward_walking_swings_the_leg.value.forward_walking -->
+against
+0.2374 <!-- metrics.json: embodied_stage1d.predictions.D2_forward_walking_swings_the_leg.value.grooming -->);
+the result holds at every activation scale, and stage 1c's front-leg specificity replicates
+(front-leg pool
+16.066 <!-- metrics.json: embodied_stage1d.predictions.D4_the_front_leg_specificity_replicates.value.grooming.front -->
+Hz under grooming drive). Rhythmicity alone does not mark walking: the giant fibre scores as
+high
+(0.4561 <!-- metrics.json: embodied_stage1d.predictions.D2_forward_walking_swings_the_leg.value.giant_fibre -->),
+while keeping the claw away from the head. **Stage 1's question is answered for the nerve cord:**
+the descending neurons that start antennal grooming in the fly move this leg to the head and hold
+it there, specifically. Next is the brain: the FlyWire brain joined to this nerve cord through
+type-matched descending neurons, so that sensory drive, not a stimulated command neuron, starts
+the movement.
+
+![Time near the head against rhythmicity, one point per SIMULATED trial: the antennal-grooming drive holds the leg at the head; walking and escape drives move it rhythmically and away.](../outputs/figures/embodied_stage1d_reach_swing_SIMULATED.png){width=70%}
+
 ## 8. What carries over unchanged
 
 Pre-registration before every run; licensed data with checksums in the manifest; every reported

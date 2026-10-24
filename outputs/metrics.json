@@ -1755,6 +1755,76 @@
       }
     }
   },
+  "embodied_stage1d": {
+    "label": "SIMULATED male nerve cord moving the FlyMimic leg: reach or swing",
+    "near_head_threshold_mm": 1.328,
+    "predictions": {
+      "D1_grooming_holds_the_claw_at_the_head": {
+        "outcome": "pass",
+        "test": "median time near head under grooming >= 0.5, and at least 0.25 above the median of each other drive (r_full 20 Hz)",
+        "value": {
+          "backward_walking": 0.1665,
+          "forward_walking": 0.368,
+          "giant_fibre": 0.0,
+          "grooming": 0.9665,
+          "none": 0.0
+        }
+      },
+      "D2_forward_walking_swings_the_leg": {
+        "outcome": "pass",
+        "test": "median rhythmicity under forward walking >= 0.3 and above grooming's median (r_full 20 Hz)",
+        "value": {
+          "backward_walking": 0.3461,
+          "forward_walking": 0.4599,
+          "giant_fibre": 0.4561,
+          "grooming": 0.2374,
+          "none": 0.1435
+        }
+      },
+      "D3_the_activation_scale_does_not_decide_it": {
+        "outcome": "pass",
+        "test": "D1's test holds at r_full 10 Hz and 40 Hz",
+        "value": {
+          "r_full_10": {
+            "backward_walking": 0.1335,
+            "forward_walking": 0.3625,
+            "giant_fibre": 0.0,
+            "grooming": 0.968,
+            "none": 0.0
+          },
+          "r_full_40": {
+            "backward_walking": 0.1045,
+            "forward_walking": 0.3735,
+            "giant_fibre": 0.0,
+            "grooming": 0.9645,
+            "none": 0.0
+          }
+        }
+      },
+      "D4_the_front_leg_specificity_replicates": {
+        "outcome": "pass",
+        "test": "under grooming drive the left front-leg pool fires more than the middle and hind pools, and more than under each control drive",
+        "value": {
+          "front_under_controls": {
+            "backward_walking": 3.375,
+            "forward_walking": 3.5,
+            "giant_fibre": 0.45
+          },
+          "grooming": {
+            "front": 16.066,
+            "hind": 1.775,
+            "middle": 2.623
+          }
+        }
+      }
+    },
+    "registration": {
+      "committed_at": "2026-10-24T12:14:04-04:00",
+      "file": "preregistration/embodied_stage1d_reach_versus_swing.json",
+      "registered_in_commit": "66502eb103ecf9f7fe936f1e39ddf0e4eda12238",
+      "sha256": "b124a987d6e40277196253ae3168bcd6b68aa42b2384bef4e511d0e218cbfc53"
+    }
+  },
   "extractor_agreement": {
     "by_feature": {
       "active_electrodes": {
