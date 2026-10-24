@@ -185,6 +185,18 @@ def plot(moves: list[dict], pools: pd.DataFrame, path) -> None:
     plt.close(fig)
 
 
+def run(work: list[tuple[str, int, float]]) -> tuple[list[dict], list[dict]]:
+    """Network trials for (drive, seed, w_syn) jobs, then the leg at every activation scale."""
+    with ProcessPoolExecutor(memory_bounded_workers(per_worker_gb=8.0), initializer=_init) as pool:
+        trials = list(pool.map(_trial, work))
+    jobs_ = [(t, r) for t in trials for r in embodied_stage1.R_FULL]
+    with ProcessPoolExecutor(12) as pool:
+        moves = list(pool.map(embodied_stage1._move, jobs_))
+    for m, (t, _) in zip(moves, jobs_, strict=True):
+        m["w_syn"] = t["w_syn"]
+    return trials, moves
+
+
 def main(argv: list[str] | None = None) -> int:
     """CLI: run the registered stage-1c design and score it."""
     from neuromps.paths import figures_dir
@@ -193,19 +205,8 @@ def main(argv: list[str] | None = None) -> int:
     spec = json.loads(REGISTRATION.read_text())
     work = [(d, s, W_SYN) for d in DRIVES for s in SEEDS]
     work += [(d, s, W_SENSITIVITY) for d in ("grooming", "none") for s in SEEDS]
-    with ProcessPoolExecutor(memory_bounded_workers(per_worker_gb=8.0), initializer=_init) as pool:
-        trials = list(pool.map(_trial, work))
+    trials, moves = run(work)
     main_trials = [t for t in trials if t["w_syn"] == W_SYN]
-    with ProcessPoolExecutor(12) as pool:
-        moves = list(
-            pool.map(
-                embodied_stage1._move, [(t, r) for t in trials for r in embodied_stage1.R_FULL]
-            )
-        )
-    for m, (t, _) in zip(
-        moves, [(t, r) for t in trials for r in embodied_stage1.R_FULL], strict=True
-    ):
-        m["w_syn"] = t["w_syn"]
     table = pd.DataFrame(
         [{k: v for k, v in m.items() if k not in ("distance_mm", "mean_activation")} for m in moves]
     )
