@@ -1,0 +1,36 @@
+{
+  "title": "Embodied fly, stage 2g: Pugliese et al.'s construction on the male CNS: the left front-leg network, their recruitment rule, their within-leg predictions (SIMULATED, fictive: no body)",
+  "registered": "2026-10-24",
+  "status": "registered before any stage-2g simulation",
+  "parent": "preregistration/embodied_stage2f_rate_model_driven.json",
+  "relation_to_parent": "Stages 2e and 2f ran Pugliese et al.'s rate model on the whole male nerve cord; in 2f the walking command was silenced by the self-sustaining activity it started, so their result was never tested. Their paper simulates only a front-leg network (leg motor neurons, the premotor neurons onto them, the descending neurons onto those; 4,604 neurons in MANC) and halves the input whenever more than 500 neurons are recruited (such runs are infeasible) and doubles it when fewer than 5 are. Stage 2g builds that network from the male CNS and uses that rule. Their code and network files are not used (no licence).",
+  "seen_before_registration": [
+    "every result of stages 2a-2f and of the rhythm-measure audit",
+    "Pugliese et al. (paper v1): network construction, the 5-500 recruitment rule (start, then halve or double, up to 10 iterations), 'DNg100 typically recruited 2-5 motor neurons in MANC'; left coxa promotor and remotor motor neurons with 'a reliable phase offset'; no consistent left-right phase; no tripod; the three-neuron circuit necessary",
+    "data only, the network built by the rule below from the stage-1c male nerve cord: 68 left front-leg motor neurons, 1,141 premotor neurons (969 intrinsic, 105 ascending, 67 sensory), 924 descending neurons; 2,133 in all; one left T1 neuron each of IN17A001, INXXX466 and IN16B036; DNg100 (both), DNg62 and DNge078 (both), DNb08 (four) inside; motor-neuron types include 'Tergopleural/Pleural promotor MN' (4), 'Pleural remotor/abductor MN' (2), 'Ti flexor MN' (5), 'Ti extensor MN' (2)",
+    "no simulation of this network has been run"
+  ],
+  "design": {
+    "network": "from the stage-1c male nerve cord, connections with >= 5 synapses: the left front-leg motor neurons (vnc_motor, subclass fl, side L); premotor = every other non-descending neuron with such a connection onto one of them; every descending neuron with such a connection onto a premotor neuron; all connections (>= 5 synapses) among these neurons",
+    "model": "fly.rate_model as stages 2e/2f (Pugliese et al.'s equation and parameter distributions, weights 0.03 per synapse, forward Euler 0.1 ms, 2 s)",
+    "size_rules": {"synapse_count": "total synapse count within this network, median-normalized", "none": "every size 1"},
+    "draws": "32 per condition, seeds 940-971, shared across conditions and size rules",
+    "recruitment_rule": "per draw: input 250 to every driven neuron from 0.02 s; recruited = neurons other than the driven ones with mean rate >= 1 Hz; if more than 500, halve the input, if fewer than 5, double it, and run again, up to 10 runs; a draw still outside 5-500 after 10 runs is infeasible and excluded (counted)",
+    "drives": {"forward_walking": "DNg100, both", "grooming": "DNg62 + DNge078, both sides", "dnb08": "DNb08, all four (reported, no prediction)", "none": "no input"},
+    "lesion": "forward walking at each feasible draw's final input, with the three circuit neurons held at 0",
+    "measures": "corrected measure (kinematics.rhythm, the audit): per draw, the mean corrected rhythm over active left front-leg motor neurons (mean rate >= 1 Hz from 0.2 to 2.0 s) as the motor rhythm score (as Pugliese et al.'s score averages over active motor neurons); pools by type: promotor ('Tergopleural/Pleural promotor MN'), remotor ('Pleural remotor/abductor MN'), tibia flexor ('Ti flexor MN'), tibia extensor ('Ti extensor MN'), mean rate over the pool; phases with the corrected period, none when a pool is below 1 Hz",
+    "reliability": "mean resultant length R of phases across draws, |mean(exp(2 pi i phase))|"
+  },
+  "predictions": {
+    "P0_the_rule_finds_a_working_input": {"statement": "Precondition: under DNg100 drive the recruitment rule finds an input recruiting 5-500 neurons", "test": "at least 16 of 32 draws feasible; if not, P1-P6 are uninterpretable for that size rule"},
+    "P1_the_walking_command_makes_a_leg_rhythm": {"statement": "Pugliese et al.'s result, on the male CNS", "test": "median over feasible draws of the motor rhythm score under forward walking >= 0.3"},
+    "P2_promotor_and_remotor_keep_a_reliable_offset": {"statement": "Pugliese et al.'s antagonist result", "test": "phase(promotor -> remotor) defined in at least half the feasible forward-walking draws, and R >= 0.7 over those"},
+    "P3_tibia_flexor_and_extensor_alternate": {"statement": "Stage 2a's W2, within this network", "test": "median circular distance of phase(tibia flexor -> tibia extensor) from 0.5 <= 0.15 over feasible draws (undefined phases count as failures, as in W2)"},
+    "P4_the_walking_command_drives_the_rhythm_best": {"statement": "As their descending-neuron screen, where DNg100 was the top rhythm driver", "test": "median motor rhythm score under forward walking above the grooming median (each over its own feasible draws)"},
+    "P5_the_rhythm_needs_the_three_neuron_circuit": {"statement": "Pugliese et al.'s necessity result; interpretable only if P1 passes", "test": "P1 passes, and with the circuit silenced the median motor rhythm score < 0.3 and at most half the intact median"},
+    "P6_a_fly_like_step_period": {"statement": "As stage 2c's A6", "test": "median over feasible forward-walking draws of the median corrected period over active motor neurons with a peak, between 60 and 200 ms"}
+  },
+  "scoring": "every prediction scored separately for each size rule",
+  "not_claimed_even_if_all_pass": "that the fly's leg network works this way: it is Pugliese et al.'s model and parameter distributions on a different connectome, with a stated size rule and no body; a pass of P1, P2 and P5 means their front-leg result holds in an independent reimplementation on the male CNS",
+  "reporting": "Every prediction for both size rules, pass, fail or uninterpretable; feasibility counts and final inputs; DNb08; the number of recruited neurons and motor neurons."
+}
