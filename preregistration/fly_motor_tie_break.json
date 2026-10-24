@@ -1,0 +1,27 @@
+{
+  "title": "Resolving the two ties of the motor-level test with a finer dose grid (SIMULATED)",
+  "registered": "2026-10-24",
+  "status": "registered before any of the finer dose levels was run",
+  "parent": "preregistration/fly_motor_readout.json",
+  "relation_to_parent": "MR5 failed as registered (chip later than motor output in 3 families, tied in 2, earlier in 0; 4 needed). That outcome stands. This test does not re-score MR5; it asks a new question: which comes first inside the two dose steps where the parent's grid could not tell.",
+  "seen_before_registration": [
+    "all parent results; the two tied families and their coarse onsets: excitability_block (threshold_scale 1.4, dose 0.4, for both motor output and the chip; at 1.2 the chip's |delta log2 mfr| was 0.14 and the motor disruption 0.41) and gaba_potentiate (gaba_scale 2.0, dose 1.0, for both; at 1.5 the chip's |delta| was 0.49 and the motor disruption 0.36)"
+  ],
+  "design": {
+    "model_and_readouts": "exactly the parent's: MaleCNS model, chip array readouts by the replication's code, motor readouts and motor disruption by fly.motor",
+    "fine_levels": {
+      "excitability_block": {"knob": "threshold_scale", "levels": [1.24, 1.28, 1.32, 1.36]},
+      "gaba_potentiate": {"knob": "gaba_scale", "levels": [1.6, 1.7, 1.8, 1.9]}
+    },
+    "reproducibility_levels": {"excitability_block": 1.4, "gaba_potentiate": 2.0},
+    "seeds": "spontaneous 500-502 and behaviour 600-607, the parent's, so the untreated reference is unchanged",
+    "references": "chip deltas against the replication's vehicle (malecns_conditions_SIMULATED.csv); motor disruption against the parent's vehicle (malecns_motor_SIMULATED.csv)",
+    "onset_rule": "first dose, in the parent's levels below the tie step followed by the fine levels and the tied level, at which motor disruption >= 0.5 (motor) or |delta log2 mfr| >= 0.5 (chip)",
+    "resolution": "chip later if the motor onset is the lower dose, chip earlier if the chip onset is lower, still tied if equal"
+  },
+  "predictions": {
+    "TB0_tied_levels_reproduce": {"statement": "Re-running the two tied levels with the same seeds gives the parent's values", "test": "max |difference| in |delta log2 mfr| and motor disruption <= 1e-9"},
+    "TB1_both_ties_resolve_chip_later": {"statement": "Inside both tie steps, motor output fails before the chip detects", "test": "both tied families resolve to chip later"}
+  },
+  "reporting": "Each family's resolution (chip later, chip earlier, still tied) and both predictions, whichever way they fall, reported beside the parent's MR5, not in place of it."
+}
