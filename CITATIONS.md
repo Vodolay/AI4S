@@ -31,6 +31,18 @@ Each fetcher re-checks its source's advertised license at download time.
 
 *Note:* tier=full; Zenodo record 4679064; 10 cultures, four hippocampal subregions each over a 60-electrode MCS array, 300 s spontaneous at 25 kHz; the analysis scripts in the record are not fetched
 
+### `flybody`
+
+- **License:** Apache-2.0
+- **License URL:** https://www.apache.org/licenses/LICENSE-2.0
+- **Source:** https://github.com/TuragaLab/flybody
+- **Files recorded:** 88
+- **Status:** ok
+
+> Vaxenburg R, Siwanowicz I, Merel J, et al. Whole-body physics simulation of fruit fly locomotion. Nature (2025); flybody model, github.com/TuragaLab/flybody at commit d015e9bfe441
+
+*Note:* optional (embodied fly only); commit d015e9bfe441; model file and meshes, each checked against its git blob hash; Blender source not fetched
+
 ### `flymimic`
 
 - **License:** Apache-2.0 (FlyGym; the FlyMimic model file states Apache 2.0)

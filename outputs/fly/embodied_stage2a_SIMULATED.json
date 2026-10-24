@@ -1,0 +1,63 @@
+{
+  "label": "SIMULATED fictive walking in the male nerve cord",
+  "predictions": {
+    "W0_silent_without_drive": {
+      "test": "no spikes in any of the twelve pools in any no-drive trial",
+      "value": 0.0,
+      "outcome": "pass"
+    },
+    "W1_the_walking_command_makes_a_rhythm": {
+      "test": "median rhythmicity under forward walking >= 0.3 and above the grooming median",
+      "value": {
+        "forward_walking": 0.0,
+        "grooming": 0.1975
+      },
+      "outcome": "fail"
+    },
+    "W2_antagonists_alternate": {
+      "test": "median circular distance of phase(L1 flexor -> L1 extensor) from 0.5 <= 0.15",
+      "value": null,
+      "outcome": "fail"
+    },
+    "W3_left_and_right_alternate": {
+      "test": "median circular distance of phase(L1 flexor -> R1 flexor) from 0.5 <= 0.15",
+      "value": null,
+      "outcome": "fail"
+    },
+    "W4_a_tripod": {
+      "test": "median circular distance of phase(L1 -> L2 flexor) from 0.5 <= 0.15 and of phase(L1 -> L3 flexor) from 0 <= 0.15",
+      "value": {
+        "L1_L2_from_half": null,
+        "L1_L3_from_zero": null
+      },
+      "outcome": "fail"
+    }
+  },
+  "backward_walking_reported": {
+    "phase_L1flex_L1ext": null,
+    "phase_L1_R1": null,
+    "phase_L1_L2": null,
+    "phase_L1_L3": null,
+    "rhythmicity_L1_flexor": 0.0
+  },
+  "pool_sizes": {
+    "L1_flexor": 5,
+    "L1_extensor": 2,
+    "R1_flexor": 5,
+    "R1_extensor": 2,
+    "L2_flexor": 5,
+    "L2_extensor": 2,
+    "R2_flexor": 5,
+    "R2_extensor": 2,
+    "L3_flexor": 9,
+    "L3_extensor": 2,
+    "R3_flexor": 8,
+    "R3_extensor": 2
+  },
+  "registration": {
+    "file": "preregistration/embodied_stage2a_fictive_walking.json",
+    "sha256": "c5558a0b8380dc48f31e98294062ec5c367a08b3a4e012d4fecd9de72f858b84",
+    "registered_in_commit": "91c5b9e52309eeb7a806d8e25289d0fddab37aae",
+    "committed_at": "2026-10-24T13:03:00-04:00"
+  }
+}
