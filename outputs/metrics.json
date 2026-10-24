@@ -1562,6 +1562,116 @@
       "sha256": "17983ff6493bb453ef66b967381e041ebe83fc91d85bb32aa3c97507314f951a"
     }
   },
+  "embodied_stage1b": {
+    "coverage": {
+      "left_front_leg_motor_neurons": 68,
+      "mapped": 49
+    },
+    "label": "SIMULATED male CNS driving the FlyMimic leg (open loop)",
+    "mean_activation_by_drive": {
+      "jon_ce": {
+        "LFC_pleural_promotor": 0.9633,
+        "LFC_pleural_remotor_and_abductor": 0.0302,
+        "LFC_sternal_adductor": 0.0001,
+        "LFC_sternal_anterior_rotator": 0.8836,
+        "LFC_sternal_posterior_rotator": 0.0001,
+        "LFC_tergopleural_promotor_a": 0.9633,
+        "LFC_tergopleural_promotor_b": 0.9633,
+        "LFF_accesory_trochanter_flexor": 0.0001,
+        "LFF_sterno-tergo-trochanter_extensor_a": 0.0193,
+        "LFF_sterno-tergo-trochanter_extensor_b": 0.0193,
+        "LFF_trochanter_extensor": 0.0849,
+        "LFF_trochanter_flexor_a": 0.0703,
+        "LFF_trochanter_flexor_b": 0.0703,
+        "LFTibia_extensor_93932": 0.5813,
+        "LFTibia_flex_93434": 0.0001
+      },
+      "none": {
+        "LFC_pleural_promotor": 0.0001,
+        "LFC_pleural_remotor_and_abductor": 0.0001,
+        "LFC_sternal_adductor": 0.0001,
+        "LFC_sternal_anterior_rotator": 0.0001,
+        "LFC_sternal_posterior_rotator": 0.0001,
+        "LFC_tergopleural_promotor_a": 0.0001,
+        "LFC_tergopleural_promotor_b": 0.0001,
+        "LFF_accesory_trochanter_flexor": 0.0001,
+        "LFF_sterno-tergo-trochanter_extensor_a": 0.0001,
+        "LFF_sterno-tergo-trochanter_extensor_b": 0.0001,
+        "LFF_trochanter_extensor": 0.0001,
+        "LFF_trochanter_flexor_a": 0.0001,
+        "LFF_trochanter_flexor_b": 0.0001,
+        "LFTibia_extensor_93932": 0.0001,
+        "LFTibia_flex_93434": 0.0001
+      },
+      "sugar": {
+        "LFC_pleural_promotor": 0.1297,
+        "LFC_pleural_remotor_and_abductor": 0.0247,
+        "LFC_sternal_adductor": 0.0001,
+        "LFC_sternal_anterior_rotator": 0.0001,
+        "LFC_sternal_posterior_rotator": 0.0001,
+        "LFC_tergopleural_promotor_a": 0.1297,
+        "LFC_tergopleural_promotor_b": 0.1297,
+        "LFF_accesory_trochanter_flexor": 0.0001,
+        "LFF_sterno-tergo-trochanter_extensor_a": 0.6694,
+        "LFF_sterno-tergo-trochanter_extensor_b": 0.6694,
+        "LFF_trochanter_extensor": 0.8645,
+        "LFF_trochanter_flexor_a": 0.0001,
+        "LFF_trochanter_flexor_b": 0.0001,
+        "LFTibia_extensor_93932": 0.0838,
+        "LFTibia_flex_93434": 0.0001
+      }
+    },
+    "predictions": {
+      "B0_feeding_still_works": {
+        "outcome": "fail",
+        "test": "MN9|sugar >= 20 Hz and MN9|sugar+bitter <= 0.5 x MN9|sugar; if this fails, B1-B3 are reported as uninterpretable",
+        "value": {
+          "mn9_sugar_bitter_hz": 0.0,
+          "mn9_sugar_hz": 0.0
+        }
+      },
+      "B1_antennal_drive_brings_the_claw_to_the_head": {
+        "outcome": "uninterpretable",
+        "test": "median minimum claw-antenna distance under JO-CE at least 0.2 mm below both the sugar and no-drive medians (r_full 20 Hz)",
+        "value": {
+          "jon_ce": 1.1026,
+          "none": 1.5255,
+          "sugar": 1.5265
+        }
+      },
+      "B2_it_is_a_movement_toward_the_head": {
+        "outcome": "uninterpretable",
+        "test": "minimum claw-antenna distance under JO-CE below the passive rest (1.528 mm) in at least 6 of 8 trials",
+        "value": {
+          "trials": 8,
+          "trials_below_rest": 8
+        }
+      },
+      "B3_the_activation_scale_does_not_decide_it": {
+        "outcome": "uninterpretable",
+        "test": "B1's test holds at r_full 10 Hz and 40 Hz",
+        "value": {
+          "r_full_10": {
+            "jon_ce": 1.086,
+            "none": 1.5255,
+            "sugar": 1.5263
+          },
+          "r_full_40": {
+            "jon_ce": 1.1061,
+            "none": 1.5255,
+            "sugar": 1.5265
+          }
+        }
+      }
+    },
+    "registration": {
+      "committed_at": "2026-10-24T11:09:23-04:00",
+      "file": "preregistration/embodied_stage1b_rescaled_weight.json",
+      "registered_in_commit": "48d0975177ee05f50da32632242c1bd9ab23818f",
+      "sha256": "631b11051e7d5f44a5adfc5436c8f542f734539ff822a2386265af014b66341a"
+    },
+    "w_syn_mv": 0.1596
+  },
   "extractor_agreement": {
     "by_feature": {
       "active_electrodes": {
