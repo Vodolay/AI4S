@@ -1,0 +1,36 @@
+{
+  "title": "Embodied fly, stage 1c: the male nerve cord driven from descending neurons alone, brain removed (SIMULATED, open loop)",
+  "registered": "2026-10-24",
+  "status": "registered before any simulation of the nerve-cord network",
+  "roadmap": "report/ROADMAP_EMBODIED_FLY.md §7 (revised plan)",
+  "relation_to_earlier_stages": "Stages 1 and 1b failed as registered and stay failed. Stage 1c tests the nerve cord, the muscle map and the leg without the male brain, whose activity avalanches under the published parameters (fly_spread).",
+  "seen_before_registration": [
+    "every result of stages 1 and 1b and of fly_spread and fly_excitability",
+    "MaleCNS annotations: DNg62 'Hampel 2015: aDN1' (L, R) and DNge078 'Hampel 2015: aDN2' (L, R), the antennal-grooming descending neurons; DNp01 'Kennedy and Broadie 2018: GF' (L, R); MDN 'Carreira-Rosario 2018: DNp50' (2 L, 2 R); DNg100 'Sapkal 2024: BDN2' (L, R)",
+    "no nerve-cord-only simulation had been run"
+  ],
+  "design": {
+    "network": "the MaleCNS model (Traced bodies, consensus signs, Shiu constants, w_syn 0.275 mV) restricted to neurons of superclass vnc_intrinsic, vnc_motor, vnc_sensory, vnc_efferent, ascending_neuron, sensory_ascending and descending_neuron, with the connections among them; brain, optic and central-brain neurons removed",
+    "drives": {
+      "grooming": "DNg62 and DNge078, both sides (aDN1, aDN2)",
+      "giant_fibre": "DNp01, both sides",
+      "backward_walking": "MDN, all four",
+      "forward_walking": "DNg100 (BDN2), both sides",
+      "none": "no drive"
+    },
+    "drive_rate": "150 Hz Poisson to each driven neuron, as the published protocols",
+    "trials": "8 per drive, 1 s each, seeds 730-737",
+    "leg": "exactly stage 1: motor-neuron map, rate filter (tau 20 ms), activation (r_full 20 Hz primary; 10 and 40 Hz), FlyMimic leg in MuJoCo, claw-to-antenna distance",
+    "motor_pools": "left front-, middle- and hind-leg motor neurons (subclass fl, ml, hl, somaSide L), mean rate over the trial",
+    "sensitivity": "the grooming and no-drive conditions repeated at the rescaled weight (0.1596 mV), reported, not scored"
+  },
+  "predictions": {
+    "C0_the_nerve_cord_is_silent_without_drive": {"statement": "With no drive and no brain, nothing fires", "test": "no motor neuron spikes in any no-drive trial"},
+    "C1_grooming_neurons_bring_the_claw_to_the_head": {"statement": "Driving the antennal-grooming descending neurons brings the claw closer to the antenna than any other drive or none", "test": "median minimum claw-antenna distance under grooming at least 0.2 mm below each of the other four medians (r_full 20 Hz)"},
+    "C2_the_front_leg_is_the_one_that_moves": {"statement": "Under grooming drive the left front-leg motor pool fires more than the left middle- and hind-leg pools", "test": "mean rate, front > middle and front > hind"},
+    "C3_grooming_neurons_recruit_the_front_leg_most": {"statement": "No control drive recruits the left front-leg pool as strongly as grooming drive", "test": "front-leg pool rate under grooming > under each of the three control drives"},
+    "C4_the_activation_scale_does_not_decide_it": {"statement": "C1 holds at the other activation scales", "test": "C1's test holds at r_full 10 Hz and 40 Hz"}
+  },
+  "not_claimed_even_if_all_pass": "that the movement is antennal grooming as a fly performs it (one leg, open loop, no tarsal muscles); a pass means the descending neurons the literature ties to antennal grooming move this leg toward the head, specifically",
+  "reporting": "Every prediction with its value and pass/fail, whichever way it falls."
+}
