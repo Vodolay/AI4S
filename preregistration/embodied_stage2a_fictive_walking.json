@@ -1,0 +1,29 @@
+{
+  "title": "Embodied fly, stage 2a: does the male nerve cord produce a walking rhythm from its walking command neuron? (SIMULATED, fictive: no body)",
+  "registered": "2026-10-24",
+  "status": "registered before any stage-2a simulation",
+  "roadmap": "report/ROADMAP_EMBODIED_FLY.md, stage 2 (feeding and walking); this is its walking half's first test, on motor neurons alone, before any body",
+  "seen_before_registration": [
+    "every stage-1 result; in stages 1c and 1d (seeds 730-747, 1 s), forward-walking (BDN2, DNg100) drive moved the left front leg's claw rhythmically (rhythmicity 0.46) and drove the left hind-leg motor pool hardest; no other leg's time course was looked at",
+    "data only: tibia flexor motor neurons on every leg (5-9 per leg) and tibia extensor motor neurons (2 per leg)"
+  ],
+  "design": {
+    "network": "the stage-1c nerve cord (male CNS, brain removed, w_syn 0.275 mV)",
+    "drives": {"forward_walking": "DNg100 (BDN2), both sides", "grooming": "DNg62 + DNge078 (aDN1, aDN2), both sides", "backward_walking": "MDN, all four (reported, no prediction)", "none": "no drive"},
+    "drive_rate": "150 Hz Poisson to each driven neuron",
+    "trials": "8 per drive, 2 s each, seeds 800-807",
+    "signals": "for each of the six legs, the tibia flexor pool and the tibia extensor pool (motor neurons of that type, subclass and soma side): spike trains filtered (exponential, tau 20 ms) into rates at 1 ms, averaged over the pool; analysed from 0.2 to 2.0 s",
+    "rhythmicity": "fly.kinematics.rhythmicity on a signal: the largest normalized autocorrelation at lags 50-500 ms",
+    "phase": "of signal b relative to a: the period P is the lag of a's largest autocorrelation within 50-500 ms; the phase is k/P for the lag k in [0, P) at which the normalized cross-correlation of a(t) and b(t+k) is largest; undefined (counts as a failure) if either pool fires below 1 Hz on average",
+    "closeness": "circular distance between phases, min(|p - q|, 1 - |p - q|); per prediction the median over trials"
+  },
+  "predictions": {
+    "W0_silent_without_drive": {"statement": "Without drive no leg motor neuron fires", "test": "no spikes in any of the twelve pools in any no-drive trial"},
+    "W1_the_walking_command_makes_a_rhythm": {"statement": "BDN2 drive makes the left front tibia flexor pool rhythmic, more than grooming drive does", "test": "median rhythmicity under forward walking >= 0.3 and above the grooming median"},
+    "W2_antagonists_alternate": {"statement": "Within the left front leg, tibia flexors and extensors alternate", "test": "median circular distance of phase(L1 flexor -> L1 extensor) from 0.5 <= 0.15"},
+    "W3_left_and_right_alternate": {"statement": "The two front legs alternate", "test": "median circular distance of phase(L1 flexor -> R1 flexor) from 0.5 <= 0.15"},
+    "W4_a_tripod": {"statement": "Neighbouring legs on one side alternate and the front and hind legs move together, as in a tripod gait", "test": "median circular distance of phase(L1 -> L2 flexor) from 0.5 <= 0.15 and of phase(L1 -> L3 flexor) from 0 <= 0.15"}
+  },
+  "not_claimed_even_if_all_pass": "that the fly walks: there is no body, no sensory feedback, and the drive is a stimulated command neuron; a pass means the connectome-only nerve cord turns the walking command into an alternating, coordinated motor rhythm",
+  "reporting": "Every prediction with its value and pass/fail, whichever way it falls; backward-walking phases reported without a prediction."
+}
