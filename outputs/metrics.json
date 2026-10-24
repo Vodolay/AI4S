@@ -2665,6 +2665,33 @@
       "sha256": "e3de7aa605a106caa9dd3a0a2e044bd33b75d1a715357b17fc52190fb6c75307"
     }
   },
+  "fly_excitability": {
+    "flywire783": {
+      "excitatory_inputs_mean": 234.38,
+      "excitatory_inputs_median": 108.0,
+      "inhibitory_inputs_mean": 158.67,
+      "inhibitory_inputs_median": 87.0,
+      "neurons": 138639,
+      "synapses_per_connection": 3.611
+    },
+    "malecns_all": {
+      "excitatory_inputs_mean": 464.52,
+      "excitatory_inputs_median": 180.0,
+      "inhibitory_inputs_mean": 286.59,
+      "inhibitory_inputs_median": 154.0,
+      "neurons": 165122,
+      "synapses_per_connection": 4.852
+    },
+    "malecns_brain": {
+      "excitatory_inputs_mean": 425.24,
+      "excitatory_inputs_median": 174.0,
+      "inhibitory_inputs_mean": 252.13,
+      "inhibitory_inputs_median": 148.0,
+      "neurons": 140486,
+      "synapses_per_connection": 4.514
+    },
+    "mean_excitatory_input_ratio_malecns_brain_to_flywire": 1.814
+  },
   "fly_malecns_replication": {
     "deviations": {
       "neuron_sets": "types also matched through MaleCNS's flywireType cross-reference, not only by type name: by name alone no body matches FlyWire MN9 (CB0701). Decided before any MaleCNS simulation."
