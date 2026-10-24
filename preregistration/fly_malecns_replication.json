@@ -1,0 +1,35 @@
+{
+  "title": "Addendum: replicate the chip-to-animal behaviour and bridge predictions on the male CNS (SIMULATED)",
+  "registered": "2026-10-22",
+  "status": "registered before any MaleCNS simulation was run, and before the FlyWire sweep's results were read",
+  "parent": "preregistration/fly_chip_to_animal.json",
+  "seen_before_registration": [
+    "MaleCNS annotation and transmitter tables (counts, status labels, cell-type names); no connectivity read, nothing simulated",
+    "FlyWire quick run (3 conditions, 2 trials): vehicle MN9|sugar 81.5 Hz, gaba_block 0.2 152 Hz, ach_block 0.4 0 Hz"
+  ],
+  "design": {
+    "connectome": "MaleCNS v1.0 flat connectome, minconf 0.5, brain and nerve cord",
+    "neurons": "bodies with status 'Traced' in body-annotations",
+    "sign": "consensus_nt from body-neurotransmitters: gaba and glutamate -1 (as Shiu et al.), histamine -1 (HisCl) but in no knob's class; every other or missing label +1",
+    "constants": "Shiu et al. constants unchanged, including w_syn; synapse count is the weights file's weight",
+    "neuron_sets": "each FlyWire set matched by cell type: a MaleCNS body belongs if its type equals the FlyWire cell_type of a set member, on the side letter of that member's FlyWire side (left -> L, right -> R; rootSide for sensory neurons, somaSide otherwise)",
+    "readout_neurons": "MN9, aBN1 (SAD093) and aDN1 (DNg62) matched the same way; where two bodies match one FlyWire neuron, the one on the matched side is read",
+    "descending": "superclass descending_neuron",
+    "array": "544 single-unit electrodes drawn at random (seed 0) from cb_intrinsic neurons: MaleCNS publishes no per-neuron neuropil table among the files fetched",
+    "conditions": "the 21 drug conditions and vehicle of the parent registration",
+    "spontaneous": {"duration_s": 10.0, "seeds": 3, "background_mean_mv": 5.0},
+    "behaviour": {"trials": 8, "stim_rate_hz": 150.0},
+    "seeds": {"spontaneous": "500+", "behaviour": "600+"}
+  },
+  "predictions": {
+    "M0_feeding_circuit_exists": {
+      "statement": "Sugar GRNs drive MN9 in the male CNS model as in FlyWire",
+      "test": "MN9|sugar (vehicle) >= 20 Hz and MN9|sugar+bitter <= 0.5 x MN9|sugar"
+    },
+    "M_B1": {"statement": "parent B1 on MaleCNS", "test": "Spearman(block fraction, MN9|sugar+bitter) over vehicle + 5 gaba_block levels >= 0.8"},
+    "M_B2": {"statement": "parent B2 on MaleCNS", "test": "Spearman(block fraction, readout) <= -0.8 for MN9|sugar and aBN1|JO-CE"},
+    "M_B3": {"statement": "parent B3 on MaleCNS", "test": "Spearman(block fraction, descending recruited) >= 0.8"},
+    "M_C1": {"statement": "parent C1 on MaleCNS", "test": "Spearman(|delta log2 mfr|, disruption index) >= 0.6 over the 21 drug conditions"}
+  },
+  "reporting": "Each prediction is reported with its value and pass/fail. A failed M0 means the matched circuit is not the same, and M_B1-M_C1 are then reported as uninterpretable rather than as failures of the bridge."
+}

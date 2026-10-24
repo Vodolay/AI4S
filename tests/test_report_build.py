@@ -23,7 +23,9 @@ WORKFLOW = REPO_ROOT / ".github" / "workflows" / "ci.yml"
 # The competition asks for 15-20 pages "excluding references and appendices", so
 # the gate counts main matter only: `count_main_matter` in the build script finds
 # the page the appendices start on.
-PAGES_MIN, PAGES_MAX = 15, 20
+# Round 1 capped the main matter at 20 pages; the final round has no limit,
+# so only the minimum is gated (it still catches a build that drops sections).
+PAGES_MIN = 15
 
 
 def test_the_build_script_exists_and_is_executable() -> None:
@@ -90,12 +92,12 @@ def test_figures_carry_captions_that_say_whether_data_are_real_or_simulated() ->
         assert re.search(r"\bREAL\b|\bSIMULATED\b|\bSIMULATIONS\b", caption), caption
 
 
-def test_the_page_range_is_the_same_in_the_makefile_and_the_workflow() -> None:
-    """Two places state the requirement; they must not drift."""
+def test_the_page_minimum_is_the_same_in_the_makefile_and_the_workflow() -> None:
+    """Two places state the requirement; they must not drift, and neither caps the length."""
     makefile = MAKEFILE.read_text()
     assert f"PAGES_MIN ?= {PAGES_MIN}" in makefile
-    assert f"PAGES_MAX ?= {PAGES_MAX}" in makefile
-    assert f"--check-pages {PAGES_MIN} {PAGES_MAX}" in WORKFLOW.read_text()
+    assert "PAGES_MAX" not in makefile
+    assert re.search(rf"--check-pages {PAGES_MIN}\s*$", WORKFLOW.read_text(), re.M)
 
 
 def test_the_makefile_exposes_the_report_targets() -> None:
@@ -408,8 +410,8 @@ def test_the_v2_report_carries_no_audience_specific_framing() -> None:
 
 
 @pytest.mark.skipif(shutil.which("soffice") is None, reason="LibreOffice not installed")
-def test_the_submitted_report_builds_inside_the_required_page_range(tmp_path: Path) -> None:
-    """15-20 pages of main matter, counted on the Word build that is submitted.
+def test_the_submitted_report_builds_with_at_least_the_minimum_length(tmp_path: Path) -> None:
+    """At least 15 pages of main matter, counted on the Word build that is submitted.
 
     Built into a temporary directory: the default writes beside the source, which
     would overwrite the committed .docx - possibly one just edited by hand.
@@ -422,7 +424,6 @@ def test_the_submitted_report_builds_inside_the_required_page_range(tmp_path: Pa
             str(tmp_path),
             "--check-pages",
             str(PAGES_MIN),
-            str(PAGES_MAX),
         ],
         capture_output=True,
         text=True,
@@ -431,7 +432,7 @@ def test_the_submitted_report_builds_inside_the_required_page_range(tmp_path: Pa
     assert result.returncode == 0, result.stdout + result.stderr
     main = int(re.search(r"main matter (\d+) pages", result.stdout).group(1))
     total = int(re.search(r" - (\d+) pages,", result.stdout).group(1))
-    assert PAGES_MIN <= main <= PAGES_MAX
+    assert main >= PAGES_MIN
     assert main < total, "appendices should not count toward the page range"
     assert (REPO_ROOT / "report" / "TECHNICAL_REPORT.docx").read_bytes() == committed, (
         "the test build overwrote the committed .docx"

@@ -7,11 +7,10 @@
 # the two ran different commands - which is how formatting drifted unnoticed.
 PYTHON ?= $(shell test -x .venv/bin/python && echo .venv/bin/python || command -v python3 || command -v python)
 PAGES_MIN ?= 15
-PAGES_MAX ?= 20
 
 help:
 	@echo "make report        build report/TECHNICAL_REPORT.pdf"
-	@echo "make report-check  build it and require $(PAGES_MIN)-$(PAGES_MAX) pages"
+	@echo "make report-check  build it and require at least $(PAGES_MIN) pages"
 	@echo "make quick         python run_all.py --quick"
 	@echo "make full          python run_all.py"
 	@echo "make test / lint   pytest / ruff"
@@ -28,7 +27,7 @@ report:
 	report/build_docx.sh
 
 report-check:
-	report/build_docx.sh --check-pages $(PAGES_MIN) $(PAGES_MAX)
+	report/build_docx.sh --check-pages $(PAGES_MIN)
 
 report-latex:
 	report/build_report.sh --output report/TECHNICAL_REPORT_latex.pdf

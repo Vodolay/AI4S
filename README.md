@@ -52,6 +52,22 @@ negative as positive. Four confounds that published practice would have carried:
 Every number above is produced by a script into `outputs/metrics.json` and re-checked against the
 documents that cite it. Full account: [report/TECHNICAL_REPORT.md](report/TECHNICAL_REPORT.md).
 
+### After round 1: from chip to animal
+
+The twin's drug knobs, applied to a **simulated** whole adult fly brain (the connectome-constrained
+model of Shiu et al. 2024 on FlyWire, 138,639 <!-- metrics.json: fly_models.flywire783.neurons -->
+neurons), read at once as a chip (a virtual array scored by `features/mea.py`) and as an animal (the
+neurons the published model validated against feeding and grooming). The predictions were committed
+before the simulations ran ([preregistration/](preregistration/)). The chip's firing rate ranks
+drugs by how much they disrupt behaviour (Spearman 0.863
+<!-- metrics.json: fly_chip_to_animal.predictions.C1_chip_tracks_disruption.value -->), but in
+every drug family behaviour failed at a lower dose than the registered chip threshold flagged; at
+behavioural onset, GABA block had moved firing rate by only 0.149
+<!-- metrics.json: fly_confirm_network_bursts.precision.abs_log2_mfr_change_at_behavioural_onset.flywire_sweep.gaba_block -->
+log2. A second connectome (the male CNS) replicates the behaviour and ranking results. Account:
+[report/TECHNICAL_REPORT.md](report/TECHNICAL_REPORT.md), Act VII; run with
+`python run_all.py --stage fly` (a 0.4 GB download and about 7 GB of memory per worker).
+
 ## Setup
 
 Linux or macOS, with `git` and `curl`. CI runs on Ubuntu 24.04. uv fetches Python 3.11 itself
@@ -141,9 +157,9 @@ find it — and on a machine that has no system-wide Streamlit the bare command 
 runs its simulation with `sys.executable`, so starting the app this way is also what gives that
 subprocess the interpreter that has Brian2 in it.
 
-Three tabs, in this order: mechanism prediction with a conformal set beside the transfer results,
-the twin with its posterior and what it does on real recordings, and the data asset with its
-standard. Each of the first two opens on a generated diagram of the model it is about. The app reads
+Four tabs, in this order: mechanism prediction with a conformal set beside the transfer results,
+the twin with its posterior and what it does on real recordings, the data asset with its
+standard, and the fly-brain study ("From chip to animal"), which appears once the fly stage has run. Each of the first two opens on a generated diagram of the model it is about. The app reads
 `outputs/metrics.json` and `outputs/demo/`, so it cannot disagree with the report.
 
 

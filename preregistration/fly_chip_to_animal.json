@@ -1,0 +1,76 @@
+{
+  "title": "From chip to animal: chip drug knobs on a whole fly brain (SIMULATED)",
+  "registered": "2026-10-22",
+  "status": "registered before the drug sweep, the evoked-pulse runs and the replication runs were made",
+  "seen_before_registration": [
+    "sugar -> MN9 on FlyWire 783 with this code, 10 trials, seeds 0-9: 80.7 Hz; with bitter 4.6 Hz",
+    "sugar -> MN9 on FlyWire 630 with the published code, 4 trials: 77.25 Hz",
+    "two 10 s spontaneous runs (seed 1, background 5 mV): inhibition x1.0 and GABA+glutamate x0.5; 3-unit electrodes; mfr 58 -> 133 Hz per electrode, synchrony 0.36 -> 0.66",
+    "spontaneous whole-region cross-correlation vs connectome asymmetry on those runs: Spearman 0.15, sign agreement 0.53 (x1.0); -0.01, 0.50 (x0.5)",
+    "continuous (not pulsed) region stimulation, seed 0, 1 s, 62 regions: whole-region Spearman 0.22, sign agreement 0.58, strong pairs 0.64"
+  ],
+  "fresh_seeds": {"spontaneous": "100+", "evoked": "200+", "behaviour": "300+", "replication": "400+"},
+  "design": {
+    "model": "Shiu et al. 2024 LIF, FlyWire 783, constants unchanged",
+    "background_mean_mv": 5.0,
+    "array": {"electrodes_per_region": 8, "units_per_electrode": 1, "array_seed": 0},
+    "spontaneous": {"duration_s": 10.0, "seeds": 3},
+    "behaviour": {"trials": 8, "stim_rate_hz": 150.0, "background": "none (the published protocol)"},
+    "evoked": {"neurons_driven": 20, "rate_hz": 300.0, "period_ms": 200.0, "width_ms": 10.0,
+               "duration_s": 2.0, "seeds": 3, "window_ms": [5.0, 30.0], "reference_window_ms": [-30.0, -5.0]},
+    "pairs": {"min_synapses": 2000, "strong_asymmetry": 0.5},
+    "conditions": {
+      "gaba_block": {"knob": "gaba_scale", "levels": [0.8, 0.6, 0.4, 0.2, 0.0], "chip_mechanism": "gabaa_antagonist", "reference_level": 0.2},
+      "gaba_potentiate": {"knob": "gaba_scale", "levels": [1.25, 1.5, 2.0], "chip_mechanism": "gabaa_agonist_or_pam", "reference_level": 2.0},
+      "glucl_block": {"knob": "glut_scale", "levels": [0.8, 0.6, 0.4, 0.2, 0.0], "chip_mechanism": null, "reference_level": null},
+      "ach_block": {"knob": "ach_scale", "levels": [0.8, 0.6, 0.4, 0.2], "chip_mechanism": "glutamatergic_antagonist", "reference_level": 0.4},
+      "excitability_block": {"knob": "threshold_scale", "levels": [1.1, 1.2, 1.4, 1.6], "chip_mechanism": "na_channel_blocker", "reference_level": 1.6}
+    },
+    "disruption_index": "mean over MN9|sugar, MN9|sugar+bitter, aBN1|JO-CE and descending neurons recruited (>=10 Hz)|sugar of |log2((x + 1) / (x_vehicle + 1))|",
+    "chip_detection": {"feature": "mfr_hz", "abs_log2_threshold": 0.5, "sensitivity_thresholds": [0.25, 1.0]},
+    "behaviour_impairment_threshold": 0.5
+  },
+  "predictions": {
+    "R1_replication": {
+      "statement": "Sugar -> MN9 on 783 (this code) is within 20% of 630 (this code), same seeds",
+      "test": "abs(rate_783 / rate_630 - 1) <= 0.20"
+    },
+    "B1_disinhibition_releases_feeding_from_bitter": {
+      "statement": "Blocking GABA erodes bitter gating of MN9: MN9|sugar+bitter rises with dose",
+      "test": "Spearman(block fraction, MN9|sugar+bitter) over vehicle + 5 gaba_block levels >= 0.8"
+    },
+    "B2_excitation_block_silences_motor_output": {
+      "statement": "ACh block lowers MN9|sugar and aBN1|JO-CE monotonically",
+      "test": "Spearman(block fraction, readout) <= -0.8 for both readouts over vehicle + 4 ach_block levels"
+    },
+    "B3_disinhibition_recruits_off_target_descending_neurons": {
+      "statement": "Under sugar drive, more descending neurons fire as GABA is blocked",
+      "test": "Spearman(block fraction, descending recruited) >= 0.8"
+    },
+    "C1_chip_tracks_disruption": {
+      "statement": "Across the 21 drug conditions, the chip's firing-rate change tracks behavioural disruption",
+      "test": "Spearman(|delta log2 mfr|, disruption index) >= 0.6"
+    },
+    "C2_chip_is_the_earlier_sentinel": {
+      "statement": "For every mechanism, the chip detects at a dose no higher than the one that impairs behaviour",
+      "test": "for each condition family with any impairment: first level with |delta log2 mfr| >= 0.5 comes at or before the first level with disruption >= 0.5"
+    },
+    "A1_direction_agreement_with_real_chips": {
+      "statement": "The fly array reproduces real-chip directions at least as often as the chip twin does (HD13), over the four matched mechanisms",
+      "test": "sum of fly agreeing features >= sum of twin agreeing features, scored on the same established real features"
+    },
+    "D1_spontaneous_direction_is_near_chance": {
+      "statement": "Confirmation on fresh seeds: spontaneous cross-correlation does not recover region-to-region direction",
+      "test": "whole-region sign agreement on strongly asymmetric pairs < 0.65"
+    },
+    "D2_pulsed_stimulation_recovers_direction": {
+      "statement": "Pulsed stimulation with an early response window recovers direction where spontaneous activity does not",
+      "test": "whole-region sign agreement on strongly asymmetric pairs >= 0.70 and exceeds the spontaneous value by >= 0.10"
+    },
+    "D3_an_electrode_array_sees_it_too": {
+      "statement": "The same holds when only the virtual array's single units are read",
+      "test": "array sign agreement on strongly asymmetric pairs >= 0.65"
+    }
+  },
+  "reporting": "Every prediction is reported with its value and pass/fail, whichever way it falls. Analyses not listed here are labelled exploratory."
+}

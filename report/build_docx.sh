@@ -11,7 +11,8 @@
 # Usage:
 #   report/build_docx.sh                       # .docx and .pdf for the technical report
 #   report/build_docx.sh --docx-only           # skip the PDF conversion
-#   report/build_docx.sh --check-pages 15 20   # also gate the main-matter length
+#   report/build_docx.sh --check-pages 15      # also require a minimum main-matter length
+#   report/build_docx.sh --check-pages 15 20   # ... and a maximum, if a page limit applies
 #   report/build_docx.sh --outdir /tmp/x       # write somewhere other than report/
 #   report/build_docx.sh --source report/LAB_NOTEBOOK.md
 set -euo pipefail
@@ -31,8 +32,12 @@ while [[ $# -gt 0 ]]; do
     --docx-only) docx_only="yes"; shift ;;
     --outdir) outdir="${2:?--outdir needs a directory}"; shift 2 ;;
     --check-pages)
-      min_pages="${2:?--check-pages needs MIN and MAX}"; max_pages="${3:?--check-pages needs MIN and MAX}"; shift 3 ;;
-    -h|--help) sed -n '2,16p' "${BASH_SOURCE[0]}"; exit 0 ;;
+      # MAX is optional: round 1 capped the main matter at 20 pages; the final
+      # round has no limit, and the minimum alone still catches a build that
+      # silently dropped sections.
+      min_pages="${2:?--check-pages needs MIN}"; shift 2
+      if [[ $# -gt 0 && "$1" =~ ^[0-9]+$ ]]; then max_pages="$1"; shift; fi ;;
+    -h|--help) sed -n '2,17p' "${BASH_SOURCE[0]}"; exit 0 ;;
     *) echo "unknown argument: $1" >&2; exit 2 ;;
   esac
 done
@@ -117,7 +122,12 @@ count_main_matter() {
 if [[ -n "${min_pages}" ]]; then
   command -v pdftotext >/dev/null || die "--check-pages needs pdftotext (apt install poppler-utils)"
   main="$(count_main_matter)"
-  (( main >= min_pages && main <= max_pages )) \
-    || die "main matter is ${main} pages, outside the required range ${min_pages}-${max_pages}"
-  echo "build_docx: main matter ${main} pages is within ${min_pages}-${max_pages}"
+  if [[ -n "${max_pages}" ]]; then
+    (( main >= min_pages && main <= max_pages )) \
+      || die "main matter is ${main} pages, outside the required range ${min_pages}-${max_pages}"
+    echo "build_docx: main matter ${main} pages is within ${min_pages}-${max_pages}"
+  else
+    (( main >= min_pages )) || die "main matter is ${main} pages, below the minimum ${min_pages}"
+    echo "build_docx: main matter ${main} pages, at least ${min_pages}"
+  fi
 fi

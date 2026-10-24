@@ -1,11 +1,17 @@
 """One command: data -> features -> models -> twin -> figures.
 
-Usage: python run_all.py [--quick | --full] [--stage fetch|data|models|twin|all]
+Usage: python run_all.py [--quick | --full] [--with-fly]
+                         [--stage fetch|data|models|twin|demo|fly|all]
 
 ``--quick`` is the CI path: the small-tier sources, fewer draws, under ten
 minutes on CPU. It writes to its own run root (``outputs/quick/`` and
 ``data/processed/quick/``) so that running it cannot overwrite the full run
 whose numbers the report cites. See :mod:`neuromps.paths`.
+
+The fly stage (the chip-to-animal study on the whole fly brain) is part of a
+full run. A quick run leaves it out unless ``--with-fly`` is given: it needs a
+440 MB download and about 7 GB of memory per worker, which would take the CI
+path past its ten minutes on its own.
 """
 
 import argparse
@@ -17,6 +23,14 @@ from neuromps import harness
 from neuromps.paths import FULL, QUICK, outputs_dir, processed_dir, set_run_mode
 
 STAGES = ["fetch", "data", "models", "twin", "demo"]
+OPTIONAL_STAGES = ["fly"]
+
+
+def select_stages(stage: str, quick: bool, with_fly: bool) -> list[str]:
+    """Stages to run: one by name, or all - the fly stage on a quick run only if asked."""
+    if stage != "all":
+        return [stage]
+    return [*STAGES, *OPTIONAL_STAGES] if not quick or with_fly else list(STAGES)
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -33,13 +47,16 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="complete run incl. large raw data; writes to outputs/ and data/processed/",
     )
-    p.add_argument("--stage", choices=[*STAGES, "all"], default="all")
+    p.add_argument("--stage", choices=[*STAGES, *OPTIONAL_STAGES, "all"], default="all")
+    p.add_argument(
+        "--with-fly", action="store_true", help="also run the fly stage on a --quick run"
+    )
     args = p.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
     # Before any stage module is imported, so every writer resolves the same root.
     set_run_mode(QUICK if args.quick else FULL)
     logging.info("writing this run to %s and %s", outputs_dir(), processed_dir())
-    stages = STAGES if args.stage == "all" else [args.stage]
+    stages = select_stages(args.stage, quick=args.quick, with_fly=args.with_fly)
     t0 = time.time()
     timings: dict[str, float] = {}
     for stage in stages:
@@ -131,6 +148,14 @@ def main(argv: list[str] | None = None) -> int:
             from neuromps.demo.precompute import main as precompute_demo
 
             precompute_demo(["--quick"] if args.quick else [])
+        elif stage == "fly":
+            from neuromps.fetch.runner import incomplete_message, run_fetchers
+            from neuromps.fly.study import main as run_fly_study
+
+            manifest = run_fetchers(names=["flywire783"], full=not args.quick)
+            if manifest.sources["flywire783"].status != "ok":
+                raise SystemExit(incomplete_message([manifest.sources["flywire783"]]))
+            run_fly_study(["--quick"] if args.quick else [])
         else:
             logging.info("stage %r not implemented yet (later phase) - skipping", stage)
         timings[stage] = round(time.time() - stage_started, 1)

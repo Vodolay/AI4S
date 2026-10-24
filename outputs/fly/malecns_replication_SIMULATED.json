@@ -1,0 +1,54 @@
+{
+  "label": "SIMULATED male CNS (MaleCNS v1.0) replication of the fly study",
+  "predictions": {
+    "M0_feeding_circuit_exists": {
+      "test": "MN9|sugar (vehicle) >= 20 Hz and MN9|sugar+bitter <= 0.5 x MN9|sugar",
+      "value": {
+        "mn9_sugar_hz": 31.625,
+        "mn9_sugar_bitter_hz": 0.0
+      },
+      "outcome": "pass"
+    },
+    "M_B1": {
+      "test": "Spearman(block fraction, MN9|sugar+bitter) over vehicle + 5 gaba_block levels >= 0.8",
+      "value": 0.9411239481143202,
+      "outcome": "pass"
+    },
+    "M_B2": {
+      "test": "Spearman(block fraction, readout) <= -0.8 for MN9|sugar and aBN1|JO-CE",
+      "value": {
+        "mn9_sugar": -0.8944271909999157,
+        "abn1_jon_ce": -0.9999999999999999
+      },
+      "outcome": "pass"
+    },
+    "M_B3": {
+      "test": "Spearman(block fraction, descending recruited) >= 0.8",
+      "value": 1.0,
+      "outcome": "pass"
+    },
+    "M_C1": {
+      "test": "Spearman(|delta log2 mfr|, disruption index) >= 0.6 over the 21 drug conditions",
+      "value": 0.877922077922078,
+      "outcome": "pass"
+    }
+  },
+  "neuron_set_sizes": {
+    "sugar_grn_right": 32,
+    "bitter_grn": 19,
+    "jon_ce": 203,
+    "jon_f": 49,
+    "mn9": 1,
+    "abn1": 1,
+    "adn1": 1
+  },
+  "registration": {
+    "file": "preregistration/fly_malecns_replication.json",
+    "sha256": "617cd7dd3595fe7d9dd58ebbdd19d441e1ebb7869eb2d004362da2b660f2629b",
+    "registered_in_commit": "886ddde74dcc8d056c46636162200b6c29638e0e",
+    "committed_at": "2026-10-22T22:32:39-04:00"
+  },
+  "deviations": {
+    "neuron_sets": "types also matched through MaleCNS's flywireType cross-reference, not only by type name: by name alone no body matches FlyWire MN9 (CB0701). Decided before any MaleCNS simulation."
+  }
+}

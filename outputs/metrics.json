@@ -1806,6 +1806,1091 @@
       "reading": "the features carry a dose signal that the twin's posterior does not recover, so the inverse model is what fails"
     }
   },
+  "fly_checks": {
+    "false_alarm_rate_untreated": {
+      "by_feature": {
+        "burst_rate_per_min": 0.0,
+        "isi_cv": 0.0,
+        "mfr_hz": 0.0,
+        "network_burst_rate_per_min": 0.382,
+        "pct_spikes_in_bursts": 0.0,
+        "q95_abs_log2": {
+          "burst_rate_per_min": 0.075,
+          "isi_cv": 0.037,
+          "mfr_hz": 0.028,
+          "network_burst_rate_per_min": 1.0,
+          "pct_spikes_in_bursts": 0.002,
+          "synchrony_index": 0.325
+        },
+        "synchrony_index": 0.0
+      },
+      "group": 3,
+      "seeds": 12,
+      "splits": 500,
+      "threshold": 0.5
+    },
+    "network_bursts_vs_shifted_trains": {
+      "gaba_block_0.8": {
+        "n_shifts": 20,
+        "network_bursts_per_min": 48.0,
+        "shifted_max": 42.0,
+        "shifted_mean": 26.7
+      },
+      "vehicle": {
+        "n_shifts": 20,
+        "network_bursts_per_min": 0.0,
+        "shifted_max": 36.0,
+        "shifted_mean": 12.0
+      }
+    },
+    "seed": 900
+  },
+  "fly_chip_to_animal": {
+    "agreement": {
+      "by_family": {
+        "ach_block": {
+          "condition": "ach_block_0.4",
+          "fly_agreeing": 4,
+          "fly_scored": 4,
+          "mechanism": "glutamatergic_antagonist",
+          "table": {
+            "burst_rate_per_min": {
+              "agrees": true,
+              "real_delta": -2.683,
+              "real_direction": "down",
+              "real_established": true,
+              "simulated_delta": -1.366,
+              "simulated_direction": "down"
+            },
+            "isi_cv": {
+              "agrees": null,
+              "real_delta": -0.459,
+              "real_direction": "down",
+              "real_established": false,
+              "simulated_delta": 0.316,
+              "simulated_direction": "up"
+            },
+            "mfr_hz": {
+              "agrees": true,
+              "real_delta": -1.769,
+              "real_direction": "down",
+              "real_established": true,
+              "simulated_delta": -1.483,
+              "simulated_direction": "down"
+            },
+            "network_burst_rate_per_min": {
+              "agrees": null,
+              "real_delta": -4.322,
+              "real_direction": "down",
+              "real_established": false,
+              "simulated_delta": -4.322,
+              "simulated_direction": "down"
+            },
+            "pct_spikes_in_bursts": {
+              "agrees": true,
+              "real_delta": -1.702,
+              "real_direction": "down",
+              "real_established": true,
+              "simulated_delta": -0.186,
+              "simulated_direction": "down"
+            },
+            "synchrony_index": {
+              "agrees": true,
+              "real_delta": -4.322,
+              "real_direction": "down",
+              "real_established": true,
+              "simulated_delta": -1.156,
+              "simulated_direction": "down"
+            }
+          },
+          "twin_agreeing": 4
+        },
+        "excitability_block": {
+          "condition": "excitability_block_1.6",
+          "fly_agreeing": 3,
+          "fly_scored": 3,
+          "mechanism": "na_channel_blocker",
+          "table": {
+            "burst_rate_per_min": {
+              "agrees": true,
+              "real_delta": -1.737,
+              "real_direction": "down",
+              "real_established": true,
+              "simulated_delta": -4.322,
+              "simulated_direction": "down"
+            },
+            "isi_cv": {
+              "agrees": null,
+              "real_delta": -0.041,
+              "real_direction": "down",
+              "real_established": false,
+              "simulated_delta": null,
+              "simulated_direction": null
+            },
+            "mfr_hz": {
+              "agrees": true,
+              "real_delta": -0.795,
+              "real_direction": "down",
+              "real_established": true,
+              "simulated_delta": -4.322,
+              "simulated_direction": "down"
+            },
+            "network_burst_rate_per_min": {
+              "agrees": null,
+              "real_delta": -4.322,
+              "real_direction": "down",
+              "real_established": false,
+              "simulated_delta": -4.322,
+              "simulated_direction": "down"
+            },
+            "pct_spikes_in_bursts": {
+              "agrees": true,
+              "real_delta": -1.188,
+              "real_direction": "down",
+              "real_established": true,
+              "simulated_delta": -4.322,
+              "simulated_direction": "down"
+            },
+            "synchrony_index": {
+              "agrees": null,
+              "real_delta": -1.932,
+              "real_direction": "down",
+              "real_established": false,
+              "simulated_delta": null,
+              "simulated_direction": null
+            }
+          },
+          "twin_agreeing": 3
+        },
+        "gaba_block": {
+          "condition": "gaba_block_0.2",
+          "fly_agreeing": 2,
+          "fly_scored": 5,
+          "mechanism": "gabaa_antagonist",
+          "table": {
+            "burst_rate_per_min": {
+              "agrees": false,
+              "real_delta": -0.548,
+              "real_direction": "down",
+              "real_established": true,
+              "simulated_delta": 0.172,
+              "simulated_direction": "up"
+            },
+            "isi_cv": {
+              "agrees": null,
+              "real_delta": 0.038,
+              "real_direction": "up",
+              "real_established": false,
+              "simulated_delta": -0.626,
+              "simulated_direction": "down"
+            },
+            "mfr_hz": {
+              "agrees": false,
+              "real_delta": -0.335,
+              "real_direction": "down",
+              "real_established": true,
+              "simulated_delta": 1.006,
+              "simulated_direction": "up"
+            },
+            "network_burst_rate_per_min": {
+              "agrees": false,
+              "real_delta": -0.66,
+              "real_direction": "down",
+              "real_established": true,
+              "simulated_delta": 4.719,
+              "simulated_direction": "up"
+            },
+            "pct_spikes_in_bursts": {
+              "agrees": true,
+              "real_delta": 0.037,
+              "real_direction": "up",
+              "real_established": true,
+              "simulated_delta": 0.069,
+              "simulated_direction": "up"
+            },
+            "synchrony_index": {
+              "agrees": true,
+              "real_delta": 0.11,
+              "real_direction": "up",
+              "real_established": true,
+              "simulated_delta": 1.098,
+              "simulated_direction": "up"
+            }
+          },
+          "twin_agreeing": 4
+        },
+        "gaba_potentiate": {
+          "condition": "gaba_potentiate_2",
+          "fly_agreeing": 3,
+          "fly_scored": 4,
+          "mechanism": "gabaa_agonist_or_pam",
+          "table": {
+            "burst_rate_per_min": {
+              "agrees": true,
+              "real_delta": -0.353,
+              "real_direction": "down",
+              "real_established": true,
+              "simulated_delta": -0.362,
+              "simulated_direction": "down"
+            },
+            "isi_cv": {
+              "agrees": false,
+              "real_delta": -0.231,
+              "real_direction": "down",
+              "real_established": true,
+              "simulated_delta": 0.228,
+              "simulated_direction": "up"
+            },
+            "mfr_hz": {
+              "agrees": true,
+              "real_delta": -0.471,
+              "real_direction": "down",
+              "real_established": true,
+              "simulated_delta": -0.992,
+              "simulated_direction": "down"
+            },
+            "network_burst_rate_per_min": {
+              "agrees": null,
+              "real_delta": 0.06,
+              "real_direction": "up",
+              "real_established": false,
+              "simulated_delta": -4.322,
+              "simulated_direction": "down"
+            },
+            "pct_spikes_in_bursts": {
+              "agrees": true,
+              "real_delta": -0.282,
+              "real_direction": "down",
+              "real_established": true,
+              "simulated_delta": -0.133,
+              "simulated_direction": "down"
+            },
+            "synchrony_index": {
+              "agrees": null,
+              "real_delta": 0.062,
+              "real_direction": "up",
+              "real_established": false,
+              "simulated_delta": -0.62,
+              "simulated_direction": "down"
+            }
+          },
+          "twin_agreeing": 1
+        }
+      },
+      "fly_total": 12,
+      "twin_total": 12
+    },
+    "deviations": {
+      "regions_driven_whole_because_smaller_than_registered_drive": {
+        "AME_L": 16,
+        "AME_R": 16,
+        "ATL_R": 15,
+        "GOR_L": 13,
+        "GOR_R": 10,
+        "MB_PED_L": 15,
+        "MB_PED_R": 9,
+        "MB_VL_L": 13
+      }
+    },
+    "direction": {
+      "array": {
+        "evoked": {
+          "n_pairs": 698,
+          "n_strong": 180,
+          "sign_agreement": 0.5057,
+          "sign_agreement_strong": 0.4889,
+          "spearman": 0.0102,
+          "spearman_p": 0.7871422123074189
+        },
+        "spontaneous": {
+          "n_pairs": 3,
+          "n_strong": 0,
+          "sign_agreement": 0.6667,
+          "sign_agreement_strong": null,
+          "spearman": -0.5,
+          "spearman_p": 0.6666666666666666
+        }
+      },
+      "n_pairs": 698,
+      "whole_region": {
+        "evoked": {
+          "n_pairs": 698,
+          "n_strong": 180,
+          "sign_agreement": 0.5415,
+          "sign_agreement_strong": 0.6222,
+          "spearman": 0.2005,
+          "spearman_p": 9.124434488995001e-08
+        },
+        "spontaneous": {
+          "n_pairs": 401,
+          "n_strong": 93,
+          "sign_agreement": 0.4863,
+          "sign_agreement_strong": 0.4946,
+          "spearman": -0.0263,
+          "spearman_p": 0.5991168111864816
+        }
+      }
+    },
+    "exploratory": {
+      "first_detecting_dose_by_chip_feature": {
+        "ach_block": {
+          "burst_rate_per_min": 0.1999999999999999,
+          "isi_cv": null,
+          "mfr_hz": 0.4,
+          "network_burst_rate_per_min": 0.1999999999999999,
+          "pct_spikes_in_bursts": 0.8,
+          "synchrony_index": 0.4
+        },
+        "excitability_block": {
+          "burst_rate_per_min": 0.1,
+          "isi_cv": null,
+          "mfr_hz": 0.3999999999999999,
+          "network_burst_rate_per_min": 0.1,
+          "pct_spikes_in_bursts": 0.3999999999999999,
+          "synchrony_index": 0.1999999999999999
+        },
+        "gaba_block": {
+          "burst_rate_per_min": null,
+          "isi_cv": 0.8,
+          "mfr_hz": 0.6,
+          "network_burst_rate_per_min": 0.1999999999999999,
+          "pct_spikes_in_bursts": null,
+          "synchrony_index": 0.6
+        },
+        "gaba_potentiate": {
+          "burst_rate_per_min": null,
+          "isi_cv": null,
+          "mfr_hz": 1.0,
+          "network_burst_rate_per_min": 0.25,
+          "pct_spikes_in_bursts": null,
+          "synchrony_index": 1.0
+        },
+        "glucl_block": {
+          "burst_rate_per_min": null,
+          "isi_cv": 1.0,
+          "mfr_hz": 0.8,
+          "network_burst_rate_per_min": 0.1999999999999999,
+          "pct_spikes_in_bursts": null,
+          "synchrony_index": 0.6
+        }
+      },
+      "sentinel_chip_first_leaving_one_readout_out": {
+        "without_abn1_jon_ce": {
+          "ach_block": false,
+          "excitability_block": false,
+          "gaba_block": false,
+          "gaba_potentiate": false,
+          "glucl_block": false
+        },
+        "without_dn_recruited": {
+          "ach_block": false,
+          "excitability_block": false,
+          "gaba_block": false,
+          "gaba_potentiate": false,
+          "glucl_block": false
+        },
+        "without_mn9_sugar": {
+          "ach_block": false,
+          "excitability_block": false,
+          "gaba_block": false,
+          "gaba_potentiate": false,
+          "glucl_block": false
+        },
+        "without_mn9_sugar_bitter": {
+          "ach_block": false,
+          "excitability_block": true,
+          "gaba_block": false,
+          "gaba_potentiate": false,
+          "glucl_block": null
+        }
+      },
+      "spearman_abs_delta_vs_disruption": {
+        "burst_rate_per_min": 0.513,
+        "isi_cv": 0.614,
+        "mfr_hz": 0.863,
+        "network_burst_rate_per_min": 0.415,
+        "pct_spikes_in_bursts": 0.827,
+        "synchrony_index": 0.657
+      }
+    },
+    "label": "SIMULATED fly brain (FlyWire 783) vs chip readouts",
+    "predictions": {
+      "A1_direction_agreement_with_real_chips": {
+        "outcome": "pass",
+        "test": "sum of fly agreeing features >= sum of twin agreeing features, scored on the same established real features",
+        "value": {
+          "fly": 12,
+          "twin": 12
+        }
+      },
+      "B1_disinhibition_releases_feeding_from_bitter": {
+        "outcome": "pass",
+        "test": "Spearman(block fraction, MN9|sugar+bitter) over vehicle + 5 gaba_block levels >= 0.8",
+        "value": 1.0
+      },
+      "B2_excitation_block_silences_motor_output": {
+        "outcome": "pass",
+        "test": "Spearman(block fraction, readout) <= -0.8 for both readouts over vehicle + 4 ach_block levels",
+        "value": {
+          "abn1_jon_ce": -0.9746794344808964,
+          "mn9_sugar": -0.8944271909999157
+        }
+      },
+      "B3_disinhibition_recruits_off_target_descending_neurons": {
+        "outcome": "pass",
+        "test": "Spearman(block fraction, descending recruited) >= 0.8",
+        "value": 1.0
+      },
+      "C1_chip_tracks_disruption": {
+        "outcome": "pass",
+        "test": "Spearman(|delta log2 mfr|, disruption index) >= 0.6",
+        "value": 0.8632673401059827
+      },
+      "C2_chip_is_the_earlier_sentinel": {
+        "outcome": "fail",
+        "test": "for each condition family with any impairment: first level with |delta log2 mfr| >= 0.5 comes at or before the first level with disruption >= 0.5",
+        "value": {
+          "ach_block": {
+            "chip_first": false,
+            "first_behaviour_dose": 0.19999999999999996,
+            "first_chip_dose": 0.4
+          },
+          "excitability_block": {
+            "chip_first": false,
+            "first_behaviour_dose": 0.10000000000000009,
+            "first_chip_dose": 0.3999999999999999
+          },
+          "gaba_block": {
+            "chip_first": false,
+            "first_behaviour_dose": 0.19999999999999996,
+            "first_chip_dose": 0.6
+          },
+          "gaba_potentiate": {
+            "chip_first": false,
+            "first_behaviour_dose": 0.25,
+            "first_chip_dose": 1.0
+          },
+          "glucl_block": {
+            "chip_first": false,
+            "first_behaviour_dose": 0.4,
+            "first_chip_dose": 0.8
+          }
+        }
+      },
+      "D1_spontaneous_direction_is_near_chance": {
+        "outcome": "pass",
+        "test": "whole-region sign agreement on strongly asymmetric pairs < 0.65",
+        "value": 0.4946
+      },
+      "D2_pulsed_stimulation_recovers_direction": {
+        "outcome": "fail",
+        "test": "whole-region sign agreement on strongly asymmetric pairs >= 0.70 and exceeds the spontaneous value by >= 0.10",
+        "value": {
+          "evoked": 0.6222,
+          "spontaneous": 0.4946
+        }
+      },
+      "D3_an_electrode_array_sees_it_too": {
+        "outcome": "fail",
+        "test": "array sign agreement on strongly asymmetric pairs >= 0.65",
+        "value": 0.4889
+      },
+      "R1_replication": {
+        "outcome": "pass",
+        "test": "abs(rate_783 / rate_630 - 1) <= 0.20",
+        "value": {
+          "mn9_630_hz": 77.375,
+          "mn9_783_hz": 76.75,
+          "ratio": 0.9919224555735057
+        }
+      }
+    },
+    "quick": false,
+    "registration": {
+      "committed_at": "2026-10-22T22:23:00-04:00",
+      "file": "preregistration/fly_chip_to_animal.json",
+      "registered_in_commit": "c83eb14d20f18ce1ebd923bdd061256880a5330d",
+      "sha256": "6b70053be3cc188e967643006f17d1aaded2890018ccde2dd717e5f43d91bc03"
+    },
+    "sensitivity": {
+      "0.25": {
+        "ach_block": {
+          "chip_first": true,
+          "first_behaviour_dose": 0.1999999999999999,
+          "first_chip_dose": 0.1999999999999999
+        },
+        "excitability_block": {
+          "chip_first": false,
+          "first_behaviour_dose": 0.1,
+          "first_chip_dose": 0.3999999999999999
+        },
+        "gaba_block": {
+          "chip_first": false,
+          "first_behaviour_dose": 0.1999999999999999,
+          "first_chip_dose": 0.4
+        },
+        "gaba_potentiate": {
+          "chip_first": false,
+          "first_behaviour_dose": 0.25,
+          "first_chip_dose": 0.5
+        },
+        "glucl_block": {
+          "chip_first": true,
+          "first_behaviour_dose": 0.4,
+          "first_chip_dose": 0.4
+        }
+      },
+      "1.0": {
+        "ach_block": {
+          "chip_first": false,
+          "first_behaviour_dose": 0.1999999999999999,
+          "first_chip_dose": 0.6
+        },
+        "excitability_block": {
+          "chip_first": false,
+          "first_behaviour_dose": 0.1,
+          "first_chip_dose": 0.3999999999999999
+        },
+        "gaba_block": {
+          "chip_first": false,
+          "first_behaviour_dose": 0.1999999999999999,
+          "first_chip_dose": 0.8
+        },
+        "gaba_potentiate": {
+          "chip_first": false,
+          "first_behaviour_dose": 0.25,
+          "first_chip_dose": null
+        },
+        "glucl_block": {
+          "chip_first": false,
+          "first_behaviour_dose": 0.4,
+          "first_chip_dose": null
+        }
+      }
+    }
+  },
+  "fly_confirm_network_bursts": {
+    "flywire": {
+      "firing_rate": {
+        "ach_block": {
+          "chip_first": false,
+          "first_behaviour_dose": 0.1999999999999999,
+          "first_chip_dose": 0.4
+        },
+        "excitability_block": {
+          "chip_first": false,
+          "first_behaviour_dose": 0.1999999999999999,
+          "first_chip_dose": 0.6000000000000001
+        },
+        "gaba_block": {
+          "chip_first": false,
+          "first_behaviour_dose": 0.1999999999999999,
+          "first_chip_dose": 0.6
+        },
+        "gaba_potentiate": {
+          "chip_first": false,
+          "first_behaviour_dose": 0.25,
+          "first_chip_dose": 1.0
+        },
+        "glucl_block": {
+          "chip_first": false,
+          "first_behaviour_dose": 0.4,
+          "first_chip_dose": 0.8
+        }
+      },
+      "network_bursts": {
+        "ach_block": {
+          "chip_first": false,
+          "first_behaviour_dose": 0.1999999999999999,
+          "first_chip_dose": 0.4
+        },
+        "excitability_block": {
+          "chip_first": true,
+          "first_behaviour_dose": 0.1999999999999999,
+          "first_chip_dose": 0.1
+        },
+        "gaba_block": {
+          "chip_first": true,
+          "first_behaviour_dose": 0.1999999999999999,
+          "first_chip_dose": 0.1999999999999999
+        },
+        "gaba_potentiate": {
+          "chip_first": false,
+          "first_behaviour_dose": 0.25,
+          "first_chip_dose": 0.5
+        },
+        "glucl_block": {
+          "chip_first": true,
+          "first_behaviour_dose": 0.4,
+          "first_chip_dose": 0.1999999999999999
+        }
+      }
+    },
+    "label": "SIMULATED confirmation of the network-burst sentinel (FlyWire, MaleCNS)",
+    "malecns": {
+      "firing_rate": {
+        "ach_block": {
+          "chip_first": true,
+          "first_behaviour_dose": 0.4,
+          "first_chip_dose": 0.4
+        },
+        "excitability_block": {
+          "chip_first": true,
+          "first_behaviour_dose": 0.3999999999999999,
+          "first_chip_dose": 0.3999999999999999
+        },
+        "gaba_block": {
+          "chip_first": false,
+          "first_behaviour_dose": 0.4,
+          "first_chip_dose": 0.6
+        },
+        "gaba_potentiate": {
+          "chip_first": true,
+          "first_behaviour_dose": 1.0,
+          "first_chip_dose": 1.0
+        },
+        "glucl_block": {
+          "chip_first": false,
+          "first_behaviour_dose": 0.6,
+          "first_chip_dose": 0.8
+        }
+      },
+      "network_bursts": {
+        "ach_block": {
+          "chip_first": true,
+          "first_behaviour_dose": 0.4,
+          "first_chip_dose": 0.1999999999999999
+        },
+        "excitability_block": {
+          "chip_first": true,
+          "first_behaviour_dose": 0.3999999999999999,
+          "first_chip_dose": 0.3999999999999999
+        },
+        "gaba_block": {
+          "chip_first": true,
+          "first_behaviour_dose": 0.4,
+          "first_chip_dose": 0.1999999999999999
+        },
+        "gaba_potentiate": {
+          "chip_first": true,
+          "first_behaviour_dose": 1.0,
+          "first_chip_dose": 0.25
+        },
+        "glucl_block": {
+          "chip_first": true,
+          "first_behaviour_dose": 0.6,
+          "first_chip_dose": 0.1999999999999999
+        }
+      }
+    },
+    "pooled_out_of_sample": {
+      "firing_rate_at_or_before_behaviour": 3,
+      "network_bursts_at_or_before_behaviour": 8,
+      "tests": 10
+    },
+    "precision": {
+      "abs_log2_mfr_change_at_behavioural_onset": {
+        "flywire_fresh_seeds": {
+          "ach_block": 0.314,
+          "excitability_block": 0.18,
+          "gaba_block": 0.144,
+          "gaba_potentiate": 0.205,
+          "glucl_block": 0.244
+        },
+        "flywire_sweep": {
+          "ach_block": 0.304,
+          "excitability_block": 0.124,
+          "gaba_block": 0.149,
+          "gaba_potentiate": 0.199,
+          "glucl_block": 0.263
+        },
+        "malecns": {
+          "ach_block": 1.164,
+          "excitability_block": 0.621,
+          "gaba_block": 0.23,
+          "gaba_potentiate": 1.459,
+          "glucl_block": 0.318
+        }
+      },
+      "real_chip_noise": {
+        "kapucu2022_control": {
+          "n": 10,
+          "q95_abs_log2": 0.156
+        },
+        "vassallo2017_inactive": {
+          "n": 74,
+          "q95_abs_log2": 1.752
+        }
+      }
+    },
+    "predictions": {
+      "N1_network_bursts_are_an_early_sentinel_flywire": {
+        "outcome": "fail",
+        "test": "in all five families with any impairment: first network_burst dose <= first behaviour dose",
+        "value": {
+          "families_meeting": 3,
+          "families_scored": 5
+        }
+      },
+      "N2_firing_rate_lags_flywire": {
+        "outcome": "pass",
+        "test": "first mfr dose > first behaviour dose in at least 4 of the families with any impairment",
+        "value": {
+          "families_meeting": 5,
+          "families_scored": 5
+        }
+      },
+      "N3_network_bursts_are_an_early_sentinel_malecns": {
+        "outcome": "pass",
+        "test": "first network_burst dose <= first behaviour dose in at least 4 of the families with any impairment; reported as uninterpretable if MaleCNS M0 fails",
+        "value": {
+          "families_meeting": 5,
+          "families_scored": 5
+        }
+      },
+      "N4_firing_rate_lags_malecns": {
+        "outcome": "fail",
+        "test": "first mfr dose > first behaviour dose in at least 4 of the families with any impairment; uninterpretable if M0 fails",
+        "value": {
+          "families_meeting": 2,
+          "families_scored": 5
+        }
+      }
+    },
+    "registration": {
+      "committed_at": "2026-10-22T23:15:07-04:00",
+      "file": "preregistration/fly_confirm_network_bursts.json",
+      "registered_in_commit": "f6511fc95faf52e5b6fa0c960acfd23e5b52f515",
+      "sha256": "e3de7aa605a106caa9dd3a0a2e044bd33b75d1a715357b17fc52190fb6c75307"
+    }
+  },
+  "fly_malecns_replication": {
+    "deviations": {
+      "neuron_sets": "types also matched through MaleCNS's flywireType cross-reference, not only by type name: by name alone no body matches FlyWire MN9 (CB0701). Decided before any MaleCNS simulation."
+    },
+    "label": "SIMULATED male CNS (MaleCNS v1.0) replication of the fly study",
+    "neuron_set_sizes": {
+      "abn1": 1,
+      "adn1": 1,
+      "bitter_grn": 19,
+      "jon_ce": 203,
+      "jon_f": 49,
+      "mn9": 1,
+      "sugar_grn_right": 32
+    },
+    "predictions": {
+      "M0_feeding_circuit_exists": {
+        "outcome": "pass",
+        "test": "MN9|sugar (vehicle) >= 20 Hz and MN9|sugar+bitter <= 0.5 x MN9|sugar",
+        "value": {
+          "mn9_sugar_bitter_hz": 0.0,
+          "mn9_sugar_hz": 31.625
+        }
+      },
+      "M_B1": {
+        "outcome": "pass",
+        "test": "Spearman(block fraction, MN9|sugar+bitter) over vehicle + 5 gaba_block levels >= 0.8",
+        "value": 0.9411239481143202
+      },
+      "M_B2": {
+        "outcome": "pass",
+        "test": "Spearman(block fraction, readout) <= -0.8 for MN9|sugar and aBN1|JO-CE",
+        "value": {
+          "abn1_jon_ce": -0.9999999999999999,
+          "mn9_sugar": -0.8944271909999157
+        }
+      },
+      "M_B3": {
+        "outcome": "pass",
+        "test": "Spearman(block fraction, descending recruited) >= 0.8",
+        "value": 1.0
+      },
+      "M_C1": {
+        "outcome": "pass",
+        "test": "Spearman(|delta log2 mfr|, disruption index) >= 0.6 over the 21 drug conditions",
+        "value": 0.877922077922078
+      }
+    },
+    "registration": {
+      "committed_at": "2026-10-22T22:32:39-04:00",
+      "file": "preregistration/fly_malecns_replication.json",
+      "registered_in_commit": "886ddde74dcc8d056c46636162200b6c29638e0e",
+      "sha256": "617cd7dd3595fe7d9dd58ebbdd19d441e1ebb7869eb2d004362da2b660f2629b"
+    }
+  },
+  "fly_models": {
+    "flywire783": {
+      "connections": 15091983,
+      "inhibitory_connections": 6032681,
+      "neurons": 138639,
+      "release_coverage": {
+        "annotations": 0.9999,
+        "minimum_required": 0.99,
+        "neuropil_counts": 0.9964
+      },
+      "synapses": 54492922
+    },
+    "malecns": {
+      "connections": 25563096,
+      "inhibitory_connections": 9802138,
+      "neurons": 165122,
+      "synapses": 124024573
+    }
+  },
+  "fly_output_tract": {
+    "abs_delta_mfr_at_onset": {
+      "planar": {
+        "ach_block": 0.304,
+        "excitability_block": 0.124,
+        "gaba_block": 0.149,
+        "gaba_potentiate": 0.199,
+        "glucl_block": 0.263
+      },
+      "planar_64": {
+        "ach_block": 0.324,
+        "excitability_block": 0.077,
+        "gaba_block": 0.044,
+        "gaba_potentiate": 0.069,
+        "glucl_block": 0.306
+      },
+      "tract_64": {
+        "ach_block": 0.366,
+        "excitability_block": 0.136,
+        "gaba_block": 0.361,
+        "gaba_potentiate": 0.07,
+        "glucl_block": 0.464
+      }
+    },
+    "delta_mfr": {
+      "planar": {
+        "ach_block_0.2": -2.818,
+        "ach_block_0.4": -1.483,
+        "ach_block_0.6": -0.801,
+        "ach_block_0.8": -0.304,
+        "excitability_block_1.1": -0.124,
+        "excitability_block_1.2": 0.167,
+        "excitability_block_1.4": -4.322,
+        "excitability_block_1.6": -4.322,
+        "gaba_block_0": 1.424,
+        "gaba_block_0.2": 1.006,
+        "gaba_block_0.4": 0.564,
+        "gaba_block_0.6": 0.378,
+        "gaba_block_0.8": 0.149,
+        "gaba_potentiate_1.25": -0.199,
+        "gaba_potentiate_1.5": -0.452,
+        "gaba_potentiate_2": -0.992,
+        "glucl_block_0": 0.848,
+        "glucl_block_0.2": 0.624,
+        "glucl_block_0.4": 0.424,
+        "glucl_block_0.6": 0.263,
+        "glucl_block_0.8": 0.101,
+        "vehicle": 0.0
+      },
+      "planar_64": {
+        "ach_block_0.2": -3.036,
+        "ach_block_0.4": -1.735,
+        "ach_block_0.6": -0.917,
+        "ach_block_0.8": -0.324,
+        "excitability_block_1.1": -0.077,
+        "excitability_block_1.2": 0.23,
+        "excitability_block_1.4": -4.322,
+        "excitability_block_1.6": -4.322,
+        "gaba_block_0": 1.318,
+        "gaba_block_0.2": 0.907,
+        "gaba_block_0.4": 0.393,
+        "gaba_block_0.6": 0.181,
+        "gaba_block_0.8": 0.044,
+        "gaba_potentiate_1.25": -0.069,
+        "gaba_potentiate_1.5": -0.297,
+        "gaba_potentiate_2": -0.781,
+        "glucl_block_0": 0.889,
+        "glucl_block_0.2": 0.674,
+        "glucl_block_0.4": 0.49,
+        "glucl_block_0.6": 0.306,
+        "glucl_block_0.8": 0.123,
+        "vehicle": 0.0
+      },
+      "tract_64": {
+        "ach_block_0.2": -2.465,
+        "ach_block_0.4": -1.541,
+        "ach_block_0.6": -0.927,
+        "ach_block_0.8": -0.366,
+        "excitability_block_1.1": -0.136,
+        "excitability_block_1.2": -0.048,
+        "excitability_block_1.4": -4.322,
+        "excitability_block_1.6": -4.322,
+        "gaba_block_0": 2.837,
+        "gaba_block_0.2": 2.348,
+        "gaba_block_0.4": 1.21,
+        "gaba_block_0.6": 0.711,
+        "gaba_block_0.8": 0.361,
+        "gaba_potentiate_1.25": -0.07,
+        "gaba_potentiate_1.5": -0.222,
+        "gaba_potentiate_2": -0.629,
+        "glucl_block_0": 1.63,
+        "glucl_block_0.2": 1.021,
+        "glucl_block_0.4": 0.674,
+        "glucl_block_0.6": 0.464,
+        "glucl_block_0.8": 0.206,
+        "vehicle": 0.0
+      }
+    },
+    "false_alarm_rate": {
+      "planar": 0.0,
+      "planar_64": 0.0,
+      "tract_64": 0.0
+    },
+    "families_flagged_in_time": {
+      "planar": 3,
+      "planar_64": 2,
+      "tract_64": 3
+    },
+    "flagged_in_time": {
+      "planar": {
+        "ach_block": true,
+        "excitability_block": false,
+        "gaba_block": false,
+        "gaba_potentiate": true,
+        "glucl_block": true
+      },
+      "planar_64": {
+        "ach_block": true,
+        "excitability_block": false,
+        "gaba_block": false,
+        "gaba_potentiate": false,
+        "glucl_block": true
+      },
+      "tract_64": {
+        "ach_block": true,
+        "excitability_block": false,
+        "gaba_block": true,
+        "gaba_potentiate": false,
+        "glucl_block": true
+      }
+    },
+    "label": "SIMULATED output-tract electrode vs planar array",
+    "predictions": {
+      "T0_planar_reproduces": {
+        "outcome": "pass",
+        "test": "max |difference| of delta log2 mfr over the 21 conditions <= 0.001 (same seeds, deterministic)",
+        "value": 0.0
+      },
+      "T1_tract_moves_more_at_onset": {
+        "outcome": "pass",
+        "test": "tract |delta log2 mfr| > planar_64 |delta log2 mfr| at behavioural onset in at least 4 of the 5 families",
+        "value": {
+          "families": 5,
+          "scored": 5
+        }
+      },
+      "T2_tract_is_not_noise": {
+        "outcome": "pass",
+        "test": "untreated false-alarm rate at 0.156 <= 0.05",
+        "value": 0.0
+      },
+      "T3_tract_flags_in_time_more_often": {
+        "outcome": "pass",
+        "test": "families flagged at or before behavioural onset: tract > planar_64",
+        "value": {
+          "planar_64": 2,
+          "tract_64": 3
+        }
+      }
+    },
+    "registration": {
+      "committed_at": "2026-10-24T08:17:25-04:00",
+      "file": "preregistration/fly_output_tract_electrode.json",
+      "registered_in_commit": "cd074b3f2d0e866fb47487225b2ddba9d40f44fe",
+      "sha256": "c29014d096c13fdd93a878cc66825c3487b74622e18522c1ba605dc2ba5ef1d0"
+    },
+    "threshold": 0.156
+  },
+  "fly_output_tract_robustness": {
+    "registered_index": {
+      "draws": 10,
+      "draws_meeting_t1": 7,
+      "draws_meeting_t3": 7,
+      "families_scored": 5,
+      "t1_families_per_draw": [
+        5,
+        5,
+        3,
+        5,
+        5,
+        4,
+        0,
+        5,
+        2,
+        5
+      ],
+      "t3_tract_minus_planar_per_draw": [
+        1,
+        1,
+        1,
+        2,
+        0,
+        2,
+        0,
+        1,
+        -1,
+        1
+      ]
+    },
+    "without_dn_recruited": {
+      "draws": 10,
+      "draws_meeting_t1": 7,
+      "draws_meeting_t3": 7,
+      "families_scored": 5,
+      "t1_families_per_draw": [
+        5,
+        5,
+        3,
+        5,
+        5,
+        4,
+        0,
+        5,
+        2,
+        5
+      ],
+      "t3_tract_minus_planar_per_draw": [
+        1,
+        1,
+        1,
+        2,
+        0,
+        2,
+        0,
+        1,
+        -1,
+        1
+      ]
+    }
+  },
+  "fly_screen_cutoffs": {
+    "acute_cutoff_over_largest_fly_change": 5.87,
+    "acute_firing_rate": {
+      "chemicals": 515,
+      "cutoff_log2": {
+        "down": -1.784,
+        "up": 0.774
+      },
+      "cutoff_percent": 70.97,
+      "endpoint": "CCTE_Shafer_MEA_acute_firing_rate_mean",
+      "hits": 187
+    },
+    "dev_firing_rate": {
+      "chemicals": 473,
+      "cutoff_log2": {
+        "down": -1.79,
+        "up": 0.775
+      },
+      "cutoff_percent": 71.08,
+      "endpoint": "CCTE_Shafer_MEA_dev_firing_rate_mean",
+      "hits": 160
+    },
+    "largest_fly_change_at_behavioural_onset_log2": 0.304
+  },
   "harness_quick": {
     "brian2": "2.9.0",
     "by_stage_s": {
@@ -2883,6 +3968,534 @@
       -0.5988,
       0.4665
     ]
+  },
+  "twin_depression_under_block": {
+    "chosen": null,
+    "duration_s": 40.0,
+    "label": "SIMULATED twin: depression under drug knobs",
+    "predictions": {
+      "V1_some_setting_qualifies": {
+        "outcome": "fail",
+        "value": 0
+      },
+      "V2_the_control_does_not": {
+        "outcome": "pass",
+        "value": 2.389
+      },
+      "V3_the_chosen_setting_replicates": {
+        "outcome": "n/a",
+        "value": null
+      }
+    },
+    "qualifying": [],
+    "replication": null,
+    "settings": {
+      "u0.2_tau300": {
+        "agreeing_total": 15,
+        "agreement": {
+          "ampa_block": {
+            "agreeing": 4,
+            "delta": {
+              "burst_rate_per_min": -4.322,
+              "isi_cv": -1.887,
+              "mfr_hz": -2.264,
+              "network_burst_rate_per_min": -4.322,
+              "pct_spikes_in_bursts": -4.322,
+              "synchrony_index": -4.322
+            },
+            "scored": 4
+          },
+          "gabaa_block": {
+            "agreeing": 4,
+            "delta": {
+              "burst_rate_per_min": -0.015,
+              "isi_cv": 1.234,
+              "mfr_hz": 1.782,
+              "network_burst_rate_per_min": -0.29,
+              "pct_spikes_in_bursts": 0.288,
+              "synchrony_index": 0.27
+            },
+            "scored": 5
+          },
+          "gabaa_potentiate": {
+            "agreeing": 4,
+            "delta": {
+              "burst_rate_per_min": -0.174,
+              "isi_cv": -0.142,
+              "mfr_hz": -0.208,
+              "network_burst_rate_per_min": -0.177,
+              "pct_spikes_in_bursts": -0.1,
+              "synchrony_index": -0.075
+            },
+            "scored": 4
+          },
+          "sodium_block": {
+            "agreeing": 3,
+            "delta": {
+              "burst_rate_per_min": -4.322,
+              "isi_cv": -2.095,
+              "mfr_hz": -3.508,
+              "network_burst_rate_per_min": -4.322,
+              "pct_spikes_in_bursts": -4.322,
+              "synchrony_index": -4.322
+            },
+            "scored": 3
+          }
+        },
+        "i": false,
+        "i_mfr_delta_at_block": 1.7817,
+        "ii_dose_trend": {
+          "burst_rate_per_min": -0.1091,
+          "network_burst_rate_per_min": -0.4941,
+          "passes": false
+        },
+        "iii": true,
+        "qualifies": false
+      },
+      "u0.2_tau600": {
+        "agreeing_total": 15,
+        "agreement": {
+          "ampa_block": {
+            "agreeing": 4,
+            "delta": {
+              "burst_rate_per_min": -4.322,
+              "isi_cv": -1.779,
+              "mfr_hz": -2.063,
+              "network_burst_rate_per_min": -4.322,
+              "pct_spikes_in_bursts": -4.322,
+              "synchrony_index": -4.322
+            },
+            "scored": 4
+          },
+          "gabaa_block": {
+            "agreeing": 4,
+            "delta": {
+              "burst_rate_per_min": -0.019,
+              "isi_cv": 1.176,
+              "mfr_hz": 1.671,
+              "network_burst_rate_per_min": -0.369,
+              "pct_spikes_in_bursts": 0.356,
+              "synchrony_index": 0.323
+            },
+            "scored": 5
+          },
+          "gabaa_potentiate": {
+            "agreeing": 4,
+            "delta": {
+              "burst_rate_per_min": -0.089,
+              "isi_cv": -0.121,
+              "mfr_hz": -0.165,
+              "network_burst_rate_per_min": -0.141,
+              "pct_spikes_in_bursts": -0.088,
+              "synchrony_index": -0.066
+            },
+            "scored": 4
+          },
+          "sodium_block": {
+            "agreeing": 3,
+            "delta": {
+              "burst_rate_per_min": -4.322,
+              "isi_cv": -1.984,
+              "mfr_hz": -3.299,
+              "network_burst_rate_per_min": -4.322,
+              "pct_spikes_in_bursts": -4.322,
+              "synchrony_index": -4.322
+            },
+            "scored": 3
+          }
+        },
+        "i": false,
+        "i_mfr_delta_at_block": 1.6707,
+        "ii_dose_trend": {
+          "burst_rate_per_min": -0.0873,
+          "network_burst_rate_per_min": -0.3562,
+          "passes": false
+        },
+        "iii": true,
+        "qualifies": false
+      },
+      "u0.4_tau300": {
+        "agreeing_total": 9,
+        "agreement": {
+          "ampa_block": {
+            "agreeing": 4,
+            "delta": {
+              "burst_rate_per_min": -4.322,
+              "isi_cv": -1.747,
+              "mfr_hz": -2.04,
+              "network_burst_rate_per_min": -4.322,
+              "pct_spikes_in_bursts": -4.322,
+              "synchrony_index": -4.322
+            },
+            "scored": 4
+          },
+          "gabaa_block": {
+            "agreeing": 2,
+            "delta": {
+              "burst_rate_per_min": 0.281,
+              "isi_cv": 1.119,
+              "mfr_hz": 1.582,
+              "network_burst_rate_per_min": 0.001,
+              "pct_spikes_in_bursts": 0.402,
+              "synchrony_index": 0.349
+            },
+            "scored": 5
+          },
+          "gabaa_potentiate": {
+            "agreeing": 0,
+            "delta": {
+              "burst_rate_per_min": 0.38,
+              "isi_cv": 0.054,
+              "mfr_hz": 0.133,
+              "network_burst_rate_per_min": 0.297,
+              "pct_spikes_in_bursts": 0.114,
+              "synchrony_index": 0.096
+            },
+            "scored": 4
+          },
+          "sodium_block": {
+            "agreeing": 3,
+            "delta": {
+              "burst_rate_per_min": -4.322,
+              "isi_cv": -1.955,
+              "mfr_hz": -3.284,
+              "network_burst_rate_per_min": -4.322,
+              "pct_spikes_in_bursts": -4.322,
+              "synchrony_index": -4.322
+            },
+            "scored": 3
+          }
+        },
+        "i": false,
+        "i_mfr_delta_at_block": 1.5817,
+        "ii_dose_trend": {
+          "burst_rate_per_min": 0.0546,
+          "network_burst_rate_per_min": -0.0548,
+          "passes": false
+        },
+        "iii": false,
+        "qualifies": false
+      },
+      "u0.4_tau600": {
+        "agreeing_total": 15,
+        "agreement": {
+          "ampa_block": {
+            "agreeing": 4,
+            "delta": {
+              "burst_rate_per_min": -4.322,
+              "isi_cv": -1.642,
+              "mfr_hz": -1.83,
+              "network_burst_rate_per_min": -4.322,
+              "pct_spikes_in_bursts": -4.322,
+              "synchrony_index": -4.322
+            },
+            "scored": 4
+          },
+          "gabaa_block": {
+            "agreeing": 4,
+            "delta": {
+              "burst_rate_per_min": -0.02,
+              "isi_cv": 0.938,
+              "mfr_hz": 1.273,
+              "network_burst_rate_per_min": -0.299,
+              "pct_spikes_in_bursts": 0.394,
+              "synchrony_index": 0.337
+            },
+            "scored": 5
+          },
+          "gabaa_potentiate": {
+            "agreeing": 4,
+            "delta": {
+              "burst_rate_per_min": -0.297,
+              "isi_cv": -0.153,
+              "mfr_hz": -0.256,
+              "network_burst_rate_per_min": -0.235,
+              "pct_spikes_in_bursts": -0.169,
+              "synchrony_index": -0.134
+            },
+            "scored": 4
+          },
+          "sodium_block": {
+            "agreeing": 3,
+            "delta": {
+              "burst_rate_per_min": -4.322,
+              "isi_cv": -1.844,
+              "mfr_hz": -3.064,
+              "network_burst_rate_per_min": -4.322,
+              "pct_spikes_in_bursts": -4.322,
+              "synchrony_index": -4.322
+            },
+            "scored": 3
+          }
+        },
+        "i": false,
+        "i_mfr_delta_at_block": 1.2733,
+        "ii_dose_trend": {
+          "burst_rate_per_min": 0.0873,
+          "network_burst_rate_per_min": -0.0331,
+          "passes": false
+        },
+        "iii": true,
+        "qualifies": false
+      },
+      "u0.4_tau900": {
+        "agreeing_total": 10,
+        "agreement": {
+          "ampa_block": {
+            "agreeing": 4,
+            "delta": {
+              "burst_rate_per_min": -4.322,
+              "isi_cv": -1.389,
+              "mfr_hz": -1.365,
+              "network_burst_rate_per_min": -4.322,
+              "pct_spikes_in_bursts": -4.322,
+              "synchrony_index": -4.322
+            },
+            "scored": 4
+          },
+          "gabaa_block": {
+            "agreeing": 3,
+            "delta": {
+              "burst_rate_per_min": 0.369,
+              "isi_cv": 0.945,
+              "mfr_hz": 1.252,
+              "network_burst_rate_per_min": -0.347,
+              "pct_spikes_in_bursts": 0.77,
+              "synchrony_index": 0.605
+            },
+            "scored": 5
+          },
+          "gabaa_potentiate": {
+            "agreeing": 0,
+            "delta": {
+              "burst_rate_per_min": 0.366,
+              "isi_cv": 0.008,
+              "mfr_hz": 0.03,
+              "network_burst_rate_per_min": 0.11,
+              "pct_spikes_in_bursts": 0.168,
+              "synchrony_index": 0.135
+            },
+            "scored": 4
+          },
+          "sodium_block": {
+            "agreeing": 3,
+            "delta": {
+              "burst_rate_per_min": -4.322,
+              "isi_cv": -1.592,
+              "mfr_hz": -2.594,
+              "network_burst_rate_per_min": -4.322,
+              "pct_spikes_in_bursts": -4.322,
+              "synchrony_index": -4.322
+            },
+            "scored": 3
+          }
+        },
+        "i": false,
+        "i_mfr_delta_at_block": 1.2523,
+        "ii_dose_trend": {
+          "burst_rate_per_min": -0.0164,
+          "network_burst_rate_per_min": -0.3279,
+          "passes": false
+        },
+        "iii": false,
+        "qualifies": false
+      },
+      "u0.6_tau600": {
+        "agreeing_total": 14,
+        "agreement": {
+          "ampa_block": {
+            "agreeing": 4,
+            "delta": {
+              "burst_rate_per_min": -4.322,
+              "isi_cv": -1.54,
+              "mfr_hz": -1.639,
+              "network_burst_rate_per_min": -4.322,
+              "pct_spikes_in_bursts": -4.322,
+              "synchrony_index": -4.322
+            },
+            "scored": 4
+          },
+          "gabaa_block": {
+            "agreeing": 3,
+            "delta": {
+              "burst_rate_per_min": 0.299,
+              "isi_cv": 0.897,
+              "mfr_hz": 1.225,
+              "network_burst_rate_per_min": -0.131,
+              "pct_spikes_in_bursts": 0.505,
+              "synchrony_index": 0.417
+            },
+            "scored": 5
+          },
+          "gabaa_potentiate": {
+            "agreeing": 4,
+            "delta": {
+              "burst_rate_per_min": -0.195,
+              "isi_cv": -0.133,
+              "mfr_hz": -0.162,
+              "network_burst_rate_per_min": 0.009,
+              "pct_spikes_in_bursts": -0.194,
+              "synchrony_index": -0.135
+            },
+            "scored": 4
+          },
+          "sodium_block": {
+            "agreeing": 3,
+            "delta": {
+              "burst_rate_per_min": -4.322,
+              "isi_cv": -1.746,
+              "mfr_hz": -2.871,
+              "network_burst_rate_per_min": -4.322,
+              "pct_spikes_in_bursts": -4.322,
+              "synchrony_index": -4.322
+            },
+            "scored": 3
+          }
+        },
+        "i": false,
+        "i_mfr_delta_at_block": 1.2253,
+        "ii_dose_trend": {
+          "burst_rate_per_min": 0.3491,
+          "network_burst_rate_per_min": -0.0495,
+          "passes": false
+        },
+        "iii": false,
+        "qualifies": false
+      },
+      "u0.6_tau900": {
+        "agreeing_total": 10,
+        "agreement": {
+          "ampa_block": {
+            "agreeing": 4,
+            "delta": {
+              "burst_rate_per_min": -4.322,
+              "isi_cv": -1.16,
+              "mfr_hz": -0.995,
+              "network_burst_rate_per_min": -4.322,
+              "pct_spikes_in_bursts": -4.322,
+              "synchrony_index": -4.322
+            },
+            "scored": 4
+          },
+          "gabaa_block": {
+            "agreeing": 3,
+            "delta": {
+              "burst_rate_per_min": 0.169,
+              "isi_cv": 0.718,
+              "mfr_hz": 0.869,
+              "network_burst_rate_per_min": -0.52,
+              "pct_spikes_in_bursts": 0.785,
+              "synchrony_index": 0.575
+            },
+            "scored": 5
+          },
+          "gabaa_potentiate": {
+            "agreeing": 0,
+            "delta": {
+              "burst_rate_per_min": 0.36,
+              "isi_cv": 0.08,
+              "mfr_hz": 0.123,
+              "network_burst_rate_per_min": 0.076,
+              "pct_spikes_in_bursts": 0.164,
+              "synchrony_index": 0.117
+            },
+            "scored": 4
+          },
+          "sodium_block": {
+            "agreeing": 3,
+            "delta": {
+              "burst_rate_per_min": -4.322,
+              "isi_cv": -1.362,
+              "mfr_hz": -2.221,
+              "network_burst_rate_per_min": -4.322,
+              "pct_spikes_in_bursts": -4.322,
+              "synchrony_index": -4.322
+            },
+            "scored": 3
+          }
+        },
+        "i": false,
+        "i_mfr_delta_at_block": 0.8687,
+        "ii_dose_trend": {
+          "burst_rate_per_min": 0.0764,
+          "network_burst_rate_per_min": -0.4557,
+          "passes": false
+        },
+        "iii": false,
+        "qualifies": false
+      },
+      "u0_tau600": {
+        "agreeing_total": 15,
+        "agreement": {
+          "ampa_block": {
+            "agreeing": 4,
+            "delta": {
+              "burst_rate_per_min": -4.322,
+              "isi_cv": -2.007,
+              "mfr_hz": -2.411,
+              "network_burst_rate_per_min": -4.322,
+              "pct_spikes_in_bursts": -4.322,
+              "synchrony_index": -4.322
+            },
+            "scored": 4
+          },
+          "gabaa_block": {
+            "agreeing": 4,
+            "delta": {
+              "burst_rate_per_min": -0.24,
+              "isi_cv": 1.556,
+              "mfr_hz": 2.389,
+              "network_burst_rate_per_min": -0.322,
+              "pct_spikes_in_bursts": 0.248,
+              "synchrony_index": 0.247
+            },
+            "scored": 5
+          },
+          "gabaa_potentiate": {
+            "agreeing": 4,
+            "delta": {
+              "burst_rate_per_min": -0.235,
+              "isi_cv": -0.246,
+              "mfr_hz": -0.332,
+              "network_burst_rate_per_min": 0.016,
+              "pct_spikes_in_bursts": -0.177,
+              "synchrony_index": -0.143
+            },
+            "scored": 4
+          },
+          "sodium_block": {
+            "agreeing": 3,
+            "delta": {
+              "burst_rate_per_min": -4.322,
+              "isi_cv": -2.219,
+              "mfr_hz": -3.65,
+              "network_burst_rate_per_min": -4.322,
+              "pct_spikes_in_bursts": -4.322,
+              "synchrony_index": -4.322
+            },
+            "scored": 3
+          }
+        },
+        "i": false,
+        "i_mfr_delta_at_block": 2.389,
+        "ii_dose_trend": {
+          "burst_rate_per_min": -0.2291,
+          "network_burst_rate_per_min": -0.3875,
+          "passes": false
+        },
+        "iii": true,
+        "qualifies": false
+      }
+    },
+    "summary": {
+      "control_mfr_delta_at_block": 2.389,
+      "real_gabaa_antagonist_mfr_delta": -0.335,
+      "setting_with_smallest_rise": "u0.6_tau900",
+      "settings_lowering_firing_rate": 0,
+      "settings_qualifying": 0,
+      "settings_tested": 7,
+      "smallest_mfr_delta_at_block_with_depression": 0.8687
+    }
   },
   "twin_hd11_validation": {
     "baseline": {
@@ -7300,6 +8913,99 @@
     "synchrony_index_improves_under": [
       "u0.2_tau300"
     ]
+  },
+  "twin_prior_classifier": {
+    "baseline": {
+      "balanced_accuracy_mean": 0.537,
+      "conformal_alpha_0.1": {
+        "empirical_coverage": 0.918,
+        "fraction_singleton": 0.0,
+        "mean_set_size": 4.562
+      },
+      "per_fold": [
+        0.364,
+        0.631,
+        0.569,
+        0.583
+      ]
+    },
+    "label": "SIMULATED twin prior, scored on REAL Kapucu pairs",
+    "n_real_pairs": 73,
+    "n_synthetic_pairs": 150,
+    "predictions": {
+      "W1_accuracy_improves": {
+        "outcome": "fail",
+        "test": "mean balanced accuracy >= baseline + 0.05",
+        "value": {
+          "baseline": 0.537,
+          "twin_prior": 0.53
+        }
+      },
+      "W2_sets_shrink": {
+        "outcome": "fail",
+        "test": "mean set size at alpha 0.1 < baseline's, with empirical coverage >= 0.85",
+        "value": {
+          "baseline": {
+            "empirical_coverage": 0.918,
+            "fraction_singleton": 0.0,
+            "mean_set_size": 4.562
+          },
+          "twin_prior": {
+            "empirical_coverage": 0.932,
+            "fraction_singleton": 0.0,
+            "mean_set_size": 4.562
+          }
+        }
+      },
+      "W3_twin_alone_transfers": {
+        "outcome": "pass",
+        "test": "balanced accuracy on all 73 real pairs > 0.25 (chance 1/6)",
+        "value": 0.41
+      }
+    },
+    "twin_alone": {
+      "balanced_accuracy": 0.41,
+      "balanced_accuracy_ci95": [
+        0.2808,
+        0.5072
+      ],
+      "bootstrap_resamples": 1000,
+      "classes_without_twin_knob": [
+        "glutamatergic_agonist"
+      ],
+      "na_channel_blocker_median_deltas": {
+        "real": {
+          "active_electrodes": -0.093,
+          "mfr_hz": -0.795
+        },
+        "simulated": {
+          "active_electrodes": -3.681,
+          "mfr_hz": -3.273
+        }
+      },
+      "recall_by_class": {
+        "control": 0.8,
+        "gabaa_agonist_or_pam": 0.75,
+        "gabaa_antagonist": 0.5,
+        "glutamatergic_agonist": 0.0,
+        "glutamatergic_antagonist": 0.412,
+        "na_channel_blocker": 0.0
+      }
+    },
+    "twin_prior": {
+      "balanced_accuracy_mean": 0.53,
+      "conformal_alpha_0.1": {
+        "empirical_coverage": 0.932,
+        "fraction_singleton": 0.0,
+        "mean_set_size": 4.562
+      },
+      "per_fold": [
+        0.364,
+        0.673,
+        0.528,
+        0.556
+      ]
+    }
   },
   "uncertainty_and_ablations": {
     "conformal_sweep": [

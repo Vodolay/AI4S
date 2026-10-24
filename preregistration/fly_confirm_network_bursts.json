@@ -1,0 +1,36 @@
+{
+  "title": "Addendum 2: confirm that network-burst rate, not firing rate, is the early chip sentinel (SIMULATED)",
+  "registered": "2026-10-22",
+  "status": "registered after the FlyWire sweep, before the FlyWire confirmation runs and before any MaleCNS result was read",
+  "parent": "preregistration/fly_chip_to_animal.json",
+  "seen_before_registration": [
+    "all results of the registered FlyWire sweep (seeds 100+, 300+), including C2 failing in every family",
+    "exploratory: of the six chip features, network_burst_rate_per_min reaches |delta log2| >= 0.5 at or before the first behaviour-impairment dose in all five families; mfr_hz does so in none",
+    "the MaleCNS replication was running when this was registered; none of its output had been read"
+  ],
+  "why_this_needs_confirmation": "network_burst_rate_per_min was picked as the best of six features after seeing the data; a feature chosen that way can win by chance",
+  "design": {
+    "flywire_confirmation": "the parent design unchanged, with fresh seeds: spontaneous 700+ (3 seeds, 10 s), behaviour 800+ (8 trials); no evoked or replication runs",
+    "malecns": "the MaleCNS replication as registered in fly_malecns_replication.json, its output as written",
+    "detection": "first dose with |delta log2 feature| >= 0.5; impairment: first dose with disruption index >= 0.5 (parent definition)"
+  },
+  "predictions": {
+    "N1_network_bursts_are_an_early_sentinel_flywire": {
+      "statement": "On fresh seeds, network-burst rate detects at or before behavioural impairment",
+      "test": "in all five families with any impairment: first network_burst dose <= first behaviour dose"
+    },
+    "N2_firing_rate_lags_flywire": {
+      "statement": "On fresh seeds, the C2 failure replicates: firing rate detects after behaviour",
+      "test": "first mfr dose > first behaviour dose in at least 4 of the families with any impairment"
+    },
+    "N3_network_bursts_are_an_early_sentinel_malecns": {
+      "statement": "In the male CNS, network-burst rate detects at or before behavioural impairment",
+      "test": "first network_burst dose <= first behaviour dose in at least 4 of the families with any impairment; reported as uninterpretable if MaleCNS M0 fails"
+    },
+    "N4_firing_rate_lags_malecns": {
+      "statement": "In the male CNS, firing rate detects after behaviour",
+      "test": "first mfr dose > first behaviour dose in at least 4 of the families with any impairment; uninterpretable if M0 fails"
+    }
+  },
+  "reporting": "All four reported with values and pass/fail, whichever way they fall."
+}

@@ -65,7 +65,7 @@ def coverage_report(truth: np.ndarray, sets: list[list[str]], labels: list[str])
 
 
 def conformal_sets(
-    pairs: pd.DataFrame, alpha: float = 0.1, seed: int = 0, n_splits: int = 4
+    pairs: pd.DataFrame, alpha: float = 0.1, seed: int = 0, n_splits: int = 4, make_model=None
 ) -> dict:
     """Cross-conformal prediction: every pair is scored by a model that never saw its culture.
 
@@ -82,7 +82,7 @@ def conformal_sets(
     all_truth, all_sets, thresholds = [], [], []
     for train_idx, test_idx in outer.split(x, y, groups):
         threshold, model = _fit_and_calibrate(
-            x[train_idx], y[train_idx], groups[train_idx], alpha, seed
+            x[train_idx], y[train_idx], groups[train_idx], alpha, seed, make_model
         )
         probabilities = model.predict_proba(x[test_idx])
         all_sets += prediction_sets(probabilities, model.classes_, threshold)
@@ -98,11 +98,16 @@ def conformal_sets(
     }
 
 
-def _fit_and_calibrate(x, y, groups, alpha: float, seed: int):
-    """Fit on a proper-training part and take the conformal threshold from the rest."""
+def _fit_and_calibrate(x, y, groups, alpha: float, seed: int, make_model=None):
+    """Fit on a proper-training part and take the conformal threshold from the rest.
+
+    `make_model` returns a fresh classifier; the default is the baseline's.
+    """
     inner = StratifiedGroupKFold(n_splits=2, shuffle=True, random_state=seed)
     fit_idx, cal_idx = next(inner.split(x, y, groups))
-    model = MODELS["logistic_regression"].fit(x[fit_idx], y[fit_idx])
+    model = (make_model() if make_model else MODELS["logistic_regression"]).fit(
+        x[fit_idx], y[fit_idx]
+    )
     probabilities = model.predict_proba(x[cal_idx])
     class_index = {label: i for i, label in enumerate(model.classes_)}
     scores = np.array(

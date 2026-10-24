@@ -1,0 +1,33 @@
+{
+  "title": "Does a twin-trained prior improve the real mechanism classifier? (SIMULATED prior, REAL evaluation)",
+  "registered": "2026-10-24",
+  "status": "registered before any synthetic training pair was simulated",
+  "origin": "post-round-1 review (Fix 2): fit the classifier's weights on twin simulations and shrink the 73 real pairs' fit toward them instead of toward zero",
+  "seen_before_registration": [
+    "Task 1 baseline (mechanism_baselines): logistic regression balanced accuracy 0.537 on 73 Kapucu pairs, 6 classes, grouped 5-fold CV",
+    "conformal sets (uncertainty_and_ablations): mean set size 4.562 at alpha 0.1, coverage 0.918",
+    "HD13: the twin moves 12 established real features the right way across its four knobs and gets firing rate under GABA-A block wrong"
+  ],
+  "design": {
+    "synthetic_pairs": "the calibrated twin through HD13's feature path, 40 s; per pair one chip (build seed k) recorded twice with fresh noise (noise seeds 1000+k and 2000+k), neutral knobs at baseline",
+    "classes": {
+      "control": "treated = untreated knobs",
+      "gabaa_antagonist": "gabaa_scale uniform on [0.1, 0.6]",
+      "gabaa_agonist_or_pam": "gabaa_scale uniform on [1.5, 3.0]",
+      "glutamatergic_antagonist": "ampa_scale uniform on [0.2, 0.7]",
+      "na_channel_blocker": "threshold_scale uniform on [1.2, 2.0]",
+      "glutamatergic_agonist": "no twin knob: its prior centre is zero"
+    },
+    "pairs_per_class": 30,
+    "knob_draw_seed": 0,
+    "deltas": "models.dataset.log_ratio on the nine delta features, as the real pairs",
+    "classifier": "the baseline pipeline (median impute, standardise on the real training fold, multinomial logistic regression, balanced class weights, C = 1); the only change is that the L2 penalty is centred on W_sim, the weights of the same model fitted on the synthetic pairs standardised with the real fold's scaler",
+    "evaluation": "Task 1's grouped CV (StratifiedGroupKFold, seed 0, the baseline's number of splits) and cross-conformal sets at alpha 0.1 (4 splits, seed 0), exactly as the baseline"
+  },
+  "predictions": {
+    "W1_accuracy_improves": {"statement": "The twin prior raises balanced accuracy", "test": "mean balanced accuracy >= baseline + 0.05"},
+    "W2_sets_shrink": {"statement": "The twin prior gives smaller conformal sets without losing coverage", "test": "mean set size at alpha 0.1 < baseline's, with empirical coverage >= 0.85"},
+    "W3_twin_alone_transfers": {"statement": "A classifier trained on twin pairs alone recognises real mechanisms above chance", "test": "balanced accuracy on all 73 real pairs > 0.25 (chance 1/6)"}
+  },
+  "reporting": "Every prediction with its value and pass/fail, whichever way it falls."
+}

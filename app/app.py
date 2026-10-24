@@ -41,7 +41,7 @@ _running_script = sys.modules.get("app")
 if _running_script is not None and not hasattr(_running_script, "__path__"):
     del sys.modules["app"]  # the runner keeps its own reference to this module
 
-from app import loaders, tab_data, tab_models, tab_twin  # noqa: E402
+from app import loaders, tab_data, tab_fly, tab_models, tab_twin  # noqa: E402
 
 BANNER = (
     "**Research decision-support only.** Nothing in this app is an efficacy, safety, "
@@ -56,6 +56,7 @@ TABS = (
     ("models", "1 · Mechanism & transfer"),
     ("twin", "2 · Digital twin & inference"),
     ("data", "3 · Data asset & standard"),
+    ("fly", "4 · From chip to animal"),
 )
 
 
@@ -100,7 +101,7 @@ def main() -> None:
 
     # The models lead and the asset follows: a reader wants to know what was
     # found before how the records were shelved.
-    renderers = [tab_models.render, tab_twin.render, tab_data.render]
+    renderers = [tab_models.render, tab_twin.render, tab_data.render, tab_fly.render]
     # `?tab=twin` renders one tab on its own. Streamlit tabs cannot be selected
     # programmatically, so this is what makes a tab linkable - and screenshottable.
     requested = _requested_tab()

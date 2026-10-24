@@ -1,0 +1,38 @@
+{
+  "title": "Does an electrode on the brain's output tract flag drugs earlier than a planar array? (SIMULATED)",
+  "registered": "2026-10-24",
+  "status": "registered before any recording of descending neurons as an electrode array was made",
+  "origin": "post-round-1 review (Investigation B): the fly's neck connective, where descending neurons carry the brain's output to the nerve cord, is nature's microchannel; instrumenting it might reveal circuit failure a planar array misses",
+  "parent": "preregistration/fly_chip_to_animal.json",
+  "seen_before_registration": [
+    "all results of the parent sweep, its replication and confirmation, the false-alarm and shift checks, and the precision table (planar array firing-rate change at behavioural onset: 0.124-0.304 log2 on FlyWire)",
+    "real untreated noise q95: Kapucu controls 0.156 log2; EPA acute screen firing-rate hit cutoff 70.97 (about -1.78 log2)"
+  ],
+  "design": {
+    "recordings": "the parent's spontaneous recordings re-simulated with the parent's seeds (100-102, 10 s, background 5 mV); behaviour onset taken from the parent sweep, not re-run",
+    "planar_array": "the parent's array (8 single-unit electrodes per neuropil, seed 0)",
+    "planar_64": "64 electrodes drawn at random (seed 1) from the planar array: the equal-count comparison",
+    "tract_64": "64 single-unit electrodes drawn at random (seed 2) from descending neurons (FlyWire super_class 'descending')",
+    "noise": "12 untreated recordings (seeds 1000-1011), random 3-vs-3 splits, as fly.checks",
+    "threshold": "0.156 log2 change in firing rate (Kapucu control q95), the same for every array"
+  },
+  "predictions": {
+    "T0_planar_reproduces": {
+      "statement": "The re-simulated planar array reproduces the parent sweep's firing-rate deltas",
+      "test": "max |difference| of delta log2 mfr over the 21 conditions <= 0.001 (same seeds, deterministic)"
+    },
+    "T1_tract_moves_more_at_onset": {
+      "statement": "At the first dose that impairs behaviour, the tract array's firing rate has moved more than the equal-count planar array's",
+      "test": "tract |delta log2 mfr| > planar_64 |delta log2 mfr| at behavioural onset in at least 4 of the 5 families"
+    },
+    "T2_tract_is_not_noise": {
+      "statement": "The tract array's firing rate is quiet when nothing is applied",
+      "test": "untreated false-alarm rate at 0.156 <= 0.05"
+    },
+    "T3_tract_flags_in_time_more_often": {
+      "statement": "At the real-chip threshold, the tract array flags more families no later than behaviour than the equal-count planar array does",
+      "test": "families flagged at or before behavioural onset: tract > planar_64"
+    }
+  },
+  "reporting": "Every prediction with its value and pass/fail, whichever way it falls."
+}
