@@ -67,33 +67,54 @@ class Movement:
     joint_names: list[str]
 
 
+class Session:
+    """The leg advanced one control step at a time (for closed loops); `run` uses it too."""
+
+    def __init__(self, names: list[str], settle_s: float = SETTLE_S):
+        import mujoco
+
+        self._mujoco = mujoco
+        m = model()
+        self.m, self.d = m, mujoco.MjData(m)
+        self.order = [names.index(n) for n in muscle_names()]
+        self.claw = mujoco.mj_name2id(m, mujoco.mjtObj.mjOBJ_BODY, CLAW)
+        self.antenna = mujoco.mj_name2id(m, mujoco.mjtObj.mjOBJ_BODY, ANTENNA)
+        self.leg_joints = [
+            j
+            for j in range(m.njnt)
+            if mujoco.mj_id2name(m, mujoco.mjtObj.mjOBJ_JOINT, j).startswith("joint_LF")
+        ]
+        self.joint_names = [
+            mujoco.mj_id2name(m, mujoco.mjtObj.mjOBJ_JOINT, j) for j in self.leg_joints
+        ]
+        self.substeps = int(round(CONTROL_DT_S / m.opt.timestep))
+        self.d.ctrl[:] = 1e-4
+        for _ in range(int(round(settle_s / m.opt.timestep))):
+            mujoco.mj_step(m, self.d)
+
+    def angles(self) -> np.ndarray:
+        """Current leg joint angles (rad), in `joint_names` order."""
+        return self.d.qpos[self.m.jnt_qposadr[self.leg_joints]].copy()
+
+    def step(self, row: np.ndarray) -> tuple[float, np.ndarray]:
+        """Apply one row of activations for one control step; claw-antenna distance, angles."""
+        self.d.ctrl[:] = np.clip(np.asarray(row)[self.order], 1e-4, 1.0)
+        for _ in range(self.substeps):
+            self._mujoco.mj_step(self.m, self.d)
+        distance = float(np.linalg.norm(self.d.xpos[self.claw] - self.d.xpos[self.antenna]))
+        return distance, self.angles()
+
+
 def run(activation: np.ndarray, names: list[str], settle_s: float = SETTLE_S) -> Movement:
     """Settle passively, then apply `activation` (steps x muscles, one row per CONTROL_DT_S)."""
-    import mujoco
-
-    m = model()
-    d = mujoco.MjData(m)
-    order = [names.index(n) for n in muscle_names()]
-    claw = mujoco.mj_name2id(m, mujoco.mjtObj.mjOBJ_BODY, CLAW)
-    antenna = mujoco.mj_name2id(m, mujoco.mjtObj.mjOBJ_BODY, ANTENNA)
-    leg_joints = [
-        j
-        for j in range(m.njnt)
-        if mujoco.mj_id2name(m, mujoco.mjtObj.mjOBJ_JOINT, j).startswith("joint_LF")
-    ]
-    substeps = int(round(CONTROL_DT_S / m.opt.timestep))
-    d.ctrl[:] = 1e-4
-    for _ in range(int(round(settle_s / m.opt.timestep))):
-        mujoco.mj_step(m, d)
+    session = Session(names, settle_s)
     distance, angles = [], []
     for row in activation:
-        d.ctrl[:] = np.clip(row[order], 1e-4, 1.0)
-        for _ in range(substeps):
-            mujoco.mj_step(m, d)
-        distance.append(float(np.linalg.norm(d.xpos[claw] - d.xpos[antenna])))
-        angles.append(d.qpos[m.jnt_qposadr[leg_joints]].copy())
+        dist, ang = session.step(row)
+        distance.append(dist)
+        angles.append(ang)
     return Movement(
         distance_mm=np.asarray(distance),
         joint_angles=np.asarray(angles),
-        joint_names=[mujoco.mj_id2name(m, mujoco.mjtObj.mjOBJ_JOINT, j) for j in leg_joints],
+        joint_names=session.joint_names,
     )
