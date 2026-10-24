@@ -984,8 +984,8 @@ in the array's firing rate tracks the disruption index (Spearman
 fly array also agrees with real chips about which way each mechanism moves each feature as often
 as the chip twin does:
 12 <!-- metrics.json: fly_chip_to_animal.predictions.A1_direction_agreement_with_real_chips.value.fly -->
-agreeing features against the twin's
-12 <!-- metrics.json: fly_chip_to_animal.predictions.A1_direction_agreement_with_real_chips.value.twin -->.
+agreeing features against the twin's 12
+<!-- metrics.json: fly_chip_to_animal.predictions.A1_direction_agreement_with_real_chips.value.twin -->.
 
 **But it is late: the registered prediction failed in every family.** We predicted that, at the
 registered detection threshold, the chip would flag each drug at a dose no higher than the one
@@ -1055,9 +1055,9 @@ false-alarms on untreated recordings
 (rate 0.0 <!-- metrics.json: fly_output_tract.false_alarm_rate.tract_64 -->). Two checks we added
 after it passed temper it without overturning it. Which 64 neurons the electrodes hear matters:
 over ten random draws of each array, the tract is ahead in
-7 <!-- metrics.json: fly_output_tract_robustness.registered_index.draws_meeting_t1 --> of
-10 <!-- metrics.json: fly_output_tract_robustness.registered_index.draws -->. And the result does
-not come from the overlap between the tract and one behaviour readout, which counts descending
+7 <!-- metrics.json: fly_output_tract_robustness.registered_index.draws_meeting_t1 --> of the
+10 <!-- metrics.json: fly_output_tract_robustness.registered_index.draws --> draws. And the result
+does not come from the overlap between the tract and one behaviour readout, which counts descending
 neurons: leaving that readout out changes nothing. This agrees with what real devices showed in
 §15, from the other side: there, chamber electrodes could not tell which way axons fired and only
 electrodes inside the microchannels could; here, an electrode on the output tract sees the
