@@ -75,13 +75,14 @@ def _init() -> None:
 
 def _brain(job) -> dict:
     """One FlyWire trial: each pool's mean filtered rate (Hz, 1 ms steps) and mean spike rate."""
-    drive, seed = job
+    drive, seed = job[:2]
+    knob = job[2] if len(job) > 2 else {}
     con, sets = _STATE["con"], _STATE["sets"]
     first, second = DRIVES[drive]
     excite = con.index_of(sets[first]) if first else []
     excite2 = con.index_of(sets[second]) if second else []
     params = model.FlyParams(
-        seed=seed, stim_rate_hz=STIM_HZ, stim2_rate_hz=STIM_HZ if second else 0.0
+        seed=seed, stim_rate_hz=STIM_HZ, stim2_rate_hz=STIM_HZ if second else 0.0, **knob
     )
     spikes = model.simulate(con, params, excite=excite, excite2=excite2)
     traces, rates = {}, {}

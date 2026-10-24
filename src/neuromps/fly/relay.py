@@ -85,11 +85,13 @@ def _brain_init() -> None:
 
 def _brain(job) -> dict:
     """One FlyWire trial: spike times of every descending neuron, by root ID."""
-    drive, seed = job
+    drive, seed = job[:2]
+    knob = job[2] if len(job) > 2 else {}
     con = _STATE["brain"]
     group = DRIVES[drive]
     excite = con.index_of(_STATE["sets"][group]) if group else []
-    spikes = model.simulate(con, model.FlyParams(seed=seed, stim_rate_hz=150.0), excite=excite)
+    params = model.FlyParams(seed=seed, stim_rate_hz=150.0, **knob)
+    spikes = model.simulate(con, params, excite=excite)
     out = {}
     for root, index in zip(_STATE["dn_ids"], _STATE["dn_index"], strict=True):
         times = spikes.times[spikes.neurons == index]
@@ -107,7 +109,8 @@ def _cord_init(pairs: dict[int, int]) -> None:
 
 def _cord(job) -> dict:
     """The nerve cord driven by one brain trial's descending spikes (optionally lesioned)."""
-    brain, lesion, removed = job
+    brain, lesion, removed = job[:3]
+    knob = job[3] if len(job) > 3 else {}
     state = embodied_stage1c._STATE
     replay = {}
     for target, source in _STATE["pairs"].items():
@@ -117,7 +120,7 @@ def _cord(job) -> dict:
         if times is not None:
             replay[target] = times
     con = state["con"]
-    params = model.FlyParams(duration_s=embodied_stage1.DURATION_S, seed=brain["seed"])
+    params = model.FlyParams(duration_s=embodied_stage1.DURATION_S, seed=brain["seed"], **knob)
     spikes = model.simulate(con, params, replay=replay)
     counts = np.bincount(spikes.neurons, minlength=con.n_neurons) / spikes.duration_s
     neurons = sorted({n for v in state["assignment"].neurons_by_muscle.values() for n in v})
