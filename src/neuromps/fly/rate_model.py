@@ -86,6 +86,16 @@ def activation(x: np.ndarray, p: Draws) -> np.ndarray:
     return np.maximum(p.r_max * np.tanh((p.a / p.r_max) * (x - p.theta)), 0.0)
 
 
+def drive_input(p: Draws, neurons: np.ndarray, target_hz: float) -> np.ndarray:
+    """Per neuron and replicate, the step input that alone brings the neuron to `target_hz`.
+
+    Inverts the response function: I = theta + (r_max / a) artanh(target / r_max).
+    """
+    idx = np.asarray(neurons, dtype=int)
+    r_max, a, theta = p.r_max[idx], p.a[idx], p.theta[idx]
+    return theta + (r_max / a) * np.arctanh(target_hz / r_max)
+
+
 @dataclass(frozen=True)
 class Run:
     """Recorded rates (Hz) at each 1 ms sample, (samples x recorded x replicates); mean rates."""
@@ -98,7 +108,7 @@ def simulate(
     w: sparse.csr_matrix,
     p: Draws,
     drive: np.ndarray,
-    amplitude: float,
+    amplitude: float | np.ndarray,
     record: np.ndarray,
     duration_s: float = 2.0,
     dt_s: float = 1e-4,
@@ -106,10 +116,13 @@ def simulate(
     silenced: np.ndarray | None = None,
     sample_s: float = 1e-3,
 ) -> Run:
-    """Forward-Euler integration from rest; step input to `drive` from `onset_s`."""
+    """Forward-Euler integration from rest; step input to `drive` from `onset_s`.
+
+    `amplitude` is one input for every driven neuron, or one per driven neuron and replicate.
+    """
     n, reps = p.tau_s.shape
     r = np.zeros((n, reps))
-    inputs = np.zeros((n, 1))
+    inputs = np.zeros((n, reps if np.ndim(amplitude) == 2 else 1))
     inputs[np.asarray(drive, dtype=int)] = amplitude
     every = int(round(sample_s / dt_s))
     steps = int(round(duration_s / dt_s))
