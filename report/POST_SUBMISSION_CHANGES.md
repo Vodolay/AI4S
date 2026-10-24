@@ -18,7 +18,8 @@ the bottom.*
 | 7 | 2026-10-24 | Vesicle depletion tested as the cause of the GABA-A reversal | registered prediction failed; new negative result | `3071ab4`, `8fb5065` |
 | 8 | 2026-10-24 | The twin as a source of labelled data, and as a prior for the classifier | 1 of 3 registered predictions pass | `761068e`, `93bb4f6` |
 | 9 | 2026-10-24 | Electrodes on the fly brain's output tract against a planar array | 4 of 4 registered predictions pass | `cd074b3`, `2c66067` |
-| 10 | 2026-10-24 | Behaviour read at the motor neurons of the male CNS | 6 of 7 registered predictions pass | `a1c5f27`, this merge |
+| 10 | 2026-10-24 | Behaviour read at the motor neurons of the male CNS | 6 of 7 registered predictions pass | `a1c5f27`, `a2f4ee2` |
+| 11 | 2026-10-24 | The motor-level ties resolved on a finer dose grid | 1 of 2 registered predictions pass; one tie resolves | `69db4e6`, this merge |
 
 ---
 
@@ -259,6 +260,30 @@ is never ahead of behaviour: it is late in three drug families and level in two.
   were needed). Motor output fails no later than the interneurons in every family.
 - **Evidence.** Report §25 ("One step closer to behaviour") and figure;
   `outputs/fly/malecns_motor_SIMULATED.csv`.
+
+## 11. Resolving the two ties, without re-scoring the failed test
+
+**Slide message:** *We did not move the goalposts on the failed test; we ran a new registered
+one. With the ties resolved, the chip is late in four drug families, level in one, and never
+ahead.*
+
+- **What changed.** `src/neuromps/fly/tie_break.py` runs four finer dose levels inside each of
+  the two tied steps of entry 10, with the same seeds and untreated references, registered
+  before running (`preregistration/fly_motor_tie_break.json`).
+- **Why.** Entry 10's chip-is-late test failed because two families tied, both onsets inside one
+  coarse dose step. Changing the test after the fact would have undone the registration; a new,
+  registered test with a finer grid answers the open question honestly.
+- **Effect.** The re-run tied levels reproduce exactly. The raised threshold resolves to chip
+  later (motor at
+  0.32 <!-- metrics.json: fly_motor_tie_break.resolutions.excitability_block.motor_onset -->,
+  chip at
+  0.4 <!-- metrics.json: fly_motor_tie_break.resolutions.excitability_block.chip_onset -->);
+  GABA potentiation stays tied. The follow-up predicted both would resolve, so it failed.
+  Entry 10's test stays failed; combined, the chip is later in
+  4 <!-- metrics.json: fly_motor_tie_break.combined_with_parent.chip_later -->, level in
+  1 <!-- metrics.json: fly_motor_tie_break.combined_with_parent.tied -->, earlier in
+  0 <!-- metrics.json: fly_motor_tie_break.combined_with_parent.chip_earlier -->.
+- **Evidence.** Report §25 and figure; `outputs/fly/malecns_motor_tie_break_SIMULATED.csv`.
 
 ---
 

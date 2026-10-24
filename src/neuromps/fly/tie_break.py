@@ -151,6 +151,43 @@ def score(frame: pd.DataFrame, spec: dict) -> dict:
     }, resolutions
 
 
+def combined(resolutions: dict) -> dict:
+    """The parent's untied families with the resolved ties: not a re-scoring of MR5."""
+    parent = json.loads((outputs_dir() / "fly" / "malecns_motor_SIMULATED.json").read_text())
+    first = parent["summary"]["first_dose"]
+    out = {"chip_later": 0, "tied": 0, "chip_earlier": 0}
+    for family, motor_dose in first["motor"].items():
+        if family in resolutions:
+            kind = {
+                "chip later": "chip_later",
+                "chip earlier": "chip_earlier",
+                "still tied": "tied",
+            }[resolutions[family]["resolution"]]
+        else:
+            chip = first["chip"][family]
+            kind = (
+                "chip_later"
+                if chip is None or chip > motor_dose
+                else "tied"
+                if chip == motor_dose
+                else "chip_earlier"
+            )
+        out[kind] += 1
+    out["note"] = "MR5 stays failed as registered; this combines it with the finer-grid follow-up"
+    return out
+
+
+def rescore() -> int:
+    """Add the combined count to the saved result, without simulating."""
+    path = outputs_dir() / "fly" / "malecns_motor_tie_break_SIMULATED.json"
+    result = json.loads(path.read_text())
+    result["combined_with_parent"] = combined(result["resolutions"])
+    path.write_text(json.dumps(scoring.clean(result), indent=2) + "\n")
+    update_metrics("fly_motor_tie_break", scoring.clean(result))
+    print(json.dumps(result["combined_with_parent"], indent=1))
+    return 0
+
+
 def plot(frame: pd.DataFrame, path) -> None:
     """Chip |delta| and motor disruption across each tie step, against the 0.5 thresholds."""
     import matplotlib
@@ -208,6 +245,7 @@ def main(argv: list[str] | None = None) -> int:
         "label": "SIMULATED male CNS: motor-level ties resolved on a finer grid",
         "predictions": predictions,
         "resolutions": resolutions,
+        "combined_with_parent": combined(resolutions),
         "registration": design.provenance(REGISTRATION),
     }
     out = outputs_dir() / "fly"
@@ -224,4 +262,6 @@ def main(argv: list[str] | None = None) -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    import sys
+
+    raise SystemExit(rescore() if "--rescore" in sys.argv else main())
