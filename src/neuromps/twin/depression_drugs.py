@@ -242,6 +242,8 @@ def main(argv: list[str] | None = None) -> int:
     frame.to_csv(out / "depression_under_block_simulated.csv", index=False)
     (out / "depression_under_block_simulated.json").write_text(json.dumps(result, indent=2) + "\n")
     update_metrics("twin_depression_under_block", result)
+    real = refs["gabaa_block"]["by_feature"]["mfr_hz"]["median_delta"]
+    plot(result, real, out / "depression_under_block_simulated.png")
     for name, entry in predictions.items():
         print(f"{name:36s} {entry['outcome']:>5}  {entry['value']}")
     return 0
@@ -249,3 +251,38 @@ def main(argv: list[str] | None = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+
+
+def plot(result: dict, real_mfr_delta: float, path) -> None:
+    """Firing-rate change under the strongest GABA-A block, per depression setting."""
+    import matplotlib
+
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    names = [label(*g) for g in DEPRESSION_GRID]
+    values = [result["settings"][n]["i_mfr_delta_at_block"] for n in names]
+    fig, ax = plt.subplots(figsize=(4.6, 2.6))
+    colours = ["#999999"] + ["#0072B2"] * (len(names) - 1)
+    ax.bar(range(len(names)), values, color=colours)
+    ax.axhline(
+        real_mfr_delta,
+        color="#D55E00",
+        ls="--",
+        lw=1.2,
+        label=f"REAL GABA-A antagonist pairs (median {real_mfr_delta:+.2f})",
+    )
+    ax.axhline(0, color="black", lw=0.6)
+    ax.set_xticks(range(len(names)), ["none"] + names[1:], rotation=35, ha="right", fontsize=6.5)
+    ax.set_ylabel("log2 change in firing rate", fontsize=7)
+    ax.set_xlabel("vesicle depletion (u, recovery ms)", fontsize=7)
+    ax.tick_params(labelsize=6.5)
+    ax.legend(fontsize=6, frameon=False, loc="upper right")
+    ax.set_title(
+        "SIMULATED twin under GABA-A block (gabaa_scale 0.2): depletion\n"
+        "shrinks the firing-rate rise but never reverses it",
+        fontsize=7.5,
+    )
+    fig.tight_layout()
+    fig.savefig(path, dpi=300, bbox_inches="tight")
+    plt.close(fig)

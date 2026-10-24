@@ -13,7 +13,8 @@ the bottom.*
 | 2 | 2026-10-11 | Bicuculline doses put on one unit scale | the dose conclusion reverses | `886d8d3` |
 | 3 | 2026-10-22 | Demo app runs as a hosted page from the repository alone | none; access only | `c4a9004` |
 | 4 | 2026-10-22/23 | From chip to animal: the drug knobs on a whole fly brain | new results, pre-registered | `c83eb14` … `aba184c` |
-| 5 | 2026-10-24 | Report page limit lifted; the fly study joins the report | none; structure only | this branch |
+| 5 | 2026-10-24 | Report page limit lifted; the fly study joins the report | none; structure only | `1c7d94f` |
+| 6 | 2026-10-24 | EPA screen cutoffs set beside the fly's precision needs | new comparison (descriptive) | `cd074b3` |
 
 ---
 
@@ -116,6 +117,34 @@ correctly but raises the alarm late: in every drug family, behaviour failed firs
   into the report as Act VII (§23–§26), after §22 so that no earlier section number changes;
   the short Appendix P that pointed to the note is gone.
 
+## 6. A regulatory screen's hit cutoff, beside what the fly says a chip must see
+
+**Slide message:** *EPA's MEA screen calls a firing-rate hit only beyond a change about six
+times larger than the one at which the fly's behaviour had already failed.*
+
+- **What changed.** `src/neuromps/fly/screen_cutoffs.py` reads the hit cutoff of the ToxCast MEA
+  firing-rate endpoints from the asset's 20,375 ToxCast records and converts it to log2. The
+  acute screen normalises activity to a positive control at −100 (activity abolished); its
+  cutoff of
+  70.97 <!-- metrics.json: fly_screen_cutoffs.acute_firing_rate.cutoff_percent -->
+  means suppression to about 29% of control, a change of
+  −1.784 <!-- metrics.json: fly_screen_cutoffs.acute_firing_rate.cutoff_log2.down --> log2,
+  over
+  515 <!-- metrics.json: fly_screen_cutoffs.acute_firing_rate.chemicals --> screened chemicals.
+- **Why.** The review pointed out that most of the asset's records sat outside the modelling.
+  This puts them to a use the fly study makes possible: does the screen's own threshold leave
+  room to catch the mechanisms in time?
+- **Effect.** The largest firing-rate change at which the fly's behaviour had already failed is
+  0.304 <!-- metrics.json: fly_screen_cutoffs.largest_fly_change_at_behavioural_onset_log2 -->
+  log2 (acetylcholine block), so the screen's cutoff is
+  5.87 <!-- metrics.json: fly_screen_cutoffs.acute_cutoff_over_largest_fly_change --> times
+  larger. Caveat: the cutoff applies to a fitted curve's efficacy across the tested range, not
+  to one dose, so this compares magnitudes, not decisions. The fly side is simulated; the
+  cutoffs are real.
+- **Considered and dropped.** A compound-by-compound potency bridge between our spike-level
+  sources and ToxCast: only four compounds appear in both (bicuculline, deltamethrin,
+  acetaminophen, glyphosate), too few to rank.
+
 ---
 
 ## Work queue (decided 2026-10-24, from the post-round-1 review)
@@ -123,7 +152,7 @@ correctly but raises the alarm late: in every drug family, behaviour failed firs
 | Item | Status | Registered before running |
 |---|---|---|
 | Synaptic depression under GABA-A block: does it make the twin's firing rate fall, as real chips do? | planned | yes |
-| ToxCast potency bridge: do spike-level features rank compounds as ToxCast's fitted potencies do? | data check first | yes |
+| ToxCast potency bridge | replaced by entry 6 (only four shared compounds) | — |
 | Output-tract electrode: does recording descending neurons flag drugs earlier than a planar array? | planned | yes |
 | Brain and nerve cord as a two-chamber chip (male CNS): chamber-level directionality against the wiring | planned | exploratory |
 | Twin posteriors as classifier features | planned, lower priority | yes |

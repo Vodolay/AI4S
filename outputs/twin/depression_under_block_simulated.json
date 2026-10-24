@@ -1,0 +1,519 @@
+{
+  "label": "SIMULATED twin: depression under drug knobs",
+  "settings": {
+    "u0.2_tau300": {
+      "i_mfr_delta_at_block": 1.7817,
+      "ii_dose_trend": {
+        "burst_rate_per_min": -0.1091,
+        "network_burst_rate_per_min": -0.4941,
+        "passes": false
+      },
+      "agreement": {
+        "gabaa_block": {
+          "agreeing": 4,
+          "scored": 5,
+          "delta": {
+            "mfr_hz": 1.782,
+            "burst_rate_per_min": -0.015,
+            "pct_spikes_in_bursts": 0.288,
+            "network_burst_rate_per_min": -0.29,
+            "synchrony_index": 0.27,
+            "isi_cv": 1.234
+          }
+        },
+        "gabaa_potentiate": {
+          "agreeing": 4,
+          "scored": 4,
+          "delta": {
+            "mfr_hz": -0.208,
+            "burst_rate_per_min": -0.174,
+            "pct_spikes_in_bursts": -0.1,
+            "network_burst_rate_per_min": -0.177,
+            "synchrony_index": -0.075,
+            "isi_cv": -0.142
+          }
+        },
+        "ampa_block": {
+          "agreeing": 4,
+          "scored": 4,
+          "delta": {
+            "mfr_hz": -2.264,
+            "burst_rate_per_min": -4.322,
+            "pct_spikes_in_bursts": -4.322,
+            "network_burst_rate_per_min": -4.322,
+            "synchrony_index": -4.322,
+            "isi_cv": -1.887
+          }
+        },
+        "sodium_block": {
+          "agreeing": 3,
+          "scored": 3,
+          "delta": {
+            "mfr_hz": -3.508,
+            "burst_rate_per_min": -4.322,
+            "pct_spikes_in_bursts": -4.322,
+            "network_burst_rate_per_min": -4.322,
+            "synchrony_index": -4.322,
+            "isi_cv": -2.095
+          }
+        }
+      },
+      "agreeing_total": 15,
+      "i": false,
+      "iii": true,
+      "qualifies": false
+    },
+    "u0.2_tau600": {
+      "i_mfr_delta_at_block": 1.6707,
+      "ii_dose_trend": {
+        "burst_rate_per_min": -0.0873,
+        "network_burst_rate_per_min": -0.3562,
+        "passes": false
+      },
+      "agreement": {
+        "gabaa_block": {
+          "agreeing": 4,
+          "scored": 5,
+          "delta": {
+            "mfr_hz": 1.671,
+            "burst_rate_per_min": -0.019,
+            "pct_spikes_in_bursts": 0.356,
+            "network_burst_rate_per_min": -0.369,
+            "synchrony_index": 0.323,
+            "isi_cv": 1.176
+          }
+        },
+        "gabaa_potentiate": {
+          "agreeing": 4,
+          "scored": 4,
+          "delta": {
+            "mfr_hz": -0.165,
+            "burst_rate_per_min": -0.089,
+            "pct_spikes_in_bursts": -0.088,
+            "network_burst_rate_per_min": -0.141,
+            "synchrony_index": -0.066,
+            "isi_cv": -0.121
+          }
+        },
+        "ampa_block": {
+          "agreeing": 4,
+          "scored": 4,
+          "delta": {
+            "mfr_hz": -2.063,
+            "burst_rate_per_min": -4.322,
+            "pct_spikes_in_bursts": -4.322,
+            "network_burst_rate_per_min": -4.322,
+            "synchrony_index": -4.322,
+            "isi_cv": -1.779
+          }
+        },
+        "sodium_block": {
+          "agreeing": 3,
+          "scored": 3,
+          "delta": {
+            "mfr_hz": -3.299,
+            "burst_rate_per_min": -4.322,
+            "pct_spikes_in_bursts": -4.322,
+            "network_burst_rate_per_min": -4.322,
+            "synchrony_index": -4.322,
+            "isi_cv": -1.984
+          }
+        }
+      },
+      "agreeing_total": 15,
+      "i": false,
+      "iii": true,
+      "qualifies": false
+    },
+    "u0.4_tau300": {
+      "i_mfr_delta_at_block": 1.5817,
+      "ii_dose_trend": {
+        "burst_rate_per_min": 0.0546,
+        "network_burst_rate_per_min": -0.0548,
+        "passes": false
+      },
+      "agreement": {
+        "gabaa_block": {
+          "agreeing": 2,
+          "scored": 5,
+          "delta": {
+            "mfr_hz": 1.582,
+            "burst_rate_per_min": 0.281,
+            "pct_spikes_in_bursts": 0.402,
+            "network_burst_rate_per_min": 0.001,
+            "synchrony_index": 0.349,
+            "isi_cv": 1.119
+          }
+        },
+        "gabaa_potentiate": {
+          "agreeing": 0,
+          "scored": 4,
+          "delta": {
+            "mfr_hz": 0.133,
+            "burst_rate_per_min": 0.38,
+            "pct_spikes_in_bursts": 0.114,
+            "network_burst_rate_per_min": 0.297,
+            "synchrony_index": 0.096,
+            "isi_cv": 0.054
+          }
+        },
+        "ampa_block": {
+          "agreeing": 4,
+          "scored": 4,
+          "delta": {
+            "mfr_hz": -2.04,
+            "burst_rate_per_min": -4.322,
+            "pct_spikes_in_bursts": -4.322,
+            "network_burst_rate_per_min": -4.322,
+            "synchrony_index": -4.322,
+            "isi_cv": -1.747
+          }
+        },
+        "sodium_block": {
+          "agreeing": 3,
+          "scored": 3,
+          "delta": {
+            "mfr_hz": -3.284,
+            "burst_rate_per_min": -4.322,
+            "pct_spikes_in_bursts": -4.322,
+            "network_burst_rate_per_min": -4.322,
+            "synchrony_index": -4.322,
+            "isi_cv": -1.955
+          }
+        }
+      },
+      "agreeing_total": 9,
+      "i": false,
+      "iii": false,
+      "qualifies": false
+    },
+    "u0.4_tau600": {
+      "i_mfr_delta_at_block": 1.2733,
+      "ii_dose_trend": {
+        "burst_rate_per_min": 0.0873,
+        "network_burst_rate_per_min": -0.0331,
+        "passes": false
+      },
+      "agreement": {
+        "gabaa_block": {
+          "agreeing": 4,
+          "scored": 5,
+          "delta": {
+            "mfr_hz": 1.273,
+            "burst_rate_per_min": -0.02,
+            "pct_spikes_in_bursts": 0.394,
+            "network_burst_rate_per_min": -0.299,
+            "synchrony_index": 0.337,
+            "isi_cv": 0.938
+          }
+        },
+        "gabaa_potentiate": {
+          "agreeing": 4,
+          "scored": 4,
+          "delta": {
+            "mfr_hz": -0.256,
+            "burst_rate_per_min": -0.297,
+            "pct_spikes_in_bursts": -0.169,
+            "network_burst_rate_per_min": -0.235,
+            "synchrony_index": -0.134,
+            "isi_cv": -0.153
+          }
+        },
+        "ampa_block": {
+          "agreeing": 4,
+          "scored": 4,
+          "delta": {
+            "mfr_hz": -1.83,
+            "burst_rate_per_min": -4.322,
+            "pct_spikes_in_bursts": -4.322,
+            "network_burst_rate_per_min": -4.322,
+            "synchrony_index": -4.322,
+            "isi_cv": -1.642
+          }
+        },
+        "sodium_block": {
+          "agreeing": 3,
+          "scored": 3,
+          "delta": {
+            "mfr_hz": -3.064,
+            "burst_rate_per_min": -4.322,
+            "pct_spikes_in_bursts": -4.322,
+            "network_burst_rate_per_min": -4.322,
+            "synchrony_index": -4.322,
+            "isi_cv": -1.844
+          }
+        }
+      },
+      "agreeing_total": 15,
+      "i": false,
+      "iii": true,
+      "qualifies": false
+    },
+    "u0.4_tau900": {
+      "i_mfr_delta_at_block": 1.2523,
+      "ii_dose_trend": {
+        "burst_rate_per_min": -0.0164,
+        "network_burst_rate_per_min": -0.3279,
+        "passes": false
+      },
+      "agreement": {
+        "gabaa_block": {
+          "agreeing": 3,
+          "scored": 5,
+          "delta": {
+            "mfr_hz": 1.252,
+            "burst_rate_per_min": 0.369,
+            "pct_spikes_in_bursts": 0.77,
+            "network_burst_rate_per_min": -0.347,
+            "synchrony_index": 0.605,
+            "isi_cv": 0.945
+          }
+        },
+        "gabaa_potentiate": {
+          "agreeing": 0,
+          "scored": 4,
+          "delta": {
+            "mfr_hz": 0.03,
+            "burst_rate_per_min": 0.366,
+            "pct_spikes_in_bursts": 0.168,
+            "network_burst_rate_per_min": 0.11,
+            "synchrony_index": 0.135,
+            "isi_cv": 0.008
+          }
+        },
+        "ampa_block": {
+          "agreeing": 4,
+          "scored": 4,
+          "delta": {
+            "mfr_hz": -1.365,
+            "burst_rate_per_min": -4.322,
+            "pct_spikes_in_bursts": -4.322,
+            "network_burst_rate_per_min": -4.322,
+            "synchrony_index": -4.322,
+            "isi_cv": -1.389
+          }
+        },
+        "sodium_block": {
+          "agreeing": 3,
+          "scored": 3,
+          "delta": {
+            "mfr_hz": -2.594,
+            "burst_rate_per_min": -4.322,
+            "pct_spikes_in_bursts": -4.322,
+            "network_burst_rate_per_min": -4.322,
+            "synchrony_index": -4.322,
+            "isi_cv": -1.592
+          }
+        }
+      },
+      "agreeing_total": 10,
+      "i": false,
+      "iii": false,
+      "qualifies": false
+    },
+    "u0.6_tau600": {
+      "i_mfr_delta_at_block": 1.2253,
+      "ii_dose_trend": {
+        "burst_rate_per_min": 0.3491,
+        "network_burst_rate_per_min": -0.0495,
+        "passes": false
+      },
+      "agreement": {
+        "gabaa_block": {
+          "agreeing": 3,
+          "scored": 5,
+          "delta": {
+            "mfr_hz": 1.225,
+            "burst_rate_per_min": 0.299,
+            "pct_spikes_in_bursts": 0.505,
+            "network_burst_rate_per_min": -0.131,
+            "synchrony_index": 0.417,
+            "isi_cv": 0.897
+          }
+        },
+        "gabaa_potentiate": {
+          "agreeing": 4,
+          "scored": 4,
+          "delta": {
+            "mfr_hz": -0.162,
+            "burst_rate_per_min": -0.195,
+            "pct_spikes_in_bursts": -0.194,
+            "network_burst_rate_per_min": 0.009,
+            "synchrony_index": -0.135,
+            "isi_cv": -0.133
+          }
+        },
+        "ampa_block": {
+          "agreeing": 4,
+          "scored": 4,
+          "delta": {
+            "mfr_hz": -1.639,
+            "burst_rate_per_min": -4.322,
+            "pct_spikes_in_bursts": -4.322,
+            "network_burst_rate_per_min": -4.322,
+            "synchrony_index": -4.322,
+            "isi_cv": -1.54
+          }
+        },
+        "sodium_block": {
+          "agreeing": 3,
+          "scored": 3,
+          "delta": {
+            "mfr_hz": -2.871,
+            "burst_rate_per_min": -4.322,
+            "pct_spikes_in_bursts": -4.322,
+            "network_burst_rate_per_min": -4.322,
+            "synchrony_index": -4.322,
+            "isi_cv": -1.746
+          }
+        }
+      },
+      "agreeing_total": 14,
+      "i": false,
+      "iii": false,
+      "qualifies": false
+    },
+    "u0.6_tau900": {
+      "i_mfr_delta_at_block": 0.8687,
+      "ii_dose_trend": {
+        "burst_rate_per_min": 0.0764,
+        "network_burst_rate_per_min": -0.4557,
+        "passes": false
+      },
+      "agreement": {
+        "gabaa_block": {
+          "agreeing": 3,
+          "scored": 5,
+          "delta": {
+            "mfr_hz": 0.869,
+            "burst_rate_per_min": 0.169,
+            "pct_spikes_in_bursts": 0.785,
+            "network_burst_rate_per_min": -0.52,
+            "synchrony_index": 0.575,
+            "isi_cv": 0.718
+          }
+        },
+        "gabaa_potentiate": {
+          "agreeing": 0,
+          "scored": 4,
+          "delta": {
+            "mfr_hz": 0.123,
+            "burst_rate_per_min": 0.36,
+            "pct_spikes_in_bursts": 0.164,
+            "network_burst_rate_per_min": 0.076,
+            "synchrony_index": 0.117,
+            "isi_cv": 0.08
+          }
+        },
+        "ampa_block": {
+          "agreeing": 4,
+          "scored": 4,
+          "delta": {
+            "mfr_hz": -0.995,
+            "burst_rate_per_min": -4.322,
+            "pct_spikes_in_bursts": -4.322,
+            "network_burst_rate_per_min": -4.322,
+            "synchrony_index": -4.322,
+            "isi_cv": -1.16
+          }
+        },
+        "sodium_block": {
+          "agreeing": 3,
+          "scored": 3,
+          "delta": {
+            "mfr_hz": -2.221,
+            "burst_rate_per_min": -4.322,
+            "pct_spikes_in_bursts": -4.322,
+            "network_burst_rate_per_min": -4.322,
+            "synchrony_index": -4.322,
+            "isi_cv": -1.362
+          }
+        }
+      },
+      "agreeing_total": 10,
+      "i": false,
+      "iii": false,
+      "qualifies": false
+    },
+    "u0_tau600": {
+      "i_mfr_delta_at_block": 2.389,
+      "ii_dose_trend": {
+        "burst_rate_per_min": -0.2291,
+        "network_burst_rate_per_min": -0.3875,
+        "passes": false
+      },
+      "agreement": {
+        "gabaa_block": {
+          "agreeing": 4,
+          "scored": 5,
+          "delta": {
+            "mfr_hz": 2.389,
+            "burst_rate_per_min": -0.24,
+            "pct_spikes_in_bursts": 0.248,
+            "network_burst_rate_per_min": -0.322,
+            "synchrony_index": 0.247,
+            "isi_cv": 1.556
+          }
+        },
+        "gabaa_potentiate": {
+          "agreeing": 4,
+          "scored": 4,
+          "delta": {
+            "mfr_hz": -0.332,
+            "burst_rate_per_min": -0.235,
+            "pct_spikes_in_bursts": -0.177,
+            "network_burst_rate_per_min": 0.016,
+            "synchrony_index": -0.143,
+            "isi_cv": -0.246
+          }
+        },
+        "ampa_block": {
+          "agreeing": 4,
+          "scored": 4,
+          "delta": {
+            "mfr_hz": -2.411,
+            "burst_rate_per_min": -4.322,
+            "pct_spikes_in_bursts": -4.322,
+            "network_burst_rate_per_min": -4.322,
+            "synchrony_index": -4.322,
+            "isi_cv": -2.007
+          }
+        },
+        "sodium_block": {
+          "agreeing": 3,
+          "scored": 3,
+          "delta": {
+            "mfr_hz": -3.65,
+            "burst_rate_per_min": -4.322,
+            "pct_spikes_in_bursts": -4.322,
+            "network_burst_rate_per_min": -4.322,
+            "synchrony_index": -4.322,
+            "isi_cv": -2.219
+          }
+        }
+      },
+      "agreeing_total": 15,
+      "i": false,
+      "iii": true,
+      "qualifies": false
+    }
+  },
+  "qualifying": [],
+  "chosen": null,
+  "replication": null,
+  "predictions": {
+    "V1_some_setting_qualifies": {
+      "value": 0,
+      "outcome": "fail"
+    },
+    "V2_the_control_does_not": {
+      "value": 2.389,
+      "outcome": "pass"
+    },
+    "V3_the_chosen_setting_replicates": {
+      "value": null,
+      "outcome": "n/a"
+    }
+  },
+  "duration_s": 40.0
+}
