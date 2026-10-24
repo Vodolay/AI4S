@@ -408,6 +408,33 @@ Pugliese et al.'s result is actually tested.
 
 ![SIMULATED firing-rate model of the male nerve cord. Left: DNb08 drive, one draw: one flexor burst, then a tonic extensor, scored as "rhythmic" by the flawed measure. Right: rhythmicity per draw and condition; DNg100 drive leaves the pools silent.](../outputs/figures/embodied_stage2e_rate_model_SIMULATED.png){width=80%}
 
+**Stage 2f: every command neuron driven alike; the walking command is switched off by the
+activity it starts (precondition failed in both size rules).** Stage 2f gave each driven neuron
+the input that alone brings it to 50 Hz, computed from its own drawn parameters. It ran two size
+rules (synapse count, as in stage 2e, and none), used the audit's corrected rhythm measure, and
+added a precondition that DNg100 actually fires near its target. The precondition fails in both
+rules: DNg100's median rate is
+0.18 <!-- metrics.json: embodied_stage2f.synapse_count.predictions.S0_the_command_is_on.value --> Hz with synapse-count sizes
+and 0.0 <!-- metrics.json: embodied_stage2f.none.predictions.S0_the_command_is_on.value --> Hz without size scaling, so every
+other prediction is uninterpretable. An exploratory trace of one registered draw (not scored)
+shows why. DNg100 starts at
+42.67 <!-- metrics.json: embodied_stage2f_diagnostic.synapse_count.t_50ms.dng100_hz --> Hz and recruits
+443 <!-- metrics.json: embodied_stage2f_diagnostic.synapse_count.t_50ms.active_neurons --> neurons within 50 ms. The cord then tips into a
+self-sustained state, and by 0.25 s the inhibitory input onto DNg100 is
+-4452.5 <!-- metrics.json: embodied_stage2f_diagnostic.synapse_count.t_250ms.inhibitory_input --> against
+2165.1 <!-- metrics.json: embodied_stage2f_diagnostic.synapse_count.t_250ms.excitatory_input --> excitatory, which silences it. Thereafter
+5,247 <!-- metrics.json: embodied_stage2f_diagnostic.synapse_count.t_1850ms.active_neurons --> neurons stay active with the command off. The
+comparison with Pugliese et al. explains the difference. Their network is not the whole cord but
+the front leg's motor neurons, the premotor neurons onto them and the descending neurons onto
+those (4,604 neurons). Their input is halved whenever more than 500 neurons are recruited; such
+runs are treated as infeasible. Their positive result is a rhythm within the front leg, and they
+report no consistent left-right phase and no tripod. Our whole-cord runs sit far outside that
+regime, and our coordination tests ask for more than their model produces. The faithful test is
+their own construction on the male CNS: the front-leg network, the 5-to-500 recruitment rule, and
+their within-leg predictions. It is registered next as stage 2g.
+
+![SIMULATED firing-rate network of the male nerve cord with each command neuron driven to 50 Hz, both size rules: no corrected rhythm in any condition; the cord's own activity silences the walking command.](../outputs/figures/embodied_stage2f_rate_model_driven_SIMULATED.png){width=80%}
+
 ## 8. What carries over unchanged
 
 Pre-registration before every run; licensed data with checksums in the manifest; every reported

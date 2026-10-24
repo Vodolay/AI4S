@@ -141,6 +141,50 @@ def score(table: pd.DataFrame, spec: dict) -> dict:
     return out
 
 
+TRACE_TIMES_S = (0.05, 0.25, 0.45, 1.05, 1.85)
+
+
+def command_trace(rule: str, seed: int = SEEDS[0]) -> dict:
+    """Exploratory: one draw under forward walking; DNg100's rate and its excitatory and
+    inhibitory network input, and the number of active neurons, at a few times."""
+    st = s2e._STATE
+    idx = st["drive"]["forward_walking"]
+    w = st["w"]
+    w_exc, w_inh = w.multiply(w > 0).tocsr()[idx], w.multiply(w < 0).tocsr()[idx]
+    p = rate_model.draw(_STATE["sizes"][rule], [seed])
+    inputs = np.zeros((w.shape[0], 1))
+    inputs[idx] = rate_model.drive_input(p, idx, TARGET_HZ)
+    r, gain = np.zeros((w.shape[0], 1)), s2e.DT_S / p.tau_s
+    marks = {int(round(t / s2e.DT_S)): t for t in TRACE_TIMES_S}
+    out = {}
+    for k in range(1, int(round(s2e.DURATION_S / s2e.DT_S)) + 1):
+        on = inputs if (k - 1) * s2e.DT_S >= 0.02 else 0.0
+        r += gain * (rate_model.activation(on + w @ r, p) - r)
+        if k in marks:
+            out[f"t_{round(marks[k] * 1000)}ms"] = {
+                "dng100_hz": round(float(r[idx, 0].mean()), 2),
+                "excitatory_input": round(float((w_exc @ r)[:, 0].mean()), 1),
+                "inhibitory_input": round(float((w_inh @ r)[:, 0].mean()), 1),
+                "active_neurons": int((r[:, 0] >= fictive.MIN_RATE_HZ).sum()),
+            }
+    return out
+
+
+def diagnose() -> int:
+    """Exploratory diagnostic of S0, written to metrics.json (not scored)."""
+    _init()
+    result = {
+        "label": "EXPLORATORY, not registered: why DNg100 is off (SIMULATED, draw 900)",
+        **{rule: command_trace(rule) for rule in SIZE_RULES},
+    }
+    (outputs_dir() / "fly" / "embodied_stage2f_command_trace_SIMULATED.json").write_text(
+        json.dumps(scoring.clean(result), indent=2) + "\n"
+    )
+    update_metrics("embodied_stage2f_diagnostic", scoring.clean(result))
+    print(json.dumps(scoring.clean(result), indent=1))
+    return 0
+
+
 def plot(rows: list[dict], table: pd.DataFrame, path) -> None:
     """Per size rule: one forward-walking draw's tibia pools, and every draw's corrected rhythm."""
     import matplotlib
@@ -225,4 +269,6 @@ def main(argv: list[str] | None = None) -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    import sys
+
+    raise SystemExit(diagnose() if "--diagnose" in sys.argv else main())

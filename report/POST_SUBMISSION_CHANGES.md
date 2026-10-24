@@ -31,6 +31,7 @@ the bottom.*
 | 20 | 2026-10-24 | Embodied stage 2d: the glutamate sign rule | 1 of 7 at the selected cell | `edbf611` … `a0ccff7` |
 | 21 | 2026-10-24 | Embodied stage 2e: the Pugliese et al. rate model; a flaw in our rhythm measure | 2 of 8 (one vacuous); the size stand-in starves DNg100 | `21df803` … `7a13eba` |
 | 22 | 2026-10-24 | The registered rhythm-measure audit | one earlier pass (1d D2) withdrawn; all else stands; originals reproduce | `76611c0` … this branch |
+| 23 | 2026-10-24 | Embodied stage 2f: command neurons driven alike, two size rules | precondition fails in both; the command is silenced by the activity it starts | `7e36cfb` … this branch |
 
 ---
 
@@ -538,6 +539,28 @@ reproduce exactly.*
 - **Why it matters for the interview.** A worked example of the discipline under pressure: the
   flaw found by ourselves, the fix registered before use, the earlier claim withdrawn in public.
 - **Evidence.** Roadmap §7 and figure; `outputs/fly/rhythm_audit_SIMULATED.json`.
+
+---
+
+## 23. The walking command is switched off by the activity it starts
+
+**Slide message:** *Driven fairly, the walking command neuron starts a wave of activity that grows
+until it silences the command itself; the whole nerve cord then runs on its own. The published
+model avoids this by simulating only the front-leg network and capping recruitment at 500
+neurons. That is what we test next.*
+
+- **What changed.** `rate_model.drive_input` gives each driven neuron the input that alone
+  brings it to a target rate; `src/neuromps/fly/embodied_stage2f.py` runs the registered stage
+  2f (two size rules, corrected rhythm measure, a precondition that the command is on, a lesion
+  test that counts only if a rhythm exists).
+- **Effect.** The precondition fails in both size rules (DNg100
+  0.18 <!-- metrics.json: embodied_stage2f.synapse_count.predictions.S0_the_command_is_on.value --> and
+  0.0 <!-- metrics.json: embodied_stage2f.none.predictions.S0_the_command_is_on.value --> Hz), so the other predictions are
+  uninterpretable. Exploratory trace: DNg100 at
+  42.67 <!-- metrics.json: embodied_stage2f_diagnostic.synapse_count.t_50ms.dng100_hz --> Hz after 50 ms, silenced by 0.25 s under
+  -4452.5 <!-- metrics.json: embodied_stage2f_diagnostic.synapse_count.t_250ms.inhibitory_input --> inhibitory input;
+  5,247 <!-- metrics.json: embodied_stage2f_diagnostic.synapse_count.t_1850ms.active_neurons --> neurons stay active without it.
+- **Evidence.** Roadmap §7 and figure; `outputs/fly/embodied_stage2f_*`.
 
 ---
 

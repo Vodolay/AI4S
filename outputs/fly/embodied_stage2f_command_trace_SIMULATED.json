@@ -1,0 +1,67 @@
+{
+  "label": "EXPLORATORY, not registered: why DNg100 is off (SIMULATED, draw 900)",
+  "synapse_count": {
+    "t_50ms": {
+      "dng100_hz": 42.67,
+      "excitatory_input": 255.8,
+      "inhibitory_input": -128.7,
+      "active_neurons": 443
+    },
+    "t_250ms": {
+      "dng100_hz": 1.76,
+      "excitatory_input": 2165.1,
+      "inhibitory_input": -4452.5,
+      "active_neurons": 5608
+    },
+    "t_450ms": {
+      "dng100_hz": 0.0,
+      "excitatory_input": 1581.7,
+      "inhibitory_input": -8055.2,
+      "active_neurons": 5276
+    },
+    "t_1050ms": {
+      "dng100_hz": 0.0,
+      "excitatory_input": 1758.5,
+      "inhibitory_input": -9229.2,
+      "active_neurons": 5239
+    },
+    "t_1850ms": {
+      "dng100_hz": 0.0,
+      "excitatory_input": 1760.9,
+      "inhibitory_input": -9254.4,
+      "active_neurons": 5247
+    }
+  },
+  "none": {
+    "t_50ms": {
+      "dng100_hz": 3.4,
+      "excitatory_input": 421.6,
+      "inhibitory_input": -5319.2,
+      "active_neurons": 3470
+    },
+    "t_250ms": {
+      "dng100_hz": 0.0,
+      "excitatory_input": 4075.6,
+      "inhibitory_input": -13769.5,
+      "active_neurons": 5796
+    },
+    "t_450ms": {
+      "dng100_hz": 0.0,
+      "excitatory_input": 4449.0,
+      "inhibitory_input": -16279.0,
+      "active_neurons": 5928
+    },
+    "t_1050ms": {
+      "dng100_hz": 0.0,
+      "excitatory_input": 5004.8,
+      "inhibitory_input": -16523.0,
+      "active_neurons": 5871
+    },
+    "t_1850ms": {
+      "dng100_hz": 0.0,
+      "excitatory_input": 2478.9,
+      "inhibitory_input": -15695.7,
+      "active_neurons": 5838
+    }
+  }
+}

@@ -5930,6 +5930,312 @@
       }
     }
   },
+  "embodied_stage2f": {
+    "label": "SIMULATED rate model of the male nerve cord, command neurons driven alike",
+    "none": {
+      "predictions": {
+        "S0_the_command_is_on": {
+          "outcome": "fail",
+          "test": "median over draws of the DNg100 neurons' mean rate (0.2-2.0 s) within 0.5x-2x the target (50 Hz); if not, S1-S6 are uninterpretable for that size rule",
+          "value": 0.0
+        },
+        "S1_the_walking_command_makes_a_rhythm": {
+          "outcome": "uninterpretable",
+          "test": "median corrected L1 flexor rhythm under forward walking >= 0.3 at target 50 Hz; reported at 25 and 100 Hz",
+          "value": {
+            "forward_walking": 0.0,
+            "forward_walking_100": 0.0,
+            "forward_walking_25": 0.0
+          }
+        },
+        "S2_more_than_grooming": {
+          "outcome": "uninterpretable",
+          "test": "median corrected L1 flexor rhythm under forward walking above the grooming median",
+          "value": {
+            "forward_walking": 0.0,
+            "grooming": 0.0
+          }
+        },
+        "S3_antagonists_alternate": {
+          "outcome": "uninterpretable",
+          "test": "median circular distance of phase(L1 flexor -> L1 extensor) from 0.5 <= 0.15",
+          "value": null
+        },
+        "S4_left_and_right_alternate": {
+          "outcome": "uninterpretable",
+          "test": "median circular distance of phase(L1 flexor -> R1 flexor) from 0.5 <= 0.15",
+          "value": null
+        },
+        "S5_a_tripod": {
+          "outcome": "uninterpretable",
+          "test": "median circular distance of phase(L1 -> L2 flexor) from 0.5 <= 0.15 and of phase(L1 -> L3 flexor) from 0 <= 0.15",
+          "value": {
+            "L1_L2_from_half": null,
+            "L1_L3_from_zero": null
+          }
+        },
+        "S6_the_rhythm_needs_the_three_neuron_circuit": {
+          "outcome": "uninterpretable",
+          "test": "S1 passes, and with the 18 circuit neurons silenced the median corrected L1 flexor rhythm < 0.3 and at most half the intact median",
+          "value": {
+            "forward_walking": 0.0,
+            "lesion": 0.0
+          }
+        },
+        "S7_a_fly_like_step_period": {
+          "outcome": "uninterpretable",
+          "test": "median corrected L1 flexor period under forward walking between 60 and 200 ms",
+          "value": null
+        }
+      },
+      "reported": {
+        "dnb08": {
+          "active_neurons": 8542,
+          "extensor_hz": 12.3,
+          "flexor_hz": 4.72,
+          "leg_mn_rhythmic_fraction": 0.006,
+          "period_ms": null,
+          "rhythmicity_L1_flexor": 0.0
+        },
+        "forward_walking": {
+          "active_neurons": 8453,
+          "extensor_hz": 13.25,
+          "flexor_hz": 5.05,
+          "leg_mn_rhythmic_fraction": 0.0,
+          "period_ms": null,
+          "rhythmicity_L1_flexor": 0.0
+        },
+        "forward_walking_100": {
+          "active_neurons": 8527,
+          "extensor_hz": 13.55,
+          "flexor_hz": 4.86,
+          "leg_mn_rhythmic_fraction": 0.0,
+          "period_ms": null,
+          "rhythmicity_L1_flexor": 0.0
+        },
+        "forward_walking_25": {
+          "active_neurons": 8454,
+          "extensor_hz": 14.88,
+          "flexor_hz": 4.71,
+          "leg_mn_rhythmic_fraction": 0.003,
+          "period_ms": null,
+          "rhythmicity_L1_flexor": 0.0
+        },
+        "grooming": {
+          "active_neurons": 8890,
+          "extensor_hz": 13.39,
+          "flexor_hz": 5.04,
+          "leg_mn_rhythmic_fraction": 0.006,
+          "period_ms": null,
+          "rhythmicity_L1_flexor": 0.0
+        },
+        "lesion": {
+          "active_neurons": 8310,
+          "extensor_hz": 17.34,
+          "flexor_hz": 7.27,
+          "leg_mn_rhythmic_fraction": 0.0,
+          "period_ms": null,
+          "rhythmicity_L1_flexor": 0.0
+        },
+        "none": {
+          "active_neurons": 0,
+          "extensor_hz": 0.0,
+          "flexor_hz": 0.0,
+          "leg_mn_rhythmic_fraction": null,
+          "period_ms": null,
+          "rhythmicity_L1_flexor": 0.0
+        }
+      }
+    },
+    "registration": {
+      "committed_at": "2026-10-24T17:58:42-04:00",
+      "file": "preregistration/embodied_stage2f_rate_model_driven.json",
+      "registered_in_commit": "7e36cfb21d9406b72e4931dbd09ae71332c5bcb6",
+      "sha256": "9f405ce98036473009e7e4de67988b7c7666ae43ac1ab3ba40e135a38ea7966b"
+    },
+    "synapse_count": {
+      "predictions": {
+        "S0_the_command_is_on": {
+          "outcome": "fail",
+          "test": "median over draws of the DNg100 neurons' mean rate (0.2-2.0 s) within 0.5x-2x the target (50 Hz); if not, S1-S6 are uninterpretable for that size rule",
+          "value": 0.18
+        },
+        "S1_the_walking_command_makes_a_rhythm": {
+          "outcome": "uninterpretable",
+          "test": "median corrected L1 flexor rhythm under forward walking >= 0.3 at target 50 Hz; reported at 25 and 100 Hz",
+          "value": {
+            "forward_walking": 0.0,
+            "forward_walking_100": 0.0,
+            "forward_walking_25": 0.0
+          }
+        },
+        "S2_more_than_grooming": {
+          "outcome": "uninterpretable",
+          "test": "median corrected L1 flexor rhythm under forward walking above the grooming median",
+          "value": {
+            "forward_walking": 0.0,
+            "grooming": 0.0
+          }
+        },
+        "S3_antagonists_alternate": {
+          "outcome": "uninterpretable",
+          "test": "median circular distance of phase(L1 flexor -> L1 extensor) from 0.5 <= 0.15",
+          "value": null
+        },
+        "S4_left_and_right_alternate": {
+          "outcome": "uninterpretable",
+          "test": "median circular distance of phase(L1 flexor -> R1 flexor) from 0.5 <= 0.15",
+          "value": null
+        },
+        "S5_a_tripod": {
+          "outcome": "uninterpretable",
+          "test": "median circular distance of phase(L1 -> L2 flexor) from 0.5 <= 0.15 and of phase(L1 -> L3 flexor) from 0 <= 0.15",
+          "value": {
+            "L1_L2_from_half": null,
+            "L1_L3_from_zero": null
+          }
+        },
+        "S6_the_rhythm_needs_the_three_neuron_circuit": {
+          "outcome": "uninterpretable",
+          "test": "S1 passes, and with the 18 circuit neurons silenced the median corrected L1 flexor rhythm < 0.3 and at most half the intact median",
+          "value": {
+            "forward_walking": 0.0,
+            "lesion": 0.0
+          }
+        },
+        "S7_a_fly_like_step_period": {
+          "outcome": "uninterpretable",
+          "test": "median corrected L1 flexor period under forward walking between 60 and 200 ms",
+          "value": null
+        }
+      },
+      "reported": {
+        "dnb08": {
+          "active_neurons": 6993,
+          "extensor_hz": 45.56,
+          "flexor_hz": 6.75,
+          "leg_mn_rhythmic_fraction": 0.013,
+          "period_ms": null,
+          "rhythmicity_L1_flexor": 0.0
+        },
+        "forward_walking": {
+          "active_neurons": 6416,
+          "extensor_hz": 48.71,
+          "flexor_hz": 6.86,
+          "leg_mn_rhythmic_fraction": 0.019,
+          "period_ms": null,
+          "rhythmicity_L1_flexor": 0.0
+        },
+        "forward_walking_100": {
+          "active_neurons": 6537,
+          "extensor_hz": 49.09,
+          "flexor_hz": 9.97,
+          "leg_mn_rhythmic_fraction": 0.018,
+          "period_ms": null,
+          "rhythmicity_L1_flexor": 0.0
+        },
+        "forward_walking_25": {
+          "active_neurons": 6346,
+          "extensor_hz": 47.06,
+          "flexor_hz": 5.63,
+          "leg_mn_rhythmic_fraction": 0.021,
+          "period_ms": null,
+          "rhythmicity_L1_flexor": 0.0
+        },
+        "grooming": {
+          "active_neurons": 6920,
+          "extensor_hz": 52.96,
+          "flexor_hz": 7.23,
+          "leg_mn_rhythmic_fraction": 0.017,
+          "period_ms": null,
+          "rhythmicity_L1_flexor": 0.0
+        },
+        "lesion": {
+          "active_neurons": 6373,
+          "extensor_hz": 41.45,
+          "flexor_hz": 8.41,
+          "leg_mn_rhythmic_fraction": 0.018,
+          "period_ms": null,
+          "rhythmicity_L1_flexor": 0.0
+        },
+        "none": {
+          "active_neurons": 0,
+          "extensor_hz": 0.0,
+          "flexor_hz": 0.0,
+          "leg_mn_rhythmic_fraction": null,
+          "period_ms": null,
+          "rhythmicity_L1_flexor": 0.0
+        }
+      }
+    }
+  },
+  "embodied_stage2f_diagnostic": {
+    "label": "EXPLORATORY, not registered: why DNg100 is off (SIMULATED, draw 900)",
+    "none": {
+      "t_1050ms": {
+        "active_neurons": 5871,
+        "dng100_hz": 0.0,
+        "excitatory_input": 5004.8,
+        "inhibitory_input": -16523.0
+      },
+      "t_1850ms": {
+        "active_neurons": 5838,
+        "dng100_hz": 0.0,
+        "excitatory_input": 2478.9,
+        "inhibitory_input": -15695.7
+      },
+      "t_250ms": {
+        "active_neurons": 5796,
+        "dng100_hz": 0.0,
+        "excitatory_input": 4075.6,
+        "inhibitory_input": -13769.5
+      },
+      "t_450ms": {
+        "active_neurons": 5928,
+        "dng100_hz": 0.0,
+        "excitatory_input": 4449.0,
+        "inhibitory_input": -16279.0
+      },
+      "t_50ms": {
+        "active_neurons": 3470,
+        "dng100_hz": 3.4,
+        "excitatory_input": 421.6,
+        "inhibitory_input": -5319.2
+      }
+    },
+    "synapse_count": {
+      "t_1050ms": {
+        "active_neurons": 5239,
+        "dng100_hz": 0.0,
+        "excitatory_input": 1758.5,
+        "inhibitory_input": -9229.2
+      },
+      "t_1850ms": {
+        "active_neurons": 5247,
+        "dng100_hz": 0.0,
+        "excitatory_input": 1760.9,
+        "inhibitory_input": -9254.4
+      },
+      "t_250ms": {
+        "active_neurons": 5608,
+        "dng100_hz": 1.76,
+        "excitatory_input": 2165.1,
+        "inhibitory_input": -4452.5
+      },
+      "t_450ms": {
+        "active_neurons": 5276,
+        "dng100_hz": 0.0,
+        "excitatory_input": 1581.7,
+        "inhibitory_input": -8055.2
+      },
+      "t_50ms": {
+        "active_neurons": 443,
+        "dng100_hz": 42.67,
+        "excitatory_input": 255.8,
+        "inhibitory_input": -128.7
+      }
+    }
+  },
   "extractor_agreement": {
     "by_feature": {
       "active_electrodes": {
