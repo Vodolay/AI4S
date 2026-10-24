@@ -1,0 +1,24 @@
+{
+  "title": "Embodied fly, stage 1d: does a grooming drive hold the leg at the head while a walking drive swings it? (SIMULATED, open loop)",
+  "registered": "2026-10-24",
+  "status": "registered before any stage-1d simulation; fresh seeds",
+  "parent": "preregistration/embodied_stage1c_nerve_cord_from_descending_neurons.json",
+  "relation_to_parent": "Stage 1c's kinematic predictions (C1, C4) failed and stay failed. Its traces suggested a readout the closest-approach measure missed: grooming drive holds the claw at the head, forward-walking drive swings it. Because that idea came from looking at stage 1c, it is tested here on fresh seeds, with thresholds fixed by rules used before stage 1c.",
+  "seen_before_registration": [
+    "every result of stage 1c (seeds 730-737), including its figure: under grooming drive the claw reaches about 1.21 mm within about 50 ms and stays; under forward-walking (BDN2) drive it oscillates between about 1.2 and 1.9 mm"
+  ],
+  "design": {
+    "everything_else": "exactly stage 1c: nerve cord with descending and ascending neurons (brain removed), w_syn 0.275 mV, the five drives at 150 Hz, the motor-neuron map, rate filter, activation (r_full 20 Hz primary; 10, 40 Hz), FlyMimic leg, 1 s trials",
+    "seeds": "740-747",
+    "near_head_threshold_mm": "1.328: the passive rest (1.528 mm) minus the 0.2 mm margin of every earlier leg test",
+    "time_near_head": "fraction of the 1 s with the claw-antenna distance below the threshold",
+    "rhythmicity": "on the claw-antenna distance from 0.1 to 1.0 s, mean removed: the largest normalized autocorrelation at lags from 50 to 500 ms (periods of 2 to 20 Hz); 0 for a flat trace"
+  },
+  "predictions": {
+    "D1_grooming_holds_the_claw_at_the_head": {"statement": "Under grooming drive the claw spends most of the second near the head, far longer than under any other drive", "test": "median time near head under grooming >= 0.5, and at least 0.25 above the median of each other drive (r_full 20 Hz)"},
+    "D2_forward_walking_swings_the_leg": {"statement": "Forward-walking drive moves the leg rhythmically, grooming drive does not", "test": "median rhythmicity under forward walking >= 0.3 and above grooming's median (r_full 20 Hz)"},
+    "D3_the_activation_scale_does_not_decide_it": {"statement": "D1 holds at the other activation scales", "test": "D1's test holds at r_full 10 Hz and 40 Hz"},
+    "D4_the_front_leg_specificity_replicates": {"statement": "Stage 1c's motor-level passes, on fresh seeds", "test": "under grooming drive the left front-leg pool fires more than the middle and hind pools, and more than under each control drive"}
+  },
+  "reporting": "Every prediction with its value and pass/fail, whichever way it falls, beside stage 1c."
+}
