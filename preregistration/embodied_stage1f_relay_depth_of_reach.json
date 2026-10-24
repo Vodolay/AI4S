@@ -1,0 +1,24 @@
+{
+  "title": "Embodied fly, stage 1f: the FlyWire-brain-to-male-nerve-cord relay, scored by depth of reach, fresh seeds (SIMULATED, open loop)",
+  "registered": "2026-10-24",
+  "status": "registered before any stage-1f simulation; fresh seeds",
+  "parent": "preregistration/embodied_stage1e_flywire_brain_to_male_nerve_cord.json",
+  "relation_to_parent": "Stage 1e's precondition (grooming descending neurons >= 10 Hz) failed at 8.53 Hz, so its leg results are uninterpretable, and stay so. Two things change here, both because of what stage 1e showed, which is why the test is repeated on fresh seeds: (1) the precondition becomes relative, since an absolute rate line had no basis; (2) the kinematic readout becomes depth of reach (closest approach, the rule of stages 1, 1b and 1c), because in stage 1e mild flexion under sugar input crossed the time-near-head line.",
+  "seen_before_registration": [
+    "every stage-1e result (seeds 750-757): grooming descending neurons 8.53 Hz under antennal input; median closest approach 0.549 mm under antennal input, 0.937 under sugar, 1.490 with aDN1 and aDN2 removed, 1.526 without input; time near head 0.894 antennal, 0.911 sugar; front-leg pool 13.572 Hz under antennal input against 0.71 under sugar",
+    "exploration (seeds 9200-9201): under sugar input only the trochanter flexors (activation 0.16) and promotors (0.06) are active; under antennal input promotors, sternal anterior rotator and trochanter flexors are near saturation"
+  ],
+  "design": {
+    "everything_else": "exactly stage 1e: FlyWire brain at the published weight, matching by cell type and side, replay into the stage-1c male nerve cord, the leg, the lesion of DNg62 and DNge078",
+    "seeds": "760-767",
+    "readout": "per trial the minimum claw-to-antenna distance over the second (as stages 1-1c), r_full 20 Hz primary; 10 and 40 Hz as sensitivity"
+  },
+  "predictions": {
+    "F0_the_grooming_neurons_answer_antennal_input": {"statement": "The grooming descending neurons fire more under antennal input than under sugar input or none", "test": "mean rate of FlyWire DNg62 and DNge078 under JO-CE above that under sugar and under no drive; if not, F1-F4 are uninterpretable"},
+    "F1_antennal_input_reaches_deepest": {"statement": "Antennal input brings the claw closer to the antenna than sugar input or none", "test": "median minimum distance under JO-CE at least 0.2 mm below the sugar and no-drive medians (r_full 20 Hz)"},
+    "F2_the_front_leg_is_the_one_that_moves": {"statement": "As stage 1e's E2", "test": "front > middle, front > hind, front(JO-CE) > front(sugar)"},
+    "F3_the_activation_scale_does_not_decide_it": {"statement": "F1 holds at the other activation scales", "test": "F1's test holds at r_full 10 Hz and 40 Hz"},
+    "F4_the_reach_runs_through_the_grooming_neurons": {"statement": "Removing the grooming descending neurons' spikes abolishes the deep reach", "test": "median minimum distance with aDN1 and aDN2 removed at least 0.2 mm above the intact JO-CE median"}
+  },
+  "reporting": "Every prediction with its value and pass/fail, whichever way it falls, beside stage 1e."
+}

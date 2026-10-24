@@ -20,7 +20,11 @@ the bottom.*
 | 9 | 2026-10-24 | Electrodes on the fly brain's output tract against a planar array | 4 of 4 registered predictions pass | `cd074b3`, `2c66067` |
 | 10 | 2026-10-24 | Behaviour read at the motor neurons of the male CNS | 6 of 7 registered predictions pass | `a1c5f27`, `a2f4ee2` |
 | 11 | 2026-10-24 | The motor-level ties resolved on a finer dose grid | 1 of 2 registered predictions pass; one tie resolves | `69db4e6`, `796a33b` |
-| 12 | 2026-10-24 | Roadmap to an embodied, closed-loop fly | plan, no new results | this branch |
+| 12 | 2026-10-24 | Roadmap to an embodied, closed-loop fly | plan, no new results | `42ee520` |
+| 13 | 2026-10-24 | Embodied stage 1: the male CNS drives a muscle-driven leg | both registered tests fail; finding the cause changes the plan | `cbdd6d6` … this branch |
+| 14 | 2026-10-24 | Embodied stage 1c: the male nerve cord from descending neurons, brain removed | 3 of 5 registered predictions pass | `739f6f0` … `e576cd9` |
+| 15 | 2026-10-24 | Embodied stage 1d: a held reach against a rhythmic swing, fresh seeds | 4 of 4 registered predictions pass | `66502eb` … `19ab0ae` |
+| 16 | 2026-10-24 | Embodied stages 1e and 1f: the FlyWire brain drives the male nerve cord and the leg | 1e uninterpretable as registered; 1f 5 of 5 pass on fresh seeds | `f2f5ad3` … this branch |
 
 ---
 
@@ -198,7 +202,7 @@ labels.*
     the baseline's
     0.537 <!-- metrics.json: twin_prior_classifier.baseline.balanced_accuracy_mean -->, and
     conformal sets unchanged (two fails).
-  - A diagnosis for free: real sodium-channel blockers are never recognised, because the
+  - A finding for free: real sodium-channel blockers are never recognised, because the
     twin's threshold knob moves firing by
     −3.273 <!-- metrics.json: twin_prior_classifier.twin_alone.na_channel_blocker_median_deltas.simulated.mfr_hz -->
     log2 where the real blockers move it by
@@ -304,6 +308,93 @@ with a registered go/no-go test.*
 - **Why.** Building it properly takes weeks; showing a half-working body would cost credibility.
   A staged plan with registered tests shows where the project goes and how it will be checked.
 - **Evidence.** `report/ROADMAP_EMBODIED_FLY.md`.
+
+## 13. The leg moves, but not specifically: what stage 1 found
+
+**Slide message:** *Wired to a muscle-driven leg, the male fly brain moves it toward the head
+under antennal drive, but under sugar drive too; the cause is that the published model's
+parameters do not carry over to the second connectome, where activity avalanches.*
+
+- **What changed.** MuJoCo (an optional dependency) runs the FlyMimic leg from FlyGym 2;
+  `src/neuromps/fly/embodied_stage1.py` maps male-CNS motor neurons onto its muscles by name and
+  drives it open loop. Two registered tests: stage 1 and stage 1b (weight rescaled by the
+  connectomes' input-synapse ratio).
+- **Effect.** Stage 1 fails on specificity (sugar brings the claw closer than antennal drive);
+  stage 1b's feeding check fails (sugar drives the feeding motor neuron at
+  0.0 <!-- metrics.json: embodied_stage1b.predictions.B0_feeding_still_works.value.mn9_sugar_hz -->
+  Hz), so its leg results are uninterpretable. The cause: a sugar drive activates
+  251 <!-- metrics.json: fly_spread.flywire783.active_total --> neurons in the published FlyWire
+  model and
+  14,263 <!-- metrics.json: fly_spread.malecns_published.active_total --> in the male CNS.
+- **What it changes.** The next step drives the male nerve cord from its descending neurons
+  alone, then joins the validated FlyWire brain to it (roadmap §7).
+- **Evidence.** `report/ROADMAP_EMBODIED_FLY.md` §7; `outputs/fly/embodied_stage1*_SIMULATED.*`.
+
+## 14. The grooming neurons move the right leg
+
+**Slide message:** *Driven from the descending neurons that start antennal grooming, the male
+nerve cord moves the front leg, and only the front leg, to the head and holds it there; walking
+neurons swing it instead.*
+
+- **What changed.** `src/neuromps/fly/embodied_stage1c.py` cuts the male CNS to its nerve cord
+  (brain removed), drives named descending neurons at 150 Hz, and moves the FlyMimic leg as in
+  stage 1. Registered before running.
+- **Effect.** Three of five predictions pass: silence without drive; the left front-leg motor
+  pool at
+  15.846 <!-- metrics.json: embodied_stage1c.predictions.C2_the_front_leg_is_the_one_that_moves.value.front -->
+  Hz under grooming drive against
+  2.72 <!-- metrics.json: embodied_stage1c.predictions.C2_the_front_leg_is_the_one_that_moves.value.middle -->
+  and
+  1.697 <!-- metrics.json: embodied_stage1c.predictions.C2_the_front_leg_is_the_one_that_moves.value.hind -->
+  for the other legs; no other descending neuron recruits the front leg as strongly. The
+  kinematic prediction failed: forward-walking drive dips nearly as close to the head
+  (1.154 <!-- metrics.json: embodied_stage1c.predictions.C1_grooming_neurons_bring_the_claw_to_the_head.value.forward_walking -->
+  mm against
+  1.1345 <!-- metrics.json: embodied_stage1c.predictions.C1_grooming_neurons_bring_the_claw_to_the_head.value.grooming -->)
+  at the bottom of a rhythmic swing. A sustained reach and a swing need a different readout,
+  to be registered as stage 1d.
+- **Evidence.** Roadmap §7 and figure; `outputs/fly/embodied_stage1c_SIMULATED.*`.
+
+## 15. The fly's grooming neurons hold its leg at its head
+
+**Slide message:** *On fresh seeds and with readouts registered in advance: driving the fly's
+antennal-grooming neurons brings the simulated front leg to the head and holds it there for
+nearly the whole second; walking neurons swing it, escape neurons extend it.*
+
+- **What changed.** `src/neuromps/fly/kinematics.py` adds two readouts (time near the head;
+  rhythmicity), `src/neuromps/fly/embodied_stage1d.py` reruns stage 1c's design on fresh seeds.
+  The readouts were suggested by stage 1c's traces, so they were registered before this run
+  (`preregistration/embodied_stage1d_reach_versus_swing.json`) and tested out of sample.
+- **Effect.** All four predictions pass: time near the head
+  0.9665 <!-- metrics.json: embodied_stage1d.predictions.D1_grooming_holds_the_claw_at_the_head.value.grooming -->
+  under grooming drive against at most
+  0.368 <!-- metrics.json: embodied_stage1d.predictions.D1_grooming_holds_the_claw_at_the_head.value.forward_walking -->
+  under any other; forward walking more rhythmic than grooming; the same at every activation
+  scale; the front-leg specificity of stage 1c replicates. Stage 1c's failed predictions stay
+  failed.
+- **Evidence.** Roadmap §7 and figure; `outputs/fly/embodied_stage1d_SIMULATED.*`.
+
+## 16. From an antennal touch in the brain to a leg at the head
+
+**Slide message:** *Antennal input to the validated FlyWire brain, relayed through matched
+descending neurons into the male nerve cord, moves a muscle-driven leg to the head; sugar input
+does not, and removing four grooming neurons abolishes the movement.*
+
+- **What changed.** `src/neuromps/fly/model.py` can replay recorded spike trains into chosen
+  neurons; `src/neuromps/fly/relay.py` pairs descending neurons across the two connectomes by
+  cell type and side and joins the FlyWire brain to the male nerve cord; stage 1e and stage 1f
+  were each registered before running.
+- **Effect.** Stage 1e's absolute precondition failed (grooming descending neurons at
+  8.531 <!-- metrics.json: embodied_stage1e.predictions.E0_the_grooming_neurons_are_reached.value -->
+  Hz against a 10 Hz line), so its leg results are uninterpretable. Stage 1f, on fresh seeds,
+  passes all five predictions: claw to
+  0.5369 <!-- metrics.json: embodied_stage1f.predictions.F1_antennal_input_reaches_deepest.value.jon_ce -->
+  mm under antennal input against
+  0.9377 <!-- metrics.json: embodied_stage1f.predictions.F1_antennal_input_reaches_deepest.value.sugar -->
+  under sugar; back to
+  1.4793 <!-- metrics.json: embodied_stage1f.predictions.F4_the_reach_runs_through_the_grooming_neurons.value.lesioned -->
+  mm when aDN1 and aDN2 are removed.
+- **Evidence.** Roadmap §7 and figure; `outputs/fly/embodied_stage1f_SIMULATED.*`.
 
 ---
 

@@ -1461,6 +1461,520 @@
       "simulate_grid_s": 43.5
     }
   },
+  "embodied_stage1": {
+    "coverage": {
+      "left_front_leg_motor_neurons": 68,
+      "mapped": 49
+    },
+    "label": "SIMULATED male CNS driving the FlyMimic leg (open loop)",
+    "mean_activation_by_drive": {
+      "jon_ce": {
+        "LFC_pleural_promotor": 0.8011,
+        "LFC_pleural_remotor_and_abductor": 0.7232,
+        "LFC_sternal_adductor": 0.0001,
+        "LFC_sternal_anterior_rotator": 0.2768,
+        "LFC_sternal_posterior_rotator": 0.1079,
+        "LFC_tergopleural_promotor_a": 0.8011,
+        "LFC_tergopleural_promotor_b": 0.8011,
+        "LFF_accesory_trochanter_flexor": 0.0001,
+        "LFF_sterno-tergo-trochanter_extensor_a": 0.0899,
+        "LFF_sterno-tergo-trochanter_extensor_b": 0.0899,
+        "LFF_trochanter_extensor": 0.6915,
+        "LFF_trochanter_flexor_a": 0.1483,
+        "LFF_trochanter_flexor_b": 0.1483,
+        "LFTibia_extensor_93932": 0.3456,
+        "LFTibia_flex_93434": 0.0001
+      },
+      "none": {
+        "LFC_pleural_promotor": 0.0001,
+        "LFC_pleural_remotor_and_abductor": 0.0001,
+        "LFC_sternal_adductor": 0.0001,
+        "LFC_sternal_anterior_rotator": 0.0001,
+        "LFC_sternal_posterior_rotator": 0.0001,
+        "LFC_tergopleural_promotor_a": 0.0001,
+        "LFC_tergopleural_promotor_b": 0.0001,
+        "LFF_accesory_trochanter_flexor": 0.0001,
+        "LFF_sterno-tergo-trochanter_extensor_a": 0.0001,
+        "LFF_sterno-tergo-trochanter_extensor_b": 0.0001,
+        "LFF_trochanter_extensor": 0.0001,
+        "LFF_trochanter_flexor_a": 0.0001,
+        "LFF_trochanter_flexor_b": 0.0001,
+        "LFTibia_extensor_93932": 0.0001,
+        "LFTibia_flex_93434": 0.0001
+      },
+      "sugar": {
+        "LFC_pleural_promotor": 0.8535,
+        "LFC_pleural_remotor_and_abductor": 0.4752,
+        "LFC_sternal_adductor": 0.0001,
+        "LFC_sternal_anterior_rotator": 0.2813,
+        "LFC_sternal_posterior_rotator": 0.024,
+        "LFC_tergopleural_promotor_a": 0.8535,
+        "LFC_tergopleural_promotor_b": 0.8535,
+        "LFF_accesory_trochanter_flexor": 0.0001,
+        "LFF_sterno-tergo-trochanter_extensor_a": 0.0332,
+        "LFF_sterno-tergo-trochanter_extensor_b": 0.0332,
+        "LFF_trochanter_extensor": 0.2205,
+        "LFF_trochanter_flexor_a": 0.1884,
+        "LFF_trochanter_flexor_b": 0.1884,
+        "LFTibia_extensor_93932": 0.5271,
+        "LFTibia_flex_93434": 0.0001
+      }
+    },
+    "predictions": {
+      "S1a_antennal_drive_brings_the_claw_to_the_head": {
+        "outcome": "fail",
+        "test": "median over trials of the minimum claw-antenna distance under JO-CE is at least 0.2 mm below both the sugar and the no-drive medians (r_full 20 Hz)",
+        "value": {
+          "jon_ce": 1.1067,
+          "none": 1.5255,
+          "sugar": 0.9386
+        }
+      },
+      "S1b_it_is_a_movement_toward_the_head": {
+        "outcome": "pass",
+        "test": "minimum claw-antenna distance under JO-CE below the passive rest (1.528 mm) in at least 6 of 8 trials",
+        "value": {
+          "trials": 8,
+          "trials_below_rest": 8
+        }
+      },
+      "S1c_the_activation_scale_does_not_decide_it": {
+        "outcome": "fail",
+        "test": "S1a's test holds at r_full 10 Hz and at 40 Hz",
+        "value": {
+          "r_full_10": {
+            "jon_ce": 1.0876,
+            "none": 1.5255,
+            "sugar": 0.8684
+          },
+          "r_full_40": {
+            "jon_ce": 1.1356,
+            "none": 1.5255,
+            "sugar": 1.0187
+          }
+        }
+      }
+    },
+    "registration": {
+      "committed_at": "2026-10-24T11:05:16-04:00",
+      "file": "preregistration/embodied_stage1_open_loop_leg.json",
+      "registered_in_commit": "cbdd6d6b2144b03d87019946330153fa811af2a1",
+      "sha256": "17983ff6493bb453ef66b967381e041ebe83fc91d85bb32aa3c97507314f951a"
+    }
+  },
+  "embodied_stage1b": {
+    "coverage": {
+      "left_front_leg_motor_neurons": 68,
+      "mapped": 49
+    },
+    "label": "SIMULATED male CNS driving the FlyMimic leg (open loop)",
+    "mean_activation_by_drive": {
+      "jon_ce": {
+        "LFC_pleural_promotor": 0.9633,
+        "LFC_pleural_remotor_and_abductor": 0.0302,
+        "LFC_sternal_adductor": 0.0001,
+        "LFC_sternal_anterior_rotator": 0.8836,
+        "LFC_sternal_posterior_rotator": 0.0001,
+        "LFC_tergopleural_promotor_a": 0.9633,
+        "LFC_tergopleural_promotor_b": 0.9633,
+        "LFF_accesory_trochanter_flexor": 0.0001,
+        "LFF_sterno-tergo-trochanter_extensor_a": 0.0193,
+        "LFF_sterno-tergo-trochanter_extensor_b": 0.0193,
+        "LFF_trochanter_extensor": 0.0849,
+        "LFF_trochanter_flexor_a": 0.0703,
+        "LFF_trochanter_flexor_b": 0.0703,
+        "LFTibia_extensor_93932": 0.5813,
+        "LFTibia_flex_93434": 0.0001
+      },
+      "none": {
+        "LFC_pleural_promotor": 0.0001,
+        "LFC_pleural_remotor_and_abductor": 0.0001,
+        "LFC_sternal_adductor": 0.0001,
+        "LFC_sternal_anterior_rotator": 0.0001,
+        "LFC_sternal_posterior_rotator": 0.0001,
+        "LFC_tergopleural_promotor_a": 0.0001,
+        "LFC_tergopleural_promotor_b": 0.0001,
+        "LFF_accesory_trochanter_flexor": 0.0001,
+        "LFF_sterno-tergo-trochanter_extensor_a": 0.0001,
+        "LFF_sterno-tergo-trochanter_extensor_b": 0.0001,
+        "LFF_trochanter_extensor": 0.0001,
+        "LFF_trochanter_flexor_a": 0.0001,
+        "LFF_trochanter_flexor_b": 0.0001,
+        "LFTibia_extensor_93932": 0.0001,
+        "LFTibia_flex_93434": 0.0001
+      },
+      "sugar": {
+        "LFC_pleural_promotor": 0.1297,
+        "LFC_pleural_remotor_and_abductor": 0.0247,
+        "LFC_sternal_adductor": 0.0001,
+        "LFC_sternal_anterior_rotator": 0.0001,
+        "LFC_sternal_posterior_rotator": 0.0001,
+        "LFC_tergopleural_promotor_a": 0.1297,
+        "LFC_tergopleural_promotor_b": 0.1297,
+        "LFF_accesory_trochanter_flexor": 0.0001,
+        "LFF_sterno-tergo-trochanter_extensor_a": 0.6694,
+        "LFF_sterno-tergo-trochanter_extensor_b": 0.6694,
+        "LFF_trochanter_extensor": 0.8645,
+        "LFF_trochanter_flexor_a": 0.0001,
+        "LFF_trochanter_flexor_b": 0.0001,
+        "LFTibia_extensor_93932": 0.0838,
+        "LFTibia_flex_93434": 0.0001
+      }
+    },
+    "predictions": {
+      "B0_feeding_still_works": {
+        "outcome": "fail",
+        "test": "MN9|sugar >= 20 Hz and MN9|sugar+bitter <= 0.5 x MN9|sugar; if this fails, B1-B3 are reported as uninterpretable",
+        "value": {
+          "mn9_sugar_bitter_hz": 0.0,
+          "mn9_sugar_hz": 0.0
+        }
+      },
+      "B1_antennal_drive_brings_the_claw_to_the_head": {
+        "outcome": "uninterpretable",
+        "test": "median minimum claw-antenna distance under JO-CE at least 0.2 mm below both the sugar and no-drive medians (r_full 20 Hz)",
+        "value": {
+          "jon_ce": 1.1026,
+          "none": 1.5255,
+          "sugar": 1.5265
+        }
+      },
+      "B2_it_is_a_movement_toward_the_head": {
+        "outcome": "uninterpretable",
+        "test": "minimum claw-antenna distance under JO-CE below the passive rest (1.528 mm) in at least 6 of 8 trials",
+        "value": {
+          "trials": 8,
+          "trials_below_rest": 8
+        }
+      },
+      "B3_the_activation_scale_does_not_decide_it": {
+        "outcome": "uninterpretable",
+        "test": "B1's test holds at r_full 10 Hz and 40 Hz",
+        "value": {
+          "r_full_10": {
+            "jon_ce": 1.086,
+            "none": 1.5255,
+            "sugar": 1.5263
+          },
+          "r_full_40": {
+            "jon_ce": 1.1061,
+            "none": 1.5255,
+            "sugar": 1.5265
+          }
+        }
+      }
+    },
+    "registration": {
+      "committed_at": "2026-10-24T11:09:23-04:00",
+      "file": "preregistration/embodied_stage1b_rescaled_weight.json",
+      "registered_in_commit": "48d0975177ee05f50da32632242c1bd9ab23818f",
+      "sha256": "631b11051e7d5f44a5adfc5436c8f542f734539ff822a2386265af014b66341a"
+    },
+    "w_syn_mv": 0.1596
+  },
+  "embodied_stage1c": {
+    "coverage": {
+      "left_front_leg_motor_neurons": 68,
+      "mapped": 49
+    },
+    "drive_neurons": {
+      "backward_walking": 4,
+      "forward_walking": 2,
+      "giant_fibre": 2,
+      "grooming": 4,
+      "none": 0
+    },
+    "label": "SIMULATED male nerve cord driven from descending neurons, brain removed",
+    "predictions": {
+      "C0_the_nerve_cord_is_silent_without_drive": {
+        "outcome": "pass",
+        "test": "no motor neuron spikes in any no-drive trial",
+        "value": 0
+      },
+      "C1_grooming_neurons_bring_the_claw_to_the_head": {
+        "outcome": "fail",
+        "test": "median minimum claw-antenna distance under grooming at least 0.2 mm below each of the other four medians (r_full 20 Hz)",
+        "value": {
+          "backward_walking": 1.2293,
+          "forward_walking": 1.154,
+          "giant_fibre": 1.4886,
+          "grooming": 1.1345,
+          "none": 1.5255
+        }
+      },
+      "C2_the_front_leg_is_the_one_that_moves": {
+        "outcome": "pass",
+        "test": "mean rate, front > middle and front > hind",
+        "value": {
+          "front": 15.846,
+          "hind": 1.697,
+          "middle": 2.72
+        }
+      },
+      "C3_grooming_neurons_recruit_the_front_leg_most": {
+        "outcome": "pass",
+        "test": "front-leg pool rate under grooming > under each of the three control drives",
+        "value": {
+          "backward_walking": 3.342,
+          "forward_walking": 3.601,
+          "giant_fibre": 0.629,
+          "grooming": 15.846
+        }
+      },
+      "C4_the_activation_scale_does_not_decide_it": {
+        "outcome": "fail",
+        "test": "C1's test holds at r_full 10 Hz and 40 Hz",
+        "value": {
+          "r_full_10": {
+            "backward_walking": 1.1922,
+            "forward_walking": 1.142,
+            "giant_fibre": 1.4931,
+            "grooming": 1.1217,
+            "none": 1.5255
+          },
+          "r_full_40": {
+            "backward_walking": 1.2877,
+            "forward_walking": 1.1727,
+            "giant_fibre": 1.4927,
+            "grooming": 1.1155,
+            "none": 1.5255
+          }
+        }
+      }
+    },
+    "registration": {
+      "committed_at": "2026-10-24T11:16:53-04:00",
+      "file": "preregistration/embodied_stage1c_nerve_cord_from_descending_neurons.json",
+      "registered_in_commit": "739f6f0d667d3aa2d94f1769690afc54c6a104ff",
+      "sha256": "73aff020fa778fda565c29922b0c1585cc6449cb05211f9626eefe71231d55eb"
+    },
+    "sensitivity_rescaled_weight": {
+      "median_min_distance_mm": {
+        "grooming": 1.0238,
+        "none": 1.5255
+      }
+    }
+  },
+  "embodied_stage1d": {
+    "label": "SIMULATED male nerve cord moving the FlyMimic leg: reach or swing",
+    "near_head_threshold_mm": 1.328,
+    "predictions": {
+      "D1_grooming_holds_the_claw_at_the_head": {
+        "outcome": "pass",
+        "test": "median time near head under grooming >= 0.5, and at least 0.25 above the median of each other drive (r_full 20 Hz)",
+        "value": {
+          "backward_walking": 0.1665,
+          "forward_walking": 0.368,
+          "giant_fibre": 0.0,
+          "grooming": 0.9665,
+          "none": 0.0
+        }
+      },
+      "D2_forward_walking_swings_the_leg": {
+        "outcome": "pass",
+        "test": "median rhythmicity under forward walking >= 0.3 and above grooming's median (r_full 20 Hz)",
+        "value": {
+          "backward_walking": 0.3461,
+          "forward_walking": 0.4599,
+          "giant_fibre": 0.4561,
+          "grooming": 0.2374,
+          "none": 0.1435
+        }
+      },
+      "D3_the_activation_scale_does_not_decide_it": {
+        "outcome": "pass",
+        "test": "D1's test holds at r_full 10 Hz and 40 Hz",
+        "value": {
+          "r_full_10": {
+            "backward_walking": 0.1335,
+            "forward_walking": 0.3625,
+            "giant_fibre": 0.0,
+            "grooming": 0.968,
+            "none": 0.0
+          },
+          "r_full_40": {
+            "backward_walking": 0.1045,
+            "forward_walking": 0.3735,
+            "giant_fibre": 0.0,
+            "grooming": 0.9645,
+            "none": 0.0
+          }
+        }
+      },
+      "D4_the_front_leg_specificity_replicates": {
+        "outcome": "pass",
+        "test": "under grooming drive the left front-leg pool fires more than the middle and hind pools, and more than under each control drive",
+        "value": {
+          "front_under_controls": {
+            "backward_walking": 3.375,
+            "forward_walking": 3.5,
+            "giant_fibre": 0.45
+          },
+          "grooming": {
+            "front": 16.066,
+            "hind": 1.775,
+            "middle": 2.623
+          }
+        }
+      }
+    },
+    "registration": {
+      "committed_at": "2026-10-24T12:14:04-04:00",
+      "file": "preregistration/embodied_stage1d_reach_versus_swing.json",
+      "registered_in_commit": "66502eb103ecf9f7fe936f1e39ddf0e4eda12238",
+      "sha256": "b124a987d6e40277196253ae3168bcd6b68aa42b2384bef4e511d0e218cbfc53"
+    }
+  },
+  "embodied_stage1e": {
+    "label": "SIMULATED FlyWire brain -> male nerve cord -> FlyMimic leg (open loop)",
+    "matching": {
+      "flywire_matched": 1220,
+      "flywire_total": 1303,
+      "male_receiving": 1289,
+      "male_total": 1314
+    },
+    "predictions": {
+      "E0_the_grooming_neurons_are_reached": {
+        "outcome": "fail",
+        "test": "mean rate of the FlyWire DNg62 and DNge078 neurons under JO-CE >= 10 Hz; if not, E1-E4 are uninterpretable",
+        "value": 8.531
+      },
+      "E1_antennal_input_holds_the_leg_at_the_head": {
+        "outcome": "uninterpretable",
+        "test": "median time near head under JO-CE >= 0.5 and at least 0.25 above the sugar and no-drive medians (r_full 20 Hz)",
+        "value": {
+          "jon_ce": 0.8935,
+          "jon_ce_lesion": 0.0,
+          "none": 0.0,
+          "sugar": 0.911
+        }
+      },
+      "E2_the_front_leg_is_the_one_that_moves": {
+        "outcome": "uninterpretable",
+        "test": "front > middle, front > hind, front(JO-CE) > front(sugar)",
+        "value": {
+          "front_under_sugar": 0.71,
+          "jon_ce": {
+            "front": 13.572,
+            "hind": 3.333,
+            "middle": 2.166
+          }
+        }
+      },
+      "E3_the_activation_scale_does_not_decide_it": {
+        "outcome": "uninterpretable",
+        "test": "E1's test holds at r_full 10 Hz and 40 Hz",
+        "value": {
+          "r_full_10": {
+            "jon_ce": 0.893,
+            "jon_ce_lesion": 0.0,
+            "none": 0.0,
+            "sugar": 0.9265
+          },
+          "r_full_40": {
+            "jon_ce": 0.892,
+            "jon_ce_lesion": 0.0,
+            "none": 0.0,
+            "sugar": 0.8355
+          }
+        }
+      },
+      "E4_the_reach_runs_through_the_grooming_neurons": {
+        "outcome": "uninterpretable",
+        "test": "median time near head under JO-CE with aDN1 and aDN2 removed at least 0.25 below the intact JO-CE median",
+        "value": {
+          "intact": 0.8935,
+          "lesioned": 0.0
+        }
+      }
+    },
+    "registration": {
+      "committed_at": "2026-10-24T12:45:09-04:00",
+      "file": "preregistration/embodied_stage1e_flywire_brain_to_male_nerve_cord.json",
+      "registered_in_commit": "f2f5ad37120cbca7bc4001bc8717278d75c6c7cd",
+      "sha256": "6c3041d1dffed2864ab8d1ec35d30ed99bd349361e820e8a440c9442087d9b46"
+    },
+    "replayed_neurons_median": {
+      "jon_ce": 51.0,
+      "jon_ce_lesion": 49.0,
+      "none": 0.0,
+      "sugar": 62.0
+    }
+  },
+  "embodied_stage1f": {
+    "label": "SIMULATED FlyWire brain -> male nerve cord -> FlyMimic leg, depth of reach",
+    "matching": {
+      "flywire_matched": 1220,
+      "flywire_total": 1303,
+      "male_receiving": 1289,
+      "male_total": 1314
+    },
+    "predictions": {
+      "F0_the_grooming_neurons_answer_antennal_input": {
+        "outcome": "pass",
+        "test": "mean rate of FlyWire DNg62 and DNge078 under JO-CE above that under sugar and under no drive; if not, F1-F4 are uninterpretable",
+        "value": {
+          "jon_ce": 8.094,
+          "none": 0.0,
+          "sugar": 0.0
+        }
+      },
+      "F1_antennal_input_reaches_deepest": {
+        "outcome": "pass",
+        "test": "median minimum distance under JO-CE at least 0.2 mm below the sugar and no-drive medians (r_full 20 Hz)",
+        "value": {
+          "jon_ce": 0.5369,
+          "jon_ce_lesion": 1.4793,
+          "none": 1.5255,
+          "sugar": 0.9377
+        }
+      },
+      "F2_the_front_leg_is_the_one_that_moves": {
+        "outcome": "pass",
+        "test": "front > middle, front > hind, front(JO-CE) > front(sugar)",
+        "value": {
+          "front_under_sugar": 0.699,
+          "jon_ce": {
+            "front": 13.728,
+            "hind": 3.131,
+            "middle": 2.282
+          }
+        }
+      },
+      "F3_the_activation_scale_does_not_decide_it": {
+        "outcome": "pass",
+        "test": "F1's test holds at r_full 10 Hz and 40 Hz",
+        "value": {
+          "r_full_10": {
+            "jon_ce": 0.533,
+            "jon_ce_lesion": 1.4934,
+            "none": 1.5255,
+            "sugar": 0.7631
+          },
+          "r_full_40": {
+            "jon_ce": 0.5955,
+            "jon_ce_lesion": 1.4884,
+            "none": 1.5255,
+            "sugar": 1.1075
+          }
+        }
+      },
+      "F4_the_reach_runs_through_the_grooming_neurons": {
+        "outcome": "pass",
+        "test": "median minimum distance with aDN1 and aDN2 removed at least 0.2 mm above the intact JO-CE median",
+        "value": {
+          "intact": 0.5369,
+          "lesioned": 1.4793
+        }
+      }
+    },
+    "registration": {
+      "committed_at": "2026-10-24T12:49:07-04:00",
+      "file": "preregistration/embodied_stage1f_relay_depth_of_reach.json",
+      "registered_in_commit": "c8a0fbb227da8452e459cd00b9af0913f8f8b5fa",
+      "sha256": "219086482476b8d7b18abcfa1dac0bf5f14f94ffc4ba960bb4dc014c6e9e9d9b"
+    }
+  },
   "extractor_agreement": {
     "by_feature": {
       "active_electrodes": {
@@ -2564,6 +3078,33 @@
       "sha256": "e3de7aa605a106caa9dd3a0a2e044bd33b75d1a715357b17fc52190fb6c75307"
     }
   },
+  "fly_excitability": {
+    "flywire783": {
+      "excitatory_inputs_mean": 234.38,
+      "excitatory_inputs_median": 108.0,
+      "inhibitory_inputs_mean": 158.67,
+      "inhibitory_inputs_median": 87.0,
+      "neurons": 138639,
+      "synapses_per_connection": 3.611
+    },
+    "malecns_all": {
+      "excitatory_inputs_mean": 464.52,
+      "excitatory_inputs_median": 180.0,
+      "inhibitory_inputs_mean": 286.59,
+      "inhibitory_inputs_median": 154.0,
+      "neurons": 165122,
+      "synapses_per_connection": 4.852
+    },
+    "malecns_brain": {
+      "excitatory_inputs_mean": 425.24,
+      "excitatory_inputs_median": 174.0,
+      "inhibitory_inputs_mean": 252.13,
+      "inhibitory_inputs_median": 148.0,
+      "neurons": 140486,
+      "synapses_per_connection": 4.514
+    },
+    "mean_excitatory_input_ratio_malecns_brain_to_flywire": 1.814
+  },
   "fly_malecns_replication": {
     "deviations": {
       "neuron_sets": "types also matched through MaleCNS's flywireType cross-reference, not only by type name: by name alone no body matches FlyWire MN9 (CB0701). Decided before any MaleCNS simulation."
@@ -3048,6 +3589,51 @@
       "hits": 160
     },
     "largest_fly_change_at_behavioural_onset_log2": 0.304
+  },
+  "fly_spread": {
+    "flywire783": {
+      "active_total": 251
+    },
+    "malecns_published": {
+      "active_total": 14263,
+      "cb_intrinsic": {
+        "active": 11082,
+        "total": 32160
+      },
+      "descending_neuron": {
+        "active": 238,
+        "total": 1314
+      },
+      "vnc_intrinsic": {
+        "active": 1014,
+        "total": 13151
+      },
+      "vnc_motor": {
+        "active": 207,
+        "total": 708
+      },
+      "w_syn_mv": 0.275
+    },
+    "malecns_rescaled": {
+      "active_total": 7586,
+      "cb_intrinsic": {
+        "active": 6730,
+        "total": 32160
+      },
+      "descending_neuron": {
+        "active": 134,
+        "total": 1314
+      },
+      "vnc_intrinsic": {
+        "active": 256,
+        "total": 13151
+      },
+      "vnc_motor": {
+        "active": 75,
+        "total": 708
+      },
+      "w_syn_mv": 0.1596
+    }
   },
   "harness_quick": {
     "brian2": "2.9.0",

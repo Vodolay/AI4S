@@ -1,0 +1,25 @@
+{
+  "title": "Embodied fly, stage 1b: the stage-1 test again, with the male CNS weight rescaled to FlyWire's synaptic input (SIMULATED, open loop)",
+  "registered": "2026-10-24",
+  "status": "registered before any simulation at the rescaled weight",
+  "parent": "preregistration/embodied_stage1_open_loop_leg.json",
+  "relation_to_parent": "Stage 1 failed its go/no-go test (S1a, S1c) and stays failed as registered. This is a new test of a stated change, the mitigation the roadmap lists for the male nerve cord's over-excitability.",
+  "seen_before_registration": [
+    "every stage-1 result: antennal drive moves the claw toward the head (8 of 8 trials) but sugar drive brings it closer (median minimum 0.94 against 1.11 mm); under antennal drive the claw approaches, then the trochanter extensor swings the leg away; both drives push the promotors near saturation",
+    "fly_excitability: mean input synapses per neuron, excitatory + inhibitory, FlyWire 393.05, male CNS brain 677.37 (ratio 0.5803)"
+  ],
+  "calibration_rule": "w_syn for the male CNS = 0.275 mV (Shiu et al., set on FlyWire) x FlyWire mean input synapses per neuron / male-CNS brain mean input synapses per neuron = 0.275 x 393.05 / 677.37 = 0.1596 mV; derived from connectome statistics only, not from any behaviour",
+  "design": {
+    "everything_else": "exactly stage 1: drives, trials of 1 s, motor-neuron map, rate filter, activation rule, r_full 20 Hz (primary) and 10, 40 Hz, FlyMimic body, readout",
+    "w_syn_mv": 0.1596,
+    "seeds": "710-717 for the stage-1 test; 720-727 for the feeding check",
+    "feeding_check": "before the leg is scored: at the rescaled weight, MN9 under sugar and under sugar with bitter, 8 trials, the replication's protocols"
+  },
+  "predictions": {
+    "B0_feeding_still_works": {"statement": "At the rescaled weight sugar still drives MN9 and bitter still gates it", "test": "MN9|sugar >= 20 Hz and MN9|sugar+bitter <= 0.5 x MN9|sugar; if this fails, B1-B3 are reported as uninterpretable"},
+    "B1_antennal_drive_brings_the_claw_to_the_head": {"statement": "S1a at the rescaled weight", "test": "median minimum claw-antenna distance under JO-CE at least 0.2 mm below both the sugar and no-drive medians (r_full 20 Hz)"},
+    "B2_it_is_a_movement_toward_the_head": {"statement": "S1b at the rescaled weight", "test": "minimum claw-antenna distance under JO-CE below the passive rest (1.528 mm) in at least 6 of 8 trials"},
+    "B3_the_activation_scale_does_not_decide_it": {"statement": "S1c at the rescaled weight", "test": "B1's test holds at r_full 10 Hz and 40 Hz"}
+  },
+  "reporting": "Every prediction with its value and pass/fail, whichever way it falls, reported beside stage 1, not in place of it."
+}

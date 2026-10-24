@@ -1,0 +1,76 @@
+{
+  "label": "SIMULATED FlyWire brain -> male nerve cord -> FlyMimic leg (open loop)",
+  "predictions": {
+    "E0_the_grooming_neurons_are_reached": {
+      "test": "mean rate of the FlyWire DNg62 and DNge078 neurons under JO-CE >= 10 Hz; if not, E1-E4 are uninterpretable",
+      "value": 8.531,
+      "outcome": "fail"
+    },
+    "E1_antennal_input_holds_the_leg_at_the_head": {
+      "test": "median time near head under JO-CE >= 0.5 and at least 0.25 above the sugar and no-drive medians (r_full 20 Hz)",
+      "value": {
+        "jon_ce": 0.8935,
+        "jon_ce_lesion": 0.0,
+        "none": 0.0,
+        "sugar": 0.911
+      },
+      "outcome": "uninterpretable"
+    },
+    "E2_the_front_leg_is_the_one_that_moves": {
+      "test": "front > middle, front > hind, front(JO-CE) > front(sugar)",
+      "value": {
+        "jon_ce": {
+          "front": 13.572,
+          "middle": 2.166,
+          "hind": 3.333
+        },
+        "front_under_sugar": 0.71
+      },
+      "outcome": "uninterpretable"
+    },
+    "E3_the_activation_scale_does_not_decide_it": {
+      "test": "E1's test holds at r_full 10 Hz and 40 Hz",
+      "value": {
+        "r_full_10": {
+          "jon_ce": 0.893,
+          "jon_ce_lesion": 0.0,
+          "none": 0.0,
+          "sugar": 0.9265
+        },
+        "r_full_40": {
+          "jon_ce": 0.892,
+          "jon_ce_lesion": 0.0,
+          "none": 0.0,
+          "sugar": 0.8355
+        }
+      },
+      "outcome": "uninterpretable"
+    },
+    "E4_the_reach_runs_through_the_grooming_neurons": {
+      "test": "median time near head under JO-CE with aDN1 and aDN2 removed at least 0.25 below the intact JO-CE median",
+      "value": {
+        "intact": 0.8935,
+        "lesioned": 0.0
+      },
+      "outcome": "uninterpretable"
+    }
+  },
+  "matching": {
+    "flywire_matched": 1220,
+    "flywire_total": 1303,
+    "male_receiving": 1289,
+    "male_total": 1314
+  },
+  "replayed_neurons_median": {
+    "jon_ce": 51.0,
+    "jon_ce_lesion": 49.0,
+    "none": 0.0,
+    "sugar": 62.0
+  },
+  "registration": {
+    "file": "preregistration/embodied_stage1e_flywire_brain_to_male_nerve_cord.json",
+    "sha256": "6c3041d1dffed2864ab8d1ec35d30ed99bd349361e820e8a440c9442087d9b46",
+    "registered_in_commit": "f2f5ad37120cbca7bc4001bc8717278d75c6c7cd",
+    "committed_at": "2026-10-24T12:45:09-04:00"
+  }
+}

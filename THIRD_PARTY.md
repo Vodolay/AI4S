@@ -12,6 +12,7 @@ package metadata, not copied by hand.
 | `h5py` | 3.16.0 | BSD-3-Clause |
 | `jsonschema` | 4.26.0 | MIT |
 | `matplotlib` | 3.11.2 | Python Software Foundation License |
+| `mujoco` | 3.16.0 | Apache-2.0 |
 | `numpy` | 2.3.5 | BSD License |
 | `openpyxl` | 3.1.5 | MIT License |
 | `pandas` | 3.0.5 | BSD License |

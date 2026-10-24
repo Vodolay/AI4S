@@ -1,0 +1,74 @@
+{
+  "label": "SIMULATED FlyWire brain -> male nerve cord -> FlyMimic leg, depth of reach",
+  "predictions": {
+    "F0_the_grooming_neurons_answer_antennal_input": {
+      "test": "mean rate of FlyWire DNg62 and DNge078 under JO-CE above that under sugar and under no drive; if not, F1-F4 are uninterpretable",
+      "value": {
+        "jon_ce": 8.094,
+        "sugar": 0.0,
+        "none": 0.0
+      },
+      "outcome": "pass"
+    },
+    "F1_antennal_input_reaches_deepest": {
+      "test": "median minimum distance under JO-CE at least 0.2 mm below the sugar and no-drive medians (r_full 20 Hz)",
+      "value": {
+        "jon_ce": 0.5369,
+        "jon_ce_lesion": 1.4793,
+        "none": 1.5255,
+        "sugar": 0.9377
+      },
+      "outcome": "pass"
+    },
+    "F2_the_front_leg_is_the_one_that_moves": {
+      "test": "front > middle, front > hind, front(JO-CE) > front(sugar)",
+      "value": {
+        "jon_ce": {
+          "front": 13.728,
+          "middle": 2.282,
+          "hind": 3.131
+        },
+        "front_under_sugar": 0.699
+      },
+      "outcome": "pass"
+    },
+    "F3_the_activation_scale_does_not_decide_it": {
+      "test": "F1's test holds at r_full 10 Hz and 40 Hz",
+      "value": {
+        "r_full_10": {
+          "jon_ce": 0.533,
+          "jon_ce_lesion": 1.4934,
+          "none": 1.5255,
+          "sugar": 0.7631
+        },
+        "r_full_40": {
+          "jon_ce": 0.5955,
+          "jon_ce_lesion": 1.4884,
+          "none": 1.5255,
+          "sugar": 1.1075
+        }
+      },
+      "outcome": "pass"
+    },
+    "F4_the_reach_runs_through_the_grooming_neurons": {
+      "test": "median minimum distance with aDN1 and aDN2 removed at least 0.2 mm above the intact JO-CE median",
+      "value": {
+        "intact": 0.5369,
+        "lesioned": 1.4793
+      },
+      "outcome": "pass"
+    }
+  },
+  "matching": {
+    "flywire_matched": 1220,
+    "flywire_total": 1303,
+    "male_receiving": 1289,
+    "male_total": 1314
+  },
+  "registration": {
+    "file": "preregistration/embodied_stage1f_relay_depth_of_reach.json",
+    "sha256": "219086482476b8d7b18abcfa1dac0bf5f14f94ffc4ba960bb4dc014c6e9e9d9b",
+    "registered_in_commit": "c8a0fbb227da8452e459cd00b9af0913f8f8b5fa",
+    "committed_at": "2026-10-24T12:49:07-04:00"
+  }
+}

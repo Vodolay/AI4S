@@ -31,6 +31,18 @@ Each fetcher re-checks its source's advertised license at download time.
 
 *Note:* tier=full; Zenodo record 4679064; 10 cultures, four hippocampal subregions each over a 60-electrode MCS array, 300 s spontaneous at 25 kHz; the analysis scripts in the record are not fetched
 
+### `flymimic`
+
+- **License:** Apache-2.0 (FlyGym; the FlyMimic model file states Apache 2.0)
+- **License URL:** https://www.apache.org/licenses/LICENSE-2.0
+- **Source:** https://github.com/NeLy-EPFL/flygym
+- **Files recorded:** 7
+- **Status:** ok
+
+> Özdil PG, et al. FlyMimic: musculoskeletal model of Drosophila limb movement (2026), as shipped in FlyGym 2 (NeuroMechFly v2; Wang-Chen S, et al. Nature Methods 21, 2353-2362 (2024)); github.com/NeLy-EPFL/flygym at commit a63dc91a7ce4
+
+*Note:* optional (embodied fly only); FlyGym commit a63dc91a7ce4; mesh archive neuromechfly_musculoskeletal_meshes_20260623a checked against its published SHA-256
+
 ### `flywire783`
 
 - **License:** CC-BY-4.0 (FlyWire data, annotations); MIT (Shiu et al. model files)
