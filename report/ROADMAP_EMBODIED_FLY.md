@@ -582,6 +582,43 @@ the front leg, and flybody's legs are position-servoed.
 
 ![SIMULATED push on the tibia during the grooming hold. Left: one seed per arm (the resistance trace lies under the sham). Right: every trial's recovery time; no arm returns faster than open loop.](../outputs/figures/embodied_stage3b_perturbation_SIMULATED.png){width=80%}
 
+**Stage 4a: drugs in the loop. With movement as the readout, the chip is still late (3 of
+6).** The registered chip-to-animal drug design was rerun with the validated movements as the
+behaviour: proboscis extension under sugar and under sugar with bitter, and the grooming reach
+through the brain-to-nerve-cord relay. Each transmitter-class knob acted on every network of a
+trial, and each family's movement onset was compared with the recorded chip and tract-electrode
+detections. Under vehicle both movements appear (proboscis
+0.3044 <!-- metrics.json: embodied_stage4a.predictions.N0_the_movements_are_there.value.proboscis_sugar --> mm,
+reach depth 0.9932 <!-- metrics.json: embodied_stage4a.predictions.N0_the_movements_are_there.value.reach_depth --> mm). Acetylcholine
+block stops both
+(-0.8944 <!-- metrics.json: embodied_stage4a.predictions.N2_excitation_block_stops_movement.value.proboscis_sugar -->
+and -0.8944 <!-- metrics.json: embodied_stage4a.predictions.N2_excitation_block_stops_movement.value.reach_depth -->). **The roadmap's
+question has a clear answer: the chip first flags every family at a higher dose than movement
+fails.** For example, GABA-A block impairs movement at
+0.2 <!-- metrics.json: embodied_stage4a.predictions.N3_the_chip_flags_before_movement_fails.value.gaba_block.movement --> of the knob's range, and the chip first
+flags it at 0.6 <!-- metrics.json: embodied_stage4a.predictions.N3_the_chip_flags_before_movement_fails.value.gaba_block.chip -->; GABA-A potentiation impairs movement at
+0.5 <!-- metrics.json: embodied_stage4a.predictions.N3_the_chip_flags_before_movement_fails.value.gaba_potentiate.movement -->, the chip flags it at 1.0 <!-- metrics.json: embodied_stage4a.predictions.N3_the_chip_flags_before_movement_fails.value.gaba_potentiate.chip -->.
+Movement never fails earlier than the neural readouts of the parent study. It fails at the same
+dose in three families and later in two (excitability block
+0.2 <!-- metrics.json: embodied_stage4a.predictions.N5_movement_fails_no_earlier_than_neural_behaviour.value.excitability_block.movement --> against
+0.1 <!-- metrics.json: embodied_stage4a.predictions.N5_movement_fails_no_earlier_than_neural_behaviour.value.excitability_block.neural_behaviour -->): the body buffers small neural changes, but
+not enough to let the chip catch up. The output-tract electrode no longer leads: it flags in
+time in 4 <!-- metrics.json: embodied_stage4a.predictions.N4_the_output_tract_still_leads.value.tract_64 --> families, the same as the
+planar array (4 <!-- metrics.json: embodied_stage4a.predictions.N4_the_output_tract_still_leads.value.planar_64 -->). The bitter gate is
+released by partial GABA-A block, as in the parent study. With bitter present the proboscis
+extends severalfold more than under vehicle (0.0671 <!-- metrics.json: embodied_stage4a.medians.vehicle.proboscis_sugar_bitter --> mm;
+figure), but at full block every movement collapses. The relation is therefore not monotonic and
+its rank-correlation prediction fails
+(-0.0286 <!-- metrics.json: embodied_stage4a.predictions.N1_disinhibition_releases_the_bitter_gate_in_movement.value -->).
+One scoring detail is reported, not hidden. At full GABA-A block the claw ends beyond its resting
+distance (depth -0.0146 <!-- metrics.json: embodied_stage4a.medians.gaba_block_0.reach_depth --> mm), so that condition's
+disruption index averages only the two proboscis terms. It does not change any onset. **What
+this adds to the chip-to-animal result:** the chip's lateness, found at the neural and
+motor-neuron levels, holds for the movements themselves. A drug that the simulated chip first
+flags at a given dose has already changed how the simulated fly feeds and grooms at a lower one.
+
+![SIMULATED fly movements under the five transmitter-class drug knobs (median of 8 trials per condition): proboscis extension under sugar and under sugar with bitter, and the depth of the grooming reach.](../outputs/figures/embodied_stage4a_drugs_movement_SIMULATED.png){width=95%}
+
 ## 8. What carries over unchanged
 
 Pre-registration before every run; licensed data with checksums in the manifest; every reported
