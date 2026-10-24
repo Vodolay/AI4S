@@ -108,10 +108,12 @@ def _init() -> None:
     )
 
 
-def _simulate(rule: str, drive: str, inputs: np.ndarray, silenced=None) -> rate_model.Run:
+def _simulate(
+    rule: str, drive: str, inputs: np.ndarray, silenced=None, seeds: list[int] = SEEDS
+) -> rate_model.Run:
     idx = _STATE["drive"][drive]
-    p = rate_model.draw(_STATE["sizes"][rule], SEEDS)
-    amplitude = np.broadcast_to(inputs, (len(idx), len(SEEDS))) if len(idx) else 0.0
+    p = rate_model.draw(_STATE["sizes"][rule], seeds)
+    amplitude = np.broadcast_to(inputs, (len(idx), len(seeds))) if len(idx) else 0.0
     return rate_model.simulate(
         _STATE["w"],
         p,
@@ -130,11 +132,13 @@ def _recruited(run: rate_model.Run, drive: str) -> np.ndarray:
     return active.sum(axis=0)
 
 
-def find_inputs(rule: str, drive: str) -> tuple[rate_model.Run, np.ndarray, np.ndarray, int]:
+def find_inputs(
+    rule: str, drive: str, seeds: list[int] = SEEDS
+) -> tuple[rate_model.Run, np.ndarray, np.ndarray, int]:
     """The recruitment rule, per draw: final run, inputs, feasibility, runs used."""
-    inputs = np.full(len(SEEDS), START_INPUT)
+    inputs = np.full(len(seeds), START_INPUT)
     for runs in range(1, MAX_RUNS + 1):
-        run = _simulate(rule, drive, inputs)
+        run = _simulate(rule, drive, inputs, seeds=seeds)
         n = _recruited(run, drive)
         ok = (n >= FEWEST) & (n <= MOST)
         if ok.all() or runs == MAX_RUNS:
@@ -168,18 +172,23 @@ def draw_measures(run: rate_model.Run, rep: int) -> dict:
     }
 
 
-def run_job(job) -> dict:
-    """One (size rule, drive): the recruitment rule, then measures per draw; the lesion for
-    forward walking at the final inputs. Example pool traces of the first feasible draw."""
+def run_job(job, seeds: list[int] = SEEDS, search=None) -> dict:
+    """One (size rule, drive): the input search (stage 2g's rule unless `search` is given),
+    then measures per draw; the lesion for forward walking at the final inputs. Example pool
+    traces of the first feasible draw. `search(rule, drive, seeds)` returns
+    (run, inputs, feasible, runs) and may add a fifth item of per-draw extras."""
     rule, drive = job
+    extras: dict = {}
     if drive == "none":
-        run = _simulate(rule, drive, np.zeros(len(SEEDS)))
-        inputs, ok, runs = np.zeros(len(SEEDS)), np.ones(len(SEEDS), bool), 1
+        run = _simulate(rule, drive, np.zeros(len(seeds)), seeds=seeds)
+        inputs, ok, runs = np.zeros(len(seeds)), np.ones(len(seeds), bool), 1
     else:
-        run, inputs, ok, runs = find_inputs(rule, drive)
+        found = (search or find_inputs)(rule, drive, seeds)
+        run, inputs, ok, runs = found[:4]
+        extras = found[4] if len(found) > 4 else {}
     rows = []
     n = _recruited(run, drive)
-    for rep, seed in enumerate(SEEDS):
+    for rep, seed in enumerate(seeds):
         rows.append(
             {
                 "size_rule": rule,
@@ -188,6 +197,7 @@ def run_job(job) -> dict:
                 "input": float(inputs[rep]),
                 "feasible": bool(ok[rep]),
                 "recruited": int(n[rep]),
+                **{k: v[rep] for k, v in extras.items()},
                 **draw_measures(run, rep),
             }
         )
@@ -196,12 +206,12 @@ def run_job(job) -> dict:
         first = int(np.flatnonzero(ok)[0])
         start = int(round(START_S / 1e-3))
         out["example"] = {
-            "seed": SEEDS[first],
+            "seed": seeds[first],
             **{k: run.rates[start:, v, first].mean(axis=1) for k, v in _STATE["pools"].items()},
         }
     if drive == "forward_walking":
-        lesion = _simulate(rule, drive, inputs, silenced=_STATE["cpg"])
-        for rep, seed in enumerate(SEEDS):
+        lesion = _simulate(rule, drive, inputs, silenced=_STATE["cpg"], seeds=seeds)
+        for rep, seed in enumerate(seeds):
             rows.append(
                 {
                     "size_rule": rule,
