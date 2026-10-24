@@ -1,0 +1,28 @@
+{
+  "title": "Embodied fly, stage 1e: the FlyWire brain drives the male nerve cord through matched descending neurons (SIMULATED, open loop)",
+  "registered": "2026-10-24",
+  "status": "registered before any stage-1e simulation",
+  "roadmap": "report/ROADMAP_EMBODIED_FLY.md §7 (revised plan: each connectome where its model is validated)",
+  "seen_before_registration": [
+    "every result of stages 1-1d; stage 1d: in the male nerve cord, driving aDN1 + aDN2 holds the claw near the head for 0.9665 of the second",
+    "data only: 1,267 of 1,303 FlyWire descending neurons match a male-CNS descending neuron by cell type and side; 1,289 of 1,314 male-CNS descending neurons have a FlyWire counterpart; DNg62 (aDN1) and DNge078 (aDN2) exist on both sides in both connectomes",
+    "parent sweep, vehicle: under JO-CE drive the FlyWire model's aDN1 (DNg62, one neuron) fires; under sugar drive about 42 descending neurons reach 10 Hz"
+  ],
+  "design": {
+    "brain": "the published model on FlyWire 783 (w_syn 0.275 mV, Shiu constants), drives at 150 Hz: JO-CE (the published set), sugar (the published right-side sugar set), or none; 1 s; spikes of every descending neuron recorded",
+    "matching": "a FlyWire descending neuron and a male-CNS descending neuron match when the male-CNS type or flywireType equals the FlyWire cell_type and the sides agree (left -> L, right -> R); within a (type, side), neurons are paired in order of their IDs, and if the male CNS has more, they receive the FlyWire trains in turn",
+    "nerve_cord": "the stage-1c network (male CNS, nerve cord with descending and ascending neurons, brain removed, w_syn 0.275 mV); each matched male-CNS descending neuron receives its FlyWire partner's spike train, each spike a suprathreshold input (w_syn x 250, as the published stimulus)",
+    "leg_and_readouts": "exactly stage 1d: motor-neuron map, rate filter, activation (r_full 20 Hz primary; 10, 40 Hz), FlyMimic leg, time near the head (claw < 1.328 mm), rhythmicity; left-leg motor pools",
+    "lesion": "the JO-CE trials replayed with the spikes of every DNg62 and DNge078 (aDN1, aDN2) removed",
+    "seeds": "750-757, the same seed for the brain and the nerve cord of a trial"
+  },
+  "predictions": {
+    "E0_the_grooming_neurons_are_reached": {"statement": "Antennal drive in the FlyWire brain makes the grooming descending neurons fire", "test": "mean rate of the FlyWire DNg62 and DNge078 neurons under JO-CE >= 10 Hz; if not, E1-E4 are uninterpretable"},
+    "E1_antennal_input_holds_the_leg_at_the_head": {"statement": "Antennal input to the brain, relayed through the nerve cord, holds the claw near the head, far longer than sugar input or none", "test": "median time near head under JO-CE >= 0.5 and at least 0.25 above the sugar and no-drive medians (r_full 20 Hz)"},
+    "E2_the_front_leg_is_the_one_that_moves": {"statement": "Under antennal input the left front-leg motor pool fires more than the middle and hind pools, and more than under sugar input", "test": "front > middle, front > hind, front(JO-CE) > front(sugar)"},
+    "E3_the_activation_scale_does_not_decide_it": {"statement": "E1 holds at the other activation scales", "test": "E1's test holds at r_full 10 Hz and 40 Hz"},
+    "E4_the_reach_runs_through_the_grooming_neurons": {"statement": "Removing the grooming descending neurons' spikes abolishes most of the reach", "test": "median time near head under JO-CE with aDN1 and aDN2 removed at least 0.25 below the intact JO-CE median"}
+  },
+  "not_claimed_even_if_all_pass": "that a fly's brain and nerve cord work this way: two connectomes of different flies and sexes are joined by cell type, the loop is open, the leg is one muscle-driven leg; a pass means the validated brain model and the male nerve cord, joined by the published cell types, turn antennal input into a held reach and sugar input not",
+  "reporting": "Every prediction with its value and pass/fail, whichever way it falls; matching coverage reported."
+}
