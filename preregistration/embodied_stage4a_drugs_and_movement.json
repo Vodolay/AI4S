@@ -1,0 +1,40 @@
+{
+  "title": "Embodied fly, stage 4a: the chip-to-animal drug design with movement as the readout: when does movement fail, and does the chip or the output-tract electrode flag the drug first? (SIMULATED)",
+  "registered": "2026-10-24",
+  "status": "registered before any stage-4a simulation",
+  "roadmap": "report/ROADMAP_EMBODIED_FLY.md, stage 4 (drugs in the loop): 'the registered chip-to-animal design rerun with movement as the readout; does the chip still flag drugs after movement fails; does the output-tract electrode still lead'",
+  "parents": [
+    "preregistration/fly_chip_to_animal.json (conditions, doses, chip readout, onset rule)",
+    "preregistration/fly_output_tract_electrode.json (tract and planar 64-electrode arrays, their threshold)",
+    "preregistration/embodied_stage2b_proboscis_extension.json (the proboscis movement)",
+    "preregistration/embodied_stage1f_relay_depth_of_reach.json (the grooming reach)"
+  ],
+  "seen_before_registration": [
+    "every result of the parents: the chip first flags each family at a higher dose than neural behaviour fails (C2 failed in all five families: chip doses 0.6, 1.0, 0.8, 0.4, 0.4 against behaviour doses 0.2, 0.25, 0.4, 0.2, 0.1 for GABA-A block, GABA-A potentiation, GluCl block, ACh block, excitability block); the tract array flags in time in 3 families against 2 for the planar 64 (T3 passed); at the motor level the chip was never earlier (fly_motor_readout, tie-break)",
+    "vehicle movements (stages 2b, 1f): sugar extends the proboscis (time-averaged 0.3054 mm), sugar with bitter 0.0488 mm; antennal input brings the claw to 0.5369 mm of the antenna (rest 1.528)",
+    "no simulation under a drug condition with a body has been run"
+  ],
+  "design": {
+    "conditions": "exactly the parent's: vehicle; GABA-A block (gaba_scale 0.8, 0.6, 0.4, 0.2, 0.0); GABA-A potentiation (1.25, 1.5, 2.0); GluCl block (glut_scale 0.8-0.0); ACh block (ach_scale 0.8, 0.6, 0.4, 0.2); excitability block (threshold_scale 1.1, 1.2, 1.4, 1.6); dose as in the parent (|level - 1|)",
+    "where_the_drug_acts": "in every simulated network of the trial: the FlyWire brain and, for the reach, the male nerve cord",
+    "movements": {
+      "proboscis_sugar": "stage 2b: FlyWire 783 brain under the published right-side sugar drive (150 Hz, no background), proboscis motor pools to the flybody proboscis (r_full 20 Hz); readout the time-averaged extension (mm)",
+      "proboscis_sugar_bitter": "the same with the published bitter drive added",
+      "reach_depth": "stage 1f: FlyWire brain under JO-CE drive, descending spikes replayed into the male nerve cord (matched by cell type and side), the FlyMimic leg (r_full 20 Hz); readout the depth of reach, 1.528 mm minus the minimum claw-antenna distance"
+    },
+    "trials": "8 per condition and movement, seeds 1100-1107",
+    "movement_disruption": "per condition, the mean over the three movements of |log2((x + 0.01) / (x_vehicle + 0.01))| on median values (mm; 0.01 mm keeps the ratio finite near zero); impaired when >= 0.5 (the parent's line); 0.05 mm reported as sensitivity",
+    "chip": "the parent's recorded planar-array |delta log2 mfr| per condition, detection at >= 0.5 (the parent's rule)",
+    "tract": "the tract stage's recorded tract_64 and planar_64 deltas per condition, detection at its registered threshold (0.156)"
+  },
+  "predictions": {
+    "N0_the_movements_are_there": {"statement": "Precondition: under vehicle the movements of stages 2b and 1f appear", "test": "vehicle median proboscis_sugar >= 0.1 mm and median reach_depth >= 0.3 mm; if not, N1-N5 are uninterpretable"},
+    "N1_disinhibition_releases_the_bitter_gate_in_movement": {"statement": "As the parent's B1, at the movement level", "test": "Spearman(block fraction, median proboscis_sugar_bitter) over vehicle + 5 GABA-A block levels >= 0.8"},
+    "N2_excitation_block_stops_movement": {"statement": "As the parent's B2, at the movement level", "test": "Spearman(block fraction, median readout) <= -0.8 for proboscis_sugar and for reach_depth over vehicle + 4 ACh block levels"},
+    "N3_the_chip_flags_before_movement_fails": {"statement": "The parent's C2 with movement as the readout", "test": "for every family with any movement impairment, the chip's first detection dose <= the first movement-impairment dose"},
+    "N4_the_output_tract_still_leads": {"statement": "The tract stage's T3 with movement onset", "test": "the tract_64 array flags at or before movement onset in more families than the planar_64 array"},
+    "N5_movement_fails_no_earlier_than_neural_behaviour": {"statement": "The body is downstream of the neural readouts and saturates, so it buffers small neural changes", "test": "in every family with both onsets, the first movement-impairment dose >= the parent's first behaviour-impairment dose"}
+  },
+  "not_claimed_even_if_all_pass": "anything about any compound in any animal or person: the knobs are transmitter-class scalings in a simulated fly; a pass means that in this simulated fly the chip's and the tract electrode's timing relative to failing movement is as stated",
+  "reporting": "Every prediction with its value and pass/fail or uninterpretable, whichever way it falls; per condition the three movements and the disruption index; per family the onset doses (movement, neural behaviour, chip, tract, planar 64); the 0.05 mm sensitivity."
+}
