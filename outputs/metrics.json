@@ -1825,6 +1825,82 @@
       "sha256": "b124a987d6e40277196253ae3168bcd6b68aa42b2384bef4e511d0e218cbfc53"
     }
   },
+  "embodied_stage1e": {
+    "label": "SIMULATED FlyWire brain -> male nerve cord -> FlyMimic leg (open loop)",
+    "matching": {
+      "flywire_matched": 1220,
+      "flywire_total": 1303,
+      "male_receiving": 1289,
+      "male_total": 1314
+    },
+    "predictions": {
+      "E0_the_grooming_neurons_are_reached": {
+        "outcome": "fail",
+        "test": "mean rate of the FlyWire DNg62 and DNge078 neurons under JO-CE >= 10 Hz; if not, E1-E4 are uninterpretable",
+        "value": 8.531
+      },
+      "E1_antennal_input_holds_the_leg_at_the_head": {
+        "outcome": "uninterpretable",
+        "test": "median time near head under JO-CE >= 0.5 and at least 0.25 above the sugar and no-drive medians (r_full 20 Hz)",
+        "value": {
+          "jon_ce": 0.8935,
+          "jon_ce_lesion": 0.0,
+          "none": 0.0,
+          "sugar": 0.911
+        }
+      },
+      "E2_the_front_leg_is_the_one_that_moves": {
+        "outcome": "uninterpretable",
+        "test": "front > middle, front > hind, front(JO-CE) > front(sugar)",
+        "value": {
+          "front_under_sugar": 0.71,
+          "jon_ce": {
+            "front": 13.572,
+            "hind": 3.333,
+            "middle": 2.166
+          }
+        }
+      },
+      "E3_the_activation_scale_does_not_decide_it": {
+        "outcome": "uninterpretable",
+        "test": "E1's test holds at r_full 10 Hz and 40 Hz",
+        "value": {
+          "r_full_10": {
+            "jon_ce": 0.893,
+            "jon_ce_lesion": 0.0,
+            "none": 0.0,
+            "sugar": 0.9265
+          },
+          "r_full_40": {
+            "jon_ce": 0.892,
+            "jon_ce_lesion": 0.0,
+            "none": 0.0,
+            "sugar": 0.8355
+          }
+        }
+      },
+      "E4_the_reach_runs_through_the_grooming_neurons": {
+        "outcome": "uninterpretable",
+        "test": "median time near head under JO-CE with aDN1 and aDN2 removed at least 0.25 below the intact JO-CE median",
+        "value": {
+          "intact": 0.8935,
+          "lesioned": 0.0
+        }
+      }
+    },
+    "registration": {
+      "committed_at": "2026-10-24T12:45:09-04:00",
+      "file": "preregistration/embodied_stage1e_flywire_brain_to_male_nerve_cord.json",
+      "registered_in_commit": "f2f5ad37120cbca7bc4001bc8717278d75c6c7cd",
+      "sha256": "6c3041d1dffed2864ab8d1ec35d30ed99bd349361e820e8a440c9442087d9b46"
+    },
+    "replayed_neurons_median": {
+      "jon_ce": 51.0,
+      "jon_ce_lesion": 49.0,
+      "none": 0.0,
+      "sugar": 62.0
+    }
+  },
   "extractor_agreement": {
     "by_feature": {
       "active_electrodes": {
