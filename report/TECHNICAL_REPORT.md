@@ -804,7 +804,7 @@ depletion added to the present twin as the explanation.
 The main bottleneck in making neural organ-on-a-chip systems useful is not microfluidic fabrication;
 it is making functional electrophysiology interpretable and reproducible. Academic centers and
 commercial vendors alike produce multi-channel MEA recordings that remain hard to compare across
-sites. Our results translate into practical guidance in four areas.
+sites. Our results translate into practical guidance in five areas.
 
 **Where this sits.** The US FDA Modernization Act 2.0 (2022) replaced the statutory reference to
 animal tests with "nonclinical tests", a category that names cell-based assays, organ chips and
@@ -842,6 +842,22 @@ own baseline stabilizes the analysis, raises posterior contraction from 0.3
 <!-- metrics.json: twin_hd14_inference.contraction.gabaa_scale.contraction --> to 0.5375
 <!-- metrics.json: twin_hd17_delta_inference.held_out_checks.contraction -->, and removes most of
 the false-disinhibition artifact described in §16.
+
+**5. Sensitivity targets for an assay, set by a mapped brain (Act VII, added after the first
+round).** An MEA assay is useful only if it flags a compound before the compound disturbs what a
+nervous system does. On a simulated fly brain, behaviour failed while the chip's firing rate had
+moved by as little as 0.149
+<!-- metrics.json: fly_confirm_network_bursts.precision.abs_log2_mfr_change_at_behavioural_onset.flywire_sweep.gaba_block -->
+log2 under GABA block. Two consequences follow for assay design, both from simulation and both
+to be checked on real tissue. First, measure each readout's untreated variation and state it: an
+assay meant to catch disinhibition in time needs firing-rate noise below that level, which the
+best real controls in our asset only just reach. Second, read a screen's hit threshold for what it
+can miss: the EPA's acute MEA screen calls a firing-rate hit only beyond a change of about
+−1.784 <!-- metrics.json: fly_screen_cutoffs.acute_firing_rate.cutoff_log2.down --> log2,
+5.87 <!-- metrics.json: fly_screen_cutoffs.acute_cutoff_over_largest_fly_change --> times the
+largest firing-rate change at which the fly's behaviour had already failed. That threshold is a
+reasonable guard against false hits; it is not evidence that a compound below it leaves circuits
+untouched.
 
 ## 21. How to reproduce and check this work
 
