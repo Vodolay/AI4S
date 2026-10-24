@@ -192,5 +192,113 @@ def main(argv: list[str] | None = None) -> int:
     return 0
 
 
+# --- Robustness (exploratory, after the registered test passed) -------------------------
+# Two assumptions could have produced the result: that one random draw of 64 descending
+# neurons (and of 64 planar electrodes) is representative, and that the tract tracks
+# behaviour partly because one behaviour readout counts recruited descending neurons.
+DRAWS = range(10)
+
+
+def _record_draws(args) -> dict:
+    overrides, seed = args
+    ctx, con = jobs._STATE["context"], jobs._STATE["con"]
+    d = ctx.spec["design"]
+    params = jobs._base(
+        duration_s=d["spontaneous"]["duration_s"],
+        background_mean_mv=d["background_mean_mv"],
+        seed=seed,
+        **overrides,
+    )
+    spikes = model.simulate(con, params)
+    planar = jobs._STATE["array"]
+    out = {}
+    for k in DRAWS:
+        for name, array in (
+            (f"planar_64_{k}", subset(planar, N_ELECTRODES, 100 + k)),
+            (f"tract_64_{k}", tract_array(ctx.descending, N_ELECTRODES, 200 + k)),
+        ):
+            out[name] = {"mfr_hz": electrodes.mea_features(spikes, array)["mfr_hz"] or 0.0}
+    return out
+
+
+def _onset_without(parent: pd.DataFrame, readout: str, impair: float) -> dict:
+    from neuromps.fly import analysis
+
+    vehicle = parent[parent["family"] == "vehicle"].iloc[0]
+    redone = parent.copy()
+    redone["disruption"] = [
+        analysis.disruption(r, vehicle, leave_out=readout) for _, r in parent.iterrows()
+    ]
+    return redone, onset(redone, impair)
+
+
+def robustness(per_seed: dict, parent: pd.DataFrame) -> dict:
+    """T1 and T3 over ten draws of each array, with and without the descending readout."""
+    from neuromps.twin.perturbation import simulated_delta
+
+    impair = design.registration()["design"]["behaviour_impairment_threshold"]
+    variants = {
+        "registered_index": (parent, onset(parent, impair)),
+        "without_dn_recruited": _onset_without(parent, "dn_recruited", impair),
+    }
+    out = {}
+    for label, (table, first) in variants.items():
+        scored = [f for f, s in first.items() if s is not None]
+        t1, t3 = [], []
+        for k in DRAWS:
+            d = {}
+            for name in (f"planar_64_{k}", f"tract_64_{k}"):
+                means = {
+                    c: {"mfr_hz": float(np.mean([r[name]["mfr_hz"] for r in rs]))}
+                    for c, rs in per_seed.items()
+                }
+                d[name] = {
+                    c: simulated_delta(m, means["vehicle"])["mfr_hz"] for c, m in means.items()
+                }
+            moved = sum(
+                abs(d[f"tract_64_{k}"][first[f][1]]) > abs(d[f"planar_64_{k}"][first[f][1]])
+                for f in scored
+            )
+            t1.append(int(moved))
+            flags = [
+                sum(bool(v) for v in flagged_in_time(table, d[n], first).values())
+                for n in (f"tract_64_{k}", f"planar_64_{k}")
+            ]
+            t3.append(flags[0] - flags[1])
+        out[label] = {
+            "families_scored": len(scored),
+            "t1_families_per_draw": t1,
+            "draws_meeting_t1": int(sum(v >= 4 for v in t1)),
+            "t3_tract_minus_planar_per_draw": t3,
+            "draws_meeting_t3": int(sum(v > 0 for v in t3)),
+            "draws": len(DRAWS),
+        }
+    return out
+
+
+def run_robustness() -> int:
+    """CLI path: re-simulate the parent recordings and score the robustness draws."""
+    from neuromps.fly.study import _context, memory_bounded_workers
+
+    spec = design.registration()
+    context, _ = _context(spec, connectome.cached())
+    conds = design.conditions(spec)
+    work = [(c.overrides, s) for c in conds for s in SPONTANEOUS_SEEDS]
+    with ProcessPoolExecutor(
+        memory_bounded_workers(), initializer=jobs.init, initargs=(context, "783")
+    ) as pool:
+        got = list(pool.map(_record_draws, work))
+    per_seed: dict[str, list[dict]] = {}
+    for (c, _), r in zip([(c, s) for c in conds for s in SPONTANEOUS_SEEDS], got, strict=True):
+        per_seed.setdefault(c.name, []).append(r)
+    parent = pd.read_csv(outputs_dir() / "fly" / "conditions_SIMULATED.csv")
+    result = robustness(per_seed, parent)
+    update_metrics("fly_output_tract_robustness", scoring.clean(result))
+    print(json.dumps(result, indent=1))
+    return 0
+
+
 if __name__ == "__main__":
-    raise SystemExit(main())
+    import sys
+
+    raise SystemExit(run_robustness() if "--robustness" in sys.argv else main())
