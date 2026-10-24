@@ -17,7 +17,7 @@ from concurrent.futures import ProcessPoolExecutor
 import numpy as np
 import pandas as pd
 
-from neuromps.fly import design, embodied_stage1c, fictive, kinematics, rate_model, scoring
+from neuromps.fly import design, embodied_stage1c, fictive, rate_model, scoring
 from neuromps.fly import embodied_stage2c as s2c
 from neuromps.metrics import update_metrics
 from neuromps.paths import REPO_ROOT, outputs_dir
@@ -80,7 +80,7 @@ def _signals(run: rate_model.Run, rep: int) -> tuple[dict, dict]:
     return signals, rates
 
 
-def _rhythmic_fraction(run: rate_model.Run, rep: int) -> float | None:
+def _rhythmic_fraction(run: rate_model.Run, rep: int, method: str = "registered") -> float | None:
     """Fraction of active leg motor neurons (mean >= 1 Hz) with rhythmicity >= 0.5."""
     record = _STATE["record"]
     cols = np.searchsorted(record, _STATE["leg_mn"])
@@ -89,16 +89,15 @@ def _rhythmic_fraction(run: rate_model.Run, rep: int) -> float | None:
     active = traces.mean(axis=0) >= fictive.MIN_RATE_HZ
     if not active.any():
         return None
-    scores = [kinematics.rhythmicity(traces[:, j], start_s=0.0) for j in np.flatnonzero(active)]
+    scores = [fictive.rhythmicity(traces[:, j], method) for j in np.flatnonzero(active)]
     return float(np.mean(np.asarray(scores) >= RHYTHMIC))
 
 
-def run_condition(job) -> list[dict]:
-    """All replicates of one condition: stage 2a's measures per replicate."""
-    name, seeds, dt_s = job
+def simulate_condition(name: str, seeds: list[int], dt_s: float) -> rate_model.Run:
+    """All replicates of one condition, integrated together."""
     drive, amplitude, lesion = CONDITIONS[name]
     p = rate_model.draw(_STATE["size"], seeds)
-    run = rate_model.simulate(
+    return rate_model.simulate(
         _STATE["w"],
         p,
         _STATE["drive"][drive],
@@ -108,21 +107,35 @@ def run_condition(job) -> list[dict]:
         dt_s=dt_s,
         silenced=_STATE["cpg"] if lesion else None,
     )
+
+
+def condition_rows(
+    run: rate_model.Run, name: str, seeds: list[int], method: str = "registered"
+) -> list[dict]:
+    """Stage 2a's measures per replicate of one simulated condition."""
+    drive = CONDITIONS[name][0]
     rows = []
     for rep, seed in enumerate(seeds):
         signals, rates = _signals(run, rep)
-        row = fictive.measures({"drive": drive, "seed": seed, "signals": signals, "rates": rates})
+        trial = {"drive": drive, "seed": seed, "signals": signals, "rates": rates}
+        row = fictive.measures(trial, method=method)
         row["condition"] = name
         row["period_L1_flexor_s"] = (
-            s2c.period_s(signals["L1_flexor"])
+            s2c.period_s(signals["L1_flexor"], method=method)
             if rates["L1_flexor"] >= fictive.MIN_RATE_HZ
             else None
         )
         row["active_neurons"] = int(np.sum(run.mean_rate[:, rep] >= fictive.MIN_RATE_HZ))
-        row["leg_mn_rhythmic_fraction"] = _rhythmic_fraction(run, rep)
+        row["leg_mn_rhythmic_fraction"] = _rhythmic_fraction(run, rep, method)
         row |= {f"rate_{k}": v for k, v in rates.items()}
         rows.append(row | ({"signals": signals} if rep == 0 else {}))
     return rows
+
+
+def run_condition(job) -> list[dict]:
+    """All replicates of one condition: stage 2a's measures per replicate."""
+    name, seeds, dt_s = job
+    return condition_rows(simulate_condition(name, seeds, dt_s), name, seeds)
 
 
 def _median(table: pd.DataFrame, condition: str, column: str) -> float:

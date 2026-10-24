@@ -56,15 +56,28 @@ def circular_distance(p: float, q: float) -> float:
     return float(min(d, 1.0 - d))
 
 
-def phase(a: np.ndarray, b: np.ndarray, dt_s: float = DT_S) -> float | None:
-    """Phase of b relative to a, in cycles; None if a has no rhythm to measure against."""
+def phase(
+    a: np.ndarray, b: np.ndarray, dt_s: float = DT_S, method: str = "registered"
+) -> float | None:
+    """Phase of b relative to a, in cycles; None if a has no rhythm to measure against.
+
+    ``method="registered"`` takes the period as the lag of a's largest autocorrelation within
+    50-500 ms (the stage-2a measure); ``"audited"`` takes it from a genuine autocorrelation
+    peak (`kinematics.rhythm`, the rhythm-measure audit) and returns None without one.
+    """
     a = np.asarray(a, float) - np.mean(a)
     b = np.asarray(b, float) - np.mean(b)
     if np.dot(a, a) <= 1e-12 or np.dot(b, b) <= 1e-12:
         return None
-    lo, hi = (int(round(v / dt_s)) for v in LAGS_S)
-    auto = [np.dot(a[:-k], a[k:]) for k in range(lo, min(hi, a.size - 1) + 1)]
-    period = lo + int(np.argmax(auto))
+    if method == "audited":
+        _, found = kinematics.rhythm(a, dt_s=dt_s, start_s=0.0, lags_s=LAGS_S)
+        if found is None:
+            return None
+        period = int(round(found / dt_s))
+    else:
+        lo, hi = (int(round(v / dt_s)) for v in LAGS_S)
+        auto = [np.dot(a[:-k], a[k:]) for k in range(lo, min(hi, a.size - 1) + 1)]
+        period = lo + int(np.argmax(auto))
     norm = np.sqrt(np.dot(a, a) * np.dot(b, b))
     cross = [np.dot(a[: a.size - k], b[k:]) / norm for k in range(period)]
     return float(int(np.argmax(cross)) / period)
@@ -116,25 +129,32 @@ def _trial(job) -> dict:
     return {"drive": drive, "seed": seed, "signals": signals, "rates": rates}
 
 
-def measures(trial: dict) -> dict:
+def measures(trial: dict, method: str = "registered") -> dict:
     """Rhythmicity of L1 flexor and the registered phases (None where a pool is too quiet)."""
     s, r = trial["signals"], trial["rates"]
 
     def ph(a, b):
         if r[a] < MIN_RATE_HZ or r[b] < MIN_RATE_HZ:
             return None
-        return phase(s[a], s[b])
+        return phase(s[a], s[b], method=method)
 
     return {
         "drive": trial["drive"],
         "seed": trial["seed"],
-        "rhythmicity_L1_flexor": kinematics.rhythmicity(s["L1_flexor"], start_s=0.0),
+        "rhythmicity_L1_flexor": rhythmicity(s["L1_flexor"], method),
         "phase_L1flex_L1ext": ph("L1_flexor", "L1_extensor"),
         "phase_L1_R1": ph("L1_flexor", "R1_flexor"),
         "phase_L1_L2": ph("L1_flexor", "L2_flexor"),
         "phase_L1_L3": ph("L1_flexor", "L3_flexor"),
         **{f"rate_{k}": v for k, v in r.items()},
     }
+
+
+def rhythmicity(signal: np.ndarray, method: str = "registered") -> float:
+    """The registered rhythmicity, or the audited one (`kinematics.rhythm`)."""
+    if method == "audited":
+        return kinematics.rhythm(signal, start_s=0.0)[0]
+    return kinematics.rhythmicity(signal, start_s=0.0)
 
 
 def _close(values: pd.Series, target: float) -> float | None:

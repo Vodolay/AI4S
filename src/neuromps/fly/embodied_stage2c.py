@@ -22,6 +22,7 @@ from neuromps.fly import (
     design,
     embodied_stage1c,
     fictive,
+    kinematics,
     model,
     muscle_map,
     scoring,
@@ -54,8 +55,13 @@ def _init() -> None:
     _STATE["rewired"] = connectome.rewire(_STATE["intact"], seed=0)
 
 
-def period_s(signal: np.ndarray, dt_s: float = fictive.DT_S) -> float | None:
-    """Lag of the largest autocorrelation within 50-500 ms; None for a flat signal."""
+def period_s(
+    signal: np.ndarray, dt_s: float = fictive.DT_S, method: str = "registered"
+) -> float | None:
+    """Lag of the largest autocorrelation within 50-500 ms (registered), or of a genuine
+    autocorrelation peak (``method="audited"``); None for a flat or peakless signal."""
+    if method == "audited":
+        return kinematics.rhythm(signal, dt_s=dt_s, start_s=0.0)[1]
     x = np.asarray(signal, float) - np.mean(signal)
     if np.dot(x, x) <= 1e-12:
         return None
@@ -78,7 +84,9 @@ def simulate(job):
     return model.simulate(_STATE[network], params, excite=fictive._STATE["drive"][drive])
 
 
-def measure(job, spikes, keep_signals_seed: int = CONFIRM_SEEDS[0]) -> dict:
+def measure(
+    job, spikes, keep_signals_seed: int = CONFIRM_SEEDS[0], method: str = "registered"
+) -> dict:
     """Stage 2a's measures and the flexor period for one trial's spikes."""
     network, drive, seed, b_mv, tau_ms = job
     start = int(round(fictive.START_S / fictive.DT_S))
@@ -95,9 +103,11 @@ def measure(job, spikes, keep_signals_seed: int = CONFIRM_SEEDS[0]) -> dict:
             np.isin(spikes.neurons, idx).sum() / idx.size / fictive.DURATION_S
         )
     trial = {"drive": drive, "seed": seed, "signals": signals, "rates": rates}
-    row = fictive.measures(trial)
+    row = fictive.measures(trial, method=method)
     row["period_L1_flexor_s"] = (
-        period_s(signals["L1_flexor"]) if rates["L1_flexor"] >= fictive.MIN_RATE_HZ else None
+        period_s(signals["L1_flexor"], method=method)
+        if rates["L1_flexor"] >= fictive.MIN_RATE_HZ
+        else None
     )
     row |= {f"rate_{k}": v for k, v in rates.items()}
     row |= {"network": network, "b_mv": b_mv, "tau_ms": tau_ms}

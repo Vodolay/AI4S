@@ -33,3 +33,39 @@ def rhythmicity(
     lo, hi = (int(round(v / dt_s)) for v in lags_s)
     hi = min(hi, x.size - 1)
     return float(max(np.dot(x[:-k], x[k:]) / energy for k in range(lo, hi + 1)))
+
+
+MIN_PROMINENCE = 0.1
+
+
+def rhythm(
+    signal: np.ndarray,
+    dt_s: float = DT_S,
+    start_s: float = START_S,
+    lags_s: tuple[float, float] = LAGS_S,
+    min_prominence: float = MIN_PROMINENCE,
+) -> tuple[float, float | None]:
+    """Corrected rhythm measure (the audit): (score, period in s) from an autocorrelation peak.
+
+    A peak is a local maximum of the normalized autocorrelation within `lags_s`, above 0,
+    rising at least `min_prominence` above the lowest value before it. The score is the
+    highest such peak and the period its lag; (0.0, None) when there is none. Unlike
+    `rhythmicity`, a smooth signal without a rhythm scores 0.
+    """
+    x = np.asarray(signal, dtype=float)[int(round(start_s / dt_s)) :]
+    x = x - x.mean()
+    energy = float(np.dot(x, x))
+    if energy <= 1e-12:
+        return 0.0, None
+    lo, hi = (int(round(v / dt_s)) for v in lags_s)
+    hi = min(hi, x.size - 2)
+    c = np.ones(hi + 2)
+    for k in range(1, hi + 2):
+        c[k] = np.dot(x[:-k], x[k:]) / energy
+    trough = np.minimum.accumulate(c)
+    best, period = 0.0, None
+    for k in range(lo, hi + 1):
+        peak = c[k] > c[k - 1] and c[k] >= c[k + 1] and c[k] > 0
+        if peak and c[k] - trough[k - 1] >= min_prominence and c[k] > best:
+            best, period = float(c[k]), k * dt_s
+    return best, period
