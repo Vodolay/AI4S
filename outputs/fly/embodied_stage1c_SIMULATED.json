@@ -1,0 +1,83 @@
+{
+  "label": "SIMULATED male nerve cord driven from descending neurons, brain removed",
+  "predictions": {
+    "C0_the_nerve_cord_is_silent_without_drive": {
+      "test": "no motor neuron spikes in any no-drive trial",
+      "value": 0,
+      "outcome": "pass"
+    },
+    "C1_grooming_neurons_bring_the_claw_to_the_head": {
+      "test": "median minimum claw-antenna distance under grooming at least 0.2 mm below each of the other four medians (r_full 20 Hz)",
+      "value": {
+        "backward_walking": 1.2293,
+        "forward_walking": 1.154,
+        "giant_fibre": 1.4886,
+        "grooming": 1.1345,
+        "none": 1.5255
+      },
+      "outcome": "fail"
+    },
+    "C2_the_front_leg_is_the_one_that_moves": {
+      "test": "mean rate, front > middle and front > hind",
+      "value": {
+        "front": 15.846,
+        "middle": 2.72,
+        "hind": 1.697
+      },
+      "outcome": "pass"
+    },
+    "C3_grooming_neurons_recruit_the_front_leg_most": {
+      "test": "front-leg pool rate under grooming > under each of the three control drives",
+      "value": {
+        "grooming": 15.846,
+        "giant_fibre": 0.629,
+        "backward_walking": 3.342,
+        "forward_walking": 3.601
+      },
+      "outcome": "pass"
+    },
+    "C4_the_activation_scale_does_not_decide_it": {
+      "test": "C1's test holds at r_full 10 Hz and 40 Hz",
+      "value": {
+        "r_full_10": {
+          "backward_walking": 1.1922,
+          "forward_walking": 1.142,
+          "giant_fibre": 1.4931,
+          "grooming": 1.1217,
+          "none": 1.5255
+        },
+        "r_full_40": {
+          "backward_walking": 1.2877,
+          "forward_walking": 1.1727,
+          "giant_fibre": 1.4927,
+          "grooming": 1.1155,
+          "none": 1.5255
+        }
+      },
+      "outcome": "fail"
+    }
+  },
+  "drive_neurons": {
+    "grooming": 4,
+    "giant_fibre": 2,
+    "backward_walking": 4,
+    "forward_walking": 2,
+    "none": 0
+  },
+  "coverage": {
+    "mapped": 49,
+    "left_front_leg_motor_neurons": 68
+  },
+  "sensitivity_rescaled_weight": {
+    "median_min_distance_mm": {
+      "grooming": 1.0238,
+      "none": 1.5255
+    }
+  },
+  "registration": {
+    "file": "preregistration/embodied_stage1c_nerve_cord_from_descending_neurons.json",
+    "sha256": "73aff020fa778fda565c29922b0c1585cc6449cb05211f9626eefe71231d55eb",
+    "registered_in_commit": "739f6f0d667d3aa2d94f1769690afc54c6a104ff",
+    "committed_at": "2026-10-24T11:16:53-04:00"
+  }
+}

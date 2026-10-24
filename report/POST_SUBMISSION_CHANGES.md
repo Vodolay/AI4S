@@ -22,6 +22,7 @@ the bottom.*
 | 11 | 2026-10-24 | The motor-level ties resolved on a finer dose grid | 1 of 2 registered predictions pass; one tie resolves | `69db4e6`, `796a33b` |
 | 12 | 2026-10-24 | Roadmap to an embodied, closed-loop fly | plan, no new results | `42ee520` |
 | 13 | 2026-10-24 | Embodied stage 1: the male CNS drives a muscle-driven leg | both registered tests fail; finding the cause changes the plan | `cbdd6d6` … this branch |
+| 14 | 2026-10-24 | Embodied stage 1c: the male nerve cord from descending neurons, brain removed | 3 of 5 registered predictions pass | `739f6f0` … this branch |
 
 ---
 
@@ -326,6 +327,31 @@ parameters do not carry over to the second connectome, where activity avalanches
 - **What it changes.** The next step drives the male nerve cord from its descending neurons
   alone, then joins the validated FlyWire brain to it (roadmap §7).
 - **Evidence.** `report/ROADMAP_EMBODIED_FLY.md` §7; `outputs/fly/embodied_stage1*_SIMULATED.*`.
+
+## 14. The grooming neurons move the right leg
+
+**Slide message:** *Driven from the descending neurons that start antennal grooming, the male
+nerve cord moves the front leg, and only the front leg, to the head and holds it there; walking
+neurons swing it instead.*
+
+- **What changed.** `src/neuromps/fly/embodied_stage1c.py` cuts the male CNS to its nerve cord
+  (brain removed), drives named descending neurons at 150 Hz, and moves the FlyMimic leg as in
+  stage 1. Registered before running.
+- **Effect.** Three of five predictions pass: silence without drive; the left front-leg motor
+  pool at
+  15.846 <!-- metrics.json: embodied_stage1c.predictions.C2_the_front_leg_is_the_one_that_moves.value.front -->
+  Hz under grooming drive against
+  2.72 <!-- metrics.json: embodied_stage1c.predictions.C2_the_front_leg_is_the_one_that_moves.value.middle -->
+  and
+  1.697 <!-- metrics.json: embodied_stage1c.predictions.C2_the_front_leg_is_the_one_that_moves.value.hind -->
+  for the other legs; no other descending neuron recruits the front leg as strongly. The
+  kinematic prediction failed: forward-walking drive dips nearly as close to the head
+  (1.154 <!-- metrics.json: embodied_stage1c.predictions.C1_grooming_neurons_bring_the_claw_to_the_head.value.forward_walking -->
+  mm against
+  1.1345 <!-- metrics.json: embodied_stage1c.predictions.C1_grooming_neurons_bring_the_claw_to_the_head.value.grooming -->)
+  at the bottom of a rhythmic swing. A sustained reach and a swing need a different readout,
+  to be registered as stage 1d.
+- **Evidence.** Roadmap §7 and figure; `outputs/fly/embodied_stage1c_SIMULATED.*`.
 
 ---
 

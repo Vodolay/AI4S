@@ -142,6 +142,28 @@ a result for the paper, and it changes the plan.
 
 Both steps are registered before they run, like every stage.
 
+**Stage 1c ran: three of five registered predictions pass.** With the male brain removed and
+named descending neurons driven, the nerve cord is silent without drive, and the descending
+neurons the literature ties to antennal grooming (aDN1, aDN2) drive the left front-leg motor
+pool at
+15.846 <!-- metrics.json: embodied_stage1c.predictions.C2_the_front_leg_is_the_one_that_moves.value.front -->
+Hz, against
+2.72 <!-- metrics.json: embodied_stage1c.predictions.C2_the_front_leg_is_the_one_that_moves.value.middle -->
+for the middle and
+1.697 <!-- metrics.json: embodied_stage1c.predictions.C2_the_front_leg_is_the_one_that_moves.value.hind -->
+for the hind leg; no other descending neuron recruits the front leg as strongly (forward walking
+3.601 <!-- metrics.json: embodied_stage1c.predictions.C3_grooming_neurons_recruit_the_front_leg_most.value.forward_walking -->
+Hz). The kinematic prediction failed: grooming drive brings the claw to
+1.1345 <!-- metrics.json: embodied_stage1c.predictions.C1_grooming_neurons_bring_the_claw_to_the_head.value.grooming -->
+mm of the antenna, but forward-walking drive reaches
+1.154 <!-- metrics.json: embodied_stage1c.predictions.C1_grooming_neurons_bring_the_claw_to_the_head.value.forward_walking -->
+mm at the low points of a rhythmic swing, so the closest approach does not separate the two.
+The figure shows the difference the readout missed: under grooming drive the claw goes to the
+head and stays there; under forward-walking drive it oscillates. That is the readout to register
+next (stage 1d, fresh seeds), not a reason to re-score this one.
+
+![The SIMULATED male nerve cord, brain removed, driven from descending neurons: claw-to-antenna distance of the FlyMimic leg, and the motor pools of the three left legs, per drive.](../outputs/figures/embodied_stage1c_leg_SIMULATED.png){width=95%}
+
 ## 8. What carries over unchanged
 
 Pre-registration before every run; licensed data with checksums in the manifest; every reported
