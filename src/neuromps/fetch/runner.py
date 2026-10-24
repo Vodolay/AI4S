@@ -17,7 +17,7 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 RAW_ROOT = REPO_ROOT / "data" / "raw"
 # Fetched only when named: the fly connectomes (0.4 and 1.1 GB) serve the fly
 # stage alone, and no chip analysis reads them.
-OPTIONAL = frozenset({"flywire783", "malecns", "flymimic"})
+OPTIONAL = frozenset({"flywire783", "malecns", "flymimic", "flybody"})
 
 
 def registry() -> dict[str, tuple[Fetcher, dict[str, str]]]:
@@ -25,6 +25,7 @@ def registry() -> dict[str, tuple[Fetcher, dict[str, str]]]:
     from neuromps.fetch import (
         axon_diode,
         brewer2021,
+        flybody,
         flymimic,
         flywire783,
         fofie2025,
@@ -52,6 +53,7 @@ def registry() -> dict[str, tuple[Fetcher, dict[str, str]]]:
         flywire783,
         malecns,
         flymimic,
+        flybody,
     ]
     return {m.SOURCE: (m.fetch, m.META) for m in mods}
 

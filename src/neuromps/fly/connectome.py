@@ -16,7 +16,7 @@ from __future__ import annotations
 
 import logging
 import zipfile
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from pathlib import Path
 
 import numpy as np
@@ -216,6 +216,29 @@ def release_coverage(raw: Path = RAW) -> dict:
         ),
         "minimum_required": MIN_COVERAGE,
     }
+
+
+def rewire(con: Connectome, seed: int = 0) -> Connectome:
+    """A degree-preserving control: postsynaptic partners permuted across all connections.
+
+    Every neuron keeps its numbers of outgoing and incoming connections, and every
+    connection keeps its weight, sign and transmitter class with its presynaptic neuron.
+    """
+    post = np.random.default_rng(seed).permutation(con.post)
+    return Connectome(
+        root_ids=con.root_ids,
+        pre=con.pre,
+        post=post,
+        synapses=con.synapses,
+        sign=con.sign,
+        pre_class=con.pre_class,
+        neuropil=con.neuropil,
+    )
+
+
+def make_excitatory(con: Connectome, which: np.ndarray) -> Connectome:
+    """The same network with the connections where `which` is true made excitatory."""
+    return replace(con, sign=np.where(np.asarray(which, dtype=bool), 1, con.sign))
 
 
 def subnetwork(con: Connectome, keep: np.ndarray) -> Connectome:

@@ -181,13 +181,21 @@ the result holds at every activation scale, and stage 1c's front-leg specificity
 Hz under grooming drive). Rhythmicity alone does not mark walking: the giant fibre scores as
 high
 (0.4561 <!-- metrics.json: embodied_stage1d.predictions.D2_forward_walking_swings_the_leg.value.giant_fibre -->),
-while keeping the claw away from the head. **Stage 1's question is answered for the nerve cord:**
+while keeping the claw away from the head. (Caveat found in stage 2e, below: this rhythmicity
+measure does not require an autocorrelation peak, so smooth movements without a rhythm also score
+high. The registered audit, below, re-scored D2 with a measure that requires a peak: forward
+walking drops to
+0.0956 <!-- metrics.json: rhythm_audit.embodied_stage1d.predictions.D2_forward_walking_swings_the_leg.audited.value.forward_walking --> and the giant fibre to
+0.1896 <!-- metrics.json: rhythm_audit.embodied_stage1d.predictions.D2_forward_walking_swings_the_leg.audited.value.giant_fibre -->, while grooming keeps
+0.2374 <!-- metrics.json: rhythm_audit.embodied_stage1d.predictions.D2_forward_walking_swings_the_leg.audited.value.grooming -->, so D2 fails under the corrected measure. The walking "swing" was an
+artefact; D1, the hold at the head, does not depend on the measure and stands.)
+**Stage 1's question is answered for the nerve cord:**
 the descending neurons that start antennal grooming in the fly move this leg to the head and hold
 it there, specifically. Next is the brain: the FlyWire brain joined to this nerve cord through
 type-matched descending neurons, so that sensory drive, not a stimulated command neuron, starts
 the movement.
 
-![Time near the head against rhythmicity, one point per SIMULATED trial: the antennal-grooming drive holds the leg at the head; walking and escape drives move it rhythmically and away.](../outputs/figures/embodied_stage1d_reach_swing_SIMULATED.png){width=70%}
+![Time near the head against rhythmicity, one point per SIMULATED trial: the antennal-grooming drive holds the leg at the head; walking and escape drives move it away (the vertical axis is the registered rhythmicity, found by the audit to score smooth movements high).](../outputs/figures/embodied_stage1d_reach_swing_SIMULATED.png){width=70%}
 
 **Stages 1e and 1f: the FlyWire brain drives the male nerve cord, end to end.** Each FlyWire
 descending neuron was paired with the male-CNS descending neuron of the same cell type and side
@@ -213,6 +221,192 @@ sugar input does not, and without those four neurons the movement is gone. Next 
 (feeding and walking) and stage 3 (closing the loop).
 
 ![Depth of reach per condition in the SIMULATED relay (FlyWire brain -> matched descending neurons -> male nerve cord -> FlyMimic leg), one point per trial: antennal input reaches deepest; removing aDN1 and aDN2 abolishes the reach; sugar input flexes the leg only partway.](../outputs/figures/embodied_stage1f_depth_SIMULATED.png){width=70%}
+
+**Stage 2a: no walking rhythm from the nerve cord alone (failed as registered).** Before any
+body, stage 2a asked whether the male nerve cord turns its forward-walking command (BDN2,
+DNg100) into a motor rhythm: tibia flexors and extensors alternating within a leg, the two front
+legs alternating, and a tripod across legs, read from the twelve tibia motor pools of the six
+legs. Without drive the cord is silent (W0 passes). Under the walking command it is active but
+tonic: the left middle-leg tibia extensors fire at
+54.12 <!-- metrics.json: embodied_stage2a.pool_rates_hz.forward_walking.L2_extensor -->
+Hz and the right hind-leg extensors at
+34.12 <!-- metrics.json: embodied_stage2a.pool_rates_hz.forward_walking.R3_extensor -->
+Hz, while the tibia flexor pools of five of the six legs stay silent (left front flexors
+0.0 <!-- metrics.json: embodied_stage2a.pool_rates_hz.forward_walking.L1_flexor --> Hz). The left front flexor pool
+has no rhythm (median rhythmicity
+0.0 <!-- metrics.json: embodied_stage2a.predictions.W1_the_walking_command_makes_a_rhythm.value.forward_walking -->),
+so no phase can be measured and W1 to W4 fail. Backward-walking drive (MDN) gives the same
+picture with different legs. This is the risk §6 names: a leaky integrate-and-fire nerve cord,
+with connectome weights and no intrinsic currents, has no half-centre oscillator. The next
+step is the one §6 commits to, a stated model change registered before it runs: add the
+intrinsic property rhythm generation needs (spike-frequency adaptation) and test again on fresh
+seeds, with the connectome-only result kept as the reference.
+
+![Tibia flexor and extensor pool rates on the six legs under the walking command, SIMULATED fictive walking in the male nerve cord: extensors fire tonically, flexors stay silent, and there is no alternation.](../outputs/figures/embodied_stage2a_fictive_walking_SIMULATED.png){width=70%}
+
+**Stage 2b: sugar input to the FlyWire brain extends a simulated proboscis; bitter input gates
+it (six of six registered predictions pass).** Every proboscis motor neuron that McKellar et al.
+(2020) tie to a muscle has a FlyWire cell type (through the male-CNS cross-reference). The
+rostrum protractor (MN9) and its retractors (MN1, MN2) set the rostrum's command; the haustellum
+extensors (MN4) and flexors (MN3) set the haustellum's. Both commands drive the proboscis of the
+flybody whole-fly model. Under sugar input the
+extending pools reach activations of
+0.9644 <!-- metrics.json: embodied_stage2b.predictions.G2_both_joints_are_driven_to_extend.value.rostrum_protractor -->
+(rostrum) and
+0.8858 <!-- metrics.json: embodied_stage2b.predictions.G2_both_joints_are_driven_to_extend.value.haustellum_extensor -->
+(haustellum), their antagonists
+0.0561 <!-- metrics.json: embodied_stage2b.predictions.G2_both_joints_are_driven_to_extend.value.rostrum_retractor -->
+and 0.0 <!-- metrics.json: embodied_stage2b.predictions.G2_both_joints_are_driven_to_extend.value.haustellum_flexor -->,
+and the proboscis extends fully
+(0.3431 <!-- metrics.json: embodied_stage2b.predictions.G1_sugar_extends_the_proboscis.value.sugar --> mm peak;
+full extension is
+0.3428 <!-- metrics.json: embodied_stage2b.predictions.G1_sugar_extends_the_proboscis.value.e_full --> mm).
+Bitter input alone, antennal input and no input leave it at rest. Adding bitter input to sugar
+input halves the peak
+(0.1618 <!-- metrics.json: embodied_stage2b.predictions.G3_bitter_gates_extension.value.sugar_bitter --> mm) and
+cuts the time-averaged extension from
+0.3054 <!-- metrics.json: embodied_stage2b.reported.sugar.mean_extension_mm --> to
+0.0488 <!-- metrics.json: embodied_stage2b.reported.sugar_bitter.mean_extension_mm --> mm: the proboscis starts to
+extend, then is held back to brief flicks. The result holds at the other activation scales. Only
+the MN9 part of this was seen before registration (it is the published model's result); the
+haustellum pools and their antagonists were not. Exploratory, not scored: sugar input recruits
+only feeding motor neurons (neck, eye, antennal and crop motor neurons stay silent), and the
+bitter gate acts on the proboscis pools (other proboscis motor neurons
+52.25 <!-- metrics.json: embodied_stage2b.exploratory_other_motor_neurons_hz.sugar.proboscis_motor_neuron --> Hz under sugar,
+2.75 <!-- metrics.json: embodied_stage2b.exploratory_other_motor_neurons_hz.sugar_bitter.proboscis_motor_neuron --> with
+bitter added) far more than on the ingestion pool
+(24.58 <!-- metrics.json: embodied_stage2b.exploratory_other_motor_neurons_hz.sugar.ingestion_motor_neuron --> and
+19.98 <!-- metrics.json: embodied_stage2b.exploratory_other_motor_neurons_hz.sugar_bitter.ingestion_motor_neuron --> Hz).
+**Stage 2's feeding test passes; its walking test (2a) does not.** The body is held fixed and its
+joints are position servos, so this is the motor command made visible, not a muscle-level
+proboscis.
+
+![Proboscis extension in the SIMULATED FlyWire brain -> proboscis motor neurons -> flybody chain: sugar extends the proboscis fully and holds it; adding bitter input lets it start and then holds it back; bitter, antennal or no input leave it at rest.](../outputs/figures/embodied_stage2b_proboscis_SIMULATED.png){width=70%}
+
+**Stage 2c: adding spike-frequency adaptation does not make the nerve cord walk (stopped as
+registered).** §6 committed to adding an intrinsic property if stage 2a failed. Adaptation's two
+parameters have no published fly value, so they were swept over a registered grid of
+36 <!-- metrics.json: embodied_stage2c.sweep.grid_size --> cells. The registration fixed in advance a rule for
+choosing one cell and a confirmatory test on fresh seeds, with a rewired control and a comparison
+with the published step period. No cell passes any of the four walking tests (rhythm:
+0 <!-- metrics.json: embodied_stage2c.sweep.cells_passing.W1_the_walking_command_makes_a_rhythm --> cells), so
+the rule selects nothing, the stage stops, and its seven predictions fail. Adaptation does act:
+the tibia extensor pools fall from
+21.3 <!-- metrics.json: embodied_stage2c.sweep.cells.1.extensor_hz --> Hz (weakest, fastest adaptation) to
+0.55 <!-- metrics.json: embodied_stage2c.sweep.cells.36.extensor_hz --> Hz (strongest, slowest). But the flexor pools never exceed
+0.22 <!-- metrics.json: embodied_stage2c.sweep.cells.6.flexor_hz --> Hz in any cell, so there is nothing for the extensors to
+alternate with. An exploratory diagnostic (not registered; exploration seeds) shows why. With
+every inhibitory connection removed the flexor pools fire at
+151.341 <!-- metrics.json: embodied_stage2c_diagnostic.pool_rates_hz.no_inhibition.flexor --> Hz, so excitation does reach them.
+Of the neurons the walking command activates, each flexor motor neuron receives
+274.73 <!-- metrics.json: embodied_stage2c_diagnostic.flexor_inputs.from_active.inhibitory_per_neuron --> inhibitory against
+130.78 <!-- metrics.json: embodied_stage2c_diagnostic.flexor_inputs.from_active.excitatory_per_neuron --> excitatory synapses, while each
+extensor motor neuron receives
+754.17 <!-- metrics.json: embodied_stage2c_diagnostic.extensor_inputs.from_active.excitatory_per_neuron --> excitatory against
+698.17 <!-- metrics.json: embodied_stage2c_diagnostic.extensor_inputs.from_active.inhibitory_per_neuron --> inhibitory. GABA alone
+(182.68 <!-- metrics.json: embodied_stage2c_diagnostic.flexor_inputs.from_active.inhibitory_by_transmitter_per_neuron.gaba --> per flexor
+neuron) outweighs that excitation. Whether the flexors stay net-inhibited if glutamate excites
+depends on the model's rule that every glutamate synapse inhibits
+(92.05 <!-- metrics.json: embodied_stage2c_diagnostic.flexor_inputs.from_active.inhibitory_by_transmitter_per_neuron.glut --> per flexor
+neuron). Under the model's signs, the walking command's population holds the flexors down and
+drives the extensors. A rhythm then needs something that periodically releases the flexors,
+which uniform adaptation does not provide. Candidates for a registered next step are the
+glutamate sign rule (glutamate excites through some receptors in the fly nerve cord), sensory
+feedback from the leg (stage 3), or a different intrinsic property (post-inhibitory rebound).
+
+![The whole registered SIMULATED adaptation sweep: no cell passes a walking test; adaptation lowers the tibia extensor pools smoothly, while the flexor pools stay near zero everywhere.](../outputs/figures/embodied_stage2c_sweep_SIMULATED.png){width=95%}
+
+**Stage 2d: the glutamate sign rule is not what keeps the cord from walking (1 of 7 at the
+selected cell).** The model, like the published one, treats every glutamate synapse as
+inhibitory, and the stage-2c diagnostic showed that the flexors' net inhibition depends on that
+rule. No settled rule says where fly glutamate excites, so stage 2d registered two bounds.
+Glutamate onto motor neurons became excitatory in one; glutamate everywhere in the other. Each
+ran without adaptation and over stage 2c's grid
+(37 <!-- metrics.json: embodied_stage2d.sweep.cells_per_rule --> cells per rule), with the
+same selection rule and confirmation. Onto motor neurons only, the flexors stay weak
+(1.76 <!-- metrics.json: embodied_stage2d.sweep.cells.0.flexor_hz --> Hz without adaptation) and no cell passes any walking test.
+Everywhere, the flexors switch on
+(40.4 <!-- metrics.json: embodied_stage2d.sweep.cells.37.flexor_hz --> Hz), but the cord becomes far more active
+(7,118 <!-- metrics.json: embodied_stage2d.sweep.cells.37.active_neurons --> neurons at 1 Hz or more, against
+2,136 <!-- metrics.json: embodied_stage2d.sweep.cells.0.active_neurons --> with glutamate onto motor neurons only). A rhythm appears in
+5 <!-- metrics.json: embodied_stage2d.sweep.cells_passing.glut_all.W1_the_walking_command_makes_a_rhythm --> cells, as slow
+waves of the whole population, but no cell alternates antagonists or legs
+(0 <!-- metrics.json: embodied_stage2d.sweep.cells_passing.glut_all.W2_antagonists_alternate --> cells). The rule
+selected the one cell that passed the tripod test on exploration seeds; on fresh seeds that pass
+did not replicate. The left front flexor and extensor fire in phase there (distance
+0.49 <!-- metrics.json: embodied_stage2d.predictions.D2_antagonists_alternate.value --> from the alternation target),
+the right front flexor stays silent, the rhythm's period is
+317.5 <!-- metrics.json: embodied_stage2d.predictions.D6_a_fly_like_step_period.value --> ms, slower than a walking fly's,
+and only silence without drive passes. **Three registered attempts now agree.** The male nerve
+cord's wiring, run as leaky integrate-and-fire neurons under the walking command, does not
+produce alternation: not as published (2a), not with adaptation (2c), not with either
+glutamate rule (2d). This is a result for the paper. A connectome alone, in this model class,
+does not contain a working walking rhythm generator. The roadmap's own answer is the next
+stage, sensory feedback from the legs (stage 3), which the fly also needs to walk.
+
+![The whole registered SIMULATED stage-2d sweep, both glutamate rules: walking tests passed, tibia flexor rate and the number of active neurons in every cell. Glutamate onto motor neurons leaves the flexors weak; glutamate everywhere turns them on with a large rise in activity, and no cell alternates.](../outputs/figures/embodied_stage2d_sweep_SIMULATED.png){width=95%}
+
+**Stage 2e: the Pugliese et al. firing-rate model (2 of 8, one of them vacuous), and a flaw in our
+rhythm measure.** Neither of the walking flies circulating online comes from a connectome. Eon
+Systems drives a NeuroMechFly walking controller trained by imitation, with a few descending
+neurons as handles. flybody (Google DeepMind with Janelia) walks with a trained policy. The one
+study that finds a walking rhythm in nerve-cord wiring is Pugliese et al. (2025). They use a
+firing-rate model with saturating, heterogeneous neurons. Steady drive to DNg100 produces leg
+rhythms through a three-neuron circuit (IN17A001, INXXX466, IN16B036). Stage 2e reimplemented
+that model from the paper and its configuration, ran it with their parameter distributions on the
+male nerve cord (32 draws), and registered eight predictions before any run. Silence without
+drive passes. Under DNg100 drive almost nothing happens: only
+11 <!-- metrics.json: embodied_stage2e.reported.forward_walking.active_neurons --> neurons become active, and the rhythm
+predictions fail. The silenced-circuit prediction passes, but vacuously: there was no rhythm to
+remove. The cause is a stated deviation. The male CNS release has no neuron volumes, so size,
+which scales each neuron's threshold, was taken as total synapse count. That makes DNg100 one of
+the largest neurons in the cord
+(17.8 <!-- metrics.json: embodied_stage2e.exploratory_driven_neurons.forward_walking.size_median_normalized.0 -->
+times the median, in the top 1 %, which starts at
+11.86 <!-- metrics.json: embodied_stage2e.exploratory_driven_neurons.network_size_quantiles.q99 -->). Under the registered input it reaches only
+6.54 <!-- metrics.json: embodied_stage2e.exploratory_driven_neurons.forward_walking.drive_only_rate_hz.0 --> Hz, against
+49.32 <!-- metrics.json: embodied_stage2e.exploratory_driven_neurons.grooming.drive_only_rate_hz.0 --> Hz for a grooming neuron. So this run does not
+test Pugliese et al.'s result. Grooming and DNb08 drive, which reach their neurons, recruit about
+7,055 <!-- metrics.json: embodied_stage2e.reported.dnb08.active_neurons --> neurons each. DNb08 scores a median rhythmicity of
+0.7367 <!-- metrics.json: embodied_stage2e.reported.dnb08.rhythmicity_L1_flexor -->, with a "period" of
+50.0 <!-- metrics.json: embodied_stage2e.reported.dnb08.period_ms --> ms in every draw, the shortest lag the measure looks at.
+The figure shows why. The left front flexor fires one burst and falls silent, and the extensor
+rises to a plateau; there is no rhythm. **The rhythmicity measure registered since stage 1d is
+flawed.** It takes the largest autocorrelation within lags of 50 to 500 ms without requiring a
+peak, so any smooth, slowly varying signal scores high at the 50 ms edge. Registered outcomes stay
+as registered, but three readings are now suspect:
+- stage 1d's D2 (forward walking "swings" the leg; scored on the smooth claw distance);
+- stage 2d's five "rhythmic" cells;
+- every grooming comparison value.
+
+**The audit (registered before any corrected value was computed on stage data).** The corrected
+measure counts a rhythm only at a genuine autocorrelation peak: a local maximum at least 0.1 above
+the trough it rises from. Its period is that peak's lag, and phases use that period. It was
+calibrated on synthetic signals only and passes its registered validation: smooth signals without
+a rhythm score 0, and a sine keeps its value. Stages 1d, 2a, 2c, 2d and 2e were re-simulated with
+their own code and seeds, and every trial was measured both ways. The registered measure
+reproduces every recorded outcome. Under the corrected measure:
+- one registered outcome changes: stage 1d's D2 now fails (above);
+- in stage 2d the cells with a rhythm drop from
+  5 <!-- metrics.json: rhythm_audit.embodied_stage2d.registered.cells_passing.glut_all.W1_the_walking_command_makes_a_rhythm --> to
+  1 <!-- metrics.json: rhythm_audit.embodied_stage2d.audited.cells_passing.glut_all.W1_the_walking_command_makes_a_rhythm -->, and the
+  selection rule would pick a different cell (glutamate everywhere, 16 mV, 100 ms); it is not
+  confirmed here, since that would need fresh seeds;
+- in stage 2e, DNb08's rhythmicity falls from
+  0.7367 <!-- metrics.json: rhythm_audit.embodied_stage2e.reported.registered.dnb08.rhythmicity_L1_flexor --> to
+  0.0 <!-- metrics.json: rhythm_audit.embodied_stage2e.reported.audited.dnb08.rhythmicity_L1_flexor -->, and the share of
+  rhythmic leg motor neurons from
+  0.699 <!-- metrics.json: rhythm_audit.embodied_stage2e.reported.registered.dnb08.leg_mn_rhythmic_fraction --> to
+  0.01 <!-- metrics.json: rhythm_audit.embodied_stage2e.reported.audited.dnb08.leg_mn_rhythmic_fraction -->.
+
+Stages 2a and 2c are unchanged. Registered outcomes stay recorded as they fell; this paragraph and
+the figure carry both. From now on, every new stage registers the corrected measure. Next, a
+registered stage-2e follow-up in which each command neuron gets enough drive to fire, so that
+Pugliese et al.'s result is actually tested.
+
+![SIMULATED: every audited trial's rhythmicity under the registered measure (no peak required) against the corrected one (an autocorrelation peak). Genuine rhythms lie on the diagonal; smooth signals the old measure scored as rhythmic fall to zero.](../outputs/figures/rhythm_audit_SIMULATED.png){width=60%}
+
+![SIMULATED firing-rate model of the male nerve cord. Left: DNb08 drive, one draw: one flexor burst, then a tonic extensor, scored as "rhythmic" by the flawed measure. Right: rhythmicity per draw and condition; DNg100 drive leaves the pools silent.](../outputs/figures/embodied_stage2e_rate_model_SIMULATED.png){width=80%}
 
 ## 8. What carries over unchanged
 

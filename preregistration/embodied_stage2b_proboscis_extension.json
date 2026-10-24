@@ -1,0 +1,42 @@
+{
+  "title": "Embodied fly, stage 2b: does sugar input to the FlyWire brain extend a simulated proboscis through the motor neurons of each proboscis muscle, and does bitter input gate it? (SIMULATED, open loop)",
+  "registered": "2026-10-24",
+  "status": "registered before any stage-2b brain or body simulation",
+  "roadmap": "report/ROADMAP_EMBODIED_FLY.md, stage 2 (feeding and walking); this is its feeding half: 'sugar drives proboscis extension and bitter suppresses it'",
+  "seen_before_registration": [
+    "every earlier fly result; in particular, on FlyWire 783 under the published sugar drive the published MN9 (one neuron, right side, CB0701) fires at 76.75 Hz, and 0 Hz when bitter drive is added (fly_chip_to_animal R1 and vehicle); on the male CNS the summed proboscis motor pool fires at 31.4 Hz under sugar and 5.6 Hz with bitter added (fly_motor_readout MR1)",
+    "data only: the male-CNS names of the proboscis motor neurons and their FlyWire cell types (MN9 CB0701; MN1 CB0720; MN2Da CB0789; MN2Db CB0861; MN2V CB0783; MN4a CB0845; MN4b CB0871; MN3M CB0703; MN3L CB0875 and CB0882; MN6 CB0858; MN7 CB0762), and the pool sizes in FlyWire 783 (2, 4, 2, 2, 2, 4, 2, 2, 4, 2, 4; both sides)",
+    "literature: McKellar et al. 2020 (eLife 9:e54978): muscle 9 is a protractor of the rostrum; muscles 1, 2D and 2V retract the rostrum; muscle 4 extends the haustellum; muscle 3 flexes the haustellum; muscle 6 extends and muscle 7 abducts the labellum",
+    "body only, no neural input: the flybody model (commit d015e9b) with its free joint removed is unstable at its own 0.1 ms step and stable at 0.01 ms; negative rostrum and haustellum commands extend the proboscis (labellum-to-head distance 0.43 mm at rest, 0.78 mm with both joints commanded to their extension limits)"
+  ],
+  "design": {
+    "brain": "the published model on FlyWire 783 (Shiu constants, w_syn 0.275 mV, no background), drive 150 Hz Poisson to each driven neuron, 1 s trials",
+    "drives": {"sugar": "the published right-side sugar GRNs", "bitter": "the published bitter GRNs", "sugar_bitter": "both", "jon_ce": "the published JO-CE neurons (control)", "none": "no drive"},
+    "seeds": "810-817, 8 trials per drive",
+    "pools": {
+      "rostrum_protractor": ["CB0701"],
+      "rostrum_retractor": ["CB0720", "CB0789", "CB0861", "CB0783"],
+      "haustellum_extensor": ["CB0845", "CB0871"],
+      "haustellum_flexor": ["CB0703", "CB0875", "CB0882"],
+      "labellum_reported_only": {"extensor": ["CB0858"], "abductor": ["CB0762"]}
+    },
+    "pool_membership": "every FlyWire 783 neuron of those cell types, both sides (the proboscis is a midline organ with bilateral muscles)",
+    "activation": "per pool, spike trains filtered (exponential, tau 20 ms) into rates at 1 ms, averaged over the pool's neurons, divided by r_full and clipped to [0, 1]; r_full 20 Hz primary, 10 and 40 Hz as sensitivity (as stage 1)",
+    "commands": "per joint, net = activation(extending pool) - activation(opposing pool); command = net x (extension limit) if net > 0, else |net| x (opposite limit): rostrum limits -1.24 (protraction) and 0.183; haustellum limits -1.59 (extension) and 0.7; all other actuators held at 0; commands updated every 1 ms",
+    "body": "flybody fruitfly.xml at commit d015e9b, free joint removed (body fixed in space), simulation step 0.01 ms; the labellum (body labrum_left) to head distance; extension = that distance minus its value with all commands 0, in mm",
+    "full_extension": "E_full: the extension after 1 s with both joints commanded to their extension limits, measured by the same code before scoring",
+    "readout": "per trial the peak extension over the second (mm)",
+    "numerical_check": "the full-extension run repeated at a 0.005 ms step must agree within 0.01 mm, or the stage stops"
+  },
+  "predictions": {
+    "G0_silent_without_drive": {"statement": "Without drive no proboscis motor neuron fires", "test": "no spikes in any of the four scored pools in any no-drive trial"},
+    "G1_sugar_extends_the_proboscis": {"statement": "Sugar input extends the proboscis at least halfway, far more than bitter input, antennal input or none", "test": "median peak extension under sugar >= 0.5 x E_full, and at least 0.25 x E_full above the medians under bitter, jon_ce and none (r_full 20 Hz)"},
+    "G2_both_joints_are_driven_to_extend": {"statement": "Under sugar input the published extensor of each joint outfires its antagonists", "test": "median over sugar trials of the time-averaged activation: rostrum protractor > rostrum retractor and haustellum extensor > haustellum flexor (r_full 20 Hz)"},
+    "G3_bitter_gates_extension": {"statement": "Adding bitter input to sugar input suppresses extension", "test": "median peak extension under sugar_bitter <= 0.5 x the sugar median"},
+    "G4_bitter_alone_does_not_extend": {"statement": "Bitter input alone does not extend the proboscis", "test": "median peak extension under bitter <= 0.25 x E_full"},
+    "G5_the_activation_scale_does_not_decide_it": {"statement": "G1 and G3 hold at the other activation scales", "test": "G1's and G3's tests hold at r_full 10 Hz and 40 Hz"}
+  },
+  "reported_without_prediction": "the labellum pools' rates (MN6, MN7); per drive the onset (first time above 0.5 of its own peak) of the rostrum and haustellum commands",
+  "not_claimed_even_if_all_pass": "that a fly extends its proboscis this way: the body is fixed, the loop is open, joints are position-servoed rather than muscle-driven, and the motor-neuron-to-joint mapping is a stated rule built from McKellar et al. 2020; a pass means the validated brain model's motor output, read through the published muscle roles, extends a simulated proboscis under sugar and not under bitter",
+  "reporting": "Every prediction with its value and pass/fail, whichever way it falls; E_full and the numerical check reported."
+}

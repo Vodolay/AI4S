@@ -23,8 +23,14 @@ the bottom.*
 | 12 | 2026-10-24 | Roadmap to an embodied, closed-loop fly | plan, no new results | `42ee520` |
 | 13 | 2026-10-24 | Embodied stage 1: the male CNS drives a muscle-driven leg | both registered tests fail; finding the cause changes the plan | `cbdd6d6` … this branch |
 | 14 | 2026-10-24 | Embodied stage 1c: the male nerve cord from descending neurons, brain removed | 3 of 5 registered predictions pass | `739f6f0` … `e576cd9` |
-| 15 | 2026-10-24 | Embodied stage 1d: a held reach against a rhythmic swing, fresh seeds | 4 of 4 registered predictions pass | `66502eb` … `19ab0ae` |
+| 15 | 2026-10-24 | Embodied stage 1d: a held reach against a rhythmic swing, fresh seeds | 4 of 4 registered predictions pass; D2 (the swing) fails under the audit's corrected measure (entry 22) | `66502eb` … `19ab0ae` |
 | 16 | 2026-10-24 | Embodied stages 1e and 1f: the FlyWire brain drives the male nerve cord and the leg | 1e uninterpretable as registered; 1f 5 of 5 pass on fresh seeds | `f2f5ad3` … this branch |
+| 17 | 2026-10-24 | Embodied stage 2a: fictive walking in the male nerve cord | 1 of 5 pass; no walking rhythm | `91c5b9e` … `ff43970` |
+| 18 | 2026-10-24 | Embodied stage 2b: sugar extends the flybody proboscis, bitter holds it back | 6 of 6 registered predictions pass | `76f90e8` … `4b586c0` |
+| 19 | 2026-10-24 | Embodied stage 2c: a registered adaptation sweep | stopped by its rule; no cell walks | `c4c29a1` … `5610ae8` |
+| 20 | 2026-10-24 | Embodied stage 2d: the glutamate sign rule | 1 of 7 at the selected cell | `edbf611` … `a0ccff7` |
+| 21 | 2026-10-24 | Embodied stage 2e: the Pugliese et al. rate model; a flaw in our rhythm measure | 2 of 8 (one vacuous); the size stand-in starves DNg100 | `21df803` … `7a13eba` |
+| 22 | 2026-10-24 | The registered rhythm-measure audit | one earlier pass (1d D2) withdrawn; all else stands; originals reproduce | `76611c0` … this branch |
 
 ---
 
@@ -359,7 +365,8 @@ neurons swing it instead.*
 
 **Slide message:** *On fresh seeds and with readouts registered in advance: driving the fly's
 antennal-grooming neurons brings the simulated front leg to the head and holds it there for
-nearly the whole second; walking neurons swing it, escape neurons extend it.*
+nearly the whole second; escape neurons extend it. (That walking neurons "swing" it did not
+survive the rhythm-measure audit; see entry 22.)*
 
 - **What changed.** `src/neuromps/fly/kinematics.py` adds two readouts (time near the head;
   rhythmicity), `src/neuromps/fly/embodied_stage1d.py` reruns stage 1c's design on fresh seeds.
@@ -371,7 +378,9 @@ nearly the whole second; walking neurons swing it, escape neurons extend it.*
   0.368 <!-- metrics.json: embodied_stage1d.predictions.D1_grooming_holds_the_claw_at_the_head.value.forward_walking -->
   under any other; forward walking more rhythmic than grooming; the same at every activation
   scale; the front-leg specificity of stage 1c replicates. Stage 1c's failed predictions stay
-  failed.
+  failed. *Found later (entries 21, 22): the rhythmicity measure had no peak requirement; under
+  the registered audit's corrected measure D2 fails (forward walking
+  0.0956 <!-- metrics.json: rhythm_audit.embodied_stage1d.predictions.D2_forward_walking_swings_the_leg.audited.value.forward_walking -->); the hold at the head (D1) does not depend on it.*
 - **Evidence.** Roadmap §7 and figure; `outputs/fly/embodied_stage1d_SIMULATED.*`.
 
 ## 16. From an antennal touch in the brain to a leg at the head
@@ -395,6 +404,140 @@ does not, and removing four grooming neurons abolishes the movement.*
   1.4793 <!-- metrics.json: embodied_stage1f.predictions.F4_the_reach_runs_through_the_grooming_neurons.value.lesioned -->
   mm when aDN1 and aDN2 are removed.
 - **Evidence.** Roadmap §7 and figure; `outputs/fly/embodied_stage1f_SIMULATED.*`.
+
+---
+
+## 17. The nerve cord alone does not walk
+
+**Slide message:** *Driven by its walking command, the connectome-only nerve cord fires the leg
+extensors tonically and leaves the flexors silent: no rhythm. Rhythm needs intrinsic currents
+the connectome does not record; adding them is the next registered step.*
+
+- **What changed.** `src/neuromps/fly/fictive.py` runs stage 2a (registered before running):
+  the six legs' tibia flexor and extensor pools under walking, grooming and backward-walking
+  commands, phases measured between pools. `src/neuromps/fetch/flybody.py` fetches the flybody
+  whole-body model (Apache-2.0) for the feeding and walking body, each file checked against its
+  git hash.
+- **Effect.** Silent without drive (W0 passes); under the walking command the left middle-leg
+  extensors fire at 54.12 <!-- metrics.json: embodied_stage2a.pool_rates_hz.forward_walking.L2_extensor --> Hz and the left
+  front flexors at 0.0 <!-- metrics.json: embodied_stage2a.pool_rates_hz.forward_walking.L1_flexor --> Hz, so there is no
+  rhythm and no phase (W1 to W4 fail). The roadmap listed this risk and the response to it.
+- **Evidence.** Roadmap §7 and figure; `outputs/fly/embodied_stage2a_SIMULATED.*`.
+
+---
+
+## 18. Sugar extends the proboscis, bitter holds it back
+
+**Slide message:** *Sugar input to the validated FlyWire brain drives the motor neurons of each
+proboscis muscle the literature names, and a simulated proboscis extends fully; bitter input
+holds it back. Six of six registered predictions pass.*
+
+- **What changed.** `src/neuromps/fly/proboscis.py` drives the flybody proboscis (body fixed,
+  0.01 ms step, checked against a step half that size); `src/neuromps/fly/embodied_stage2b.py`
+  turns the proboscis motor pools (MN9, MN1/MN2, MN4, MN3, named by FlyWire cell type after
+  McKellar et al. 2020) into rostrum and haustellum commands. Registered before running.
+- **Effect.** Full extension under sugar
+  (0.3431 <!-- metrics.json: embodied_stage2b.predictions.G1_sugar_extends_the_proboscis.value.sugar --> mm of
+  0.3428 <!-- metrics.json: embodied_stage2b.predictions.G1_sugar_extends_the_proboscis.value.e_full -->); none under bitter,
+  antennal input or none; time-averaged extension from
+  0.3054 <!-- metrics.json: embodied_stage2b.reported.sugar.mean_extension_mm --> to
+  0.0488 <!-- metrics.json: embodied_stage2b.reported.sugar_bitter.mean_extension_mm --> mm when bitter is added. Sugar
+  recruits only feeding motor neurons (exploratory).
+- **Evidence.** Roadmap §7 and figure; `outputs/fly/embodied_stage2b_SIMULATED.*`.
+
+---
+
+## 19. A registered sweep that found nothing, and why
+
+**Slide message:** *We swept the one cell property the roadmap named, reported every setting, and
+none made the nerve cord walk. The wiring explains it: the walking command's active
+neurons inhibit the flexors about twice as much as they excite them.*
+
+- **What changed.** `src/neuromps/fly/model.py` gains spike-frequency adaptation (off by default;
+  with it off the spikes are identical to the published model's). `connectome.rewire` builds a
+  degree-preserving control. `src/neuromps/fly/embodied_stage2c.py` runs the registered sweep,
+  selection rule and confirmation. `src/neuromps/fly/flexor_diagnostic.py` is the exploratory
+  follow-up.
+- **Effect.** 0 <!-- metrics.json: embodied_stage2c.sweep.cells_passing.W1_the_walking_command_makes_a_rhythm -->
+  of 36 <!-- metrics.json: embodied_stage2c.sweep.grid_size --> cells produce a rhythm; the stage stops as
+  registered. Flexors fire at 151.341 <!-- metrics.json: embodied_stage2c_diagnostic.pool_rates_hz.no_inhibition.flexor --> Hz once
+  inhibition is removed; from the command's active neurons they receive
+  274.73 <!-- metrics.json: embodied_stage2c_diagnostic.flexor_inputs.from_active.inhibitory_per_neuron --> inhibitory against
+  130.78 <!-- metrics.json: embodied_stage2c_diagnostic.flexor_inputs.from_active.excitatory_per_neuron --> excitatory synapses each
+  (exploratory).
+- **Why it matters for the interview.** It shows the discipline holding when the result is null:
+  the sweep was fixed before running, reported whole, and followed by a mechanism, not by
+  re-tuning until it walked.
+- **Evidence.** Roadmap §7 and figure; `outputs/fly/embodied_stage2c_*`.
+
+---
+
+## 20. The glutamate sign is not the missing piece
+
+**Slide message:** *Making glutamate excitatory switches the silent flexors on, but the cord then
+fires as one slow wave, not as alternating legs. Three registered attempts agree that this
+wiring, in this neuron model, has no walking rhythm generator. That negative result is
+reportable.*
+
+- **What changed.** `connectome.make_excitatory`; `src/neuromps/fly/embodied_stage2d.py` builds
+  two registered bounds on where glutamate excites (onto motor neurons; everywhere), each
+  without adaptation and over stage 2c's grid, through stage 2c's code (a rerun of stage 2c is
+  byte-identical).
+- **Effect.** Onto motor neurons: flexors 1.76 <!-- metrics.json: embodied_stage2d.sweep.cells.0.flexor_hz --> Hz, no cell passes a
+  walking test. Everywhere: flexors 40.4 <!-- metrics.json: embodied_stage2d.sweep.cells.37.flexor_hz --> Hz with
+  7,118 <!-- metrics.json: embodied_stage2d.sweep.cells.37.active_neurons --> active neurons, rhythm in
+  5 <!-- metrics.json: embodied_stage2d.sweep.cells_passing.glut_all.W1_the_walking_command_makes_a_rhythm --> cells, alternation
+  in none; the selected cell passes only silence without drive on fresh seeds.
+- **Evidence.** Roadmap §7 and figure; `outputs/fly/embodied_stage2d_*`.
+
+---
+
+## 21. The walking flies online are trained, not wired; and our rhythm measure was flawed
+
+**Slide message:** *The walking flies circulating online are driven by trained controllers, not by
+connectome wiring. The one wiring-based walking rhythm (Pugliese et al. 2025) uses a firing-rate
+model. Our reimplementation did not test it fairly: our stand-in for neuron size starves the
+walking command. Checking the result exposed a flaw in our own rhythm measure, now being
+audited.*
+
+- **What changed.** `src/neuromps/fly/rate_model.py` reimplements Pugliese et al.'s rate model
+  from the paper and its public configuration, batched over parameter draws.
+  `src/neuromps/fly/embodied_stage2e.py` runs the registered stage 2e.
+- **Effect.** Under DNg100 drive, 11 <!-- metrics.json: embodied_stage2e.reported.forward_walking.active_neurons --> neurons
+  become active; DNg100 itself reaches 6.54 <!-- metrics.json: embodied_stage2e.exploratory_driven_neurons.forward_walking.drive_only_rate_hz.0 --> Hz,
+  because size (here synapse count) sets its threshold. Rhythm predictions fail; the lesion
+  prediction passes vacuously. DNb08's "rhythm" (0.7367 <!-- metrics.json: embodied_stage2e.reported.dnb08.rhythmicity_L1_flexor -->)
+  is one burst and a plateau. The registered rhythmicity measure has no peak requirement; the
+  registered audit (entry 22) re-examined every stage that used it.
+- **Why it matters for the interview.** We publish the flaw ourselves, say which earlier claims
+  it touches, and fix it with a registered audit, not a quiet re-score.
+- **Evidence.** Roadmap §7 and figure; `outputs/fly/embodied_stage2e_*`.
+
+---
+
+## 22. The rhythm-measure audit: one registered pass did not survive
+
+**Slide message:** *We found a flaw in our own rhythm measure, registered an audit before
+re-scoring anything, and re-ran every affected stage. One earlier pass (the walking leg's
+"swing") does not survive. Every other registered outcome stands, and the original numbers
+reproduce exactly.*
+
+- **What changed.** `kinematics.rhythm` requires a genuine autocorrelation peak; `fictive.phase`
+  and the period measures take a method switch (the registered measure stays the default);
+  `src/neuromps/fly/rhythm_audit.py` re-simulates stages 1d, 2a, 2c, 2d and 2e on their own seeds
+  and measures every trial both ways. Registered in `preregistration/rhythm_measure_audit.json`
+  before any corrected value was computed on stage data.
+- **Effect.** The registered measure reproduces every recorded outcome. Under the corrected one,
+  stage 1d's D2 fails (forward walking 0.0956 <!-- metrics.json: rhythm_audit.embodied_stage1d.predictions.D2_forward_walking_swings_the_leg.audited.value.forward_walking -->, grooming
+  0.2374 <!-- metrics.json: rhythm_audit.embodied_stage1d.predictions.D2_forward_walking_swings_the_leg.audited.value.grooming -->); stage 2d's rhythm cells drop from
+  5 <!-- metrics.json: rhythm_audit.embodied_stage2d.registered.cells_passing.glut_all.W1_the_walking_command_makes_a_rhythm --> to
+  1 <!-- metrics.json: rhythm_audit.embodied_stage2d.audited.cells_passing.glut_all.W1_the_walking_command_makes_a_rhythm -->;
+  DNb08's "rhythm" in stage 2e falls to
+  0.0 <!-- metrics.json: rhythm_audit.embodied_stage2e.reported.audited.dnb08.rhythmicity_L1_flexor -->. Every other registered
+  outcome is unchanged.
+- **Why it matters for the interview.** A worked example of the discipline under pressure: the
+  flaw found by ourselves, the fix registered before use, the earlier claim withdrawn in public.
+- **Evidence.** Roadmap §7 and figure; `outputs/fly/rhythm_audit_SIMULATED.json`.
 
 ---
 

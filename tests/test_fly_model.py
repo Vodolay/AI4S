@@ -268,3 +268,68 @@ def test_replayed_spikes_make_their_target_fire_at_those_times() -> None:
     assert fired.size == 3
     assert np.allclose(fired, times, atol=0.002)
     assert set(got.neurons.tolist()) == {3}
+
+
+def _driven_pair() -> connectome.Connectome:
+    return connectome.Connectome(
+        root_ids=np.arange(2),
+        pre=np.array([0]),
+        post=np.array([1]),
+        synapses=np.array([100]),
+        sign=np.array([1]),
+        pre_class=np.array(["ach"], dtype=object),
+        neuropil=np.array(["A"] * 2, dtype=object),
+    )
+
+
+@pytest.mark.slow
+def test_without_adaptation_the_model_is_the_published_one() -> None:
+    con = _driven_pair()
+    plain = model.simulate(con, model.FlyParams(seed=4), excite=[0])
+    zero = model.simulate(con, model.FlyParams(seed=4, adapt_mv=0.0, adapt_tau_ms=37.0), excite=[0])
+    np.testing.assert_array_equal(plain.times, zero.times)
+    np.testing.assert_array_equal(plain.neurons, zero.neurons)
+
+
+@pytest.mark.slow
+def test_stronger_adaptation_means_fewer_spikes_under_the_same_drive() -> None:
+    con = _driven_pair()
+    counts = [
+        int(
+            np.sum(
+                model.simulate(
+                    con, model.FlyParams(seed=4, adapt_mv=b, adapt_tau_ms=200.0), excite=[0]
+                ).neurons
+                == 1
+            )
+        )
+        for b in (0.0, 2.0, 8.0)
+    ]
+    assert counts[0] > counts[1] > counts[2] > 0
+
+
+def test_rewiring_keeps_degrees_and_weights_with_their_presynaptic_neuron() -> None:
+    con = _toy()
+    got = connectome.rewire(con, seed=0)
+    np.testing.assert_array_equal(got.pre, con.pre)
+    np.testing.assert_array_equal(np.sort(got.post), np.sort(con.post))
+    np.testing.assert_array_equal(got.synapses, con.synapses)
+    np.testing.assert_array_equal(got.sign, con.sign)
+    big = connectome.Connectome(
+        root_ids=np.arange(50),
+        pre=np.repeat(np.arange(50), 4),
+        post=np.tile(np.arange(4), 50),
+        synapses=np.ones(200, int),
+        sign=np.ones(200, int),
+        pre_class=np.array(["ach"] * 200, dtype=object),
+        neuropil=np.array(["A"] * 50, dtype=object),
+    )
+    assert not np.array_equal(connectome.rewire(big, seed=0).post, big.post)
+
+
+def test_making_connections_excitatory_flips_only_those_and_keeps_weights() -> None:
+    con = _toy()
+    got = connectome.make_excitatory(con, con.pre_class == "glut")
+    np.testing.assert_array_equal(got.sign, [1, 1, -1, 1, 1])
+    np.testing.assert_array_equal(got.synapses, con.synapses)
+    np.testing.assert_array_equal(con.sign, [1, 1, -1, -1, 1])

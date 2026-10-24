@@ -1,0 +1,37 @@
+{
+  "title": "Embodied fly, stage 2e: the Pugliese et al. (2025) firing-rate model on the male nerve cord: does the walking command produce a leg rhythm, does it alternate, and does it need the three-neuron rhythm generator? (SIMULATED, fictive: no body)",
+  "registered": "2026-10-24",
+  "status": "registered before any rate-model simulation",
+  "parent": "preregistration/embodied_stage2d_glutamate_sign.json",
+  "relation_to_parents": "Stages 2a, 2c and 2d (leaky integrate-and-fire neurons) failed and stay failed. Pugliese et al. 2025 (bioRxiv 10.1101/2025.09.12.675944; Tuthill and Brunton labs) report that a firing-rate model of the MANC nerve cord, driven by DNg100 (BDN2), produces leg motor rhythms through a three-neuron circuit (IN17A001, INXXX466, IN16B036), in four connectomes. This stage reimplements their model from the paper and its public configuration (their code has no licence and is not used) and runs it, with their published parameters and nothing tuned, on the stage-1c male nerve cord.",
+  "seen_before_registration": [
+    "every result of stages 2a-2d and the stage-2c flexor diagnostic",
+    "literature (Pugliese et al. 2025, preprint and the configuration files of github.com/smpuglie/Pugliese_cpg_2025): the rate equation tau dr/dt = -r + max(0, r_max tanh((a / r_max)(I + W r - theta))), W = 0.03 x signed synapse count (cholinergic +, GABAergic and glutamatergic -), connections below 5 synapses dropped; per neuron tau ~ N(0.02, 0.002) s, a ~ N(1, 0.1), theta ~ N(7.5, 0.6), r_max ~ N(200, 10) Hz, truncated at zero, redrawn per replicate, a divided and theta multiplied by the neuron's median-normalized size; DNg100 driven by a step input (250 in MANC, 150 in FANC); rhythm in leg motor neurons; left and right coxa promotor neurons without a consistent phase relation; the three-neuron circuit necessary and sufficient; DNb08 a second rhythm driver",
+    "data only: in the male CNS, IN17A001, INXXX466 and IN16B036 each have six neurons (three leg neuromeres, two sides), all vnc_intrinsic; DNg100 has two, DNb08 four; the male-CNS release has no neuron volumes (body-stats holds synapse counts)",
+    "no rate-model simulation has been run"
+  ],
+  "design": {
+    "network": "the stage-1c male nerve cord (24,015 neurons), connections with >= 5 synapses, signs as in every stage (consensus transmitter; GABA, glutamate, histamine inhibitory)",
+    "size": "deviation, stated: neuron size is the neuron's total synapse count (inputs plus outputs) in that network, median-normalized, because the male CNS release has no volumes; zero counts take the median",
+    "parameters": "per replicate and neuron: tau, a, theta, r_max drawn as Pugliese et al. (normal, redrawn while <= 0), then a / size and theta x size; synaptic scaling 0.03 for excitatory and inhibitory connections",
+    "replicates": "32 parameter draws (seeds 860-891); every condition uses the same 32 draws",
+    "drives": {"forward_walking": "DNg100, both", "grooming": "DNg62 + DNge078, both sides", "dnb08": "DNb08, all four (reported, no prediction)", "none": "no input"},
+    "input": "a step of 250 to each driven neuron from 0.02 s to the end (their MANC value); 150 (their FANC value) repeated as sensitivity for R1",
+    "lesion": "forward-walking drive with the 18 neurons of IN17A001, INXXX466 and IN16B036 held at rate 0",
+    "integration": "forward Euler, 0.1 ms step, rates from 0, 2 s; numerical check: the first replicate under forward walking at 0.05 ms must give an L1 flexor rhythmicity within 0.05, or the stage stops",
+    "signals": "for each leg, the tibia flexor pool and the tibia extensor pool (as stage 2a): mean rate over the pool's neurons at 1 ms, from 0.2 to 2.0 s",
+    "measures": "stage 2a's, unchanged: rhythmicity of the L1 flexor signal; phases (pools below 1 Hz have none); circular distances; the L1 flexor period (stage 2c); also reported: the number of neurons above 1 Hz, and the fraction of all leg motor neurons with rhythmicity >= 0.5"
+  },
+  "predictions": {
+    "R0_silent_without_drive": {"statement": "Without input no leg motor neuron is active", "test": "every one of the twelve pools below 0.01 Hz in every no-drive replicate"},
+    "R1_the_walking_command_makes_a_rhythm": {"statement": "Pugliese et al.'s result, in the male nerve cord: DNg100 drive makes the leg motor neurons rhythmic", "test": "median L1 flexor rhythmicity under forward walking >= 0.3, at input 250 and at input 150"},
+    "R2_more_than_grooming": {"statement": "As stage 2a's W1: the walking command's rhythm is stronger than the grooming neurons'", "test": "median L1 flexor rhythmicity under forward walking above the grooming median (input 250)"},
+    "R3_antagonists_alternate": {"statement": "As W2", "test": "median circular distance of phase(L1 flexor -> L1 extensor) from 0.5 <= 0.15"},
+    "R4_left_and_right_alternate": {"statement": "As W3 (Pugliese et al. found no consistent left-right phase; the test is kept as registered in stage 2a)", "test": "median circular distance of phase(L1 flexor -> R1 flexor) from 0.5 <= 0.15"},
+    "R5_a_tripod": {"statement": "As W4", "test": "median circular distance of phase(L1 -> L2 flexor) from 0.5 <= 0.15 and of phase(L1 -> L3 flexor) from 0 <= 0.15"},
+    "R6_the_rhythm_needs_the_three_neuron_circuit": {"statement": "Pugliese et al.'s necessity result, in the male nerve cord", "test": "with the 18 circuit neurons silenced, median L1 flexor rhythmicity under forward walking < 0.3 and at most half the intact median"},
+    "R7_a_fly_like_step_period": {"statement": "As stage 2c's A6", "test": "median L1 flexor period under forward walking between 60 ms (Mendes et al. 2013) and 200 ms (our bound)"}
+  },
+  "not_claimed_even_if_all_pass": "that the fly's nerve cord works this way, or that the parameters are the fly's: they are Pugliese et al.'s distributions, size is a stand-in, and there is no body or feedback; a pass of R1 and R6 means their result holds in an independent reimplementation on a different connectome; R3-R5 test what stage 2 asked for, coordinated walking",
+  "reporting": "Every prediction with its value and pass/fail, whichever way it falls; the numerical check; DNb08 and the input-150 sensitivity; the activity level."
+}

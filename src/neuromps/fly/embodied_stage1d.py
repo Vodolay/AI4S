@@ -27,8 +27,11 @@ LEGS = embodied_stage1c.LEGS
 CONTROLS = ("giant_fibre", "backward_walking", "forward_walking")
 
 
-def readouts(moves: list[dict]) -> pd.DataFrame:
-    """Per trial and activation scale: time near the head and rhythmicity."""
+def readouts(moves: list[dict], method: str = "registered") -> pd.DataFrame:
+    """Per trial and activation scale: time near the head and rhythmicity.
+
+    ``method="audited"`` uses the corrected rhythm measure of the rhythm-measure audit.
+    """
     return pd.DataFrame(
         [
             {
@@ -36,7 +39,11 @@ def readouts(moves: list[dict]) -> pd.DataFrame:
                 "seed": m["seed"],
                 "r_full": m["r_full"],
                 "time_near_head": kinematics.time_near_head(m["distance_mm"], NEAR_HEAD_MM),
-                "rhythmicity": kinematics.rhythmicity(m["distance_mm"]),
+                "rhythmicity": (
+                    kinematics.rhythm(m["distance_mm"])[0]
+                    if method == "audited"
+                    else kinematics.rhythmicity(m["distance_mm"])
+                ),
             }
             for m in moves
         ]

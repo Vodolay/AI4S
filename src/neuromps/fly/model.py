@@ -65,6 +65,10 @@ class FlyParams:
     gaba_scale: float = 1.0
     glut_scale: float = 1.0
     threshold_scale: float = 1.0
+    # spike-frequency adaptation (stage 2c): each spike adds `adapt_mv` to a current that
+    # decays with `adapt_tau_ms`; 0 leaves the published model unchanged
+    adapt_mv: float = 0.0
+    adapt_tau_ms: float = 100.0
 
     def as_record(self) -> dict:
         """Parameter dictionary for provenance."""
@@ -106,6 +110,13 @@ dg/dt = -g / tau : volt (unless refractory)
 rfc : second
 """
 
+ADAPTING_EQUATIONS = """
+dv/dt = (v_0 - v + g - a) / t_mbr : volt (unless refractory)
+dg/dt = -g / tau : volt (unless refractory)
+da/dt = -a / tau_a : volt
+rfc : second
+"""
+
 
 def _replay(neurons, replay: dict, params: FlyParams, b2) -> list:
     """Recorded spike trains delivered to chosen neurons, each spike a suprathreshold input.
@@ -142,12 +153,15 @@ def _network(con: Connectome, params: FlyParams, excite, excite2, b2, replay=Non
         "t_mbr": params.t_mbr_ms * ms,
         "tau": params.tau_ms * ms,
     }
+    adapting = params.adapt_mv > 0
+    if adapting:
+        namespace.update(b_a=params.adapt_mv * mv, tau_a=params.adapt_tau_ms * ms)
     neurons = b2.NeuronGroup(
         con.n_neurons,
-        EQUATIONS,
+        ADAPTING_EQUATIONS if adapting else EQUATIONS,
         method="linear",
         threshold="v > v_th",
-        reset="v = v_rst; g = 0 * mV",
+        reset="v = v_rst; g = 0 * mV" + ("; a += b_a" if adapting else ""),
         refractory="rfc",
         namespace=namespace,
         name="fly_neurons",

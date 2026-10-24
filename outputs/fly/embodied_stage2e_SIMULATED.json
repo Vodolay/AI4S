@@ -1,0 +1,162 @@
+{
+  "label": "SIMULATED firing-rate model (Pugliese et al.) of the male nerve cord",
+  "predictions": {
+    "R0_silent_without_drive": {
+      "test": "every one of the twelve pools below 0.01 Hz in every no-drive replicate",
+      "value": 0.0,
+      "outcome": "pass"
+    },
+    "R1_the_walking_command_makes_a_rhythm": {
+      "test": "median L1 flexor rhythmicity under forward walking >= 0.3, at input 250 and at input 150",
+      "value": {
+        "forward_walking": 0.0,
+        "forward_walking_150": 0.0
+      },
+      "outcome": "fail"
+    },
+    "R2_more_than_grooming": {
+      "test": "median L1 flexor rhythmicity under forward walking above the grooming median (input 250)",
+      "value": {
+        "forward_walking": 0.0,
+        "grooming": 0.2541
+      },
+      "outcome": "fail"
+    },
+    "R3_antagonists_alternate": {
+      "test": "median circular distance of phase(L1 flexor -> L1 extensor) from 0.5 <= 0.15",
+      "value": null,
+      "outcome": "fail"
+    },
+    "R4_left_and_right_alternate": {
+      "test": "median circular distance of phase(L1 flexor -> R1 flexor) from 0.5 <= 0.15",
+      "value": null,
+      "outcome": "fail"
+    },
+    "R5_a_tripod": {
+      "test": "median circular distance of phase(L1 -> L2 flexor) from 0.5 <= 0.15 and of phase(L1 -> L3 flexor) from 0 <= 0.15",
+      "value": {
+        "L1_L2_from_half": null,
+        "L1_L3_from_zero": null
+      },
+      "outcome": "fail"
+    },
+    "R6_the_rhythm_needs_the_three_neuron_circuit": {
+      "test": "with the 18 circuit neurons silenced, median L1 flexor rhythmicity under forward walking < 0.3 and at most half the intact median",
+      "value": {
+        "forward_walking": 0.0,
+        "lesion": 0.0
+      },
+      "outcome": "pass"
+    },
+    "R7_a_fly_like_step_period": {
+      "test": "median L1 flexor period under forward walking between 60 ms (Mendes et al. 2013) and 200 ms (our bound)",
+      "value": null,
+      "outcome": "fail"
+    }
+  },
+  "numerical_check": {
+    "rhythmicity_0.1ms": 0.0,
+    "rhythmicity_0.05ms": 0.0
+  },
+  "reported": {
+    "forward_walking": {
+      "rhythmicity_L1_flexor": 0.0,
+      "period_ms": null,
+      "active_neurons": 11,
+      "leg_mn_rhythmic_fraction": 0.0,
+      "flexor_hz": 0.05,
+      "extensor_hz": 0.0
+    },
+    "grooming": {
+      "rhythmicity_L1_flexor": 0.2541,
+      "period_ms": 50.0,
+      "active_neurons": 6911,
+      "leg_mn_rhythmic_fraction": 0.726,
+      "flexor_hz": 6.38,
+      "extensor_hz": 53.0
+    },
+    "dnb08": {
+      "rhythmicity_L1_flexor": 0.7367,
+      "period_ms": 50.0,
+      "active_neurons": 7055,
+      "leg_mn_rhythmic_fraction": 0.699,
+      "flexor_hz": 6.24,
+      "extensor_hz": 47.63
+    },
+    "none": {
+      "rhythmicity_L1_flexor": 0.0,
+      "period_ms": null,
+      "active_neurons": 0,
+      "leg_mn_rhythmic_fraction": null,
+      "flexor_hz": 0.0,
+      "extensor_hz": 0.0
+    },
+    "lesion": {
+      "rhythmicity_L1_flexor": 0.0,
+      "period_ms": null,
+      "active_neurons": 11,
+      "leg_mn_rhythmic_fraction": 0.0,
+      "flexor_hz": 0.05,
+      "extensor_hz": 0.0
+    },
+    "forward_walking_150": {
+      "rhythmicity_L1_flexor": 0.0,
+      "period_ms": null,
+      "active_neurons": 1,
+      "leg_mn_rhythmic_fraction": null,
+      "flexor_hz": 0.0,
+      "extensor_hz": 0.0
+    }
+  },
+  "exploratory_driven_neurons": {
+    "forward_walking": {
+      "size_median_normalized": [
+        17.8,
+        18.89
+      ],
+      "drive_only_rate_hz": [
+        6.54,
+        5.73
+      ]
+    },
+    "grooming": {
+      "size_median_normalized": [
+        4.32,
+        3.98,
+        4.69,
+        4.23
+      ],
+      "drive_only_rate_hz": [
+        49.32,
+        54.01,
+        45.06,
+        50.48
+      ]
+    },
+    "dnb08": {
+      "size_median_normalized": [
+        4.11,
+        4.01,
+        4.44,
+        4.54
+      ],
+      "drive_only_rate_hz": [
+        52.15,
+        53.44,
+        47.85,
+        46.74
+      ]
+    },
+    "network_size_quantiles": {
+      "q50": 1.0,
+      "q99": 11.86,
+      "q999": 19.31
+    }
+  },
+  "registration": {
+    "file": "preregistration/embodied_stage2e_rate_model_walking.json",
+    "sha256": "e08fe8755127246d40c28af0b7c215495fcd3c75cf2f34131e0189620a78fbc9",
+    "registered_in_commit": "21df803f52429e76a9ccd95053065ff6c04f8f7e",
+    "committed_at": "2026-10-24T15:40:28-04:00"
+  }
+}
