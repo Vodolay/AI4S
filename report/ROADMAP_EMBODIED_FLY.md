@@ -553,6 +553,35 @@ a brief imposed flexion of the tibia during the held reach, with recovery time a
 
 ![SIMULATED closed loop (male nerve cord, FlyMimic leg, claw-neuron feedback), grooming drive. Left: femur-tibia angle over one trial per arm. Right: every trial's median angle; resistance and sham shift it by thousandths of a radian.](../outputs/figures/embodied_stage3a_claw_feedback_SIMULATED.png){width=80%}
 
+**Stage 3b: a push on the tibia. The claw-neuron loop does not return it faster; the leg's
+return is set by its muscles (2 of 5).** During the held grooming reach a 20 ms torque flexed
+the tibia by a median
+0.628 <!-- metrics.json: embodied_stage3b.predictions.M0_the_push_moves_the_leg.value --> rad, so the precondition passes. The
+torque size came from a check on the leg alone. The sham kept the tonic claw feedback (the same
+seed's unperturbed resistance rates) and removed the part that follows the push. Resistance
+feedback did not speed the return. The leg came back
+32.0 <!-- metrics.json: embodied_stage3b.predictions.M1_feedback_speeds_the_return.value.resistance --> ms
+after the push, against
+30.0 <!-- metrics.json: embodied_stage3b.predictions.M1_feedback_speeds_the_return.value.open --> ms open loop, so the
+contingency test is uninterpretable. The opposite assignment was, if anything, slightly faster
+(27.5 <!-- metrics.json: embodied_stage3b.predictions.M3_the_opposite_assignment_does_not_speed_it.value.assistance --> ms),
+failing its prediction. The reach survives. In the traces the resistance and sham arms coincide:
+the part of the feedback that follows the push changes nothing measurable. The steady part acts
+instead. It lowers the extensor's rate
+(33.0 <!-- metrics.json: embodied_stage3b.reported.r_full_20.resistance.grooming.tibia_extensor_hz -->
+against 36.5 <!-- metrics.json: embodied_stage3b.reported.r_full_20.open.grooming.tibia_extensor_hz --> Hz) and so lets the push flex the leg
+further in some trials. **One data limit stands out.** The male CNS traces few proprioceptors for
+the front leg: 20 <!-- metrics.json: embodied_stage3b_check.chordotonal_by_leg.front_L.chordotonal --> chordotonal neurons and
+4 <!-- metrics.json: embodied_stage3b_check.chordotonal_by_leg.front_L.claw --> claw neurons on the left, against
+89 <!-- metrics.json: embodied_stage3b_check.chordotonal_by_leg.hind_L.chordotonal --> and 22 <!-- metrics.json: embodied_stage3b_check.chordotonal_by_leg.hind_L.claw --> for the left hind leg. A real
+femoral chordotonal organ has far more. A four-neuron pathway may simply be too thin to shape
+the movement. Stage 3's go/no-go has now failed twice. Feedback through this pathway changes the
+motor neurons but not how the front leg moves. Closing the loop where the sensors are well
+traced (the middle or hind legs) needs a muscle-driven body for those legs. FlyMimic models only
+the front leg, and flybody's legs are position-servoed.
+
+![SIMULATED push on the tibia during the grooming hold. Left: one seed per arm (the resistance trace lies under the sham). Right: every trial's recovery time; no arm returns faster than open loop.](../outputs/figures/embodied_stage3b_perturbation_SIMULATED.png){width=80%}
+
 ## 8. What carries over unchanged
 
 Pre-registration before every run; licensed data with checksums in the manifest; every reported

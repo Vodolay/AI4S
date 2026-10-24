@@ -215,5 +215,42 @@ def main(argv: list[str] | None = None) -> int:
     return 0
 
 
+def chordotonal_counts() -> dict:
+    """Exploratory (not registered): chordotonal-organ and claw neurons per leg nerve and side
+    in the male CNS, to show how thinly the front leg's proprioceptors are traced."""
+    from neuromps.fly import malecns
+
+    ann = malecns._annotations(malecns.RAW)
+    sensory = ann[ann["superclass"].astype(str) == "vnc_sensory"]
+    nerves = {"ProLN": "front", "MesoLN": "middle", "MetaLN": "hind"}
+    out: dict = {}
+    for nerve, leg in nerves.items():
+        for side in ("L", "R"):
+            rows = sensory[
+                (sensory["entryNerve"].astype(str) == nerve)
+                & (sensory["rootSide"].astype(str) == side)
+            ]
+            cho = rows[rows["subclass"].astype(str) == "chordotonal organ"]
+            claw = cho[cho["type"].astype(str).isin(list(s3a.CLAW))]
+            out[f"{leg}_{side}"] = {"chordotonal": int(len(cho)), "claw": int(len(claw))}
+    return out
+
+
+def check() -> int:
+    """Write the exploratory chordotonal counts to metrics.json."""
+    result = {
+        "label": "EXPLORATORY, not registered: proprioceptor tracing per leg (male CNS)",
+        "chordotonal_by_leg": chordotonal_counts(),
+    }
+    (outputs_dir() / "fly" / "embodied_stage3b_check.json").write_text(
+        json.dumps(result, indent=2) + "\n"
+    )
+    update_metrics("embodied_stage3b_check", result)
+    print(json.dumps(result, indent=1))
+    return 0
+
+
 if __name__ == "__main__":
-    raise SystemExit(main())
+    import sys
+
+    raise SystemExit(check() if "--check" in sys.argv else main())

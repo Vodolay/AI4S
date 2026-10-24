@@ -6944,6 +6944,215 @@
       }
     }
   },
+  "embodied_stage3b": {
+    "label": "SIMULATED perturbation test of the claw-neuron reflex",
+    "predictions": {
+      "M0_the_push_moves_the_leg": {
+        "outcome": "pass",
+        "test": "open-loop median excursion under grooming >= 0.2 rad; if not, M1-M3 are uninterpretable",
+        "value": 0.628
+      },
+      "M1_feedback_speeds_the_return": {
+        "outcome": "fail",
+        "test": "median recovery time in the resistance arm <= 0.8 x the open-loop median (grooming)",
+        "value": {
+          "open": 30.0,
+          "resistance": 32.0
+        }
+      },
+      "M2_the_speed_needs_the_loop": {
+        "outcome": "uninterpretable",
+        "test": "interpretable only if M1 passes: median recovery time in the resistance arm < the sham median",
+        "value": {
+          "resistance": 32.0,
+          "sham": 33.5
+        }
+      },
+      "M3_the_opposite_assignment_does_not_speed_it": {
+        "outcome": "fail",
+        "test": "median recovery time in the assistance arm >= the open-loop median",
+        "value": {
+          "assistance": 27.5,
+          "open": 30.0
+        }
+      },
+      "M4_the_reach_survives": {
+        "outcome": "pass",
+        "test": "median time near the head in the resistance arm under grooming >= 0.5 and at least 0.25 above the no-drive median",
+        "value": {
+          "grooming": 0.9665,
+          "none": 0.017
+        }
+      }
+    },
+    "registration": {
+      "committed_at": "2026-10-24T19:24:47-04:00",
+      "file": "preregistration/embodied_stage3b_perturbation_reflex.json",
+      "registered_in_commit": "cd0a7112febd135ca130f4eaa030c1c3eeba300f",
+      "sha256": "8d68f86dc1daa55a84f3f3546095add65c499f4e62c59dca3940dd44d0ae9f58"
+    },
+    "reported": {
+      "r_full_20": {
+        "assistance": {
+          "grooming": {
+            "claw_mean_hz": 30.1151,
+            "excursion_rad": 0.6273,
+            "pre_rad": 0.6336,
+            "recovery_ms": 27.5,
+            "tibia_extensor_hz": 41.75,
+            "tibia_flexor_hz": 0.3,
+            "time_near_head": 0.967
+          },
+          "none": {
+            "claw_mean_hz": 17.443,
+            "excursion_rad": 2.1315,
+            "pre_rad": 1.6106,
+            "recovery_ms": 137.0,
+            "tibia_extensor_hz": 0.0,
+            "tibia_flexor_hz": 1.1,
+            "time_near_head": 0.016
+          }
+        },
+        "open": {
+          "grooming": {
+            "claw_mean_hz": 0.0,
+            "excursion_rad": 0.628,
+            "pre_rad": 0.6347,
+            "recovery_ms": 30.0,
+            "tibia_extensor_hz": 36.5,
+            "tibia_flexor_hz": 0.5,
+            "time_near_head": 0.967
+          },
+          "none": {
+            "claw_mean_hz": 0.0,
+            "excursion_rad": 2.1315,
+            "pre_rad": 1.6106,
+            "recovery_ms": 88.0,
+            "tibia_extensor_hz": 0.0,
+            "tibia_flexor_hz": 0.0,
+            "time_near_head": 0.017
+          }
+        },
+        "resistance": {
+          "grooming": {
+            "claw_mean_hz": 88.9666,
+            "excursion_rad": 0.6302,
+            "pre_rad": 0.6364,
+            "recovery_ms": 32.0,
+            "tibia_extensor_hz": 33.0,
+            "tibia_flexor_hz": 2.7,
+            "time_near_head": 0.9665
+          },
+          "none": {
+            "claw_mean_hz": 5.5927,
+            "excursion_rad": 2.1315,
+            "pre_rad": 1.6106,
+            "recovery_ms": 88.0,
+            "tibia_extensor_hz": 0.0,
+            "tibia_flexor_hz": 0.0,
+            "time_near_head": 0.017
+          }
+        },
+        "resistance_unperturbed": {
+          "grooming": {
+            "claw_mean_hz": 90.7097,
+            "excursion_rad": 0.0798,
+            "pre_rad": 0.6364,
+            "recovery_ms": 0.0,
+            "tibia_extensor_hz": 31.5,
+            "tibia_flexor_hz": 2.9,
+            "time_near_head": 0.967
+          }
+        },
+        "sham": {
+          "grooming": {
+            "claw_mean_hz": 90.7097,
+            "excursion_rad": 0.6302,
+            "pre_rad": 0.6364,
+            "recovery_ms": 33.5,
+            "tibia_extensor_hz": 31.5,
+            "tibia_flexor_hz": 2.9,
+            "time_near_head": 0.9665
+          }
+        }
+      },
+      "r_full_80": {
+        "open": {
+          "grooming": {
+            "claw_mean_hz": 0.0,
+            "excursion_rad": 2.8513,
+            "pre_rad": 0.6627,
+            "recovery_ms": 134.5,
+            "tibia_extensor_hz": 36.5,
+            "tibia_flexor_hz": 0.5,
+            "time_near_head": 0.9405
+          }
+        },
+        "resistance": {
+          "grooming": {
+            "claw_mean_hz": 74.2407,
+            "excursion_rad": 3.1931,
+            "pre_rad": 0.687,
+            "recovery_ms": 131.5,
+            "tibia_extensor_hz": 29.25,
+            "tibia_flexor_hz": 3.2,
+            "time_near_head": 0.915
+          }
+        },
+        "resistance_unperturbed": {
+          "grooming": {
+            "claw_mean_hz": 82.0752,
+            "excursion_rad": 0.1873,
+            "pre_rad": 0.687,
+            "recovery_ms": 17.5,
+            "tibia_extensor_hz": 28.25,
+            "tibia_flexor_hz": 3.3,
+            "time_near_head": 0.959
+          }
+        },
+        "sham": {
+          "grooming": {
+            "claw_mean_hz": 82.0752,
+            "excursion_rad": 3.1931,
+            "pre_rad": 0.687,
+            "recovery_ms": 136.5,
+            "tibia_extensor_hz": 28.25,
+            "tibia_flexor_hz": 3.3,
+            "time_near_head": 0.9145
+          }
+        }
+      }
+    }
+  },
+  "embodied_stage3b_check": {
+    "chordotonal_by_leg": {
+      "front_L": {
+        "chordotonal": 20,
+        "claw": 4
+      },
+      "front_R": {
+        "chordotonal": 10,
+        "claw": 1
+      },
+      "hind_L": {
+        "chordotonal": 89,
+        "claw": 22
+      },
+      "hind_R": {
+        "chordotonal": 96,
+        "claw": 25
+      },
+      "middle_L": {
+        "chordotonal": 76,
+        "claw": 22
+      },
+      "middle_R": {
+        "chordotonal": 79,
+        "claw": 17
+      }
+    },
+    "label": "EXPLORATORY, not registered: proprioceptor tracing per leg (male CNS)"
+  },
   "extractor_agreement": {
     "by_feature": {
       "active_electrodes": {

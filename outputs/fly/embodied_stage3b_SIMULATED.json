@@ -1,0 +1,180 @@
+{
+  "label": "SIMULATED perturbation test of the claw-neuron reflex",
+  "predictions": {
+    "M0_the_push_moves_the_leg": {
+      "test": "open-loop median excursion under grooming >= 0.2 rad; if not, M1-M3 are uninterpretable",
+      "value": 0.628,
+      "outcome": "pass"
+    },
+    "M1_feedback_speeds_the_return": {
+      "test": "median recovery time in the resistance arm <= 0.8 x the open-loop median (grooming)",
+      "value": {
+        "open": 30.0,
+        "resistance": 32.0
+      },
+      "outcome": "fail"
+    },
+    "M2_the_speed_needs_the_loop": {
+      "test": "interpretable only if M1 passes: median recovery time in the resistance arm < the sham median",
+      "value": {
+        "resistance": 32.0,
+        "sham": 33.5
+      },
+      "outcome": "uninterpretable"
+    },
+    "M3_the_opposite_assignment_does_not_speed_it": {
+      "test": "median recovery time in the assistance arm >= the open-loop median",
+      "value": {
+        "open": 30.0,
+        "assistance": 27.5
+      },
+      "outcome": "fail"
+    },
+    "M4_the_reach_survives": {
+      "test": "median time near the head in the resistance arm under grooming >= 0.5 and at least 0.25 above the no-drive median",
+      "value": {
+        "grooming": 0.9665,
+        "none": 0.017
+      },
+      "outcome": "pass"
+    }
+  },
+  "reported": {
+    "r_full_20": {
+      "open": {
+        "grooming": {
+          "pre_rad": 0.6347,
+          "excursion_rad": 0.628,
+          "recovery_ms": 30.0,
+          "time_near_head": 0.967,
+          "tibia_flexor_hz": 0.5,
+          "tibia_extensor_hz": 36.5,
+          "claw_mean_hz": 0.0
+        },
+        "none": {
+          "pre_rad": 1.6106,
+          "excursion_rad": 2.1315,
+          "recovery_ms": 88.0,
+          "time_near_head": 0.017,
+          "tibia_flexor_hz": 0.0,
+          "tibia_extensor_hz": 0.0,
+          "claw_mean_hz": 0.0
+        }
+      },
+      "resistance": {
+        "grooming": {
+          "pre_rad": 0.6364,
+          "excursion_rad": 0.6302,
+          "recovery_ms": 32.0,
+          "time_near_head": 0.9665,
+          "tibia_flexor_hz": 2.7,
+          "tibia_extensor_hz": 33.0,
+          "claw_mean_hz": 88.9666
+        },
+        "none": {
+          "pre_rad": 1.6106,
+          "excursion_rad": 2.1315,
+          "recovery_ms": 88.0,
+          "time_near_head": 0.017,
+          "tibia_flexor_hz": 0.0,
+          "tibia_extensor_hz": 0.0,
+          "claw_mean_hz": 5.5927
+        }
+      },
+      "assistance": {
+        "grooming": {
+          "pre_rad": 0.6336,
+          "excursion_rad": 0.6273,
+          "recovery_ms": 27.5,
+          "time_near_head": 0.967,
+          "tibia_flexor_hz": 0.3,
+          "tibia_extensor_hz": 41.75,
+          "claw_mean_hz": 30.1151
+        },
+        "none": {
+          "pre_rad": 1.6106,
+          "excursion_rad": 2.1315,
+          "recovery_ms": 137.0,
+          "time_near_head": 0.016,
+          "tibia_flexor_hz": 1.1,
+          "tibia_extensor_hz": 0.0,
+          "claw_mean_hz": 17.443
+        }
+      },
+      "resistance_unperturbed": {
+        "grooming": {
+          "pre_rad": 0.6364,
+          "excursion_rad": 0.0798,
+          "recovery_ms": 0.0,
+          "time_near_head": 0.967,
+          "tibia_flexor_hz": 2.9,
+          "tibia_extensor_hz": 31.5,
+          "claw_mean_hz": 90.7097
+        }
+      },
+      "sham": {
+        "grooming": {
+          "pre_rad": 0.6364,
+          "excursion_rad": 0.6302,
+          "recovery_ms": 33.5,
+          "time_near_head": 0.9665,
+          "tibia_flexor_hz": 2.9,
+          "tibia_extensor_hz": 31.5,
+          "claw_mean_hz": 90.7097
+        }
+      }
+    },
+    "r_full_80": {
+      "open": {
+        "grooming": {
+          "pre_rad": 0.6627,
+          "excursion_rad": 2.8513,
+          "recovery_ms": 134.5,
+          "time_near_head": 0.9405,
+          "tibia_flexor_hz": 0.5,
+          "tibia_extensor_hz": 36.5,
+          "claw_mean_hz": 0.0
+        }
+      },
+      "resistance": {
+        "grooming": {
+          "pre_rad": 0.687,
+          "excursion_rad": 3.1931,
+          "recovery_ms": 131.5,
+          "time_near_head": 0.915,
+          "tibia_flexor_hz": 3.2,
+          "tibia_extensor_hz": 29.25,
+          "claw_mean_hz": 74.2407
+        }
+      },
+      "resistance_unperturbed": {
+        "grooming": {
+          "pre_rad": 0.687,
+          "excursion_rad": 0.1873,
+          "recovery_ms": 17.5,
+          "time_near_head": 0.959,
+          "tibia_flexor_hz": 3.3,
+          "tibia_extensor_hz": 28.25,
+          "claw_mean_hz": 82.0752
+        }
+      },
+      "sham": {
+        "grooming": {
+          "pre_rad": 0.687,
+          "excursion_rad": 3.1931,
+          "recovery_ms": 136.5,
+          "time_near_head": 0.9145,
+          "tibia_flexor_hz": 3.3,
+          "tibia_extensor_hz": 28.25,
+          "claw_mean_hz": 82.0752
+        }
+      }
+    }
+  },
+  "registration": {
+    "file": "preregistration/embodied_stage3b_perturbation_reflex.json",
+    "sha256": "8d68f86dc1daa55a84f3f3546095add65c499f4e62c59dca3940dd44d0ae9f58",
+    "registered_in_commit": "cd0a7112febd135ca130f4eaa030c1c3eeba300f",
+    "committed_at": "2026-10-24T19:24:47-04:00"
+  }
+}

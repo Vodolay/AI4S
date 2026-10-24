@@ -35,6 +35,7 @@ the bottom.*
 | 24 | 2026-10-24 | Embodied stage 2g: the published front-leg network, rebuilt from the male CNS | precondition fails narrowly (12 and 15 of 32); exploratory: a regular motor rhythm in the feasible draws | `00cefa1` … this branch |
 | 25 | 2026-10-24 | Embodied stage 2h: the front-leg network with a fine input search | 4 of 7 (synapse-count sizes) and 5 of 7 (no size scaling) pass, one of them vacuously in each; a leg rhythm under DNg100; circuit-dependent without size scaling; no alternation | `c6d7874` … this branch |
 | 26 | 2026-10-24 | Embodied stage 3a: the first closed loop (claw-neuron feedback, grooming leg) | 3 of 5; go/no-go fails: feedback shifts motor pools toward resistance but barely moves a held leg, and a sham does the same | `5cdeba9` … this branch |
+| 27 | 2026-10-24 | Embodied stage 3b: a push on the tibia during the grooming hold | 2 of 5; the loop does not speed the return; the front leg's proprioceptors are thinly traced | `cd0a711` … this branch |
 
 ---
 
@@ -628,6 +629,25 @@ perturbation test is next.*
   43.25 <!-- metrics.json: embodied_stage3a.reported.open.grooming.tibia_extensor_hz --> to
   31.75 <!-- metrics.json: embodied_stage3a.reported.resistance.grooming.tibia_extensor_hz --> Hz under resistance, matched by the sham.
 - **Evidence.** Roadmap §7 and figure; `outputs/fly/embodied_stage3a_*`.
+
+---
+
+## 27. A push on the leg: the loop does not push back
+
+**Slide message:** *We pushed the simulated leg and timed its return. The position sensors'
+feedback did not bring it back faster: the muscles alone set the return. The front leg's sensors
+are thinly traced in this connectome, about one fifth of the hind leg's. That is the limit to
+state, and to fix with a better-traced leg.*
+
+- **What changed.** `body.Session.step` accepts joint torques; `closed_loop.Loop` takes a
+  perturbation window; `src/neuromps/fly/embodied_stage3b.py` runs the registered perturbation
+  test; `--check` counts proprioceptors per leg.
+- **Effect.** Push flexes the tibia 0.628 <!-- metrics.json: embodied_stage3b.predictions.M0_the_push_moves_the_leg.value --> rad;
+  return 32.0 <!-- metrics.json: embodied_stage3b.predictions.M1_feedback_speeds_the_return.value.resistance --> ms with
+  resistance feedback against 30.0 <!-- metrics.json: embodied_stage3b.predictions.M1_feedback_speeds_the_return.value.open -->
+  open loop (2 of 5 pass; contingency uninterpretable). Left front leg: 4 <!-- metrics.json: embodied_stage3b_check.chordotonal_by_leg.front_L.claw -->
+  claw neurons; left hind leg: 22 <!-- metrics.json: embodied_stage3b_check.chordotonal_by_leg.hind_L.claw -->.
+- **Evidence.** Roadmap §7 and figure; `outputs/fly/embodied_stage3b_*`.
 
 ---
 
