@@ -218,6 +218,24 @@ def release_coverage(raw: Path = RAW) -> dict:
     }
 
 
+def rewire(con: Connectome, seed: int = 0) -> Connectome:
+    """A degree-preserving control: postsynaptic partners permuted across all connections.
+
+    Every neuron keeps its numbers of outgoing and incoming connections, and every
+    connection keeps its weight, sign and transmitter class with its presynaptic neuron.
+    """
+    post = np.random.default_rng(seed).permutation(con.post)
+    return Connectome(
+        root_ids=con.root_ids,
+        pre=con.pre,
+        post=post,
+        synapses=con.synapses,
+        sign=con.sign,
+        pre_class=con.pre_class,
+        neuropil=con.neuropil,
+    )
+
+
 def subnetwork(con: Connectome, keep: np.ndarray) -> Connectome:
     """The neurons where `keep` is true, renumbered, with the connections among them only."""
     keep = np.asarray(keep, dtype=bool)
