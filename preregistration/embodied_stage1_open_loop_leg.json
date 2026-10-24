@@ -1,0 +1,44 @@
+{
+  "title": "Embodied fly, stage 1: does antennal drive move the front leg toward the head? (SIMULATED, open loop)",
+  "registered": "2026-10-24",
+  "status": "registered before any network spike train was turned into muscle activation",
+  "roadmap": "report/ROADMAP_EMBODIED_FLY.md, stage 1 (open-loop legs)",
+  "seen_before_registration": [
+    "MaleCNS motor results (fly_motor_readout): under JO-CE drive the front-leg motor pool fires at 5.0 Hz on average (both sides), under sugar 2.4 Hz; no per-type rates were looked at",
+    "FlyMimic body, no network: passive rest puts the left claw 1.528 mm from the left antennal pedicel; the shipped motion-capture clip (real fly, 225 frames) spans 1.03-2.01 mm, so it is not antennal grooming",
+    "single-muscle checks at full activation: trochanter flexors bring the claw to 0.71-0.95 mm, promotors to about 1.16-1.18 mm, accessory trochanter flexor 1.16 mm, tibia extensor 1.33 mm; trochanter and sterno-tergo-trochanter extensors move it away (1.9-2.1 mm)"
+  ],
+  "design": {
+    "network": "the MaleCNS model of fly_malecns_replication.json (Traced bodies, consensus signs, Shiu constants), no drug, no background",
+    "drives": {"jon_ce": "the matched JO-CE set at 150 Hz (left antenna)", "sugar": "the matched sugar set at 150 Hz (control drive)", "none": "no drive"},
+    "trials": "8 per drive, 1 s each, seeds 700-707",
+    "motor_neurons": "MaleCNS motor neurons with subclass fl and somaSide L (the left front leg)",
+    "map": {
+      "Tergopleural/Pleural promotor MN": ["LFC_tergopleural_promotor_a", "LFC_tergopleural_promotor_b", "LFC_pleural_promotor"],
+      "Pleural remotor/abductor MN": ["LFC_pleural_remotor_and_abductor"],
+      "Sternal anterior rotator MN": ["LFC_sternal_anterior_rotator"],
+      "Sternal posterior rotator MN": ["LFC_sternal_posterior_rotator"],
+      "Sternal adductor MN": ["LFC_sternal_adductor"],
+      "Tr flexor MN": ["LFF_trochanter_flexor_a", "LFF_trochanter_flexor_b"],
+      "Acc. tr flexor MN": ["LFF_accesory_trochanter_flexor"],
+      "Tr extensor MN": ["LFF_trochanter_extensor"],
+      "Sternotrochanter MN": ["LFF_sterno-tergo-trochanter_extensor_a", "LFF_sterno-tergo-trochanter_extensor_b"],
+      "Tergotr. MN": ["LFF_sterno-tergo-trochanter_extensor_a", "LFF_sterno-tergo-trochanter_extensor_b"],
+      "Ti flexor MN": ["LFTibia_flex_93434"],
+      "Acc. ti flexor MN": ["LFTibia_flex_93434"],
+      "Ti extensor MN": ["LFTibia_extensor_93932"],
+      "unmapped (no muscle in the model)": ["Fe reductor MN", "Ta depressor MN", "Ta levator MN", "ltm MN", "ltm1-tibia MN", "ltm2-femur MN"]
+    },
+    "rate": "each motor neuron's spike train filtered with an exponential kernel, tau 20 ms, giving a rate in Hz",
+    "activation": "per muscle, the mean rate of its motor neurons divided by r_full, clipped to [1e-4, 1]; r_full = 20 Hz primary, 10 and 40 Hz as sensitivity",
+    "body": "FlyMimic (FlyGym commit a63dc91) in MuJoCo 3.16.0, its own timestep (0.1 ms); 0.2 s passive settle at activation 1e-4, then the 1 s activation time course, updated every 1 ms; no sensory feedback (open loop)",
+    "readout": "distance from the left claw (LFTarsus5) to the left antennal pedicel (LPedicel), per trial its minimum over the driven second"
+  },
+  "predictions": {
+    "S1a_antennal_drive_brings_the_claw_to_the_head": {"statement": "Under JO-CE drive the claw comes closer to the antenna than under sugar drive or no drive", "test": "median over trials of the minimum claw-antenna distance under JO-CE is at least 0.2 mm below both the sugar and the no-drive medians (r_full 20 Hz)"},
+    "S1b_it_is_a_movement_toward_the_head": {"statement": "The approach is a movement toward the head, not a shift of the rest posture away from it", "test": "minimum claw-antenna distance under JO-CE below the passive rest (1.528 mm) in at least 6 of 8 trials"},
+    "S1c_the_activation_scale_does_not_decide_it": {"statement": "S1a holds at the other two activation scales", "test": "S1a's test holds at r_full 10 Hz and at 40 Hz"}
+  },
+  "not_claimed_even_if_all_pass": "that the movement is grooming as a fly performs it: the model is open loop, has one muscle-driven leg, no tarsal muscles, and motor neurons firing far below physiological rates",
+  "reporting": "Every prediction with its value and pass/fail, whichever way it falls; the motor-neuron coverage of the map is reported."
+}
