@@ -1,0 +1,42 @@
+{
+  "title": "Embodied fly, stage 2c: does spike-frequency adaptation let the male nerve cord turn its walking command into a coordinated rhythm? A registered sweep, a selection rule, and a confirmatory test on fresh seeds (SIMULATED, fictive: no body)",
+  "registered": "2026-10-24",
+  "status": "registered before any simulation with adaptation",
+  "parent": "preregistration/embodied_stage2a_fictive_walking.json",
+  "relation_to_parent": "Stage 2a failed (W0 pass, W1-W4 fail) and stays failed: the connectome-only nerve cord fires the tibia extensors tonically and leaves the flexors silent. The roadmap (§6) named this risk and its response: add the intrinsic currents rhythm generation needs, as a stated model change. This stage adds one, spike-frequency adaptation, in every nerve-cord neuron. Its two parameters have no connectome basis and no published value was found for fly leg motor neurons or premotor interneurons (Azevedo et al. 2020, eLife 9:e56754, checked), so they are swept over a registered grid, the whole sweep is reported, one cell is chosen by a registered rule on exploration seeds, and the predictions are tested at that cell on fresh seeds, against a rewired control.",
+  "seen_before_registration": [
+    "every stage-2a result (seeds 800-807): under BDN2 drive the tibia extensors fire tonically (left middle leg 54.12 Hz) and the flexors are silent on five of six legs",
+    "literature: Mendes et al. 2013 (eLife 2:e00231), freely walking Drosophila: step period falls with speed to a plateau of about 60 ms (about 16 Hz) at high speed; contralateral legs of a segment keep a phase of 0.5 +- 0.05; tripod coordination at high speed",
+    "no simulation with adaptation has been run"
+  ],
+  "model_change": {
+    "equations": "dv/dt = (v_0 - v + g - a) / t_mbr; dg/dt = -g / tau; da/dt = -a / tau_a; on a spike, v = v_rst, g = 0 and a += b_a. With b_a = 0 the model is exactly the published one (tested).",
+    "where": "every neuron of the stage-1c nerve cord (male CNS, brain removed, w_syn 0.275 mV, Shiu constants otherwise)"
+  },
+  "sweep": {
+    "grid": {"b_a_mv": [0.5, 1, 2, 4, 8, 16], "tau_a_ms": [25, 50, 100, 200, 400, 800]},
+    "reference": "b_a = 0 (the stage-2a model) run on the same seeds",
+    "drives": "forward_walking (DNg100, BDN2) and grooming (DNg62 + DNge078), both sides, 150 Hz",
+    "seeds": "820-823 (exploration)",
+    "trials": "2 s; signals and measures exactly as stage 2a (tibia flexor and extensor pools of six legs, tau 20 ms rates, 0.2-2.0 s; rhythmicity; phases; pools below 1 Hz have no phase)",
+    "per_cell_report": "the four stage-2a walking tests W1-W4 (W4 as one), their values, the period of the left front flexor rhythm, and the extensor and flexor pool rates; all 36 cells and the reference, in a table and a figure"
+  },
+  "selection_rule": "the cell passing the most of W1-W4 on the exploration seeds; ties broken by the smallest sum of the circular distances of W2, W3, W4 (L1->L2) and W4 (L1->L3) from their targets (an undefined phase counts 0.5), then by the smaller b_a, then the smaller tau_a. If the best cell passes none, the stage stops and A1-A6 fail.",
+  "confirmation": {
+    "cell": "the selected cell",
+    "seeds": "830-837 (fresh)",
+    "drives": "forward_walking, grooming, none; backward_walking (MDN) reported without prediction",
+    "control": "the same nerve cord rewired: postsynaptic partners permuted across all connections (random seed 0), which keeps every neuron's number of outgoing and incoming connections, every connection's weight and sign with its presynaptic neuron, the drive and the motor pools; same adaptation, same seeds"
+  },
+  "predictions": {
+    "A0_silent_without_drive": {"statement": "Without drive no leg motor neuron fires", "test": "no spikes in any of the twelve pools in any no-drive trial (selected cell)"},
+    "A1_the_walking_command_makes_a_rhythm": {"statement": "As stage 2a's W1", "test": "median rhythmicity of the L1 flexor pool under forward walking >= 0.3 and above the grooming median"},
+    "A2_antagonists_alternate": {"statement": "As W2", "test": "median circular distance of phase(L1 flexor -> L1 extensor) from 0.5 <= 0.15"},
+    "A3_left_and_right_alternate": {"statement": "As W3", "test": "median circular distance of phase(L1 flexor -> R1 flexor) from 0.5 <= 0.15"},
+    "A4_a_tripod": {"statement": "As W4", "test": "median circular distance of phase(L1 -> L2 flexor) from 0.5 <= 0.15 and of phase(L1 -> L3 flexor) from 0 <= 0.15"},
+    "A5_the_coordination_comes_from_the_wiring": {"statement": "Adaptation alone, in a network with the same degrees and weights but rewired, does not coordinate the legs as well", "test": "the intact cord passes at least one of A2-A4, and the rewired cord passes fewer of A2-A4 than the intact cord"},
+    "A6_a_fly_like_step_period": {"statement": "The rhythm runs at a walking fly's step period", "test": "median period of the L1 flexor rhythm under forward walking (lag of the largest autocorrelation within 50-500 ms) between 60 ms (the high-speed plateau of Mendes et al. 2013) and 200 ms (our bound for slow walking; no published lower step frequency was found)"}
+  },
+  "not_claimed_even_if_all_pass": "that the fly's nerve cord generates walking this way, or that the selected parameters are the fly's: they are chosen from a sweep, adaptation is one of several candidate mechanisms, and there is no body or sensory feedback; a pass means that with one stated intrinsic property added, the male nerve cord's wiring turns its walking command into a coordinated rhythm at a fly-like period, and a rewired cord does not",
+  "reporting": "The whole sweep (every cell, every test, pass or fail), the selected cell, and every prediction with its value and pass/fail, whichever way it falls."
+}
