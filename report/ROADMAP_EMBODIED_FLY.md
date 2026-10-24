@@ -275,6 +275,39 @@ proboscis.
 
 ![Proboscis extension in the SIMULATED FlyWire brain -> proboscis motor neurons -> flybody chain: sugar extends the proboscis fully and holds it; adding bitter input lets it start and then holds it back; bitter, antennal or no input leave it at rest.](../outputs/figures/embodied_stage2b_proboscis_SIMULATED.png){width=70%}
 
+**Stage 2c: adding spike-frequency adaptation does not make the nerve cord walk (stopped as
+registered).** §6 committed to adding an intrinsic property if stage 2a failed. Adaptation's two
+parameters have no published fly value, so they were swept over a registered grid of
+36 <!-- metrics.json: embodied_stage2c.sweep.grid_size --> cells. The registration fixed in advance a rule for
+choosing one cell and a confirmatory test on fresh seeds, with a rewired control and a comparison
+with the published step period. No cell passes any of the four walking tests (rhythm:
+0 <!-- metrics.json: embodied_stage2c.sweep.cells_passing.W1_the_walking_command_makes_a_rhythm --> cells), so
+the rule selects nothing, the stage stops, and its seven predictions fail. Adaptation does act:
+the tibia extensor pools fall from
+21.3 <!-- metrics.json: embodied_stage2c.sweep.cells.1.extensor_hz --> Hz (weakest, fastest adaptation) to
+0.55 <!-- metrics.json: embodied_stage2c.sweep.cells.36.extensor_hz --> Hz (strongest, slowest). But the flexor pools never exceed
+0.22 <!-- metrics.json: embodied_stage2c.sweep.cells.6.flexor_hz --> Hz in any cell, so there is nothing for the extensors to
+alternate with. An exploratory diagnostic (not registered; exploration seeds) shows why. With
+every inhibitory connection removed the flexor pools fire at
+151.341 <!-- metrics.json: embodied_stage2c_diagnostic.pool_rates_hz.no_inhibition.flexor --> Hz, so excitation does reach them.
+Of the neurons the walking command activates, each flexor motor neuron receives
+274.73 <!-- metrics.json: embodied_stage2c_diagnostic.flexor_inputs.from_active.inhibitory_per_neuron --> inhibitory against
+130.78 <!-- metrics.json: embodied_stage2c_diagnostic.flexor_inputs.from_active.excitatory_per_neuron --> excitatory synapses, while each
+extensor motor neuron receives
+754.17 <!-- metrics.json: embodied_stage2c_diagnostic.extensor_inputs.from_active.excitatory_per_neuron --> excitatory against
+698.17 <!-- metrics.json: embodied_stage2c_diagnostic.extensor_inputs.from_active.inhibitory_per_neuron --> inhibitory. GABA alone
+(182.68 <!-- metrics.json: embodied_stage2c_diagnostic.flexor_inputs.from_active.inhibitory_by_transmitter_per_neuron.gaba --> per flexor
+neuron) outweighs that excitation. Whether the flexors stay net-inhibited if glutamate excites
+depends on the model's rule that every glutamate synapse inhibits
+(92.05 <!-- metrics.json: embodied_stage2c_diagnostic.flexor_inputs.from_active.inhibitory_by_transmitter_per_neuron.glut --> per flexor
+neuron). Under the model's signs, the walking command's population holds the flexors down and
+drives the extensors. A rhythm then needs something that periodically releases the flexors,
+which uniform adaptation does not provide. Candidates for a registered next step are the
+glutamate sign rule (glutamate excites through some receptors in the fly nerve cord), sensory
+feedback from the leg (stage 3), or a different intrinsic property (post-inhibitory rebound).
+
+![The whole registered SIMULATED adaptation sweep: no cell passes a walking test; adaptation lowers the tibia extensor pools smoothly, while the flexor pools stay near zero everywhere.](../outputs/figures/embodied_stage2c_sweep_SIMULATED.png){width=95%}
+
 ## 8. What carries over unchanged
 
 Pre-registration before every run; licensed data with checksums in the manifest; every reported

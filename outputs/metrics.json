@@ -3390,6 +3390,60 @@
       "grid_size": 36
     }
   },
+  "embodied_stage2c_diagnostic": {
+    "active_neurons_under_walking_command": 1966,
+    "extensor_inputs": {
+      "from_active": {
+        "excitatory_per_neuron": 754.17,
+        "inhibitory_by_transmitter_per_neuron": {
+          "gaba": 463.25,
+          "glut": 234.92
+        },
+        "inhibitory_per_neuron": 698.17
+      },
+      "from_all": {
+        "excitatory_per_neuron": 3621.42,
+        "inhibitory_by_transmitter_per_neuron": {
+          "gaba": 1611.83,
+          "glut": 878.42,
+          "other_inh": 0.58
+        },
+        "inhibitory_per_neuron": 2490.83
+      },
+      "pool_neurons": 12
+    },
+    "flexor_inputs": {
+      "from_active": {
+        "excitatory_per_neuron": 130.78,
+        "inhibitory_by_transmitter_per_neuron": {
+          "gaba": 182.68,
+          "glut": 92.05
+        },
+        "inhibitory_per_neuron": 274.73
+      },
+      "from_all": {
+        "excitatory_per_neuron": 929.51,
+        "inhibitory_by_transmitter_per_neuron": {
+          "gaba": 440.51,
+          "glut": 223.05,
+          "other_inh": 0.3
+        },
+        "inhibitory_per_neuron": 663.86
+      },
+      "pool_neurons": 37
+    },
+    "label": "EXPLORATORY, not registered: tibia flexor diagnostic (SIMULATED)",
+    "pool_rates_hz": {
+      "intact": {
+        "extensor": 23.229,
+        "flexor": 0.236
+      },
+      "no_inhibition": {
+        "extensor": 264.604,
+        "flexor": 151.341
+      }
+    }
+  },
   "extractor_agreement": {
     "by_feature": {
       "active_electrodes": {

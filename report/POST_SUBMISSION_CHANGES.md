@@ -438,6 +438,31 @@ holds it back. Six of six registered predictions pass.*
 
 ---
 
+## 19. A registered sweep that found nothing, and why
+
+**Slide message:** *We swept the one cell property the roadmap named, reported every setting, and
+none made the nerve cord walk. The wiring explains it: the walking command's active
+neurons inhibit the flexors about twice as much as they excite them.*
+
+- **What changed.** `src/neuromps/fly/model.py` gains spike-frequency adaptation (off by default;
+  with it off the spikes are identical to the published model's). `connectome.rewire` builds a
+  degree-preserving control. `src/neuromps/fly/embodied_stage2c.py` runs the registered sweep,
+  selection rule and confirmation. `src/neuromps/fly/flexor_diagnostic.py` is the exploratory
+  follow-up.
+- **Effect.** 0 <!-- metrics.json: embodied_stage2c.sweep.cells_passing.W1_the_walking_command_makes_a_rhythm -->
+  of 36 <!-- metrics.json: embodied_stage2c.sweep.grid_size --> cells produce a rhythm; the stage stops as
+  registered. Flexors fire at 151.341 <!-- metrics.json: embodied_stage2c_diagnostic.pool_rates_hz.no_inhibition.flexor --> Hz once
+  inhibition is removed; from the command's active neurons they receive
+  274.73 <!-- metrics.json: embodied_stage2c_diagnostic.flexor_inputs.from_active.inhibitory_per_neuron --> inhibitory against
+  130.78 <!-- metrics.json: embodied_stage2c_diagnostic.flexor_inputs.from_active.excitatory_per_neuron --> excitatory synapses each
+  (exploratory).
+- **Why it matters for the interview.** It shows the discipline holding when the result is null:
+  the sweep was fixed before running, reported whole, and followed by a mechanism, not by
+  re-tuning until it walked.
+- **Evidence.** Roadmap §7 and figure; `outputs/fly/embodied_stage2c_*`.
+
+---
+
 ## Work queue (decided 2026-10-24, from the post-round-1 review)
 
 | Item | Status | Registered before running |
