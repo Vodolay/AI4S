@@ -1,0 +1,49 @@
+{
+  "label": "EXPLORATORY, not registered: stage-3a arms at r_full 40 and 80 Hz",
+  "r_full_40": {
+    "open": {
+      "median_tibia_rad": 0.6368,
+      "time_near_head": 0.965,
+      "min_distance_mm": 1.1332,
+      "tibia_flexor_hz": 0.1,
+      "tibia_extensor_hz": 43.25
+    },
+    "resistance": {
+      "median_tibia_rad": 0.6509,
+      "time_near_head": 0.965,
+      "min_distance_mm": 0.9728,
+      "tibia_flexor_hz": 2.6,
+      "tibia_extensor_hz": 32.25
+    },
+    "sham": {
+      "median_tibia_rad": 0.6472,
+      "time_near_head": 0.965,
+      "min_distance_mm": 0.9223,
+      "tibia_flexor_hz": 2.8,
+      "tibia_extensor_hz": 31.25
+    }
+  },
+  "r_full_80": {
+    "open": {
+      "median_tibia_rad": 0.6546,
+      "time_near_head": 0.96,
+      "min_distance_mm": 1.0931,
+      "tibia_flexor_hz": 0.1,
+      "tibia_extensor_hz": 43.25
+    },
+    "resistance": {
+      "median_tibia_rad": 0.6705,
+      "time_near_head": 0.96,
+      "min_distance_mm": 0.9598,
+      "tibia_flexor_hz": 2.4,
+      "tibia_extensor_hz": 34.75
+    },
+    "sham": {
+      "median_tibia_rad": 0.6711,
+      "time_near_head": 0.96,
+      "min_distance_mm": 0.9532,
+      "tibia_flexor_hz": 3.0,
+      "tibia_extensor_hz": 33.25
+    }
+  }
+}

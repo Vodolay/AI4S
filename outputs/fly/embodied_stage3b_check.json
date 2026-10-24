@@ -1,0 +1,29 @@
+{
+  "label": "EXPLORATORY, not registered: proprioceptor tracing per leg (male CNS)",
+  "chordotonal_by_leg": {
+    "front_L": {
+      "chordotonal": 20,
+      "claw": 4
+    },
+    "front_R": {
+      "chordotonal": 10,
+      "claw": 1
+    },
+    "middle_L": {
+      "chordotonal": 76,
+      "claw": 22
+    },
+    "middle_R": {
+      "chordotonal": 79,
+      "claw": 17
+    },
+    "hind_L": {
+      "chordotonal": 89,
+      "claw": 22
+    },
+    "hind_R": {
+      "chordotonal": 96,
+      "claw": 25
+    }
+  }
+}

@@ -244,11 +244,14 @@ def simulate(
     excite2: Sequence[int] = (),
     record: Sequence[int] | None = None,
     replay: dict[int, np.ndarray] | None = None,
+    extend=None,
 ) -> FlySpikes:
     """One trial: drive `excite` at `stim_rate_hz` (and `excite2` at `stim2_rate_hz`).
 
     `record` limits the spike monitor to those model indices; None records all.
     `replay` maps model indices to spike times (s) delivered to them as inputs.
+    `extend(neurons, b2)` may return further Brian2 objects (a closed loop's sensors and
+    network operations) to run with the network; None adds nothing.
     """
     import brian2 as b2
 
@@ -256,6 +259,8 @@ def simulate(
         b2.start_scope()
         b2.seed(params.seed)
         network, monitor = _network(con, params, excite, excite2, b2, replay)
+        if extend is not None:
+            network.add(*extend(network["fly_neurons"], b2))
         network.run(params.duration_s * b2.second)
         times = np.asarray(monitor.t / b2.second, dtype=float)
         neurons = np.asarray(monitor.i, dtype=int)

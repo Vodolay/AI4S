@@ -1,0 +1,36 @@
+{
+  "title": "Embodied fly, stage 3a: closing the loop through the femoral chordotonal claw neurons: does tibia-position feedback resist the grooming leg's extension? (SIMULATED, closed loop)",
+  "registered": "2026-10-24",
+  "status": "registered before any closed-loop simulation",
+  "roadmap": "report/ROADMAP_EMBODIED_FLY.md, stage 3 (close the loop): 'feedback measurably changes the movement against the open-loop run'; started where the open loop works (stage 1d: the antennal-grooming drive holds the left front leg at the head)",
+  "seen_before_registration": [
+    "every earlier result; stage 1d: under grooming drive (aDN1 + aDN2) the claw is near the head for 0.9665 of the second (D1)",
+    "data only: the male CNS identifies femoral chordotonal (FeCO) claw neurons by type (SNpp50, SNpp51; 'FeCO claw' in its synonyms); in the left front leg (ProLN, root side L) there are three SNpp51 and one SNpp50, all cholinergic; SNpp51 synapse directly onto front-leg tibia flexor (65), accessory tibia flexor (15) and coxa promotor (95) motor neurons; SNpp50 onto the tibia extensor (9) and tarsus levator (13) motor neurons",
+    "literature: Mamiya et al. 2018 (Neuron): claw neurons encode tibia position, in flexion-tuned and extension-tuned subtypes; which male-CNS type is which is not known",
+    "body only: in the FlyMimic leg the femur-tibia joint (joint_LFTibia_pitch, range 0.479-2.502 rad) rests at about 1.61 rad; the tibia flexor alone flexes it to 2.32, the extensor alone extends it to 0.63",
+    "one exploratory open-loop trial (seed 9310, outside every registered range): under grooming drive the tibia extends to a median of 0.634 rad (minimum 0.536; extensor activation 0.898), under forward-walking drive 0.653, without drive 1.611"
+  ],
+  "design": {
+    "network": "the stage-1c male nerve cord (LIF, Shiu constants, w_syn 0.275 mV, brain removed); drives at 150 Hz: grooming (DNg62 + DNge078, both sides) or none",
+    "leg": "exactly stage 1d: motor-neuron-to-muscle map, rate filter tau 20 ms, activation = pool rate / r_full (20 Hz), clipped; FlyMimic left front leg; now advanced in step with the network, the muscles updated every 1 ms from the spikes of the last millisecond",
+    "feedback_neurons": "the four left front-leg claw neurons (three SNpp51, one SNpp50)",
+    "tuning": "theta = femur-tibia angle; theta_0 = its value at the start of the trial (after the passive settle); extension-tuned rate = 150 Hz x clip((theta_0 - theta) / (theta_0 - 0.479), 0, 1); flexion-tuned rate = 150 Hz x clip((theta - theta_0) / (2.502 - theta_0), 0, 1); delivered as Poisson spikes, each a suprathreshold input (w_syn x 250, as the descending drive), rates updated every 1 ms",
+    "arms": {
+      "open": "no feedback (stage 1d)",
+      "resistance": "SNpp51 extension-tuned, SNpp50 flexion-tuned: the assignment under which the wiring opposes the movement it senses",
+      "assistance": "the opposite assignment",
+      "sham": "each claw neuron receives the rate time course it had in the resistance arm's trial with the next seed (cyclic), whatever the leg does"
+    },
+    "trials": "8 per drive and arm, seeds 1020-1027, 1 s",
+    "readouts": "median femur-tibia angle over the second; time near the head (claw < 1.328 mm); minimum claw-antenna distance; tibia flexor and extensor pool rates; claw neuron rates"
+  },
+  "predictions": {
+    "L0_silent_without_drive": {"statement": "Without drive the leg's motor neurons stay silent in every arm", "test": "no spikes in the left front-leg motor neurons in any no-drive trial of the open, resistance and assistance arms"},
+    "L1_feedback_resists_the_extension": {"statement": "The roadmap's go/no-go: tibia-position feedback through the claw neurons measurably changes the grooming movement, in the direction of a resistance reflex", "test": "under grooming drive, median tibia angle in the resistance arm >= open-loop median + 0.1 rad"},
+    "L2_the_change_needs_the_loop": {"statement": "The change comes from feedback contingent on the leg's own movement, not from the extra input", "test": "interpretable only if L1 passes: (resistance median - open median) > |sham median - open median| (tibia angle, grooming)"},
+    "L3_the_other_assignment_does_not_resist": {"statement": "The direction comes from which claw type carries which tuning", "test": "under grooming drive, median tibia angle in the assistance arm < open-loop median + 0.1 rad"},
+    "L4_the_grooming_reach_survives_the_loop": {"statement": "Closing the loop keeps the validated behaviour", "test": "in the resistance arm, median time near the head under grooming >= 0.5 and at least 0.25 above the no-drive median"}
+  },
+  "not_claimed_even_if_all_pass": "that fly claw neurons are tuned this way or that the fly's resistance reflex runs through these synapses: the tuning assignment is the stated bracket, the tuning curves are linear, there is one leg and no other proprioceptor; a pass means the male-CNS wiring of the front-leg claw neurons, closed through a muscle-driven leg, opposes the grooming extension when SNpp51 carry extension and not when they carry flexion",
+  "reporting": "Every prediction with its value and pass/fail or uninterpretable, whichever way it falls; claw depth, pool rates and claw rates per arm."
+}
