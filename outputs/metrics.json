@@ -1984,6 +1984,64 @@
       "rhythmicity_L1_flexor": 0.0
     },
     "label": "SIMULATED fictive walking in the male nerve cord",
+    "pool_rates_hz": {
+      "backward_walking": {
+        "L1_extensor": 7.88,
+        "L1_flexor": 0.0,
+        "L2_extensor": 26.25,
+        "L2_flexor": 0.0,
+        "L3_extensor": 0.0,
+        "L3_flexor": 2.14,
+        "R1_extensor": 2.5,
+        "R1_flexor": 0.0,
+        "R2_extensor": 10.25,
+        "R2_flexor": 0.0,
+        "R3_extensor": 0.0,
+        "R3_flexor": 18.66
+      },
+      "forward_walking": {
+        "L1_extensor": 19.25,
+        "L1_flexor": 0.0,
+        "L2_extensor": 54.12,
+        "L2_flexor": 0.0,
+        "L3_extensor": 5.0,
+        "L3_flexor": 1.56,
+        "R1_extensor": 0.0,
+        "R1_flexor": 0.0,
+        "R2_extensor": 30.38,
+        "R2_flexor": 0.0,
+        "R3_extensor": 34.12,
+        "R3_flexor": 0.0
+      },
+      "grooming": {
+        "L1_extensor": 39.88,
+        "L1_flexor": 0.5,
+        "L2_extensor": 12.88,
+        "L2_flexor": 0.1,
+        "L3_extensor": 0.0,
+        "L3_flexor": 0.0,
+        "R1_extensor": 12.12,
+        "R1_flexor": 0.0,
+        "R2_extensor": 3.12,
+        "R2_flexor": 0.0,
+        "R3_extensor": 0.0,
+        "R3_flexor": 1.03
+      },
+      "none": {
+        "L1_extensor": 0.0,
+        "L1_flexor": 0.0,
+        "L2_extensor": 0.0,
+        "L2_flexor": 0.0,
+        "L3_extensor": 0.0,
+        "L3_flexor": 0.0,
+        "R1_extensor": 0.0,
+        "R1_flexor": 0.0,
+        "R2_extensor": 0.0,
+        "R2_flexor": 0.0,
+        "R3_extensor": 0.0,
+        "R3_flexor": 0.0
+      }
+    },
     "pool_sizes": {
       "L1_extensor": 2,
       "L1_flexor": 5,

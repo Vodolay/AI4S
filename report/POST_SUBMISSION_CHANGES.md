@@ -398,6 +398,25 @@ does not, and removing four grooming neurons abolishes the movement.*
 
 ---
 
+## 17. The nerve cord alone does not walk
+
+**Slide message:** *Driven by its walking command, the connectome-only nerve cord fires the leg
+extensors tonically and leaves the flexors silent: no rhythm. Rhythm needs intrinsic currents
+the connectome does not record; adding them is the next registered step.*
+
+- **What changed.** `src/neuromps/fly/fictive.py` runs stage 2a (registered before running):
+  the six legs' tibia flexor and extensor pools under walking, grooming and backward-walking
+  commands, phases measured between pools. `src/neuromps/fetch/flybody.py` fetches the flybody
+  whole-body model (Apache-2.0) for the feeding and walking body, each file checked against its
+  git hash.
+- **Effect.** Silent without drive (W0 passes); under the walking command the left middle-leg
+  extensors fire at 54.12 <!-- metrics.json: embodied_stage2a.pool_rates_hz.forward_walking.L2_extensor --> Hz and the left
+  front flexors at 0.0 <!-- metrics.json: embodied_stage2a.pool_rates_hz.forward_walking.L1_flexor --> Hz, so there is no
+  rhythm and no phase (W1 to W4 fail). The roadmap listed this risk and the response to it.
+- **Evidence.** Roadmap §7 and figure; `outputs/fly/embodied_stage2a_SIMULATED.*`.
+
+---
+
 ## Work queue (decided 2026-10-24, from the post-round-1 review)
 
 | Item | Status | Registered before running |

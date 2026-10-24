@@ -214,6 +214,28 @@ sugar input does not, and without those four neurons the movement is gone. Next 
 
 ![Depth of reach per condition in the SIMULATED relay (FlyWire brain -> matched descending neurons -> male nerve cord -> FlyMimic leg), one point per trial: antennal input reaches deepest; removing aDN1 and aDN2 abolishes the reach; sugar input flexes the leg only partway.](../outputs/figures/embodied_stage1f_depth_SIMULATED.png){width=70%}
 
+**Stage 2a: no walking rhythm from the nerve cord alone (failed as registered).** Before any
+body, stage 2a asked whether the male nerve cord turns its forward-walking command (BDN2,
+DNg100) into a motor rhythm: tibia flexors and extensors alternating within a leg, the two front
+legs alternating, and a tripod across legs, read from the twelve tibia motor pools of the six
+legs. Without drive the cord is silent (W0 passes). Under the walking command it is active but
+tonic: the left middle-leg tibia extensors fire at
+54.12 <!-- metrics.json: embodied_stage2a.pool_rates_hz.forward_walking.L2_extensor -->
+Hz and the right hind-leg extensors at
+34.12 <!-- metrics.json: embodied_stage2a.pool_rates_hz.forward_walking.R3_extensor -->
+Hz, while the tibia flexor pools of five of the six legs stay silent (left front flexors
+0.0 <!-- metrics.json: embodied_stage2a.pool_rates_hz.forward_walking.L1_flexor --> Hz). The left front flexor pool
+has no rhythm (median rhythmicity
+0.0 <!-- metrics.json: embodied_stage2a.predictions.W1_the_walking_command_makes_a_rhythm.value.forward_walking -->),
+so no phase can be measured and W1 to W4 fail. Backward-walking drive (MDN) gives the same
+picture with different legs. This is the risk §6 names: a leaky integrate-and-fire nerve cord,
+with connectome weights and no intrinsic currents, has no half-centre oscillator. The next
+step is the one §6 commits to, a stated model change registered before it runs: add the
+intrinsic property rhythm generation needs (spike-frequency adaptation) and test again on fresh
+seeds, with the connectome-only result kept as the reference.
+
+![Tibia flexor and extensor pool rates on the six legs under the walking command, SIMULATED fictive walking in the male nerve cord: extensors fire tonically, flexors stay silent, and there is no alternation.](../outputs/figures/embodied_stage2a_fictive_walking_SIMULATED.png){width=70%}
+
 ## 8. What carries over unchanged
 
 Pre-registration before every run; licensed data with checksums in the manifest; every reported

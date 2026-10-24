@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import json
 import logging
+import sys
 from concurrent.futures import ProcessPoolExecutor
 
 import numpy as np
@@ -175,7 +176,7 @@ def score(table: pd.DataFrame, spec: dict) -> dict:
 
 
 def plot(trials: list[dict], table: pd.DataFrame, path) -> None:
-    """One forward-walking trial's flexor rhythms on four legs, and every trial's phases."""
+    """One forward-walking trial's tibia pools in Hz, and every leg's median pool rates."""
     import matplotlib
 
     matplotlib.use("Agg")
@@ -189,37 +190,28 @@ def plot(trials: list[dict], table: pd.DataFrame, path) -> None:
     colours = {
         "L1_flexor": "#D55E00",
         "L1_extensor": "#E69F00",
-        "R1_flexor": "#0072B2",
-        "L2_flexor": "#009E73",
-        "L3_flexor": "#CC79A7",
+        "L2_flexor": "#0072B2",
+        "L2_extensor": "#56B4E9",
     }
-    for k, (key, colour) in enumerate(colours.items()):
-        sig = example["signals"][key]
-        span = np.ptp(sig) or 1.0
-        left.plot(
-            t, (sig - sig.min()) / span + 1.2 * k, color=colour, lw=0.9, label=key.replace("_", " ")
-        )
-    left.set_yticks([])
+    for key, colour in colours.items():
+        left.plot(t, example["signals"][key], color=colour, lw=0.9, label=key.replace("_", " "))
+    left.set_ylabel("pool rate (Hz)", fontsize=7)
     left.set_xlabel("time (s)", fontsize=7)
-    left.set_title(
-        "forward-walking drive (BDN2): tibia motor pools, one trial (normalized)", fontsize=7
-    )
+    left.set_title("forward-walking drive (BDN2): tibia motor pools, one trial", fontsize=7)
     left.legend(fontsize=5.5, frameon=False, loc="upper right")
     left.tick_params(labelsize=6)
-    fw = table[table["drive"] == "forward_walking"]
-    pairs = [
-        ("phase_L1flex_L1ext", "L1 flexor -> extensor", 0.5),
-        ("phase_L1_R1", "L1 -> R1", 0.5),
-        ("phase_L1_L2", "L1 -> L2", 0.5),
-        ("phase_L1_L3", "L1 -> L3", 0.0),
-    ]
-    for k, (col, _label, target) in enumerate(pairs):
-        values = fw[col].dropna().to_numpy()
-        right.scatter(values, np.full(values.size, k), s=14, color="#0072B2", zorder=3)
-        right.scatter([target], [k], marker="|", s=200, color="black")
-    right.set_yticks(range(len(pairs)), [p[1] for p in pairs], fontsize=6.5)
-    right.set_xlim(-0.02, 1.02)
-    right.set_xlabel("phase (cycles); bar = registered target", fontsize=7)
+    rates = pool_rates(table)["forward_walking"]
+    x = np.arange(len(LEGS))
+    for offset, (muscle, colour) in zip(
+        (-0.2, 0.2), (("flexor", "#D55E00"), ("extensor", "#E69F00")), strict=True
+    ):
+        right.bar(
+            x + offset, [rates[f"{leg}_{muscle}"] for leg in LEGS], 0.4, color=colour, label=muscle
+        )
+    right.set_xticks(x, list(LEGS), fontsize=6.5)
+    right.set_ylabel("median pool rate (Hz)", fontsize=7)
+    right.set_title("median of 8 trials: flexors near silent, no phase defined", fontsize=7)
+    right.legend(fontsize=6, frameon=False)
     right.tick_params(labelsize=6)
     fig.suptitle(
         "SIMULATED male nerve cord, fictive walking (motor neurons only, no body)", fontsize=8
@@ -229,31 +221,59 @@ def plot(trials: list[dict], table: pd.DataFrame, path) -> None:
     plt.close(fig)
 
 
-def main(argv: list[str] | None = None) -> int:
-    """CLI: run the registered stage-2a design and score it."""
-    from neuromps.paths import figures_dir
+def pool_rates(table: pd.DataFrame) -> dict:
+    """Median pool rate (Hz) over trials, per drive and pool; descriptive, not scored."""
+    cols = [c for c in table if c.startswith("rate_")]
+    return {
+        drive: {c.removeprefix("rate_"): round(float(g[c].median()), 2) for c in cols}
+        for drive, g in table.groupby("drive", sort=False)
+    }
 
-    logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
-    spec = json.loads(REGISTRATION.read_text())
-    with ProcessPoolExecutor(memory_bounded_workers(per_worker_gb=8.0), initializer=_init) as pool:
-        trials = list(pool.map(_trial, [(d, s) for d in DRIVES for s in SEEDS]))
-    table = pd.DataFrame([measures(t) for t in trials])
+
+def _result(table: pd.DataFrame, spec: dict, pool_sizes: dict) -> dict:
     mdn = table[table["drive"] == "backward_walking"]
-    result = {
+    return {
         "label": "SIMULATED fictive walking in the male nerve cord",
         "predictions": score(table, spec),
         "backward_walking_reported": {c: mdn[c].median() for c in mdn if c.startswith("phase")}
         | {"rhythmicity_L1_flexor": float(mdn["rhythmicity_L1_flexor"].median())},
-        "pool_sizes": {f"{k[0]}_{k[1]}": int(v.size) for k, v in _pool_sizes().items()},
+        "pool_rates_hz": pool_rates(table),
+        "pool_sizes": pool_sizes,
         "registration": design.provenance(REGISTRATION),
     }
+
+
+def main(argv: list[str] | None = None) -> int:
+    """CLI: run the registered stage-2a design and score it.
+
+    ``--rescore`` rebuilds the JSON and metrics from the saved trial table, without simulating.
+    """
+    from neuromps.paths import figures_dir
+
+    logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+    spec = json.loads(REGISTRATION.read_text())
     out = outputs_dir() / "fly"
-    table.to_csv(out / "embodied_stage2a_SIMULATED.csv", index=False)
+    if argv is None:
+        argv = sys.argv[1:]
+    if "--rescore" in argv:
+        table = pd.read_csv(out / "embodied_stage2a_SIMULATED.csv")
+        sizes = json.loads((out / "embodied_stage2a_SIMULATED.json").read_text())["pool_sizes"]
+        trials = None
+    else:
+        with ProcessPoolExecutor(
+            memory_bounded_workers(per_worker_gb=8.0), initializer=_init
+        ) as pool:
+            trials = list(pool.map(_trial, [(d, s) for d in DRIVES for s in SEEDS]))
+        table = pd.DataFrame([measures(t) for t in trials])
+        sizes = {f"{k[0]}_{k[1]}": int(v.size) for k, v in _pool_sizes().items()}
+        table.to_csv(out / "embodied_stage2a_SIMULATED.csv", index=False)
+    result = _result(table, spec, sizes)
     (out / "embodied_stage2a_SIMULATED.json").write_text(
         json.dumps(scoring.clean(result), indent=2) + "\n"
     )
     update_metrics("embodied_stage2a", scoring.clean(result))
-    plot(trials, table, figures_dir() / "embodied_stage2a_fictive_walking_SIMULATED.png")
+    if trials is not None:
+        plot(trials, table, figures_dir() / "embodied_stage2a_fictive_walking_SIMULATED.png")
     for name, entry in result["predictions"].items():
         print(f"{name:40s} {entry['outcome']:>5}  {entry['value']}")
     print("backward walking (reported)", result["backward_walking_reported"])

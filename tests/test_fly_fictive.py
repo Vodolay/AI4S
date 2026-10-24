@@ -53,3 +53,10 @@ def test_stage2a_scoring_reads_the_registered_rules() -> None:
             )
     got = fictive.score(pd.DataFrame(rows), spec)
     assert all(v["outcome"] == "pass" for v in got.values())
+
+
+def test_pool_rates_are_medians_per_drive() -> None:
+    import pandas as pd
+
+    table = pd.DataFrame({"drive": ["a", "a", "a", "b"], "rate_L1_flexor": [1.0, 2.0, 9.0, 0.0]})
+    assert fictive.pool_rates(table) == {"a": {"L1_flexor": 2.0}, "b": {"L1_flexor": 0.0}}
