@@ -63,7 +63,8 @@ def tunings(arm: str) -> list[str] | None:
 
 def _trial(job) -> dict:
     """One closed-loop (or open-loop) trial: readouts and the claw rate time course."""
-    arm, drive, seed, sham = job
+    arm, drive, seed, sham = job[:4]
+    r_full = job[4] if len(job) > 4 else 20.0
     con = embodied_stage1c._STATE["con"]
     params = model.FlyParams(duration_s=DURATION_S, stim_rate_hz=150.0, seed=seed)
     loop = closed_loop.Loop(
@@ -71,6 +72,7 @@ def _trial(job) -> dict:
         sensors=_STATE["sensors"],
         tunings=None if arm in ("open", "sham") else tunings(arm),
         sham=sham,
+        r_full=r_full,
     )
     spikes = model.simulate(
         con,
@@ -245,5 +247,50 @@ def main(argv: list[str] | None = None) -> int:
     return 0
 
 
+CHECK_R_FULL = (40.0, 80.0)
+
+
+def check() -> int:
+    """Exploratory (not registered): the arms at activation scales that do not saturate."""
+    logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+    table = pd.read_csv(outputs_dir() / "fly" / "embodied_stage3a_SIMULATED.csv")
+    del table  # the registered table is not changed; the check reruns what it needs
+    result = {"label": "EXPLORATORY, not registered: stage-3a arms at r_full 40 and 80 Hz"}
+    with ProcessPoolExecutor(memory_bounded_workers(per_worker_gb=8.0), initializer=_init) as pool:
+        for r_full in CHECK_R_FULL:
+            jobs = [(a, "grooming", s, None, r_full) for a in ("open", "resistance") for s in SEEDS]
+            trials = list(pool.map(_trial, jobs))
+            res = {t["seed"]: t["rates"] for t in trials if t["arm"] == "resistance"}
+            sham = [
+                ("sham", "grooming", s, res[SEEDS[(k + 1) % len(SEEDS)]], r_full)
+                for k, s in enumerate(SEEDS)
+            ]
+            trials += list(pool.map(_trial, sham))
+            g = pd.DataFrame(
+                [{k: v for k, v in t.items() if k not in ("rates", "tibia")} for t in trials]
+            )
+            result[f"r_full_{int(r_full)}"] = {
+                arm: {
+                    c: round(float(g.loc[g["arm"] == arm, c].median()), 4)
+                    for c in (
+                        "median_tibia_rad",
+                        "time_near_head",
+                        "min_distance_mm",
+                        "tibia_flexor_hz",
+                        "tibia_extensor_hz",
+                    )
+                }
+                for arm in ("open", "resistance", "sham")
+            }
+    (outputs_dir() / "fly" / "embodied_stage3a_check_SIMULATED.json").write_text(
+        json.dumps(scoring.clean(result), indent=2) + "\n"
+    )
+    update_metrics("embodied_stage3a_check", scoring.clean(result))
+    print(json.dumps(scoring.clean(result), indent=1))
+    return 0
+
+
 if __name__ == "__main__":
-    raise SystemExit(main())
+    import sys
+
+    raise SystemExit(check() if "--check" in sys.argv else main())

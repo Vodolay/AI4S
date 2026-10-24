@@ -517,6 +517,42 @@ Pugliese et al. also stop short of.
 
 ![SIMULATED left front-leg network of the male CNS with the fine input search. Left: one draw per size rule under DNg100 (no size scaling: regular promotor bursts about every 200 ms). Right: corrected motor rhythm score over feasible draws; without size scaling the lesion removes the rhythm.](../outputs/figures/embodied_stage2h_front_leg_SIMULATED.png){width=80%}
 
+**Stage 3a: the first closed loop. Claw-neuron feedback shifts the motor pools toward resistance
+but barely moves a held leg (go/no-go failed; 3 of 5).** The male nerve cord and the
+muscle-driven left front leg now run together, one millisecond at a time. The leg's femur-tibia
+angle drives the four left front-leg claw neurons, the femoral chordotonal organ's position
+sensors, identified by type in the male CNS. The two types are wired differently: SNpp51 excite
+the tibia flexors, SNpp50 the extensor. Which type senses flexion is unknown, so a resistance
+assignment, its opposite and a non-contingent sham bracket it. Under the antennal-grooming drive,
+whose open-loop reach holds the tibia near full extension, resistance feedback moves the tibia by
+only
+0.0054 <!-- metrics.json: embodied_stage3a.predictions.L1_feedback_resists_the_extension.value.shift --> rad, against the
+registered 0.1. The go/no-go fails, so the contingency test is uninterpretable. The loop stays
+silent without drive, the opposite assignment does not resist, and the reach survives with the
+loop closed (claw near the head for
+0.968 <!-- metrics.json: embodied_stage3a.predictions.L4_the_grooming_reach_survives_the_loop.value.grooming --> of the second).
+At the motor level the feedback does act in the resisting direction: tibia extensor rates fall
+from
+43.25 <!-- metrics.json: embodied_stage3a.reported.open.grooming.tibia_extensor_hz --> to
+31.75 <!-- metrics.json: embodied_stage3a.reported.resistance.grooming.tibia_extensor_hz --> Hz and flexor rates rise from
+0.1 <!-- metrics.json: embodied_stage3a.reported.open.grooming.tibia_flexor_hz --> to
+3.4 <!-- metrics.json: embodied_stage3a.reported.resistance.grooming.tibia_flexor_hz --> Hz. But the sham does almost the same
+(33.25 <!-- metrics.json: embodied_stage3a.reported.sham.grooming.tibia_extensor_hz --> and
+3.0 <!-- metrics.json: embodied_stage3a.reported.sham.grooming.tibia_flexor_hz --> Hz). In a held extension the claw neurons fire at a
+nearly constant rate
+(90.5232 <!-- metrics.json: embodied_stage3a.reported.resistance.grooming.claw_mean_hz --> Hz),
+so contingent and non-contingent feedback are the same input. An exploratory check (not
+registered) rules out muscle saturation as the reason the leg does not move. At a full-activation
+rate of 80 Hz, resistance moves the tibia from
+0.6546 <!-- metrics.json: embodied_stage3a_check.r_full_80.open.median_tibia_rad --> to
+0.6705 <!-- metrics.json: embodied_stage3a_check.r_full_80.resistance.median_tibia_rad --> rad and the sham to 0.6711 <!-- metrics.json: embodied_stage3a_check.r_full_80.sham.median_tibia_rad -->.
+**What it means:** a static hold cannot show a reflex.
+The classic test, as in insect physiology, perturbs the joint and asks whether the loop pushes
+back faster than the same input delivered blind. That is the next registered step (stage 3b):
+a brief imposed flexion of the tibia during the held reach, with recovery time as the readout.
+
+![SIMULATED closed loop (male nerve cord, FlyMimic leg, claw-neuron feedback), grooming drive. Left: femur-tibia angle over one trial per arm. Right: every trial's median angle; resistance and sham shift it by thousandths of a radian.](../outputs/figures/embodied_stage3a_claw_feedback_SIMULATED.png){width=80%}
+
 ## 8. What carries over unchanged
 
 Pre-registration before every run; licensed data with checksums in the manifest; every reported
