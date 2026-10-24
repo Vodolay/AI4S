@@ -96,9 +96,20 @@ class Session:
         """Current leg joint angles (rad), in `joint_names` order."""
         return self.d.qpos[self.m.jnt_qposadr[self.leg_joints]].copy()
 
-    def step(self, row: np.ndarray) -> tuple[float, np.ndarray]:
-        """Apply one row of activations for one control step; claw-antenna distance, angles."""
+    def step(
+        self, row: np.ndarray, torques: dict[str, float] | None = None
+    ) -> tuple[float, np.ndarray]:
+        """Apply one row of activations for one control step; claw-antenna distance, angles.
+
+        `torques` maps joint names to an external torque held for this step (a perturbation).
+        """
         self.d.ctrl[:] = np.clip(np.asarray(row)[self.order], 1e-4, 1.0)
+        self.d.qfrc_applied[:] = 0.0
+        for joint, value in (torques or {}).items():
+            dof = self.m.jnt_dofadr[
+                self._mujoco.mj_name2id(self.m, self._mujoco.mjtObj.mjOBJ_JOINT, joint)
+            ]
+            self.d.qfrc_applied[dof] = value
         for _ in range(self.substeps):
             self._mujoco.mj_step(self.m, self.d)
         distance = float(np.linalg.norm(self.d.xpos[self.claw] - self.d.xpos[self.antenna]))

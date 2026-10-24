@@ -65,6 +65,7 @@ def _trial(job) -> dict:
     """One closed-loop (or open-loop) trial: readouts and the claw rate time course."""
     arm, drive, seed, sham = job[:4]
     r_full = job[4] if len(job) > 4 else 20.0
+    perturb = job[5] if len(job) > 5 else None
     con = embodied_stage1c._STATE["con"]
     params = model.FlyParams(duration_s=DURATION_S, stim_rate_hz=150.0, seed=seed)
     loop = closed_loop.Loop(
@@ -73,6 +74,7 @@ def _trial(job) -> dict:
         tunings=None if arm in ("open", "sham") else tunings(arm),
         sham=sham,
         r_full=r_full,
+        perturb=perturb,
     )
     spikes = model.simulate(
         con,

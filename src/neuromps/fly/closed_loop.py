@@ -42,6 +42,7 @@ class Loop:
     tunings: list[str] | None = None
     sham: np.ndarray | None = None
     r_full: float = 20.0
+    perturb: tuple[float, float, float] | None = None  # (start s, end s, torque on the tibia)
     record: dict = field(default_factory=dict)
 
 
@@ -80,7 +81,14 @@ def extender(loop: Loop, params: model.FlyParams):
             counts = np.array(counter.count[:], dtype=float)  # a copy: Brian2 returns a live view
             state["level"] = state["level"] * decay + (counts - state["last"]) / TAU_S
             state["last"] = counts
-            distance, angles = session.step(_activation(state["level"], columns, loop.r_full))
+            torques = None
+            if loop.perturb is not None:
+                start, end, torque = loop.perturb
+                if start <= state["k"] * body.CONTROL_DT_S < end:
+                    torques = {TIBIA: torque}
+            distance, angles = session.step(
+                _activation(state["level"], columns, loop.r_full), torques
+            )
             theta = float(angles[tibia])
             if loop.sham is not None:
                 rates = loop.sham[min(state["k"], len(loop.sham) - 1)]
