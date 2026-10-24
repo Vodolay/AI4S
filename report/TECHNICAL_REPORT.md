@@ -580,6 +580,27 @@ weakest real reference behind it, just 17 pairs from two sources. So the twin is
 reasoning about strong, well-evidenced perturbations, but we have not validated it for subtle
 allosteric modulation.
 
+**The twin as a source of labelled training data (added after the first round).** Directions are
+one test; recognition is a harder one. We simulated pairs for the five mechanism classes the twin
+has a knob for (one chip recorded twice, once with the knob moved; 30 pairs per class), trained the
+§5 classifier on those alone, and applied it to the 73 real Kapucu pairs. Registered before the
+pairs were simulated (`preregistration/twin_prior_classifier.json`), it reaches a balanced accuracy
+of 0.41 <!-- metrics.json: twin_prior_classifier.twin_alone.balanced_accuracy --> (95% interval
+0.2808 <!-- metrics.json: twin_prior_classifier.twin_alone.balanced_accuracy_ci95.0 --> to
+0.5072 <!-- metrics.json: twin_prior_classifier.twin_alone.balanced_accuracy_ci95.1 -->, culture
+bootstrap) where chance is one in six, without seeing a single real label. It never recognises a
+sodium-channel blocker, and the reason is size, not direction: the twin's threshold range moves
+firing by
+−3.273 <!-- metrics.json: twin_prior_classifier.twin_alone.na_channel_blocker_median_deltas.simulated.mfr_hz -->
+log2 and silences most electrodes, where the real blockers move it by
+−0.795 <!-- metrics.json: twin_prior_classifier.twin_alone.na_channel_blocker_median_deltas.real.mfr_hz -->
+with every electrode still active. As a prior for the classifier trained on real pairs, the
+simulated pairs add nothing: balanced accuracy goes from
+0.537 <!-- metrics.json: twin_prior_classifier.baseline.balanced_accuracy_mean --> to
+0.53 <!-- metrics.json: twin_prior_classifier.twin_prior.balanced_accuracy_mean -->, and the
+conformal sets do not shrink. Two of the three registered predictions failed. The twin can stand
+in for labels where there are none; where real labels exist, it does not improve on them.
+
 ---
 
 # ACT IV: Inverting the twin and resolving directionality

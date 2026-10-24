@@ -273,9 +273,20 @@ def twin_alone_detail(pairs, synthetic, n_resamples: int = 1000, seed: int = 0) 
     recall = {
         str(c): round(float(np.mean(predicted[truth == c] == c)), 3) for c in np.unique(truth)
     }
+    shown = ["delta.mfr_hz", "delta.active_electrodes"]
+    medians = {
+        source: {
+            c.removeprefix("delta."): round(
+                float(frame.loc[frame["label"] == "na_channel_blocker", c].median()), 3
+            )
+            for c in shown
+        }
+        for source, frame in (("simulated", synthetic), ("real", pairs))
+    }
     return {
         "balanced_accuracy_ci95": interval["ci95"],
         "recall_by_class": recall,
+        "na_channel_blocker_median_deltas": medians,
         "bootstrap_resamples": interval["n_resamples"],
         "classes_without_twin_knob": ["glutamatergic_agonist"],
     }

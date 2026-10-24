@@ -8911,6 +8911,16 @@
       "classes_without_twin_knob": [
         "glutamatergic_agonist"
       ],
+      "na_channel_blocker_median_deltas": {
+        "real": {
+          "active_electrodes": -0.093,
+          "mfr_hz": -0.795
+        },
+        "simulated": {
+          "active_electrodes": -3.681,
+          "mfr_hz": -3.273
+        }
+      },
       "recall_by_class": {
         "control": 0.8,
         "gabaa_agonist_or_pam": 0.75,

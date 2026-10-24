@@ -16,6 +16,7 @@ the bottom.*
 | 5 | 2026-10-24 | Report page limit lifted; the fly study joins the report | none; structure only | `1c7d94f` |
 | 6 | 2026-10-24 | EPA screen cutoffs set beside the fly's precision needs | new comparison (descriptive) | `cd074b3` |
 | 7 | 2026-10-24 | Vesicle depletion tested as the cause of the GABA-A reversal | registered prediction failed; new negative result | `3071ab4`, `8fb5065` |
+| 8 | 2026-10-24 | The twin as a source of labelled data, and as a prior for the classifier | 1 of 3 registered predictions pass | `761068e`, `93bb4f6` |
 
 ---
 
@@ -172,6 +173,35 @@ but never turns it into the fall real chips show.*
   ruled out, only depletion added to the present twin.
 - **Evidence.** Report §18, row 9 and figure; `outputs/twin/depression_under_block_simulated.png`.
 
+## 8. Trained on the twin alone, the classifier recognises real mechanisms
+
+**Slide message:** *A classifier that never saw a real label recognises real drug mechanisms at
+two and a half times chance; the same simulations do not improve a classifier trained on real
+labels.*
+
+- **What changed.** `src/neuromps/models/twin_prior.py` simulates 30 labelled pairs for each of
+  the five mechanism classes the twin has a knob for, and tests two uses of them, registered
+  before simulating (`preregistration/twin_prior_classifier.json`): as the centre of the
+  classifier's penalty (the review's Fix 2), and as the only training data.
+- **Effect.**
+  - Trained on simulated pairs alone and applied to the 73 real pairs: balanced accuracy
+    0.41 <!-- metrics.json: twin_prior_classifier.twin_alone.balanced_accuracy -->, interval
+    0.2808 <!-- metrics.json: twin_prior_classifier.twin_alone.balanced_accuracy_ci95.0 --> to
+    0.5072 <!-- metrics.json: twin_prior_classifier.twin_alone.balanced_accuracy_ci95.1 -->,
+    against one in six by chance (pass).
+  - As a prior: balanced accuracy
+    0.53 <!-- metrics.json: twin_prior_classifier.twin_prior.balanced_accuracy_mean --> against
+    the baseline's
+    0.537 <!-- metrics.json: twin_prior_classifier.baseline.balanced_accuracy_mean -->, and
+    conformal sets unchanged (two fails).
+  - A diagnosis for free: real sodium-channel blockers are never recognised, because the
+    twin's threshold knob moves firing by
+    −3.273 <!-- metrics.json: twin_prior_classifier.twin_alone.na_channel_blocker_median_deltas.simulated.mfr_hz -->
+    log2 where the real blockers move it by
+    −0.795 <!-- metrics.json: twin_prior_classifier.twin_alone.na_channel_blocker_median_deltas.real.mfr_hz -->:
+    right direction, wrong size.
+- **Evidence.** Report §14, last paragraph.
+
 ---
 
 ## Work queue (decided 2026-10-24, from the post-round-1 review)
@@ -181,8 +211,8 @@ but never turns it into the fall real chips show.*
 | Synaptic depression under GABA-A block | done, entry 7 (failed as registered) | yes |
 | ToxCast potency bridge | replaced by entry 6 (only four shared compounds) | — |
 | Output-tract electrode: does recording descending neurons flag drugs earlier than a planar array? | planned | yes |
-| Brain and nerve cord as a two-chamber chip (male CNS): chamber-level directionality against the wiring | planned | exploratory |
-| Twin posteriors as classifier features | planned, lower priority | yes |
+| Brain and nerve cord as a two-chamber chip (male CNS) | scoped out: one chamber pair is an anecdote, and FlyWire already tested 698 region pairs (§25) | — |
+| Twin posteriors as classifier features | done as a twin-fitted prior, entry 8 (the delta posterior infers one knob, outside Task 1's domain) | yes |
 | Random-graph-to-connectome blend for organoids; embodied fly | dropped | — |
 
 Why the last two were dropped: grafting fly wiring onto a model of a mammalian cortical culture
