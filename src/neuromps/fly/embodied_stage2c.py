@@ -193,27 +193,32 @@ def stopped(spec: dict) -> dict:
 
 
 def plot_sweep(cells: list[dict], selected: dict | None, path) -> None:
-    """Walking tests passed and rhythmicity in every grid cell."""
+    """Walking tests passed and the tibia pool rates under the walking command, every cell."""
     import matplotlib
 
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
 
     grid = [c for c in cells if c["b_mv"] > 0]
-    passed = np.zeros((len(B_MV), len(TAU_MS)))
-    rhythm = np.zeros_like(passed)
+    maps = {k: np.zeros((len(B_MV), len(TAU_MS))) for k in ("passed", "extensor_hz", "flexor_hz")}
     for c in grid:
         i, j = B_MV.index(c["b_mv"]), TAU_MS.index(c["tau_ms"])
-        passed[i, j], rhythm[i, j] = c["passed"], c["rhythmicity_fw"]
-    fig, axes = plt.subplots(1, 2, figsize=(7.4, 3.0))
-    for ax, data, title, vmax in (
-        (axes[0], passed, "walking tests passed (of W1-W4)", 4),
-        (axes[1], rhythm, "rhythmicity, L1 flexor, walking drive", 1),
+        for k, m in maps.items():
+            m[i, j] = c[k]
+    rate_max = max(maps["extensor_hz"].max(), 1.0)
+    fig, axes = plt.subplots(1, 3, figsize=(9.6, 3.0))
+    for ax, key, title, vmax, fmt in (
+        (axes[0], "passed", "walking tests passed (of W1-W4)", 4, "{:.0f}"),
+        (axes[1], "extensor_hz", "tibia extensor pools, mean rate (Hz)", rate_max, "{:.1f}"),
+        (axes[2], "flexor_hz", "tibia flexor pools, mean rate (Hz)", rate_max, "{:.2f}"),
     ):
+        data = maps[key]
         im = ax.imshow(data, origin="lower", cmap="viridis", vmin=0, vmax=vmax)
         for i, j in np.ndindex(data.shape):
-            text = f"{int(data[i, j])}" if vmax == 4 else f"{data[i, j]:.2f}"
-            ax.text(j, i, text, ha="center", va="center", fontsize=5.5, color="white")
+            colour = "white" if data[i, j] < 0.6 * vmax else "black"
+            ax.text(
+                j, i, fmt.format(data[i, j]), ha="center", va="center", fontsize=5, color=colour
+            )
         if selected is not None:
             ax.scatter(
                 TAU_MS.index(selected["tau_ms"]),

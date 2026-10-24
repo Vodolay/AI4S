@@ -1,0 +1,1095 @@
+{
+  "label": "SIMULATED adaptation sweep and confirmation in the male nerve cord",
+  "predictions": {
+    "A0_silent_without_drive": {
+      "test": "no spikes in any of the twelve pools in any no-drive trial (selected cell)",
+      "value": null,
+      "outcome": "fail"
+    },
+    "A1_the_walking_command_makes_a_rhythm": {
+      "test": "median rhythmicity of the L1 flexor pool under forward walking >= 0.3 and above the grooming median",
+      "value": null,
+      "outcome": "fail"
+    },
+    "A2_antagonists_alternate": {
+      "test": "median circular distance of phase(L1 flexor -> L1 extensor) from 0.5 <= 0.15",
+      "value": null,
+      "outcome": "fail"
+    },
+    "A3_left_and_right_alternate": {
+      "test": "median circular distance of phase(L1 flexor -> R1 flexor) from 0.5 <= 0.15",
+      "value": null,
+      "outcome": "fail"
+    },
+    "A4_a_tripod": {
+      "test": "median circular distance of phase(L1 -> L2 flexor) from 0.5 <= 0.15 and of phase(L1 -> L3 flexor) from 0 <= 0.15",
+      "value": null,
+      "outcome": "fail"
+    },
+    "A5_the_coordination_comes_from_the_wiring": {
+      "test": "the intact cord passes at least one of A2-A4, and the rewired cord passes fewer of A2-A4 than the intact cord",
+      "value": null,
+      "outcome": "fail"
+    },
+    "A6_a_fly_like_step_period": {
+      "test": "median period of the L1 flexor rhythm under forward walking (lag of the largest autocorrelation within 50-500 ms) between 60 ms (the high-speed plateau of Mendes et al. 2013) and 200 ms (our bound for slow walking; no published lower step frequency was found)",
+      "value": null,
+      "outcome": "fail"
+    }
+  },
+  "selected_cell": null,
+  "sweep": {
+    "cells": [
+      {
+        "b_mv": 0.0,
+        "tau_ms": 100.0,
+        "passed": 0,
+        "tests": {
+          "W1_the_walking_command_makes_a_rhythm": "fail",
+          "W2_antagonists_alternate": "fail",
+          "W3_left_and_right_alternate": "fail",
+          "W4_a_tripod": "fail"
+        },
+        "values": {
+          "W1_the_walking_command_makes_a_rhythm": {
+            "forward_walking": 0.0,
+            "grooming": 0.2328
+          },
+          "W2_antagonists_alternate": null,
+          "W3_left_and_right_alternate": null,
+          "W4_a_tripod": {
+            "L1_L2_from_half": null,
+            "L1_L3_from_zero": null
+          }
+        },
+        "rhythmicity_fw": 0.0,
+        "tie_distance": 2.0,
+        "period_ms": null,
+        "flexor_hz": 0.23,
+        "extensor_hz": 22.83
+      },
+      {
+        "b_mv": 0.5,
+        "tau_ms": 25.0,
+        "passed": 0,
+        "tests": {
+          "W1_the_walking_command_makes_a_rhythm": "fail",
+          "W2_antagonists_alternate": "fail",
+          "W3_left_and_right_alternate": "fail",
+          "W4_a_tripod": "fail"
+        },
+        "values": {
+          "W1_the_walking_command_makes_a_rhythm": {
+            "forward_walking": 0.0,
+            "grooming": 0.199
+          },
+          "W2_antagonists_alternate": null,
+          "W3_left_and_right_alternate": null,
+          "W4_a_tripod": {
+            "L1_L2_from_half": null,
+            "L1_L3_from_zero": null
+          }
+        },
+        "rhythmicity_fw": 0.0,
+        "tie_distance": 2.0,
+        "period_ms": null,
+        "flexor_hz": 0.16,
+        "extensor_hz": 21.3
+      },
+      {
+        "b_mv": 0.5,
+        "tau_ms": 50.0,
+        "passed": 0,
+        "tests": {
+          "W1_the_walking_command_makes_a_rhythm": "fail",
+          "W2_antagonists_alternate": "fail",
+          "W3_left_and_right_alternate": "fail",
+          "W4_a_tripod": "fail"
+        },
+        "values": {
+          "W1_the_walking_command_makes_a_rhythm": {
+            "forward_walking": 0.0,
+            "grooming": 0.2467
+          },
+          "W2_antagonists_alternate": null,
+          "W3_left_and_right_alternate": null,
+          "W4_a_tripod": {
+            "L1_L2_from_half": null,
+            "L1_L3_from_zero": null
+          }
+        },
+        "rhythmicity_fw": 0.0,
+        "tie_distance": 2.0,
+        "period_ms": null,
+        "flexor_hz": 0.21,
+        "extensor_hz": 19.75
+      },
+      {
+        "b_mv": 0.5,
+        "tau_ms": 100.0,
+        "passed": 0,
+        "tests": {
+          "W1_the_walking_command_makes_a_rhythm": "fail",
+          "W2_antagonists_alternate": "fail",
+          "W3_left_and_right_alternate": "fail",
+          "W4_a_tripod": "fail"
+        },
+        "values": {
+          "W1_the_walking_command_makes_a_rhythm": {
+            "forward_walking": 0.0,
+            "grooming": 0.2942
+          },
+          "W2_antagonists_alternate": null,
+          "W3_left_and_right_alternate": null,
+          "W4_a_tripod": {
+            "L1_L2_from_half": null,
+            "L1_L3_from_zero": null
+          }
+        },
+        "rhythmicity_fw": 0.0,
+        "tie_distance": 2.0,
+        "period_ms": null,
+        "flexor_hz": 0.14,
+        "extensor_hz": 18.11
+      },
+      {
+        "b_mv": 0.5,
+        "tau_ms": 200.0,
+        "passed": 0,
+        "tests": {
+          "W1_the_walking_command_makes_a_rhythm": "fail",
+          "W2_antagonists_alternate": "fail",
+          "W3_left_and_right_alternate": "fail",
+          "W4_a_tripod": "fail"
+        },
+        "values": {
+          "W1_the_walking_command_makes_a_rhythm": {
+            "forward_walking": 0.0,
+            "grooming": 0.1461
+          },
+          "W2_antagonists_alternate": null,
+          "W3_left_and_right_alternate": null,
+          "W4_a_tripod": {
+            "L1_L2_from_half": null,
+            "L1_L3_from_zero": null
+          }
+        },
+        "rhythmicity_fw": 0.0,
+        "tie_distance": 2.0,
+        "period_ms": null,
+        "flexor_hz": 0.18,
+        "extensor_hz": 14.84
+      },
+      {
+        "b_mv": 0.5,
+        "tau_ms": 400.0,
+        "passed": 0,
+        "tests": {
+          "W1_the_walking_command_makes_a_rhythm": "fail",
+          "W2_antagonists_alternate": "fail",
+          "W3_left_and_right_alternate": "fail",
+          "W4_a_tripod": "fail"
+        },
+        "values": {
+          "W1_the_walking_command_makes_a_rhythm": {
+            "forward_walking": 0.0,
+            "grooming": 0.1148
+          },
+          "W2_antagonists_alternate": null,
+          "W3_left_and_right_alternate": null,
+          "W4_a_tripod": {
+            "L1_L2_from_half": null,
+            "L1_L3_from_zero": null
+          }
+        },
+        "rhythmicity_fw": 0.0,
+        "tie_distance": 2.0,
+        "period_ms": null,
+        "flexor_hz": 0.2,
+        "extensor_hz": 12.29
+      },
+      {
+        "b_mv": 0.5,
+        "tau_ms": 800.0,
+        "passed": 0,
+        "tests": {
+          "W1_the_walking_command_makes_a_rhythm": "fail",
+          "W2_antagonists_alternate": "fail",
+          "W3_left_and_right_alternate": "fail",
+          "W4_a_tripod": "fail"
+        },
+        "values": {
+          "W1_the_walking_command_makes_a_rhythm": {
+            "forward_walking": 0.0,
+            "grooming": 0.224
+          },
+          "W2_antagonists_alternate": null,
+          "W3_left_and_right_alternate": null,
+          "W4_a_tripod": {
+            "L1_L2_from_half": null,
+            "L1_L3_from_zero": null
+          }
+        },
+        "rhythmicity_fw": 0.0,
+        "tie_distance": 2.0,
+        "period_ms": null,
+        "flexor_hz": 0.22,
+        "extensor_hz": 9.46
+      },
+      {
+        "b_mv": 1.0,
+        "tau_ms": 25.0,
+        "passed": 0,
+        "tests": {
+          "W1_the_walking_command_makes_a_rhythm": "fail",
+          "W2_antagonists_alternate": "fail",
+          "W3_left_and_right_alternate": "fail",
+          "W4_a_tripod": "fail"
+        },
+        "values": {
+          "W1_the_walking_command_makes_a_rhythm": {
+            "forward_walking": 0.0,
+            "grooming": 0.1754
+          },
+          "W2_antagonists_alternate": null,
+          "W3_left_and_right_alternate": null,
+          "W4_a_tripod": {
+            "L1_L2_from_half": null,
+            "L1_L3_from_zero": null
+          }
+        },
+        "rhythmicity_fw": 0.0,
+        "tie_distance": 2.0,
+        "period_ms": null,
+        "flexor_hz": 0.19,
+        "extensor_hz": 21.17
+      },
+      {
+        "b_mv": 1.0,
+        "tau_ms": 50.0,
+        "passed": 0,
+        "tests": {
+          "W1_the_walking_command_makes_a_rhythm": "fail",
+          "W2_antagonists_alternate": "fail",
+          "W3_left_and_right_alternate": "fail",
+          "W4_a_tripod": "fail"
+        },
+        "values": {
+          "W1_the_walking_command_makes_a_rhythm": {
+            "forward_walking": 0.0,
+            "grooming": 0.1809
+          },
+          "W2_antagonists_alternate": null,
+          "W3_left_and_right_alternate": null,
+          "W4_a_tripod": {
+            "L1_L2_from_half": null,
+            "L1_L3_from_zero": null
+          }
+        },
+        "rhythmicity_fw": 0.0,
+        "tie_distance": 2.0,
+        "period_ms": null,
+        "flexor_hz": 0.19,
+        "extensor_hz": 18.35
+      },
+      {
+        "b_mv": 1.0,
+        "tau_ms": 100.0,
+        "passed": 0,
+        "tests": {
+          "W1_the_walking_command_makes_a_rhythm": "fail",
+          "W2_antagonists_alternate": "fail",
+          "W3_left_and_right_alternate": "fail",
+          "W4_a_tripod": "fail"
+        },
+        "values": {
+          "W1_the_walking_command_makes_a_rhythm": {
+            "forward_walking": 0.0,
+            "grooming": 0.2311
+          },
+          "W2_antagonists_alternate": null,
+          "W3_left_and_right_alternate": null,
+          "W4_a_tripod": {
+            "L1_L2_from_half": null,
+            "L1_L3_from_zero": null
+          }
+        },
+        "rhythmicity_fw": 0.0,
+        "tie_distance": 2.0,
+        "period_ms": null,
+        "flexor_hz": 0.16,
+        "extensor_hz": 15.09
+      },
+      {
+        "b_mv": 1.0,
+        "tau_ms": 200.0,
+        "passed": 0,
+        "tests": {
+          "W1_the_walking_command_makes_a_rhythm": "fail",
+          "W2_antagonists_alternate": "fail",
+          "W3_left_and_right_alternate": "fail",
+          "W4_a_tripod": "fail"
+        },
+        "values": {
+          "W1_the_walking_command_makes_a_rhythm": {
+            "forward_walking": 0.0,
+            "grooming": 0.3064
+          },
+          "W2_antagonists_alternate": null,
+          "W3_left_and_right_alternate": null,
+          "W4_a_tripod": {
+            "L1_L2_from_half": null,
+            "L1_L3_from_zero": null
+          }
+        },
+        "rhythmicity_fw": 0.0,
+        "tie_distance": 2.0,
+        "period_ms": null,
+        "flexor_hz": 0.17,
+        "extensor_hz": 11.78
+      },
+      {
+        "b_mv": 1.0,
+        "tau_ms": 400.0,
+        "passed": 0,
+        "tests": {
+          "W1_the_walking_command_makes_a_rhythm": "fail",
+          "W2_antagonists_alternate": "fail",
+          "W3_left_and_right_alternate": "fail",
+          "W4_a_tripod": "fail"
+        },
+        "values": {
+          "W1_the_walking_command_makes_a_rhythm": {
+            "forward_walking": 0.0,
+            "grooming": 0.0614
+          },
+          "W2_antagonists_alternate": null,
+          "W3_left_and_right_alternate": null,
+          "W4_a_tripod": {
+            "L1_L2_from_half": null,
+            "L1_L3_from_zero": null
+          }
+        },
+        "rhythmicity_fw": 0.0,
+        "tie_distance": 2.0,
+        "period_ms": null,
+        "flexor_hz": 0.21,
+        "extensor_hz": 8.38
+      },
+      {
+        "b_mv": 1.0,
+        "tau_ms": 800.0,
+        "passed": 0,
+        "tests": {
+          "W1_the_walking_command_makes_a_rhythm": "fail",
+          "W2_antagonists_alternate": "fail",
+          "W3_left_and_right_alternate": "fail",
+          "W4_a_tripod": "fail"
+        },
+        "values": {
+          "W1_the_walking_command_makes_a_rhythm": {
+            "forward_walking": 0.0,
+            "grooming": 0.0713
+          },
+          "W2_antagonists_alternate": null,
+          "W3_left_and_right_alternate": null,
+          "W4_a_tripod": {
+            "L1_L2_from_half": null,
+            "L1_L3_from_zero": null
+          }
+        },
+        "rhythmicity_fw": 0.0,
+        "tie_distance": 2.0,
+        "period_ms": null,
+        "flexor_hz": 0.15,
+        "extensor_hz": 6.35
+      },
+      {
+        "b_mv": 2.0,
+        "tau_ms": 25.0,
+        "passed": 0,
+        "tests": {
+          "W1_the_walking_command_makes_a_rhythm": "fail",
+          "W2_antagonists_alternate": "fail",
+          "W3_left_and_right_alternate": "fail",
+          "W4_a_tripod": "fail"
+        },
+        "values": {
+          "W1_the_walking_command_makes_a_rhythm": {
+            "forward_walking": 0.0,
+            "grooming": 0.2955
+          },
+          "W2_antagonists_alternate": null,
+          "W3_left_and_right_alternate": null,
+          "W4_a_tripod": {
+            "L1_L2_from_half": null,
+            "L1_L3_from_zero": null
+          }
+        },
+        "rhythmicity_fw": 0.0,
+        "tie_distance": 2.0,
+        "period_ms": null,
+        "flexor_hz": 0.13,
+        "extensor_hz": 18.75
+      },
+      {
+        "b_mv": 2.0,
+        "tau_ms": 50.0,
+        "passed": 0,
+        "tests": {
+          "W1_the_walking_command_makes_a_rhythm": "fail",
+          "W2_antagonists_alternate": "fail",
+          "W3_left_and_right_alternate": "fail",
+          "W4_a_tripod": "fail"
+        },
+        "values": {
+          "W1_the_walking_command_makes_a_rhythm": {
+            "forward_walking": 0.0,
+            "grooming": 0.1546
+          },
+          "W2_antagonists_alternate": null,
+          "W3_left_and_right_alternate": null,
+          "W4_a_tripod": {
+            "L1_L2_from_half": null,
+            "L1_L3_from_zero": null
+          }
+        },
+        "rhythmicity_fw": 0.0,
+        "tie_distance": 2.0,
+        "period_ms": null,
+        "flexor_hz": 0.14,
+        "extensor_hz": 15.71
+      },
+      {
+        "b_mv": 2.0,
+        "tau_ms": 100.0,
+        "passed": 0,
+        "tests": {
+          "W1_the_walking_command_makes_a_rhythm": "fail",
+          "W2_antagonists_alternate": "fail",
+          "W3_left_and_right_alternate": "fail",
+          "W4_a_tripod": "fail"
+        },
+        "values": {
+          "W1_the_walking_command_makes_a_rhythm": {
+            "forward_walking": 0.0,
+            "grooming": 0.25
+          },
+          "W2_antagonists_alternate": null,
+          "W3_left_and_right_alternate": null,
+          "W4_a_tripod": {
+            "L1_L2_from_half": null,
+            "L1_L3_from_zero": null
+          }
+        },
+        "rhythmicity_fw": 0.0,
+        "tie_distance": 2.0,
+        "period_ms": null,
+        "flexor_hz": 0.14,
+        "extensor_hz": 11.67
+      },
+      {
+        "b_mv": 2.0,
+        "tau_ms": 200.0,
+        "passed": 0,
+        "tests": {
+          "W1_the_walking_command_makes_a_rhythm": "fail",
+          "W2_antagonists_alternate": "fail",
+          "W3_left_and_right_alternate": "fail",
+          "W4_a_tripod": "fail"
+        },
+        "values": {
+          "W1_the_walking_command_makes_a_rhythm": {
+            "forward_walking": 0.0,
+            "grooming": 0.0386
+          },
+          "W2_antagonists_alternate": null,
+          "W3_left_and_right_alternate": null,
+          "W4_a_tripod": {
+            "L1_L2_from_half": null,
+            "L1_L3_from_zero": null
+          }
+        },
+        "rhythmicity_fw": 0.0,
+        "tie_distance": 2.0,
+        "period_ms": null,
+        "flexor_hz": 0.19,
+        "extensor_hz": 8.23
+      },
+      {
+        "b_mv": 2.0,
+        "tau_ms": 400.0,
+        "passed": 0,
+        "tests": {
+          "W1_the_walking_command_makes_a_rhythm": "fail",
+          "W2_antagonists_alternate": "fail",
+          "W3_left_and_right_alternate": "fail",
+          "W4_a_tripod": "fail"
+        },
+        "values": {
+          "W1_the_walking_command_makes_a_rhythm": {
+            "forward_walking": 0.0,
+            "grooming": 0.0606
+          },
+          "W2_antagonists_alternate": null,
+          "W3_left_and_right_alternate": null,
+          "W4_a_tripod": {
+            "L1_L2_from_half": null,
+            "L1_L3_from_zero": null
+          }
+        },
+        "rhythmicity_fw": 0.0,
+        "tie_distance": 2.0,
+        "period_ms": null,
+        "flexor_hz": 0.17,
+        "extensor_hz": 5.66
+      },
+      {
+        "b_mv": 2.0,
+        "tau_ms": 800.0,
+        "passed": 0,
+        "tests": {
+          "W1_the_walking_command_makes_a_rhythm": "fail",
+          "W2_antagonists_alternate": "fail",
+          "W3_left_and_right_alternate": "fail",
+          "W4_a_tripod": "fail"
+        },
+        "values": {
+          "W1_the_walking_command_makes_a_rhythm": {
+            "forward_walking": 0.0,
+            "grooming": 0.0
+          },
+          "W2_antagonists_alternate": null,
+          "W3_left_and_right_alternate": null,
+          "W4_a_tripod": {
+            "L1_L2_from_half": null,
+            "L1_L3_from_zero": null
+          }
+        },
+        "rhythmicity_fw": 0.0,
+        "tie_distance": 2.0,
+        "period_ms": null,
+        "flexor_hz": 0.13,
+        "extensor_hz": 3.67
+      },
+      {
+        "b_mv": 4.0,
+        "tau_ms": 25.0,
+        "passed": 0,
+        "tests": {
+          "W1_the_walking_command_makes_a_rhythm": "fail",
+          "W2_antagonists_alternate": "fail",
+          "W3_left_and_right_alternate": "fail",
+          "W4_a_tripod": "fail"
+        },
+        "values": {
+          "W1_the_walking_command_makes_a_rhythm": {
+            "forward_walking": 0.0,
+            "grooming": 0.1095
+          },
+          "W2_antagonists_alternate": null,
+          "W3_left_and_right_alternate": null,
+          "W4_a_tripod": {
+            "L1_L2_from_half": null,
+            "L1_L3_from_zero": null
+          }
+        },
+        "rhythmicity_fw": 0.0,
+        "tie_distance": 2.0,
+        "period_ms": null,
+        "flexor_hz": 0.13,
+        "extensor_hz": 15.91
+      },
+      {
+        "b_mv": 4.0,
+        "tau_ms": 50.0,
+        "passed": 0,
+        "tests": {
+          "W1_the_walking_command_makes_a_rhythm": "fail",
+          "W2_antagonists_alternate": "fail",
+          "W3_left_and_right_alternate": "fail",
+          "W4_a_tripod": "fail"
+        },
+        "values": {
+          "W1_the_walking_command_makes_a_rhythm": {
+            "forward_walking": 0.0,
+            "grooming": 0.0405
+          },
+          "W2_antagonists_alternate": null,
+          "W3_left_and_right_alternate": null,
+          "W4_a_tripod": {
+            "L1_L2_from_half": null,
+            "L1_L3_from_zero": null
+          }
+        },
+        "rhythmicity_fw": 0.0,
+        "tie_distance": 2.0,
+        "period_ms": null,
+        "flexor_hz": 0.16,
+        "extensor_hz": 12.06
+      },
+      {
+        "b_mv": 4.0,
+        "tau_ms": 100.0,
+        "passed": 0,
+        "tests": {
+          "W1_the_walking_command_makes_a_rhythm": "fail",
+          "W2_antagonists_alternate": "fail",
+          "W3_left_and_right_alternate": "fail",
+          "W4_a_tripod": "fail"
+        },
+        "values": {
+          "W1_the_walking_command_makes_a_rhythm": {
+            "forward_walking": 0.0,
+            "grooming": 0.0
+          },
+          "W2_antagonists_alternate": null,
+          "W3_left_and_right_alternate": null,
+          "W4_a_tripod": {
+            "L1_L2_from_half": null,
+            "L1_L3_from_zero": null
+          }
+        },
+        "rhythmicity_fw": 0.0,
+        "tie_distance": 2.0,
+        "period_ms": null,
+        "flexor_hz": 0.15,
+        "extensor_hz": 8.19
+      },
+      {
+        "b_mv": 4.0,
+        "tau_ms": 200.0,
+        "passed": 0,
+        "tests": {
+          "W1_the_walking_command_makes_a_rhythm": "fail",
+          "W2_antagonists_alternate": "fail",
+          "W3_left_and_right_alternate": "fail",
+          "W4_a_tripod": "fail"
+        },
+        "values": {
+          "W1_the_walking_command_makes_a_rhythm": {
+            "forward_walking": 0.0,
+            "grooming": 0.0
+          },
+          "W2_antagonists_alternate": null,
+          "W3_left_and_right_alternate": null,
+          "W4_a_tripod": {
+            "L1_L2_from_half": null,
+            "L1_L3_from_zero": null
+          }
+        },
+        "rhythmicity_fw": 0.0,
+        "tie_distance": 2.0,
+        "period_ms": null,
+        "flexor_hz": 0.18,
+        "extensor_hz": 5.23
+      },
+      {
+        "b_mv": 4.0,
+        "tau_ms": 400.0,
+        "passed": 0,
+        "tests": {
+          "W1_the_walking_command_makes_a_rhythm": "fail",
+          "W2_antagonists_alternate": "fail",
+          "W3_left_and_right_alternate": "fail",
+          "W4_a_tripod": "fail"
+        },
+        "values": {
+          "W1_the_walking_command_makes_a_rhythm": {
+            "forward_walking": 0.0,
+            "grooming": 0.0
+          },
+          "W2_antagonists_alternate": null,
+          "W3_left_and_right_alternate": null,
+          "W4_a_tripod": {
+            "L1_L2_from_half": null,
+            "L1_L3_from_zero": null
+          }
+        },
+        "rhythmicity_fw": 0.0,
+        "tie_distance": 2.0,
+        "period_ms": null,
+        "flexor_hz": 0.12,
+        "extensor_hz": 3.18
+      },
+      {
+        "b_mv": 4.0,
+        "tau_ms": 800.0,
+        "passed": 0,
+        "tests": {
+          "W1_the_walking_command_makes_a_rhythm": "fail",
+          "W2_antagonists_alternate": "fail",
+          "W3_left_and_right_alternate": "fail",
+          "W4_a_tripod": "fail"
+        },
+        "values": {
+          "W1_the_walking_command_makes_a_rhythm": {
+            "forward_walking": 0.0,
+            "grooming": 0.071
+          },
+          "W2_antagonists_alternate": null,
+          "W3_left_and_right_alternate": null,
+          "W4_a_tripod": {
+            "L1_L2_from_half": null,
+            "L1_L3_from_zero": null
+          }
+        },
+        "rhythmicity_fw": 0.0,
+        "tie_distance": 2.0,
+        "period_ms": null,
+        "flexor_hz": 0.07,
+        "extensor_hz": 1.86
+      },
+      {
+        "b_mv": 8.0,
+        "tau_ms": 25.0,
+        "passed": 0,
+        "tests": {
+          "W1_the_walking_command_makes_a_rhythm": "fail",
+          "W2_antagonists_alternate": "fail",
+          "W3_left_and_right_alternate": "fail",
+          "W4_a_tripod": "fail"
+        },
+        "values": {
+          "W1_the_walking_command_makes_a_rhythm": {
+            "forward_walking": 0.0,
+            "grooming": 0.0302
+          },
+          "W2_antagonists_alternate": null,
+          "W3_left_and_right_alternate": null,
+          "W4_a_tripod": {
+            "L1_L2_from_half": null,
+            "L1_L3_from_zero": null
+          }
+        },
+        "rhythmicity_fw": 0.0,
+        "tie_distance": 2.0,
+        "period_ms": null,
+        "flexor_hz": 0.12,
+        "extensor_hz": 12.65
+      },
+      {
+        "b_mv": 8.0,
+        "tau_ms": 50.0,
+        "passed": 0,
+        "tests": {
+          "W1_the_walking_command_makes_a_rhythm": "fail",
+          "W2_antagonists_alternate": "fail",
+          "W3_left_and_right_alternate": "fail",
+          "W4_a_tripod": "fail"
+        },
+        "values": {
+          "W1_the_walking_command_makes_a_rhythm": {
+            "forward_walking": 0.0,
+            "grooming": 0.0613
+          },
+          "W2_antagonists_alternate": null,
+          "W3_left_and_right_alternate": null,
+          "W4_a_tripod": {
+            "L1_L2_from_half": null,
+            "L1_L3_from_zero": null
+          }
+        },
+        "rhythmicity_fw": 0.0,
+        "tie_distance": 2.0,
+        "period_ms": null,
+        "flexor_hz": 0.16,
+        "extensor_hz": 8.57
+      },
+      {
+        "b_mv": 8.0,
+        "tau_ms": 100.0,
+        "passed": 0,
+        "tests": {
+          "W1_the_walking_command_makes_a_rhythm": "fail",
+          "W2_antagonists_alternate": "fail",
+          "W3_left_and_right_alternate": "fail",
+          "W4_a_tripod": "fail"
+        },
+        "values": {
+          "W1_the_walking_command_makes_a_rhythm": {
+            "forward_walking": 0.0,
+            "grooming": 0.0303
+          },
+          "W2_antagonists_alternate": null,
+          "W3_left_and_right_alternate": null,
+          "W4_a_tripod": {
+            "L1_L2_from_half": null,
+            "L1_L3_from_zero": null
+          }
+        },
+        "rhythmicity_fw": 0.0,
+        "tie_distance": 2.0,
+        "period_ms": null,
+        "flexor_hz": 0.16,
+        "extensor_hz": 5.44
+      },
+      {
+        "b_mv": 8.0,
+        "tau_ms": 200.0,
+        "passed": 0,
+        "tests": {
+          "W1_the_walking_command_makes_a_rhythm": "fail",
+          "W2_antagonists_alternate": "fail",
+          "W3_left_and_right_alternate": "fail",
+          "W4_a_tripod": "fail"
+        },
+        "values": {
+          "W1_the_walking_command_makes_a_rhythm": {
+            "forward_walking": 0.0,
+            "grooming": 0.0
+          },
+          "W2_antagonists_alternate": null,
+          "W3_left_and_right_alternate": null,
+          "W4_a_tripod": {
+            "L1_L2_from_half": null,
+            "L1_L3_from_zero": null
+          }
+        },
+        "rhythmicity_fw": 0.0,
+        "tie_distance": 2.0,
+        "period_ms": null,
+        "flexor_hz": 0.11,
+        "extensor_hz": 3.11
+      },
+      {
+        "b_mv": 8.0,
+        "tau_ms": 400.0,
+        "passed": 0,
+        "tests": {
+          "W1_the_walking_command_makes_a_rhythm": "fail",
+          "W2_antagonists_alternate": "fail",
+          "W3_left_and_right_alternate": "fail",
+          "W4_a_tripod": "fail"
+        },
+        "values": {
+          "W1_the_walking_command_makes_a_rhythm": {
+            "forward_walking": 0.0,
+            "grooming": 0.0
+          },
+          "W2_antagonists_alternate": null,
+          "W3_left_and_right_alternate": null,
+          "W4_a_tripod": {
+            "L1_L2_from_half": null,
+            "L1_L3_from_zero": null
+          }
+        },
+        "rhythmicity_fw": 0.0,
+        "tie_distance": 2.0,
+        "period_ms": null,
+        "flexor_hz": 0.08,
+        "extensor_hz": 1.69
+      },
+      {
+        "b_mv": 8.0,
+        "tau_ms": 800.0,
+        "passed": 0,
+        "tests": {
+          "W1_the_walking_command_makes_a_rhythm": "fail",
+          "W2_antagonists_alternate": "fail",
+          "W3_left_and_right_alternate": "fail",
+          "W4_a_tripod": "fail"
+        },
+        "values": {
+          "W1_the_walking_command_makes_a_rhythm": {
+            "forward_walking": 0.0,
+            "grooming": 0.0
+          },
+          "W2_antagonists_alternate": null,
+          "W3_left_and_right_alternate": null,
+          "W4_a_tripod": {
+            "L1_L2_from_half": null,
+            "L1_L3_from_zero": null
+          }
+        },
+        "rhythmicity_fw": 0.0,
+        "tie_distance": 2.0,
+        "period_ms": null,
+        "flexor_hz": 0.05,
+        "extensor_hz": 1.03
+      },
+      {
+        "b_mv": 16.0,
+        "tau_ms": 25.0,
+        "passed": 0,
+        "tests": {
+          "W1_the_walking_command_makes_a_rhythm": "fail",
+          "W2_antagonists_alternate": "fail",
+          "W3_left_and_right_alternate": "fail",
+          "W4_a_tripod": "fail"
+        },
+        "values": {
+          "W1_the_walking_command_makes_a_rhythm": {
+            "forward_walking": 0.0,
+            "grooming": 0.0
+          },
+          "W2_antagonists_alternate": null,
+          "W3_left_and_right_alternate": null,
+          "W4_a_tripod": {
+            "L1_L2_from_half": null,
+            "L1_L3_from_zero": null
+          }
+        },
+        "rhythmicity_fw": 0.0,
+        "tie_distance": 2.0,
+        "period_ms": null,
+        "flexor_hz": 0.13,
+        "extensor_hz": 9.09
+      },
+      {
+        "b_mv": 16.0,
+        "tau_ms": 50.0,
+        "passed": 0,
+        "tests": {
+          "W1_the_walking_command_makes_a_rhythm": "fail",
+          "W2_antagonists_alternate": "fail",
+          "W3_left_and_right_alternate": "fail",
+          "W4_a_tripod": "fail"
+        },
+        "values": {
+          "W1_the_walking_command_makes_a_rhythm": {
+            "forward_walking": 0.0,
+            "grooming": 0.0311
+          },
+          "W2_antagonists_alternate": null,
+          "W3_left_and_right_alternate": null,
+          "W4_a_tripod": {
+            "L1_L2_from_half": null,
+            "L1_L3_from_zero": null
+          }
+        },
+        "rhythmicity_fw": 0.0,
+        "tie_distance": 2.0,
+        "period_ms": null,
+        "flexor_hz": 0.14,
+        "extensor_hz": 5.61
+      },
+      {
+        "b_mv": 16.0,
+        "tau_ms": 100.0,
+        "passed": 0,
+        "tests": {
+          "W1_the_walking_command_makes_a_rhythm": "fail",
+          "W2_antagonists_alternate": "fail",
+          "W3_left_and_right_alternate": "fail",
+          "W4_a_tripod": "fail"
+        },
+        "values": {
+          "W1_the_walking_command_makes_a_rhythm": {
+            "forward_walking": 0.0339,
+            "grooming": 0.0
+          },
+          "W2_antagonists_alternate": null,
+          "W3_left_and_right_alternate": null,
+          "W4_a_tripod": {
+            "L1_L2_from_half": null,
+            "L1_L3_from_zero": null
+          }
+        },
+        "rhythmicity_fw": 0.0339,
+        "tie_distance": 2.0,
+        "period_ms": null,
+        "flexor_hz": 0.12,
+        "extensor_hz": 3.11
+      },
+      {
+        "b_mv": 16.0,
+        "tau_ms": 200.0,
+        "passed": 0,
+        "tests": {
+          "W1_the_walking_command_makes_a_rhythm": "fail",
+          "W2_antagonists_alternate": "fail",
+          "W3_left_and_right_alternate": "fail",
+          "W4_a_tripod": "fail"
+        },
+        "values": {
+          "W1_the_walking_command_makes_a_rhythm": {
+            "forward_walking": 0.0,
+            "grooming": 0.0
+          },
+          "W2_antagonists_alternate": null,
+          "W3_left_and_right_alternate": null,
+          "W4_a_tripod": {
+            "L1_L2_from_half": null,
+            "L1_L3_from_zero": null
+          }
+        },
+        "rhythmicity_fw": 0.0,
+        "tie_distance": 2.0,
+        "period_ms": null,
+        "flexor_hz": 0.07,
+        "extensor_hz": 1.69
+      },
+      {
+        "b_mv": 16.0,
+        "tau_ms": 400.0,
+        "passed": 0,
+        "tests": {
+          "W1_the_walking_command_makes_a_rhythm": "fail",
+          "W2_antagonists_alternate": "fail",
+          "W3_left_and_right_alternate": "fail",
+          "W4_a_tripod": "fail"
+        },
+        "values": {
+          "W1_the_walking_command_makes_a_rhythm": {
+            "forward_walking": 0.0,
+            "grooming": 0.0
+          },
+          "W2_antagonists_alternate": null,
+          "W3_left_and_right_alternate": null,
+          "W4_a_tripod": {
+            "L1_L2_from_half": null,
+            "L1_L3_from_zero": null
+          }
+        },
+        "rhythmicity_fw": 0.0,
+        "tie_distance": 2.0,
+        "period_ms": null,
+        "flexor_hz": 0.04,
+        "extensor_hz": 0.88
+      },
+      {
+        "b_mv": 16.0,
+        "tau_ms": 800.0,
+        "passed": 0,
+        "tests": {
+          "W1_the_walking_command_makes_a_rhythm": "fail",
+          "W2_antagonists_alternate": "fail",
+          "W3_left_and_right_alternate": "fail",
+          "W4_a_tripod": "fail"
+        },
+        "values": {
+          "W1_the_walking_command_makes_a_rhythm": {
+            "forward_walking": 0.0,
+            "grooming": 0.0
+          },
+          "W2_antagonists_alternate": null,
+          "W3_left_and_right_alternate": null,
+          "W4_a_tripod": {
+            "L1_L2_from_half": null,
+            "L1_L3_from_zero": null
+          }
+        },
+        "rhythmicity_fw": 0.0,
+        "tie_distance": 2.0,
+        "period_ms": null,
+        "flexor_hz": 0.04,
+        "extensor_hz": 0.55
+      }
+    ],
+    "cells_passing": {
+      "W1_the_walking_command_makes_a_rhythm": 0,
+      "W2_antagonists_alternate": 0,
+      "W3_left_and_right_alternate": 0,
+      "W4_a_tripod": 0
+    },
+    "grid_size": 36
+  },
+  "backward_walking_reported": null,
+  "registration": {
+    "file": "preregistration/embodied_stage2c_adaptation_sweep.json",
+    "sha256": "80a02ec73f57ad3bb96683db6ee432ea74dc26606973a7b23c6e34bbc072ddbc",
+    "registered_in_commit": "c4c29a1eb7402112de30c03d0a182b7554867224",
+    "committed_at": "2026-10-24T15:10:33-04:00"
+  }
+}
