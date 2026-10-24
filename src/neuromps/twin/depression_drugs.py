@@ -183,12 +183,44 @@ def _hd18_scores() -> dict:
     return {name: entry["score"] for name, entry in settings.items()}
 
 
+def summarise(result: dict, real_mfr_delta: float) -> dict:
+    """Citable headline numbers (setting labels contain dots, which metric paths cannot)."""
+    control = label(*DEPRESSION_GRID[0])
+    rises = {s: e["i_mfr_delta_at_block"] for s, e in result["settings"].items() if s != control}
+    smallest = min(rises, key=rises.get)
+    return {
+        "control_mfr_delta_at_block": result["settings"][control]["i_mfr_delta_at_block"],
+        "smallest_mfr_delta_at_block_with_depression": rises[smallest],
+        "setting_with_smallest_rise": smallest,
+        "settings_lowering_firing_rate": int(sum(v < 0 for v in rises.values())),
+        "settings_tested": len(rises),
+        "settings_qualifying": len(result["qualifying"]),
+        "real_gabaa_antagonist_mfr_delta": real_mfr_delta,
+    }
+
+
+def rescore() -> int:
+    """Rewrite the summary and figure from the saved result, without simulating."""
+    out = twin_dir()
+    result = json.loads((out / "depression_under_block_simulated.json").read_text())
+    real = references()["gabaa_block"]["by_feature"]["mfr_hz"]["median_delta"]
+    result["summary"] = summarise(result, real)
+    (out / "depression_under_block_simulated.json").write_text(json.dumps(result, indent=2) + "\n")
+    update_metrics("twin_depression_under_block", result)
+    plot(result, real, out / "depression_under_block_simulated.png")
+    print(json.dumps(result["summary"], indent=1))
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     """CLI: run the registered test and write it to metrics.json."""
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--processes", type=int, default=None)
+    p.add_argument("--rescore", action="store_true", help="summary and figure only, no simulation")
     args = p.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+    if args.rescore:
+        return rescore()
     spec = json.loads(REGISTRATION.read_text())
     processes = args.processes or worker_processes(cap=18)
     refs = references()
@@ -240,17 +272,14 @@ def main(argv: list[str] | None = None) -> int:
     out = twin_dir()
     out.mkdir(parents=True, exist_ok=True)
     frame.to_csv(out / "depression_under_block_simulated.csv", index=False)
+    real = refs["gabaa_block"]["by_feature"]["mfr_hz"]["median_delta"]
+    result["summary"] = summarise(result, real)
     (out / "depression_under_block_simulated.json").write_text(json.dumps(result, indent=2) + "\n")
     update_metrics("twin_depression_under_block", result)
-    real = refs["gabaa_block"]["by_feature"]["mfr_hz"]["median_delta"]
     plot(result, real, out / "depression_under_block_simulated.png")
     for name, entry in predictions.items():
         print(f"{name:36s} {entry['outcome']:>5}  {entry['value']}")
     return 0
-
-
-if __name__ == "__main__":
-    raise SystemExit(main())
 
 
 def plot(result: dict, real_mfr_delta: float, path) -> None:
@@ -286,3 +315,7 @@ def plot(result: dict, real_mfr_delta: float, path) -> None:
     fig.tight_layout()
     fig.savefig(path, dpi=300, bbox_inches="tight")
     plt.close(fig)
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

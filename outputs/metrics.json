@@ -4256,6 +4256,15 @@
         "iii": true,
         "qualifies": false
       }
+    },
+    "summary": {
+      "control_mfr_delta_at_block": 2.389,
+      "real_gabaa_antagonist_mfr_delta": -0.335,
+      "setting_with_smallest_rise": "u0.6_tau900",
+      "settings_lowering_firing_rate": 0,
+      "settings_qualifying": 0,
+      "settings_tested": 7,
+      "smallest_mfr_delta_at_block_with_depression": 0.8687
     }
   },
   "twin_hd11_validation": {

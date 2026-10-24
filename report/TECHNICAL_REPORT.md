@@ -76,7 +76,7 @@ pushed. It has four parts, and after the first round we added a fifth.
   autoregressive flow, that returns a full posterior for a new recording in 0.31 s
   <!-- metrics.json: twin_hd14_inference.amortized_inference.median_seconds_per_posterior -->
   without running the simulator again.
-- **Negative results and practical guidance.** Eight of our findings set firm boundaries, and §18
+- **Negative results and practical guidance.** Nine of our findings set firm boundaries, and §18
   pairs each with what we would do instead. For example, chamber-level readouts cannot tell which way axons are firing without electrodes inside
   the microchannels (0.3854
   <!-- metrics.json: axonal_directionality.chamber_readouts_predict_direction.balanced_accuracy -->
@@ -735,6 +735,7 @@ what we would do instead.
 | 6 | posterior over-confidence | `gabaa_scale` fails rank uniformity at p = 0.0174 <!-- metrics.json: twin_hd14_inference.rank_uniformity_ks_p.gabaa_scale.ks_p --> | check rank uniformity before quoting an interval; quote only parameters that pass |
 | 7 | baseline read as drug effect | absolute features infer 0.5219 <!-- metrics.json: twin_hd15_real_inference.gabaa_scale_at_baseline.median --> inhibition scale on untreated chips | infer from paired deltas against each well's own baseline (§16) |
 | 8 | support rejection | the calibrated twin cannot sample 9 <!-- metrics.json: demo_precompute.posterior_draws.n_short_of_requested --> of 113 <!-- metrics.json: demo_precompute.posterior_draws.n_recordings --> real recordings | treat a refusal as an out-of-distribution flag and send the recording to a person |
+| 9 | vesicle depletion does not explain the GABA-A reversal (added after the first round) | under strong GABA-A block the twin's firing rate rises by 2.389 <!-- metrics.json: twin_depression_under_block.summary.control_mfr_delta_at_block --> log2; with depletion, by at least 0.8687 <!-- metrics.json: twin_depression_under_block.summary.smallest_mfr_delta_at_block_with_depression -->; on real chips it changes by −0.335 <!-- metrics.json: twin_depression_under_block.summary.real_gabaa_antagonist_mfr_delta --> | do not read the twin's firing-rate direction under disinhibition as the culture's; look for the missing mechanism elsewhere (recalibrating with depression, depolarization block) |
 
 **On the first, which matters most.** §6 showed that the mechanism classifier had no dose
 relationship, and §16 showed that the inverse model could not recover dose either. So we asked
@@ -755,6 +756,22 @@ twin's posterior does not recover it, so the inverse model is the part to fix. A
 this analysis ranked doses without their units, which put the two lowest doses, recorded in nM,
 among the highest, and concluded the opposite. Another entry in this challenge, NeuroChip Twin,
 found the trend; tracing that disagreement found our error.
+
+**On the ninth.** A reviewer of the first round suggested that the twin raises firing rate under
+GABA-A block, where real chips lower it, because it lacks presynaptic vesicle depletion: in a dense
+culture, disinhibited bursts should exhaust the excitatory synapses and silence the network
+between them. It is a good hypothesis and the twin can test it, so we registered the test before
+running it (`preregistration/twin_depression_under_block.json`). We ran the four drug knobs and a
+five-step GABA-A dose series under each of the
+7 <!-- metrics.json: twin_depression_under_block.summary.settings_tested --> depression settings of
+§13's earlier check. Depletion shrinks the rise, the more so the stronger it is, but in
+none of them does firing rate fall
+(0 <!-- metrics.json: twin_depression_under_block.summary.settings_lowering_firing_rate --> settings),
+and in none do both burst rates fall with dose, as they do on real chips. The weights were not
+recalibrated with depression in place, so this does not rule the mechanism out; it does rule out
+depletion added to the present twin as the explanation.
+
+![Firing-rate change under strong GABA-A block in the SIMULATED twin, per vesicle-depletion setting, against the REAL median change on GABA-A antagonist pairs. Depletion shrinks the rise; no setting reverses it.](../outputs/twin/depression_under_block_simulated.png){width=72%}
 
 ## 19. What you cannot conclude from this work
 

@@ -15,6 +15,7 @@ the bottom.*
 | 4 | 2026-10-22/23 | From chip to animal: the drug knobs on a whole fly brain | new results, pre-registered | `c83eb14` … `aba184c` |
 | 5 | 2026-10-24 | Report page limit lifted; the fly study joins the report | none; structure only | `1c7d94f` |
 | 6 | 2026-10-24 | EPA screen cutoffs set beside the fly's precision needs | new comparison (descriptive) | `cd074b3` |
+| 7 | 2026-10-24 | Vesicle depletion tested as the cause of the GABA-A reversal | registered prediction failed; new negative result | `3071ab4`, `8fb5065` |
 
 ---
 
@@ -145,13 +146,39 @@ times larger than the one at which the fly's behaviour had already failed.*
   sources and ToxCast: only four compounds appear in both (bicuculline, deltamethrin,
   acetaminophen, glyphosate), too few to rank.
 
+## 7. Vesicle depletion does not explain why real chips slow down under GABA-A block
+
+**Slide message:** *We tested the reviewer's best explanation for our twin's one wrong
+direction, registered in advance, and it does not hold: depletion shrinks the firing-rate rise
+but never turns it into the fall real chips show.*
+
+- **What changed.** `src/neuromps/twin/depression_drugs.py` runs the four drug knobs and a
+  five-step GABA-A dose series under each depression setting (Tsodyks–Markram depletion at the
+  recurrent excitatory synapses), and scores a rule registered before the runs
+  (`preregistration/twin_depression_under_block.json`).
+- **Why.** The post-round-1 review proposed depletion as the missing mechanism behind three
+  weak points at once: the twin's wrong firing-rate direction under GABA-A block (§14), its
+  missed bicuculline dose trend (§18) and the cross-platform reversal (§11).
+- **Effect.** Under strong GABA-A block the twin's firing rate rises by
+  2.389 <!-- metrics.json: twin_depression_under_block.summary.control_mfr_delta_at_block -->
+  log2 without depletion and by at least
+  0.8687 <!-- metrics.json: twin_depression_under_block.summary.smallest_mfr_delta_at_block_with_depression -->
+  with it; real GABA-A antagonist pairs change by
+  −0.335 <!-- metrics.json: twin_depression_under_block.summary.real_gabaa_antagonist_mfr_delta -->.
+  None of the
+  7 <!-- metrics.json: twin_depression_under_block.summary.settings_tested --> settings qualifies,
+  and burst rates do not fall with dose under any. Registered outcome: V1 fail, V2 pass, V3 not
+  applicable. The weights were not recalibrated with depletion in place, so the mechanism is not
+  ruled out, only depletion added to the present twin.
+- **Evidence.** Report §18, row 9 and figure; `outputs/twin/depression_under_block_simulated.png`.
+
 ---
 
 ## Work queue (decided 2026-10-24, from the post-round-1 review)
 
 | Item | Status | Registered before running |
 |---|---|---|
-| Synaptic depression under GABA-A block: does it make the twin's firing rate fall, as real chips do? | planned | yes |
+| Synaptic depression under GABA-A block | done, entry 7 (failed as registered) | yes |
 | ToxCast potency bridge | replaced by entry 6 (only four shared compounds) | — |
 | Output-tract electrode: does recording descending neurons flag drugs earlier than a planar array? | planned | yes |
 | Brain and nerve cord as a two-chamber chip (male CNS): chamber-level directionality against the wiring | planned | exploratory |
