@@ -45,7 +45,8 @@ much as how precise it is.
 | 3.2 Precision a chip needs | per-mechanism firing-rate change at behavioural onset against real-chip noise and the EPA screen cutoff | done (exploratory, labelled) | §20, §24 |
 | 3.3 Where to record | output tract against planar array, with robustness | done | §24 |
 | 3.4 Motor neurons | the chip later than motor output in 4 <!-- metrics.json: fly_motor_tie_break.combined_with_parent.chip_later --> families, level in 1, never earlier | done | §25 |
-| 3.5 A muscle-driven leg | stage 1 failed on specificity; stage 1b with the weight rescaled to FlyWire's synaptic input | in progress | `report/ROADMAP_EMBODIED_FLY.md` |
+| 3.5 A muscle-driven leg | stage 1 failed on specificity; stage 1b's feeding check failed; cause: the published parameters put the male brain past a propagation threshold (251 <!-- metrics.json: fly_spread.flywire783.active_total --> against 14,263 <!-- metrics.json: fly_spread.malecns_published.active_total --> active neurons); next, the nerve cord from descending neurons, then the FlyWire brain joined to it | in progress | `report/ROADMAP_EMBODIED_FLY.md` §7 |
+| 3.5b Model transfer between connectomes | the published model's parameters do not carry over to a second connectome: a result in its own right | done (diagnostic) | `fly/spread.py`, `fly/excitability.py` |
 | 3.6 Closed loop | proprioceptive feedback; does the conclusion survive it? | planned (stage 3) | roadmap |
 | 3.7 Negative results | network-burst noise, depletion, direction from spontaneous activity | done | §18, §24, §25 |
 | 4. Discussion | what this means for assay design; limits of LIF models; what real experiments would test it | to write | — |

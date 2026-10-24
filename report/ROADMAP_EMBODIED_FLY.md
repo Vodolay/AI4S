@@ -101,7 +101,48 @@ neurons:
 | Real fly pharmacology is sparse and in different units | stage 5 compares directions, not magnitudes, and says which comparisons were impossible |
 | Compute | FlyGym 2 simulates on GPU; the GB10 runs the network and the body in parallel |
 
-## 7. What carries over unchanged
+## 7. Status, and what stage 1 changed
+
+**Stage 1 ran and failed its go/no-go test, as did its registered follow-up.** The male-CNS
+network was wired to the FlyMimic leg (MuJoCo 3.16, the leg's 15 Hill-type muscles driven by
+49 <!-- metrics.json: embodied_stage1.coverage.mapped --> of the
+68 <!-- metrics.json: embodied_stage1.coverage.left_front_leg_motor_neurons --> left front-leg
+motor neurons, by name). Antennal drive moved the claw toward the head in every trial, but sugar
+drive moved it closer still (median closest approach
+0.9386 <!-- metrics.json: embodied_stage1.predictions.S1a_antennal_drive_brings_the_claw_to_the_head.value.sugar -->
+against
+1.1067 <!-- metrics.json: embodied_stage1.predictions.S1a_antennal_drive_brings_the_claw_to_the_head.value.jon_ce -->
+mm): the movement was not specific. Stage 1b rescaled the male-CNS weight by the ratio of
+synaptic input per neuron between the connectomes; at that weight sugar no longer drove the
+feeding motor neuron at all
+(0.0 <!-- metrics.json: embodied_stage1b.predictions.B0_feeding_still_works.value.mn9_sugar_hz --> Hz),
+so its leg results are uninterpretable, as registered.
+
+**What went wrong.** The same sugar drive puts
+251 <!-- metrics.json: fly_spread.flywire783.active_total --> neurons above 10 Hz in the published
+FlyWire model and
+14,263 <!-- metrics.json: fly_spread.malecns_published.active_total --> in the male CNS at the same
+weight, most of them central-brain neurons
+(11,082 <!-- metrics.json: fly_spread.malecns_published.cb_intrinsic.active --> of
+32,160 <!-- metrics.json: fly_spread.malecns_published.cb_intrinsic.total -->); at the rescaled
+weight still
+7,586 <!-- metrics.json: fly_spread.malecns_rescaled.active_total -->. The published model's
+parameters do not carry over to the second connectome's brain: there, activity avalanches, and
+lowering one global weight silences weak pathways before it stops the avalanche. This is itself
+a result for the paper, and it changes the plan.
+
+**The revised plan.** Use each connectome where its model is validated:
+
+- **Stage 1c (next):** drive the male nerve cord from its descending neurons alone, without the
+  male brain. Activating the descending neurons the literature ties to antennal grooming should
+  move the front leg toward the head; descending neurons for other behaviours should not. This
+  tests the nerve cord, the muscle map and the leg without the brain's avalanche.
+- **Then:** join the FlyWire brain, where the published model is validated, to the male nerve
+  cord through descending neurons matched by cell type across the two connectomes.
+
+Both steps are registered before they run, like every stage.
+
+## 8. What carries over unchanged
 
 Pre-registration before every run; licensed data with checksums in the manifest; every reported
 number written by a script and checked against the documents that cite it; failed predictions

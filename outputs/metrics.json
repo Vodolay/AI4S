@@ -3287,6 +3287,51 @@
     },
     "largest_fly_change_at_behavioural_onset_log2": 0.304
   },
+  "fly_spread": {
+    "flywire783": {
+      "active_total": 251
+    },
+    "malecns_published": {
+      "active_total": 14263,
+      "cb_intrinsic": {
+        "active": 11082,
+        "total": 32160
+      },
+      "descending_neuron": {
+        "active": 238,
+        "total": 1314
+      },
+      "vnc_intrinsic": {
+        "active": 1014,
+        "total": 13151
+      },
+      "vnc_motor": {
+        "active": 207,
+        "total": 708
+      },
+      "w_syn_mv": 0.275
+    },
+    "malecns_rescaled": {
+      "active_total": 7586,
+      "cb_intrinsic": {
+        "active": 6730,
+        "total": 32160
+      },
+      "descending_neuron": {
+        "active": 134,
+        "total": 1314
+      },
+      "vnc_intrinsic": {
+        "active": 256,
+        "total": 13151
+      },
+      "vnc_motor": {
+        "active": 75,
+        "total": 708
+      },
+      "w_syn_mv": 0.1596
+    }
+  },
   "harness_quick": {
     "brian2": "2.9.0",
     "by_stage_s": {
