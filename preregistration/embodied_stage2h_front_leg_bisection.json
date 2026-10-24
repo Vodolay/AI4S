@@ -1,0 +1,30 @@
+{
+  "title": "Embodied fly, stage 2h: the published front-leg network on the male CNS with a fine input search: does DNg100 drive a leg rhythm that needs the three-neuron circuit? (SIMULATED, fictive: no body)",
+  "registered": "2026-10-24",
+  "status": "registered before any stage-2h simulation",
+  "parent": "preregistration/embodied_stage2g_front_leg_network.json",
+  "relation_to_parent": "Stage 2g's precondition failed narrowly (a working input in 12 and 15 of 32 draws, 16 needed) and its predictions stay uninterpretable. The network is nearly all-or-none, and the published halve-or-double rule flipped between almost nothing and about 1,044 recruited neurons without landing in the 5-500 window. Stage 2h keeps the network, the 5-500 criterion, the predictions and the measure, and changes only the search for the input: once a draw has an input that recruits too few and one that recruits too many, the next input is their geometric mean. Because this change and the predictions were chosen after seeing stage 2g, they are tested on fresh draws.",
+  "seen_before_registration": [
+    "every result of stages 2a-2g and of the rhythm-measure audit",
+    "stage 2g, exploratory, in its feasible draws under DNg100: a regular low-rate oscillation in one or two motor-neuron pools, corrected motor rhythm score median 0.8145 (synapse-count sizes) and 0.8747 (no size scaling), period 80.5 and 154.0 ms; silencing the three-neuron circuit: 0.0 without size scaling, 0.8145 (unchanged) with synapse-count sizes; tibia flexor and extensor pools silent; promotor-remotor phase defined in 0 and 2 of the feasible draws",
+    "no simulation with the bisection search has been run"
+  ],
+  "design": {
+    "everything_else": "exactly stage 2g: network (2,133 neurons), fly.rate_model, size rules synapse_count and none, drives, lesion at the final inputs, recruitment (non-driven neurons with mean rate >= 1 Hz), corrected measure, motor rhythm score, pools, phases, reliability R",
+    "draws": "32 per condition, seeds 980-1011, shared across conditions and size rules",
+    "input_search": "per draw: start at 250; while the draw has no input recruiting too few (< 5) or none recruiting too many (> 500), halve above 500 and double below 5 (stage 2g's rule); once it has both, the next input is the geometric mean of the largest too-few input and the smallest too-many input; stop when 5-500 neurons are recruited; at most 30 runs; a draw still outside the window after 30 runs is infeasible, and the ratio of its bracket (too-many input / too-few input) is reported",
+    "lesion": "forward walking at each feasible draw's final input, three circuit neurons held at 0"
+  },
+  "predictions": {
+    "H0_a_working_input_exists": {"statement": "Precondition: the fine search finds an input recruiting 5-500 neurons under DNg100", "test": "at least 16 of 32 draws feasible; if not, H1-H6 are uninterpretable for that size rule"},
+    "H1_the_walking_command_makes_a_leg_rhythm": {"statement": "Pugliese et al.'s result, on the male CNS", "test": "median over feasible draws of the motor rhythm score under forward walking >= 0.3"},
+    "H2_promotor_and_remotor_keep_a_reliable_offset": {"statement": "Pugliese et al.'s antagonist result", "test": "phase(promotor -> remotor) defined in at least half the feasible forward-walking draws, and R >= 0.7 over those"},
+    "H3_tibia_flexor_and_extensor_alternate": {"statement": "Stage 2a's W2, within this network", "test": "median circular distance of phase(tibia flexor -> tibia extensor) from 0.5 <= 0.15 over feasible draws (undefined phases count as failures)"},
+    "H4_the_walking_command_drives_the_rhythm_best": {"statement": "As their descending-neuron screen", "test": "median motor rhythm score under forward walking above the grooming median (each over its own feasible draws)"},
+    "H5_the_rhythm_needs_the_three_neuron_circuit": {"statement": "Pugliese et al.'s necessity result; interpretable only if H1 passes", "test": "H1 passes, and with the circuit silenced the median motor rhythm score < 0.3 and at most half the intact median"},
+    "H6_a_fly_like_step_period": {"statement": "As stage 2c's A6", "test": "median over feasible forward-walking draws of the median corrected period over active motor neurons with a peak, between 60 and 200 ms"}
+  },
+  "scoring": "every prediction scored separately for each size rule; stage 2g's code computes P0-P6, reported here as H0-H6",
+  "not_claimed_even_if_all_pass": "that the fly's leg network works this way: it is Pugliese et al.'s model and parameter distributions on a different connectome, with a stated size rule and no body; a pass of H1 and H5 means their front-leg result holds in an independent reimplementation on the male CNS",
+  "reporting": "Every prediction for both size rules, pass, fail or uninterpretable; feasibility, runs used and bracket ratios; DNb08; recruited and active motor neurons."
+}
