@@ -1,0 +1,43 @@
+{
+  "title": "Embodied fly, stage 2d: is the model's glutamate sign rule what keeps the male nerve cord from walking? Two bounding rules, each without and with adaptation, a selection rule and a confirmatory test on fresh seeds (SIMULATED, fictive: no body)",
+  "registered": "2026-10-24",
+  "status": "registered before any simulation with a changed glutamate sign",
+  "parent": "preregistration/embodied_stage2c_adaptation_sweep.json",
+  "relation_to_parent": "Stages 2a and 2c failed and stay failed. An exploratory diagnostic after stage 2c (not registered; seeds 9300-9303) found the tibia flexors held down by inhibition from the neurons the walking command activates, and that whether they remain net-inhibited depends on the model's rule that every glutamate synapse inhibits. That rule (from GluCl-mediated inhibition in the fly brain) is applied by the published model and by every stage so far; fly glutamate also excites through ionotropic receptors, and no settled rule says where. This stage replaces it with two bounding rules and asks whether either lets the nerve cord turn its walking command into a coordinated rhythm.",
+  "seen_before_registration": [
+    "every result of stages 2a and 2c, and the exploratory diagnostic: with inhibition removed the flexor pools fire at 151 Hz; from the 1,966 neurons active under BDN2 drive (published signs), each flexor motor neuron receives 275 inhibitory synapses (GABA 183, glutamate 92) against 131 excitatory; each extensor motor neuron 754 excitatory against 698 inhibitory",
+    "data only: in the stage-1c nerve cord, 407,475 glutamatergic connections (2,800,633 synapses), all inhibitory under the published rule; 23,920 of them (318,764 synapses) onto the 708 motor neurons",
+    "no simulation with a changed glutamate sign has been run"
+  ],
+  "model_change": {
+    "glut_motor": "glutamatergic connections onto motor neurons (superclass vnc_motor or cb_motor) become excitatory, same weight; all other connections as published",
+    "glut_all": "every glutamatergic connection becomes excitatory, same weight",
+    "adaptation": "as stage 2c (a += b_a per spike, decaying with tau_a; b_a = 0 is no adaptation)"
+  },
+  "sweep": {
+    "rules": ["glut_motor", "glut_all"],
+    "cells_per_rule": "b_a = 0 (no adaptation) and the stage-2c grid: b_a in {0.5, 1, 2, 4, 8, 16} mV x tau_a in {25, 50, 100, 200, 400, 800} ms; 37 cells per rule, 74 in all",
+    "drives": "forward_walking (DNg100, BDN2) and grooming (DNg62 + DNge078), both sides, 150 Hz",
+    "seeds": "840-843 (exploration)",
+    "measures": "exactly stage 2a and 2c (tibia flexor and extensor pools of six legs; W1-W4; the period of the left front flexor rhythm), plus the number of nerve-cord neurons firing at >= 1 Hz under the walking command, reported to show whether a rule makes activity run away",
+    "per_cell_report": "every cell of both rules, in a table and a figure"
+  },
+  "selection_rule": "the cell (rule, b_a, tau_a) passing the most of W1-W4 on the exploration seeds; ties broken by the smallest sum of the circular distances of W2, W3, W4 (L1->L2) and W4 (L1->L3) from their targets (an undefined phase counts 0.5), then glut_motor before glut_all (the smaller change), then the smaller b_a, then the smaller tau_a. If the best cell passes none, the stage stops and D0-D6 fail.",
+  "confirmation": {
+    "cell": "the selected cell",
+    "seeds": "850-857 (fresh)",
+    "drives": "forward_walking, grooming, none; backward_walking (MDN) reported without prediction",
+    "control": "the selected rule's network rewired as in stage 2c (postsynaptic partners permuted across all connections, random seed 0, after the sign change), same adaptation, same seeds"
+  },
+  "predictions": {
+    "D0_silent_without_drive": {"statement": "Without drive no leg motor neuron fires", "test": "no spikes in any of the twelve pools in any no-drive trial (selected cell)"},
+    "D1_the_walking_command_makes_a_rhythm": {"statement": "As stage 2a's W1", "test": "median rhythmicity of the L1 flexor pool under forward walking >= 0.3 and above the grooming median"},
+    "D2_antagonists_alternate": {"statement": "As W2", "test": "median circular distance of phase(L1 flexor -> L1 extensor) from 0.5 <= 0.15"},
+    "D3_left_and_right_alternate": {"statement": "As W3", "test": "median circular distance of phase(L1 flexor -> R1 flexor) from 0.5 <= 0.15"},
+    "D4_a_tripod": {"statement": "As W4", "test": "median circular distance of phase(L1 -> L2 flexor) from 0.5 <= 0.15 and of phase(L1 -> L3 flexor) from 0 <= 0.15"},
+    "D5_the_coordination_comes_from_the_wiring": {"statement": "As stage 2c's A5", "test": "the intact cord passes at least one of D2-D4, and the rewired cord passes fewer of D2-D4 than the intact cord"},
+    "D6_a_fly_like_step_period": {"statement": "As stage 2c's A6", "test": "median period of the L1 flexor rhythm under forward walking between 60 ms (Mendes et al. 2013) and 200 ms (our bound)"}
+  },
+  "not_claimed_even_if_all_pass": "that fly glutamate acts this way: the rules are bounds, not measurements; a pass means that with glutamate excitatory where the selected rule says, the male nerve cord's wiring turns its walking command into a coordinated rhythm at a fly-like period, and a rewired cord does not; a stop means the glutamate rule is not what keeps it from walking",
+  "reporting": "The whole sweep of both rules (every cell, every test, pass or fail, and the activity level), the selected cell, and every prediction with its value and pass/fail, whichever way it falls."
+}
