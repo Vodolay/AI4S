@@ -192,3 +192,12 @@ def test_precision_needed_reads_the_chip_change_at_behavioural_onset() -> None:
     )
     got = analysis.precision_needed(rows, 0.5, "delta.mfr_hz")
     assert got == {"f": pytest.approx(0.6), "g": None}
+
+
+def test_a_percent_cutoff_becomes_the_log2_change_it_allows() -> None:
+    from neuromps.fly.screen_cutoffs import cutoff_as_log2
+
+    got = cutoff_as_log2(75.0)
+    assert got["down"] == pytest.approx(-2.0)
+    assert got["up"] == pytest.approx(0.807, abs=1e-3)
+    assert cutoff_as_log2(100.0)["down"] is None

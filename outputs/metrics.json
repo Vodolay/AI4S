@@ -2637,6 +2637,30 @@
       "synapses": 124024573
     }
   },
+  "fly_screen_cutoffs": {
+    "acute_cutoff_over_largest_fly_change": 5.87,
+    "acute_firing_rate": {
+      "chemicals": 515,
+      "cutoff_log2": {
+        "down": -1.784,
+        "up": 0.774
+      },
+      "cutoff_percent": 70.97,
+      "endpoint": "CCTE_Shafer_MEA_acute_firing_rate_mean",
+      "hits": 187
+    },
+    "dev_firing_rate": {
+      "chemicals": 473,
+      "cutoff_log2": {
+        "down": -1.79,
+        "up": 0.775
+      },
+      "cutoff_percent": 71.08,
+      "endpoint": "CCTE_Shafer_MEA_dev_firing_rate_mean",
+      "hits": 160
+    },
+    "largest_fly_change_at_behavioural_onset_log2": 0.304
+  },
   "harness_quick": {
     "brian2": "2.9.0",
     "by_stage_s": {
