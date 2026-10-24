@@ -94,7 +94,8 @@ pushed. It has four parts, and after the first round we added a fifth.
   <!-- metrics.json: fly_confirm_network_bursts.precision.abs_log2_mfr_change_at_behavioural_onset.flywire_sweep.gaba_block -->
   log2 when the brain's bitter gate on feeding had already broken. Electrodes on the brain's output
   tract, the fly's counterpart of a chip's microchannels, caught it in time where a planar array
-  did not. A second, male connectome replicates the behaviour and ranking results.
+  did not. A second, male connectome replicates the behaviour and ranking results, and read at
+  its motor neurons the chip is never earlier than motor output.
 
 ---
 
@@ -1091,11 +1092,51 @@ Hz and bitter suppresses it; GABA block releases it; acetylcholine block silence
 and the chip's firing-rate change again tracks behavioural disruption (Spearman
 0.878 <!-- metrics.json: fly_malecns_replication.predictions.M_C1.value -->).
 
+**One step closer to behaviour: motor neurons.** The behaviour readouts above are named
+interneurons, MN9 excepted. The male connectome includes the nerve cord, so the same protocols
+can be read at the motor neurons that move the body: the
+67 <!-- metrics.json: fly_motor_readout.pool_sizes.proboscis --> proboscis motor neurons for
+feeding and its bitter gate, the
+135 <!-- metrics.json: fly_motor_readout.pool_sizes.front_leg --> front-leg motor neurons for
+antennal grooming, and how many of all
+815 <!-- metrics.json: fly_motor_readout.pool_sizes.all_motor --> motor neurons a drive recruits.
+We registered the test before running it (`preregistration/fly_motor_readout.json`), repeating
+the replication's trials with the same seeds, so its interneuron readouts had to come back
+unchanged; they did (largest difference
+0.0 <!-- metrics.json: fly_motor_readout.predictions.MR0_interneuron_readouts_reproduce.value -->).
+The pools carry the behaviours: sugar drives the proboscis pool at
+31.405 <!-- metrics.json: fly_motor_readout.predictions.MR1_the_motor_pools_carry_the_behaviours.value.proboscis_sugar -->
+Hz and bitter cuts it to
+5.625 <!-- metrics.json: fly_motor_readout.predictions.MR1_the_motor_pools_carry_the_behaviours.value.proboscis_sugar_bitter -->
+Hz; antennal drive moves the front legs at
+5.023 <!-- metrics.json: fly_motor_readout.predictions.MR1_the_motor_pools_carry_the_behaviours.value.front_leg_jon_ce -->
+Hz against
+2.394 <!-- metrics.json: fly_motor_readout.predictions.MR1_the_motor_pools_carry_the_behaviours.value.front_leg_sugar -->
+under sugar. Six of the seven registered predictions passed: GABA block releases the gate at
+the motor level, acetylcholine block silences motor output, and the chip's firing-rate change
+tracks motor disruption (Spearman
+0.8922 <!-- metrics.json: fly_motor_readout.predictions.MR4_chip_tracks_motor_disruption.value -->).
+The one that failed was the chip-is-late prediction, and narrowly: the chip flagged the drug
+after motor output was impaired in
+3 <!-- metrics.json: fly_motor_readout.summary.families_chip_later_than_motor --> families and
+at the same dose in
+2 <!-- metrics.json: fly_motor_readout.summary.families_chip_tied_with_motor -->, where the test
+needed four. It was never earlier
+(0 <!-- metrics.json: fly_motor_readout.summary.families_chip_earlier_than_motor --> families).
+Motor output failed no later than the interneuron readouts in every family, and earlier under
+acetylcholine block. Read at the motor level, then, the chip is not ahead of behaviour, it is
+at best level with it.
+
+![First impairing dose at the interneuron and motor levels, and first chip detection, per drug family, in the SIMULATED male CNS. The chip is never earlier than motor output.](../outputs/figures/fly_motor_onsets_SIMULATED.png){width=75%}
+
 ## 26. What the fly study does not show
 
 - **It is a model.** The fly model is a leaky integrate-and-fire network with one free weight, no
   adaptation and no neuromodulation; it fires asynchronously and does not burst the way a culture
-  does. Its behaviour readouts are firing rates of named neurons, not behaviour.
+  does. Its behaviour readouts are firing rates of named neurons, motor neurons included, not
+  movement: there is no body and no sensory feedback. In the male connectome, which has more
+  synapses per neuron under the same weight, any drive recruits a large share of the motor
+  neurons, so off-target recruitment starts high.
 - **The knobs scale whole transmitter classes.** A real compound acts on particular receptor
   subunits, with its own potency and off-target effects. Nothing here says what any compound
   does to a fly, a culture or a person.

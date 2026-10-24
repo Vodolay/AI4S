@@ -2637,6 +2637,101 @@
       "synapses": 124024573
     }
   },
+  "fly_motor_readout": {
+    "label": "SIMULATED male CNS: motor-neuron readouts",
+    "pool_sizes": {
+      "all_motor": 815,
+      "front_leg": 135,
+      "proboscis": 67
+    },
+    "predictions": {
+      "MR0_interneuron_readouts_reproduce": {
+        "outcome": "pass",
+        "test": "max |difference| over conditions <= 1e-9",
+        "value": 0.0
+      },
+      "MR1_the_motor_pools_carry_the_behaviours": {
+        "outcome": "pass",
+        "test": "proboscis_sugar >= 10 Hz, proboscis_sugar_bitter <= 0.5 x proboscis_sugar, front_leg_jon_ce >= 1.5 x the front-leg pool's rate under sugar",
+        "value": {
+          "front_leg_jon_ce": 5.023,
+          "front_leg_sugar": 2.394,
+          "proboscis_sugar": 31.405,
+          "proboscis_sugar_bitter": 5.625
+        }
+      },
+      "MR2_disinhibition_releases_the_gate_at_the_motor_level": {
+        "outcome": "pass",
+        "test": "Spearman(block, proboscis_sugar_bitter) over vehicle + 5 gaba_block levels >= 0.8",
+        "value": 1.0
+      },
+      "MR3_excitation_block_silences_motor_output": {
+        "outcome": "pass",
+        "test": "Spearman(block, readout) <= -0.8 for both",
+        "value": {
+          "front_leg_jon_ce": -0.9,
+          "proboscis_sugar": -0.9747
+        }
+      },
+      "MR4_chip_tracks_motor_disruption": {
+        "outcome": "pass",
+        "test": "Spearman(|delta log2 mfr|, motor_disruption) >= 0.6 over the 21 drug conditions",
+        "value": 0.8922
+      },
+      "MR5_chip_still_late_at_the_motor_level": {
+        "outcome": "fail",
+        "test": "first motor-impairment dose < first chip-detection dose in at least 4 of the families with any motor impairment",
+        "value": {
+          "meeting": 3,
+          "scored": 5
+        }
+      },
+      "MR6_motor_output_fails_no_later_than_interneurons": {
+        "outcome": "pass",
+        "test": "first motor-impairment dose <= first interneuron-impairment dose (replication's disruption index) in at least 4 of the families impaired at both levels",
+        "value": {
+          "meeting": 5,
+          "scored": 5
+        }
+      }
+    },
+    "registration": {
+      "committed_at": "2026-10-24T10:00:53-04:00",
+      "file": "preregistration/fly_motor_readout.json",
+      "registered_in_commit": "a1c5f277009843bc344815abdf05838684cdcd3b",
+      "sha256": "a42eb892bdcc5a9089c9960209b8ac0ce03a255d50290886795c63f86ffdf152"
+    },
+    "summary": {
+      "families_chip_earlier_than_motor": 0,
+      "families_chip_later_than_motor": 3,
+      "families_chip_tied_with_motor": 2,
+      "families_motor_earlier_than_interneuron": 1,
+      "families_scored": 5,
+      "first_dose": {
+        "chip": {
+          "ach_block": 0.4,
+          "excitability_block": 0.3999999999999999,
+          "gaba_block": 0.6,
+          "gaba_potentiate": 1.0,
+          "glucl_block": 0.8
+        },
+        "interneuron": {
+          "ach_block": 0.4,
+          "excitability_block": 0.3999999999999999,
+          "gaba_block": 0.4,
+          "gaba_potentiate": 1.0,
+          "glucl_block": 0.6
+        },
+        "motor": {
+          "ach_block": 0.1999999999999999,
+          "excitability_block": 0.3999999999999999,
+          "gaba_block": 0.4,
+          "gaba_potentiate": 1.0,
+          "glucl_block": 0.6
+        }
+      }
+    }
+  },
   "fly_output_tract": {
     "abs_delta_mfr_at_onset": {
       "planar": {

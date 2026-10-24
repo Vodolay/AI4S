@@ -1,0 +1,40 @@
+{
+  "title": "Behaviour one step closer: motor-neuron readouts on the male CNS (SIMULATED)",
+  "registered": "2026-10-24",
+  "status": "registered before any drug condition was run with motor-neuron readouts",
+  "parent": "preregistration/fly_malecns_replication.json",
+  "seen_before_registration": [
+    "every result of the FlyWire study, the MaleCNS replication, the confirmations and checks",
+    "exploration, vehicle only, seeds 9000-9001: no drive -> no motor neuron fires; sugar -> proboscis motor pool (pm) about 31 Hz, front-leg pool (fl) about 2-3 Hz; sugar+bitter -> pm about 6 Hz; JO-CE -> fl about 5-7 Hz, pm about 5 Hz; under every drive about 200 motor neurons reach 10 Hz, wing motor neurons 40-55 Hz"
+  ],
+  "design": {
+    "model": "the MaleCNS model of the parent (Traced bodies, consensus-transmitter signs, Shiu constants), published protocols, no background",
+    "conditions": "vehicle and the 21 drug conditions of fly_chip_to_animal.json",
+    "trials": "8 per protocol and condition, seeds 600-607 (the replication's), so its interneuron readouts must reproduce",
+    "pools": {
+      "proboscis": "motor neurons (superclass vnc_motor or cb_motor) with subclass pm, both sides",
+      "front_leg": "motor neurons with subclass fl, both sides",
+      "all_motor": "every motor neuron"
+    },
+    "readouts": {
+      "proboscis_sugar": "mean rate of the proboscis pool under sugar drive",
+      "proboscis_sugar_bitter": "mean rate of the proboscis pool under sugar and bitter drive",
+      "front_leg_jon_ce": "mean rate of the front-leg pool under JO-CE drive",
+      "motor_recruited_sugar": "motor neurons at 10 Hz or more under sugar drive"
+    },
+    "motor_disruption": "mean over the four readouts of |log2((x + 1) / (x_vehicle + 1))|",
+    "impairment_threshold": 0.5,
+    "chip": "the replication's array readouts (malecns_conditions_SIMULATED.csv, seeds 500-502), unchanged",
+    "chip_detection_threshold": 0.5
+  },
+  "predictions": {
+    "MR0_interneuron_readouts_reproduce": {"statement": "Same seeds, same code: the replication's MN9, aBN1 and descending readouts come back", "test": "max |difference| over conditions <= 1e-9"},
+    "MR1_the_motor_pools_carry_the_behaviours": {"statement": "Vehicle: sugar drives the proboscis pool, bitter gates it, antennal drive reaches the front legs more than sugar does", "test": "proboscis_sugar >= 10 Hz, proboscis_sugar_bitter <= 0.5 x proboscis_sugar, front_leg_jon_ce >= 1.5 x the front-leg pool's rate under sugar"},
+    "MR2_disinhibition_releases_the_gate_at_the_motor_level": {"statement": "GABA block raises the proboscis pool under sugar and bitter", "test": "Spearman(block, proboscis_sugar_bitter) over vehicle + 5 gaba_block levels >= 0.8"},
+    "MR3_excitation_block_silences_motor_output": {"statement": "ACh block lowers the proboscis pool under sugar and the front-leg pool under antennal drive", "test": "Spearman(block, readout) <= -0.8 for both"},
+    "MR4_chip_tracks_motor_disruption": {"statement": "The chip's firing-rate change tracks motor disruption", "test": "Spearman(|delta log2 mfr|, motor_disruption) >= 0.6 over the 21 drug conditions"},
+    "MR5_chip_still_late_at_the_motor_level": {"statement": "The chip at its registered threshold flags drugs after motor output is impaired", "test": "first motor-impairment dose < first chip-detection dose in at least 4 of the families with any motor impairment"},
+    "MR6_motor_output_fails_no_later_than_interneurons": {"statement": "Motor output is impaired at a dose no higher than the interneuron readouts", "test": "first motor-impairment dose <= first interneuron-impairment dose (replication's disruption index) in at least 4 of the families impaired at both levels"}
+  },
+  "reporting": "Every prediction with its value and pass/fail, whichever way it falls; MR2-MR6 are reported as uninterpretable if MR0 or MR1 fails."
+}
