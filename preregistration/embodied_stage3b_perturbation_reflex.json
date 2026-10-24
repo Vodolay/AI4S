@@ -1,0 +1,34 @@
+{
+  "title": "Embodied fly, stage 3b: a perturbation test of the claw-neuron resistance reflex: does feedback that follows an imposed flexion bring the grooming leg back faster? (SIMULATED, closed loop)",
+  "registered": "2026-10-24",
+  "status": "registered before any perturbed closed-loop simulation",
+  "parent": "preregistration/embodied_stage3a_claw_feedback.json",
+  "relation_to_parent": "Stage 3a's go/no-go failed (resistance feedback moved the held tibia by 0.0054 rad) and stays failed. It showed why a held posture cannot test a reflex: the claw neurons fire at a near-constant rate, so contingent and blind input coincide (the sham matched the resistance arm at the motor level). The classic test perturbs the joint. Stage 3b imposes a brief flexion during the held reach and measures the return. Its sham keeps the tonic feedback but removes the part that follows the perturbation: each sham trial receives the claw rates of the same seed's unperturbed resistance trial.",
+  "seen_before_registration": [
+    "every stage-3a result (seeds 1020-1027): under grooming drive the tibia holds at a median 0.6337 rad open loop; resistance feedback lowers tibia extensor rates from 43.25 to 31.75 Hz and raises flexor rates from 0.1 to 3.4 Hz; the sham gives 33.25 and 3.0 Hz; claw rates about 90 Hz during the hold; exploratory, at r_full 80 Hz the tibia moves from 0.6546 to 0.6705 rad under resistance and to 0.6711 under the sham",
+    "body only (no neural input), extensor held at full activation: the tibia rests at 0.634 rad; a 20 ms torque on the femur-tibia joint of 0.5, 1, 2, 5, 10, 20 (model units, flexing) gives a peak excursion of 0.030, 0.058, 0.107, 0.243, 0.625, 3.565 rad and a return to within 0.05 rad of the pre-pulse angle 0, 0, 3, 9, 27, 142 ms after the pulse"
+  ],
+  "design": {
+    "everything_else": "exactly stage 3a: the stage-1c male nerve cord (LIF, w_syn 0.275 mV), grooming drive (DNg62 + DNge078, 150 Hz) and no drive, the FlyMimic leg and muscle map, the 1 ms loop, the four left front-leg claw neurons, their linear tuning and suprathreshold Poisson delivery, the resistance and assistance assignments",
+    "perturbation": "a torque of 10 (model units) flexing the femur-tibia joint, held from 0.500 to 0.520 s of the 1 s trial",
+    "arms": {
+      "open": "no feedback, perturbed",
+      "resistance": "SNpp51 extension-tuned, SNpp50 flexion-tuned, perturbed",
+      "assistance": "the opposite assignment, perturbed",
+      "resistance_unperturbed": "the resistance arm without the perturbation (used to build the sham; reported)",
+      "sham": "perturbed; each claw neuron receives the rate time course it had in the same seed's resistance_unperturbed trial"
+    },
+    "trials": "16 per arm under grooming drive, seeds 1030-1045; the open, resistance and assistance arms also without drive",
+    "r_full": "20 Hz (as every stage); the open, resistance and sham arms repeated at 80 Hz as sensitivity, reported without prediction",
+    "readouts": "pre-pulse angle: median femur-tibia angle 0.40-0.50 s; excursion: maximum angle 0.50-0.60 s minus the pre-pulse angle; recovery time: ms after the pulse ends (0.520 s) until the angle first comes within 0.05 rad of the pre-pulse angle (the trial's remaining time if never); also time near the head, pool rates and claw rates"
+  },
+  "predictions": {
+    "M0_the_push_moves_the_leg": {"statement": "Precondition: the perturbation flexes the held tibia", "test": "open-loop median excursion under grooming >= 0.2 rad; if not, M1-M3 are uninterpretable"},
+    "M1_feedback_speeds_the_return": {"statement": "The resistance assignment brings the tibia back faster than the open loop", "test": "median recovery time in the resistance arm <= 0.8 x the open-loop median (grooming)"},
+    "M2_the_speed_needs_the_loop": {"statement": "The faster return comes from feedback that follows the perturbation, not from the tonic input", "test": "interpretable only if M1 passes: median recovery time in the resistance arm < the sham median"},
+    "M3_the_opposite_assignment_does_not_speed_it": {"statement": "The direction comes from which claw type carries which tuning", "test": "median recovery time in the assistance arm >= the open-loop median"},
+    "M4_the_reach_survives": {"statement": "The perturbed, closed-loop leg still grooms", "test": "median time near the head in the resistance arm under grooming >= 0.5 and at least 0.25 above the no-drive median"}
+  },
+  "not_claimed_even_if_all_pass": "that the fly's resistance reflex runs through these neurons or is tuned this way: the tuning assignment is a stated bracket, tuning is linear, one leg and one proprioceptor class; a pass means the male-CNS wiring of the front-leg claw neurons, closed through a muscle-driven leg, returns an imposed flexion faster when SNpp51 carry extension, because of feedback that follows the perturbation",
+  "reporting": "Every prediction with its value and pass/fail or uninterpretable, whichever way it falls; excursions, recovery times, pool and claw rates per arm; the r_full 80 Hz sensitivity."
+}
