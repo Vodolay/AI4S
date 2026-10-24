@@ -75,3 +75,22 @@ def test_stage1_scoring_reads_the_registered_rules() -> None:
             ]
     got = s1.score(pd.DataFrame(rows), spec)
     assert all(v["outcome"] == "pass" for v in got.values())
+
+
+def test_stage1c_scoring_reads_the_registered_rules() -> None:
+    import json
+
+    from neuromps.fly import embodied_stage1c as s1c
+
+    spec = json.loads(s1c.REGISTRATION.read_text())
+    rows, pools = [], []
+    for scale in (20.0, 10.0, 40.0):
+        for drive in s1c.DRIVES:
+            for seed in range(8):
+                d = 1.0 if drive == "grooming" else 1.5
+                rows.append({"drive": drive, "seed": seed, "r_full": scale, "min_distance_mm": d})
+    for drive in s1c.DRIVES:
+        front = 10.0 if drive == "grooming" else 1.0
+        pools.append({"drive": drive, "front": front, "middle": 0.5, "hind": 0.5})
+    got = s1c.score(pd.DataFrame(rows), pd.DataFrame(pools), 0, spec)
+    assert all(v["outcome"] == "pass" for v in got.values())

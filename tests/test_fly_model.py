@@ -238,3 +238,14 @@ def test_pulsed_stimulation_drives_only_inside_the_pulses() -> None:
     phase_ms = (got.times * 1000) % 200.0
     assert got.times.size > 20
     assert np.all(phase_ms < 20.0 + 1.0)  # a spike can land one step after the pulse ends
+
+
+def test_a_subnetwork_keeps_only_connections_among_the_kept_neurons() -> None:
+    con = _toy()
+    keep = np.array([False, True, True, True, False, False])
+    sub = connectome.subnetwork(con, keep)
+    assert sub.root_ids.tolist() == [101, 102, 103]
+    # 1 -> 2 and 3 -| 2 survive, renumbered 0 -> 1 and 2 -| 1; 0 -> 1, 4 -| 2, 5 -> 2 do not
+    assert list(zip(sub.pre.tolist(), sub.post.tolist(), strict=True)) == [(0, 1), (2, 1)]
+    assert sub.pre_class.tolist() == ["ach", "gaba"]
+    assert sub.neuropil.tolist() == ["LH_R", "LH_R", "LH_R"]

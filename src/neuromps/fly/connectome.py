@@ -216,3 +216,20 @@ def release_coverage(raw: Path = RAW) -> dict:
         ),
         "minimum_required": MIN_COVERAGE,
     }
+
+
+def subnetwork(con: Connectome, keep: np.ndarray) -> Connectome:
+    """The neurons where `keep` is true, renumbered, with the connections among them only."""
+    keep = np.asarray(keep, dtype=bool)
+    new_index = np.full(con.n_neurons, -1)
+    new_index[keep] = np.arange(int(keep.sum()))
+    inside = keep[con.pre] & keep[con.post]
+    return Connectome(
+        root_ids=con.root_ids[keep],
+        pre=new_index[con.pre[inside]],
+        post=new_index[con.post[inside]],
+        synapses=con.synapses[inside],
+        sign=con.sign[inside],
+        pre_class=con.pre_class[inside],
+        neuropil=con.neuropil[keep],
+    )
