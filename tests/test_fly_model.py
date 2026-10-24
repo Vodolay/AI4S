@@ -325,3 +325,11 @@ def test_rewiring_keeps_degrees_and_weights_with_their_presynaptic_neuron() -> N
         neuropil=np.array(["A"] * 50, dtype=object),
     )
     assert not np.array_equal(connectome.rewire(big, seed=0).post, big.post)
+
+
+def test_making_connections_excitatory_flips_only_those_and_keeps_weights() -> None:
+    con = _toy()
+    got = connectome.make_excitatory(con, con.pre_class == "glut")
+    np.testing.assert_array_equal(got.sign, [1, 1, -1, 1, 1])
+    np.testing.assert_array_equal(got.synapses, con.synapses)
+    np.testing.assert_array_equal(con.sign, [1, 1, -1, -1, 1])

@@ -65,8 +65,8 @@ def period_s(signal: np.ndarray, dt_s: float = fictive.DT_S) -> float | None:
     return float((lo + int(np.argmax(auto))) * dt_s)
 
 
-def _trial(job) -> dict:
-    """One trial of stage 2a's measures, with adaptation, on the intact or rewired cord."""
+def simulate(job):
+    """One trial's spikes: (network, drive, seed, b_mv, tau_ms) on a network in `_STATE`."""
     network, drive, seed, b_mv, tau_ms = job
     params = model.FlyParams(
         duration_s=fictive.DURATION_S,
@@ -75,7 +75,12 @@ def _trial(job) -> dict:
         adapt_mv=b_mv,
         adapt_tau_ms=tau_ms,
     )
-    spikes = model.simulate(_STATE[network], params, excite=fictive._STATE["drive"][drive])
+    return model.simulate(_STATE[network], params, excite=fictive._STATE["drive"][drive])
+
+
+def measure(job, spikes, keep_signals_seed: int = CONFIRM_SEEDS[0]) -> dict:
+    """Stage 2a's measures and the flexor period for one trial's spikes."""
+    network, drive, seed, b_mv, tau_ms = job
     start = int(round(fictive.START_S / fictive.DT_S))
     signals, rates = {}, {}
     for key, idx in fictive._STATE["pools"].items():
@@ -96,7 +101,13 @@ def _trial(job) -> dict:
     )
     row |= {f"rate_{k}": v for k, v in rates.items()}
     row |= {"network": network, "b_mv": b_mv, "tau_ms": tau_ms}
-    return row | ({"signals": signals} if drive == "forward_walking" and seed == 830 else {})
+    keep = drive == "forward_walking" and seed == keep_signals_seed
+    return row | ({"signals": signals} if keep else {})
+
+
+def _trial(job) -> dict:
+    """One trial of stage 2a's measures, with adaptation, on the intact or rewired cord."""
+    return measure(job, simulate(job))
 
 
 def _distance(value) -> float:
@@ -169,12 +180,12 @@ def confirm(intact: pd.DataFrame, rewired: pd.DataFrame, spec: dict, spec2a: dic
     coord = WALKING[1:]
     n_intact = sum(got[w]["outcome"] == "pass" for w in coord)
     n_rewired = sum(control[w]["outcome"] == "pass" for w in coord)
-    out["A5_the_coordination_comes_from_the_wiring"] = (
+    out[list(spec["predictions"])[5]] = (
         {"intact_passes": n_intact, "rewired_passes": n_rewired},
         n_intact >= 1 and n_rewired < n_intact,
     )
     period = _period_ms(intact)
-    out["A6_a_fly_like_step_period"] = (
+    out[list(spec["predictions"])[6]] = (
         period,
         period is not None and PERIOD_MS[0] <= period <= PERIOD_MS[1],
     )
@@ -243,7 +254,7 @@ def plot_sweep(cells: list[dict], selected: dict | None, path) -> None:
     plt.close(fig)
 
 
-def plot_confirmation(signals: dict, cell: dict, path) -> None:
+def plot_confirmation(signals: dict, cell: dict, path, seed: int = CONFIRM_SEEDS[0]) -> None:
     """The selected cell: one confirmation trial's tibia pools under the walking command."""
     import matplotlib
 
@@ -267,7 +278,7 @@ def plot_confirmation(signals: dict, cell: dict, path) -> None:
     ax.tick_params(labelsize=6)
     ax.set_title(
         f"SIMULATED intact nerve cord, selected cell (b {cell['b_mv']:g} mV, "
-        f"tau {cell['tau_ms']:g} ms), walking drive, seed 830",
+        f"tau {cell['tau_ms']:g} ms), walking drive, seed {seed}",
         fontsize=8,
     )
     fig.tight_layout()
