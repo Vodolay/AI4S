@@ -2805,6 +2805,68 @@
     },
     "threshold": 0.156
   },
+  "fly_output_tract_robustness": {
+    "registered_index": {
+      "draws": 10,
+      "draws_meeting_t1": 7,
+      "draws_meeting_t3": 7,
+      "families_scored": 5,
+      "t1_families_per_draw": [
+        5,
+        5,
+        3,
+        5,
+        5,
+        4,
+        0,
+        5,
+        2,
+        5
+      ],
+      "t3_tract_minus_planar_per_draw": [
+        1,
+        1,
+        1,
+        2,
+        0,
+        2,
+        0,
+        1,
+        -1,
+        1
+      ]
+    },
+    "without_dn_recruited": {
+      "draws": 10,
+      "draws_meeting_t1": 7,
+      "draws_meeting_t3": 7,
+      "families_scored": 5,
+      "t1_families_per_draw": [
+        5,
+        5,
+        3,
+        5,
+        5,
+        4,
+        0,
+        5,
+        2,
+        5
+      ],
+      "t3_tract_minus_planar_per_draw": [
+        1,
+        1,
+        1,
+        2,
+        0,
+        2,
+        0,
+        1,
+        -1,
+        1
+      ]
+    }
+  },
   "fly_screen_cutoffs": {
     "acute_cutoff_over_largest_fly_change": 5.87,
     "acute_firing_rate": {

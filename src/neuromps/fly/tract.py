@@ -294,8 +294,63 @@ def run_robustness() -> int:
     parent = pd.read_csv(outputs_dir() / "fly" / "conditions_SIMULATED.csv")
     result = robustness(per_seed, parent)
     update_metrics("fly_output_tract_robustness", scoring.clean(result))
+    from neuromps.paths import figures_dir
+
+    registered = json.loads((outputs_dir() / "fly" / "tract_electrode_SIMULATED.json").read_text())
+    plot(registered, result, figures_dir() / "fly_output_tract_SIMULATED.png")
     print(json.dumps(result, indent=1))
     return 0
+
+
+def plot(result: dict, robust: dict | None, path) -> None:
+    """Firing-rate change at behavioural onset per family: tract against planar arrays."""
+    import matplotlib
+
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    from neuromps.fly.figures import LABELS
+
+    onset_delta = result["abs_delta_mfr_at_onset"]
+    families = [f for f in LABELS if onset_delta["tract_64"].get(f) is not None]
+    styles = (
+        ("planar", "#999999", "planar array, 544 electrodes"),
+        ("planar_64", "#0072B2", "planar array, 64 electrodes"),
+        ("tract_64", "#D55E00", "output tract, 64 electrodes"),
+    )
+    fig, ax = plt.subplots(figsize=(5.2, 2.7))
+    width = 0.27
+    for k, (name, colour, label) in enumerate(styles):
+        ax.bar(
+            [i + (k - 1) * width for i in range(len(families))],
+            [onset_delta[name][f] for f in families],
+            width,
+            color=colour,
+            label=label,
+        )
+    ax.axhline(
+        result["threshold"],
+        color="black",
+        ls="--",
+        lw=1,
+        label=f"REAL chip noise threshold ({result['threshold']} log2)",
+    )
+    ax.set_xticks(range(len(families)), [LABELS[f] for f in families], fontsize=6.5)
+    ax.set_ylabel("|log2 change in firing rate|\nat behavioural onset", fontsize=7)
+    ax.tick_params(labelsize=6.5)
+    top = max(max(onset_delta[n][f] for f in families) for n, _, _ in styles)
+    ax.set_ylim(0, top * 1.45)
+    ax.legend(fontsize=5.5, frameon=False, loc="upper left", ncol=2)
+    note = ""
+    if robust:
+        r = robust["registered_index"]
+        note = f"; tract ahead in {r['draws_meeting_t1']} of {r['draws']} random draws"
+    ax.set_title(
+        "SIMULATED fly brain: recording the output tract against a planar array" + note, fontsize=7
+    )
+    fig.tight_layout()
+    fig.savefig(path, dpi=300, bbox_inches="tight")
+    plt.close(fig)
 
 
 if __name__ == "__main__":

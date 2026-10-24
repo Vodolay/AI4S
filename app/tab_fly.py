@@ -205,6 +205,26 @@ def _ladder(metrics: dict) -> None:
             "random splits. Firing rate never does, and it is late. SIMULATED."
         )
     _precision(confirm.get("precision", {}))
+    _tract(metrics)
+
+
+def _tract(metrics: dict) -> None:
+    figure = loaders.FIGURES / "fly_output_tract_SIMULATED.png"
+    tract = metrics.get("fly_output_tract", {})
+    robust = metrics.get("fly_output_tract_robustness", {}).get("registered_index", {})
+    if not figure.exists() or not tract:
+        return
+    st.subheader("Where should the electrode go?")
+    st.image(str(figure), width="stretch")
+    st.caption(
+        "64 electrodes on the descending neurons that carry the brain's output, the fly's "
+        "counterpart of a chip's microchannels, against 64 and 544 planar electrodes, at a "
+        "threshold set by real-chip noise. The tract caught "
+        f"{tract['families_flagged_in_time']['tract_64']} drug families in time, the equal-count "
+        f"planar array {tract['families_flagged_in_time']['planar_64']}; over random draws of "
+        f"each array the tract was ahead in {robust.get('draws_meeting_t1')} of "
+        f"{robust.get('draws')}. SIMULATED."
+    )
 
 
 def _precision(precision: dict) -> None:

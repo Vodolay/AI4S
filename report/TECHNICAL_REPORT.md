@@ -92,8 +92,9 @@ pushed. It has four parts, and after the first round we added a fifth.
   every drug family behaviour failed at a lower dose than the chip flagged; GABA block had moved
   firing rate by only 0.149
   <!-- metrics.json: fly_confirm_network_bursts.precision.abs_log2_mfr_change_at_behavioural_onset.flywire_sweep.gaba_block -->
-  log2 when the brain's bitter gate on feeding had already broken. A second, male connectome
-  replicates the behaviour and ranking results.
+  log2 when the brain's bitter gate on feeding had already broken. Electrodes on the brain's output
+  tract, the fly's counterpart of a chip's microchannels, caught it in time where a planar array
+  did not. A second, male connectome replicates the behaviour and ranking results.
 
 ---
 
@@ -878,7 +879,9 @@ can miss: the EPA's acute MEA screen calls a firing-rate hit only beyond a chang
 5.87 <!-- metrics.json: fly_screen_cutoffs.acute_cutoff_over_largest_fly_change --> times the
 largest firing-rate change at which the fly's behaviour had already failed. That threshold is a
 reasonable guard against false hits; it is not evidence that a compound below it leaves circuits
-untouched.
+untouched. Third, where to record matters as much as how precisely: in the same simulation,
+electrodes on the brain's output tract caught GABA block in time where a planar array did not
+(§24), the same advice §15 gives from real devices: instrument the channels.
 
 ## 21. How to reproduce and check this work
 
@@ -1031,6 +1034,36 @@ of random splits, while for firing rate the untreated 95th percentile is
 0.028 <!-- metrics.json: fly_checks.false_alarm_rate_untreated.by_feature.q95_abs_log2.mfr_hz -->
 log2. Trains shifted in time, which keeps every rate and breaks every coincidence, still yield
 network bursts. Network-burst rate looked early because it is noisy, not because it sees more.
+
+**Where to put the electrode.** The fly's descending neurons carry the brain's output down the
+neck to the nerve cord: a bundle of axons between two compartments, which is what a chip's
+microchannels are. We registered a test before recording them
+(`preregistration/fly_output_tract_electrode.json`): read the same spontaneous recordings through
+64 single-unit electrodes on descending neurons and through 64 electrodes drawn from the planar
+array, at one threshold set by real-chip noise. All four registered predictions passed. Under GABA
+block, at the dose where behaviour first fails, the tract's firing rate has moved by
+0.361 <!-- metrics.json: fly_output_tract.abs_delta_mfr_at_onset.tract_64.gaba_block --> log2
+against
+0.044 <!-- metrics.json: fly_output_tract.abs_delta_mfr_at_onset.planar_64.gaba_block --> for the
+equal-count planar array and
+0.149 <!-- metrics.json: fly_output_tract.abs_delta_mfr_at_onset.planar.gaba_block --> for the full
+one. The tract flags
+3 <!-- metrics.json: fly_output_tract.families_flagged_in_time.tract_64 --> of the five families
+no later than behaviour, against
+2 <!-- metrics.json: fly_output_tract.families_flagged_in_time.planar_64 -->, and never
+false-alarms on untreated recordings
+(rate 0.0 <!-- metrics.json: fly_output_tract.false_alarm_rate.tract_64 -->). Two checks we added
+after it passed temper it without overturning it. Which 64 neurons the electrodes hear matters:
+over ten random draws of each array, the tract is ahead in
+7 <!-- metrics.json: fly_output_tract_robustness.registered_index.draws_meeting_t1 --> of
+10 <!-- metrics.json: fly_output_tract_robustness.registered_index.draws -->. And the result does
+not come from the overlap between the tract and one behaviour readout, which counts descending
+neurons: leaving that readout out changes nothing. This agrees with what real devices showed in
+§15, from the other side: there, chamber electrodes could not tell which way axons fired and only
+electrodes inside the microchannels could; here, an electrode on the output tract sees the
+circuit fail sooner than one on the tissue around it.
+
+![Firing-rate change at behavioural onset in the SIMULATED fly brain, per drug family, read through the full planar array, 64 of its electrodes, and 64 electrodes on the descending neurons of the output tract, against a threshold set by REAL chip noise.](../outputs/figures/fly_output_tract_SIMULATED.png){width=85%}
 
 ## 25. Direction between regions, and a second brain
 

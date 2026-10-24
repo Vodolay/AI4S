@@ -17,6 +17,7 @@ the bottom.*
 | 6 | 2026-10-24 | EPA screen cutoffs set beside the fly's precision needs | new comparison (descriptive) | `cd074b3` |
 | 7 | 2026-10-24 | Vesicle depletion tested as the cause of the GABA-A reversal | registered prediction failed; new negative result | `3071ab4`, `8fb5065` |
 | 8 | 2026-10-24 | The twin as a source of labelled data, and as a prior for the classifier | 1 of 3 registered predictions pass | `761068e`, `93bb4f6` |
+| 9 | 2026-10-24 | Electrodes on the fly brain's output tract against a planar array | 4 of 4 registered predictions pass | `cd074b3`, `2c66067` |
 
 ---
 
@@ -202,6 +203,35 @@ labels.*
     right direction, wrong size.
 - **Evidence.** Report §14, last paragraph.
 
+## 9. Record the tract, not the tissue around it
+
+**Slide message:** *On the simulated fly brain, electrodes on the output tract (the brain's own
+microchannels) catch GABA block before behaviour fails; a planar array of the same size does
+not.*
+
+- **What changed.** `src/neuromps/fly/tract.py` reads the parent sweep's spontaneous recordings
+  through three arrays: the full planar array, 64 of its electrodes, and 64 single-unit
+  electrodes on descending neurons. The test, at one threshold set by real-chip noise, was
+  registered before recording (`preregistration/fly_output_tract_electrode.json`).
+- **Why.** The review's Investigation B: does instrumenting the connection between compartments
+  reveal failure a flat array misses? Our real devices (§15) had already said that only
+  electrodes inside microchannels see direction.
+- **Effect.** All four registered predictions pass. Under GABA block, at behavioural onset, the
+  tract's firing rate has moved by
+  0.361 <!-- metrics.json: fly_output_tract.abs_delta_mfr_at_onset.tract_64.gaba_block --> log2
+  against
+  0.044 <!-- metrics.json: fly_output_tract.abs_delta_mfr_at_onset.planar_64.gaba_block --> for
+  the equal-count planar array; the tract flags
+  3 <!-- metrics.json: fly_output_tract.families_flagged_in_time.tract_64 --> families in time
+  against
+  2 <!-- metrics.json: fly_output_tract.families_flagged_in_time.planar_64 -->, with no false
+  alarms. Checks added after the pass: over ten random draws of each array the tract is ahead
+  in
+  7 <!-- metrics.json: fly_output_tract_robustness.registered_index.draws_meeting_t1 --> of
+  10 <!-- metrics.json: fly_output_tract_robustness.registered_index.draws -->, and the
+  descending-neuron behaviour readout is not what drives it.
+- **Evidence.** Report §24 ("Where to put the electrode") and figure; §20, fifth area.
+
 ---
 
 ## Work queue (decided 2026-10-24, from the post-round-1 review)
@@ -210,8 +240,8 @@ labels.*
 |---|---|---|
 | Synaptic depression under GABA-A block | done, entry 7 (failed as registered) | yes |
 | ToxCast potency bridge | replaced by entry 6 (only four shared compounds) | — |
-| Output-tract electrode: does recording descending neurons flag drugs earlier than a planar array? | planned | yes |
-| Brain and nerve cord as a two-chamber chip (male CNS) | scoped out: one chamber pair is an anecdote, and FlyWire already tested 698 region pairs (§25) | — |
+| Output-tract electrode | done, entry 9 (4 of 4 pass; 7 of 10 draws) | yes |
+| Brain and nerve cord as a two-chamber chip (male CNS) | scoped out: one chamber pair is an anecdote, and FlyWire already tested 698 <!-- metrics.json: fly_chip_to_animal.direction.n_pairs --> region pairs (§25) | — |
 | Twin posteriors as classifier features | done as a twin-fitted prior, entry 8 (the delta posterior infers one knob, outside Task 1's domain) | yes |
 | Random-graph-to-connectome blend for organoids; embodied fly | dropped | — |
 
