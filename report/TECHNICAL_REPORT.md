@@ -1129,6 +1129,26 @@ at best level with it.
 
 ![First impairing dose at the interneuron and motor levels, and first chip detection, per drug family, in the SIMULATED male CNS. The chip is never earlier than motor output.](../outputs/figures/fly_motor_onsets_SIMULATED.png){width=75%}
 
+The two ties were a matter of resolution: both onsets fell inside one coarse dose step. So we
+registered a follow-up before running it (`preregistration/fly_motor_tie_break.json`), with four
+finer levels inside each tied step, the same seeds and the same untreated references; re-running
+the tied levels reproduced them exactly (largest difference
+0.0 <!-- metrics.json: fly_motor_tie_break.predictions.TB0_tied_levels_reproduce.value -->). The
+raised threshold resolves: motor output fails at
+0.32 <!-- metrics.json: fly_motor_tie_break.resolutions.excitability_block.motor_onset -->, the
+chip detects at 0.4
+<!-- metrics.json: fly_motor_tie_break.resolutions.excitability_block.chip_onset -->. GABA
+potentiation stays tied even on the finer grid, both crossing at
+0.6 <!-- metrics.json: fly_motor_tie_break.resolutions.gaba_potentiate.motor_onset -->; there the
+chip is within a hair of its threshold one step earlier. The registered follow-up predicted that
+both ties would resolve with the chip later, so it failed too. MR5 stays failed as registered;
+read with the follow-up beside it, the chip is later than motor output in
+4 <!-- metrics.json: fly_motor_tie_break.combined_with_parent.chip_later --> families, level in
+1 <!-- metrics.json: fly_motor_tie_break.combined_with_parent.tied --> and earlier in
+0 <!-- metrics.json: fly_motor_tie_break.combined_with_parent.chip_earlier -->.
+
+![Chip firing-rate change and motor disruption across the two tied dose steps, on a finer grid, in the SIMULATED male CNS; dashed line, the 0.5 threshold both are read against.](../outputs/figures/fly_motor_tie_break_SIMULATED.png){width=80%}
+
 ## 26. What the fly study does not show
 
 - **It is a model.** The fly model is a leaky integrate-and-fire network with one free weight, no
