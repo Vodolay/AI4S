@@ -189,6 +189,31 @@ the movement.
 
 ![Time near the head against rhythmicity, one point per SIMULATED trial: the antennal-grooming drive holds the leg at the head; walking and escape drives move it rhythmically and away.](../outputs/figures/embodied_stage1d_reach_swing_SIMULATED.png){width=70%}
 
+**Stages 1e and 1f: the FlyWire brain drives the male nerve cord, end to end.** Each FlyWire
+descending neuron was paired with the male-CNS descending neuron of the same cell type and side
+(1,220 <!-- metrics.json: embodied_stage1f.matching.flywire_matched --> of
+1,303 <!-- metrics.json: embodied_stage1f.matching.flywire_total --> matched), the published brain
+model was run under antennal, sugar or no input, and its descending spikes were replayed into
+the male nerve cord, which moved the leg. Stage 1e's registered precondition, an absolute 10 Hz
+line for the grooming descending neurons, failed at
+8.531 <!-- metrics.json: embodied_stage1e.predictions.E0_the_grooming_neurons_are_reached.value -->
+Hz, so its leg results are uninterpretable; it also showed that its time-near-head readout
+counted a mild flexion under sugar input as a reach. Stage 1f, registered with a relative
+precondition and the depth of reach as readout and run on fresh seeds, passes all five
+predictions. Antennal input brings the claw to
+0.5369 <!-- metrics.json: embodied_stage1f.predictions.F1_antennal_input_reaches_deepest.value.jon_ce -->
+mm of the antenna, sugar input to
+0.9377 <!-- metrics.json: embodied_stage1f.predictions.F1_antennal_input_reaches_deepest.value.sugar -->
+mm, no input leaves it at rest; the front-leg pool carries the movement; and removing the spikes
+of the two grooming descending neuron types alone (aDN1, aDN2; four neurons) returns the claw to
+1.4793 <!-- metrics.json: embodied_stage1f.predictions.F4_the_reach_runs_through_the_grooming_neurons.value.lesioned -->
+mm. **Stage 1 is complete:** sensory input to a validated whole-brain model, carried by the
+descending neurons the fly uses for antennal grooming, moves a muscle-driven leg to the head;
+sugar input does not, and without those four neurons the movement is gone. Next is stage 2
+(feeding and walking) and stage 3 (closing the loop).
+
+![Depth of reach per condition in the SIMULATED relay (FlyWire brain -> matched descending neurons -> male nerve cord -> FlyMimic leg), one point per trial: antennal input reaches deepest; removing aDN1 and aDN2 abolishes the reach; sugar input flexes the leg only partway.](../outputs/figures/embodied_stage1f_depth_SIMULATED.png){width=70%}
+
 ## 8. What carries over unchanged
 
 Pre-registration before every run; licensed data with checksums in the manifest; every reported

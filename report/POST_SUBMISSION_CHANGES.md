@@ -23,7 +23,8 @@ the bottom.*
 | 12 | 2026-10-24 | Roadmap to an embodied, closed-loop fly | plan, no new results | `42ee520` |
 | 13 | 2026-10-24 | Embodied stage 1: the male CNS drives a muscle-driven leg | both registered tests fail; finding the cause changes the plan | `cbdd6d6` … this branch |
 | 14 | 2026-10-24 | Embodied stage 1c: the male nerve cord from descending neurons, brain removed | 3 of 5 registered predictions pass | `739f6f0` … `e576cd9` |
-| 15 | 2026-10-24 | Embodied stage 1d: a held reach against a rhythmic swing, fresh seeds | 4 of 4 registered predictions pass | `66502eb` … this branch |
+| 15 | 2026-10-24 | Embodied stage 1d: a held reach against a rhythmic swing, fresh seeds | 4 of 4 registered predictions pass | `66502eb` … `19ab0ae` |
+| 16 | 2026-10-24 | Embodied stages 1e and 1f: the FlyWire brain drives the male nerve cord and the leg | 1e uninterpretable as registered; 1f 5 of 5 pass on fresh seeds | `f2f5ad3` … this branch |
 
 ---
 
@@ -372,6 +373,28 @@ nearly the whole second; walking neurons swing it, escape neurons extend it.*
   scale; the front-leg specificity of stage 1c replicates. Stage 1c's failed predictions stay
   failed.
 - **Evidence.** Roadmap §7 and figure; `outputs/fly/embodied_stage1d_SIMULATED.*`.
+
+## 16. From an antennal touch in the brain to a leg at the head
+
+**Slide message:** *Antennal input to the validated FlyWire brain, relayed through matched
+descending neurons into the male nerve cord, moves a muscle-driven leg to the head; sugar input
+does not, and removing four grooming neurons abolishes the movement.*
+
+- **What changed.** `src/neuromps/fly/model.py` can replay recorded spike trains into chosen
+  neurons; `src/neuromps/fly/relay.py` pairs descending neurons across the two connectomes by
+  cell type and side and joins the FlyWire brain to the male nerve cord; stage 1e and stage 1f
+  were each registered before running.
+- **Effect.** Stage 1e's absolute precondition failed (grooming descending neurons at
+  8.531 <!-- metrics.json: embodied_stage1e.predictions.E0_the_grooming_neurons_are_reached.value -->
+  Hz against a 10 Hz line), so its leg results are uninterpretable. Stage 1f, on fresh seeds,
+  passes all five predictions: claw to
+  0.5369 <!-- metrics.json: embodied_stage1f.predictions.F1_antennal_input_reaches_deepest.value.jon_ce -->
+  mm under antennal input against
+  0.9377 <!-- metrics.json: embodied_stage1f.predictions.F1_antennal_input_reaches_deepest.value.sugar -->
+  under sugar; back to
+  1.4793 <!-- metrics.json: embodied_stage1f.predictions.F4_the_reach_runs_through_the_grooming_neurons.value.lesioned -->
+  mm when aDN1 and aDN2 are removed.
+- **Evidence.** Roadmap §7 and figure; `outputs/fly/embodied_stage1f_SIMULATED.*`.
 
 ---
 
