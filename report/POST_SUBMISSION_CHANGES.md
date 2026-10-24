@@ -19,7 +19,8 @@ the bottom.*
 | 8 | 2026-10-24 | The twin as a source of labelled data, and as a prior for the classifier | 1 of 3 registered predictions pass | `761068e`, `93bb4f6` |
 | 9 | 2026-10-24 | Electrodes on the fly brain's output tract against a planar array | 4 of 4 registered predictions pass | `cd074b3`, `2c66067` |
 | 10 | 2026-10-24 | Behaviour read at the motor neurons of the male CNS | 6 of 7 registered predictions pass | `a1c5f27`, `a2f4ee2` |
-| 11 | 2026-10-24 | The motor-level ties resolved on a finer dose grid | 1 of 2 registered predictions pass; one tie resolves | `69db4e6`, this merge |
+| 11 | 2026-10-24 | The motor-level ties resolved on a finer dose grid | 1 of 2 registered predictions pass; one tie resolves | `69db4e6`, `796a33b` |
+| 12 | 2026-10-24 | Roadmap to an embodied, closed-loop fly | plan, no new results | this branch |
 
 ---
 
@@ -285,6 +286,25 @@ ahead.*
   0 <!-- metrics.json: fly_motor_tie_break.combined_with_parent.chip_earlier -->.
 - **Evidence.** Report §25 and figure; `outputs/fly/malecns_motor_tie_break_SIMULATED.csv`.
 
+## 12. A roadmap, not a rushed demo: the embodied, closed-loop fly
+
+**Slide message:** *Next, the simulated fly gets a body and its sensory feedback, so that "does
+the chip flag a drug before behaviour fails?" can be asked of movement itself; six stages, each
+with a registered go/no-go test.*
+
+- **What changed.** `report/ROADMAP_EMBODIED_FLY.md` (Word and PDF beside it) sets out the plan:
+  brain and nerve cord, motor neurons to muscles, muscles to joints in a physics body
+  (NeuroMechFly v2 on MuJoCo), and joints back to proprioceptive neurons. A small script,
+  `src/neuromps/fly/roadmap_inventory.py`, counts what the male connectome already provides: of
+  381 <!-- metrics.json: fly_roadmap_inventory.leg_motor_neurons_total --> leg motor neurons,
+  260 <!-- metrics.json: fly_roadmap_inventory.leg_motor_neurons_typed_by_muscle --> are typed
+  by the muscle they drive, and
+  1,030 <!-- metrics.json: fly_roadmap_inventory.vnc_proprioceptive_sensory_neurons -->
+  proprioceptive sensory neurons can carry the feedback.
+- **Why.** Building it properly takes weeks; showing a half-working body would cost credibility.
+  A staged plan with registered tests shows where the project goes and how it will be checked.
+- **Evidence.** `report/ROADMAP_EMBODIED_FLY.md`.
+
 ---
 
 ## Work queue (decided 2026-10-24, from the post-round-1 review)
@@ -297,7 +317,7 @@ ahead.*
 | Brain and nerve cord as a two-chamber chip (male CNS) | scoped out: one chamber pair is an anecdote, and FlyWire already tested 698 <!-- metrics.json: fly_chip_to_animal.direction.n_pairs --> region pairs (§25) | — |
 | Twin posteriors as classifier features | done as a twin-fitted prior, entry 8 (the delta posterior infers one knob, outside Task 1's domain) | yes |
 | Random-graph-to-connectome blend for organoids | dropped | — |
-| Embodied, closed-loop fly (body, nerve cord to muscles, sensory feedback) | roadmap after the final; its first step, motor-neuron readouts, is entry 10 | — |
+| Embodied, closed-loop fly (body, nerve cord to muscles, sensory feedback) | roadmap after the final (`report/ROADMAP_EMBODIED_FLY.md`, entry 12); its first step, motor-neuron readouts, is entry 10 | — |
 
 Why the blend was dropped: grafting fly wiring onto a model of a mammalian cortical culture has
 no biological basis, and organoid–monolayer differences have many confounds, so a match would

@@ -3004,6 +3004,27 @@
       ]
     }
   },
+  "fly_roadmap_inventory": {
+    "leg_motor_neurons": {
+      "front_leg": {
+        "total": 135,
+        "typed_by_muscle": 106
+      },
+      "hind_leg": {
+        "total": 130,
+        "typed_by_muscle": 80
+      },
+      "middle_leg": {
+        "total": 116,
+        "typed_by_muscle": 74
+      }
+    },
+    "leg_motor_neurons_total": 381,
+    "leg_motor_neurons_typed_by_muscle": 260,
+    "vnc_campaniform_sensilla_neurons": 175,
+    "vnc_chordotonal_organ_neurons": 403,
+    "vnc_proprioceptive_sensory_neurons": 1030
+  },
   "fly_screen_cutoffs": {
     "acute_cutoff_over_largest_fly_change": 5.87,
     "acute_firing_rate": {
