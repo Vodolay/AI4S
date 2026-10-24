@@ -8852,6 +8852,89 @@
       "u0.2_tau300"
     ]
   },
+  "twin_prior_classifier": {
+    "baseline": {
+      "balanced_accuracy_mean": 0.537,
+      "conformal_alpha_0.1": {
+        "empirical_coverage": 0.918,
+        "fraction_singleton": 0.0,
+        "mean_set_size": 4.562
+      },
+      "per_fold": [
+        0.364,
+        0.631,
+        0.569,
+        0.583
+      ]
+    },
+    "label": "SIMULATED twin prior, scored on REAL Kapucu pairs",
+    "n_real_pairs": 73,
+    "n_synthetic_pairs": 150,
+    "predictions": {
+      "W1_accuracy_improves": {
+        "outcome": "fail",
+        "test": "mean balanced accuracy >= baseline + 0.05",
+        "value": {
+          "baseline": 0.537,
+          "twin_prior": 0.53
+        }
+      },
+      "W2_sets_shrink": {
+        "outcome": "fail",
+        "test": "mean set size at alpha 0.1 < baseline's, with empirical coverage >= 0.85",
+        "value": {
+          "baseline": {
+            "empirical_coverage": 0.918,
+            "fraction_singleton": 0.0,
+            "mean_set_size": 4.562
+          },
+          "twin_prior": {
+            "empirical_coverage": 0.932,
+            "fraction_singleton": 0.0,
+            "mean_set_size": 4.562
+          }
+        }
+      },
+      "W3_twin_alone_transfers": {
+        "outcome": "pass",
+        "test": "balanced accuracy on all 73 real pairs > 0.25 (chance 1/6)",
+        "value": 0.41
+      }
+    },
+    "twin_alone": {
+      "balanced_accuracy": 0.41,
+      "balanced_accuracy_ci95": [
+        0.2808,
+        0.5072
+      ],
+      "bootstrap_resamples": 1000,
+      "classes_without_twin_knob": [
+        "glutamatergic_agonist"
+      ],
+      "recall_by_class": {
+        "control": 0.8,
+        "gabaa_agonist_or_pam": 0.75,
+        "gabaa_antagonist": 0.5,
+        "glutamatergic_agonist": 0.0,
+        "glutamatergic_antagonist": 0.412,
+        "na_channel_blocker": 0.0
+      }
+    },
+    "twin_prior": {
+      "balanced_accuracy_mean": 0.53,
+      "conformal_alpha_0.1": {
+        "empirical_coverage": 0.932,
+        "fraction_singleton": 0.0,
+        "mean_set_size": 4.562
+      },
+      "per_fold": [
+        0.364,
+        0.673,
+        0.528,
+        0.556
+      ]
+    }
+  },
   "uncertainty_and_ablations": {
     "conformal_sweep": [
       {

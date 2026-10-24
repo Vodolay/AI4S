@@ -223,6 +223,7 @@ def main(argv: list[str] | None = None) -> int:
     metrics = json.loads((REPO_ROOT / "outputs" / "metrics.json").read_text())
     n_splits = metrics["mechanism_baselines"]["task1_within_platform"]["n_splits"]
     got = evaluate(pairs, synthetic, n_splits)
+    got["twin_alone"].update(twin_alone_detail(pairs, synthetic))
     spec = json.loads((REPO_ROOT / REGISTRATION).read_text())["predictions"]
     base, prior = got["baseline"], got["twin_prior"]
     checks = {
@@ -258,6 +259,26 @@ def main(argv: list[str] | None = None) -> int:
     for name, entry in result["predictions"].items():
         print(f"{name:28s} {entry['outcome']:>5}  {entry['value']}")
     return 0
+
+
+def twin_alone_detail(pairs, synthetic, n_resamples: int = 1000, seed: int = 0) -> dict:
+    """Exploratory: per-class recall of the twin-only classifier, with a culture-bootstrap CI."""
+    from neuromps.models.mechanism import balanced_accuracy_ci
+
+    xs = synthetic[delta_columns()].to_numpy(dtype=float)
+    model = PriorLogisticRegression(None, None).fit(xs, synthetic["label"].to_numpy())
+    truth = pairs["label"].to_numpy()
+    predicted = model.predict(pairs[delta_columns()].to_numpy(dtype=float)).astype(str)
+    interval = balanced_accuracy_ci(truth, predicted, pairs["group"].to_numpy(), n_resamples, seed)
+    recall = {
+        str(c): round(float(np.mean(predicted[truth == c] == c)), 3) for c in np.unique(truth)
+    }
+    return {
+        "balanced_accuracy_ci95": interval["ci95"],
+        "recall_by_class": recall,
+        "bootstrap_resamples": interval["n_resamples"],
+        "classes_without_twin_knob": ["glutamatergic_agonist"],
+    }
 
 
 if __name__ == "__main__":
