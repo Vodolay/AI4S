@@ -1,0 +1,43 @@
+{
+  "title": "Does vesicle depletion make the twin's firing rate fall under GABA-A block, as real chips' does? (SIMULATED)",
+  "registered": "2026-10-24",
+  "status": "registered before any simulation of depression under a drug knob was run",
+  "origin": "post-round-1 review: real GABA-A antagonist pairs lower mfr_hz and burst rates, the twin raises mfr_hz (report §14, HD13 'differ'); the review proposes that presynaptic vesicle depletion, absent from the calibrated twin, is the missing mechanism",
+  "seen_before_registration": [
+    "HD18 (twin_hd18_depression): depression at the existing calibration, untreated only; no setting beat the control on the calibration score",
+    "HD13 (twin_hd13_perturbation): without depression, gabaa_scale 0.2 raises mfr_hz (simulated delta 2.706) where real GABA-A antagonist pairs lower it (median -0.335); 4 of 5 established features agree",
+    "real bicuculline dose trend (feature_dose_response): burst_rate_per_min and network_burst_rate_per_min fall with dose (Spearman -0.58, -0.60)"
+  ],
+  "design": {
+    "twin": "the calibrated twin as HD13 runs it (calibrated parameters, same electrode layout and feature merge), recurrent excitatory synapses with Tsodyks-Markram depression",
+    "depression_grid": "the eight HD18 settings (u, tau_rec ms): (0, 600) control, (0.2, 300), (0.2, 600), (0.4, 300), (0.4, 600), (0.4, 900), (0.6, 600), (0.6, 900)",
+    "gabaa_dose_series": [1.0, 0.8, 0.6, 0.4, 0.2],
+    "other_knobs": {"gabaa_potentiate": {"gabaa_scale": 2.0}, "ampa_block": {"ampa_scale": 0.4}, "sodium_block": {"threshold_scale": 1.6}},
+    "duration_s": 40.0,
+    "seeds": [0, 1, 2],
+    "fresh_seeds": [10, 11, 12],
+    "deltas": "log2(treated / untreated) per feature with the HD13 rule (simulated_delta), seed-matched, then averaged over seeds",
+    "real_reference": "real_directions() per mechanism, 1000 bootstrap resamples, seed 0, as HD13"
+  },
+  "qualifying_rule": {
+    "i": "mean delta log2 mfr_hz at gabaa_scale 0.2 is below 0",
+    "ii": "Spearman(1 - gabaa_scale, feature) <= -0.5 for both burst_rate_per_min and network_burst_rate_per_min, over per-seed values at the five dose-series levels",
+    "iii": "agreeing features summed over the four knobs >= the control setting's sum"
+  },
+  "predictions": {
+    "V1_some_setting_qualifies": {
+      "statement": "At least one depression setting meets i, ii and iii",
+      "test": "count of qualifying non-control settings >= 1"
+    },
+    "V2_the_control_does_not": {
+      "statement": "Without depression the twin fails i (it raises firing rate under block)",
+      "test": "control setting fails i"
+    },
+    "V3_the_chosen_setting_replicates": {
+      "statement": "The qualifying setting with the lowest untreated calibration score (the HD18 scorer) meets i and ii again on fresh seeds",
+      "test": "i and ii hold on seeds 10-12; n/a if V1 fails"
+    }
+  },
+  "not_claimed_even_if_all_pass": "that the real cultures deplete vesicles, or that the twin is recalibrated; the weights stay as calibrated without depression (the HD18 caveat), so a pass means the mechanism can produce the real direction, not that it does",
+  "reporting": "Every prediction with its value and pass/fail, whichever way it falls."
+}
