@@ -470,6 +470,53 @@ within-leg result can be tested on every draw that has a working input at all.
 
 ![SIMULATED left front-leg network of the male CNS (Pugliese et al.'s construction). Left: one feasible draw per size rule under DNg100: a regular low-rate oscillation in one or two motor-neuron pools. Right: corrected motor rhythm score over feasible draws, per condition.](../outputs/figures/embodied_stage2g_front_leg_SIMULATED.png){width=80%}
 
+**Stage 2h: with a fine input search, the walking command drives a front-leg rhythm. Without
+size scaling, that rhythm needs Pugliese et al.'s circuit; within-leg alternation still fails.**
+Stage 2h kept stage 2g's network, criterion and predictions on fresh draws and changed only the
+input search. Once a draw had an input recruiting too few neurons and one recruiting too many,
+the next input was their geometric mean. A working input now exists in
+32 <!-- metrics.json: embodied_stage2h.synapse_count.predictions.H0_a_working_input_exists.value --> of 32 draws with synapse-count sizes
+and in 18 <!-- metrics.json: embodied_stage2h.none.predictions.H0_a_working_input_exists.value --> without size scaling. In the
+draws without one, the bracket closes to a ratio of
+1.0000001652591795 <!-- metrics.json: embodied_stage2h.none.reported.forward_walking.infeasible_bracket_ratio_median -->: the
+network jumps from almost nothing to about
+1,040 <!-- metrics.json: embodied_stage2h.none.reported.forward_walking.infeasible_median_recruited_when_too_many --> recruited
+neurons, a true discontinuity. Registered outcomes:
+- the walking command drives a leg rhythm in both size rules
+  (0.6808 <!-- metrics.json: embodied_stage2h.synapse_count.predictions.H1_the_walking_command_makes_a_leg_rhythm.value -->
+  and 0.8886 <!-- metrics.json: embodied_stage2h.none.predictions.H1_the_walking_command_makes_a_leg_rhythm.value -->), at a
+  fly-like period
+  (94.5 <!-- metrics.json: embodied_stage2h.synapse_count.predictions.H6_a_fly_like_step_period.value --> and
+  196.5 <!-- metrics.json: embodied_stage2h.none.predictions.H6_a_fly_like_step_period.value --> ms);
+- silencing the three-neuron circuit removes it without size scaling
+  (0.0 <!-- metrics.json: embodied_stage2h.none.predictions.H5_the_rhythm_needs_the_three_neuron_circuit.value.lesion -->) but not
+  with synapse-count sizes
+  (0.6808 <!-- metrics.json: embodied_stage2h.synapse_count.predictions.H5_the_rhythm_needs_the_three_neuron_circuit.value.lesion -->);
+- no reliable promotor-remotor offset and no tibia alternation in either rule: the remotor and
+  tibia pools are rarely active together with the promotor;
+- the comparison with grooming "passes" vacuously in both rules, because no grooming draw found
+  a working input and the code scored the empty group as zero.
+
+The one assumption that could make the lesion result wrong is that IN17A001 is the only neuron
+receiving DNg100's input, so silencing it cuts the command's path rather than the rhythm. An
+exploratory check (not registered) settles this for the no-size rule. With IN17A001 kept and only
+INXXX466 and IN16B036 silenced, the network becomes more active
+(474.5 <!-- metrics.json: embodied_stage2h_check.none.keep_relay_silence_INXXX466_IN16B036.median_recruited -->
+recruited neurons against
+27.0 <!-- metrics.json: embodied_stage2h_check.none.intact.median_recruited -->), yet the rhythm is gone
+(0.0483 <!-- metrics.json: embodied_stage2h_check.none.keep_relay_silence_INXXX466_IN16B036.median_score -->). The rhythm sits mainly
+in the coxa promotor motor neurons
+(33 <!-- metrics.json: embodied_stage2h_check.none.rhythmic_motor_neuron_types.Tergopleural/Pleural promotor MN -->
+rhythmic instances). With synapse-count sizes no silencing variant changes anything: that rhythm
+runs through another path. **What this adds up to:** in an independent reimplementation on the
+male CNS, Pugliese et al.'s central claim holds without size scaling. A walking command drives a
+front-leg motor rhythm at a fly-like period, and the rhythm needs their inhibitory and excitatory
+interneurons, not just the relay. It depends on the size rule, and it does not give the
+antagonist alternation a walking leg needs. That is what our stage-2 question asked for and what
+Pugliese et al. also stop short of.
+
+![SIMULATED left front-leg network of the male CNS with the fine input search. Left: one draw per size rule under DNg100 (no size scaling: regular promotor bursts about every 200 ms). Right: corrected motor rhythm score over feasible draws; without size scaling the lesion removes the rhythm.](../outputs/figures/embodied_stage2h_front_leg_SIMULATED.png){width=80%}
+
 ## 8. What carries over unchanged
 
 Pre-registration before every run; licensed data with checksums in the manifest; every reported

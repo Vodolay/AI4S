@@ -105,6 +105,7 @@ def _init() -> None:
             for k, v in POOLS.items()
         },
         counts={"neurons": int(con.n_neurons), "motor": int(mn.size)},
+        types=types.to_numpy(),
     )
 
 

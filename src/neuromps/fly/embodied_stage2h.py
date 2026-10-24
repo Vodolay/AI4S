@@ -75,6 +75,65 @@ def reported(table: pd.DataFrame) -> dict:
     return out
 
 
+SILENCE_VARIANTS = {
+    "all_three": ("IN17A001", "INXXX466", "IN16B036"),
+    "relay_only_IN17A001": ("IN17A001",),
+    "keep_relay_silence_INXXX466_IN16B036": ("INXXX466", "IN16B036"),
+}
+
+
+def _check_rule(rule: str, table: pd.DataFrame) -> dict:
+    """At each feasible forward-walking draw's own input: silencing variants, and the motor
+    neuron types that carry the intact rhythm (corrected rhythm >= 0.3)."""
+    from neuromps.fly import kinematics
+
+    fw = table[(table["size_rule"] == rule) & (table["condition"] == "forward_walking")]
+    fw = fw.set_index("seed").loc[SEEDS]
+    inputs, ok = fw["input"].to_numpy(), fw["feasible"].to_numpy()
+    types = s2g._STATE["types"]
+    out = {}
+    for name, silenced in {"intact": (), **SILENCE_VARIANTS}.items():
+        idx = np.flatnonzero(np.isin(types, silenced)) if silenced else None
+        run = s2g._simulate(rule, "forward_walking", inputs, silenced=idx, seeds=SEEDS)
+        n = s2g._recruited(run, "forward_walking")
+        rows = [s2g.draw_measures(run, k) for k in range(len(SEEDS))]
+        keep = [k for k in range(len(SEEDS)) if ok[k]]
+        out[name] = {
+            "median_score": round(float(np.median([rows[k]["score"] for k in keep])), 4),
+            "median_recruited": float(np.median(n[keep])),
+            "median_active_motor": float(np.median([rows[k]["active_motor"] for k in keep])),
+        }
+        if name == "intact":
+            start = int(round(s2g.START_S / 1e-3))
+            mn_types = types[s2g._STATE["mn"]]
+            carriers: dict[str, int] = {}
+            for k in keep:
+                for j in range(len(s2g._STATE["mn"])):
+                    trace = run.rates[start:, j, k]
+                    if trace.mean() >= 1.0 and kinematics.rhythm(trace, start_s=0.0)[0] >= 0.3:
+                        carriers[str(mn_types[j])] = carriers.get(str(mn_types[j]), 0) + 1
+            out["rhythmic_motor_neuron_types"] = dict(sorted(carriers.items(), key=lambda x: -x[1]))
+    return out
+
+
+def check() -> int:
+    """Exploratory (not registered): which circuit neurons the rhythm needs, and where it is."""
+    logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+    s2g._init()
+    table = pd.read_csv(outputs_dir() / "fly" / "embodied_stage2h_SIMULATED.csv")
+    with ProcessPoolExecutor(len(s2g.SIZE_RULES), initializer=s2g._init) as pool:
+        got = dict(
+            zip(s2g.SIZE_RULES, pool.map(_check_rule, s2g.SIZE_RULES, [table] * 2), strict=True)
+        )
+    result = {"label": "EXPLORATORY, not registered: stage-2h circuit check (SIMULATED)", **got}
+    (outputs_dir() / "fly" / "embodied_stage2h_check_SIMULATED.json").write_text(
+        json.dumps(scoring.clean(result), indent=2) + "\n"
+    )
+    update_metrics("embodied_stage2h_check", scoring.clean(result))
+    print(json.dumps(scoring.clean(result), indent=1))
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     """CLI: the registered stage-2h design."""
     from neuromps.paths import figures_dir
@@ -116,4 +175,6 @@ def main(argv: list[str] | None = None) -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    import sys
+
+    raise SystemExit(check() if "--check" in sys.argv else main())
