@@ -1,0 +1,35 @@
+{
+  "title": "Audit of the registered rhythm measure: a corrected measure that requires an autocorrelation peak, applied to every stage that used the old one (SIMULATED re-analysis)",
+  "registered": "2026-10-24",
+  "status": "registered before any audited measure is computed on stage data",
+  "why": "Stage 2e's figure showed a trace with one flexor burst and a tonic extensor scored as rhythmic (0.7367 median under DNb08, 'period' 50 ms in every draw). The rhythmicity measure registered since stage 1d takes the largest normalized autocorrelation at lags 50-500 ms without requiring a peak, so smooth signals score high at the window's edge. The same no-peak rule sets the period inside the phase measure (stages 2a-2e) and the step period (stages 2c-2e).",
+  "seen_before_registration": [
+    "every registered outcome of stages 1d, 2a, 2c, 2d and 2e, computed with the old measure",
+    "synthetic signals only, old measure: a single burst 0.678, a rise to a plateau 0.876, an 8 Hz sine 0.931, white noise 0.071",
+    "synthetic signals only, the corrected measure below at minimum prominence 0.05, 0.1 and 0.2 (20 seeds each; pools of Poisson trains filtered with tau 20 ms as in the stages): 8 Hz sine 0.931; single burst, rise to plateau and slow drift 0 at every setting; constant 30 Hz pools of 5 and 2 neurons median 0.13-0.16 (max 0.36); 8 Hz-modulated 30 Hz pool of 5 median 0.471; 4 Hz-modulated median 0.515; 8 Hz-modulated 10 Hz pool of 2 median 0.17-0.19",
+    "no audited value on any stage's data has been computed"
+  ],
+  "corrected_measure": {
+    "autocorrelation": "as before: the signal after start_s, mean removed, c(k) = sum x(t) x(t+k) / sum x(t)^2, k in steps of 1 ms",
+    "peak": "a lag k within 50-500 ms where c(k) > c(k-1) and c(k) >= c(k+1), c(k) > 0, and c(k) minus the smallest c before k (the trough it rises from) >= 0.1",
+    "score": "the largest c(k) over such peaks; 0 if there is none",
+    "period": "the lag of that peak; none if there is no peak",
+    "phase": "as before (the lag of the largest normalized cross-correlation within one period), with the period from the corrected measure; none if the reference has no peak"
+  },
+  "validation_before_use": "unit tests on synthetic signals must pass before the re-analysis runs: sine >= 0.9 with period within 2 ms of its own; single burst, rise to plateau and slow drift exactly 0; median over 20 constant-rate pools < 0.3; median over 20 8-Hz-modulated pools >= 0.3",
+  "reanalysis": {
+    "what": "each stage below is re-simulated with its own registered code and seeds; every trial is measured with the old measure and with the corrected one, from the same simulated signals",
+    "reproducibility_check": "the old measure must reproduce each stage's recorded outcomes exactly; if it does not, that stage's audit is reported as not reproducible",
+    "stages": {
+      "embodied_stage1d": "D2 (rhythmicity of the claw distance)",
+      "embodied_stage2a": "W1-W4",
+      "embodied_stage2c": "W1-W4 in every sweep cell and the selection rule",
+      "embodied_stage2d": "W1-W4 in every sweep cell, the selection rule, and D0-D6 at the selected cell",
+      "embodied_stage2e": "R1-R7, the reported DNb08 and grooming rhythmicity, the fraction of rhythmic leg motor neurons"
+    },
+    "scoring": "each stage's registered test, unchanged, applied to the corrected values",
+    "selection": "if under the corrected measure a selection rule would pick a different cell, that is reported; the stage's confirmation is not rerun at the new cell here (it would need fresh seeds and its own registration)"
+  },
+  "what_this_is_not": "a new test of any hypothesis, or a re-scoring that replaces registered outcomes: every registered outcome stays recorded as it fell; the audit reports, prediction by prediction, whether the corrected measure agrees, and the documents carry both",
+  "reporting": "every audited prediction with its old and corrected value and outcome; the reproducibility check per stage; the validation results"
+}
