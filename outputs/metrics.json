@@ -1461,6 +1461,107 @@
       "simulate_grid_s": 43.5
     }
   },
+  "embodied_stage1": {
+    "coverage": {
+      "left_front_leg_motor_neurons": 68,
+      "mapped": 49
+    },
+    "label": "SIMULATED male CNS driving the FlyMimic leg (open loop)",
+    "mean_activation_by_drive": {
+      "jon_ce": {
+        "LFC_pleural_promotor": 0.8011,
+        "LFC_pleural_remotor_and_abductor": 0.7232,
+        "LFC_sternal_adductor": 0.0001,
+        "LFC_sternal_anterior_rotator": 0.2768,
+        "LFC_sternal_posterior_rotator": 0.1079,
+        "LFC_tergopleural_promotor_a": 0.8011,
+        "LFC_tergopleural_promotor_b": 0.8011,
+        "LFF_accesory_trochanter_flexor": 0.0001,
+        "LFF_sterno-tergo-trochanter_extensor_a": 0.0899,
+        "LFF_sterno-tergo-trochanter_extensor_b": 0.0899,
+        "LFF_trochanter_extensor": 0.6915,
+        "LFF_trochanter_flexor_a": 0.1483,
+        "LFF_trochanter_flexor_b": 0.1483,
+        "LFTibia_extensor_93932": 0.3456,
+        "LFTibia_flex_93434": 0.0001
+      },
+      "none": {
+        "LFC_pleural_promotor": 0.0001,
+        "LFC_pleural_remotor_and_abductor": 0.0001,
+        "LFC_sternal_adductor": 0.0001,
+        "LFC_sternal_anterior_rotator": 0.0001,
+        "LFC_sternal_posterior_rotator": 0.0001,
+        "LFC_tergopleural_promotor_a": 0.0001,
+        "LFC_tergopleural_promotor_b": 0.0001,
+        "LFF_accesory_trochanter_flexor": 0.0001,
+        "LFF_sterno-tergo-trochanter_extensor_a": 0.0001,
+        "LFF_sterno-tergo-trochanter_extensor_b": 0.0001,
+        "LFF_trochanter_extensor": 0.0001,
+        "LFF_trochanter_flexor_a": 0.0001,
+        "LFF_trochanter_flexor_b": 0.0001,
+        "LFTibia_extensor_93932": 0.0001,
+        "LFTibia_flex_93434": 0.0001
+      },
+      "sugar": {
+        "LFC_pleural_promotor": 0.8535,
+        "LFC_pleural_remotor_and_abductor": 0.4752,
+        "LFC_sternal_adductor": 0.0001,
+        "LFC_sternal_anterior_rotator": 0.2813,
+        "LFC_sternal_posterior_rotator": 0.024,
+        "LFC_tergopleural_promotor_a": 0.8535,
+        "LFC_tergopleural_promotor_b": 0.8535,
+        "LFF_accesory_trochanter_flexor": 0.0001,
+        "LFF_sterno-tergo-trochanter_extensor_a": 0.0332,
+        "LFF_sterno-tergo-trochanter_extensor_b": 0.0332,
+        "LFF_trochanter_extensor": 0.2205,
+        "LFF_trochanter_flexor_a": 0.1884,
+        "LFF_trochanter_flexor_b": 0.1884,
+        "LFTibia_extensor_93932": 0.5271,
+        "LFTibia_flex_93434": 0.0001
+      }
+    },
+    "predictions": {
+      "S1a_antennal_drive_brings_the_claw_to_the_head": {
+        "outcome": "fail",
+        "test": "median over trials of the minimum claw-antenna distance under JO-CE is at least 0.2 mm below both the sugar and the no-drive medians (r_full 20 Hz)",
+        "value": {
+          "jon_ce": 1.1067,
+          "none": 1.5255,
+          "sugar": 0.9386
+        }
+      },
+      "S1b_it_is_a_movement_toward_the_head": {
+        "outcome": "pass",
+        "test": "minimum claw-antenna distance under JO-CE below the passive rest (1.528 mm) in at least 6 of 8 trials",
+        "value": {
+          "trials": 8,
+          "trials_below_rest": 8
+        }
+      },
+      "S1c_the_activation_scale_does_not_decide_it": {
+        "outcome": "fail",
+        "test": "S1a's test holds at r_full 10 Hz and at 40 Hz",
+        "value": {
+          "r_full_10": {
+            "jon_ce": 1.0876,
+            "none": 1.5255,
+            "sugar": 0.8684
+          },
+          "r_full_40": {
+            "jon_ce": 1.1356,
+            "none": 1.5255,
+            "sugar": 1.0187
+          }
+        }
+      }
+    },
+    "registration": {
+      "committed_at": "2026-10-24T11:05:16-04:00",
+      "file": "preregistration/embodied_stage1_open_loop_leg.json",
+      "registered_in_commit": "cbdd6d6b2144b03d87019946330153fa811af2a1",
+      "sha256": "17983ff6493bb453ef66b967381e041ebe83fc91d85bb32aa3c97507314f951a"
+    }
+  },
   "extractor_agreement": {
     "by_feature": {
       "active_electrodes": {
