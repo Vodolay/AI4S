@@ -202,3 +202,17 @@ def _from_arrays(stored) -> Connectome:
         pre_class=np.asarray(CLASSES, dtype=object)[stored["pre_class"]],
         neuropil=stored["neuropil"].astype(object),
     )
+
+
+def release_coverage(raw: Path = RAW) -> dict:
+    """Fraction of the model's neurons each auxiliary table covers (what `load` checks)."""
+    root_ids = pd.read_csv(raw / "Completeness_783.csv", index_col=0).index.to_numpy(np.int64)
+    annotations = read_annotations(raw)["root_id"].to_numpy()
+    counts = pd.read_feather(raw / "per_neuron_neuropil_count_post_783.feather")
+    return {
+        "annotations": round(check_release("annotations", root_ids, annotations), 4),
+        "neuropil_counts": round(
+            check_release("neuropil counts", root_ids, counts["post_pt_root_id"].unique()), 4
+        ),
+        "minimum_required": MIN_COVERAGE,
+    }

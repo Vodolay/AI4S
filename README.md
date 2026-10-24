@@ -65,7 +65,7 @@ every drug family behaviour failed at a lower dose than the registered chip thre
 behavioural onset, GABA block had moved firing rate by only 0.149
 <!-- metrics.json: fly_confirm_network_bursts.precision.abs_log2_mfr_change_at_behavioural_onset.flywire_sweep.gaba_block -->
 log2. A second connectome (the male CNS) replicates the behaviour and ranking results. Account:
-[report/FLY_CHIP_TO_ANIMAL.md](report/FLY_CHIP_TO_ANIMAL.md); run with
+[report/TECHNICAL_REPORT.md](report/TECHNICAL_REPORT.md), Act VII; run with
 `python run_all.py --stage fly` (a 0.4 GB download and about 7 GB of memory per worker).
 
 ## Setup

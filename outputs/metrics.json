@@ -2623,6 +2623,11 @@
       "connections": 15091983,
       "inhibitory_connections": 6032681,
       "neurons": 138639,
+      "release_coverage": {
+        "annotations": 0.9999,
+        "minimum_required": 0.99,
+        "neuropil_counts": 0.9964
+      },
       "synapses": 54492922
     },
     "malecns": {

@@ -44,7 +44,7 @@ features with its own software and its own definitions, and most deposit summary
 raw spikes, so a number in one paper rarely means the same thing as the "same" number in another.
 
 We built NeuroMPS to tackle that problem directly, and to find out honestly how far the data can be
-pushed. It has four parts.
+pushed. It has four parts, and after the first round we added a fifth.
 
 - **A standardized data asset.** We assembled 21,887 records <!-- metrics.json: data_asset.n_records -->
   from eight public sources, each verified against a SHA-256 checksum of its original file. One
@@ -84,6 +84,16 @@ pushed. It has four parts.
   chance), and the twin's inverse model misses a bicuculline dose trend that two burst-rate
   features carry. In §20 we turn these
   findings into recommendations for chip designers, assay developers and analysis pipelines.
+- **From chip to animal (Act VII, added after the first round).** We applied the twin's drug knobs
+  to a simulated whole adult fly brain built from its mapped wiring, and read it both as a chip and
+  through the neurons that drive feeding and grooming, with every prediction registered before
+  the runs. The chip's firing rate ranks drugs by how much they disrupt behaviour (Spearman 0.863
+  <!-- metrics.json: fly_chip_to_animal.predictions.C1_chip_tracks_disruption.value -->), but in
+  every drug family behaviour failed at a lower dose than the chip flagged; GABA block had moved
+  firing rate by only 0.149
+  <!-- metrics.json: fly_confirm_network_bursts.precision.abs_log2_mfr_change_at_behavioural_onset.flywire_sweep.gaba_block -->
+  log2 when the brain's bitter gate on feeding had already broken. A second, male connectome
+  replicates the behaviour and ranking results.
 
 ---
 
@@ -850,6 +860,170 @@ pipeline itself: every statistical model in it is trained from scratch on the da
 
 ---
 
+# ACT VII: From chip to animal (after round 1)
+
+*Added after the first-round deadline; `report/POST_SUBMISSION_CHANGES.md` records every change
+since the submission. Every result in this act is from **simulation**, for research decision
+support; nothing in it is a claim about any compound's effect in any animal or person.*
+
+## 23. The question a chip cannot answer on its own
+
+A neural chip reports what a drug does to a dish of neurons. The question an assay is used to
+answer is different: will the drug disturb what a nervous system *does*? No culture can answer
+that, and so no chip assay can be checked against it. A mapped brain lets us ask. The adult fly
+brain has been reconstructed synapse by synapse, and Shiu et al. (2024) turned that wiring
+diagram into a leaky integrate-and-fire model whose responses match the fly's own sensorimotor
+pathways.
+
+We applied the twin's drug knobs to that model on the FlyWire connectome,
+138,639 <!-- metrics.json: fly_models.flywire783.neurons --> neurons joined by
+15,091,983 <!-- metrics.json: fly_models.flywire783.connections --> connections, and read the
+same simulated brain two ways at once:
+
+- **as a chip**: a virtual electrode array laid over the brain's regions, each electrode hearing
+  one neuron, its recordings scored by `features/mea.py`, the extractor every real recording in
+  the asset goes through;
+- **as an animal**: the neurons the published model validated against behaviour. MN9, the
+  proboscis motor neuron, under sugar drive (feeding) and again with bitter drive added
+  (aversive gating); aBN1 under antennal mechanosensory drive (grooming); and how many
+  descending neurons the sugar drive recruits (how selectively one stimulus reaches one output).
+
+Five drug families were each run at four or five strengths: GABA block, block of the
+glutamate-gated chloride channel (GluCl), GABA potentiation, acetylcholine block and a raised
+spike threshold. In the fly, GABA and glutamate are the fast inhibitory transmitters and
+acetylcholine the fast excitatory one, so these are the fly's counterparts of the twin's GABA-A,
+AMPA and sodium-channel knobs (§14). Behaviour is summarised by a disruption index: the mean
+absolute log2 change of the four readouts.
+
+**How it was kept honest.** The design, ten predictions and their pass/fail tests were committed
+before the simulations were run (`preregistration/fly_chip_to_animal.json`; its commit and
+checksum are in `fly_chip_to_animal.registration`), together with every exploratory result seen
+before registering. Two later addenda followed the same rule. The published neuron lists come
+from an older FlyWire release than the one we model, and a neuron's identifier changes when it
+is edited, so the code keeps only neurons whose identifier is unchanged and refuses any table
+that covers too few of the model's neurons; the two tables we use cover
+0.9999 <!-- metrics.json: fly_models.flywire783.release_coverage.annotations --> and
+0.9964 <!-- metrics.json: fly_models.flywire783.release_coverage.neuropil_counts --> of them.
+With the same code, sugar drives MN9 at
+76.75 <!-- metrics.json: fly_chip_to_animal.predictions.R1_replication.value.mn9_783_hz --> Hz on
+our release and
+77.375 <!-- metrics.json: fly_chip_to_animal.predictions.R1_replication.value.mn9_630_hz --> Hz on
+the paper's.
+
+## 24. The chip ranks drugs correctly and raises the alarm late
+
+![Chip readouts and behaviour readouts of the SIMULATED fly brain against dose, one line per drug family. Top: the virtual array's firing-rate and synchrony changes, and MN9 under sugar drive. Bottom: MN9 with bitter drive added, aBN1 under antennal drive, and the disruption index.](../outputs/figures/fly_chip_to_animal_dose_SIMULATED.png){width=100%}
+
+**Behaviour responds as the circuits predict.** Blocking GABA releases feeding from bitter
+suppression (rank correlation with dose
+1.0 <!-- metrics.json: fly_chip_to_animal.predictions.B1_disinhibition_releases_feeding_from_bitter.value -->)
+and recruits ever more descending neurons
+(1.0 <!-- metrics.json: fly_chip_to_animal.predictions.B3_disinhibition_recruits_off_target_descending_neurons.value -->):
+the brain loses its selectivity. Blocking acetylcholine silences the motor and grooming outputs.
+
+**The chip ranks drugs by their effect on behaviour.** Across the 21 drug conditions, the change
+in the array's firing rate tracks the disruption index (Spearman
+0.863 <!-- metrics.json: fly_chip_to_animal.predictions.C1_chip_tracks_disruption.value -->). The
+fly array also agrees with real chips about which way each mechanism moves each feature as often
+as the chip twin does:
+12 <!-- metrics.json: fly_chip_to_animal.predictions.A1_direction_agreement_with_real_chips.value.fly -->
+agreeing features against the twin's
+12 <!-- metrics.json: fly_chip_to_animal.predictions.A1_direction_agreement_with_real_chips.value.twin -->.
+
+**But it is late: the registered prediction failed in every family.** We predicted that, at the
+registered detection threshold, the chip would flag each drug at a dose no higher than the one
+that impairs behaviour. In all five families behaviour failed first. At the weakest GABA block,
+the bitter gate on feeding has already broken while the array's firing rate has barely moved.
+Dropping any one readout from the disruption index leaves the chip late in at least four of the
+five families, and the result replicates on fresh random seeds.
+
+![Which readout raises the alarm first, SIMULATED. For each drug family: the first dose that impairs behaviour (black), and the first at which the array's network-burst rate (green) and firing rate (orange) change by the registered threshold. Left: the sweep in which network-burst rate was picked out; middle and right: the two out-of-sample runs. Network-burst rate's early crossings are within untreated noise (see text).](../outputs/figures/fly_sentinel_ladder_SIMULATED.png){width=100%}
+
+**What a chip would need to catch it in time.** The change in firing rate at the first dose that
+impairs behaviour is the precision a chip must reach to flag that drug before behaviour fails.
+This analysis is exploratory: it was done after the registered test failed.
+
+| Drug family | Firing-rate change at behavioural onset (log2) |
+|---|---|
+| GABA block | 0.149 <!-- metrics.json: fly_confirm_network_bursts.precision.abs_log2_mfr_change_at_behavioural_onset.flywire_sweep.gaba_block --> |
+| Raised threshold | 0.124 <!-- metrics.json: fly_confirm_network_bursts.precision.abs_log2_mfr_change_at_behavioural_onset.flywire_sweep.excitability_block --> |
+| GABA potentiation | 0.199 <!-- metrics.json: fly_confirm_network_bursts.precision.abs_log2_mfr_change_at_behavioural_onset.flywire_sweep.gaba_potentiate --> |
+| GluCl block | 0.263 <!-- metrics.json: fly_confirm_network_bursts.precision.abs_log2_mfr_change_at_behavioural_onset.flywire_sweep.glucl_block --> |
+| Acetylcholine block | 0.304 <!-- metrics.json: fly_confirm_network_bursts.precision.abs_log2_mfr_change_at_behavioural_onset.flywire_sweep.ach_block --> |
+
+Real chips in the asset vary between untreated recordings by up to
+0.156 <!-- metrics.json: fly_confirm_network_bursts.precision.real_chip_noise.kapucu2022_control.q95_abs_log2 -->
+(Kapucu's vehicle controls, 95th percentile) and
+1.752 <!-- metrics.json: fly_confirm_network_bursts.precision.real_chip_noise.vassallo2017_inactive.q95_abs_log2 -->
+(Vassallo's inactive compounds). At the better of the two, a chip would flag acetylcholine block,
+GluCl block and GABA potentiation in time, but not GABA block or a raised threshold; at the worse,
+none of the five. GABA block was the hardest family to catch in the second brain as well. The
+practical reading is a specification, not a verdict: an assay meant to catch disinhibition before
+it reaches behaviour must resolve firing-rate changes of a few percent.
+
+**A tempting fix that is noise.** In the first sweep, network-burst rate crossed the threshold at
+or before behaviour in every family. We registered a confirmation, on fresh seeds and on the
+second brain, before seeing either. Out of sample it crossed early in
+8 <!-- metrics.json: fly_confirm_network_bursts.pooled_out_of_sample.network_bursts_at_or_before_behaviour -->
+of
+10 <!-- metrics.json: fly_confirm_network_bursts.pooled_out_of_sample.tests -->
+family tests against
+3 <!-- metrics.json: fly_confirm_network_bursts.pooled_out_of_sample.firing_rate_at_or_before_behaviour -->
+for firing rate, and two of the four registered tests passed. Then we checked what the
+registration had not: two groups of *untreated* recordings already differ by the threshold in a
+fraction
+0.382 <!-- metrics.json: fly_checks.false_alarm_rate_untreated.by_feature.network_burst_rate_per_min -->
+of random splits, while for firing rate the untreated 95th percentile is
+0.028 <!-- metrics.json: fly_checks.false_alarm_rate_untreated.by_feature.q95_abs_log2.mfr_hz -->
+log2. Trains shifted in time, which keeps every rate and breaks every coincidence, still yield
+network bursts. Network-burst rate looked early because it is noisy, not because it sees more.
+
+## 25. Direction between regions, and a second brain
+
+![Region-to-region direction in the SIMULATED fly brain. Each point is a pair of brain regions joined by many synapses; the horizontal axis is the connectome's true asymmetry, the vertical the measured one. Left: the chip's cross-correlation measure on spontaneous activity. Right: pulsed stimulation of one region, read shortly after each pulse.](../outputs/figures/fly_direction_SIMULATED.png){width=90%}
+
+§15 and §17 found that a chamber-level measure does not recover direction on real devices whose
+axons are instrumented. The fly brain repeats that test where the answer is known for every pair
+of regions. On spontaneous activity, the chip's cross-correlation measure gets the direction of
+strongly asymmetric pairs right at chance
+(0.4946 <!-- metrics.json: fly_chip_to_animal.predictions.D1_spontaneous_direction_is_near_chance.value -->).
+Pulsed stimulation of one region, read shortly after each pulse, does better
+(0.6222 <!-- metrics.json: fly_chip_to_animal.predictions.D2_pulsed_stimulation_recovers_direction.value.evoked -->)
+but misses the registered target, and read through the array's electrodes alone it falls back to
+chance
+(0.4889 <!-- metrics.json: fly_chip_to_animal.predictions.D3_an_electrode_array_sees_it_too.value -->).
+
+**A second brain agrees.** The male central nervous system connectome (MaleCNS: brain and nerve
+cord, an independent reconstruction of a male fly;
+165,122 <!-- metrics.json: fly_models.malecns.neurons --> neurons and
+25,563,096 <!-- metrics.json: fly_models.malecns.connections --> connections) was run under the
+same design, with the published neuron sets matched by cell type and side. All five registered
+replication tests pass: sugar drives MN9 at
+31.625 <!-- metrics.json: fly_malecns_replication.predictions.M0_feeding_circuit_exists.value.mn9_sugar_hz -->
+Hz and bitter suppresses it; GABA block releases it; acetylcholine block silences the outputs;
+and the chip's firing-rate change again tracks behavioural disruption (Spearman
+0.878 <!-- metrics.json: fly_malecns_replication.predictions.M_C1.value -->).
+
+## 26. What the fly study does not show
+
+- **It is a model.** The fly model is a leaky integrate-and-fire network with one free weight, no
+  adaptation and no neuromodulation; it fires asynchronously and does not burst the way a culture
+  does. Its behaviour readouts are firing rates of named neurons, not behaviour.
+- **The knobs scale whole transmitter classes.** A real compound acts on particular receptor
+  subunits, with its own potency and off-target effects. Nothing here says what any compound
+  does to a fly, a culture or a person.
+- **The precision table is exploratory.** It depends on the disruption index and the registered
+  threshold, and it was computed after the registered test failed.
+- **The real-chip noise floors** come from two sources with very different spreads, one of them
+  from few recordings.
+
+The study runs with `python run_all.py --stage fly` (the licensed files are fetched first);
+`python -m neuromps.fly.replication`, `python -m neuromps.fly.confirm` and
+`python -m neuromps.fly.checks` run the two addenda and the noise checks. The demo app's fourth
+tab shows the sweep with a dose slider.
+
+---
+
 # Appendices: consolidated technical reference
 
 ## Appendix A & B — Record architecture, data levels and ingestion ETL
@@ -1088,7 +1262,7 @@ Brian2's license is the most restrictive in the list; we use it unmodified, as a
 
 **Models.** We use no pretrained models. Every statistical model in this report —
 logistic regression, gradient boosting and the neural posterior estimator — is trained from scratch
-on the data described here. The fly study of Appendix P adopts the equations and constants of the
+on the data described here. The fly study of Act VII adopts the equations and constants of the
 whole-brain model of Shiu et al. (2024; code under the MIT license), reimplemented in our own code.
 
 **Data.** Every dataset we used, with its license and status, is listed in Appendix C.
@@ -1096,18 +1270,3 @@ whole-brain model of Shiu et al. (2024; code under the MIT license), reimplement
 **AI tools.** We developed the project with Anthropic's Claude Code (§22), a commercial tool used
 under Anthropic's terms of service. It is not part of the delivered pipeline, and nothing it wrote is
 accepted without passing the same tests and citation checks as the rest of the code.
-
-## Appendix P — From chip to animal (after round 1)
-
-After round 1 we applied the twin's drug knobs to a simulated whole adult fly brain: the
-connectome-constrained model of Shiu et al. (2024) on the FlyWire connectome, replicated on the
-male central nervous system connectome. The same brain was read as a chip, by a virtual
-electrode array scored with `features/mea.py`, and as an animal, by the neurons the published
-model validated against feeding, aversive gating and grooming. The design and its predictions
-were committed before the simulations were run. The chip's firing rate ranked the drugs by how
-much they disrupted behaviour, but in every drug family behaviour failed at a lower dose than the
-registered chip threshold flagged; GABA block was the hardest to catch in time. A feature that
-seemed to fix this turned out to be noise. Spontaneous activity did not recover the direction of
-wiring between brain regions. The full account, with every number cited, is in
-`report/FLY_CHIP_TO_ANIMAL.md`; the demo app shows it in the tab "From chip to animal". All of it
-is simulated.

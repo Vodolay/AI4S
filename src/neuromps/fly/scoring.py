@@ -336,4 +336,5 @@ def model_sizes() -> dict:
             "synapses": int(con.synapses.sum()),
             "inhibitory_connections": int((con.sign < 0).sum()),
         }
+    out["flywire783"]["release_coverage"] = connectome.release_coverage()
     return out
