@@ -432,7 +432,7 @@ def test_the_submitted_report_builds_with_at_least_the_minimum_length(tmp_path: 
     assert result.returncode == 0, result.stdout + result.stderr
     main = int(re.search(r"main matter (\d+) pages", result.stdout).group(1))
     total = int(re.search(r" - (\d+) pages,", result.stdout).group(1))
-    assert PAGES_MIN <= main
+    assert main >= PAGES_MIN
     assert main < total, "appendices should not count toward the page range"
     assert (REPO_ROOT / "report" / "TECHNICAL_REPORT.docx").read_bytes() == committed, (
         "the test build overwrote the committed .docx"
