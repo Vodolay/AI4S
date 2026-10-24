@@ -65,6 +65,12 @@ def _init() -> None:
         )
         for name, types in POOLS.items()
     }
+    scored = {int(i) for v in _STATE["pools"].values() for i in v}
+    motor = ann[(ann["super_class"] == "motor") & ann["root_id"].isin(present)]
+    _STATE["other_motor"] = {
+        str(sub): [i for i in con.index_of(g["root_id"].tolist()) if int(i) not in scored]
+        for sub, g in motor.groupby("cell_sub_class")
+    }
 
 
 def _brain(job) -> dict:
@@ -86,7 +92,12 @@ def _brain(job) -> dict:
         ]
         traces[name] = np.mean(trains, axis=0)
         rates[name] = float(np.isin(spikes.neurons, idx).sum() / len(idx) / DURATION_S)
-    return {"drive": drive, "seed": seed, "traces": traces, "rates": rates}
+    other = {
+        sub: float(np.isin(spikes.neurons, idx).sum() / len(idx) / DURATION_S)
+        for sub, idx in _STATE["other_motor"].items()
+        if idx
+    }
+    return {"drive": drive, "seed": seed, "traces": traces, "rates": rates, "other_motor": other}
 
 
 def activation(trace: np.ndarray, r_full: float) -> np.ndarray:
@@ -119,6 +130,7 @@ def _body(job) -> dict:
     ext = proboscis.extension_mm(cmd)
     row = {"drive": trial["drive"], "seed": trial["seed"], "r_full": r_full}
     row["peak_extension_mm"] = float(ext.max())
+    row["mean_extension_mm"] = float(ext.mean())
     for name in SCORED:
         row[f"act_{name}"] = float(activation(trial["traces"][name], r_full).mean())
     for joint, signal in cmd.items():
@@ -188,15 +200,28 @@ def reported(table: pd.DataFrame) -> dict:
     main = table[table["r_full"] == R_FULL[0]]
     out = {}
     for drive, g in main.groupby("drive", sort=False):
-        out[drive] = {
-            c.removeprefix("rate_"): round(float(g[c].median()), 2)
-            for c in g
-            if c.startswith("rate_")
-        } | {
-            c: (None if g[c].isna().all() else float(g[c].median()))
-            for c in g
-            if c.startswith("onset_")
-        }
+        out[drive] = (
+            {
+                c.removeprefix("rate_"): round(float(g[c].median()), 2)
+                for c in g
+                if c.startswith("rate_")
+            }
+            | {"mean_extension_mm": round(float(g["mean_extension_mm"].median()), 4)}
+            | {
+                c: (None if g[c].isna().all() else float(g[c].median()))
+                for c in g
+                if c.startswith("onset_")
+            }
+        )
+    return out
+
+
+def other_motor(trials: list[dict]) -> dict:
+    """Exploratory: every other brain motor neuron, by subclass, median rate (Hz) per drive."""
+    out: dict = {}
+    for drive in DRIVES:
+        mine = [t["other_motor"] for t in trials if t["drive"] == drive]
+        out[drive] = {k: round(float(np.median([m[k] for m in mine])), 2) for k in mine[0]}
     return out
 
 
@@ -273,6 +298,7 @@ def main(argv: list[str] | None = None) -> int:
         "predictions": score(table, spec, e_full),
         "numerical_check": {"e_full_mm": e_full, "e_full_finer_step_mm": finer},
         "reported": reported(table),
+        "exploratory_other_motor_neurons_hz": other_motor(trials),
         "pool_sizes": {k: int(len(v)) for k, v in _pool_sizes().items()},
         "registration": design.provenance(REGISTRATION),
     }

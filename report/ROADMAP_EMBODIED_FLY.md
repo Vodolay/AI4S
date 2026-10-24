@@ -236,6 +236,45 @@ seeds, with the connectome-only result kept as the reference.
 
 ![Tibia flexor and extensor pool rates on the six legs under the walking command, SIMULATED fictive walking in the male nerve cord: extensors fire tonically, flexors stay silent, and there is no alternation.](../outputs/figures/embodied_stage2a_fictive_walking_SIMULATED.png){width=70%}
 
+**Stage 2b: sugar input to the FlyWire brain extends a simulated proboscis; bitter input gates
+it (six of six registered predictions pass).** Every proboscis motor neuron that McKellar et al.
+(2020) tie to a muscle has a FlyWire cell type (through the male-CNS cross-reference). The
+rostrum protractor (MN9) and its retractors (MN1, MN2) set the rostrum's command; the haustellum
+extensors (MN4) and flexors (MN3) set the haustellum's. Both commands drive the proboscis of the
+flybody whole-fly model. Under sugar input the
+extending pools reach activations of
+0.9644 <!-- metrics.json: embodied_stage2b.predictions.G2_both_joints_are_driven_to_extend.value.rostrum_protractor -->
+(rostrum) and
+0.8858 <!-- metrics.json: embodied_stage2b.predictions.G2_both_joints_are_driven_to_extend.value.haustellum_extensor -->
+(haustellum), their antagonists
+0.0561 <!-- metrics.json: embodied_stage2b.predictions.G2_both_joints_are_driven_to_extend.value.rostrum_retractor -->
+and 0.0 <!-- metrics.json: embodied_stage2b.predictions.G2_both_joints_are_driven_to_extend.value.haustellum_flexor -->,
+and the proboscis extends fully
+(0.3431 <!-- metrics.json: embodied_stage2b.predictions.G1_sugar_extends_the_proboscis.value.sugar --> mm peak;
+full extension is
+0.3428 <!-- metrics.json: embodied_stage2b.predictions.G1_sugar_extends_the_proboscis.value.e_full --> mm).
+Bitter input alone, antennal input and no input leave it at rest. Adding bitter input to sugar
+input halves the peak
+(0.1618 <!-- metrics.json: embodied_stage2b.predictions.G3_bitter_gates_extension.value.sugar_bitter --> mm) and
+cuts the time-averaged extension from
+0.3054 <!-- metrics.json: embodied_stage2b.reported.sugar.mean_extension_mm --> to
+0.0488 <!-- metrics.json: embodied_stage2b.reported.sugar_bitter.mean_extension_mm --> mm: the proboscis starts to
+extend, then is held back to brief flicks. The result holds at the other activation scales. Only
+the MN9 part of this was seen before registration (it is the published model's result); the
+haustellum pools and their antagonists were not. Exploratory, not scored: sugar input recruits
+only feeding motor neurons (neck, eye, antennal and crop motor neurons stay silent), and the
+bitter gate acts on the proboscis pools (other proboscis motor neurons
+52.25 <!-- metrics.json: embodied_stage2b.exploratory_other_motor_neurons_hz.sugar.proboscis_motor_neuron --> Hz under sugar,
+2.75 <!-- metrics.json: embodied_stage2b.exploratory_other_motor_neurons_hz.sugar_bitter.proboscis_motor_neuron --> with
+bitter added) far more than on the ingestion pool
+(24.58 <!-- metrics.json: embodied_stage2b.exploratory_other_motor_neurons_hz.sugar.ingestion_motor_neuron --> and
+19.98 <!-- metrics.json: embodied_stage2b.exploratory_other_motor_neurons_hz.sugar_bitter.ingestion_motor_neuron --> Hz).
+**Stage 2's feeding test passes; its walking test (2a) does not.** The body is held fixed and its
+joints are position servos, so this is the motor command made visible, not a muscle-level
+proboscis.
+
+![Proboscis extension in the SIMULATED FlyWire brain -> proboscis motor neurons -> flybody chain: sugar extends the proboscis fully and holds it; adding bitter input lets it start and then holds it back; bitter, antennal or no input leave it at rest.](../outputs/figures/embodied_stage2b_proboscis_SIMULATED.png){width=70%}
+
 ## 8. What carries over unchanged
 
 Pre-registration before every run; licensed data with checksums in the manifest; every reported

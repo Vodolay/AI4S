@@ -2096,6 +2096,205 @@
       "sha256": "c5558a0b8380dc48f31e98294062ec5c367a08b3a4e012d4fecd9de72f858b84"
     }
   },
+  "embodied_stage2b": {
+    "exploratory_other_motor_neurons_hz": {
+      "bitter": {
+        "antennal_motor_neuron": 0.0,
+        "crop_motor_neuron": 0.0,
+        "eye_motor_neuron": 0.0,
+        "ingestion_motor_neuron": 0.0,
+        "neck_motor_neuron": 0.0,
+        "proboscis_motor_neuron": 0.0,
+        "salivary_motor_neuron": 0.0
+      },
+      "jon_ce": {
+        "antennal_motor_neuron": 0.0,
+        "crop_motor_neuron": 0.0,
+        "eye_motor_neuron": 0.0,
+        "ingestion_motor_neuron": 0.0,
+        "neck_motor_neuron": 0.0,
+        "proboscis_motor_neuron": 0.0,
+        "salivary_motor_neuron": 0.0
+      },
+      "none": {
+        "antennal_motor_neuron": 0.0,
+        "crop_motor_neuron": 0.0,
+        "eye_motor_neuron": 0.0,
+        "ingestion_motor_neuron": 0.0,
+        "neck_motor_neuron": 0.0,
+        "proboscis_motor_neuron": 0.0,
+        "salivary_motor_neuron": 0.0
+      },
+      "sugar": {
+        "antennal_motor_neuron": 0.0,
+        "crop_motor_neuron": 0.0,
+        "eye_motor_neuron": 0.0,
+        "ingestion_motor_neuron": 24.58,
+        "neck_motor_neuron": 0.0,
+        "proboscis_motor_neuron": 52.25,
+        "salivary_motor_neuron": 2.75
+      },
+      "sugar_bitter": {
+        "antennal_motor_neuron": 0.0,
+        "crop_motor_neuron": 0.0,
+        "eye_motor_neuron": 0.0,
+        "ingestion_motor_neuron": 19.98,
+        "neck_motor_neuron": 0.0,
+        "proboscis_motor_neuron": 2.75,
+        "salivary_motor_neuron": 0.5
+      }
+    },
+    "label": "SIMULATED proboscis extension from the FlyWire brain",
+    "numerical_check": {
+      "e_full_finer_step_mm": 0.3423390287518667,
+      "e_full_mm": 0.3428321053405394
+    },
+    "pool_sizes": {
+      "haustellum_extensor": 6,
+      "haustellum_flexor": 6,
+      "labellum_abductor": 4,
+      "labellum_extensor": 2,
+      "rostrum_protractor": 2,
+      "rostrum_retractor": 10
+    },
+    "predictions": {
+      "G0_silent_without_drive": {
+        "outcome": "pass",
+        "test": "no spikes in any of the four scored pools in any no-drive trial",
+        "value": 0.0
+      },
+      "G1_sugar_extends_the_proboscis": {
+        "outcome": "pass",
+        "test": "median peak extension under sugar >= 0.5 x E_full, and at least 0.25 x E_full above the medians under bitter, jon_ce and none (r_full 20 Hz)",
+        "value": {
+          "bitter": 0.0001,
+          "e_full": 0.3428,
+          "jon_ce": 0.0001,
+          "none": 0.0001,
+          "sugar": 0.3431,
+          "sugar_bitter": 0.1618
+        }
+      },
+      "G2_both_joints_are_driven_to_extend": {
+        "outcome": "pass",
+        "test": "median over sugar trials of the time-averaged activation: rostrum protractor > rostrum retractor and haustellum extensor > haustellum flexor (r_full 20 Hz)",
+        "value": {
+          "haustellum_extensor": 0.8858,
+          "haustellum_flexor": 0.0,
+          "rostrum_protractor": 0.9644,
+          "rostrum_retractor": 0.0561
+        }
+      },
+      "G3_bitter_gates_extension": {
+        "outcome": "pass",
+        "test": "median peak extension under sugar_bitter <= 0.5 x the sugar median",
+        "value": {
+          "sugar": 0.3431,
+          "sugar_bitter": 0.1618
+        }
+      },
+      "G4_bitter_alone_does_not_extend": {
+        "outcome": "pass",
+        "test": "median peak extension under bitter <= 0.25 x E_full",
+        "value": 0.0001
+      },
+      "G5_the_activation_scale_does_not_decide_it": {
+        "outcome": "pass",
+        "test": "G1's and G3's tests hold at r_full 10 Hz and 40 Hz",
+        "value": {
+          "r_full_10": {
+            "G1": {
+              "bitter": 0.0001,
+              "jon_ce": 0.0001,
+              "none": 0.0001,
+              "sugar": 0.3433,
+              "sugar_bitter": 0.1648
+            },
+            "G3": {
+              "sugar": 0.3433,
+              "sugar_bitter": 0.1648
+            }
+          },
+          "r_full_40": {
+            "G1": {
+              "bitter": 0.0001,
+              "jon_ce": 0.0001,
+              "none": 0.0001,
+              "sugar": 0.3409,
+              "sugar_bitter": 0.1213
+            },
+            "G3": {
+              "sugar": 0.3409,
+              "sugar_bitter": 0.1213
+            }
+          }
+        }
+      }
+    },
+    "registration": {
+      "committed_at": "2026-10-24T13:16:21-04:00",
+      "file": "preregistration/embodied_stage2b_proboscis_extension.json",
+      "registered_in_commit": "76f90e8bd5a98586e0aa9db959b97f99005ccbd1",
+      "sha256": "931fd3427cd19f8cd5823421bd1c197fa1782b53861aed6e79603b8e87ab2c4b"
+    },
+    "reported": {
+      "bitter": {
+        "haustellum_extensor": 0.0,
+        "haustellum_flexor": 0.0,
+        "labellum_abductor": 0.0,
+        "labellum_extensor": 0.0,
+        "mean_extension_mm": 0.0,
+        "onset_haustellum_s": null,
+        "onset_rostrum_s": null,
+        "rostrum_protractor": 0.0,
+        "rostrum_retractor": 0.0
+      },
+      "jon_ce": {
+        "haustellum_extensor": 0.0,
+        "haustellum_flexor": 0.0,
+        "labellum_abductor": 0.0,
+        "labellum_extensor": 0.0,
+        "mean_extension_mm": 0.0,
+        "onset_haustellum_s": null,
+        "onset_rostrum_s": null,
+        "rostrum_protractor": 0.0,
+        "rostrum_retractor": 0.0
+      },
+      "none": {
+        "haustellum_extensor": 0.0,
+        "haustellum_flexor": 0.0,
+        "labellum_abductor": 0.0,
+        "labellum_extensor": 0.0,
+        "mean_extension_mm": 0.0,
+        "onset_haustellum_s": null,
+        "onset_rostrum_s": null,
+        "rostrum_protractor": 0.0,
+        "rostrum_retractor": 0.0
+      },
+      "sugar": {
+        "haustellum_extensor": 28.42,
+        "haustellum_flexor": 0.0,
+        "labellum_abductor": 37.12,
+        "labellum_extensor": 33.0,
+        "mean_extension_mm": 0.3054,
+        "onset_haustellum_s": 0.036000000000000004,
+        "onset_rostrum_s": 0.0325,
+        "rostrum_protractor": 67.75,
+        "rostrum_retractor": 1.1
+      },
+      "sugar_bitter": {
+        "haustellum_extensor": 0.0,
+        "haustellum_flexor": 0.75,
+        "labellum_abductor": 0.0,
+        "labellum_extensor": 2.75,
+        "mean_extension_mm": 0.0488,
+        "onset_haustellum_s": 0.24,
+        "onset_rostrum_s": 0.046,
+        "rostrum_protractor": 7.5,
+        "rostrum_retractor": 0.0
+      }
+    }
+  },
   "extractor_agreement": {
     "by_feature": {
       "active_electrodes": {

@@ -417,6 +417,27 @@ the connectome does not record; adding them is the next registered step.*
 
 ---
 
+## 18. Sugar extends the proboscis, bitter holds it back
+
+**Slide message:** *Sugar input to the validated FlyWire brain drives the motor neurons of each
+proboscis muscle the literature names, and a simulated proboscis extends fully; bitter input
+holds it back. Six of six registered predictions pass.*
+
+- **What changed.** `src/neuromps/fly/proboscis.py` drives the flybody proboscis (body fixed,
+  0.01 ms step, checked against a step half that size); `src/neuromps/fly/embodied_stage2b.py`
+  turns the proboscis motor pools (MN9, MN1/MN2, MN4, MN3, named by FlyWire cell type after
+  McKellar et al. 2020) into rostrum and haustellum commands. Registered before running.
+- **Effect.** Full extension under sugar
+  (0.3431 <!-- metrics.json: embodied_stage2b.predictions.G1_sugar_extends_the_proboscis.value.sugar --> mm of
+  0.3428 <!-- metrics.json: embodied_stage2b.predictions.G1_sugar_extends_the_proboscis.value.e_full -->); none under bitter,
+  antennal input or none; time-averaged extension from
+  0.3054 <!-- metrics.json: embodied_stage2b.reported.sugar.mean_extension_mm --> to
+  0.0488 <!-- metrics.json: embodied_stage2b.reported.sugar_bitter.mean_extension_mm --> mm when bitter is added. Sugar
+  recruits only feeding motor neurons (exploratory).
+- **Evidence.** Roadmap §7 and figure; `outputs/fly/embodied_stage2b_SIMULATED.*`.
+
+---
+
 ## Work queue (decided 2026-10-24, from the post-round-1 review)
 
 | Item | Status | Registered before running |
