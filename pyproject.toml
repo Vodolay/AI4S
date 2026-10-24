@@ -35,6 +35,12 @@ dev = [
     "python-docx==1.2.0",  # render report/TECHNICAL_REPORT.md into the Word house style;
                            # the PDF is then produced from the .docx by LibreOffice
 ]
+# The embodied fly (report/ROADMAP_EMBODIED_FLY.md): MuJoCo runs the FlyMimic musculoskeletal
+# leg. Optional, so the chip pipeline and CI do not depend on it. 3.16.x is the series FlyGym 2,
+# whose model files we use, is built against.
+embodied = [
+    "mujoco==3.16.0",
+]
 
 [tool.setuptools.packages.find]
 where = ["src"]

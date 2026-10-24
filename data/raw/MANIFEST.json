@@ -60,6 +60,67 @@
         }
       ]
     },
+    "flymimic": {
+      "name": "flymimic",
+      "status": "ok",
+      "landing_url": "https://github.com/NeLy-EPFL/flygym",
+      "license": "Apache-2.0 (FlyGym; the FlyMimic model file states Apache 2.0)",
+      "license_url": "https://www.apache.org/licenses/LICENSE-2.0",
+      "citation": "\u00d6zdil PG, et al. FlyMimic: musculoskeletal model of Drosophila limb movement (2026), as shipped in FlyGym 2 (NeuroMechFly v2; Wang-Chen S, et al. Nature Methods 21, 2353-2362 (2024)); github.com/NeLy-EPFL/flygym at commit a63dc91a7ce4",
+      "note": "optional (embodied fly only); FlyGym commit a63dc91a7ce4; mesh archive neuromechfly_musculoskeletal_meshes_20260623a checked against its published SHA-256",
+      "checked_at": "2026-10-24T15:03:21+00:00",
+      "files": [
+        {
+          "path": "flymimic/LICENSE",
+          "url": "https://raw.githubusercontent.com/NeLy-EPFL/flygym/a63dc91a7ce432452e6521c2f3dcc1a7c2c7c6bc/LICENSE",
+          "sha256": "02afa15750a169f0815ff1525dacf28d010f1dfd4cb119fc9e96bfca4f426eb4",
+          "bytes": 11362,
+          "downloaded_at": "2026-10-24T15:03:14+00:00"
+        },
+        {
+          "path": "flymimic/best_combined_arm_damping_stiff_cvt3.xml",
+          "url": "https://raw.githubusercontent.com/NeLy-EPFL/flygym/a63dc91a7ce432452e6521c2f3dcc1a7c2c7c6bc/src/flygym/assets/model/musculoskeletal/best_combined_arm_damping_stiff_cvt3.xml",
+          "sha256": "04f6070d6733940357be005ca72c02ba0d9455538ff018da70c74de7458e9531",
+          "bytes": 49670,
+          "downloaded_at": "2026-10-24T15:03:14+00:00"
+        },
+        {
+          "path": "flymimic/mocap/qpos_0002.npy",
+          "url": "https://raw.githubusercontent.com/NeLy-EPFL/flygym/a63dc91a7ce432452e6521c2f3dcc1a7c2c7c6bc/src/flygym_demo/muscle_imitation/assets/mocap/qpos/0002.npy",
+          "sha256": "aa7e3e72325d7d76a17863057cbaba9259a346d66e41b7d820411570d5e00a42",
+          "bytes": 12728,
+          "downloaded_at": "2026-10-24T15:03:14+00:00"
+        },
+        {
+          "path": "flymimic/mocap/qvel_0002.npy",
+          "url": "https://raw.githubusercontent.com/NeLy-EPFL/flygym/a63dc91a7ce432452e6521c2f3dcc1a7c2c7c6bc/src/flygym_demo/muscle_imitation/assets/mocap/qvel/0002.npy",
+          "sha256": "c472a3e03ed25a614efcb90e54641e41a031d23024092d99f44b4448b581dd12",
+          "bytes": 12728,
+          "downloaded_at": "2026-10-24T15:03:14+00:00"
+        },
+        {
+          "path": "flymimic/mocap/xipos_0002.npy",
+          "url": "https://raw.githubusercontent.com/NeLy-EPFL/flygym/a63dc91a7ce432452e6521c2f3dcc1a7c2c7c6bc/src/flygym_demo/muscle_imitation/assets/mocap/xipos/0002.npy",
+          "sha256": "3f73c47ee4692b0ebf9a760869d1ea05af6c8bbd5795320fb2edb38f53c5c20c",
+          "bytes": 21728,
+          "downloaded_at": "2026-10-24T15:03:14+00:00"
+        },
+        {
+          "path": "flymimic/mocap/xivel_0002.npy",
+          "url": "https://raw.githubusercontent.com/NeLy-EPFL/flygym/a63dc91a7ce432452e6521c2f3dcc1a7c2c7c6bc/src/flygym_demo/muscle_imitation/assets/mocap/xivel/0002.npy",
+          "sha256": "3eb99125864b8ecdf05286c72301eb1954ae9d9e2e113b350b6ca1c02f6e8d61",
+          "bytes": 43328,
+          "downloaded_at": "2026-10-24T15:03:15+00:00"
+        },
+        {
+          "path": "flymimic/neuromechfly_musculoskeletal_meshes_20260623a.tar",
+          "url": "https://datasets.epfl.ch/nely-public-share/flygym_assets/neuromechfly_musculoskeletal_meshes_20260623a.tar",
+          "sha256": "c73772562eb173e90b40fb467420d401ba247ed851868cdc27d8ecad9b8f8bc2",
+          "bytes": 14028800,
+          "downloaded_at": "2026-10-24T15:03:21+00:00"
+        }
+      ]
+    },
     "flywire783": {
       "name": "flywire783",
       "status": "ok",
@@ -148,7 +209,7 @@
       "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
       "citation": "Tukker AM, Wijnolts FMJ, de Groot A, Westerink RHS. Toxicol Sci 178(1):71-87 (2020). doi:10.1093/toxsci/kfaa136",
       "note": "EXCLUDED 2026-09-16 (PI decision): non-commercial license is incompatible with a prize-bearing submission released under an open license. Revisit only if the competition rules clearly keep submissions under the entrant's own open license.",
-      "checked_at": "2026-10-23T02:30:38+00:00",
+      "checked_at": "2026-10-24T15:03:13+00:00",
       "files": []
     },
     "kapucu2022": {
