@@ -56,3 +56,27 @@ def test_stage1e_scoring_reads_the_registered_rules() -> None:
     assert all(v["outcome"] == "pass" for v in got.values())
     gated = relay.score(pd.DataFrame(rows), pools, grooming_rate=2.0, spec=spec)
     assert gated["E1_antennal_input_holds_the_leg_at_the_head"]["outcome"] == "uninterpretable"
+
+
+def test_stage1f_scoring_reads_the_registered_rules() -> None:
+    import json
+
+    from neuromps.fly import embodied_stage1f as s1f
+
+    rows = []
+    for scale in (20.0, 10.0, 40.0):
+        for drive, d in (("jon_ce", 0.55), ("jon_ce_lesion", 1.5), ("sugar", 0.95), ("none", 1.53)):
+            for seed in range(8):
+                rows.append({"drive": drive, "seed": seed, "r_full": scale, "min_distance_mm": d})
+    pools = pd.DataFrame(
+        [
+            {"drive": d, "front": f, "middle": 1.0, "hind": 1.0}
+            for d, f in (("jon_ce", 10.0), ("jon_ce_lesion", 2.0), ("sugar", 0.7), ("none", 0.0))
+        ]
+    )
+    spec = json.loads(s1f.REGISTRATION.read_text())
+    rates = {"jon_ce": 8.5, "sugar": 0.5, "none": 0.0}
+    got = s1f.score(pd.DataFrame(rows), pools, rates, spec)
+    assert all(v["outcome"] == "pass" for v in got.values())
+    gated = s1f.score(pd.DataFrame(rows), pools, {"jon_ce": 0.1, "sugar": 0.5, "none": 0.0}, spec)
+    assert gated["F1_antennal_input_reaches_deepest"]["outcome"] == "uninterpretable"

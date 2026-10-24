@@ -228,28 +228,31 @@ def plot(table: pd.DataFrame, pools: pd.DataFrame, path) -> None:
     plt.close(fig)
 
 
-def main(argv: list[str] | None = None) -> int:
-    """CLI: brain trials, matched replay into the nerve cord (intact and lesioned), the leg."""
-    from neuromps.paths import figures_dir
+def run(seeds) -> dict:
+    """Brain trials, matched replay into the nerve cord (intact, and lesioned under JO-CE), the leg.
 
-    logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
-    spec = json.loads(REGISTRATION.read_text())
+    Returns the per-trial readout table, the motor-pool table, the matching coverage and the
+    grooming descending neurons' mean rate under each drive.
+    """
     fw, male = _tables()
     pairs = match(fw, male)
-    cover = coverage(pairs, fw["root_id"], male["bodyId"])
     grooming_ids = set(fw.loc[fw["cell_type"].isin(GROOMING_TYPES), "root_id"].astype(int))
     with ProcessPoolExecutor(memory_bounded_workers(), initializer=_brain_init) as pool:
-        brains = list(pool.map(_brain, [(d, s) for d in DRIVES for s in SEEDS]))
-    jon = [b for b in brains if b["drive"] == "jon_ce"]
-    grooming_rate = float(
-        np.mean(
-            [
-                sum(b["dn_spikes"].get(i, np.empty(0)).size for i in grooming_ids)
-                / len(grooming_ids)
-                for b in jon
-            ]
+        brains = list(pool.map(_brain, [(d, s) for d in DRIVES for s in seeds]))
+    grooming_rate = {
+        drive: float(
+            np.mean(
+                [
+                    sum(b["dn_spikes"].get(i, np.empty(0)).size for i in grooming_ids)
+                    / len(grooming_ids)
+                    for b in brains
+                    if b["drive"] == drive
+                ]
+            )
         )
-    )
+        for drive in DRIVES
+    }
+    jon = [b for b in brains if b["drive"] == "jon_ce"]
     work = [(b, False, grooming_ids) for b in brains] + [(b, True, grooming_ids) for b in jon]
     with ProcessPoolExecutor(
         memory_bounded_workers(per_worker_gb=8.0), initializer=_cord_init, initargs=(pairs,)
@@ -283,6 +286,23 @@ def main(argv: list[str] | None = None) -> int:
             for c in cords
         ]
     )
+    return {
+        "table": table,
+        "pools": pools,
+        "grooming_rate": grooming_rate,
+        "matching": coverage(pairs, fw["root_id"], male["bodyId"]),
+    }
+
+
+def main(argv: list[str] | None = None) -> int:
+    """CLI: brain trials, matched replay into the nerve cord (intact and lesioned), the leg."""
+    from neuromps.paths import figures_dir
+
+    logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+    spec = json.loads(REGISTRATION.read_text())
+    ran = run(SEEDS)
+    table, pools, cover = ran["table"], ran["pools"], ran["matching"]
+    grooming_rate = ran["grooming_rate"]["jon_ce"]
     result = {
         "label": "SIMULATED FlyWire brain -> male nerve cord -> FlyMimic leg (open loop)",
         "predictions": score(table, pools, grooming_rate, spec),
