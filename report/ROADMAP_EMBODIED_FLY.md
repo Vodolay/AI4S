@@ -183,14 +183,19 @@ high
 (0.4561 <!-- metrics.json: embodied_stage1d.predictions.D2_forward_walking_swings_the_leg.value.giant_fibre -->),
 while keeping the claw away from the head. (Caveat found in stage 2e, below: this rhythmicity
 measure does not require an autocorrelation peak, so smooth movements without a rhythm also score
-high. D2's pass is under audit; D1, the hold at the head, does not depend on it.)
+high. The registered audit, below, re-scored D2 with a measure that requires a peak: forward
+walking drops to
+0.0956 <!-- metrics.json: rhythm_audit.embodied_stage1d.predictions.D2_forward_walking_swings_the_leg.audited.value.forward_walking --> and the giant fibre to
+0.1896 <!-- metrics.json: rhythm_audit.embodied_stage1d.predictions.D2_forward_walking_swings_the_leg.audited.value.giant_fibre -->, while grooming keeps
+0.2374 <!-- metrics.json: rhythm_audit.embodied_stage1d.predictions.D2_forward_walking_swings_the_leg.audited.value.grooming -->, so D2 fails under the corrected measure. The walking "swing" was an
+artefact; D1, the hold at the head, does not depend on the measure and stands.)
 **Stage 1's question is answered for the nerve cord:**
 the descending neurons that start antennal grooming in the fly move this leg to the head and hold
 it there, specifically. Next is the brain: the FlyWire brain joined to this nerve cord through
 type-matched descending neurons, so that sensory drive, not a stimulated command neuron, starts
 the movement.
 
-![Time near the head against rhythmicity, one point per SIMULATED trial: the antennal-grooming drive holds the leg at the head; walking and escape drives move it rhythmically and away.](../outputs/figures/embodied_stage1d_reach_swing_SIMULATED.png){width=70%}
+![Time near the head against rhythmicity, one point per SIMULATED trial: the antennal-grooming drive holds the leg at the head; walking and escape drives move it away (the vertical axis is the registered rhythmicity, found by the audit to score smooth movements high).](../outputs/figures/embodied_stage1d_reach_swing_SIMULATED.png){width=70%}
 
 **Stages 1e and 1f: the FlyWire brain drives the male nerve cord, end to end.** Each FlyWire
 descending neuron was paired with the male-CNS descending neuron of the same cell type and side
@@ -374,9 +379,32 @@ as registered, but three readings are now suspect:
 - stage 2d's five "rhythmic" cells;
 - every grooming comparison value.
 
-The next step is an audit: a corrected measure that requires a genuine autocorrelation peak,
-registered and applied to every affected stage. After that, a registered stage-2e follow-up with
-the drive set by each command neuron's own response rather than one shared input.
+**The audit (registered before any corrected value was computed on stage data).** The corrected
+measure counts a rhythm only at a genuine autocorrelation peak: a local maximum at least 0.1 above
+the trough it rises from. Its period is that peak's lag, and phases use that period. It was
+calibrated on synthetic signals only and passes its registered validation: smooth signals without
+a rhythm score 0, and a sine keeps its value. Stages 1d, 2a, 2c, 2d and 2e were re-simulated with
+their own code and seeds, and every trial was measured both ways. The registered measure
+reproduces every recorded outcome. Under the corrected measure:
+- one registered outcome changes: stage 1d's D2 now fails (above);
+- in stage 2d the cells with a rhythm drop from
+  5 <!-- metrics.json: rhythm_audit.embodied_stage2d.registered.cells_passing.glut_all.W1_the_walking_command_makes_a_rhythm --> to
+  1 <!-- metrics.json: rhythm_audit.embodied_stage2d.audited.cells_passing.glut_all.W1_the_walking_command_makes_a_rhythm -->, and the
+  selection rule would pick a different cell (glutamate everywhere, 16 mV, 100 ms); it is not
+  confirmed here, since that would need fresh seeds;
+- in stage 2e, DNb08's rhythmicity falls from
+  0.7367 <!-- metrics.json: rhythm_audit.embodied_stage2e.reported.registered.dnb08.rhythmicity_L1_flexor --> to
+  0.0 <!-- metrics.json: rhythm_audit.embodied_stage2e.reported.audited.dnb08.rhythmicity_L1_flexor -->, and the share of
+  rhythmic leg motor neurons from
+  0.699 <!-- metrics.json: rhythm_audit.embodied_stage2e.reported.registered.dnb08.leg_mn_rhythmic_fraction --> to
+  0.01 <!-- metrics.json: rhythm_audit.embodied_stage2e.reported.audited.dnb08.leg_mn_rhythmic_fraction -->.
+
+Stages 2a and 2c are unchanged. Registered outcomes stay recorded as they fell; this paragraph and
+the figure carry both. From now on, every new stage registers the corrected measure. Next, a
+registered stage-2e follow-up in which each command neuron gets enough drive to fire, so that
+Pugliese et al.'s result is actually tested.
+
+![SIMULATED: every audited trial's rhythmicity under the registered measure (no peak required) against the corrected one (an autocorrelation peak). Genuine rhythms lie on the diagonal; smooth signals the old measure scored as rhythmic fall to zero.](../outputs/figures/rhythm_audit_SIMULATED.png){width=60%}
 
 ![SIMULATED firing-rate model of the male nerve cord. Left: DNb08 drive, one draw: one flexor burst, then a tonic extensor, scored as "rhythmic" by the flawed measure. Right: rhythmicity per draw and condition; DNg100 drive leaves the pools silent.](../outputs/figures/embodied_stage2e_rate_model_SIMULATED.png){width=80%}
 
