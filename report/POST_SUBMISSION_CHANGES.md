@@ -359,7 +359,8 @@ neurons swing it instead.*
 
 **Slide message:** *On fresh seeds and with readouts registered in advance: driving the fly's
 antennal-grooming neurons brings the simulated front leg to the head and holds it there for
-nearly the whole second; walking neurons swing it, escape neurons extend it.*
+nearly the whole second; escape neurons extend it. (That walking neurons "swing" it rested on a
+rhythm measure now under audit; see entry 21.)*
 
 - **What changed.** `src/neuromps/fly/kinematics.py` adds two readouts (time near the head;
   rhythmicity), `src/neuromps/fly/embodied_stage1d.py` reruns stage 1c's design on fresh seeds.
@@ -371,7 +372,9 @@ nearly the whole second; walking neurons swing it, escape neurons extend it.*
   0.368 <!-- metrics.json: embodied_stage1d.predictions.D1_grooming_holds_the_claw_at_the_head.value.forward_walking -->
   under any other; forward walking more rhythmic than grooming; the same at every activation
   scale; the front-leg specificity of stage 1c replicates. Stage 1c's failed predictions stay
-  failed.
+  failed. *Caveat found later (entry 21): the rhythmicity measure has no peak requirement, so
+  "forward walking more rhythmic" (D2) is under audit; the hold at the head (D1) does not depend
+  on it.*
 - **Evidence.** Roadmap §7 and figure; `outputs/fly/embodied_stage1d_SIMULATED.*`.
 
 ## 16. From an antennal touch in the brain to a leg at the head
@@ -480,6 +483,29 @@ reportable.*
   5 <!-- metrics.json: embodied_stage2d.sweep.cells_passing.glut_all.W1_the_walking_command_makes_a_rhythm --> cells, alternation
   in none; the selected cell passes only silence without drive on fresh seeds.
 - **Evidence.** Roadmap §7 and figure; `outputs/fly/embodied_stage2d_*`.
+
+---
+
+## 21. The walking flies online are trained, not wired; and our rhythm measure was flawed
+
+**Slide message:** *The walking flies circulating online are driven by trained controllers, not by
+connectome wiring. The one wiring-based walking rhythm (Pugliese et al. 2025) uses a firing-rate
+model. Our reimplementation did not test it fairly: our stand-in for neuron size starves the
+walking command. Checking the result exposed a flaw in our own rhythm measure, now being
+audited.*
+
+- **What changed.** `src/neuromps/fly/rate_model.py` reimplements Pugliese et al.'s rate model
+  from the paper and its public configuration, batched over parameter draws.
+  `src/neuromps/fly/embodied_stage2e.py` runs the registered stage 2e.
+- **Effect.** Under DNg100 drive, 11 <!-- metrics.json: embodied_stage2e.reported.forward_walking.active_neurons --> neurons
+  become active; DNg100 itself reaches 6.54 <!-- metrics.json: embodied_stage2e.exploratory_driven_neurons.forward_walking.drive_only_rate_hz.0 --> Hz,
+  because size (here synapse count) sets its threshold. Rhythm predictions fail; the lesion
+  prediction passes vacuously. DNb08's "rhythm" (0.7367 <!-- metrics.json: embodied_stage2e.reported.dnb08.rhythmicity_L1_flexor -->)
+  is one burst and a plateau. The registered rhythmicity measure has no peak requirement, which
+  puts stage 1d's D2 and stage 2d's rhythm cells under audit.
+- **Why it matters for the interview.** We publish the flaw ourselves, say which earlier claims
+  it touches, and fix it with a registered audit, not a quiet re-score.
+- **Evidence.** Roadmap §7 and figure; `outputs/fly/embodied_stage2e_*`.
 
 ---
 

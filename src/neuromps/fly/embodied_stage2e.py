@@ -206,15 +206,13 @@ def reported(table: pd.DataFrame) -> dict:
 
 
 def plot(rows: list[dict], table: pd.DataFrame, path) -> None:
-    """One replicate's tibia pools under DNg100, and every replicate's rhythmicity per condition."""
+    """One replicate's tibia pools under DNb08, and every replicate's rhythmicity per condition."""
     import matplotlib
 
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
 
-    signals = next(
-        r["signals"] for r in rows if r["condition"] == "forward_walking" and "signals" in r
-    )
+    signals = next(r["signals"] for r in rows if r["condition"] == "dnb08" and "signals" in r)
     fig, (left, right) = plt.subplots(
         1, 2, figsize=(7.4, 2.9), gridspec_kw={"width_ratios": [1.5, 1]}
     )
@@ -231,7 +229,9 @@ def plot(rows: list[dict], table: pd.DataFrame, path) -> None:
     left.set_xlim(START_S, 1.2)
     left.set_xlabel("time (s)", fontsize=7)
     left.set_ylabel("pool rate (Hz)", fontsize=7)
-    left.set_title("DNg100 drive, one parameter draw (seed 860)", fontsize=7)
+    left.set_title(
+        "DNb08 drive, one draw (seed 860); under DNg100 drive the pools stay silent", fontsize=7
+    )
     left.legend(fontsize=5.5, frameon=False, loc="upper right", ncol=2)
     left.tick_params(labelsize=6)
     order = list(CONDITIONS)
@@ -251,6 +251,28 @@ def plot(rows: list[dict], table: pd.DataFrame, path) -> None:
     fig.tight_layout()
     fig.savefig(path, dpi=300, bbox_inches="tight")
     plt.close(fig)
+
+
+def driven_neurons() -> dict:
+    """Exploratory: each driven neuron's size stand-in and its drive-only rate (mean draws)."""
+    out = {}
+    for name, idx in _STATE["drive"].items():
+        mean = {k: v[0] for k, v in rate_model.DISTRIBUTIONS.items()}
+        sizes = _STATE["size"][idx]
+        x = AMPLITUDE - mean["theta"] * sizes
+        rate = np.maximum(mean["r_max"] * np.tanh((mean["a"] / sizes / mean["r_max"]) * x), 0)
+        if len(idx):
+            out[name] = {
+                "size_median_normalized": [round(float(v), 2) for v in sizes],
+                "drive_only_rate_hz": [round(float(v), 2) for v in rate],
+            }
+    q = np.quantile(_STATE["size"], [0.5, 0.99, 0.999])
+    out["network_size_quantiles"] = {
+        "q50": 1.0,
+        "q99": round(float(q[1]), 2),
+        "q999": round(float(q[2]), 2),
+    }
+    return out
 
 
 def check_step(pool) -> dict:
@@ -280,11 +302,13 @@ def main(argv: list[str] | None = None) -> int:
             for r in got
         ]
     table = s2c._frame(rows)
+    _init()
     result = {
         "label": "SIMULATED firing-rate model (Pugliese et al.) of the male nerve cord",
         "predictions": score(table, spec),
         "numerical_check": check,
         "reported": reported(table),
+        "exploratory_driven_neurons": driven_neurons(),
         "registration": design.provenance(REGISTRATION),
     }
     out = outputs_dir() / "fly"

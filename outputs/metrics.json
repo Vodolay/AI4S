@@ -5768,6 +5768,168 @@
       "cells_per_rule": 37
     }
   },
+  "embodied_stage2e": {
+    "exploratory_driven_neurons": {
+      "dnb08": {
+        "drive_only_rate_hz": [
+          52.15,
+          53.44,
+          47.85,
+          46.74
+        ],
+        "size_median_normalized": [
+          4.11,
+          4.01,
+          4.44,
+          4.54
+        ]
+      },
+      "forward_walking": {
+        "drive_only_rate_hz": [
+          6.54,
+          5.73
+        ],
+        "size_median_normalized": [
+          17.8,
+          18.89
+        ]
+      },
+      "grooming": {
+        "drive_only_rate_hz": [
+          49.32,
+          54.01,
+          45.06,
+          50.48
+        ],
+        "size_median_normalized": [
+          4.32,
+          3.98,
+          4.69,
+          4.23
+        ]
+      },
+      "network_size_quantiles": {
+        "q50": 1.0,
+        "q99": 11.86,
+        "q999": 19.31
+      }
+    },
+    "label": "SIMULATED firing-rate model (Pugliese et al.) of the male nerve cord",
+    "numerical_check": {
+      "rhythmicity_0.05ms": 0.0,
+      "rhythmicity_0.1ms": 0.0
+    },
+    "predictions": {
+      "R0_silent_without_drive": {
+        "outcome": "pass",
+        "test": "every one of the twelve pools below 0.01 Hz in every no-drive replicate",
+        "value": 0.0
+      },
+      "R1_the_walking_command_makes_a_rhythm": {
+        "outcome": "fail",
+        "test": "median L1 flexor rhythmicity under forward walking >= 0.3, at input 250 and at input 150",
+        "value": {
+          "forward_walking": 0.0,
+          "forward_walking_150": 0.0
+        }
+      },
+      "R2_more_than_grooming": {
+        "outcome": "fail",
+        "test": "median L1 flexor rhythmicity under forward walking above the grooming median (input 250)",
+        "value": {
+          "forward_walking": 0.0,
+          "grooming": 0.2541
+        }
+      },
+      "R3_antagonists_alternate": {
+        "outcome": "fail",
+        "test": "median circular distance of phase(L1 flexor -> L1 extensor) from 0.5 <= 0.15",
+        "value": null
+      },
+      "R4_left_and_right_alternate": {
+        "outcome": "fail",
+        "test": "median circular distance of phase(L1 flexor -> R1 flexor) from 0.5 <= 0.15",
+        "value": null
+      },
+      "R5_a_tripod": {
+        "outcome": "fail",
+        "test": "median circular distance of phase(L1 -> L2 flexor) from 0.5 <= 0.15 and of phase(L1 -> L3 flexor) from 0 <= 0.15",
+        "value": {
+          "L1_L2_from_half": null,
+          "L1_L3_from_zero": null
+        }
+      },
+      "R6_the_rhythm_needs_the_three_neuron_circuit": {
+        "outcome": "pass",
+        "test": "with the 18 circuit neurons silenced, median L1 flexor rhythmicity under forward walking < 0.3 and at most half the intact median",
+        "value": {
+          "forward_walking": 0.0,
+          "lesion": 0.0
+        }
+      },
+      "R7_a_fly_like_step_period": {
+        "outcome": "fail",
+        "test": "median L1 flexor period under forward walking between 60 ms (Mendes et al. 2013) and 200 ms (our bound)",
+        "value": null
+      }
+    },
+    "registration": {
+      "committed_at": "2026-10-24T15:40:28-04:00",
+      "file": "preregistration/embodied_stage2e_rate_model_walking.json",
+      "registered_in_commit": "21df803f52429e76a9ccd95053065ff6c04f8f7e",
+      "sha256": "e08fe8755127246d40c28af0b7c215495fcd3c75cf2f34131e0189620a78fbc9"
+    },
+    "reported": {
+      "dnb08": {
+        "active_neurons": 7055,
+        "extensor_hz": 47.63,
+        "flexor_hz": 6.24,
+        "leg_mn_rhythmic_fraction": 0.699,
+        "period_ms": 50.0,
+        "rhythmicity_L1_flexor": 0.7367
+      },
+      "forward_walking": {
+        "active_neurons": 11,
+        "extensor_hz": 0.0,
+        "flexor_hz": 0.05,
+        "leg_mn_rhythmic_fraction": 0.0,
+        "period_ms": null,
+        "rhythmicity_L1_flexor": 0.0
+      },
+      "forward_walking_150": {
+        "active_neurons": 1,
+        "extensor_hz": 0.0,
+        "flexor_hz": 0.0,
+        "leg_mn_rhythmic_fraction": null,
+        "period_ms": null,
+        "rhythmicity_L1_flexor": 0.0
+      },
+      "grooming": {
+        "active_neurons": 6911,
+        "extensor_hz": 53.0,
+        "flexor_hz": 6.38,
+        "leg_mn_rhythmic_fraction": 0.726,
+        "period_ms": 50.0,
+        "rhythmicity_L1_flexor": 0.2541
+      },
+      "lesion": {
+        "active_neurons": 11,
+        "extensor_hz": 0.0,
+        "flexor_hz": 0.05,
+        "leg_mn_rhythmic_fraction": 0.0,
+        "period_ms": null,
+        "rhythmicity_L1_flexor": 0.0
+      },
+      "none": {
+        "active_neurons": 0,
+        "extensor_hz": 0.0,
+        "flexor_hz": 0.0,
+        "leg_mn_rhythmic_fraction": null,
+        "period_ms": null,
+        "rhythmicity_L1_flexor": 0.0
+      }
+    }
+  },
   "extractor_agreement": {
     "by_feature": {
       "active_electrodes": {

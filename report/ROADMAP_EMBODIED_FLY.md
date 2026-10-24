@@ -181,7 +181,10 @@ the result holds at every activation scale, and stage 1c's front-leg specificity
 Hz under grooming drive). Rhythmicity alone does not mark walking: the giant fibre scores as
 high
 (0.4561 <!-- metrics.json: embodied_stage1d.predictions.D2_forward_walking_swings_the_leg.value.giant_fibre -->),
-while keeping the claw away from the head. **Stage 1's question is answered for the nerve cord:**
+while keeping the claw away from the head. (Caveat found in stage 2e, below: this rhythmicity
+measure does not require an autocorrelation peak, so smooth movements without a rhythm also score
+high. D2's pass is under audit; D1, the hold at the head, does not depend on it.)
+**Stage 1's question is answered for the nerve cord:**
 the descending neurons that start antennal grooming in the fly move this leg to the head and hold
 it there, specifically. Next is the brain: the FlyWire brain joined to this nerve cord through
 type-matched descending neurons, so that sensory drive, not a stimulated command neuron, starts
@@ -337,6 +340,45 @@ does not contain a working walking rhythm generator. The roadmap's own answer is
 stage, sensory feedback from the legs (stage 3), which the fly also needs to walk.
 
 ![The whole registered SIMULATED stage-2d sweep, both glutamate rules: walking tests passed, tibia flexor rate and the number of active neurons in every cell. Glutamate onto motor neurons leaves the flexors weak; glutamate everywhere turns them on with a large rise in activity, and no cell alternates.](../outputs/figures/embodied_stage2d_sweep_SIMULATED.png){width=95%}
+
+**Stage 2e: the Pugliese et al. firing-rate model (2 of 8, one of them vacuous), and a flaw in our
+rhythm measure.** Neither of the walking flies circulating online comes from a connectome. Eon
+Systems drives a NeuroMechFly walking controller trained by imitation, with a few descending
+neurons as handles. flybody (Google DeepMind with Janelia) walks with a trained policy. The one
+study that finds a walking rhythm in nerve-cord wiring is Pugliese et al. (2025). They use a
+firing-rate model with saturating, heterogeneous neurons. Steady drive to DNg100 produces leg
+rhythms through a three-neuron circuit (IN17A001, INXXX466, IN16B036). Stage 2e reimplemented
+that model from the paper and its configuration, ran it with their parameter distributions on the
+male nerve cord (32 draws), and registered eight predictions before any run. Silence without
+drive passes. Under DNg100 drive almost nothing happens: only
+11 <!-- metrics.json: embodied_stage2e.reported.forward_walking.active_neurons --> neurons become active, and the rhythm
+predictions fail. The silenced-circuit prediction passes, but vacuously: there was no rhythm to
+remove. The cause is a stated deviation. The male CNS release has no neuron volumes, so size,
+which scales each neuron's threshold, was taken as total synapse count. That makes DNg100 one of
+the largest neurons in the cord
+(17.8 <!-- metrics.json: embodied_stage2e.exploratory_driven_neurons.forward_walking.size_median_normalized.0 -->
+times the median, in the top 1 %, which starts at
+11.86 <!-- metrics.json: embodied_stage2e.exploratory_driven_neurons.network_size_quantiles.q99 -->). Under the registered input it reaches only
+6.54 <!-- metrics.json: embodied_stage2e.exploratory_driven_neurons.forward_walking.drive_only_rate_hz.0 --> Hz, against
+49.32 <!-- metrics.json: embodied_stage2e.exploratory_driven_neurons.grooming.drive_only_rate_hz.0 --> Hz for a grooming neuron. So this run does not
+test Pugliese et al.'s result. Grooming and DNb08 drive, which reach their neurons, recruit about
+7,055 <!-- metrics.json: embodied_stage2e.reported.dnb08.active_neurons --> neurons each. DNb08 scores a median rhythmicity of
+0.7367 <!-- metrics.json: embodied_stage2e.reported.dnb08.rhythmicity_L1_flexor -->, with a "period" of
+50.0 <!-- metrics.json: embodied_stage2e.reported.dnb08.period_ms --> ms in every draw, the shortest lag the measure looks at.
+The figure shows why. The left front flexor fires one burst and falls silent, and the extensor
+rises to a plateau; there is no rhythm. **The rhythmicity measure registered since stage 1d is
+flawed.** It takes the largest autocorrelation within lags of 50 to 500 ms without requiring a
+peak, so any smooth, slowly varying signal scores high at the 50 ms edge. Registered outcomes stay
+as registered, but three readings are now suspect:
+- stage 1d's D2 (forward walking "swings" the leg; scored on the smooth claw distance);
+- stage 2d's five "rhythmic" cells;
+- every grooming comparison value.
+
+The next step is an audit: a corrected measure that requires a genuine autocorrelation peak,
+registered and applied to every affected stage. After that, a registered stage-2e follow-up with
+the drive set by each command neuron's own response rather than one shared input.
+
+![SIMULATED firing-rate model of the male nerve cord. Left: DNb08 drive, one draw: one flexor burst, then a tonic extensor, scored as "rhythmic" by the flawed measure. Right: rhythmicity per draw and condition; DNg100 drive leaves the pools silent.](../outputs/figures/embodied_stage2e_rate_model_SIMULATED.png){width=80%}
 
 ## 8. What carries over unchanged
 
