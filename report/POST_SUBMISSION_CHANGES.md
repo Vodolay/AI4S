@@ -139,7 +139,7 @@ times larger than the one at which the fly's behaviour had already failed.*
   0.304 <!-- metrics.json: fly_screen_cutoffs.largest_fly_change_at_behavioural_onset_log2 -->
   log2 (acetylcholine block), so the screen's cutoff is
   5.87 <!-- metrics.json: fly_screen_cutoffs.acute_cutoff_over_largest_fly_change --> times
-  larger. Caveat: the cutoff applies to a fitted curve's efficacy across the tested range, not
+  larger. Caveat: the cutoff applies to a fitted curve's maximum response across the tested range, not
   to one dose, so this compares magnitudes, not decisions. The fly side is simulated; the
   cutoffs are real.
 - **Considered and dropped.** A compound-by-compound potency bridge between our spike-level

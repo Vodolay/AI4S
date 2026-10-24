@@ -1,15 +1,15 @@
 """How large a firing-rate change does a regulatory MEA screen need before it calls a hit?
 
 The EPA's MEA screens (ToxCast, CCTE_Shafer endpoints, 20,375 records in the
-asset) call a chemical active on an endpoint only when its fitted efficacy
-passes the endpoint's cutoff. In the acute assay, efficacy is normalised to a
+asset) call a chemical active on an endpoint only when its fitted maximum
+response passes the endpoint's cutoff. In the acute assay, the response is normalised to a
 positive control at -100 (activity abolished), so a firing-rate cutoff of c
 means suppression to (100 - c)% of control; in the developmental assay it is a
 percent change of control. Converted to log2, these sit beside the fly study's
 precision table: the firing-rate change at which behaviour had already failed.
 
-Descriptive, not a prediction. The cutoff applies to a fitted curve's efficacy
-over the tested range, not to one dose, so the comparison is of magnitudes only.
+Descriptive, not a prediction. The cutoff applies to a fitted curve's maximum
+response over the tested range, not to one dose, so the comparison is of magnitudes only.
 Everything from the fly is **simulated**; the cutoffs are **real**.
 """
 
