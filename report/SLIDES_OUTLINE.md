@@ -11,8 +11,7 @@ person.*
 
 A simulated fly lets the same network be read as a chip and as an animal, and at every level we
 could build (named neurons, motor neurons, movement) the chip ranks drugs well but flags them
-after behaviour has already changed; read through walking alone, acetylcholine block is the one
-exception.
+after behaviour has already changed.
 
 ## Slides
 
@@ -76,9 +75,10 @@ exception.
 - **Figure:** a table of onsets per family from `outputs/fly/embodied_stage4b_SIMULATED.json`
   and `embodied_stage4c_SIMULATED.json` (to draw).
 - **Caveat:** say the failed leave-one-out prediction out loud; it is the honest limit.
-- **Say:** read through walking alone, acetylcholine block is flagged by the chip first (chip
-  0.4 <!-- metrics.json: embodied_stage4d.onsets.chip_replication.ach_block -->, walking
-  0.6 <!-- metrics.json: embodied_stage4d.onsets.walking.ach_block -->), and GABA-A potentiation does not touch walking.
+- **Say:** read through walking alone, GABA-A and GluCl block break the rhythm at
+  0.2 <!-- metrics.json: embodied_stage4d.onsets.walking.gaba_block --> of the knob's range, long before the chip; an
+  apparent acetylcholine exception depended on how walking was scored and did not survive its
+  registered retest.
 
 ### 9. Walking: negatives and a reproduction
 - **Message:** the connectome alone, as integrate-and-fire neurons, does not walk (extensors

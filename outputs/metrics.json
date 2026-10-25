@@ -9001,6 +9001,243 @@
       "vehicle": 0.0
     }
   },
+  "embodied_stage4e": {
+    "chip_onsets": {
+      "ach_block": 0.4,
+      "excitability_block": 0.3600000000000001,
+      "gaba_block": 0.6,
+      "gaba_potentiate": 0.6000000000000001,
+      "glucl_block": 0.8
+    },
+    "four_movement_with_fraction": {
+      "onsets": {
+        "ach_block": 0.1999999999999999,
+        "excitability_block": 0.24,
+        "gaba_block": 0.1999999999999999,
+        "gaba_potentiate": 0.5,
+        "glucl_block": 0.4
+      },
+      "resolutions": {
+        "ach_block": "chip later",
+        "excitability_block": "chip later",
+        "gaba_block": "chip later",
+        "gaba_potentiate": "chip later",
+        "glucl_block": "chip later"
+      }
+    },
+    "label": "SIMULATED walking rhythm under drug knobs, fraction of rhythmic draws",
+    "levels": {
+      "ach_block_0.2": {
+        "fraction": 0.0,
+        "median_score": 0.0
+      },
+      "ach_block_0.4": {
+        "fraction": 0.0312,
+        "median_score": 0.0
+      },
+      "ach_block_0.6": {
+        "fraction": 0.9375,
+        "median_score": 0.9557
+      },
+      "ach_block_0.8": {
+        "fraction": 0.9375,
+        "median_score": 0.9505
+      },
+      "excitability_block_1.1": {
+        "fraction": 0.75,
+        "median_score": 0.9429
+      },
+      "excitability_block_1.2": {
+        "fraction": 0.9375,
+        "median_score": 0.9462
+      },
+      "excitability_block_1.24": {
+        "fraction": 0.9375,
+        "median_score": 0.9465
+      },
+      "excitability_block_1.28": {
+        "fraction": 0.9375,
+        "median_score": 0.9456
+      },
+      "excitability_block_1.32": {
+        "fraction": 0.9375,
+        "median_score": 0.9439
+      },
+      "excitability_block_1.36": {
+        "fraction": 0.9375,
+        "median_score": 0.9425
+      },
+      "excitability_block_1.4": {
+        "fraction": 0.9375,
+        "median_score": 0.9401
+      },
+      "excitability_block_1.44": {
+        "fraction": 0.9375,
+        "median_score": 0.9393
+      },
+      "excitability_block_1.48": {
+        "fraction": 0.9375,
+        "median_score": 0.9393
+      },
+      "excitability_block_1.52": {
+        "fraction": 0.9375,
+        "median_score": 0.9351
+      },
+      "excitability_block_1.56": {
+        "fraction": 0.9375,
+        "median_score": 0.9372
+      },
+      "excitability_block_1.6": {
+        "fraction": 0.9375,
+        "median_score": 0.9374
+      },
+      "gaba_block_0": {
+        "fraction": 0.0,
+        "median_score": 0.0
+      },
+      "gaba_block_0.2": {
+        "fraction": 0.0312,
+        "median_score": 0.0017
+      },
+      "gaba_block_0.4": {
+        "fraction": 0.0312,
+        "median_score": 0.0131
+      },
+      "gaba_block_0.6": {
+        "fraction": 0.2188,
+        "median_score": 0.0491
+      },
+      "gaba_block_0.8": {
+        "fraction": 0.4062,
+        "median_score": 0.1364
+      },
+      "gaba_potentiate_1.25": {
+        "fraction": 0.875,
+        "median_score": 0.9449
+      },
+      "gaba_potentiate_1.5": {
+        "fraction": 0.9375,
+        "median_score": 0.9463
+      },
+      "gaba_potentiate_1.6": {
+        "fraction": 0.9688,
+        "median_score": 0.9471
+      },
+      "gaba_potentiate_1.7": {
+        "fraction": 0.9688,
+        "median_score": 0.9485
+      },
+      "gaba_potentiate_1.8": {
+        "fraction": 0.9688,
+        "median_score": 0.9481
+      },
+      "gaba_potentiate_1.9": {
+        "fraction": 0.9688,
+        "median_score": 0.9475
+      },
+      "gaba_potentiate_2": {
+        "fraction": 0.9688,
+        "median_score": 0.9466
+      },
+      "glucl_block_0": {
+        "fraction": 0.0,
+        "median_score": 0.0006
+      },
+      "glucl_block_0.2": {
+        "fraction": 0.0938,
+        "median_score": 0.0246
+      },
+      "glucl_block_0.4": {
+        "fraction": 0.2188,
+        "median_score": 0.1587
+      },
+      "glucl_block_0.6": {
+        "fraction": 0.25,
+        "median_score": 0.0828
+      },
+      "glucl_block_0.8": {
+        "fraction": 0.4375,
+        "median_score": 0.177
+      },
+      "vehicle": {
+        "fraction": 0.5938,
+        "median_score": 0.7717
+      }
+    },
+    "median_readout": {
+      "resolutions": {
+        "ach_block": "chip earlier",
+        "excitability_block": "chip earlier",
+        "gaba_block": "chip later",
+        "gaba_potentiate": "chip earlier",
+        "glucl_block": "chip later"
+      },
+      "walking_onsets": {
+        "ach_block": 0.6,
+        "excitability_block": null,
+        "gaba_block": 0.1999999999999999,
+        "gaba_potentiate": null,
+        "glucl_block": 0.1999999999999999
+      }
+    },
+    "predictions": {
+      "E0_the_walking_rhythm_is_there": {
+        "outcome": "pass",
+        "test": "at least 16 of 32 draws feasible and a vehicle fraction >= 0.3; if not, E1-E3 are uninterpretable",
+        "value": {
+          "feasible": 32,
+          "fraction": 0.5938
+        }
+      },
+      "E1_acetylcholine_block_is_caught_first": {
+        "outcome": "fail",
+        "test": "acetylcholine block resolves 'chip earlier': the chip's first detection dose is strictly below the walking onset (a family where walking never fails counts as chip earlier only if the chip flags)",
+        "value": {
+          "chip_onset": 0.4,
+          "walking_onset": 0.1999999999999999
+        }
+      },
+      "E2_gaba_and_glucl_block_break_walking_first": {
+        "outcome": "pass",
+        "test": "GABA-A block and GluCl block both resolve 'chip later'",
+        "value": {
+          "gaba_block": "chip later",
+          "glucl_block": "chip later"
+        }
+      },
+      "E3_gaba_potentiation_spares_walking": {
+        "outcome": "fail",
+        "test": "no dose of GABA-A potentiation impairs walking",
+        "value": {
+          "walking_onset": 0.25
+        }
+      }
+    },
+    "registration": {
+      "committed_at": "2026-10-25T09:11:01-04:00",
+      "file": "preregistration/embodied_stage4e_walking_fraction.json",
+      "registered_in_commit": "180476f329aafa66a43a1297cd85325c8cf97dee",
+      "sha256": "b7fdb1482188d1e8ac84cd989c148b68631d008e7de1e97f53e4288dfc6c9708"
+    },
+    "resolutions": {
+      "ach_block": "chip later",
+      "excitability_block": "chip later",
+      "gaba_block": "chip later",
+      "gaba_potentiate": "chip later",
+      "glucl_block": "chip later"
+    },
+    "vehicle_inputs": {
+      "feasible": 32,
+      "runs": 2
+    },
+    "walking_onsets": {
+      "ach_block": 0.1999999999999999,
+      "excitability_block": 0.1999999999999999,
+      "gaba_block": 0.1999999999999999,
+      "gaba_potentiate": 0.25,
+      "glucl_block": 0.4
+    }
+  },
   "embodied_stage5": {
     "candidates": {
       "excluded": 16,

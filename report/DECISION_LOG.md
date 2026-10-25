@@ -249,7 +249,13 @@ it with its own command or `python -m neuromps.fly.pipeline --only <step>`.
 ### D27. Retesting the acetylcholine exception with a readout that respects the draws **(user)**
 - **Options:** keep stage 4d's median readout; a fraction-of-rhythmic-draws readout; a
   per-draw paired analysis.
-- **Taken:** the fraction readout on fresh draws (stage 4e, registration commit below). **Why:**
+- **Taken:** the fraction readout on fresh draws (stage 4e, registration commit 180476f). **Why:**
   stage 4d's draws are bimodal, the median sits between the modes, and the exception entered
   the abstract; the fraction is the plainest readout of a bimodal outcome and uses the rhythm
   line registered since stage 2g.
+- **Outcome:** 2 of 4 (registration commit 180476f). GABA-A and GluCl block break walking first;
+  the acetylcholine exception does not replicate: mild block raises the share of rhythmic draws,
+  and the two-sided index counts that as a change before the chip. The exception is withdrawn
+  from the abstract, discussion, README and slides.
+- **Revisit:** a one-sided walking index (only loss of rhythm counts) would be a new rule chosen
+  after seeing this result; register it only with a reason that does not depend on the outcome.
