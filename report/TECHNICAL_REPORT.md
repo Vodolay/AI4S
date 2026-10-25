@@ -1251,7 +1251,15 @@ where movement first fails the chip has moved by only
 the noise of real chips. A
 literature comparison registered before its search found no study that gives adult flies these
 drugs and scores feeding or grooming movements, so the simulated directions cannot yet be
-checked against fly pharmacology: the gap names the experiments that would.
+checked against fly pharmacology: the gap names the experiments that would. Simulating the
+identified neurons such a study manipulated (the front leg's GABAergic 13A and 13B hemilineages)
+reproduced one published direction for the grooming reach: silencing 13A shortens it to
+0.3806 <!-- metrics.json: embodied_stage5b.predictions.I1_silencing_13A_reduces_grooming.value.depth_mm -->
+mm. Read at the femur-tibia joint, though, none of the published postures appears (silencing 13A
+shifts the tibia by
+-0.1488 <!-- metrics.json: embodied_stage5c.predictions.J1_silencing_13A_flexes_the_tibia.value.shift_rad --> rad,
+toward extension, against a published flexion): in this model the inhibitory leg neurons act as broad
+brakes, not as joint-specific controllers.
 
 ## 31. What the embodied fly does not show
 
