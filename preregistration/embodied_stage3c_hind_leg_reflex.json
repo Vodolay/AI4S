@@ -1,0 +1,36 @@
+{
+  "title": "Embodied fly, stage 3c: the perturbation test on a well-traced leg: do the right hind leg's 25 claw neurons, closed through a servoed flybody leg, return a pushed tibia faster? (SIMULATED, closed loop)",
+  "registered": "2026-10-25",
+  "status": "registered before any closed-loop simulation of the hind leg",
+  "parent": "preregistration/embodied_stage3b_perturbation_reflex.json",
+  "relation_to_parent": "Stages 3a and 3b failed: feedback through the front leg's four claw neurons changed the motor neurons but not the leg, and the male CNS traces few front-leg proprioceptors. Stage 3c repeats stage 3b's perturbation test on the right hind leg, whose claw neurons are well traced (17 SNpp50 onto the tibia extensor motor neurons, 8 SNpp51 onto the tibia flexors), at the cost of a servoed body: flybody's hind-leg joints are position actuators, so feedback changes the commanded angle, not muscle force. Decision D19 in report/DECISION_LOG.md.",
+  "seen_before_registration": [
+    "every stage-3a and 3b result; stage 2a (seeds 800-807): under forward-walking (BDN2, DNg100) drive the right hind tibia extensor pool fires tonically (median 34.12 Hz) and the flexor pool is silent",
+    "data only: right hind-leg claw neurons in the stage-1c network: SNpp50 (17) with direct synapses onto tibia extensor (131), trochanter flexor (74) and accessory tibia flexor (55) motor neurons; SNpp51 (8) onto sternotrochanter (218), pleural remotor (149), tibia flexor (86) motor neurons",
+    "body only (flybody, free joint removed, 0.01 ms step): the right hind tibia joint (tibia_T3_right, servo range -1.35 to 1.3, gain 0.4) is flexed by negative angles (claw to coxa 1.035 mm at -1.35, 2.135 mm at 1.3); held at 1.3, a 20 ms flexing torque of 0.1, 0.2, 0.4 gives an excursion of 0.213, 0.428, 0.852 rad and a return within 0.05 rad in 14, 20, 27 ms"
+  ],
+  "design": {
+    "network": "the stage-1c male nerve cord (LIF, w_syn 0.275 mV), forward-walking drive (DNg100, both sides, 150 Hz)",
+    "body": "flybody fruitfly.xml (commit d015e9b), free joint removed, 0.01 ms step; only tibia_T3_right is commanded, every other actuator held at 0",
+    "motor_map": "right hind-leg motor neurons (vnc_motor, subclass hl, side R): extensor pool 'Ti extensor MN'; flexor pool 'Ti flexor MN' and 'Acc. ti flexor MN'; each pool's spikes filtered (tau 20 ms) into a mean rate, activation = rate / 20 Hz clipped to [0, 1]; net = extensor - flexor activation; command = net x 1.3 if net > 0, else |net| x -1.35; updated every 1 ms",
+    "feedback": "the 25 right hind-leg claw neurons; theta = tibia angle, theta_0 = its value after the settle; extension-tuned rate = 150 Hz x clip((theta - theta_0) / (1.3 - theta_0), 0, 1); flexion-tuned = 150 Hz x clip((theta_0 - theta) / (theta_0 + 1.35), 0, 1); Poisson, suprathreshold (w_syn x 250), every 1 ms",
+    "arms": {
+      "open": "no feedback, perturbed",
+      "resistance": "SNpp51 (onto the flexors) extension-tuned, SNpp50 (onto the extensor) flexion-tuned, perturbed",
+      "assistance": "the opposite assignment, perturbed",
+      "resistance_unperturbed": "used to build the sham",
+      "sham": "perturbed; each claw neuron receives its rate time course from the same seed's resistance_unperturbed trial"
+    },
+    "perturbation": "a flexing torque of 0.3 on tibia_T3_right from 0.500 to 0.520 s",
+    "trials": "16 per arm, seeds 1300-1315, 1 s",
+    "readouts": "pre-pulse angle (median 0.40-0.50 s); excursion (pre-pulse angle minus the minimum 0.50-0.60 s); recovery time (ms after the pulse ends until the angle first returns to within 0.05 rad of the pre-pulse angle; the remaining time if never)"
+  },
+  "predictions": {
+    "K0_the_leg_is_held_and_the_push_moves_it": {"statement": "Precondition: open loop, the tibia is held extended and the push flexes it", "test": "open-loop median pre-pulse angle >= 0.3 rad and median excursion >= 0.2 rad; if not, K1-K3 are uninterpretable"},
+    "K1_feedback_speeds_the_return": {"statement": "The resistance assignment returns the tibia faster than the open loop", "test": "median recovery time in the resistance arm <= 0.8 x the open-loop median"},
+    "K2_the_speed_needs_the_loop": {"statement": "The faster return comes from feedback that follows the push", "test": "interpretable only if K1 passes: median recovery time in the resistance arm < the sham median"},
+    "K3_the_opposite_assignment_does_not_speed_it": {"statement": "The direction comes from which claw type carries which tuning", "test": "median recovery time in the assistance arm >= the open-loop median"}
+  },
+  "not_claimed_even_if_all_pass": "that the fly's resistance reflex runs this way: the leg is servoed, not muscle-driven; the tuning assignment is a stated bracket; one joint is commanded; a pass means the male-CNS wiring of the hind leg's claw neurons, closed through a simulated leg, returns a pushed tibia faster when SNpp51 carry extension, because of feedback that follows the push",
+  "reporting": "Every prediction with its value and pass/fail or uninterpretable; per arm the pre-pulse angle, excursion, recovery time, tibia pool rates and claw rates."
+}
