@@ -1,0 +1,25 @@
+{
+  "title": "Embodied fly, stage 5c: the 13A/13B leg-neuron manipulations read at the femur-tibia joint, against the published joint postures (SIMULATED against published)",
+  "registered": "2026-10-25",
+  "status": "registered before any joint-angle readout of these manipulations",
+  "parent": "preregistration/embodied_stage5b_identified_neurons.json",
+  "relation_to_parent": "Stage 5b read the grooming reach and reproduced one of four published directions (silencing 13A). The study it compares with read the joints of the front legs: silencing 13A or 13B 'locks the front legs in flexion', and continuous activation produced 'static over-extension of the front legs' (Syed, Ravbar and Simpson; PMC11185647). This stage reads the femur-tibia joint under the same manipulations, on fresh seeds. Decision D18 in report/DECISION_LOG.md.",
+  "seen_before_registration": [
+    "every stage-5b result (seeds 1210-1217): reach depth intact 0.9927 mm, silence_13A 0.3806, silence_13B 0.9923, activate_13A 0.7309, activate_13B 0.9927; the front-leg motor pool nearly silent under activate_13A",
+    "body only (stage 3a): in the FlyMimic leg a larger femur-tibia angle is more flexed; the grooming reach holds the tibia near full extension (about 0.63 rad)",
+    "no joint-angle readout of these manipulations has been run"
+  ],
+  "design": {
+    "everything_else": "exactly stage 5b: the stage-1f relay under JO-CE drive (the model's stand-in for the grooming trigger; the study's flies were dusted, and silencing was shown in headless flies, which the model cannot reproduce because its nerve cord is silent without drive), the five arms, populations, silencing and activation",
+    "seeds": "1220-1227 (fresh)",
+    "readout": "per trial the median femur-tibia angle (joint_LFTibia_pitch) over the second; the other left front-leg joint angles reported"
+  },
+  "predictions": {
+    "J1_silencing_13A_flexes_the_tibia": {"statement": "As published ('locks the front legs in flexion')", "test": "median femur-tibia angle under silence_13A >= the intact median + 0.1 rad"},
+    "J2_silencing_13B_flexes_the_tibia": {"statement": "As published", "test": "median angle under silence_13B >= the intact median + 0.1 rad"},
+    "J3_activating_13A_extends_the_tibia": {"statement": "As published ('static over-extension')", "test": "median angle under activate_13A <= the intact median - 0.1 rad"},
+    "J4_activating_13B_extends_the_tibia": {"statement": "As published", "test": "median angle under activate_13B <= the intact median - 0.1 rad"}
+  },
+  "reporting": "Every prediction with its value and pass/fail; per arm the median of every left front-leg joint angle.",
+  "not_claimed_even_if_all_pass": "that these neurons set fly leg posture the way the model does: one leg, open loop, the grooming trigger is antennal drive rather than dust; a pass means the male-CNS wiring of these hemilineages, manipulated as the experiment did, moves the simulated femur-tibia joint in the published direction"
+}
