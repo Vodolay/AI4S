@@ -86,3 +86,8 @@ def test_draw_accepts_a_size_per_neuron_and_replicate() -> None:
     p = rate_model.draw(size, [1, 2])
     q = rate_model.draw(np.ones(2), [1, 2])
     assert np.allclose(p.a * size, q.a) and np.allclose(p.theta / size, q.theta)
+
+
+def test_class_scales_act_on_their_presynaptic_class_only() -> None:
+    w = rate_model.weights(_net(), class_scale={"gaba": 0.5, "glut": 0.0}).toarray()
+    assert np.isclose(w[1, 0], 0.3) and np.isclose(w[1, 2], -0.12)

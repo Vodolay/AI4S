@@ -33,10 +33,24 @@ DISTRIBUTIONS = {
 }
 
 
-def weights(con: Connectome, floor: int = SYNAPSE_FLOOR, scale: float = SCALE) -> sparse.csr_matrix:
-    """W[post, pre] = scale x sign x synapses, for connections with at least `floor` synapses."""
+def weights(
+    con: Connectome,
+    floor: int = SYNAPSE_FLOOR,
+    scale: float = SCALE,
+    class_scale: dict[str, float] | None = None,
+) -> sparse.csr_matrix:
+    """W[post, pre] = scale x sign x synapses, for connections with at least `floor` synapses.
+
+    `class_scale` multiplies the connections of each presynaptic transmitter class (the drug
+    knobs of the spiking model: 'ach', 'gaba', 'glut').
+    """
     keep = con.synapses >= floor
     values = scale * con.sign[keep] * con.synapses[keep]
+    if class_scale:
+        factor = np.ones(keep.sum())
+        for cls, k in class_scale.items():
+            factor[con.pre_class[keep] == cls] = k
+        values = values * factor
     shape = (con.n_neurons, con.n_neurons)
     return sparse.csr_matrix((values, (con.post[keep], con.pre[keep])), shape=shape)
 
