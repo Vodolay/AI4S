@@ -195,6 +195,20 @@ It is simulation throughout: transmitter-class knobs are not compounds, the bodi
 and the walking results are a negative for one neuron model and a reproduction of another group's
 model. Nothing here says what any compound does to a fly, a culture or a person.
 
+## Figures (planned; each exists as a script output)
+
+| Figure | What it shows | File |
+|---|---|---|
+| 1 | The chip and the animal under the drug knobs: chip change against behavioural disruption, per dose | `outputs/figures/fly_chip_to_animal_dose_SIMULATED.png` |
+| 2 | When the chip flags each family against when behaviour fails (neural level) | `outputs/figures/fly_sentinel_ladder_SIMULATED.png` |
+| 3 | Output-tract electrode against a planar array | `outputs/figures/fly_output_tract_SIMULATED.png` |
+| 4 | Motor-level onsets | `outputs/figures/fly_motor_onsets_SIMULATED.png`, `fly_motor_tie_break_SIMULATED.png` |
+| 5 | The body: the grooming reach through the brain-to-nerve-cord relay, and the proboscis | `outputs/figures/embodied_stage1f_depth_SIMULATED.png`, `embodied_stage2b_proboscis_SIMULATED.png` |
+| 6 | Drugs in the loop: movements against dose | `outputs/figures/embodied_stage4a_drugs_movement_SIMULATED.png` |
+| 7 | Walking: the published rate model's front-leg rhythm, and the registered negatives | `outputs/figures/embodied_stage2h_front_leg_SIMULATED.png`, `embodied_stage2c_sweep_SIMULATED.png` |
+| 8 | The closed loop and the perturbation test | `outputs/figures/embodied_stage3b_perturbation_SIMULATED.png` |
+| S1 | The rhythm-measure audit | `outputs/figures/rhythm_audit_SIMULATED.png` |
+
 ## Data and code
 
 Code, registrations and outputs: https://github.com/Vodolay/AI4S. Data sources, licences and
@@ -214,4 +228,12 @@ checksums: `data/raw/MANIFEST.json`, `CITATIONS.md`.
   (2018).
 - Mendes CS et al. Quantification of gait parameters in freely walking wild type and sensory
   deprived Drosophila melanogaster. eLife (2013).
-- FlyWire, FlyMimic (FlyGym), flybody, and the MEA data sources: see `CITATIONS.md`.
+- Syed DS, Ravbar P, Simpson JH. Inhibitory circuits control leg movements during Drosophila
+  grooming. eLife (2026; preprint 2024).
+- Pool A-H et al. Four GABAergic interneurons impose feeding restraint in Drosophila. Neuron
+  (2014).
+- Vaxenburg R et al. Whole-body physics simulation of fruit fly locomotion. Nature (2025)
+  (flybody).
+- Dorkenwald S et al. Neuronal wiring diagram of an adult brain. Nature (2024); Schlegel P et al.
+  Whole-brain annotation and multi-connectome cell typing of Drosophila. Nature (2024) (FlyWire).
+- FlyMimic (FlyGym 2), the MEA data sources and every other dataset: see `CITATIONS.md`.
