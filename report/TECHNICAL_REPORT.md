@@ -1253,7 +1253,9 @@ VII, and the output-tract electrode no longer leads the planar array at this lev
 rerun on fresh seeds, against the chip's own fresh-seed replication, finds the chip late again in
 every family. Left out of the index, the bitter-gated proboscis turns out to carry GABA-A
 potentiation: without it movement fails only at
-1.0 <!-- metrics.json: embodied_stage4b.onsets_leave_one_out.proboscis_sugar_bitter.gaba_potentiate -->, where the chip flags it. At the dose
+1.0 <!-- metrics.json: embodied_stage4b.onsets_leave_one_out.proboscis_sugar_bitter.gaba_potentiate -->, where the chip flags it. A finer
+registered dose grid keeps the chip late with the full index but leaves that tie in place (both at
+0.6 <!-- metrics.json: embodied_stage4c.predictions.F2_without_the_bitter_gate_chip_later.value.chip_onset -->). At the dose
 where movement first fails the chip has moved by only
 0.149 <!-- metrics.json: embodied_stage4a_precision.abs_log2_mfr_change_at_movement_onset.gaba_block --> to
 0.452 <!-- metrics.json: embodied_stage4a_precision.abs_log2_mfr_change_at_movement_onset.gaba_potentiate --> log2 (exploratory), within

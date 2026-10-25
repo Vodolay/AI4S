@@ -116,7 +116,13 @@ onset within one dose step of the first run (stage 4b, 3 of 4). The registered l
 fails in one family. Without the bitter-gated proboscis, GABA-A potentiation impairs movement
 only at 1.0 <!-- metrics.json: embodied_stage4b.onsets_leave_one_out.proboscis_sugar_bitter.gaba_potentiate -->, the dose at which the
 chip flags it. In two families (GABA-A potentiation and excitability block) the chip's lateness is
-therefore a single step of the dose grid.
+therefore a single step of the dose grid. A registered finer grid inside those steps (stage 4c,
+3 of 4) keeps the chip late in both families with the full index. Excitability block impairs movement at
+0.24 <!-- metrics.json: embodied_stage4c.predictions.F3_excitability_block_chip_later_for_both_chip_runs.value.replication.movement_onset --> and is flagged at
+0.36 <!-- metrics.json: embodied_stage4c.predictions.F3_excitability_block_chip_later_for_both_chip_runs.value.replication.chip_onset -->; GABA-A potentiation impairs movement at
+0.5 <!-- metrics.json: embodied_stage4c.predictions.F1_gaba_potentiation_chip_later.value.movement_onset --> and is flagged at
+0.6 <!-- metrics.json: embodied_stage4c.predictions.F1_gaba_potentiation_chip_later.value.chip_onset -->. Without the bitter-gated proboscis, GABA-A potentiation stays tied at
+0.6 <!-- metrics.json: embodied_stage4c.predictions.F2_without_the_bitter_gate_chip_later.value.movement_onset -->, so in that family the chip's lateness depends on one movement.
 
 ### 2.6 Walking: a negative result and a reproduction
 
@@ -172,7 +178,10 @@ act as broad brakes, not as joint-specific controllers.
 
 Across three levels of readout (named neurons, motor neurons and movement) and two connectomes,
 a chip-like readout of a simulated fly's brain ranks drugs by how much they disrupt behaviour but
-first flags them after behaviour has changed. For assay design this suggests three things, all
+first flags them after behaviour has changed. At the movement level this replicates on fresh
+seeds and on a finer dose grid; in one family (GABA-A potentiation) it rests on a single
+movement, the proboscis extension that bitter gates, and without it chip and movement change
+together. For assay design this suggests three things, all
 testable in real preparations: report the precision a chip needs at behavioural onset rather
 than a fixed threshold; record where the network's output leaves it, which helps at the neural
 level; and do not read a chip's silence as behavioural safety at low doses. The embodied stages

@@ -184,8 +184,13 @@ it with its own command or `python -m neuromps.fly.pipeline --only <step>`.
 - **Options:** leave the two thin margins reported; a finer dose grid inside them, as the
   motor-level tie-break did; a different movement impairment line (a new rule chosen after the
   results, so not taken).
-- **Taken:** the finer grid (stage 4c, registration commit below): GABA-A potentiation at
+- **Taken:** the finer grid (stage 4c, registration commit f387845): GABA-A potentiation at
   gaba_scale 1.6-1.9 and excitability block at threshold_scale 1.24-1.36 and 1.44-1.56, with
   stage 4b's movement seeds and both of the parent's chip seed sets, the coarse levels rerun as a
   reproduction check. **Why:** stage 4b showed that in two families the headline rests on a single
   step of the dose grid, and a finer grid is the direct way to ask what happens inside it.
+- **Outcome:** 3 of 4 (registration commit f387845). Excitability block resolves chip later
+  against both chip runs; GABA-A potentiation stays chip later with the full index, and tied
+  without the bitter-gated proboscis.
+- **Revisit:** a fourth movement (for example a walking readout, once one exists) would tell
+  whether GABA-A potentiation's lateness is specific to feeding.

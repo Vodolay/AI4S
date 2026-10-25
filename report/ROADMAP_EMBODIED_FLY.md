@@ -651,6 +651,22 @@ and against the chip's own replication. In four of the five families it does not
 one movement. In GABA-A potentiation it rests on the bitter-gated proboscis, and in excitability
 block it is one dose step, so in two families the margin is a single step of the dose grid.
 
+**Stage 4c: inside the one-step margins (3 of 4).** Stage 4b's two thin margins were rerun on a
+finer dose grid: GABA-A potentiation at four levels between its two highest doses, excitability
+block at four levels on each side of its movement onset. The movements used stage 4b's seeds and
+the chip both of the parent's seed sets. The coarse levels, rerun alongside, reproduce their
+recorded values to floating-point rounding (F0 passes). Excitability block resolves
+the way the headline says, against either chip run. Movement fails at
+0.24 <!-- metrics.json: embodied_stage4c.predictions.F3_excitability_block_chip_later_for_both_chip_runs.value.replication.movement_onset -->, and the chip first flags at
+0.36 <!-- metrics.json: embodied_stage4c.predictions.F3_excitability_block_chip_later_for_both_chip_runs.value.replication.chip_onset --> (replication) or
+0.4 <!-- metrics.json: embodied_stage4c.predictions.F3_excitability_block_chip_later_for_both_chip_runs.value.first_run.chip_onset --> (first run). In GABA-A potentiation the finer grid
+brings the chip forward, to 0.6 <!-- metrics.json: embodied_stage4c.predictions.F1_gaba_potentiation_chip_later.value.chip_onset -->, still after movement fails at
+0.5 <!-- metrics.json: embodied_stage4c.predictions.F1_gaba_potentiation_chip_later.value.movement_onset -->. Without the bitter-gated proboscis the two stay tied, now at
+0.6 <!-- metrics.json: embodied_stage4c.predictions.F2_without_the_bitter_gate_chip_later.value.movement_onset --> on the fine grid (F2 fails). **What this does to the headline:** at the
+movement level, in this model, the chip is late in every family with the full index. In one
+family, GABA-A potentiation, that lateness depends on the proboscis movement that bitter gates;
+without it, chip and movement change together.
+
 **Stage 5: checking directions against real flies. The registered search found no fly
 pharmacology to compare with (both predictions uninterpretable).** Before any search, the stage
 registered ten queries, inclusion rules, a mapping from published manipulations to the knobs and
