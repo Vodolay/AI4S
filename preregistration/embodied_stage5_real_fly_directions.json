@@ -1,0 +1,48 @@
+{
+  "title": "Embodied fly, stage 5: do the simulated movement changes under the transmitter-class knobs go in the direction published for real flies? A registered literature comparison (SIMULATED against published)",
+  "registered": "2026-10-24",
+  "status": "registered before any literature search for this stage",
+  "roadmap": "report/ROADMAP_EMBODIED_FLY.md, stage 5: 'comparison with published fly pharmacology (feeding and grooming under GABA-A and GluCl drugs): the direction of each published behavioural change is reproduced, or the mismatch is reported'",
+  "seen_before_registration": [
+    "every stage-4a result: per condition the median proboscis extension under sugar and under sugar with bitter and the grooming reach depth (outputs/fly/embodied_stage4a_SIMULATED.json); e.g. partial GABA-A block raises extension under sugar with bitter, ACh block abolishes both movements",
+    "background knowledge before this search, not yet checked against sources: GABAergic interneurons are reported to restrain proboscis extension; picrotoxin blocks both RDL (GABA-A) and GluCl in insects; ivermectin activates GluCl",
+    "no literature has been searched for this stage"
+  ],
+  "search_protocol": {
+    "tool": "web search (standard), then the abstract or full text of each candidate on its publisher, PubMed or PMC page",
+    "queries": [
+      "Drosophila picrotoxin proboscis extension response",
+      "Drosophila GABA antagonist feeding behavior proboscis extension",
+      "Drosophila GABAergic interneurons feeding restraint proboscis extension",
+      "Drosophila Rdl knockdown feeding",
+      "Drosophila GluCl ivermectin feeding behavior",
+      "Drosophila GluClalpha proboscis extension",
+      "Drosophila picrotoxin grooming behavior",
+      "Drosophila GABA grooming antennal grooming inhibition",
+      "Drosophila nicotinic antagonist feeding proboscis extension",
+      "Drosophila sodium channel blocker feeding behavior proboscis"
+    ],
+    "candidates": "every primary research article in the first page of results of each query",
+    "inclusion": "adult Drosophila melanogaster; a manipulation that lowers or raises GABA-A (RDL) signalling, GluCl signalling, nicotinic acetylcholine signalling or neuronal excitability, either by a drug (pharmacological) or by genetic manipulation of the receptor (receptor-genetic) or of the transmitter's neurons (transmitter-neuron, reported separately); a measured change in proboscis extension to sugar (with or without bitter) or in front-leg / antennal grooming; the direction of the change stated in the abstract or results",
+    "exclusion": "larvae; reviews without new data; measures other than proboscis extension or grooming (e.g. food intake by volume, locomotion), which are listed as out of scope; manipulations with no matching knob (e.g. GluCl activation by ivermectin), listed as impossible comparisons"
+  },
+  "mapping": {
+    "GABA-A antagonist or RDL loss (picrotoxin, fipronil, Rdl RNAi)": "gaba_block (picrotoxin also maps to glucl_block, both compared)",
+    "GABA-A agonist or positive modulator": "gaba_potentiate",
+    "GluCl antagonist or GluClalpha loss": "glucl_block",
+    "nicotinic antagonist (e.g. mecamylamine)": "ach_block",
+    "sodium channel blocker": "excitability_block",
+    "silencing GABAergic neurons": "gaba_block, transmitter-neuron category",
+    "activating GABAergic neurons": "gaba_potentiate, transmitter-neuron category",
+    "proboscis extension to sugar": "proboscis_sugar; to sugar with bitter: proboscis_sugar_bitter",
+    "front-leg or antennal grooming": "reach_depth (the grooming reach)"
+  },
+  "simulated_direction": "for the mapped family and movement, the sign of the change of the median from vehicle at the lowest dose of the family where |log2((x + 0.01) / (x_vehicle + 0.01))| >= 0.5 for that movement (stage 4a's line); 'none' if no dose reaches it",
+  "comparison": "a published increase agrees with a simulated increase, a decrease with a decrease, no change with none; each (study, manipulation, measure) is one comparison; a study reporting several doses gives its overall reported direction",
+  "predictions": {
+    "V1_the_pharmacology_agrees": {"statement": "Most published directions under pharmacological and receptor-genetic manipulations are reproduced", "test": "agreement in more than half of those comparisons; at least 3 comparisons needed, otherwise uninterpretable"},
+    "V2_disinhibition_and_feeding_agree": {"statement": "Where reduced GABA-A signalling is published to change proboscis extension, the simulation changes it in the same direction", "test": "every pharmacological or receptor-genetic gaba_block comparison on proboscis extension agrees; at least 1 needed, otherwise uninterpretable"}
+  },
+  "reporting": "Every included comparison (citation, DOI, manipulation, category, measure, published and simulated direction, agree or not), every excluded candidate with the reason, every impossible comparison; transmitter-neuron comparisons reported beside, not pooled; the search date.",
+  "not_claimed": "that the model predicts any drug's effect: the knobs are transmitter-class scalings, the comparison is of directions only, and the literature found depends on the registered queries"
+}
