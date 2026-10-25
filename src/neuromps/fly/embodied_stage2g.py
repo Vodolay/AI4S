@@ -98,8 +98,11 @@ def _init(with_volumes: bool = False) -> None:
     sizes = rate_model.sizes(con)
     rules = {"synapse_count": sizes, "none": np.ones_like(sizes)}
     if with_volumes:
-        volumes = malecns.neuron_sizes().reindex(con.root_ids).to_numpy()
+        known = malecns.neuron_sizes()
+        volumes = known.reindex(con.root_ids).to_numpy()
         rules["volume"] = rate_model.volume_sizes(volumes)
+        cord = known.reindex(full.root_ids).to_numpy()
+        rules["volume_cord"] = rate_model.volume_sizes(volumes, reference=cord)
         _STATE["volumes_missing"] = int(np.sum(~np.isfinite(volumes) | (volumes <= 0)))
     _STATE.update(
         con=con,

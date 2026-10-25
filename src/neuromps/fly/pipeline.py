@@ -83,6 +83,7 @@ STEPS: tuple[Step, ...] = (
     Step("stage2h", "embodied_stage2h"),
     Step("stage2h_check", "embodied_stage2h", "check", needs=("stage2h",)),
     Step("stage2i", "embodied_stage2i", needs=("stage2h",)),
+    Step("stage2j", "embodied_stage2j", needs=("stage2i",)),
     Step("stage3a", "embodied_stage3a"),
     Step("stage3a_check", "embodied_stage3a", "check", needs=("stage3a",)),
     Step("stage3b", "embodied_stage3b"),
