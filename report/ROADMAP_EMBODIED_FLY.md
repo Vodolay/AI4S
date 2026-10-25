@@ -692,6 +692,20 @@ read the joints of a grooming leg, while the model manipulates whole hemilineage
 reach. And 13B's outputs in this network appear not to reach the muscles that carry the reach.
 Both are listed as branches in `report/DECISION_LOG.md` (D17).
 
+**Stage 5c: the same manipulations read at the joint. None of the four published postures
+appears (0 of 4), and stage 5b's one agreement came by another route.** The study stage 5b
+compares with read the joints of the front legs: silencing 13A or 13B locks them in flexion, and
+continuous activation over-extends them. Read at the femur-tibia joint on fresh seeds, the model
+does otherwise. Silencing 13A extends the tibia
+(-0.1488 <!-- metrics.json: embodied_stage5c.predictions.J1_silencing_13A_flexes_the_tibia.value.shift_rad -->
+rad), so the shorter reach of stage 5b did not come from a flexion lock. Silencing 13B flexes it
+by only 0.082 <!-- metrics.json: embodied_stage5c.predictions.J2_silencing_13B_flexes_the_tibia.value.shift_rad --> rad. Activating 13A lets
+the leg fall back toward its passive rest
+(+0.8325 <!-- metrics.json: embodied_stage5c.predictions.J3_activating_13A_extends_the_tibia.value.shift_rad --> rad) instead of
+over-extending it. In this model the inhibitory hemilineages act as broad brakes on the leg's
+motor neurons, not as the joint-specific controllers the experiment shows: a limit of a
+connectome-only, leaky integrate-and-fire nerve cord to state beside the stage-2 walking results.
+
 ## 8. What carries over unchanged
 
 Pre-registration before every run; licensed data with checksums in the manifest; every reported
