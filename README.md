@@ -68,6 +68,26 @@ log2. A second connectome (the male CNS) replicates the behaviour and ranking re
 [report/TECHNICAL_REPORT.md](report/TECHNICAL_REPORT.md), Act VII; run with
 `python run_all.py --stage fly` (a 0.4 GB download and about 7 GB of memory per worker).
 
+### After round 1: the embodied fly
+
+The same simulated fly, now with a body. Its nerve cord (the male CNS connectome) drives a
+muscle-driven front leg (FlyMimic) and its brain drives the proboscis of a whole-fly physics model
+(flybody), in MuJoCo; every stage was registered before it ran. Antennal input to the FlyWire
+brain, relayed through matched descending neurons, brings the leg's claw to
+0.5369 <!-- metrics.json: embodied_stage1f.predictions.F1_antennal_input_reaches_deepest.value.jon_ce --> mm of
+the antenna; sugar input extends the proboscis fully
+(0.3431 <!-- metrics.json: embodied_stage2b.predictions.G1_sugar_extends_the_proboscis.value.sugar --> mm) and
+bitter input holds it back. Rerun with movement as the readout, the drug study gives the same
+answer as before: the chip first flags GABA-A block at
+0.6 <!-- metrics.json: embodied_stage4a.predictions.N3_the_chip_flags_before_movement_fails.value.gaba_block.chip -->
+of the knob's range, after movement has already changed at 0.2
+<!-- metrics.json: embodied_stage4a.predictions.N3_the_chip_flags_before_movement_fails.value.gaba_block.movement -->.
+The negative results are kept beside the positive ones: no walking rhythm from the male nerve
+cord under leaky integrate-and-fire neurons; leg-sensor feedback that does not move the leg; a
+flaw in our own rhythm measure, found and audited in the open. Account:
+[report/ROADMAP_EMBODIED_FLY.md](report/ROADMAP_EMBODIED_FLY.md) §7; run with
+`python run_all.py --stage embodied` after installing the `embodied` extra (below).
+
 ## Setup
 
 Linux or macOS, with `git` and `curl`. CI runs on Ubuntu 24.04. uv fetches Python 3.11 itself
@@ -82,6 +102,9 @@ uv venv --python 3.11 .venv
 uv pip install --python .venv/bin/python -e ".[dev]"
 ```
 
+For the embodied fly (MuJoCo), install the extra as well:
+`uv pip install --python .venv/bin/python -e ".[dev,embodied]"`.
+
 If uv is already installed, skip the `curl` line. `pip install uv` also works where pip may install
 into the system Python; recent Ubuntu, Debian and Homebrew Pythons refuse it ("externally managed
 environment"), which is why the installer comes first. On a machine without an NVIDIA GPU, add
@@ -94,6 +117,16 @@ Every command below is run from the `AI4S` folder.
 ```bash
 .venv/bin/python run_all.py --quick     # CI path: ~10 min on 20 cores, + ~3 min of downloads the first time
 .venv/bin/python run_all.py --full      # complete run, larger downloads
+```
+
+A full run ends with the `fly` stage (the chip-to-animal study) and the `embodied` stage,
+which reruns every later fly study in dependency order, each as its own process (a few hours on
+a many-core machine, 1.7 GB of optional downloads). Any single study can be rerun:
+
+```bash
+.venv/bin/python -m neuromps.fly.pipeline --list            # every step, with what it needs
+.venv/bin/python -m neuromps.fly.pipeline --only stage4a    # one step
+.venv/bin/python -m neuromps.fly.pipeline --from stage4a    # from a step on
 ```
 
 The two runs write to separate roots, so the CI path cannot overwrite the run
@@ -182,6 +215,9 @@ No model weights need downloading: the only trained artefact is the `sbi` poster
 |---|---|
 | [report/TECHNICAL_REPORT.md](report/TECHNICAL_REPORT.md) | the full write-up: standard, asset, models, twin, results, limitations |
 | [report/LAB_NOTEBOOK.md](report/LAB_NOTEBOOK.md) | every decision with its date and commit, what was abandoned, 33 limitations |
+| [report/ROADMAP_EMBODIED_FLY.md](report/ROADMAP_EMBODIED_FLY.md) | the embodied fly: plan, and every stage's registered result |
+| [report/POST_SUBMISSION_CHANGES.md](report/POST_SUBMISSION_CHANGES.md) | every change since round 1, one slide message each |
+| [preregistration/](preregistration/) | every registered study, committed before it ran |
 | [CITATIONS.md](CITATIONS.md) / [THIRD_PARTY.md](THIRD_PARTY.md) | data sources and dependency licenses, both generated |
 
 Numbers in these documents cite the `outputs/metrics.json` key that produced them, and
@@ -195,5 +231,5 @@ regenerated with `.venv/bin/python -m neuromps.report.attribution`.
 
 ## Layout
 
-`src/neuromps/{fetch,features,qc,models,twin,report}`, tests in `tests/`,
+`src/neuromps/{fetch,features,qc,models,twin,fly,report}`, tests in `tests/`,
 all report numbers in `outputs/metrics.json`.

@@ -1,7 +1,7 @@
 """One command: data -> features -> models -> twin -> figures.
 
 Usage: python run_all.py [--quick | --full] [--with-fly]
-                         [--stage fetch|data|models|twin|demo|fly|all]
+                         [--stage fetch|data|models|twin|demo|fly|embodied|all]
 
 ``--quick`` is the CI path: the small-tier sources, fewer draws, under ten
 minutes on CPU. It writes to its own run root (``outputs/quick/`` and
@@ -12,6 +12,12 @@ The fly stage (the chip-to-animal study on the whole fly brain) is part of a
 full run. A quick run leaves it out unless ``--with-fly`` is given: it needs a
 440 MB download and about 7 GB of memory per worker, which would take the CI
 path past its ten minutes on its own.
+
+The embodied stage (every later fly study: the male-CNS replication and motor
+readouts, the output-tract electrode, the embodied stages 1-5 and the rhythm-measure
+audit; see :mod:`neuromps.fly.pipeline`) is part of a full run only. It needs the
+optional sources flywire783, malecns, flymimic and flybody and the ``embodied``
+extra (``pip install -e .[embodied]``), and takes a few hours on a many-core machine.
 """
 
 import argparse
@@ -23,14 +29,18 @@ from neuromps import harness
 from neuromps.paths import FULL, QUICK, outputs_dir, processed_dir, set_run_mode
 
 STAGES = ["fetch", "data", "models", "twin", "demo"]
-OPTIONAL_STAGES = ["fly"]
+OPTIONAL_STAGES = ["fly", "embodied"]
+EMBODIED_SOURCES = ["flywire783", "malecns", "flymimic", "flybody"]
 
 
 def select_stages(stage: str, quick: bool, with_fly: bool) -> list[str]:
-    """Stages to run: one by name, or all - the fly stage on a quick run only if asked."""
+    """Stages to run: one by name, or all - the fly stage on a quick run only if asked,
+    the embodied stage on full runs only."""
     if stage != "all":
         return [stage]
-    return [*STAGES, *OPTIONAL_STAGES] if not quick or with_fly else list(STAGES)
+    if not quick:
+        return [*STAGES, *OPTIONAL_STAGES]
+    return [*STAGES, "fly"] if with_fly else list(STAGES)
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -156,6 +166,8 @@ def main(argv: list[str] | None = None) -> int:
             if manifest.sources["flywire783"].status != "ok":
                 raise SystemExit(incomplete_message([manifest.sources["flywire783"]]))
             run_fly_study(["--quick"] if args.quick else [])
+        elif stage == "embodied":
+            _run_embodied(quick=args.quick)
         else:
             logging.info("stage %r not implemented yet (later phase) - skipping", stage)
         timings[stage] = round(time.time() - stage_started, 1)
@@ -168,6 +180,24 @@ def main(argv: list[str] | None = None) -> int:
     _record_timings(timings, elapsed, quick=args.quick, stages=stages)
     harness.record(timings, elapsed, quick=args.quick, stages=stages, all_stages=STAGES)
     return 0
+
+
+def _run_embodied(quick: bool) -> None:
+    """Every fly study after the chip-to-animal study (full runs only)."""
+    import importlib.util
+
+    from neuromps.fetch.runner import incomplete_message, run_fetchers
+    from neuromps.fly import pipeline
+
+    if quick:
+        raise SystemExit("the embodied stage has no --quick variant; run it on a full run")
+    if importlib.util.find_spec("mujoco") is None:
+        raise SystemExit("the embodied stage needs the embodied extra: pip install -e .[embodied]")
+    manifest = run_fetchers(names=EMBODIED_SOURCES, full=True)
+    missing = [manifest.sources[n] for n in EMBODIED_SOURCES if manifest.sources[n].status != "ok"]
+    if missing:
+        raise SystemExit(incomplete_message(missing))
+    pipeline.run(pipeline.select(pipeline.STEPS))
 
 
 def _record_timings(timings: dict, elapsed: float, quick: bool, stages: list[str]) -> None:
