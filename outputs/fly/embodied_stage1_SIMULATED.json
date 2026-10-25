@@ -35,6 +35,7 @@
       "outcome": "fail"
     }
   },
+  "w_syn_mv": 0.275,
   "coverage": {
     "mapped": 49,
     "left_front_leg_motor_neurons": 68

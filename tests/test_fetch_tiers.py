@@ -78,5 +78,6 @@ def test_a_quick_run_leaves_the_fly_stage_out_unless_asked() -> None:
     module = _run_all()
     assert "fly" not in module.select_stages("all", quick=True, with_fly=False)
     assert module.select_stages("all", quick=True, with_fly=True)[-1] == "fly"
-    assert module.select_stages("all", quick=False, with_fly=False)[-1] == "fly"
+    assert module.select_stages("all", quick=False, with_fly=False)[-2:] == ["fly", "embodied"]
+    assert "embodied" not in module.select_stages("all", quick=True, with_fly=True)
     assert module.select_stages("fly", quick=True, with_fly=False) == ["fly"]

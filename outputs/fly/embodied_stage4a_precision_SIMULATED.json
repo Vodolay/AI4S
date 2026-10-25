@@ -1,0 +1,16 @@
+{
+  "label": "EXPLORATORY, not registered: chip change at movement onset (SIMULATED)",
+  "abs_log2_mfr_change_at_movement_onset": {
+    "ach_block": 0.304,
+    "excitability_block": 0.167,
+    "gaba_block": 0.149,
+    "gaba_potentiate": 0.452,
+    "glucl_block": 0.263
+  },
+  "real_chip_noise_q95": {
+    "kapucu2022_control": 0.156,
+    "vassallo2017_inactive": 1.752
+  },
+  "families_below_the_quieter_noise_floor": 1,
+  "families": 5
+}
