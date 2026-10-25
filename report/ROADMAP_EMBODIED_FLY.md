@@ -723,6 +723,30 @@ movement level, in this model, the chip is late in every family with the full in
 family, GABA-A potentiation, that lateness depends on the proboscis movement that bitter gates;
 without it, chip and movement change together.
 
+**Stage 4d: walking as a drug readout. The chip is late for walking under GABA-A and GluCl
+block, early under acetylcholine block, and GABA-A potentiation does not touch walking (2 of
+4).** The drug knobs were applied to stage 2i's walking network (rate model, volume sizes) on
+fresh draws: the transmitter knobs scale weights by presynaptic class, as in the spiking model,
+and the excitability knob scales each neuron's activation threshold. Each draw's DNg100 input was
+found under vehicle and held fixed. Under vehicle the walking command drives the rhythm (median
+score 0.8222 <!-- metrics.json: embodied_stage4d.predictions.W0_the_walking_rhythm_is_there.value.median_score -->; W0 passes). GABA-A block
+and GluCl block break it at the lowest dose
+(0.2 <!-- metrics.json: embodied_stage4d.onsets.walking.gaba_block --> and
+0.2 <!-- metrics.json: embodied_stage4d.onsets.walking.glucl_block -->), long before the chip flags them. **Acetylcholine
+block is the first case anywhere in this study where the chip flags first**: the chip at
+0.4 <!-- metrics.json: embodied_stage4d.onsets.chip_replication.ach_block -->, walking at
+0.6 <!-- metrics.json: embodied_stage4d.onsets.walking.ach_block --> (W1 fails). The rhythm survives milder block intact
+and then collapses. GABA-A potentiation leaves walking as regular as under vehicle or more so
+(median score 0.947 <!-- metrics.json: embodied_stage4d.medians.gaba_potentiate_2.score --> at the top dose), so W2 fails:
+the lateness in that family comes from feeding alone. The excitability knob barely changes
+walking either. With walking added as a fourth movement, the chip is still late in all five
+families (W3 passes), because the other movements fail first where walking does not. One
+reading caution: within a condition the draws are bimodal, strongly rhythmic or not, and under
+vehicle about half are rhythmic, so the median sits between the modes and mild knobs that tip a
+few draws raise it (`outputs/fly/embodied_stage4d_SIMULATED.csv`). **What this changes:** the
+headline holds for the movement index. It does not hold for every readout, and which behaviour
+is read decides which drugs a chip catches in time.
+
 **Stage 5: checking directions against real flies. The registered search found no fly
 pharmacology to compare with (both predictions uninterpretable).** Before any search, the stage
 registered ten queries, inclusion rules, a mapping from published manipulations to the knobs and

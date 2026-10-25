@@ -17,7 +17,8 @@ fly's behaviour read first as named neurons, then as motor neurons, and finally 
 simulated body driven through a second connectome (the male CNS). The chip's firing rate ranks
 drugs by how much they disrupt behaviour (Spearman
 0.863 <!-- metrics.json: fly_chip_to_animal.predictions.C1_chip_tracks_disruption.value -->),
-but at every level the chip first flags a drug at a higher dose than behaviour fails. With
+but at every level the chip first flags a drug at a higher dose than behaviour fails, with one
+exception when walking alone is the readout (acetylcholine block). With
 movement as the readout, GABA-A block changes the simulated fly's feeding and grooming at
 0.2 <!-- metrics.json: embodied_stage4a.predictions.N3_the_chip_flags_before_movement_fails.value.gaba_block.movement -->
 of the knob's range, and the chip flags it at 0.6
@@ -123,6 +124,13 @@ therefore a single step of the dose grid. A registered finer grid inside those s
 0.5 <!-- metrics.json: embodied_stage4c.predictions.F1_gaba_potentiation_chip_later.value.movement_onset --> and is flagged at
 0.6 <!-- metrics.json: embodied_stage4c.predictions.F1_gaba_potentiation_chip_later.value.chip_onset -->. Without the bitter-gated proboscis, GABA-A potentiation stays tied at
 0.6 <!-- metrics.json: embodied_stage4c.predictions.F2_without_the_bitter_gate_chip_later.value.movement_onset -->, so in that family the chip's lateness depends on one movement.
+Read through walking instead (stage 4d, 2 of 4: the drug knobs on the rate-model walking network),
+GABA-A and GluCl block break the rhythm at
+0.2 <!-- metrics.json: embodied_stage4d.onsets.walking.gaba_block -->, far before the chip; GABA-A potentiation does not
+impair walking at all; and acetylcholine block is the one case in the study where the chip flags
+first (chip 0.4 <!-- metrics.json: embodied_stage4d.onsets.chip_replication.ach_block -->, walking
+0.6 <!-- metrics.json: embodied_stage4d.onsets.walking.ach_block -->). With walking as a fourth movement the chip is still late
+in every family.
 
 ### 2.6 Walking: a negative result and a reproduction
 
@@ -192,7 +200,9 @@ a chip-like readout of a simulated fly's brain ranks drugs by how much they disr
 first flags them after behaviour has changed. At the movement level this replicates on fresh
 seeds and on a finer dose grid; in one family (GABA-A potentiation) it rests on a single
 movement, the proboscis extension that bitter gates, and without it chip and movement change
-together. For assay design this suggests three things, all
+together; and read through walking alone, acetylcholine block is flagged by the chip before the
+rhythm fails, so which behaviour is read decides which drugs a chip catches in time. For assay
+design this suggests three things, all
 testable in real preparations: report the precision a chip needs at behavioural onset rather
 than a fixed threshold; record where the network's output leaves it, which helps at the neural
 level; and do not read a chip's silence as behavioural safety at low doses. The embodied stages

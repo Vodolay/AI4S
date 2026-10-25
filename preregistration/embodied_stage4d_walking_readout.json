@@ -1,0 +1,46 @@
+{
+  "title": "Embodied fly, stage 4d: walking as a drug readout. Does the chip flag drugs after the walking rhythm fails, and is GABA-A potentiation's lateness specific to feeding? (SIMULATED)",
+  "registered": "2026-10-25",
+  "status": "registered before any drug condition was simulated on the walking network",
+  "parents": [
+    "preregistration/embodied_stage4c_fine_dose_grid.json",
+    "preregistration/embodied_stage2i_volume_size_rule.json"
+  ],
+  "relation_to_parents": "Stages 4a-4c read drugs through feeding and grooming movements; in GABA-A potentiation the chip's lateness rests on the bitter-gated proboscis alone (stage 4c, F2 failed). Stage 2i gave a walking readout: the walking command drives a front-leg rhythm in the rate model with the published volume size rule, and it needs the three-neuron circuit (replicated in stage 2j). Stage 4d applies the drug knobs to that network. Decision D26 in report/DECISION_LOG.md (the user chose this branch).",
+  "seen_before_registration": [
+    "every result of stages 4a-4c, including the chip's onsets on the combined coarse and fine series (replication: GABA-A block 0.6, GABA-A potentiation 0.6, GluCl block 0.8, ACh block 0.4, excitability block 0.36)",
+    "every result of stages 2i and 2j under vehicle (no drug); no drug condition has been run on the walking network"
+  ],
+  "design": {
+    "network": "stage 2i: the left front-leg network of the male CNS (2,133 neurons), fly.rate_model, size = volume over the network's median",
+    "draws": "32, seeds 1460-1491 (fresh)",
+    "drive": "DNg100 step input; each draw's input found once under vehicle by stage 2h's search (5-500 recruited) and held fixed in every condition; draws infeasible under vehicle are left out of every condition",
+    "drug_knobs": "as in the spiking model: ach_scale, gaba_scale and glut_scale multiply the weights of connections whose presynaptic class is acetylcholine, GABA or glutamate (fly.connectome.transmitter_class); threshold_scale multiplies each neuron's activation threshold theta (after the size scaling), the rate model's distance to firing",
+    "conditions": "the parent design's 22 (vehicle, GABA-A block, GABA-A potentiation, GluCl block, ACh block, excitability block) and stage 4c's fine levels (gaba_scale 1.6-1.9; threshold_scale 1.24-1.36, 1.44-1.56)",
+    "readout": "per condition, the median over feasible draws of the motor rhythm score under DNg100 (stage 2g's measure, corrected); the median period is reported",
+    "walking_disruption": "|log2((x + 0.01) / (x_vehicle + 0.01))| of that median; impaired at >= 0.5, as for the other movements",
+    "chip": "the chip replication's |delta log2 mfr| on the combined series (confirm_conditions_SIMULATED.csv and stage 4c's fine levels), detection at >= 0.5",
+    "four_movement_index": "the mean of the three stage-4b/4c movement terms (proboscis under sugar, under sugar with bitter, reach depth; seeds 1360-1375) and the walking term, per condition",
+    "onset": "per family, the lowest dose on the combined series at which the index reaches 0.5; resolution as in stage 4c"
+  },
+  "predictions": {
+    "W0_the_walking_rhythm_is_there": {
+      "statement": "Precondition: under vehicle the walking command drives the rhythm",
+      "test": "at least 16 of 32 draws feasible and their median rhythm score >= 0.3; if not, W1-W3 are uninterpretable"
+    },
+    "W1_the_chip_is_late_for_walking": {
+      "statement": "Where a drug impairs walking, the chip flags it later",
+      "test": "in every family in which walking is impaired at some dose, the chip's first detection dose is strictly higher than the walking onset; uninterpretable if no family impairs walking"
+    },
+    "W2_gaba_potentiation_lateness_is_not_specific_to_feeding": {
+      "statement": "GABA-A potentiation impairs walking before the chip flags it",
+      "test": "GABA-A potentiation's walking onset is strictly below the chip's first detection dose"
+    },
+    "W3_with_walking_the_chip_is_late_in_every_family": {
+      "statement": "With walking as a fourth movement, the headline holds in every family",
+      "test": "with the four-movement index, movement is impaired in all five families and in each the chip's first detection dose is strictly higher"
+    }
+  },
+  "not_claimed_even_if_all_pass": "anything about any compound in any animal or person: the knobs are transmitter-class scalings in simulated fly networks; the walking readout is a fictive front-leg rhythm in a rate model, without a body",
+  "reporting": "Every prediction with its value and pass/fail or uninterpretable; per condition the median rhythm score, period and walking disruption; per family the walking, four-movement and chip onsets and their resolution; the vehicle inputs and feasibility."
+}

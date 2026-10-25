@@ -47,6 +47,7 @@ the bottom.*
 | 36 | 2026-10-25 | Embodied stage 4c: a finer dose grid inside the one-step margins | 3 of 4; excitability block resolves chip later; GABA-A potentiation's lateness rests on the bitter-gated proboscis | `f387845` … this branch |
 | 37 | 2026-10-25 | Embodied stage 2i: the front-leg rhythm with the published size rule, neuron volume | 6 of 7; the rhythm needs the three-neuron circuit; promotor and remotor keep a reliable offset, not antiphase; flexors silent | `d03ee27` … this branch |
 | 38 | 2026-10-25 | Embodied stage 2j: shuffled volumes and a whole-cord normalization | 2 of 4; shuffled volumes give no rhythm; the normalization changes nothing; the promotor-remotor offset does not replicate | `1d1d644` … this branch |
+| 39 | 2026-10-25 | Embodied stage 4d: the walking rhythm as a drug readout | 2 of 4; acetylcholine block is the first chip-first case; GABA-A potentiation spares walking; the four-movement index stays chip-late | `73ffde6` … this branch |
 
 ---
 
@@ -868,6 +869,24 @@ replicate, and we do not claim it.*
   Shuffled: no rhythm (0.0021 <!-- metrics.json: embodied_stage2j.arms.volume_shuffled.scores.P1_the_walking_command_makes_a_leg_rhythm.value -->). Whole-cord median:
   unchanged (rhythm 0.9531 <!-- metrics.json: embodied_stage2j.arms.volume_cord.scores.P1_the_walking_command_makes_a_leg_rhythm.value -->).
 - **Evidence.** Roadmap §7; `outputs/fly/embodied_stage2j_SIMULATED.*`.
+
+---
+
+## 39. Read through walking, one drug is caught in time
+
+**Slide message:** *With a walking rhythm as the behaviour, the chip still flags most drugs
+late, but acetylcholine block is caught before walking fails: which behaviour a chip stands in for
+decides which drugs it catches in time.*
+
+- **What changed.** `src/neuromps/fly/embodied_stage4d.py`: the drug knobs on stage 2i's walking
+  network (`rate_model.weights` takes per-class scales); registered in
+  `preregistration/embodied_stage4d_walking_readout.json`.
+- **Effect.** 2 of 4. GABA-A block breaks walking at
+  0.2 <!-- metrics.json: embodied_stage4d.onsets.walking.gaba_block -->; acetylcholine block: chip
+  0.4 <!-- metrics.json: embodied_stage4d.onsets.chip_replication.ach_block -->, walking
+  0.6 <!-- metrics.json: embodied_stage4d.onsets.walking.ach_block -->; GABA-A potentiation spares walking; with walking as
+  a fourth movement the chip is late in every family.
+- **Evidence.** Roadmap §7; `outputs/fly/embodied_stage4d_SIMULATED.*`.
 
 ---
 
