@@ -140,3 +140,16 @@ it with its own command or `python -m neuromps.fly.pipeline --only <step>`.
   (reach versus joint posture); this tests that directly and cheaply.
 - **Process note:** a test edit for this step did not apply and a piped test run hid it; fixed in
   commit fd51761. Test runs before commits are no longer piped.
+
+### D19. Closing the loop on a well-traced leg (overnight)
+- **Options:** stop stage 3 at the front-leg limit; close the loop on the right hind leg (25 claw
+  neurons) through flybody's servoed tibia; build a muscle-driven hind leg (no such model at
+  hand).
+- **Taken:** the servoed hind leg (stage 3c, registration commit 22b082e): the walking command
+  holds the right hind tibia extended (its extensor pool is tonically active, stage 2a), a 20 ms
+  torque pushes it, and the return is timed under the resistance and assistance assignments and a
+  sham, as in stage 3b. **Why:** it tests whether the front leg's failure was the thin sensor
+  tracing, with the one body that has the leg. **Cost:** feedback changes a commanded angle, not
+  muscle force; a servo's own stiffness sets much of the return.
+- **Revisit:** a muscle-driven hind leg (if FlyMimic or another model adds one); the walking
+  command's other legs.
