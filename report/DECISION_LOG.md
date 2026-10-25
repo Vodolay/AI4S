@@ -194,3 +194,12 @@ it with its own command or `python -m neuromps.fly.pipeline --only <step>`.
   without the bitter-gated proboscis.
 - **Revisit:** a fourth movement (for example a walking readout, once one exists) would tell
   whether GABA-A potentiation's lateness is specific to feeding.
+
+### D23. Stopping new science for the night (overnight)
+- **Options:** further stages (each remaining branch needs a model not at hand or is expected
+  to fail by construction); documents for the team.
+- **Taken:** a slide outline for the deck (`report/SLIDES_OUTLINE.md`, every number cited), the
+  README's document table brought up to date, and a morning summary in `PROGRESS.md`. **Why:**
+  the headline has now been tested as far as the current bodies allow (stages 4a-4c), and the
+  next scientific choices (D7 neuron volumes, a muscle-driven hind leg, a walking readout for
+  drugs) are the team's to make.

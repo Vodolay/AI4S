@@ -82,6 +82,8 @@ answer as before: the chip first flags GABA-A block at
 0.6 <!-- metrics.json: embodied_stage4a.predictions.N3_the_chip_flags_before_movement_fails.value.gaba_block.chip -->
 of the knob's range, after movement has already changed at 0.2
 <!-- metrics.json: embodied_stage4a.predictions.N3_the_chip_flags_before_movement_fails.value.gaba_block.movement -->.
+Registered reruns on fresh seeds and on a finer dose grid keep the chip late in every family; in
+GABA-A potentiation the lateness rests on the bitter-gated proboscis alone.
 The negative results are kept beside the positive ones: no walking rhythm from the male nerve
 cord under leaky integrate-and-fire neurons; leg-sensor feedback that does not move the leg; a
 flaw in our own rhythm measure, found and audited in the open. Account:
@@ -217,6 +219,9 @@ No model weights need downloading: the only trained artefact is the `sbi` poster
 | [report/LAB_NOTEBOOK.md](report/LAB_NOTEBOOK.md) | every decision with its date and commit, what was abandoned, 33 limitations |
 | [report/ROADMAP_EMBODIED_FLY.md](report/ROADMAP_EMBODIED_FLY.md) | the embodied fly: plan, and every stage's registered result |
 | [report/POST_SUBMISSION_CHANGES.md](report/POST_SUBMISSION_CHANGES.md) | every change since round 1, one slide message each |
+| [report/PAPER_DRAFT.md](report/PAPER_DRAFT.md) / [report/PAPER_OUTLINE.md](report/PAPER_OUTLINE.md) | the paper draft and its section-by-section status |
+| [report/DECISION_LOG.md](report/DECISION_LOG.md) | every crossroads on the embodied-fly path, the option taken, and where to branch |
+| [report/SLIDES_OUTLINE.md](report/SLIDES_OUTLINE.md) | a slide-by-slide outline of the post-submission story, every number cited |
 | [preregistration/](preregistration/) | every registered study, committed before it ran |
 | [CITATIONS.md](CITATIONS.md) / [THIRD_PARTY.md](THIRD_PARTY.md) | data sources and dependency licenses, both generated |
 
