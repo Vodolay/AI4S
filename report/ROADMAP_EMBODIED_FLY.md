@@ -619,6 +619,37 @@ flags at a given dose has already changed how the simulated fly feeds and grooms
 
 ![SIMULATED fly movements under the five transmitter-class drug knobs (median of 8 trials per condition): proboscis extension under sugar and under sugar with bitter, and the depth of the grooming reach.](../outputs/figures/embodied_stage4a_drugs_movement_SIMULATED.png){width=95%}
 
+**Stage 5: checking directions against real flies. The registered search found no fly
+pharmacology to compare with (both predictions uninterpretable).** Before any search, the stage
+registered ten queries, inclusion rules, a mapping from published manipulations to the knobs and
+a rule for reading a simulated direction from stage 4a. This guards against choosing, after the
+fact, the papers that agree. The searches found no study that gives an adult fly a GABA-A,
+GluCl, nicotinic or sodium-channel drug, or manipulates those receptors genetically, and scores
+proboscis extension or grooming:
+0 <!-- metrics.json: embodied_stage5.predictions.V1_the_pharmacology_agrees.value.comparisons -->
+qualifying comparisons, so both registered predictions are uninterpretable. The closest receptor
+study (Rdl knockdown raises consumption; Cheung and Scott 2017) measured consumption, which the
+registration placed out of scope. Studies that silence or activate identified GABAergic neurons
+give 3 <!-- metrics.json: embodied_stage5.transmitter_neuron.comparisons --> comparisons, reported beside as registered, and
+the simulation agrees with 1 <!-- metrics.json: embodied_stage5.transmitter_neuron.agree -->.
+Silencing the GABAergic 13A/13B leg neurons reduces
+anterior grooming (Syed, Ravbar and Simpson), as GABA block reduces the simulated reach.
+Activating them also reduces grooming, while GABA potentiation leaves the simulated reach
+unchanged. Silencing four GABAergic interneurons raises proboscis extension to sugar in fed flies
+(Pool et al. 2014), while GABA block lowers it in the simulation. Two differences explain the
+mismatches, and they are the model's to state. A transmitter-class knob changes every synapse
+of that class, not a few identified neurons. And the simulated fly has no satiety: its sugar
+response is already near full extension, while a fed fly's is low and has room to rise. The
+search also recorded
+16 <!-- metrics.json: embodied_stage5.candidates.excluded --> excluded candidates,
+2 <!-- metrics.json: embodied_stage5.candidates.impossible --> findings the model cannot be compared with (a GABA-B result
+and responses to bitter or water alone), and
+4 <!-- metrics.json: embodied_stage5.candidates.inaccessible --> pages that could not be read; all are listed in
+`src/neuromps/fly/real_fly_literature.json`. **What stage 5 shows:** the simulated drug effects
+cannot yet be checked against fly pharmacology on these behaviours, because the experiments have
+not been published. That gap is itself a result: it marks the experiments that would test the
+model.
+
 ## 8. What carries over unchanged
 
 Pre-registration before every run; licensed data with checksums in the manifest; every reported

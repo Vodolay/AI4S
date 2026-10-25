@@ -1,0 +1,63 @@
+{
+  "_source": "Stage-5 literature search under preregistration/embodied_stage5_real_fly_directions.json: the ten registered queries (web search, standard), first page of results, searched 2026-10-24; each candidate read on its publisher, PubMed, PMC or repository page. Findings are summaries of published results with their citations; no text or data is reproduced.",
+  "comparisons": [
+    {
+      "id": "pool2014_silence_sugar",
+      "citation": "Pool A-H, Kvello P, Mann K, et al. Four GABAergic interneurons impose feeding restraint in Drosophila. Neuron (2014). PMC4092013",
+      "manipulation": "silencing the four GABAergic DSOG1 interneurons (Kir2.1)",
+      "category": "transmitter-neuron",
+      "family": "gaba_block",
+      "measure": "proboscis extension to sugar, fed flies",
+      "movement": "proboscis_sugar",
+      "published_direction": "increase"
+    },
+    {
+      "id": "syed_silence_grooming",
+      "citation": "Syed DS, Ravbar P, Simpson JH. Inhibitory circuits control leg movements during Drosophila grooming. eLife (2026; preprint 2024). PMC11185647",
+      "manipulation": "silencing GABAergic 13A or 13B hemilineage neurons",
+      "category": "transmitter-neuron",
+      "family": "gaba_block",
+      "measure": "anterior (front-leg and head) grooming: front legs locked in flexion, less grooming time",
+      "movement": "reach_depth",
+      "published_direction": "decrease"
+    },
+    {
+      "id": "syed_activate_grooming",
+      "citation": "Syed DS, Ravbar P, Simpson JH. Inhibitory circuits control leg movements during Drosophila grooming. eLife (2026; preprint 2024). PMC11185647",
+      "manipulation": "continuous activation of GABAergic 13A or 13B hemilineage neurons",
+      "category": "transmitter-neuron",
+      "family": "gaba_potentiate",
+      "measure": "anterior grooming in dusted flies: less front-leg rubbing and fewer head sweeps",
+      "movement": "reach_depth",
+      "published_direction": "decrease"
+    }
+  ],
+  "impossible": [
+    {"citation": "Pool et al. 2014 (as above)", "finding": "silencing DSOG1 increases proboscis extension to bitter alone and to water", "reason": "the simulation has no bitter-alone or water drive"},
+    {"citation": "Chu B, thesis, University of British Columbia (Gordon lab); query 2", "finding": "GABA-B receptor knockdown in sugar neurons raises proboscis extension to sugar", "reason": "GABA-B is not in the registered mapping (no GABA-B knob)"}
+  ],
+  "excluded": [
+    {"citation": "Cheung SK, Scott K. GABAA receptor-expressing neurons promote consumption in Drosophila melanogaster. PLoS ONE (2017). PMC5376345", "reason": "receptor-genetic (Rdl RNAi raises consumption), but the measure is consumption time and volume, out of scope; no proboscis extension probability"},
+    {"citation": "Pool et al. 2014 (as above)", "reason": "activating DSOG1 lowers consumption: measure out of scope"},
+    {"citation": "Kane NS et al. Drug-resistant Drosophila indicate glutamate-gated chloride channels are targets for the antiparasitics nodulisporic acid and ivermectin. PNAS (2000). PMC17681", "reason": "no proboscis extension or grooming measure"},
+    {"citation": "Flood TF et al. A single pair of interneurons commands the Drosophila feeding motor program. Nature (2013). PMC3727048", "reason": "manipulated neurons not of a mapped class"},
+    {"citation": "Mann K, Gordon MD, Scott K. A pair of interneurons influences the choice between feeding and locomotion in Drosophila. Neuron (2013). PMC3750742", "reason": "transmitter of the manipulated neurons not identified"},
+    {"citation": "Schwarz O et al. Motor control of Drosophila feeding behavior. eLife 6:e19892 (2017). PMC5315463", "reason": "no mapped manipulation"},
+    {"citation": "Marella S et al. Dopaminergic modulation of sucrose acceptance behavior in Drosophila. Neuron (2012). PMC3310174", "reason": "dopamine: no mapped knob"},
+    {"citation": "Mushroom-body output neurons and proboscis extension. PMC6986700", "reason": "no mapped manipulation"},
+    {"citation": "Yanagawa A et al. Hygienic grooming is induced by contact chemicals in Drosophila melanogaster. Front Behav Neurosci (2014), doi:10.3389/fnbeh.2014.00254. PMC4107972", "reason": "no mapped manipulation"},
+    {"citation": "Damrau C, Brembs B, Colomb J. (2014) epub.uni-regensburg.de/31532", "reason": "manipulates starvation and sucrose only"},
+    {"citation": "D'Arco S et al. (2024) house-fly PER and imidacloprid", "reason": "not Drosophila"},
+    {"citation": "Atif M et al. PLoS Pathog (2019), doi:10.1371/journal.ppat.1007570. PMC6368337", "reason": "nematode GluCl in oocytes and cells; no fly behaviour"},
+    {"citation": "Itskov PM, Ribeiro C. Front Neurosci (2013), doi:10.3389/fnins.2013.00012", "reason": "review"},
+    {"citation": "Shiraiwa T, Carlson JR. J Vis Exp (2007). PMC2535836 and other PER method papers (JoVE, STAR Protocols, CSH Protocols)", "reason": "methods, no manipulation"},
+    {"citation": "Blowfly studies: J Comp Physiol (1976) doi:10.1007/BF00656784; Z Vergl Physiol (1971) doi:10.1007/BF00297793", "reason": "not Drosophila"},
+    {"citation": "Rhodnius prolixus salt study; azadirachtin PER study (journal.scau.edu.cn)", "reason": "not Drosophila, or no mapped manipulation"}
+  ],
+  "inaccessible": [
+    {"citation": "eprints.soton.ac.uk/40528 (query 5)", "reason": "HTTP 403"},
+    {"citation": "documentserver.uhasselt.be dorsal.pdf (query 5)", "reason": "HTTP 503"},
+    {"citation": "ncbs.res.in/node/13638 (query 6)", "reason": "access denied page"},
+    {"citation": "escholarship qt96v3g2z3 (query 3)", "reason": "document too large to read"}
+  ]
+}
