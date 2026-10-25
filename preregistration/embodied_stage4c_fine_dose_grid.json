@@ -1,0 +1,31 @@
+{
+  "title": "Embodied fly, stage 4c: inside the two one-step margins, does movement still fail before the chip flags? A finer dose grid for GABA-A potentiation and excitability block (SIMULATED)",
+  "registered": "2026-10-25",
+  "status": "registered before any of the finer dose levels was run",
+  "parent": "preregistration/embodied_stage4b_movement_replication.json",
+  "relation_to_parent": "Stage 4b found the chip late in every family (R1 passed) but left two thin margins: without the bitter-gated proboscis, GABA-A potentiation ties the chip at the top dose (R2 failed); and in excitability block the chip's first run would tie movement at dose 0.4. Stage 4b's outcomes stand. Stage 4c asks a new question inside those dose steps, as the motor-level tie-break (preregistration/fly_motor_tie_break.json) did. Decision D22 in report/DECISION_LOG.md.",
+  "seen_before_registration": [
+    "every stage-4b result, including its movement medians and disruption indices: GABA-A potentiation 0.423 (gaba_scale 1.25), 0.9841 (1.5), 2.1451 (2.0); excitability block 0.1181 (threshold_scale 1.1), 0.3564 (1.2), 2.6776 (1.4), 4.4578 (1.6); without the bitter-gated proboscis GABA-A potentiation's index at 1.5 is just below 0.5",
+    "the chip's |delta log2 mfr| in the parent's first run (conditions_SIMULATED.csv): GABA-A potentiation 0.199, 0.452, 0.992; excitability block 0.124, 0.167, 4.322, 4.322; and in its replication (confirm_conditions_SIMULATED.csv): 0.205, 0.447, 0.997; 0.118, 0.18, 0.38, 4.322"
+  ],
+  "design": {
+    "fine_levels": {
+      "gaba_potentiate": {"knob": "gaba_scale", "levels": [1.6, 1.7, 1.8, 1.9]},
+      "excitability_block": {"knob": "threshold_scale", "levels": [1.24, 1.28, 1.32, 1.36, 1.44, 1.48, 1.52, 1.56]}
+    },
+    "reproducibility_levels": {"vehicle": 1.0, "gaba_potentiate": [1.5, 2.0], "excitability_block": [1.2, 1.4, 1.6]},
+    "movements": "exactly stage 4b (seeds 1360-1375, the three movements, medians, the disruption index against the vehicle of the same seeds, impairment at >= 0.5)",
+    "chip": "the parent design's spontaneous recordings (FlyWire 783, the fixed planar array, 10 s) on both of its seed sets: the replication's (700-702) against the replication's vehicle, and the first run's (100-102) against the first run's vehicle; |delta log2 mfr| >= 0.5 is a detection",
+    "series": "per family, stage 4b's (or the chip table's) coarse levels together with the fine levels, ordered by dose",
+    "onset_rule": "the lowest dose on the combined series at which the readout reaches its line",
+    "resolution": "chip later if the movement onset is the lower dose, chip earlier if the chip's is lower, still tied if equal or if neither reaches its line"
+  },
+  "predictions": {
+    "F0_coarse_levels_reproduce": {"statement": "Precondition: rerunning the coarse levels with the same seeds gives the recorded values", "test": "max |difference| <= 1e-9 for the movement medians against stage 4b and for |delta log2 mfr| against both chip tables; if not, F1-F3 are uninterpretable"},
+    "F1_gaba_potentiation_chip_later": {"statement": "Inside the step, movement still fails before the chip flags", "test": "GABA-A potentiation resolves chip later against the chip's replication, with the three-movement index"},
+    "F2_without_the_bitter_gate_chip_later": {"statement": "Stage 4b's tie resolves in the headline's direction", "test": "GABA-A potentiation resolves chip later against the chip's replication, with the index over the proboscis under sugar and the reach only"},
+    "F3_excitability_block_chip_later_for_both_chip_runs": {"statement": "The excitability-block margin holds against either chip run", "test": "excitability block resolves chip later against the chip's replication and against its first run, with the three-movement index"}
+  },
+  "not_claimed_even_if_all_pass": "anything about any compound in any animal or person: the knobs are transmitter-class scalings in a simulated fly; a pass means that in this simulated fly, inside the dose steps where the coarse grid could not tell, movement fails at a lower dose than the chip first flags",
+  "reporting": "Every prediction with its value and pass/fail or uninterpretable; per family and per index (three movements; each leave-one-out) and per chip run, the onsets and the resolution; per fine level the movement medians, the disruption indices and the chip's |delta log2 mfr| from both runs; F0's largest difference. Reported beside stage 4b's outcomes, not in place of them."
+}

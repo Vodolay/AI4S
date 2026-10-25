@@ -44,6 +44,7 @@ the bottom.*
 | 33 | 2026-10-25 | Embodied stage 3c: the perturbation test on the well-traced hind leg | 2 of 4; strong feedback destabilizes the hold; resistance beats the sham (exploratory) | `22b082e` … this branch |
 | 34 | 2026-10-25 | Embodied stage 3d: the hind-leg contingency test, paired, fresh seeds | 0 of 2; no push-following effect; stage 3 stays a documented negative | `8ea194a` … this branch |
 | 35 | 2026-10-25 | Embodied stage 4b: the movement-level headline on fresh seeds | 3 of 4; the chip is late in every family again; without the bitter-gated proboscis one family ties | `b23f6a3` … this branch |
+| 36 | 2026-10-25 | Embodied stage 4c: a finer dose grid inside the one-step margins | 3 of 4; excitability block resolves chip later; GABA-A potentiation's lateness rests on the bitter-gated proboscis | `f387845` … this branch |
 
 ---
 
@@ -808,6 +809,26 @@ the margin is thin, and we report that rather than smooth it over.*
   potentiation impairs movement only at
   1.0 <!-- metrics.json: embodied_stage4b.onsets_leave_one_out.proboscis_sugar_bitter.gaba_potentiate -->, where the chip flags it.
 - **Evidence.** Roadmap §7; `outputs/fly/embodied_stage4b_SIMULATED.*`.
+
+---
+
+## 36. Inside the thin margins: one resolves, one rests on a single movement
+
+**Slide message:** *Where the coarse dose grid left the chip late by one step, a finer grid
+keeps it late. In one family that lateness comes from the proboscis movement that bitter gates,
+and we say so.*
+
+- **What changed.** `src/neuromps/fly/embodied_stage4c.py`: GABA-A potentiation and excitability
+  block at finer levels, movements on stage 4b's seeds, the chip on both of the parent's seed
+  sets, the coarse levels rerun as a check (reproduced to floating-point rounding); registered in
+  `preregistration/embodied_stage4c_fine_dose_grid.json`.
+- **Effect.** 3 of 4. Excitability block: movement fails at
+  0.24 <!-- metrics.json: embodied_stage4c.predictions.F3_excitability_block_chip_later_for_both_chip_runs.value.replication.movement_onset -->, the chip flags at
+  0.36 <!-- metrics.json: embodied_stage4c.predictions.F3_excitability_block_chip_later_for_both_chip_runs.value.replication.chip_onset --> or
+  0.4 <!-- metrics.json: embodied_stage4c.predictions.F3_excitability_block_chip_later_for_both_chip_runs.value.first_run.chip_onset -->. GABA-A potentiation: movement at
+  0.5 <!-- metrics.json: embodied_stage4c.predictions.F1_gaba_potentiation_chip_later.value.movement_onset -->, chip at 0.6 <!-- metrics.json: embodied_stage4c.predictions.F1_gaba_potentiation_chip_later.value.chip_onset -->; without the bitter-gated
+  proboscis both at 0.6 <!-- metrics.json: embodied_stage4c.predictions.F2_without_the_bitter_gate_chip_later.value.movement_onset --> (F2 fails).
+- **Evidence.** Roadmap §7; `outputs/fly/embodied_stage4c_SIMULATED.*`.
 
 ---
 

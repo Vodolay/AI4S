@@ -57,6 +57,7 @@ def test_every_fly_study_module_with_a_command_is_a_step() -> None:
         "embodied_stage3d",
         "embodied_stage4a",
         "embodied_stage4b",
+        "embodied_stage4c",
         "embodied_stage5",
         "rhythm_audit",
     }
@@ -78,6 +79,7 @@ def test_selection_by_start_and_only() -> None:
         "stage4a",
         "stage4a_precision",
         "stage4b",
+        "stage4c",
         "stage5",
         "stage5b",
         "stage5c",

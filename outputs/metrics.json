@@ -7911,6 +7911,306 @@
       }
     }
   },
+  "embodied_stage4c": {
+    "label": "SIMULATED finer dose grid inside stage 4b's one-step margins",
+    "levels": {
+      "excitability_block_1.2": {
+        "chip_first_run": 0.167,
+        "chip_replication": 0.18,
+        "disruption": 0.3564,
+        "proboscis_sugar": 0.291,
+        "proboscis_sugar_bitter": 0.0273,
+        "reach_depth": 0.9376
+      },
+      "excitability_block_1.24": {
+        "chip_first_run": 0.361,
+        "chip_replication": 0.342,
+        "disruption": 0.8659,
+        "proboscis_sugar": 0.2778,
+        "proboscis_sugar_bitter": 0.0189,
+        "reach_depth": 0.4338
+      },
+      "excitability_block_1.28": {
+        "chip_first_run": 0.427,
+        "chip_replication": 0.465,
+        "disruption": 2.1352,
+        "proboscis_sugar": 0.2549,
+        "proboscis_sugar_bitter": 0.014,
+        "reach_depth": 0.0314
+      },
+      "excitability_block_1.32": {
+        "chip_first_run": 0.407,
+        "chip_replication": 0.179,
+        "disruption": 2.3101,
+        "proboscis_sugar": 0.2274,
+        "proboscis_sugar_bitter": 0.0085,
+        "reach_depth": 0.0316
+      },
+      "excitability_block_1.36": {
+        "chip_first_run": 0.147,
+        "chip_replication": 3.541,
+        "disruption": 2.5364,
+        "proboscis_sugar": 0.1821,
+        "proboscis_sugar_bitter": 0.0047,
+        "reach_depth": 0.0306
+      },
+      "excitability_block_1.4": {
+        "chip_first_run": 4.322,
+        "chip_replication": 0.38,
+        "disruption": 2.6776,
+        "proboscis_sugar": 0.1407,
+        "proboscis_sugar_bitter": 0.0034,
+        "reach_depth": 0.0321
+      },
+      "excitability_block_1.44": {
+        "chip_first_run": 1.649,
+        "chip_replication": 4.322,
+        "disruption": 3.2338,
+        "proboscis_sugar": 0.0728,
+        "proboscis_sugar_bitter": 0.0,
+        "reach_depth": 0.0223
+      },
+      "excitability_block_1.48": {
+        "chip_first_run": 4.322,
+        "chip_replication": 4.322,
+        "disruption": 3.4759,
+        "proboscis_sugar": 0.0401,
+        "proboscis_sugar_bitter": 0.0,
+        "reach_depth": 0.0223
+      },
+      "excitability_block_1.52": {
+        "chip_first_run": 4.322,
+        "chip_replication": 4.322,
+        "disruption": 3.721,
+        "proboscis_sugar": 0.0202,
+        "proboscis_sugar_bitter": 0.0,
+        "reach_depth": 0.0222
+      },
+      "excitability_block_1.56": {
+        "chip_first_run": 4.322,
+        "chip_replication": 4.322,
+        "disruption": 4.2624,
+        "proboscis_sugar": 0.0153,
+        "proboscis_sugar_bitter": 0.0,
+        "reach_depth": 0.0025
+      },
+      "excitability_block_1.6": {
+        "chip_first_run": 4.322,
+        "chip_replication": 4.322,
+        "disruption": 4.4578,
+        "proboscis_sugar": 0.0068,
+        "proboscis_sugar_bitter": 0.0,
+        "reach_depth": 0.0025
+      },
+      "gaba_potentiate_1.5": {
+        "chip_first_run": 0.452,
+        "chip_replication": 0.447,
+        "disruption": 0.9841,
+        "proboscis_sugar": 0.1478,
+        "proboscis_sugar_bitter": 0.0083,
+        "reach_depth": 0.9891
+      },
+      "gaba_potentiate_1.6": {
+        "chip_first_run": 0.546,
+        "chip_replication": 0.542,
+        "disruption": 1.3057,
+        "proboscis_sugar": 0.1003,
+        "proboscis_sugar_bitter": 0.0034,
+        "reach_depth": 0.9874
+      },
+      "gaba_potentiate_1.7": {
+        "chip_first_run": 0.662,
+        "chip_replication": 0.677,
+        "disruption": 1.5663,
+        "proboscis_sugar": 0.0546,
+        "proboscis_sugar_bitter": 0.0034,
+        "reach_depth": 0.9809
+      },
+      "gaba_potentiate_1.8": {
+        "chip_first_run": 0.767,
+        "chip_replication": 0.757,
+        "disruption": 1.7701,
+        "proboscis_sugar": 0.0389,
+        "proboscis_sugar_bitter": 0.0017,
+        "reach_depth": 0.971
+      },
+      "gaba_potentiate_1.9": {
+        "chip_first_run": 0.881,
+        "chip_replication": 0.896,
+        "disruption": 1.8865,
+        "proboscis_sugar": 0.0348,
+        "proboscis_sugar_bitter": 0.0,
+        "reach_depth": 0.9733
+      },
+      "gaba_potentiate_2": {
+        "chip_first_run": 0.992,
+        "chip_replication": 0.997,
+        "disruption": 2.1451,
+        "proboscis_sugar": 0.0165,
+        "proboscis_sugar_bitter": 0.0,
+        "reach_depth": 0.9623
+      },
+      "vehicle": {
+        "disruption": 0.0,
+        "proboscis_sugar": 0.304,
+        "proboscis_sugar_bitter": 0.0611,
+        "reach_depth": 0.9893
+      }
+    },
+    "predictions": {
+      "F0_coarse_levels_reproduce": {
+        "outcome": "pass",
+        "test": "max |difference| <= 1e-9 for the movement medians against stage 4b and for |delta log2 mfr| against both chip tables; if not, F1-F3 are uninterpretable",
+        "value": 1.1102230246251565e-16
+      },
+      "F1_gaba_potentiation_chip_later": {
+        "outcome": "pass",
+        "test": "GABA-A potentiation resolves chip later against the chip's replication, with the three-movement index",
+        "value": {
+          "chip_onset": 0.6,
+          "movement_onset": 0.5,
+          "resolution": "chip later"
+        }
+      },
+      "F2_without_the_bitter_gate_chip_later": {
+        "outcome": "fail",
+        "test": "GABA-A potentiation resolves chip later against the chip's replication, with the index over the proboscis under sugar and the reach only",
+        "value": {
+          "chip_onset": 0.6,
+          "movement_onset": 0.6,
+          "resolution": "still tied"
+        }
+      },
+      "F3_excitability_block_chip_later_for_both_chip_runs": {
+        "outcome": "pass",
+        "test": "excitability block resolves chip later against the chip's replication and against its first run, with the three-movement index",
+        "value": {
+          "first_run": {
+            "chip_onset": 0.4,
+            "movement_onset": 0.24,
+            "resolution": "chip later"
+          },
+          "replication": {
+            "chip_onset": 0.36,
+            "movement_onset": 0.24,
+            "resolution": "chip later"
+          }
+        }
+      }
+    },
+    "registration": {
+      "committed_at": "2026-10-25T00:43:42-04:00",
+      "file": "preregistration/embodied_stage4c_fine_dose_grid.json",
+      "registered_in_commit": "f387845321b2ce9fd304be133a50a8f83ea18939",
+      "sha256": "23c1bf73213d1b9a273388086ebfac4dfe83741c132954d7555855c66ceaa5b5"
+    },
+    "resolutions": {
+      "all_three": {
+        "first_run": {
+          "excitability_block": {
+            "chip_onset": 0.4,
+            "movement_onset": 0.24,
+            "resolution": "chip later"
+          },
+          "gaba_potentiate": {
+            "chip_onset": 0.6,
+            "movement_onset": 0.5,
+            "resolution": "chip later"
+          }
+        },
+        "replication": {
+          "excitability_block": {
+            "chip_onset": 0.36,
+            "movement_onset": 0.24,
+            "resolution": "chip later"
+          },
+          "gaba_potentiate": {
+            "chip_onset": 0.6,
+            "movement_onset": 0.5,
+            "resolution": "chip later"
+          }
+        }
+      },
+      "without_proboscis_sugar": {
+        "first_run": {
+          "excitability_block": {
+            "chip_onset": 0.4,
+            "movement_onset": 0.2,
+            "resolution": "chip later"
+          },
+          "gaba_potentiate": {
+            "chip_onset": 0.6,
+            "movement_onset": 0.25,
+            "resolution": "chip later"
+          }
+        },
+        "replication": {
+          "excitability_block": {
+            "chip_onset": 0.36,
+            "movement_onset": 0.2,
+            "resolution": "chip later"
+          },
+          "gaba_potentiate": {
+            "chip_onset": 0.6,
+            "movement_onset": 0.25,
+            "resolution": "chip later"
+          }
+        }
+      },
+      "without_proboscis_sugar_bitter": {
+        "first_run": {
+          "excitability_block": {
+            "chip_onset": 0.4,
+            "movement_onset": 0.24,
+            "resolution": "chip later"
+          },
+          "gaba_potentiate": {
+            "chip_onset": 0.6,
+            "movement_onset": 0.6,
+            "resolution": "still tied"
+          }
+        },
+        "replication": {
+          "excitability_block": {
+            "chip_onset": 0.36,
+            "movement_onset": 0.24,
+            "resolution": "chip later"
+          },
+          "gaba_potentiate": {
+            "chip_onset": 0.6,
+            "movement_onset": 0.6,
+            "resolution": "still tied"
+          }
+        }
+      },
+      "without_reach_depth": {
+        "first_run": {
+          "excitability_block": {
+            "chip_onset": 0.4,
+            "movement_onset": 0.24,
+            "resolution": "chip later"
+          },
+          "gaba_potentiate": {
+            "chip_onset": 0.6,
+            "movement_onset": 0.25,
+            "resolution": "chip later"
+          }
+        },
+        "replication": {
+          "excitability_block": {
+            "chip_onset": 0.36,
+            "movement_onset": 0.24,
+            "resolution": "chip later"
+          },
+          "gaba_potentiate": {
+            "chip_onset": 0.6,
+            "movement_onset": 0.25,
+            "resolution": "chip later"
+          }
+        }
+      }
+    }
+  },
   "embodied_stage5": {
     "candidates": {
       "excluded": 16,
