@@ -135,7 +135,11 @@ millisecond, shifts the tibia motor pools toward resisting the movement but does
 pushed leg faster
 (32.0 <!-- metrics.json: embodied_stage3b.predictions.M1_feedback_speeds_the_return.value.resistance -->
 against 30.0 <!-- metrics.json: embodied_stage3b.predictions.M1_feedback_speeds_the_return.value.open -->
-ms). The male CNS traces few proprioceptors for the front leg
+ms). On the hind leg, whose sensors are well traced, the feedback is strong enough to change the
+leg's posture, but a registered paired test on fresh seeds found no part of it that speeds the
+return (resistance sooner than a sham in
+14 <!-- metrics.json: embodied_stage3d.predictions.Q1_feedback_that_follows_the_push_speeds_the_return.value.seeds_favouring_resistance -->
+of 32 seeds). The male CNS traces few proprioceptors for the front leg
 (4 <!-- metrics.json: embodied_stage3b_check.chordotonal_by_leg.front_L.claw --> claw neurons,
 against 22 <!-- metrics.json: embodied_stage3b_check.chordotonal_by_leg.hind_L.claw --> on the
 hind leg).

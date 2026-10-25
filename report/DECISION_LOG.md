@@ -153,3 +153,12 @@ it with its own command or `python -m neuromps.fly.pipeline --only <step>`.
   muscle force; a servo's own stiffness sets much of the return.
 - **Revisit:** a muscle-driven hind leg (if FlyMimic or another model adds one); the walking
   command's other legs.
+
+### D20. Testing stage 3c's exploratory difference on its own (overnight)
+- **Options:** report stage 3c's resistance-against-sham difference as exploratory and stop; test
+  it alone on fresh seeds.
+- **Taken:** test it (stage 3d, registration commit 8ea194a): resistance against sham, paired by
+  seed, 32 fresh seeds, a one-sided sign test and a 5 ms margin. **Why:** the difference was the
+  one sign that the push-following part of the feedback acts on a well-traced leg, and it was
+  seen in a noisy, unstable regime, so only a registered test on new seeds can say whether it is
+  real.

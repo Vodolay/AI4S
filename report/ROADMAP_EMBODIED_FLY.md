@@ -726,8 +726,15 @@ than holding. Against the sham, which receives the same tonic feedback, the resi
 sooner
 (23.0 <!-- metrics.json: embodied_stage3c.reported.resistance.recovery_ms --> against
 32.5 <!-- metrics.json: embodied_stage3c.reported.sham.recovery_ms --> ms; exploratory, with recovery times spread widely in this
-unstable regime). So the feedback that follows the push may act on this leg, unlike the front
-leg; a registered test of that difference alone, on fresh seeds, is the next step.
+unstable regime). So the feedback that follows the push might act on this leg, unlike the front
+leg. **Stage 3d tested that difference alone, paired by seed, on 32 fresh seeds, and it does not
+hold (0 of 2).** The resistance arm returns sooner than the sham in
+14 <!-- metrics.json: embodied_stage3d.predictions.Q1_feedback_that_follows_the_push_speeds_the_return.value.seeds_favouring_resistance -->
+of 32 seeds (22 needed), and the median paired difference is
+0.0 <!-- metrics.json: embodied_stage3d.predictions.Q2_by_a_meaningful_margin.value --> ms. Closed through either leg, the claw neurons'
+feedback changes the motor neurons and, on the hind leg, the posture, but no part of it that
+follows a push could be shown to speed the leg's return. Stage 3's go/no-go stays failed; what
+would change it is a muscle-driven, well-traced leg, which no available body model provides.
 
 ![SIMULATED push on the right hind tibia (flybody, servoed) with claw-neuron feedback. Left: one seed per arm (the resistance trace lies under the sham until about 0.55 s); with resistance feedback the leg swings irregularly instead of holding. Right: every trial's recovery time.](../outputs/figures/embodied_stage3c_hind_leg_SIMULATED.png){width=80%}
 

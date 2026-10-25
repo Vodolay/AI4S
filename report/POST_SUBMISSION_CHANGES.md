@@ -42,6 +42,7 @@ the bottom.*
 | 31 | 2026-10-25 | Embodied stage 5b: the identified 13A/13B leg neurons, manipulated | 2 of 5; silencing 13A shortens the reach as published; 13B and activation do not | `c20fa08` … this branch |
 | 32 | 2026-10-25 | Embodied stage 5c: the 13A/13B manipulations read at the joint | 0 of 4; the model's inhibitory leg neurons brake rather than steer; stage 5b's agreement came by another route | `04a2387` … this branch |
 | 33 | 2026-10-25 | Embodied stage 3c: the perturbation test on the well-traced hind leg | 2 of 4; strong feedback destabilizes the hold; resistance beats the sham (exploratory) | `22b082e` … this branch |
+| 34 | 2026-10-25 | Embodied stage 3d: the hind-leg contingency test, paired, fresh seeds | 0 of 2; no push-following effect; stage 3 stays a documented negative | `8ea194a` … this branch |
 
 ---
 
@@ -770,6 +771,23 @@ feedback that follows a push may speed the return; a registered test of that alo
   sham, 23.0 <!-- metrics.json: embodied_stage3c.reported.resistance.recovery_ms --> against 32.5 <!-- metrics.json: embodied_stage3c.reported.sham.recovery_ms --> ms
   (exploratory).
 - **Evidence.** Roadmap §7 and figure; `outputs/fly/embodied_stage3c_SIMULATED.*`.
+
+---
+
+## 34. The registered retest: no push-following effect on the hind leg
+
+**Slide message:** *We registered the one hopeful sign from the hind leg as its own test, on
+fresh seeds and more of them, and it did not hold. The loop stays a documented negative, with the
+body model it would need named.*
+
+- **What changed.** `src/neuromps/fly/embodied_stage3d.py`: stage 3c's closed loop on 32 fresh
+  seeds, resistance against sham paired by seed; registered in
+  `preregistration/embodied_stage3d_hind_leg_contingency.json`.
+- **Effect.** 0 of 2: resistance returns sooner than the sham in
+  14 <!-- metrics.json: embodied_stage3d.predictions.Q1_feedback_that_follows_the_push_speeds_the_return.value.seeds_favouring_resistance -->
+  of 32 seeds (22 needed); median paired difference
+  0.0 <!-- metrics.json: embodied_stage3d.predictions.Q2_by_a_meaningful_margin.value --> ms.
+- **Evidence.** Roadmap §7; `outputs/fly/embodied_stage3d_SIMULATED.*`.
 
 ---
 

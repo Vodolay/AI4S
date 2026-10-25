@@ -1,0 +1,46 @@
+{
+  "label": "SIMULATED hind-leg contingency test (paired by seed)",
+  "predictions": {
+    "Q1_feedback_that_follows_the_push_speeds_the_return": {
+      "test": "resistance recovery time shorter than the sham's in at least 22 of 32 seeds (one-sided sign test, p < 0.05; ties count against)",
+      "value": {
+        "seeds_favouring_resistance": 14,
+        "seeds": 32
+      },
+      "outcome": "fail"
+    },
+    "Q2_by_a_meaningful_margin": {
+      "test": "median over seeds of (sham - resistance) recovery time >= 5 ms",
+      "value": 0.0,
+      "outcome": "fail"
+    }
+  },
+  "reported": {
+    "open": {
+      "pre_rad": 1.0425,
+      "excursion_rad": 0.4998,
+      "recovery_ms": 23.0
+    },
+    "resistance": {
+      "pre_rad": 0.7017,
+      "excursion_rad": 0.7396,
+      "recovery_ms": 16.0
+    },
+    "resistance_unperturbed": {
+      "pre_rad": 0.7017,
+      "excursion_rad": 0.537,
+      "recovery_ms": 0.0
+    },
+    "sham": {
+      "pre_rad": 0.7017,
+      "excursion_rad": 0.7012,
+      "recovery_ms": 25.0
+    }
+  },
+  "registration": {
+    "file": "preregistration/embodied_stage3d_hind_leg_contingency.json",
+    "sha256": "82725efc4dec2df47cbf41f52d60304cd6e9ff270f93d0303420a5fab489551b",
+    "registered_in_commit": "8ea194a47acceaa0b5dbeaaa197196ede34ec309",
+    "committed_at": "2026-10-25T00:00:11-04:00"
+  }
+}
