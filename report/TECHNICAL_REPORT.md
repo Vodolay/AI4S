@@ -1260,7 +1260,10 @@ every family. Left out of the index, the bitter-gated proboscis turns out to car
 potentiation: without it movement fails only at
 1.0 <!-- metrics.json: embodied_stage4b.onsets_leave_one_out.proboscis_sugar_bitter.gaba_potentiate -->, where the chip flags it. A finer
 registered dose grid keeps the chip late with the full index but leaves that tie in place (both at
-0.6 <!-- metrics.json: embodied_stage4c.predictions.F2_without_the_bitter_gate_chip_later.value.chip_onset -->). At the dose
+0.6 <!-- metrics.json: embodied_stage4c.predictions.F2_without_the_bitter_gate_chip_later.value.chip_onset -->). Read through a
+fictive walking rhythm alone, acetylcholine block is the one case where the chip flags first
+(chip 0.4 <!-- metrics.json: embodied_stage4d.onsets.chip_replication.ach_block -->, walking
+0.6 <!-- metrics.json: embodied_stage4d.onsets.walking.ach_block -->). At the dose
 where movement first fails the chip has moved by only
 0.149 <!-- metrics.json: embodied_stage4a_precision.abs_log2_mfr_change_at_movement_onset.gaba_block --> to
 0.452 <!-- metrics.json: embodied_stage4a_precision.abs_log2_mfr_change_at_movement_onset.gaba_potentiate --> log2 (exploratory), within

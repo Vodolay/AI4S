@@ -1,0 +1,249 @@
+{
+  "label": "SIMULATED walking rhythm (rate model, volume sizes) under drug knobs",
+  "predictions": {
+    "W0_the_walking_rhythm_is_there": {
+      "test": "at least 16 of 32 draws feasible and their median rhythm score >= 0.3; if not, W1-W3 are uninterpretable",
+      "value": {
+        "feasible": 32,
+        "median_score": 0.8222
+      },
+      "outcome": "pass"
+    },
+    "W1_the_chip_is_late_for_walking": {
+      "test": "in every family in which walking is impaired at some dose, the chip's first detection dose is strictly higher than the walking onset; uninterpretable if no family impairs walking",
+      "value": {
+        "ach_block": "chip earlier",
+        "gaba_block": "chip later",
+        "glucl_block": "chip later"
+      },
+      "outcome": "fail"
+    },
+    "W2_gaba_potentiation_lateness_is_not_specific_to_feeding": {
+      "test": "GABA-A potentiation's walking onset is strictly below the chip's first detection dose",
+      "value": {
+        "walking_onset": null,
+        "chip_onset": 0.6000000000000001
+      },
+      "outcome": "fail"
+    },
+    "W3_with_walking_the_chip_is_late_in_every_family": {
+      "test": "with the four-movement index, movement is impaired in all five families and in each the chip's first detection dose is strictly higher",
+      "value": {
+        "gaba_block": "chip later",
+        "gaba_potentiate": "chip later",
+        "glucl_block": "chip later",
+        "ach_block": "chip later",
+        "excitability_block": "chip later"
+      },
+      "outcome": "pass"
+    }
+  },
+  "onsets": {
+    "walking": {
+      "ach_block": 0.6,
+      "excitability_block": null,
+      "gaba_block": 0.1999999999999999,
+      "gaba_potentiate": null,
+      "glucl_block": 0.1999999999999999
+    },
+    "four_movement": {
+      "ach_block": 0.1999999999999999,
+      "excitability_block": 0.24,
+      "gaba_block": 0.1999999999999999,
+      "gaba_potentiate": 0.5,
+      "glucl_block": 0.1999999999999999
+    },
+    "chip_replication": {
+      "ach_block": 0.4,
+      "excitability_block": 0.3600000000000001,
+      "gaba_block": 0.6,
+      "gaba_potentiate": 0.6000000000000001,
+      "glucl_block": 0.8
+    }
+  },
+  "walking_disruption": {
+    "vehicle": 0.0,
+    "gaba_block_0.8": 1.6722,
+    "gaba_block_0.6": 3.1106,
+    "gaba_block_0.4": 5.3217,
+    "gaba_block_0.2": 6.2266,
+    "gaba_block_0": 6.3788,
+    "gaba_potentiate_1.25": 0.1987,
+    "gaba_potentiate_1.5": 0.201,
+    "gaba_potentiate_2": 0.2016,
+    "glucl_block_0.8": 2.8602,
+    "glucl_block_0.6": 3.3629,
+    "glucl_block_0.4": 2.4575,
+    "glucl_block_0.2": 5.0569,
+    "glucl_block_0": 6.116,
+    "ach_block_0.8": 0.2044,
+    "ach_block_0.6": 0.2126,
+    "ach_block_0.4": 6.3788,
+    "ach_block_0.2": 6.3788,
+    "excitability_block_1.1": 0.1918,
+    "excitability_block_1.2": 0.1985,
+    "excitability_block_1.4": 0.1959,
+    "excitability_block_1.6": 0.1722,
+    "gaba_potentiate_1.6": 0.1997,
+    "gaba_potentiate_1.7": 0.2016,
+    "gaba_potentiate_1.8": 0.2025,
+    "gaba_potentiate_1.9": 0.2019,
+    "excitability_block_1.24": 0.1982,
+    "excitability_block_1.28": 0.1974,
+    "excitability_block_1.32": 0.1971,
+    "excitability_block_1.36": 0.1968,
+    "excitability_block_1.44": 0.1938,
+    "excitability_block_1.48": 0.1915,
+    "excitability_block_1.52": 0.191,
+    "excitability_block_1.56": 0.1822
+  },
+  "medians": {
+    "vehicle": {
+      "score": 0.8222,
+      "period_ms": 98.0
+    },
+    "gaba_block_0.8": {
+      "score": 0.2511,
+      "period_ms": 292.0
+    },
+    "gaba_block_0.6": {
+      "score": 0.0863,
+      "period_ms": 264.0
+    },
+    "gaba_block_0.4": {
+      "score": 0.0108,
+      "period_ms": 228.5
+    },
+    "gaba_block_0.2": {
+      "score": 0.0011,
+      "period_ms": 329.0
+    },
+    "gaba_block_0": {
+      "score": 0.0,
+      "period_ms": 237.00000000000003
+    },
+    "gaba_potentiate_1.25": {
+      "score": 0.9451,
+      "period_ms": 95.0
+    },
+    "gaba_potentiate_1.5": {
+      "score": 0.9466,
+      "period_ms": 95.0
+    },
+    "gaba_potentiate_2": {
+      "score": 0.947,
+      "period_ms": 92.0
+    },
+    "glucl_block_0.8": {
+      "score": 0.1046,
+      "period_ms": 165.5
+    },
+    "glucl_block_0.6": {
+      "score": 0.0709,
+      "period_ms": 260.0
+    },
+    "glucl_block_0.4": {
+      "score": 0.1415,
+      "period_ms": 215.75
+    },
+    "glucl_block_0.2": {
+      "score": 0.015,
+      "period_ms": 199.5
+    },
+    "glucl_block_0": {
+      "score": 0.002,
+      "period_ms": 248.0
+    },
+    "ach_block_0.8": {
+      "score": 0.9488,
+      "period_ms": 88.5
+    },
+    "ach_block_0.6": {
+      "score": 0.9543,
+      "period_ms": 81.0
+    },
+    "ach_block_0.4": {
+      "score": 0.0,
+      "period_ms": 76.5
+    },
+    "ach_block_0.2": {
+      "score": 0.0,
+      "period_ms": null
+    },
+    "excitability_block_1.1": {
+      "score": 0.9405,
+      "period_ms": 98.0
+    },
+    "excitability_block_1.2": {
+      "score": 0.9449,
+      "period_ms": 98.0
+    },
+    "excitability_block_1.4": {
+      "score": 0.9432,
+      "period_ms": 98.5
+    },
+    "excitability_block_1.6": {
+      "score": 0.9277,
+      "period_ms": 99.0
+    },
+    "gaba_potentiate_1.6": {
+      "score": 0.9457,
+      "period_ms": 94.0
+    },
+    "gaba_potentiate_1.7": {
+      "score": 0.947,
+      "period_ms": 93.0
+    },
+    "gaba_potentiate_1.8": {
+      "score": 0.9476,
+      "period_ms": 93.0
+    },
+    "gaba_potentiate_1.9": {
+      "score": 0.9471,
+      "period_ms": 92.0
+    },
+    "excitability_block_1.24": {
+      "score": 0.9447,
+      "period_ms": 98.5
+    },
+    "excitability_block_1.28": {
+      "score": 0.9442,
+      "period_ms": 98.0
+    },
+    "excitability_block_1.32": {
+      "score": 0.944,
+      "period_ms": 98.0
+    },
+    "excitability_block_1.36": {
+      "score": 0.9438,
+      "period_ms": 98.0
+    },
+    "excitability_block_1.44": {
+      "score": 0.9418,
+      "period_ms": 99.0
+    },
+    "excitability_block_1.48": {
+      "score": 0.9403,
+      "period_ms": 99.0
+    },
+    "excitability_block_1.52": {
+      "score": 0.94,
+      "period_ms": 98.0
+    },
+    "excitability_block_1.56": {
+      "score": 0.9342,
+      "period_ms": 98.5
+    }
+  },
+  "vehicle_inputs": {
+    "feasible": 32,
+    "runs": 2,
+    "median": 250.0
+  },
+  "registration": {
+    "file": "preregistration/embodied_stage4d_walking_readout.json",
+    "sha256": "ed0a56546ff4c665dcf48f5d63aaa5e10fd901428adc88882ae77a64a563483a",
+    "registered_in_commit": "73ffde61ac7081c1b82a6d42492c73375cfc6da5",
+    "committed_at": "2026-10-25T08:42:46-04:00"
+  }
+}

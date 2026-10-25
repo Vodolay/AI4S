@@ -233,10 +233,15 @@ it with its own command or `python -m neuromps.fly.pipeline --only <step>`.
 ### D26. Walking as a drug readout **(user)**
 - **Options (from D22's revisit):** a fourth movement for the drug design; the only walking
   readout at hand is stage 2i's fictive front-leg rhythm (rate model, volume sizes, no body).
-- **Taken:** stage 4d (registration commit below), fresh draws: the drug knobs applied to the
+- **Taken:** stage 4d (registration commit 73ffde6), fresh draws: the drug knobs applied to the
   walking network (weights scaled by presynaptic class, as in the spiking model; the excitability
   knob scales the activation threshold), each draw's DNg100 input found under vehicle and held
   fixed, onsets on stage 4c's combined dose series. **Why:** it asks whether GABA-A
   potentiation's lateness is specific to feeding and whether the headline holds for a rhythm.
 - **Stated choice:** the threshold knob maps to the rate model's theta; fixed inputs, so a drug
   changes the response, not the stimulus.
+- **Outcome:** 2 of 4 (registration commit 73ffde6). GABA-A and GluCl block break walking first;
+  acetylcholine block is chip-first; GABA-A potentiation and the threshold knob leave walking
+  intact; with walking as a fourth movement the chip is still late in every family.
+- **Revisit:** a readout that respects the bimodal draws (the fraction of rhythmic draws)
+  registered as its own test; a threshold mapping that also shifts the drive.
