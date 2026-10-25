@@ -247,19 +247,14 @@ def plot(conds: pd.DataFrame, medians: pd.DataFrame, path) -> None:
     plt.close(fig)
 
 
-def main(argv: list[str] | None = None) -> int:
-    """CLI: the registered stage-4a design."""
-    from neuromps.paths import figures_dir
-
-    logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
-    spec = json.loads(REGISTRATION.read_text())
-    conds = conditions()
+def run_trials(conds: pd.DataFrame, seeds: list[int]) -> pd.DataFrame:
+    """Every condition, movement and seed: one row per trial with its movement value."""
     knob = dict(zip(conds["condition"], conds["knob"], strict=True))
     jobs = [
         (c, d, s, knob[c])
         for c in conds["condition"]
         for d in ("sugar", "sugar_bitter", "jon_ce")
-        for s in SEEDS
+        for s in seeds
     ]
     with ProcessPoolExecutor(memory_bounded_workers(per_worker_gb=12.0), initializer=_init) as pool:
         brains = list(pool.map(_brain, jobs))
@@ -283,7 +278,23 @@ def main(argv: list[str] | None = None) -> int:
             "jon_ce": "reach_depth",
         }
     )
-    medians = trials.groupby(["condition", "movement"])["value"].median().unstack()[list(MOVEMENTS)]
+    return trials
+
+
+def movement_medians(trials: pd.DataFrame) -> pd.DataFrame:
+    """Per condition (rows) and movement (columns): the median over trials."""
+    return trials.groupby(["condition", "movement"])["value"].median().unstack()[list(MOVEMENTS)]
+
+
+def main(argv: list[str] | None = None) -> int:
+    """CLI: the registered stage-4a design."""
+    from neuromps.paths import figures_dir
+
+    logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+    spec = json.loads(REGISTRATION.read_text())
+    conds = conditions()
+    trials = run_trials(conds, SEEDS)
+    medians = movement_medians(trials)
     predictions, details = score(conds, medians, spec)
     result = {
         "label": "SIMULATED drug knobs with movement as the readout",

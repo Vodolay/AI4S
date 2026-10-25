@@ -110,6 +110,13 @@ the noise of real chips. At this level the output-tract electrode no longer lead
 families in time against
 4 <!-- metrics.json: embodied_stage4a.predictions.N4_the_output_tract_still_leads.value.planar_64 -->
 for the planar array).
+A registered rerun on 16 fresh seeds, compared with the chip detections of the parent design's
+own fresh-seed replication, finds the chip late in all five families again, and every movement
+onset within one dose step of the first run (stage 4b, 3 of 4). The registered leave-one-out check
+fails in one family. Without the bitter-gated proboscis, GABA-A potentiation impairs movement
+only at 1.0 <!-- metrics.json: embodied_stage4b.onsets_leave_one_out.proboscis_sugar_bitter.gaba_potentiate -->, the dose at which the
+chip flags it. In two families (GABA-A potentiation and excitability block) the chip's lateness is
+therefore a single step of the dose grid.
 
 ### 2.6 Walking: a negative result and a reproduction
 
@@ -182,8 +189,9 @@ positive results can be taken to mean.
   firing-rate model, reimplemented. Drug knobs scale whole transmitter classes.
 - **Chip.** A virtual array scored by the project's single MEA feature extractor; detection at
   the registered threshold; false-alarm rates from untreated splits.
-- **Bodies.** FlyMimic left front leg (Hill-type muscles) and flybody proboscis in MuJoCo; motor
-  neurons mapped to muscles by published names; activation = filtered pool rate over a full rate.
+- **Bodies.** FlyMimic left front leg (Hill-type muscles), and the flybody proboscis and right
+  hind tibia (position servos), in MuJoCo; motor neurons mapped to muscles or joints by published
+  names; activation = filtered pool rate over a full rate.
 - **Closed loop.** Nerve cord and leg advanced together every millisecond; sensory neurons driven
   by a joint angle.
 - **Registration.** Every test was committed to `preregistration/` before it ran, with fresh
@@ -195,7 +203,8 @@ positive results can be taken to mean.
 ## 5. What this work does not show
 
 It is simulation throughout: transmitter-class knobs are not compounds, the bodies are partial
-(one muscle-driven leg, a servoed proboscis), the loop is closed through four sensory neurons,
+(one muscle-driven leg, a servoed proboscis and hind tibia), the loop is closed through the
+front leg's four claw neurons or, on a servoed leg, the hind leg's 25,
 and the walking results are a negative for one neuron model and a reproduction of another group's
 model. Nothing here says what any compound does to a fly, a culture or a person.
 
@@ -210,7 +219,7 @@ model. Nothing here says what any compound does to a fly, a culture or a person.
 | 5 | The body: the grooming reach through the brain-to-nerve-cord relay, and the proboscis | `outputs/figures/embodied_stage1f_depth_SIMULATED.png`, `embodied_stage2b_proboscis_SIMULATED.png` |
 | 6 | Drugs in the loop: movements against dose | `outputs/figures/embodied_stage4a_drugs_movement_SIMULATED.png` |
 | 7 | Walking: the published rate model's front-leg rhythm, and the registered negatives | `outputs/figures/embodied_stage2h_front_leg_SIMULATED.png`, `embodied_stage2c_sweep_SIMULATED.png` |
-| 8 | The closed loop and the perturbation test | `outputs/figures/embodied_stage3b_perturbation_SIMULATED.png` |
+| 8 | The closed loop and the perturbation test, front and hind leg | `outputs/figures/embodied_stage3b_perturbation_SIMULATED.png`, `embodied_stage3c_hind_leg_SIMULATED.png` |
 | S1 | The rhythm-measure audit | `outputs/figures/rhythm_audit_SIMULATED.png` |
 
 ## Data and code

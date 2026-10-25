@@ -619,6 +619,38 @@ flags at a given dose has already changed how the simulated fly feeds and grooms
 
 ![SIMULATED fly movements under the five transmitter-class drug knobs (median of 8 trials per condition): proboscis extension under sugar and under sugar with bitter, and the depth of the grooming reach.](../outputs/figures/embodied_stage4a_drugs_movement_SIMULATED.png){width=95%}
 
+**Stage 4b: the headline on fresh seeds. The chip is still late in every family (3 of 4).**
+Stage 4a rested on one set of 8 seeds and on the chip detections of the parent's first run, so
+it was rerun unchanged on 16 fresh seeds and compared with the chip detections of the parent's
+own fresh-seed replication. Each movement was also left out of the disruption index in turn.
+The movements appear under vehicle (proboscis
+0.304 <!-- metrics.json: embodied_stage4b.predictions.R0_the_movements_are_there.value.proboscis_sugar --> mm, reach depth
+0.9893 <!-- metrics.json: embodied_stage4b.predictions.R0_the_movements_are_there.value.reach_depth --> mm). In all five families movement
+fails first and the chip flags later (R1 passes): GABA-A block at
+0.2 <!-- metrics.json: embodied_stage4b.onsets.movement.gaba_block --> against
+0.6 <!-- metrics.json: embodied_stage4b.onsets.chip_replication.gaba_block -->, GABA-A potentiation at
+0.5 <!-- metrics.json: embodied_stage4b.onsets.movement.gaba_potentiate --> against
+1.0 <!-- metrics.json: embodied_stage4b.onsets.chip_replication.gaba_potentiate -->. Every movement onset is within one dose step of stage
+4a's (R3 passes). Only excitability block moved, from
+0.2 <!-- metrics.json: embodied_stage4b.onsets.stage4a_movement.excitability_block --> to
+0.4 <!-- metrics.json: embodied_stage4b.onsets.movement.excitability_block -->. The leave-one-out check (R2) fails in one family.
+Without the bitter-gated proboscis, GABA-A potentiation impairs movement only at
+1.0 <!-- metrics.json: embodied_stage4b.onsets_leave_one_out.proboscis_sugar_bitter.gaba_potentiate -->, the dose at which the chip flags it, so the
+two tie. At the dose below, the proboscis under sugar extends about half as far as under
+vehicle, but the reach does not change, so the two-movement index stays just below the line
+(`outputs/fly/embodied_stage4b_SIMULATED.json`, medians).
+Two further readings are reported, not scored. Against the chip's first run rather than its
+replication, excitability block would tie: both at
+0.4 <!-- metrics.json: embodied_stage4b.onsets.chip_first_run.excitability_block -->. Stage 4a's bitter-gate correlation comes out
+the same on the fresh seeds
+(-0.0286 <!-- metrics.json: embodied_stage4b.reported.N1_spearman_gaba_block_sugar_bitter -->). As in stage 4a, at full GABA-A block the
+claw ends beyond rest (depth
+-0.0146 <!-- metrics.json: embodied_stage4b.medians.gaba_block_0.reach_depth --> mm), and that index averages the two proboscis terms. **What
+this does to the headline:** the chip's lateness at the movement level replicates on new seeds
+and against the chip's own replication. In four of the five families it does not depend on any
+one movement. In GABA-A potentiation it rests on the bitter-gated proboscis, and in excitability
+block it is one dose step, so in two families the margin is a single step of the dose grid.
+
 **Stage 5: checking directions against real flies. The registered search found no fly
 pharmacology to compare with (both predictions uninterpretable).** Before any search, the stage
 registered ten queries, inclusion rules, a mapping from published manipulations to the knobs and

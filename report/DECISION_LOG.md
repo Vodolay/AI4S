@@ -162,3 +162,20 @@ it with its own command or `python -m neuromps.fly.pipeline --only <step>`.
   one sign that the push-following part of the feedback acts on a well-traced leg, and it was
   seen in a noisy, unstable regime, so only a registered test on new seeds can say whether it is
   real.
+- **Outcome:** 0 of 2 (stage 3 stays a documented negative). **Revisit:** a muscle-driven hind
+  leg.
+
+### D21. After stage 3: replicate the headline before anything new (overnight)
+- **Options:** new science that needs a model not at hand (a muscle-driven hind leg, neuron
+  volumes for the size rule); 13A/13B subsets or pulsed activation (a leaky integrate-and-fire
+  network has no rebound); paper and slide writing only; a registered replication of stage 4a,
+  the paper's headline, which ran on one set of 8 seeds.
+- **Taken:** the replication (stage 4b, registration commit b23f6a3): stage 4a's movements on 16
+  fresh seeds, against the chip detections of the parent design's own fresh-seed replication,
+  with each movement left out in turn. **Why:** it is the result a reviewer will press first, it
+  is cheap (about 15 minutes), and the leave-one-out check names the assumption most likely to
+  make it wrong (that one movement carries the disruption index).
+- **Outcome:** 3 of 4 (registration commit b23f6a3). The chip is late in every family on the
+  fresh seeds; without the bitter-gated proboscis GABA-A potentiation ties the chip.
+- **Revisit:** a different impairment line for movement (the 0.05 mm sensitivity is reported); a
+  finer dose grid for GABA-A potentiation and excitability block, where the margin is one step.

@@ -96,7 +96,7 @@ fi
 # is exactly what happened to the export this design came from.
 if command -v pdfimages >/dev/null; then
   embedded="$(pdfimages -list "${PDF}" | tail -n +3 | wc -l)"
-  wanted="$(grep -cE '^!\[' "${SOURCE}")"
+  wanted="$(grep -cE '^!\[' "${SOURCE}" || true)"
   (( embedded >= wanted )) || die "the PDF holds ${embedded} images, the source has ${wanted} figures"
   echo "build_docx: ${embedded} image objects for ${wanted} figures"
 fi
