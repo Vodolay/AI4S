@@ -220,8 +220,12 @@ it with its own command or `python -m neuromps.fly.pipeline --only <step>`.
 ### D25. Checking that stage 2i comes from the neurons' own volumes
 - **Options:** report stage 2i as it stands; name the assumption most likely to make it wrong
   and test it (the project rule for results that look good).
-- **Taken:** stage 2j (registration commit below), fresh draws: the volume rule replicated,
+- **Taken:** stage 2j (registration commit 1d1d644), fresh draws: the volume rule replicated,
   volumes shuffled across neurons (a fresh permutation per draw), and normalization by the
   nerve cord's median instead of the network's. **Why:** if shuffled volumes do as well, the
   result is about the spread of sizes, not the identified neurons; the normalization was a
   stated choice the published description does not fix.
+- **Outcome:** 2 of 4 (registration commit 1d1d644). Shuffled volumes give no rhythm; the
+  cord-median normalization changes nothing; the rhythm and the circuit's necessity replicate,
+  but the promotor-remotor offset does not reach the registered reliability, so it is not claimed.
+- **Revisit:** a registered test of the offset alone with more draws, if it matters for the paper.

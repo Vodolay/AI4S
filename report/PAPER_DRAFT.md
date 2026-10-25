@@ -142,11 +142,15 @@ exploratory). With the published size rule, neuron volume, taken from the male C
 neuron table (stage 2i, 6 of 7, fresh draws), the rhythm is stronger
 (0.9446 <!-- metrics.json: embodied_stage2i.predictions.V1_the_walking_command_makes_a_leg_rhythm.value -->, period
 96.0 <!-- metrics.json: embodied_stage2i.predictions.V6_a_fly_like_step_period.value --> ms), silencing the circuit removes it
-(0.0115 <!-- metrics.json: embodied_stage2i.predictions.V5_the_rhythm_needs_the_three_neuron_circuit.value.lesion -->), and the coxa promotor and
-remotor pools keep a reliable phase offset
-(R = 0.843 <!-- metrics.json: embodied_stage2i.predictions.V2_promotor_and_remotor_keep_a_reliable_offset.value.R -->). The synapse-count stand-in
-for size had hidden the circuit's necessity. The offset is a short lead of remotor over promotor,
-not antiphase, and the tibia flexors stay silent: antagonist alternation is still missing.
+(0.0115 <!-- metrics.json: embodied_stage2i.predictions.V5_the_rhythm_needs_the_three_neuron_circuit.value.lesion -->). The synapse-count stand-in
+for size had hidden the circuit's necessity. A registered check on fresh draws (stage 2j, 2 of 4)
+replicates the rhythm and the necessity, finds no rhythm when the same volumes are shuffled across
+neurons (0.0021 <!-- metrics.json: embodied_stage2j.arms.volume_shuffled.scores.P1_the_walking_command_makes_a_leg_rhythm.value -->), and finds the result unchanged
+when sizes are normalized over the whole nerve cord. The coxa promotor and remotor pools kept a
+reliable phase offset in stage 2i
+(R = 0.843 <!-- metrics.json: embodied_stage2i.predictions.V2_promotor_and_remotor_keep_a_reliable_offset.value.R -->) but not on the fresh draws
+(R = 0.6082 <!-- metrics.json: embodied_stage2j.arms.volume.scores.P2_promotor_and_remotor_keep_a_reliable_offset.value.R -->), and it was a short lead, not antiphase.
+The tibia flexors stay silent: antagonist alternation is still missing.
 
 ### 2.7 Closing the loop
 

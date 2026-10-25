@@ -7005,6 +7005,376 @@
       "volumes_missing": 0
     }
   },
+  "embodied_stage2j": {
+    "arms": {
+      "volume": {
+        "reported": {
+          "dnb08": {
+            "feasible": 32,
+            "infeasible_median_recruited_when_too_many": null,
+            "infeasible_too_few": 0,
+            "infeasible_too_many": 0,
+            "median_active_motor": 4.0,
+            "median_input": 31.25,
+            "median_period_ms": 83.0,
+            "median_recruited": 40.0,
+            "median_score": 0.0155
+          },
+          "forward_walking": {
+            "feasible": 32,
+            "infeasible_bracket_ratio_median": null,
+            "infeasible_median_recruited_when_too_many": null,
+            "infeasible_never_bracketed": 0,
+            "infeasible_too_few": 0,
+            "infeasible_too_many": 0,
+            "median_active_motor": 10.0,
+            "median_input": 250.0,
+            "median_period_ms": 101.0,
+            "median_recruited": 139.0,
+            "median_score": 0.6992
+          },
+          "grooming": {
+            "feasible": 1,
+            "infeasible_median_recruited_when_too_many": 697.0,
+            "infeasible_too_few": 17,
+            "infeasible_too_many": 14,
+            "median_active_motor": 16.0,
+            "median_input": 7.764906320061533,
+            "median_period_ms": null,
+            "median_recruited": 407.0,
+            "median_score": 0.0
+          },
+          "lesion": {
+            "feasible": 32,
+            "infeasible_median_recruited_when_too_many": null,
+            "infeasible_too_few": 0,
+            "infeasible_too_many": 0,
+            "median_active_motor": 5.0,
+            "median_input": 250.0,
+            "median_period_ms": 173.50000000000003,
+            "median_recruited": 93.0,
+            "median_score": 0.0318
+          },
+          "none": {
+            "feasible": 32,
+            "infeasible_median_recruited_when_too_many": null,
+            "infeasible_too_few": 0,
+            "infeasible_too_many": 0,
+            "median_active_motor": 0.0,
+            "median_input": 0.0,
+            "median_period_ms": null,
+            "median_recruited": 0.0,
+            "median_score": 0.0
+          }
+        },
+        "scores": {
+          "P0_the_rule_finds_a_working_input": {
+            "outcome": "pass",
+            "value": 32
+          },
+          "P1_the_walking_command_makes_a_leg_rhythm": {
+            "outcome": "pass",
+            "value": 0.6992
+          },
+          "P2_promotor_and_remotor_keep_a_reliable_offset": {
+            "outcome": "fail",
+            "value": {
+              "R": 0.6082,
+              "defined": 26,
+              "feasible": 32
+            }
+          },
+          "P3_tibia_flexor_and_extensor_alternate": {
+            "outcome": "fail",
+            "value": null
+          },
+          "P4_the_walking_command_drives_the_rhythm_best": {
+            "outcome": "pass",
+            "value": {
+              "forward_walking": 0.6992,
+              "grooming": 0.0
+            }
+          },
+          "P5_the_rhythm_needs_the_three_neuron_circuit": {
+            "outcome": "pass",
+            "value": {
+              "forward_walking": 0.6992,
+              "lesion": 0.0318
+            }
+          },
+          "P6_a_fly_like_step_period": {
+            "outcome": "pass",
+            "value": 101.0
+          }
+        }
+      },
+      "volume_cord": {
+        "reported": {
+          "dnb08": {
+            "feasible": 32,
+            "infeasible_median_recruited_when_too_many": null,
+            "infeasible_too_few": 0,
+            "infeasible_too_many": 0,
+            "median_active_motor": 4.0,
+            "median_input": 250.0,
+            "median_period_ms": 80.5,
+            "median_recruited": 64.0,
+            "median_score": 0.0
+          },
+          "forward_walking": {
+            "feasible": 32,
+            "infeasible_bracket_ratio_median": null,
+            "infeasible_median_recruited_when_too_many": null,
+            "infeasible_never_bracketed": 0,
+            "infeasible_too_few": 0,
+            "infeasible_too_many": 0,
+            "median_active_motor": 3.0,
+            "median_input": 1000.0,
+            "median_period_ms": 81.5,
+            "median_recruited": 41.0,
+            "median_score": 0.9531
+          },
+          "grooming": {
+            "feasible": 32,
+            "infeasible_median_recruited_when_too_many": null,
+            "infeasible_too_few": 0,
+            "infeasible_too_many": 0,
+            "median_active_motor": 16.5,
+            "median_input": 250.0,
+            "median_period_ms": 105.5,
+            "median_recruited": 422.5,
+            "median_score": 0.0
+          },
+          "lesion": {
+            "feasible": 32,
+            "infeasible_median_recruited_when_too_many": null,
+            "infeasible_too_few": 0,
+            "infeasible_too_many": 0,
+            "median_active_motor": 1.0,
+            "median_input": 1000.0,
+            "median_period_ms": null,
+            "median_recruited": 29.0,
+            "median_score": 0.0
+          },
+          "none": {
+            "feasible": 32,
+            "infeasible_median_recruited_when_too_many": null,
+            "infeasible_too_few": 0,
+            "infeasible_too_many": 0,
+            "median_active_motor": 0.0,
+            "median_input": 0.0,
+            "median_period_ms": null,
+            "median_recruited": 0.0,
+            "median_score": 0.0
+          }
+        },
+        "scores": {
+          "P0_the_rule_finds_a_working_input": {
+            "outcome": "pass",
+            "value": 32
+          },
+          "P1_the_walking_command_makes_a_leg_rhythm": {
+            "outcome": "pass",
+            "value": 0.9531
+          },
+          "P2_promotor_and_remotor_keep_a_reliable_offset": {
+            "outcome": "pass",
+            "value": {
+              "R": 0.9858,
+              "defined": 24,
+              "feasible": 32
+            }
+          },
+          "P3_tibia_flexor_and_extensor_alternate": {
+            "outcome": "fail",
+            "value": null
+          },
+          "P4_the_walking_command_drives_the_rhythm_best": {
+            "outcome": "pass",
+            "value": {
+              "forward_walking": 0.9531,
+              "grooming": 0.0
+            }
+          },
+          "P5_the_rhythm_needs_the_three_neuron_circuit": {
+            "outcome": "pass",
+            "value": {
+              "forward_walking": 0.9531,
+              "lesion": 0.0
+            }
+          },
+          "P6_a_fly_like_step_period": {
+            "outcome": "pass",
+            "value": 81.5
+          }
+        }
+      },
+      "volume_shuffled": {
+        "reported": {
+          "dnb08": {
+            "feasible": 15,
+            "infeasible_median_recruited_when_too_many": 1035.0,
+            "infeasible_too_few": 10,
+            "infeasible_too_many": 7,
+            "median_active_motor": 0.0,
+            "median_input": 5.065779510355507,
+            "median_period_ms": 101.0,
+            "median_recruited": 7.0,
+            "median_score": 0.0
+          },
+          "forward_walking": {
+            "feasible": 16,
+            "infeasible_bracket_ratio_median": 1.000000247888783,
+            "infeasible_median_recruited_when_too_many": 1029.5,
+            "infeasible_never_bracketed": 0,
+            "infeasible_too_few": 10,
+            "infeasible_too_many": 6,
+            "median_active_motor": 1.5,
+            "median_input": 15.625,
+            "median_period_ms": 110.0,
+            "median_recruited": 15.0,
+            "median_score": 0.0021
+          },
+          "grooming": {
+            "feasible": 4,
+            "infeasible_median_recruited_when_too_many": 984.0,
+            "infeasible_too_few": 10,
+            "infeasible_too_many": 18,
+            "median_active_motor": 0.5,
+            "median_input": 3.3562970319328826,
+            "median_period_ms": null,
+            "median_recruited": 5.5,
+            "median_score": 0.0
+          },
+          "lesion": {
+            "feasible": 16,
+            "infeasible_median_recruited_when_too_many": 1050.0,
+            "infeasible_too_few": 11,
+            "infeasible_too_many": 5,
+            "median_active_motor": 1.5,
+            "median_input": 15.625,
+            "median_period_ms": 110.0,
+            "median_recruited": 12.5,
+            "median_score": 0.0021
+          },
+          "none": {
+            "feasible": 32,
+            "infeasible_median_recruited_when_too_many": null,
+            "infeasible_too_few": 0,
+            "infeasible_too_many": 0,
+            "median_active_motor": 0.0,
+            "median_input": 0.0,
+            "median_period_ms": null,
+            "median_recruited": 0.0,
+            "median_score": 0.0
+          }
+        },
+        "scores": {
+          "P0_the_rule_finds_a_working_input": {
+            "outcome": "pass",
+            "value": 16
+          },
+          "P1_the_walking_command_makes_a_leg_rhythm": {
+            "outcome": "fail",
+            "value": 0.0021
+          },
+          "P2_promotor_and_remotor_keep_a_reliable_offset": {
+            "outcome": "fail",
+            "value": {
+              "R": null,
+              "defined": 0,
+              "feasible": 16
+            }
+          },
+          "P3_tibia_flexor_and_extensor_alternate": {
+            "outcome": "fail",
+            "value": null
+          },
+          "P4_the_walking_command_drives_the_rhythm_best": {
+            "outcome": "pass",
+            "value": {
+              "forward_walking": 0.0021,
+              "grooming": 0.0
+            }
+          },
+          "P5_the_rhythm_needs_the_three_neuron_circuit": {
+            "outcome": "uninterpretable",
+            "value": {
+              "forward_walking": 0.0021,
+              "lesion": 0.0021
+            }
+          },
+          "P6_a_fly_like_step_period": {
+            "outcome": "pass",
+            "value": 110.0
+          }
+        }
+      }
+    },
+    "label": "SIMULATED left front-leg network of the male CNS: volume, shuffled, cord median",
+    "predictions": {
+      "J0_the_volume_result_replicates": {
+        "outcome": "fail",
+        "test": "under 'volume', stage 2g's P1 (rhythm), P2 (reliable promotor-remotor offset) and P5 (the rhythm needs the circuit) all pass",
+        "value": {
+          "P0": "pass",
+          "P1": "pass",
+          "P2": "fail",
+          "P5": "pass"
+        }
+      },
+      "J1_circuit_necessity_needs_the_neurons_own_volumes": {
+        "outcome": "fail",
+        "test": "under 'volume_shuffled', P5 fails (uninterpretable if P0 fails there)",
+        "value": {
+          "P0": "pass",
+          "P1": "fail",
+          "P2": "fail",
+          "P5": "uninterpretable"
+        }
+      },
+      "J2_the_offset_needs_the_neurons_own_volumes": {
+        "outcome": "pass",
+        "test": "under 'volume_shuffled', P2 fails (uninterpretable if P0 fails there)",
+        "value": {
+          "P0": "pass",
+          "P1": "fail",
+          "P2": "fail",
+          "P5": "uninterpretable"
+        }
+      },
+      "J3_the_normalization_does_not_matter": {
+        "outcome": "pass",
+        "test": "under 'volume_cord', P1, P2 and P5 all pass (uninterpretable if P0 fails there)",
+        "value": {
+          "P0": "pass",
+          "P1": "pass",
+          "P2": "pass",
+          "P5": "pass"
+        }
+      }
+    },
+    "registration": {
+      "committed_at": "2026-10-25T07:53:56-04:00",
+      "file": "preregistration/embodied_stage2j_volume_specificity.json",
+      "registered_in_commit": "1d1d64496d002588790bb13ac82f78214f53ff11",
+      "sha256": "88560e28c270c81b94126f97a86090b7caab8f11d7e529c2cc04934690667806"
+    },
+    "runs_used": {
+      "volume/dnb08": 4,
+      "volume/forward_walking": 2,
+      "volume/grooming": 30,
+      "volume/none": 1,
+      "volume_cord/dnb08": 1,
+      "volume_cord/forward_walking": 3,
+      "volume_cord/grooming": 1,
+      "volume_cord/none": 1,
+      "volume_shuffled/dnb08": 30,
+      "volume_shuffled/forward_walking": 30,
+      "volume_shuffled/grooming": 30,
+      "volume_shuffled/none": 1
+    }
+  },
   "embodied_stage3a": {
     "label": "SIMULATED closed loop through the front-leg claw neurons",
     "predictions": {

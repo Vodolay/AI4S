@@ -551,6 +551,28 @@ alternation is still not there.
 
 ![SIMULATED left front-leg network of the male CNS with neuron volume as size. Left: one draw under DNg100: promotor, remotor and tibia extensor pools rise and fall together each cycle (remotor slightly ahead); the tibia flexor stays silent. Right: corrected motor rhythm score per feasible draw and condition.](../outputs/figures/embodied_stage2i_front_leg_SIMULATED.png){width=95%}
 
+**Stage 2j: the rhythm and its need for the circuit come from the neurons' own volumes; the
+fixed offset does not replicate (2 of 4).** The assumption most likely to make stage 2i wrong
+was that any spread of sizes would do, or that the result hung on normalizing by the network's
+median. Stage 2j reran it on fresh draws in three arms. With the volume rule the rhythm and the
+circuit's necessity replicate (rhythm
+0.6992 <!-- metrics.json: embodied_stage2j.arms.volume.scores.P1_the_walking_command_makes_a_leg_rhythm.value -->, circuit silenced
+0.0318 <!-- metrics.json: embodied_stage2j.arms.volume.scores.P5_the_rhythm_needs_the_three_neuron_circuit.value.lesion -->). The promotor-remotor offset does not
+reach the registered reliability
+(R = 0.6082 <!-- metrics.json: embodied_stage2j.arms.volume.scores.P2_promotor_and_remotor_keep_a_reliable_offset.value.R -->, needed 0.7), so J0 fails. With the same
+sizes shuffled across neurons, a fresh permutation per draw, there is no rhythm at all
+(0.0021 <!-- metrics.json: embodied_stage2j.arms.volume_shuffled.scores.P1_the_walking_command_makes_a_leg_rhythm.value -->), and the input search is all-or-none
+again: only 16 <!-- metrics.json: embodied_stage2j.arms.volume_shuffled.scores.P0_the_rule_finds_a_working_input.value --> of 32 draws find a working input. J1 asked whether the
+circuit's necessity is lost under shuffling, and is scored fail as registered: with no rhythm
+there, necessity cannot be assessed. J2 passes: the offset is lost too. Normalizing by the nerve
+cord's median instead of the network's leaves everything in place, and the offset is tighter
+(rhythm 0.9531 <!-- metrics.json: embodied_stage2j.arms.volume_cord.scores.P1_the_walking_command_makes_a_leg_rhythm.value -->, R
+0.9858 <!-- metrics.json: embodied_stage2j.arms.volume_cord.scores.P2_promotor_and_remotor_keep_a_reliable_offset.value.R -->, circuit silenced
+0.0 <!-- metrics.json: embodied_stage2j.arms.volume_cord.scores.P5_the_rhythm_needs_the_three_neuron_circuit.value.lesion -->; J3 passes). **What this does to stage 2i:** the walking
+rhythm and its dependence on Pugliese et al.'s circuit need the identified neurons' own volumes,
+not just their spread. The promotor-remotor offset is real in some draws but not reliable across
+them at the registered line, so it is not claimed.
+
 **Stage 3a: the first closed loop. Claw-neuron feedback shifts the motor pools toward resistance
 but barely moves a held leg (go/no-go failed; 3 of 5).** The male nerve cord and the
 muscle-driven left front leg now run together, one millisecond at a time. The leg's femur-tibia
