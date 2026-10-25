@@ -1,0 +1,28 @@
+{
+  "title": "Embodied fly, stage 4b: does the chip still flag drugs after movement fails on fresh seeds, against the chip's own replication, and with any one movement left out? (SIMULATED)",
+  "registered": "2026-10-25",
+  "status": "registered before any stage-4b simulation",
+  "parent": "preregistration/embodied_stage4a_drugs_and_movement.json",
+  "relation_to_parent": "Stage 4a's headline (the chip first flags every drug family at a higher dose than movement fails) rests on one set of 8 seeds (1100-1107) and on the chip detections of the parent design's first run. Stage 4b reruns stage 4a's movements unchanged on 16 fresh seeds, compares them with the chip detections of the parent's own fresh-seed replication (fly_confirm), and checks that no single movement carries the result. Decision D21 in report/DECISION_LOG.md.",
+  "seen_before_registration": [
+    "every stage-4a result: movement onsets 0.2 (GABA-A block), 0.5 (GABA-A potentiation), 0.4 (GluCl block), 0.2 (ACh block), 0.2 (excitability block); N3 failed in all five families; N1 failed, N0, N2 and N5 passed",
+    "the chip's first detection doses in the parent's first run (0.6, 1.0, 0.8, 0.4, 0.4 in the same order) and in its fresh-seed replication (outputs/fly/confirm_conditions_SIMULATED.csv: 0.6, 1.0, 0.8, 0.4, 0.6)",
+    "the dose steps per family: GABA-A block and GluCl block 0.2-1.0 in steps of 0.2; GABA-A potentiation 0.25, 0.5, 1.0; ACh block 0.2, 0.4, 0.6, 0.8; excitability block 0.1, 0.2, 0.4, 0.6",
+    "no stage-4a movement has been simulated on seeds 1360-1375"
+  ],
+  "design": {
+    "everything_else": "exactly stage 4a: the parent's 22 conditions, applied to every network of a trial; proboscis extension under sugar and under sugar with bitter (stage 2b) and the grooming reach through the brain-to-nerve-cord relay (stage 1f); r_full 20 Hz; per-condition medians over trials; the movement disruption index (mean over the three movements of |log2((x + 0.01) / (x_vehicle + 0.01))|) and its impairment line 0.5; onset = the lowest dose at or above the line",
+    "trials": "16 per condition and movement, seeds 1360-1375 (fresh)",
+    "chip": "the planar-array |delta log2 mfr| of the parent's fresh-seed replication (outputs/fly/confirm_conditions_SIMULATED.csv, column abs_delta_mfr), detection at >= 0.5; the parent's first run (outputs/fly/conditions_SIMULATED.csv) reported beside it",
+    "leave_one_out": "the disruption index recomputed on the two remaining movements, for each of the three movements in turn",
+    "dose_step": "two doses of a family are within one step when they are equal or adjacent in that family's dose list"
+  },
+  "predictions": {
+    "R0_the_movements_are_there": {"statement": "Precondition, as stage 4a's N0", "test": "vehicle median proboscis_sugar >= 0.1 mm and median reach_depth >= 0.3 mm; if not, R1-R3 are uninterpretable"},
+    "R1_the_chip_is_late_in_every_family": {"statement": "Stage 4a's headline on fresh seeds and against the chip's own replication", "test": "movement is impaired at some dose in all five families, and in each the chip's first detection dose is strictly higher than the movement onset (a family where the chip never flags counts as late)"},
+    "R2_no_single_movement_carries_it": {"statement": "The chip's lateness is not the work of one movement", "test": "for each of the three movements left out, in every family where the two-movement index is impaired at some dose, the chip's first detection dose is strictly higher than that onset, and at least four families are impaired"},
+    "R3_movement_onsets_reproduce": {"statement": "The movement onsets do not depend on stage 4a's seeds", "test": "in every family, the movement onset on the fresh seeds is within one dose step of stage 4a's"}
+  },
+  "not_claimed_even_if_all_pass": "anything about any compound in any animal or person: the knobs are transmitter-class scalings in a simulated fly; a pass means that in this simulated fly the chip's lateness relative to failing movement holds on new seeds, against the chip's replication, and without any one movement",
+  "reporting": "Every prediction with its value and pass/fail or uninterpretable; per family the onsets (movement on fresh seeds, stage 4a's, each leave-one-out index, chip replication, chip first run); per condition the three movement medians and the disruption index; stage 4a's N1 and N2 Spearman values on the fresh seeds, reported without prediction; the 0.05 mm sensitivity."
+}
