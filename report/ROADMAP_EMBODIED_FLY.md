@@ -670,6 +670,28 @@ seeds as the audit left open: its rhythm does not replicate
 under the walking command against 0.3 required), so the glutamate line stays closed. Every
 choice of path is recorded, with its alternatives, in `report/DECISION_LOG.md`.
 
+**Stage 5b: the identified GABAergic leg neurons, manipulated as the experiment did (2 of 5).**
+Stage 5 could compare the published identified-neuron results only with class-wide knobs. Stage
+5b makes the published manipulation instead, in the grooming relay of stage 1f: the left front
+leg's GABAergic 13A or 13B hemilineage neurons
+(71 <!-- metrics.json: embodied_stage5b.population_sizes.13A --> and
+73 <!-- metrics.json: embodied_stage5b.population_sizes.13B --> neurons in the nerve-cord network) were silenced, their outputs
+removed, or activated with a 150 Hz drive. The published direction is less grooming under both
+(Syed, Ravbar and Simpson). Silencing 13A reproduces it: the reach falls from
+0.9927 <!-- metrics.json: embodied_stage5b.predictions.I0_the_reach_is_there.value --> to
+0.3806 <!-- metrics.json: embodied_stage5b.predictions.I1_silencing_13A_reduces_grooming.value.depth_mm --> mm. The other three do not.
+Silencing or activating 13B leaves the reach unchanged
+(0.9923 <!-- metrics.json: embodied_stage5b.predictions.I2_silencing_13B_reduces_grooming.value.depth_mm -->
+and 0.9927 <!-- metrics.json: embodied_stage5b.predictions.I4_activating_13B_reduces_grooming.value.depth_mm --> mm). Activating 13A almost
+silences the front-leg motor pool
+(1.1691 <!-- metrics.json: embodied_stage5b.reported.activate_13A.front_hz --> Hz against
+13.9265 <!-- metrics.json: embodied_stage5b.reported.intact.front_hz --> intact) but shortens the reach only to
+0.7309 <!-- metrics.json: embodied_stage5b.predictions.I3_activating_13A_reduces_grooming.value.depth_mm --> mm, short of the registered
+line. Two readings of the mismatches stand out. The experiment manipulated sub-populations and
+read the joints of a grooming leg, while the model manipulates whole hemilineages and reads one
+reach. And 13B's outputs in this network appear not to reach the muscles that carry the reach.
+Both are listed as branches in `report/DECISION_LOG.md` (D17).
+
 ## 8. What carries over unchanged
 
 Pre-registration before every run; licensed data with checksums in the manifest; every reported

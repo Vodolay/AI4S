@@ -147,7 +147,11 @@ A literature comparison registered before its search found
 studies that give adult flies these drugs and score proboscis extension or grooming; studies of
 identified GABAergic neurons agree with the simulated direction in
 1 <!-- metrics.json: embodied_stage5.transmitter_neuron.agree --> of 3
-<!-- metrics.json: embodied_stage5.transmitter_neuron.comparisons -->.
+<!-- metrics.json: embodied_stage5.transmitter_neuron.comparisons -->. Manipulating the identified neurons as the experiment did (stage 5b), silencing
+the GABAergic 13A leg neurons shortens the simulated grooming reach
+(0.3806 <!-- metrics.json: embodied_stage5b.predictions.I1_silencing_13A_reduces_grooming.value.depth_mm --> mm from
+0.9927 <!-- metrics.json: embodied_stage5b.predictions.I0_the_reach_is_there.value -->), as silencing them reduces grooming in flies; the
+13B neurons and activation do not show in the reach.
 
 ## 3. Discussion
 

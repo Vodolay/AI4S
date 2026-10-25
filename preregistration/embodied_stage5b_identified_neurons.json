@@ -1,0 +1,31 @@
+{
+  "title": "Embodied fly, stage 5b: silencing and activating the identified GABAergic 13A and 13B leg neurons in the simulated grooming reach, against the published directions (SIMULATED against published)",
+  "registered": "2026-10-25",
+  "status": "registered before any simulation that manipulates 13A or 13B neurons",
+  "parent": "preregistration/embodied_stage5_real_fly_directions.json",
+  "relation_to_parent": "Stage 5 found no fly pharmacology on these behaviours; its identified-neuron comparisons used class-wide knobs, and the simulation agreed in 1 of 3. This stage simulates the manipulation the identified-neuron study made: silencing or activating the GABAergic 13A or 13B hemilineage neurons of the front leg, as in Syed, Ravbar and Simpson (eLife; PMC11185647), whose reported direction for grooming is a decrease under both silencing and continuous activation. Decision D17 in report/DECISION_LOG.md.",
+  "seen_before_registration": [
+    "every earlier result; stage 5's literature table (src/neuromps/fly/real_fly_literature.json)",
+    "data only: the male CNS annotates hemilineages (trumanHl); on the left front-leg neuromere (T1, soma side L) there are 71 13A and 76 13B neurons; FlyWire annotates no DSOG1 neurons, so Pool et al. 2014's comparison cannot be made at the neuron level",
+    "no simulation manipulating 13A or 13B neurons has been run"
+  ],
+  "design": {
+    "pipeline": "exactly stage 1f's relay: the FlyWire brain under JO-CE drive (150 Hz), its descending spikes replayed into the stage-1c male nerve cord through type-matched descending neurons, the FlyMimic left front leg (r_full 20 Hz)",
+    "populations": "13A: male-CNS neurons with hemilineage 13A, soma in T1, side L; 13B likewise",
+    "silencing": "every outgoing connection of the population set to zero synapses in the nerve cord (the neurons can fire but act on nothing, as Kir2.1 or tetanus toxin silencing removes their output)",
+    "activation": "each neuron of the population driven by 150 Hz Poisson input (as the descending drive) throughout the trial, beside the replayed brain spikes",
+    "arms": ["intact", "silence_13A", "silence_13B", "activate_13A", "activate_13B"],
+    "seeds": "1210-1217 (fresh), the same seed for the brain and the nerve cord of a trial",
+    "readouts": "per trial the depth of reach (1.528 mm minus the minimum claw-antenna distance) and the time near the head (claw < 1.328 mm)",
+    "direction_rule": "stage 5's: the sign of the change of the median depth from the intact median if |log2((x + 0.01) / (x_intact + 0.01))| >= 0.5, otherwise 'none'"
+  },
+  "predictions": {
+    "I0_the_reach_is_there": {"statement": "Precondition: the intact relay reaches the head", "test": "intact median depth >= 0.3 mm; if not, I1-I4 are uninterpretable"},
+    "I1_silencing_13A_reduces_grooming": {"statement": "As published", "test": "simulated direction of depth under silence_13A is 'decrease'"},
+    "I2_silencing_13B_reduces_grooming": {"statement": "As published", "test": "simulated direction under silence_13B is 'decrease'"},
+    "I3_activating_13A_reduces_grooming": {"statement": "As published", "test": "simulated direction under activate_13A is 'decrease'"},
+    "I4_activating_13B_reduces_grooming": {"statement": "As published", "test": "simulated direction under activate_13B is 'decrease'"}
+  },
+  "reporting": "Every prediction with its value and pass/fail or uninterpretable; per arm the median depth, time near the head and front-leg motor pool rate; the published side as summarized in stage 5's table.",
+  "not_claimed_even_if_all_pass": "that these neurons control fly grooming the way the model does: the model's grooming is a reach driven by antennal input, one leg, open loop; a pass means the male-CNS wiring of these hemilineages, manipulated as the experiment did, changes the simulated grooming reach in the published direction"
+}
