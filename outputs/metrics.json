@@ -1560,7 +1560,8 @@
       "file": "preregistration/embodied_stage1_open_loop_leg.json",
       "registered_in_commit": "cbdd6d6b2144b03d87019946330153fa811af2a1",
       "sha256": "17983ff6493bb453ef66b967381e041ebe83fc91d85bb32aa3c97507314f951a"
-    }
+    },
+    "w_syn_mv": 0.275
   },
   "embodied_stage1b": {
     "coverage": {
@@ -5768,6 +5769,66 @@
       "cells_per_rule": 37
     }
   },
+  "embodied_stage2d_confirm": {
+    "cell": {
+      "b_mv": 16.0,
+      "rule": "glut_all",
+      "tau_ms": 100.0
+    },
+    "label": "SIMULATED confirmation of the corrected-measure cell (stage 2d follow-up)",
+    "predictions": {
+      "E0_silent_without_drive": {
+        "outcome": "pass",
+        "test": "no spikes in any of the twelve pools in any no-drive trial",
+        "value": 0.0
+      },
+      "E1_the_walking_command_makes_a_rhythm": {
+        "outcome": "fail",
+        "test": "median corrected rhythmicity of the L1 flexor pool under forward walking >= 0.3 and above the grooming median",
+        "value": {
+          "forward_walking": 0.2035,
+          "grooming": 0.2021
+        }
+      },
+      "E2_antagonists_alternate": {
+        "outcome": "fail",
+        "test": "median circular distance of phase(L1 flexor -> L1 extensor) from 0.5 <= 0.15",
+        "value": null
+      },
+      "E3_left_and_right_alternate": {
+        "outcome": "fail",
+        "test": "median circular distance of phase(L1 flexor -> R1 flexor) from 0.5 <= 0.15",
+        "value": null
+      },
+      "E4_a_tripod": {
+        "outcome": "fail",
+        "test": "median circular distance of phase(L1 -> L2 flexor) from 0.5 <= 0.15 and of phase(L1 -> L3 flexor) from 0 <= 0.15",
+        "value": {
+          "L1_L2_from_half": null,
+          "L1_L3_from_zero": null
+        }
+      },
+      "E5_the_coordination_comes_from_the_wiring": {
+        "outcome": "fail",
+        "test": "the intact cord passes at least one of E2-E4, and the rewired cord passes fewer of E2-E4 than the intact cord",
+        "value": {
+          "intact_passes": 0,
+          "rewired_passes": 0
+        }
+      },
+      "E6_a_fly_like_step_period": {
+        "outcome": "pass",
+        "test": "median corrected L1 flexor period under forward walking between 60 and 200 ms",
+        "value": 86.0
+      }
+    },
+    "registration": {
+      "committed_at": "2026-10-24T22:53:28-04:00",
+      "file": "preregistration/embodied_stage2d_confirm_corrected.json",
+      "registered_in_commit": "8495b5764755d3cf3cd2a0970e3e1d444ae89316",
+      "sha256": "b512bf3e5b5cf09709c758076fdb22cd6b30a3b260ac5e462ce436a04c7590f6"
+    }
+  },
   "embodied_stage2e": {
     "exploratory_driven_neurons": {
       "dnb08": {
@@ -7430,6 +7491,22 @@
       "file": "preregistration/embodied_stage4a_drugs_and_movement.json",
       "registered_in_commit": "b1a49df7989977bf8dd4668363e9db4ad5175b66",
       "sha256": "ba27f3575f7a03bfc786c93cdcf7a241f9f02cf85c00199c733df20fa404dbf2"
+    }
+  },
+  "embodied_stage4a_precision": {
+    "abs_log2_mfr_change_at_movement_onset": {
+      "ach_block": 0.304,
+      "excitability_block": 0.167,
+      "gaba_block": 0.149,
+      "gaba_potentiate": 0.452,
+      "glucl_block": 0.263
+    },
+    "families": 5,
+    "families_below_the_quieter_noise_floor": 1,
+    "label": "EXPLORATORY, not registered: chip change at movement onset (SIMULATED)",
+    "real_chip_noise_q95": {
+      "kapucu2022_control": 0.156,
+      "vassallo2017_inactive": 1.752
     }
   },
   "embodied_stage5": {
@@ -9157,6 +9234,24 @@
       "w_syn_mv": 0.1596
     }
   },
+  "harness_full": {
+    "brian2": "2.9.0",
+    "by_stage_s": {
+      "embodied": 10884.5
+    },
+    "cpu_count": 20,
+    "label": "wall clock and environment for the most recent complete full run",
+    "numpy": "2.3.5",
+    "python": "3.11.16",
+    "sbi": "0.27.0",
+    "scikit_learn": "1.9.1",
+    "stages_run": [
+      "embodied"
+    ],
+    "torch": "2.14.0",
+    "total_is_complete_pass": false,
+    "total_s": null
+  },
   "harness_quick": {
     "brian2": "2.9.0",
     "by_stage_s": {
@@ -10524,15 +10619,16 @@
     "by_stage_s": {
       "data": 1037.1,
       "demo": 66.3,
+      "embodied": 10884.5,
       "fetch": 20.2,
       "models": 22.6,
       "twin": 1974.0
     },
     "label": "wall-clock seconds per stage, most recent full run of each",
     "stages_run": [
-      "models"
+      "embodied"
     ],
-    "total_s": 22.6
+    "total_s": 10884.5
   },
   "species_transfer": {
     "source": "kapucu2022",

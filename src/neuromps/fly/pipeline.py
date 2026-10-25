@@ -44,7 +44,12 @@ class Step:
 
 
 # The entry points other than main() are reached through these command-line flags.
-FLAGS = {"run_robustness": "--robustness", "diagnose": "--diagnose", "check": "--check"}
+FLAGS = {
+    "run_robustness": "--robustness",
+    "diagnose": "--diagnose",
+    "check": "--check",
+    "precision": "--precision",
+}
 
 
 STEPS: tuple[Step, ...] = (
@@ -70,6 +75,7 @@ STEPS: tuple[Step, ...] = (
     Step("stage2c", "embodied_stage2c"),
     Step("stage2c_diagnostic", "flexor_diagnostic"),
     Step("stage2d", "embodied_stage2d"),
+    Step("stage2d_confirm", "embodied_stage2d_confirm"),
     Step("stage2e", "embodied_stage2e"),
     Step("stage2f", "embodied_stage2f"),
     Step("stage2f_diagnostic", "embodied_stage2f", "diagnose"),
@@ -81,6 +87,7 @@ STEPS: tuple[Step, ...] = (
     Step("stage3b", "embodied_stage3b"),
     Step("stage3b_check", "embodied_stage3b", "check"),
     Step("stage4a", "embodied_stage4a", needs=("tract",)),
+    Step("stage4a_precision", "embodied_stage4a", "precision", needs=("stage4a",)),
     Step("stage5", "embodied_stage5", needs=("stage4a",)),
     Step(
         "rhythm_audit",

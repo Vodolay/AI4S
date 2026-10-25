@@ -308,5 +308,40 @@ def main(argv: list[str] | None = None) -> int:
     return 0
 
 
+def precision() -> int:
+    """Exploratory (not registered): the chip's change at each family's movement onset.
+
+    The movement-level analogue of the parent's precision table: |delta log2 mfr| of the
+    planar chip at the dose where movement first fails, beside the real-chip noise floors the
+    parent recorded. Both inputs were seen before this analysis; it is descriptive.
+    """
+    parent = pd.read_csv(outputs_dir() / "fly" / "conditions_SIMULATED.csv")
+    stage = json.loads((outputs_dir() / "fly" / "embodied_stage4a_SIMULATED.json").read_text())
+    metrics = json.loads((outputs_dir() / "metrics.json").read_text())
+    noise = metrics["fly_confirm_network_bursts"]["precision"]["real_chip_noise"]
+    out = {}
+    for family, dose in stage["onsets"]["movement"].items():
+        if dose is None:
+            continue
+        rows = parent[(parent["family"] == family) & ((parent["dose"] - dose).abs() < 1e-9)]
+        out[family] = round(float(rows["abs_delta_mfr"].iloc[0]), 3)
+    floor = noise["kapucu2022_control"]["q95_abs_log2"]
+    result = {
+        "label": "EXPLORATORY, not registered: chip change at movement onset (SIMULATED)",
+        "abs_log2_mfr_change_at_movement_onset": out,
+        "real_chip_noise_q95": {k: v["q95_abs_log2"] for k, v in noise.items()},
+        "families_below_the_quieter_noise_floor": int(sum(v < floor for v in out.values())),
+        "families": len(out),
+    }
+    (outputs_dir() / "fly" / "embodied_stage4a_precision_SIMULATED.json").write_text(
+        json.dumps(result, indent=2) + "\n"
+    )
+    update_metrics("embodied_stage4a_precision", result)
+    print(json.dumps(result, indent=1))
+    return 0
+
+
 if __name__ == "__main__":
-    raise SystemExit(main())
+    import sys
+
+    raise SystemExit(precision() if "--precision" in sys.argv else main())

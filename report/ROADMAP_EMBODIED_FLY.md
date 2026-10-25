@@ -650,6 +650,26 @@ cannot yet be checked against fly pharmacology on these behaviours, because the 
 not been published. That gap is itself a result: it marks the experiments that would test the
 model.
 
+**Stage 6: release. One command reproduces every fly number.** `neuromps.fly.pipeline` reruns
+every fly study after the chip-to-animal study in dependency order, each as its own process,
+and `python run_all.py --full` runs it as its `embodied` stage. Run from scratch, the stage took
+10884.5 <!-- metrics.json: run_all_timings_full.by_stage_s.embodied -->
+s on the GB10 and reproduced every recorded value: the only differences were re-verification
+timestamps in the data manifest, the order of keys in two output files, and one field later code
+adds. Two overnight additions run in the same pipeline. First, the movement-level analogue of
+the precision table (exploratory): at the dose where movement first fails, the chip has moved by
+only
+0.149 <!-- metrics.json: embodied_stage4a_precision.abs_log2_mfr_change_at_movement_onset.gaba_block -->
+log2 under GABA-A block and at most
+0.452 <!-- metrics.json: embodied_stage4a_precision.abs_log2_mfr_change_at_movement_onset.gaba_potentiate --> under GABA-A
+potentiation, which is within the noise of real chips (the noisier recorded floor is
+1.752 <!-- metrics.json: embodied_stage4a_precision.real_chip_noise_q95.vassallo2017_inactive -->). Second, the cell the corrected rhythm
+measure selects in stage 2d (glutamate excitatory everywhere, 16 mV, 100 ms), confirmed on fresh
+seeds as the audit left open: its rhythm does not replicate
+(0.2035 <!-- metrics.json: embodied_stage2d_confirm.predictions.E1_the_walking_command_makes_a_rhythm.value.forward_walking -->
+under the walking command against 0.3 required), so the glutamate line stays closed. Every
+choice of path is recorded, with its alternatives, in `report/DECISION_LOG.md`.
+
 ## 8. What carries over unchanged
 
 Pre-registration before every run; licensed data with checksums in the manifest; every reported

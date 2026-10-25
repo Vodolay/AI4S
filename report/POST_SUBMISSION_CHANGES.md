@@ -38,6 +38,7 @@ the bottom.*
 | 27 | 2026-10-24 | Embodied stage 3b: a push on the tibia during the grooming hold | 2 of 5; the loop does not speed the return; the front leg's proprioceptors are thinly traced | `cd0a711` … this branch |
 | 28 | 2026-10-24 | Embodied stage 4a: the drug design with movement as the readout | 3 of 6; the chip flags after movement fails in all five families; the tract no longer leads | `b1a49df` … this branch |
 | 29 | 2026-10-24 | Embodied stage 5: simulated directions against published fly findings | no qualifying pharmacology found (both predictions uninterpretable); identified-neuron studies agree in 1 of 3 | `1723e0c` … this branch |
+| 30 | 2026-10-24/25 | Release: one command reproduces every fly number; report Act VIII, paper draft, decision log | reproduction identical; precision at movement onset (exploratory); the stage-2d corrected cell fails on fresh seeds (2 of 7) | `f053de3` … this branch |
 
 ---
 
@@ -690,6 +691,27 @@ test.*
   3 <!-- metrics.json: embodied_stage5.transmitter_neuron.comparisons --> (agreement for silencing GABAergic grooming neurons;
   mismatches explained by class-wide knobs and the absence of satiety).
 - **Evidence.** Roadmap §7; `outputs/fly/embodied_stage5_SIMULATED.json`.
+
+---
+
+## 30. One command reproduces every fly number; the report, a paper draft and a decision log
+
+**Slide message:** *Every fly result, from the first brain simulation to the closed loop, now
+reruns with one command and comes back identical. The technical report carries the embodied fly,
+a paper draft exists, and every choice of path is logged so other branches can be explored.*
+
+- **What changed.** `src/neuromps/fly/pipeline.py` and the `embodied` stage of `run_all.py`;
+  Act VIII of `report/TECHNICAL_REPORT.md`; `report/PAPER_DRAFT.md`; `report/DECISION_LOG.md`;
+  the README's embodied-fly section.
+- **Effect.** A from-scratch run took
+  10884.5 <!-- metrics.json: run_all_timings_full.by_stage_s.embodied --> s and reproduced every recorded value.
+  Exploratory: at movement onset the chip has moved
+  0.149 <!-- metrics.json: embodied_stage4a_precision.abs_log2_mfr_change_at_movement_onset.gaba_block --> to
+  0.452 <!-- metrics.json: embodied_stage4a_precision.abs_log2_mfr_change_at_movement_onset.gaba_potentiate --> log2. The stage-2d cell
+  the corrected measure selects fails on fresh seeds (rhythm
+  0.2035 <!-- metrics.json: embodied_stage2d_confirm.predictions.E1_the_walking_command_makes_a_rhythm.value.forward_walking -->).
+- **Evidence.** Roadmap §7; `outputs/fly/embodied_stage4a_precision_SIMULATED.json`,
+  `outputs/fly/embodied_stage2d_confirm_SIMULATED.json`.
 
 ---
 

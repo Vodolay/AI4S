@@ -1172,6 +1172,102 @@ tab shows the sweep with a dose slider.
 
 ---
 
+# ACT VIII: The embodied fly (after round 1)
+
+Act VII read behaviour as the firing of named neurons. This act gives the simulated fly a body
+and asks whether Act VII's answer survives: does the chip still flag a drug before behaviour
+fails when behaviour is movement? Every stage below was registered before it ran; the roadmap
+document (`report/ROADMAP_EMBODIED_FLY.md`, §7) carries each stage in full, including the
+failures, and `report/DECISION_LOG.md` records every choice of path. Everything here is
+simulated.
+
+## 27. A body for the simulated fly
+
+The male nerve cord (male CNS connectome) drives a muscle-driven front leg (FlyMimic, in MuJoCo)
+through a motor-neuron-to-muscle map built from published names; the FlyWire brain drives the
+proboscis of a whole-fly model (flybody) through the motor neurons of each proboscis muscle. The
+two connectomes are joined where each model is validated: the FlyWire brain's descending spikes
+are replayed into the male nerve cord, matched by cell type and side. Antennal input to the
+brain then brings the claw to
+0.5369 <!-- metrics.json: embodied_stage1f.predictions.F1_antennal_input_reaches_deepest.value.jon_ce -->
+mm of the antenna, sugar input only to
+0.9377 <!-- metrics.json: embodied_stage1f.predictions.F1_antennal_input_reaches_deepest.value.sugar --> mm, and removing the two
+antennal-grooming descending neuron types alone leaves it at
+1.4793 <!-- metrics.json: embodied_stage1f.predictions.F4_the_reach_runs_through_the_grooming_neurons.value.lesioned --> mm. Sugar input
+extends the proboscis fully
+(0.3431 <!-- metrics.json: embodied_stage2b.predictions.G1_sugar_extends_the_proboscis.value.sugar -->
+mm of a possible 0.3428 <!-- metrics.json: embodied_stage2b.predictions.G1_sugar_extends_the_proboscis.value.e_full -->), and adding bitter
+input halves the peak
+(0.1618 <!-- metrics.json: embodied_stage2b.predictions.G3_bitter_gates_extension.value.sugar_bitter --> mm).
+
+## 28. Walking: what the wiring does and does not do
+
+The male nerve cord, run as leaky integrate-and-fire neurons, does not turn its walking command
+into a rhythm: not as published, not with spike-frequency adaptation swept over a registered
+grid, not with either of two rules for where glutamate excites. A firing-rate model published
+for this question (Pugliese et al. 2025), reimplemented and built on the male CNS as its authors
+build it, does produce a front-leg motor rhythm under the walking command: a corrected rhythm
+score of
+0.8886 <!-- metrics.json: embodied_stage2h.none.predictions.H1_the_walking_command_makes_a_leg_rhythm.value -->
+at a period of
+196.5 <!-- metrics.json: embodied_stage2h.none.predictions.H6_a_fly_like_step_period.value --> ms without size scaling, and silencing the
+published three-neuron circuit removes it
+(0.0 <!-- metrics.json: embodied_stage2h.none.predictions.H5_the_rhythm_needs_the_three_neuron_circuit.value.lesion -->).
+It depends on how neuron size is treated, and neither model alternates antagonist muscles. One
+earlier claim was withdrawn on the way: the rhythm measure registered since the first leg stage
+took the largest autocorrelation without requiring a peak, so smooth movements scored as
+rhythmic; a registered audit with a corrected measure reproduced every recorded outcome and
+reversed one (that walking drive "swings" the leg).
+
+## 29. Closing the loop
+
+Feedback from the front leg's position sensors (the femoral chordotonal claw neurons, identified
+by type in the male CNS) was closed through the leg every millisecond. It shifts the tibia motor
+pools toward resisting the movement, but it neither moves a held leg nor returns a pushed one
+faster: the push returns in
+32.0 <!-- metrics.json: embodied_stage3b.predictions.M1_feedback_speeds_the_return.value.resistance --> ms with
+feedback and
+30.0 <!-- metrics.json: embodied_stage3b.predictions.M1_feedback_speeds_the_return.value.open --> ms without.
+The male CNS traces few proprioceptors for the front leg
+(4 <!-- metrics.json: embodied_stage3b_check.chordotonal_by_leg.front_L.claw -->
+claw neurons on the left, against
+22 <!-- metrics.json: embodied_stage3b_check.chordotonal_by_leg.hind_L.claw --> on the left hind leg), which is
+the most likely limit.
+
+## 30. Drugs in the loop: the chip is late at every level
+
+Act VII's drug design, rerun with movement as the readout (proboscis extension and the grooming
+reach), gives the same answer. In every family the chip first flags the drug at a higher dose
+than movement fails: GABA-A block impairs movement at
+0.2 <!-- metrics.json: embodied_stage4a.predictions.N3_the_chip_flags_before_movement_fails.value.gaba_block.movement --> of the knob's range and the chip flags it at
+0.6 <!-- metrics.json: embodied_stage4a.predictions.N3_the_chip_flags_before_movement_fails.value.gaba_block.chip -->; GABA-A potentiation impairs movement at
+0.5 <!-- metrics.json: embodied_stage4a.predictions.N3_the_chip_flags_before_movement_fails.value.gaba_potentiate.movement --> and is flagged at 1.0
+<!-- metrics.json: embodied_stage4a.predictions.N3_the_chip_flags_before_movement_fails.value.gaba_potentiate.chip -->.
+Movement never fails before the neural readouts of Act
+VII, and the output-tract electrode no longer leads the planar array at this level. At the dose
+where movement first fails the chip has moved by only
+0.149 <!-- metrics.json: embodied_stage4a_precision.abs_log2_mfr_change_at_movement_onset.gaba_block --> to
+0.452 <!-- metrics.json: embodied_stage4a_precision.abs_log2_mfr_change_at_movement_onset.gaba_potentiate --> log2 (exploratory), within
+the noise of real chips. A
+literature comparison registered before its search found no study that gives adult flies these
+drugs and scores feeding or grooming movements, so the simulated directions cannot yet be
+checked against fly pharmacology: the gap names the experiments that would.
+
+## 31. What the embodied fly does not show
+
+- **It is open loop where it works and weak where it is closed.** The leg and proboscis results
+  are open loop; the one closed loop runs through four sensory neurons.
+- **The bodies are partial.** One muscle-driven leg; the proboscis joints are position servos.
+- **The knobs are transmitter-class scalings,** as in Act VII; nothing here says what any
+  compound does to a fly or a person.
+- **The walking result is a negative for one model class** and a reimplementation of another
+  group's model; neither produces coordinated walking.
+
+The stages run with `python run_all.py --stage embodied` (or one at a time through
+`python -m neuromps.fly.pipeline`).
+
+---
+
 # Appendices: consolidated technical reference
 
 ## Appendix A & B — Record architecture, data levels and ingestion ETL
