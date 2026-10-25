@@ -130,3 +130,13 @@ it with its own command or `python -m neuromps.fly.pipeline --only <step>`.
 - **Revisit:** subsets of 13A/13B (the study manipulated sub-populations), pulsed activation
   (the study's 70 ms pulses induced grooming-like rhythms), the femur-tibia angle as a readout
   ("legs locked in flexion").
+
+### D18. Reading the 13A/13B manipulations at the joint (overnight)
+- **Options:** pulsed 13A activation (the study's grooming-inducing protocol; a leaky
+  integrate-and-fire network has no rebound, so it would very likely fail by construction); a
+  hind-leg closed loop (larger); the joint readout the study actually used.
+- **Taken:** the joint readout (stage 5c, registration commit 04a2387, fresh seeds): femur-tibia
+  angle under the same arms as stage 5b. **Why:** stage 5b's mismatch could be a readout mismatch
+  (reach versus joint posture); this tests that directly and cheaply.
+- **Process note:** a test edit for this step did not apply and a piped test run hid it; fixed in
+  commit fd51761. Test runs before commits are no longer piped.

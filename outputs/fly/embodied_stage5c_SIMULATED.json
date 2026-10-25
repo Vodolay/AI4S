@@ -1,0 +1,94 @@
+{
+  "label": "SIMULATED 13A/13B manipulations read at the front-leg joints",
+  "predictions": {
+    "J1_silencing_13A_flexes_the_tibia": {
+      "test": "median femur-tibia angle under silence_13A >= the intact median + 0.1 rad",
+      "value": {
+        "angle_rad": 0.639,
+        "intact_rad": 0.7878,
+        "shift_rad": -0.1488
+      },
+      "outcome": "fail"
+    },
+    "J2_silencing_13B_flexes_the_tibia": {
+      "test": "median angle under silence_13B >= the intact median + 0.1 rad",
+      "value": {
+        "angle_rad": 0.8698,
+        "intact_rad": 0.7878,
+        "shift_rad": 0.082
+      },
+      "outcome": "fail"
+    },
+    "J3_activating_13A_extends_the_tibia": {
+      "test": "median angle under activate_13A <= the intact median - 0.1 rad",
+      "value": {
+        "angle_rad": 1.6204,
+        "intact_rad": 0.7878,
+        "shift_rad": 0.8325
+      },
+      "outcome": "fail"
+    },
+    "J4_activating_13B_extends_the_tibia": {
+      "test": "median angle under activate_13B <= the intact median - 0.1 rad",
+      "value": {
+        "angle_rad": 0.9984,
+        "intact_rad": 0.7878,
+        "shift_rad": 0.2106
+      },
+      "outcome": "fail"
+    }
+  },
+  "joint_medians_rad": {
+    "activate_13A": {
+      "joint_LFCoxa_yaw": -0.2222,
+      "joint_LFCoxa_pitch": 0.3719,
+      "joint_LFCoxa_roll": 0.5209,
+      "joint_LFTrochanter_yaw": -0.3566,
+      "joint_LFTrochanter_pitch": -3.0014,
+      "joint_LFTrochanter_roll": 0.3188,
+      "joint_LFTibia_pitch": 1.6204
+    },
+    "activate_13B": {
+      "joint_LFCoxa_yaw": -0.4782,
+      "joint_LFCoxa_pitch": -0.109,
+      "joint_LFCoxa_roll": 0.2947,
+      "joint_LFTrochanter_yaw": -0.3659,
+      "joint_LFTrochanter_pitch": -3.2233,
+      "joint_LFTrochanter_roll": 0.4258,
+      "joint_LFTibia_pitch": 0.9984
+    },
+    "intact": {
+      "joint_LFCoxa_yaw": -0.4788,
+      "joint_LFCoxa_pitch": -0.1101,
+      "joint_LFCoxa_roll": 0.2939,
+      "joint_LFTrochanter_yaw": -0.3682,
+      "joint_LFTrochanter_pitch": -3.2216,
+      "joint_LFTrochanter_roll": 0.4267,
+      "joint_LFTibia_pitch": 0.7878
+    },
+    "silence_13A": {
+      "joint_LFCoxa_yaw": -0.4792,
+      "joint_LFCoxa_pitch": -0.111,
+      "joint_LFCoxa_roll": 0.2931,
+      "joint_LFTrochanter_yaw": -0.3706,
+      "joint_LFTrochanter_pitch": -3.1958,
+      "joint_LFTrochanter_roll": 0.4087,
+      "joint_LFTibia_pitch": 0.639
+    },
+    "silence_13B": {
+      "joint_LFCoxa_yaw": -0.4784,
+      "joint_LFCoxa_pitch": -0.1094,
+      "joint_LFCoxa_roll": 0.2949,
+      "joint_LFTrochanter_yaw": -0.367,
+      "joint_LFTrochanter_pitch": -3.2216,
+      "joint_LFTrochanter_roll": 0.4202,
+      "joint_LFTibia_pitch": 0.8698
+    }
+  },
+  "registration": {
+    "file": "preregistration/embodied_stage5c_identified_neurons_joints.json",
+    "sha256": "bd248377a05cc67d82a8be4bd05d0a5084787a85ea8cca1d99b8d61951236876",
+    "registered_in_commit": "04a238734151ad4dd4b4fc9278abd0d681752fb4",
+    "committed_at": "2026-10-24T23:40:05-04:00"
+  }
+}

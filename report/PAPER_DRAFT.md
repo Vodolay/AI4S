@@ -151,7 +151,11 @@ identified GABAergic neurons agree with the simulated direction in
 the GABAergic 13A leg neurons shortens the simulated grooming reach
 (0.3806 <!-- metrics.json: embodied_stage5b.predictions.I1_silencing_13A_reduces_grooming.value.depth_mm --> mm from
 0.9927 <!-- metrics.json: embodied_stage5b.predictions.I0_the_reach_is_there.value -->), as silencing them reduces grooming in flies; the
-13B neurons and activation do not show in the reach.
+13B neurons and activation do not show in the reach. Read at the femur-tibia joint (stage 5c),
+none of the published postures appears: silencing 13A extends the tibia
+(-0.1488 <!-- metrics.json: embodied_stage5c.predictions.J1_silencing_13A_flexes_the_tibia.value.shift_rad --> rad) rather than locking it in
+flexion, so the reach agreement came by another route. In this model the inhibitory leg neurons
+act as broad brakes, not as joint-specific controllers.
 
 ## 3. Discussion
 

@@ -40,6 +40,7 @@ the bottom.*
 | 29 | 2026-10-24 | Embodied stage 5: simulated directions against published fly findings | no qualifying pharmacology found (both predictions uninterpretable); identified-neuron studies agree in 1 of 3 | `1723e0c` … this branch |
 | 30 | 2026-10-24/25 | Release: one command reproduces every fly number; report Act VIII, paper draft, decision log | reproduction identical; precision at movement onset (exploratory); the stage-2d corrected cell fails on fresh seeds (2 of 7) | `f053de3` … this branch |
 | 31 | 2026-10-25 | Embodied stage 5b: the identified 13A/13B leg neurons, manipulated | 2 of 5; silencing 13A shortens the reach as published; 13B and activation do not | `c20fa08` … this branch |
+| 32 | 2026-10-25 | Embodied stage 5c: the 13A/13B manipulations read at the joint | 0 of 4; the model's inhibitory leg neurons brake rather than steer; stage 5b's agreement came by another route | `04a2387` … this branch |
 
 ---
 
@@ -730,6 +731,25 @@ manipulations do not show in the model's reach, which points to what the model s
   0.9927 <!-- metrics.json: embodied_stage5b.predictions.I0_the_reach_is_there.value -->; 13B leaves it unchanged; activating 13A shortens it
   only to 0.7309 <!-- metrics.json: embodied_stage5b.predictions.I3_activating_13A_reduces_grooming.value.depth_mm --> mm.
 - **Evidence.** Roadmap §7; `outputs/fly/embodied_stage5b_SIMULATED.*`.
+
+---
+
+## 32. At the joint, the model's leg neurons brake rather than steer
+
+**Slide message:** *Read at the knee, none of the published leg postures appears when the
+simulated 13A/13B neurons are silenced or activated, and the one earlier agreement came by
+another route. The model's inhibitory leg neurons act as broad brakes, not joint-specific
+controllers: a stated limit of the connectome-only nerve cord.*
+
+- **What changed.** `src/neuromps/fly/embodied_stage5c.py` reads stage 5b's manipulations at
+  every front-leg joint, registered in
+  `preregistration/embodied_stage5c_identified_neurons_joints.json` before running.
+- **Effect.** 0 of 4: silencing 13A extends the tibia
+  (-0.1488 <!-- metrics.json: embodied_stage5c.predictions.J1_silencing_13A_flexes_the_tibia.value.shift_rad --> rad) instead of flexing it;
+  activating 13A relaxes it toward rest
+  (+0.8325 <!-- metrics.json: embodied_stage5c.predictions.J3_activating_13A_extends_the_tibia.value.shift_rad --> rad) instead of
+  over-extending it.
+- **Evidence.** Roadmap §7; `outputs/fly/embodied_stage5c_SIMULATED.*`.
 
 ---
 
