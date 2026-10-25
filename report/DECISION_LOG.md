@@ -229,3 +229,14 @@ it with its own command or `python -m neuromps.fly.pipeline --only <step>`.
   cord-median normalization changes nothing; the rhythm and the circuit's necessity replicate,
   but the promotor-remotor offset does not reach the registered reliability, so it is not claimed.
 - **Revisit:** a registered test of the offset alone with more draws, if it matters for the paper.
+
+### D26. Walking as a drug readout **(user)**
+- **Options (from D22's revisit):** a fourth movement for the drug design; the only walking
+  readout at hand is stage 2i's fictive front-leg rhythm (rate model, volume sizes, no body).
+- **Taken:** stage 4d (registration commit below), fresh draws: the drug knobs applied to the
+  walking network (weights scaled by presynaptic class, as in the spiking model; the excitability
+  knob scales the activation threshold), each draw's DNg100 input found under vehicle and held
+  fixed, onsets on stage 4c's combined dose series. **Why:** it asks whether GABA-A
+  potentiation's lateness is specific to feeding and whether the headline holds for a rhythm.
+- **Stated choice:** the threshold knob maps to the rate model's theta; fixed inputs, so a drug
+  changes the response, not the stimulus.
