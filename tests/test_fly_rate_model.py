@@ -69,3 +69,8 @@ def test_the_drive_input_brings_an_isolated_neuron_to_the_target_rate() -> None:
     assert amp.shape == (2, 2)
     run = rate_model.simulate(w, p, [0, 2], amp, record=np.array([0, 2]), duration_s=0.5)
     np.testing.assert_allclose(run.rates[-1], 50.0, rtol=1e-3)
+
+
+def test_volume_sizes_are_median_normalized_and_fill_missing_with_the_median() -> None:
+    got = rate_model.volume_sizes(np.array([100.0, 200.0, 300.0, np.nan, 0.0]))
+    assert np.allclose(got, [0.5, 1.0, 1.5, 1.0, 1.0])

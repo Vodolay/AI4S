@@ -51,6 +51,18 @@ def sizes(con: Connectome) -> np.ndarray:
     return total / median
 
 
+def volume_sizes(volumes: np.ndarray) -> np.ndarray:
+    """Pugliese et al.'s size: neuron volume, median-normalized over the network.
+
+    Missing or non-positive volumes take the median, as zero synapse counts do in `sizes`.
+    """
+    v = np.asarray(volumes, dtype=float).copy()
+    good = np.isfinite(v) & (v > 0)
+    median = np.median(v[good])
+    v[~good] = median
+    return v / median
+
+
 def _positive_normal(rng, mean: float, sd: float, shape) -> np.ndarray:
     out = rng.normal(mean, sd, shape)
     while np.any(bad := out <= 0):

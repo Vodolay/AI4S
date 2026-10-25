@@ -82,22 +82,22 @@ SILENCE_VARIANTS = {
 }
 
 
-def _check_rule(rule: str, table: pd.DataFrame) -> dict:
+def _check_rule(rule: str, table: pd.DataFrame, seeds: list[int] = SEEDS) -> dict:
     """At each feasible forward-walking draw's own input: silencing variants, and the motor
     neuron types that carry the intact rhythm (corrected rhythm >= 0.3)."""
     from neuromps.fly import kinematics
 
     fw = table[(table["size_rule"] == rule) & (table["condition"] == "forward_walking")]
-    fw = fw.set_index("seed").loc[SEEDS]
+    fw = fw.set_index("seed").loc[seeds]
     inputs, ok = fw["input"].to_numpy(), fw["feasible"].to_numpy()
     types = s2g._STATE["types"]
     out = {}
     for name, silenced in {"intact": (), **SILENCE_VARIANTS}.items():
         idx = np.flatnonzero(np.isin(types, silenced)) if silenced else None
-        run = s2g._simulate(rule, "forward_walking", inputs, silenced=idx, seeds=SEEDS)
+        run = s2g._simulate(rule, "forward_walking", inputs, silenced=idx, seeds=seeds)
         n = s2g._recruited(run, "forward_walking")
-        rows = [s2g.draw_measures(run, k) for k in range(len(SEEDS))]
-        keep = [k for k in range(len(SEEDS)) if ok[k]]
+        rows = [s2g.draw_measures(run, k) for k in range(len(seeds))]
+        keep = [k for k in range(len(seeds)) if ok[k]]
         out[name] = {
             "median_score": round(float(np.median([rows[k]["score"] for k in keep])), 4),
             "median_recruited": float(np.median(n[keep])),
