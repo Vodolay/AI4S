@@ -43,6 +43,7 @@ the bottom.*
 | 32 | 2026-10-25 | Embodied stage 5c: the 13A/13B manipulations read at the joint | 0 of 4; the model's inhibitory leg neurons brake rather than steer; stage 5b's agreement came by another route | `04a2387` … this branch |
 | 33 | 2026-10-25 | Embodied stage 3c: the perturbation test on the well-traced hind leg | 2 of 4; strong feedback destabilizes the hold; resistance beats the sham (exploratory) | `22b082e` … this branch |
 | 34 | 2026-10-25 | Embodied stage 3d: the hind-leg contingency test, paired, fresh seeds | 0 of 2; no push-following effect; stage 3 stays a documented negative | `8ea194a` … this branch |
+| 35 | 2026-10-25 | Embodied stage 4b: the movement-level headline on fresh seeds | 3 of 4; the chip is late in every family again; without the bitter-gated proboscis one family ties | `b23f6a3` … this branch |
 
 ---
 
@@ -788,6 +789,25 @@ body model it would need named.*
   of 32 seeds (22 needed); median paired difference
   0.0 <!-- metrics.json: embodied_stage3d.predictions.Q2_by_a_meaningful_margin.value --> ms.
 - **Evidence.** Roadmap §7; `outputs/fly/embodied_stage3d_SIMULATED.*`.
+
+---
+
+## 35. The headline, rerun: the chip is still late, by one dose step in two families
+
+**Slide message:** *We reran the paper's main result on fresh seeds against the chip's own
+replication: movement still fails first in every family. Leaving each movement out shows where
+the margin is thin, and we report that rather than smooth it over.*
+
+- **What changed.** `src/neuromps/fly/embodied_stage4b.py` reruns stage 4a's movements on 16
+  fresh seeds (stage 4a's trial loop now lives in reusable functions; its recorded trials rescore
+  to the same outcomes); registered in `preregistration/embodied_stage4b_movement_replication.json`.
+- **Effect.** 3 of 4. The chip flags later than movement fails in all five families (GABA-A block
+  0.6 <!-- metrics.json: embodied_stage4b.onsets.chip_replication.gaba_block --> against
+  0.2 <!-- metrics.json: embodied_stage4b.onsets.movement.gaba_block -->), and every movement onset is within one dose step of
+  stage 4a's. The leave-one-out check fails: without the bitter-gated proboscis, GABA-A
+  potentiation impairs movement only at
+  1.0 <!-- metrics.json: embodied_stage4b.onsets_leave_one_out.proboscis_sugar_bitter.gaba_potentiate -->, where the chip flags it.
+- **Evidence.** Roadmap §7; `outputs/fly/embodied_stage4b_SIMULATED.*`.
 
 ---
 

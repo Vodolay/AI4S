@@ -1,0 +1,271 @@
+{
+  "label": "SIMULATED drug knobs with movement as the readout, fresh seeds",
+  "predictions": {
+    "R0_the_movements_are_there": {
+      "test": "vehicle median proboscis_sugar >= 0.1 mm and median reach_depth >= 0.3 mm; if not, R1-R3 are uninterpretable",
+      "value": {
+        "proboscis_sugar": 0.304,
+        "reach_depth": 0.9893
+      },
+      "outcome": "pass"
+    },
+    "R1_the_chip_is_late_in_every_family": {
+      "test": "movement is impaired at some dose in all five families, and in each the chip's first detection dose is strictly higher than the movement onset (a family where the chip never flags counts as late)",
+      "value": {
+        "ach_block": true,
+        "excitability_block": true,
+        "gaba_block": true,
+        "gaba_potentiate": true,
+        "glucl_block": true
+      },
+      "outcome": "pass"
+    },
+    "R2_no_single_movement_carries_it": {
+      "test": "for each of the three movements left out, in every family where the two-movement index is impaired at some dose, the chip's first detection dose is strictly higher than that onset, and at least four families are impaired",
+      "value": {
+        "proboscis_sugar": {
+          "ach_block": true,
+          "excitability_block": true,
+          "gaba_block": true,
+          "gaba_potentiate": true,
+          "glucl_block": true
+        },
+        "proboscis_sugar_bitter": {
+          "ach_block": true,
+          "excitability_block": true,
+          "gaba_block": true,
+          "gaba_potentiate": false,
+          "glucl_block": true
+        },
+        "reach_depth": {
+          "ach_block": true,
+          "excitability_block": true,
+          "gaba_block": true,
+          "gaba_potentiate": true,
+          "glucl_block": true
+        }
+      },
+      "outcome": "fail"
+    },
+    "R3_movement_onsets_reproduce": {
+      "test": "in every family, the movement onset on the fresh seeds is within one dose step of stage 4a's",
+      "value": {
+        "ach_block": true,
+        "excitability_block": true,
+        "gaba_block": true,
+        "gaba_potentiate": true,
+        "glucl_block": true
+      },
+      "outcome": "pass"
+    }
+  },
+  "onsets": {
+    "movement": {
+      "ach_block": 0.1999999999999999,
+      "excitability_block": 0.3999999999999999,
+      "gaba_block": 0.1999999999999999,
+      "gaba_potentiate": 0.5,
+      "glucl_block": 0.4
+    },
+    "stage4a_movement": {
+      "ach_block": 0.1999999999999999,
+      "excitability_block": 0.1999999999999999,
+      "gaba_block": 0.1999999999999999,
+      "gaba_potentiate": 0.5,
+      "glucl_block": 0.4
+    },
+    "chip_replication": {
+      "ach_block": 0.4,
+      "excitability_block": 0.6000000000000001,
+      "gaba_block": 0.6,
+      "gaba_potentiate": 1.0,
+      "glucl_block": 0.8
+    },
+    "chip_first_run": {
+      "ach_block": 0.4,
+      "excitability_block": 0.3999999999999999,
+      "gaba_block": 0.6,
+      "gaba_potentiate": 1.0,
+      "glucl_block": 0.8
+    }
+  },
+  "onsets_leave_one_out": {
+    "proboscis_sugar": {
+      "ach_block": 0.1999999999999999,
+      "excitability_block": 0.1999999999999999,
+      "gaba_block": 0.1999999999999999,
+      "gaba_potentiate": 0.25,
+      "glucl_block": 0.1999999999999999
+    },
+    "proboscis_sugar_bitter": {
+      "ach_block": 0.1999999999999999,
+      "excitability_block": 0.3999999999999999,
+      "gaba_block": 0.1999999999999999,
+      "gaba_potentiate": 1.0,
+      "glucl_block": 0.6
+    },
+    "reach_depth": {
+      "ach_block": 0.1999999999999999,
+      "excitability_block": 0.3999999999999999,
+      "gaba_block": 0.1999999999999999,
+      "gaba_potentiate": 0.25,
+      "glucl_block": 0.4
+    }
+  },
+  "movement_onset_eps_005mm": {
+    "ach_block": 0.1999999999999999,
+    "excitability_block": 0.3999999999999999,
+    "gaba_block": 0.1999999999999999,
+    "gaba_potentiate": 0.5,
+    "glucl_block": 0.4
+  },
+  "reported": {
+    "N1_spearman_gaba_block_sugar_bitter": -0.0286,
+    "N2_spearman_ach_block": {
+      "proboscis_sugar": -0.8944,
+      "reach_depth": -0.8944
+    },
+    "movement_disruption": {
+      "vehicle": 0.0,
+      "gaba_block_0.8": 0.798,
+      "gaba_block_0.6": 1.0484,
+      "gaba_block_0.4": 1.1257,
+      "gaba_block_0.2": 2.3774,
+      "gaba_block_0": 3.6529,
+      "gaba_potentiate_1.25": 0.423,
+      "gaba_potentiate_1.5": 0.9841,
+      "gaba_potentiate_2": 2.1451,
+      "glucl_block_0.8": 0.397,
+      "glucl_block_0.6": 0.8296,
+      "glucl_block_0.4": 1.1002,
+      "glucl_block_0.2": 1.1353,
+      "glucl_block_0": 1.1122,
+      "ach_block_0.8": 2.9356,
+      "ach_block_0.6": 4.7077,
+      "ach_block_0.4": 4.7077,
+      "ach_block_0.2": 4.7077,
+      "excitability_block_1.1": 0.1181,
+      "excitability_block_1.2": 0.3564,
+      "excitability_block_1.4": 2.6776,
+      "excitability_block_1.6": 4.4578
+    }
+  },
+  "medians": {
+    "ach_block_0.2": {
+      "proboscis_sugar": 0.0,
+      "proboscis_sugar_bitter": 0.0,
+      "reach_depth": 0.0025
+    },
+    "ach_block_0.4": {
+      "proboscis_sugar": 0.0,
+      "proboscis_sugar_bitter": 0.0,
+      "reach_depth": 0.0025
+    },
+    "ach_block_0.6": {
+      "proboscis_sugar": 0.0,
+      "proboscis_sugar_bitter": 0.0,
+      "reach_depth": 0.0025
+    },
+    "ach_block_0.8": {
+      "proboscis_sugar": 0.1008,
+      "proboscis_sugar_bitter": 0.0,
+      "reach_depth": 0.0349
+    },
+    "excitability_block_1.1": {
+      "proboscis_sugar": 0.2981,
+      "proboscis_sugar_bitter": 0.0471,
+      "reach_depth": 0.9824
+    },
+    "excitability_block_1.2": {
+      "proboscis_sugar": 0.291,
+      "proboscis_sugar_bitter": 0.0273,
+      "reach_depth": 0.9376
+    },
+    "excitability_block_1.4": {
+      "proboscis_sugar": 0.1407,
+      "proboscis_sugar_bitter": 0.0034,
+      "reach_depth": 0.0321
+    },
+    "excitability_block_1.6": {
+      "proboscis_sugar": 0.0068,
+      "proboscis_sugar_bitter": 0.0,
+      "reach_depth": 0.0025
+    },
+    "gaba_block_0": {
+      "proboscis_sugar": 0.0019,
+      "proboscis_sugar_bitter": 0.0019,
+      "reach_depth": -0.0146
+    },
+    "gaba_block_0.2": {
+      "proboscis_sugar": 0.1741,
+      "proboscis_sugar_bitter": 0.211,
+      "reach_depth": 0.0278
+    },
+    "gaba_block_0.4": {
+      "proboscis_sugar": 0.2727,
+      "proboscis_sugar_bitter": 0.2724,
+      "reach_depth": 0.4142
+    },
+    "gaba_block_0.6": {
+      "proboscis_sugar": 0.296,
+      "proboscis_sugar_bitter": 0.244,
+      "reach_depth": 0.4041
+    },
+    "gaba_block_0.8": {
+      "proboscis_sugar": 0.3051,
+      "proboscis_sugar_bitter": 0.1561,
+      "reach_depth": 0.4358
+    },
+    "gaba_potentiate_1.25": {
+      "proboscis_sugar": 0.2792,
+      "proboscis_sugar_bitter": 0.0221,
+      "reach_depth": 0.9914
+    },
+    "gaba_potentiate_1.5": {
+      "proboscis_sugar": 0.1478,
+      "proboscis_sugar_bitter": 0.0083,
+      "reach_depth": 0.9891
+    },
+    "gaba_potentiate_2": {
+      "proboscis_sugar": 0.0165,
+      "proboscis_sugar_bitter": 0.0,
+      "reach_depth": 0.9623
+    },
+    "glucl_block_0": {
+      "proboscis_sugar": 0.3211,
+      "proboscis_sugar_bitter": 0.3174,
+      "reach_depth": 0.4703
+    },
+    "glucl_block_0.2": {
+      "proboscis_sugar": 0.3206,
+      "proboscis_sugar_bitter": 0.3089,
+      "reach_depth": 0.4353
+    },
+    "glucl_block_0.4": {
+      "proboscis_sugar": 0.3181,
+      "proboscis_sugar_bitter": 0.2728,
+      "reach_depth": 0.4116
+    },
+    "glucl_block_0.6": {
+      "proboscis_sugar": 0.3113,
+      "proboscis_sugar_bitter": 0.2015,
+      "reach_depth": 0.5319
+    },
+    "glucl_block_0.8": {
+      "proboscis_sugar": 0.3088,
+      "proboscis_sugar_bitter": 0.103,
+      "reach_depth": 0.6963
+    },
+    "vehicle": {
+      "proboscis_sugar": 0.304,
+      "proboscis_sugar_bitter": 0.0611,
+      "reach_depth": 0.9893
+    }
+  },
+  "registration": {
+    "file": "preregistration/embodied_stage4b_movement_replication.json",
+    "sha256": "7973474d87d24c9a55eaf1a5656adf512452b27376a5d0f1d99b2fbe38af5e1a",
+    "registered_in_commit": "b23f6a38c32934cb6e3aad449181ff6fb0961f55",
+    "committed_at": "2026-10-25T00:12:52-04:00"
+  }
+}
