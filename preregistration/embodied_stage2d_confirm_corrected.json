@@ -1,0 +1,25 @@
+{
+  "title": "Embodied fly, stage 2d follow-up: confirming the cell the corrected rhythm measure selects (glutamate excitatory everywhere, adaptation 16 mV, 100 ms) on fresh seeds (SIMULATED, fictive: no body)",
+  "registered": "2026-10-24",
+  "status": "registered before any simulation at this cell on these seeds",
+  "parent": "preregistration/embodied_stage2d_glutamate_sign.json",
+  "relation_to_parent": "Stage 2d confirmed its selected cell (glutamate everywhere, 0.5 mV, 100 ms) and failed (1 of 7). The rhythm-measure audit (preregistration/rhythm_measure_audit.json) found that under the corrected measure the same selection rule picks a different cell, glutamate everywhere at 16 mV and 100 ms, and registered that this cell is not confirmed there. This follow-up confirms it, with the corrected measure throughout, on fresh seeds. Stage 2d's recorded outcomes stay as they are. Decision D15 in report/DECISION_LOG.md.",
+  "seen_before_registration": [
+    "every result of stage 2d and of the audit: under the corrected measure, on stage 2d's exploration seeds (840-843), this cell is the only one of 74 with a rhythm under the walking command (W1) and passes no other walking test"
+  ],
+  "design": {
+    "everything_else": "exactly stage 2d's confirmation: the stage-1c male nerve cord with glutamate made excitatory everywhere, adaptation b_a 16 mV and tau_a 100 ms, drives forward_walking, grooming, none (backward_walking reported), the rewired control (seed 0), D0-D6's tests",
+    "measure": "the corrected measure of the audit (kinematics.rhythm: an autocorrelation peak with prominence >= 0.1; its lag is the period; phases use it) in every test",
+    "seeds": "1200-1207 (fresh)"
+  },
+  "predictions": {
+    "E0_silent_without_drive": {"statement": "As D0", "test": "no spikes in any of the twelve pools in any no-drive trial"},
+    "E1_the_walking_command_makes_a_rhythm": {"statement": "As D1, corrected measure", "test": "median corrected rhythmicity of the L1 flexor pool under forward walking >= 0.3 and above the grooming median"},
+    "E2_antagonists_alternate": {"statement": "As D2", "test": "median circular distance of phase(L1 flexor -> L1 extensor) from 0.5 <= 0.15"},
+    "E3_left_and_right_alternate": {"statement": "As D3", "test": "median circular distance of phase(L1 flexor -> R1 flexor) from 0.5 <= 0.15"},
+    "E4_a_tripod": {"statement": "As D4", "test": "median circular distance of phase(L1 -> L2 flexor) from 0.5 <= 0.15 and of phase(L1 -> L3 flexor) from 0 <= 0.15"},
+    "E5_the_coordination_comes_from_the_wiring": {"statement": "As D5", "test": "the intact cord passes at least one of E2-E4, and the rewired cord passes fewer of E2-E4 than the intact cord"},
+    "E6_a_fly_like_step_period": {"statement": "As D6", "test": "median corrected L1 flexor period under forward walking between 60 and 200 ms"}
+  },
+  "reporting": "Every prediction with its value and pass/fail, whichever way it falls."
+}
