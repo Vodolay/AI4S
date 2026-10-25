@@ -84,7 +84,7 @@ of the knob's range, after movement has already changed at 0.2
 <!-- metrics.json: embodied_stage4a.predictions.N3_the_chip_flags_before_movement_fails.value.gaba_block.movement -->.
 Registered reruns on fresh seeds and on a finer dose grid keep the chip late in every family; in
 GABA-A potentiation the lateness rests on the bitter-gated proboscis alone. Read through a walking
-rhythm alone, acetylcholine block is the one drug the chip catches first.
+rhythm alone, GABA-A and GluCl block break it long before the chip flags them.
 The negative results are kept beside the positive ones: no walking rhythm from the male nerve
 cord under leaky integrate-and-fire neurons; leg-sensor feedback that does not move the leg; a
 flaw in our own rhythm measure, found and audited in the open. Account:

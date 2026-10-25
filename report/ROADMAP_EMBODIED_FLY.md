@@ -747,6 +747,27 @@ few draws raise it (`outputs/fly/embodied_stage4d_SIMULATED.csv`). **What this c
 headline holds for the movement index. It does not hold for every readout, and which behaviour
 is read decides which drugs a chip catches in time.
 
+**Stage 4e: the acetylcholine exception does not survive a readout that respects the draws (2 of
+4).** Stage 4d's draws were bimodal, so the registered retest scored walking by the fraction of
+draws with a rhythm (score at least 0.3), on fresh draws. Under vehicle
+0.5938 <!-- metrics.json: embodied_stage4e.predictions.E0_the_walking_rhythm_is_there.value.fraction --> of draws are rhythmic (E0 passes).
+GABA-A and GluCl block break walking before the chip flags them (E2 passes). Acetylcholine block
+does not: at its mildest dose nearly every draw becomes rhythmic, and the two-sided index, used for
+every movement in this study, counts that rise as a change at
+0.2 <!-- metrics.json: embodied_stage4e.predictions.E1_acetylcholine_block_is_caught_first.value.walking_onset -->, before the chip's
+0.4 <!-- metrics.json: embodied_stage4e.predictions.E1_acetylcholine_block_is_caught_first.value.chip_onset --> (E1 fails). GABA-A potentiation
+likewise raises the rhythm and counts as a change at
+0.25 <!-- metrics.json: embodied_stage4e.predictions.E3_gaba_potentiation_spares_walking.value.walking_onset --> (E3 fails). Scored by
+stage 4d's median on the same fresh draws (reported, not tested), acetylcholine block is again
+chip-first (walking at 0.6 <!-- metrics.json: embodied_stage4e.median_readout.walking_onsets.ach_block -->). **What this
+changes:** stage 4d's exception depends on the readout, so it is withdrawn from the summary
+claims. The robust walking result is that GABA-A and GluCl block break the rhythm long before the
+chip flags them. The walking network's vehicle state sits near a transition, so mild knobs that
+strengthen it tip draws into rhythm. That makes a fictive rhythm read on its own a fragile drug
+readout in this model.
+
+![SIMULATED drug onsets of stages 4b-4e in one view (`fly.onset_figure`, recorded outputs only): per drug family, the dose at which each movement, the walking rhythm (fraction of draws) and the three-movement index first change, filled where the readout fell and open where it rose, against the dose at which the chip first flags (black: replication; dashed: first run, hidden where the two agree).](../outputs/figures/embodied_onsets_SIMULATED.png){width=95%}
+
 **Stage 5: checking directions against real flies. The registered search found no fly
 pharmacology to compare with (both predictions uninterpretable).** Before any search, the stage
 registered ten queries, inclusion rules, a mapping from published manipulations to the knobs and

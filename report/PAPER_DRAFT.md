@@ -17,8 +17,7 @@ fly's behaviour read first as named neurons, then as motor neurons, and finally 
 simulated body driven through a second connectome (the male CNS). The chip's firing rate ranks
 drugs by how much they disrupt behaviour (Spearman
 0.863 <!-- metrics.json: fly_chip_to_animal.predictions.C1_chip_tracks_disruption.value -->),
-but at every level the chip first flags a drug at a higher dose than behaviour fails, with one
-exception when walking alone is the readout (acetylcholine block). With
+but at every level the chip first flags a drug at a higher dose than behaviour fails. With
 movement as the readout, GABA-A block changes the simulated fly's feeding and grooming at
 0.2 <!-- metrics.json: embodied_stage4a.predictions.N3_the_chip_flags_before_movement_fails.value.gaba_block.movement -->
 of the knob's range, and the chip flags it at 0.6
@@ -127,10 +126,16 @@ therefore a single step of the dose grid. A registered finer grid inside those s
 Read through walking instead (stage 4d, 2 of 4: the drug knobs on the rate-model walking network),
 GABA-A and GluCl block break the rhythm at
 0.2 <!-- metrics.json: embodied_stage4d.onsets.walking.gaba_block -->, far before the chip; GABA-A potentiation does not
-impair walking at all; and acetylcholine block is the one case in the study where the chip flags
-first (chip 0.4 <!-- metrics.json: embodied_stage4d.onsets.chip_replication.ach_block -->, walking
-0.6 <!-- metrics.json: embodied_stage4d.onsets.walking.ach_block -->). With walking as a fourth movement the chip is still late
-in every family.
+impair walking; and acetylcholine block was flagged by the chip first (chip
+0.4 <!-- metrics.json: embodied_stage4d.onsets.chip_replication.ach_block -->, walking
+0.6 <!-- metrics.json: embodied_stage4d.onsets.walking.ach_block -->). A registered retest on fresh draws that scores
+walking by the fraction of draws with a rhythm (stage 4e, 2 of 4) confirms the chip-late
+families but not the exception. Milder acetylcholine block makes walking more reliable, not less
+(rhythmic in a larger share of draws than the vehicle's
+0.5938 <!-- metrics.json: embodied_stage4e.predictions.E0_the_walking_rhythm_is_there.value.fraction -->), and the two-sided index counts that as a
+change at 0.2 <!-- metrics.json: embodied_stage4e.predictions.E1_acetylcholine_block_is_caught_first.value.walking_onset -->, before the chip. Whether the
+chip leads under acetylcholine block therefore depends on how walking is scored, and is not
+claimed. With walking as a fourth movement the chip is late in every family under either readout.
 
 ### 2.6 Walking: a negative result and a reproduction
 
@@ -200,9 +205,9 @@ a chip-like readout of a simulated fly's brain ranks drugs by how much they disr
 first flags them after behaviour has changed. At the movement level this replicates on fresh
 seeds and on a finer dose grid; in one family (GABA-A potentiation) it rests on a single
 movement, the proboscis extension that bitter gates, and without it chip and movement change
-together; and read through walking alone, acetylcholine block is flagged by the chip before the
-rhythm fails, so which behaviour is read decides which drugs a chip catches in time. For assay
-design this suggests three things, all
+together. A fictive walking rhythm read on its own is a fragile readout here: its baseline sits
+near a transition, so small knob changes tip draws into or out of rhythm, and whether the chip
+leads under acetylcholine block depends on how the rhythm is scored. For assay design this suggests three things, all
 testable in real preparations: report the precision a chip needs at behavioural onset rather
 than a fixed threshold; record where the network's output leaves it, which helps at the neural
 level; and do not read a chip's silence as behavioural safety at low doses. The embodied stages
@@ -247,7 +252,7 @@ model. Nothing here says what any compound does to a fly, a culture or a person.
 | 3 | Output-tract electrode against a planar array | `outputs/figures/fly_output_tract_SIMULATED.png` |
 | 4 | Motor-level onsets | `outputs/figures/fly_motor_onsets_SIMULATED.png`, `fly_motor_tie_break_SIMULATED.png` |
 | 5 | The body: the grooming reach through the brain-to-nerve-cord relay, and the proboscis | `outputs/figures/embodied_stage1f_depth_SIMULATED.png`, `embodied_stage2b_proboscis_SIMULATED.png` |
-| 6 | Drugs in the loop: movements against dose | `outputs/figures/embodied_stage4a_drugs_movement_SIMULATED.png` |
+| 6 | Drugs in the loop: when each movement, the walking rhythm and the movement index first change, against when the chip flags, per family | `outputs/figures/embodied_onsets_SIMULATED.png`, `embodied_stage4a_drugs_movement_SIMULATED.png` |
 | 7 | Walking: the published rate model's front-leg rhythm, and the registered negatives | `outputs/figures/embodied_stage2h_front_leg_SIMULATED.png`, `embodied_stage2c_sweep_SIMULATED.png` |
 | 8 | The closed loop and the perturbation test, front and hind leg | `outputs/figures/embodied_stage3b_perturbation_SIMULATED.png`, `embodied_stage3c_hind_leg_SIMULATED.png` |
 | S1 | The rhythm-measure audit | `outputs/figures/rhythm_audit_SIMULATED.png` |

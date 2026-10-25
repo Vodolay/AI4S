@@ -48,6 +48,7 @@ the bottom.*
 | 37 | 2026-10-25 | Embodied stage 2i: the front-leg rhythm with the published size rule, neuron volume | 6 of 7; the rhythm needs the three-neuron circuit; promotor and remotor keep a reliable offset, not antiphase; flexors silent | `d03ee27` … this branch |
 | 38 | 2026-10-25 | Embodied stage 2j: shuffled volumes and a whole-cord normalization | 2 of 4; shuffled volumes give no rhythm; the normalization changes nothing; the promotor-remotor offset does not replicate | `1d1d644` … this branch |
 | 39 | 2026-10-25 | Embodied stage 4d: the walking rhythm as a drug readout | 2 of 4; acetylcholine block is the first chip-first case; GABA-A potentiation spares walking; the four-movement index stays chip-late | `73ffde6` … this branch |
+| 40 | 2026-10-25 | Embodied stage 4e: the walking readout as a fraction of rhythmic draws | 2 of 4; GABA-A and GluCl block break walking first again; the acetylcholine exception depends on the readout and is withdrawn | `180476f` … this branch |
 
 ---
 
@@ -887,6 +888,26 @@ decides which drugs it catches in time.*
   0.6 <!-- metrics.json: embodied_stage4d.onsets.walking.ach_block -->; GABA-A potentiation spares walking; with walking as
   a fourth movement the chip is late in every family.
 - **Evidence.** Roadmap §7; `outputs/fly/embodied_stage4d_SIMULATED.*`.
+
+---
+
+## 40. The exception we put in the abstract did not survive its retest
+
+**Slide message:** *We retested our one chip-first case with a readout that fits the data, and
+it went away: mild acetylcholine block makes the walking rhythm more reliable, and that counts
+as a change before the chip flags. We took it out of the abstract.*
+
+- **What changed.** `src/neuromps/fly/embodied_stage4e.py` (stage 4d's run loop, now
+  `embodied_stage4d.run_trials`, on fresh draws, walking scored by the fraction of rhythmic
+  draws); registered in `preregistration/embodied_stage4e_walking_fraction.json`. The paper
+  abstract and discussion, the technical report, the README and the slides no longer claim the
+  exception.
+- **Effect.** 2 of 4. GABA-A and GluCl block break walking before the chip (E2). Acetylcholine
+  block changes walking at
+  0.2 <!-- metrics.json: embodied_stage4e.predictions.E1_acetylcholine_block_is_caught_first.value.walking_onset -->, before the chip's
+  0.4 <!-- metrics.json: embodied_stage4e.predictions.E1_acetylcholine_block_is_caught_first.value.chip_onset --> (E1 fails); by stage 4d's
+  median readout it is chip-first again on these draws.
+- **Evidence.** Roadmap §7; `outputs/fly/embodied_stage4e_SIMULATED.*`.
 
 ---
 

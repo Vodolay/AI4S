@@ -1,0 +1,38 @@
+{
+  "title": "Embodied fly, stage 4e: the walking readout scored by the fraction of rhythmic draws, on fresh draws. Is acetylcholine block still caught by the chip before walking fails? (SIMULATED)",
+  "registered": "2026-10-25",
+  "status": "registered before any stage-4e simulation",
+  "parent": "preregistration/embodied_stage4d_walking_readout.json",
+  "relation_to_parent": "Stage 4d found acetylcholine block to be the first case in the study where the chip flags a drug before the behaviour fails (chip 0.4, walking 0.6), and the claim entered the paper's abstract. Stage 4d's per-draw rhythm scores are bimodal, so its median readout sits between two modes. Stage 4e retests stage 4d's findings on fresh draws with a readout that respects the bimodality: the fraction of draws with a rhythm. Stage 4d's outcomes stand. Decision D27 in report/DECISION_LOG.md (the user chose this step).",
+  "seen_before_registration": [
+    "every stage-4d result and its per-draw scores (draws 1460-1491)",
+    "the fraction readout computed on stage 4d's draws (not a test): vehicle 0.6875; acetylcholine block 0.9375 at 0.2 and 0.4 of the knob's range, 0.0625 at 0.6, 0.0 at 0.8; GABA-A block 0.4062 at 0.2; GluCl block 0.4062 at 0.2; GABA-A potentiation 0.9062-0.9688 at every dose; so on those draws the fraction readout gives the same onsets as the median"
+  ],
+  "design": {
+    "everything_else": "exactly stage 4d: the walking network (rate model, volume sizes), the knob mapping, each draw's DNg100 input found under vehicle and held fixed, the 34 conditions, the chip replication on stage 4c's combined series",
+    "draws": "32, seeds 1500-1531 (fresh)",
+    "readout": "per condition, the fraction of vehicle-feasible draws whose corrected motor rhythm score is >= 0.3 (the registered rhythm line of stages 2g-2j)",
+    "walking_disruption": "|log2((f + 0.01) / (f_vehicle + 0.01))| of that fraction; impaired at >= 0.5",
+    "onset_and_resolution": "as in stage 4d"
+  },
+  "predictions": {
+    "E0_the_walking_rhythm_is_there": {
+      "statement": "Precondition: under vehicle the rhythm appears in a fair share of draws",
+      "test": "at least 16 of 32 draws feasible and a vehicle fraction >= 0.3; if not, E1-E3 are uninterpretable"
+    },
+    "E1_acetylcholine_block_is_caught_first": {
+      "statement": "Stage 4d's exception replicates",
+      "test": "acetylcholine block resolves 'chip earlier': the chip's first detection dose is strictly below the walking onset (a family where walking never fails counts as chip earlier only if the chip flags)"
+    },
+    "E2_gaba_and_glucl_block_break_walking_first": {
+      "statement": "Stage 4d's chip-late families replicate",
+      "test": "GABA-A block and GluCl block both resolve 'chip later'"
+    },
+    "E3_gaba_potentiation_spares_walking": {
+      "statement": "Stage 4d's finding that GABA-A potentiation does not impair walking replicates",
+      "test": "no dose of GABA-A potentiation impairs walking"
+    }
+  },
+  "not_claimed_even_if_all_pass": "anything about any compound in any animal or person: the knobs are transmitter-class scalings in simulated fly networks; the walking readout is a fictive front-leg rhythm in a rate model, without a body",
+  "reporting": "Every prediction with its value and pass/fail or uninterpretable; per condition the fraction, the median score and the walking disruption by both readouts; per family the onsets and resolutions by both readouts; the four-movement index with the fraction readout, reported without prediction."
+}

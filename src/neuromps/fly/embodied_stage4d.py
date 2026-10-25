@@ -59,22 +59,22 @@ def _init() -> None:
 
 def _condition(job) -> dict:
     """One condition at the vehicle inputs: rhythm score, period and recruitment per draw."""
-    name, knob, inputs = job
+    name, knob, inputs, seeds = job
     classes, threshold = knob_parts(knob)
     w = rate_model.weights(s2g._STATE["con"], class_scale=classes)
-    p = rate_model.draw(s2g._STATE["sizes"][RULE], SEEDS)
+    p = rate_model.draw(s2g._STATE["sizes"][RULE], seeds)
     p = dataclasses.replace(p, theta=p.theta * threshold)
     idx = s2g._STATE["drive"]["forward_walking"]
     run = rate_model.simulate(
         w,
         p,
         idx,
-        np.broadcast_to(inputs, (len(idx), len(SEEDS))),
+        np.broadcast_to(inputs, (len(idx), len(seeds))),
         s2g._STATE["mn"],
         duration_s=s2g.DURATION_S,
         dt_s=s2g.DT_S,
     )
-    measures = [s2g.draw_measures(run, k) for k in range(len(SEEDS))]
+    measures = [s2g.draw_measures(run, k) for k in range(len(seeds))]
     return {
         "condition": name,
         "score": [m["score"] for m in measures],
@@ -163,15 +163,15 @@ def _movement_medians() -> pd.DataFrame:
     return s4c.combine(coarse, fine)
 
 
-def main(argv: list[str] | None = None) -> int:
-    """CLI: the registered stage-4d design."""
-    logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
-    spec = json.loads(REGISTRATION.read_text())
-    conds = conditions()
+def run_trials(conds: pd.DataFrame, seeds: list[int]):
+    """Every condition on the walking network at the vehicle inputs of each draw.
+
+    Returns (trials, feasible mask, inputs, search runs): one row per condition and draw.
+    """
     _init()
-    _, inputs, ok, runs, _ = s2h.bisect_inputs(RULE, "forward_walking", SEEDS)
-    log.info("vehicle inputs: %d of %d feasible after %d runs", int(ok.sum()), len(SEEDS), runs)
-    jobs = [(c, k, inputs) for c, k in zip(conds["condition"], conds["knob"], strict=True)]
+    _, inputs, ok, runs, _ = s2h.bisect_inputs(RULE, "forward_walking", seeds)
+    log.info("vehicle inputs: %d of %d feasible after %d runs", int(ok.sum()), len(seeds), runs)
+    jobs = [(c, k, inputs, seeds) for c, k in zip(conds["condition"], conds["knob"], strict=True)]
     with ProcessPoolExecutor(16, initializer=_init) as pool:
         got = list(pool.map(_condition, jobs))
     rows = [
@@ -185,9 +185,17 @@ def main(argv: list[str] | None = None) -> int:
             "recruited": g["recruited"][k],
         }
         for g in got
-        for k, s in enumerate(SEEDS)
+        for k, s in enumerate(seeds)
     ]
-    trials = pd.DataFrame(rows)
+    return pd.DataFrame(rows), ok, inputs, runs
+
+
+def main(argv: list[str] | None = None) -> int:
+    """CLI: the registered stage-4d design."""
+    logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+    spec = json.loads(REGISTRATION.read_text())
+    conds = conditions()
+    trials, ok, inputs, runs = run_trials(conds, SEEDS)
     use = trials[trials["feasible"]]
     walk = use.groupby("condition")["score"].median()
     period = use.groupby("condition")["period_ms"].median()
