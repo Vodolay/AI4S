@@ -7214,6 +7214,137 @@
     },
     "label": "EXPLORATORY, not registered: proprioceptor tracing per leg (male CNS)"
   },
+  "embodied_stage3c": {
+    "label": "SIMULATED hind-leg perturbation test through the claw neurons",
+    "predictions": {
+      "K0_the_leg_is_held_and_the_push_moves_it": {
+        "outcome": "pass",
+        "test": "open-loop median pre-pulse angle >= 0.3 rad and median excursion >= 0.2 rad; if not, K1-K3 are uninterpretable",
+        "value": {
+          "excursion_rad": 0.4952,
+          "pre_rad": 1.0284
+        }
+      },
+      "K1_feedback_speeds_the_return": {
+        "outcome": "fail",
+        "test": "median recovery time in the resistance arm <= 0.8 x the open-loop median",
+        "value": {
+          "open": 19.0,
+          "resistance": 23.0
+        }
+      },
+      "K2_the_speed_needs_the_loop": {
+        "outcome": "uninterpretable",
+        "test": "interpretable only if K1 passes: median recovery time in the resistance arm < the sham median",
+        "value": {
+          "resistance": 23.0,
+          "sham": 32.5
+        }
+      },
+      "K3_the_opposite_assignment_does_not_speed_it": {
+        "outcome": "pass",
+        "test": "median recovery time in the assistance arm >= the open-loop median",
+        "value": {
+          "assistance": 23.0,
+          "open": 19.0
+        }
+      }
+    },
+    "registration": {
+      "committed_at": "2026-10-24T23:55:51-04:00",
+      "file": "preregistration/embodied_stage3c_hind_leg_reflex.json",
+      "registered_in_commit": "22b082efd3891a7f3675bdf44d1a1d1fc3a64547",
+      "sha256": "1413d50bcd2ac87af372286784e3fb6bc228267d28f8734af8fb7db6d96a6418"
+    },
+    "reported": {
+      "assistance": {
+        "claw_mean_hz": 79.1598,
+        "excursion_rad": 0.4998,
+        "extensor_hz": 45.75,
+        "flexor_hz": 0.0,
+        "pre_rad": 1.0515,
+        "recovery_ms": 23.0
+      },
+      "open": {
+        "claw_mean_hz": 0.0,
+        "excursion_rad": 0.4952,
+        "extensor_hz": 34.0,
+        "flexor_hz": 0.0,
+        "pre_rad": 1.0284,
+        "recovery_ms": 19.0
+      },
+      "resistance": {
+        "claw_mean_hz": 25.1806,
+        "excursion_rad": 0.8464,
+        "extensor_hz": 18.0,
+        "flexor_hz": 0.375,
+        "pre_rad": 0.7182,
+        "recovery_ms": 23.0
+      },
+      "resistance_unperturbed": {
+        "claw_mean_hz": 25.2189,
+        "excursion_rad": 0.4842,
+        "extensor_hz": 18.0,
+        "flexor_hz": 0.375,
+        "pre_rad": 0.7182,
+        "recovery_ms": 22.5
+      },
+      "sham": {
+        "claw_mean_hz": 25.2189,
+        "excursion_rad": 0.8278,
+        "extensor_hz": 18.0,
+        "flexor_hz": 0.375,
+        "pre_rad": 0.7182,
+        "recovery_ms": 32.5
+      }
+    }
+  },
+  "embodied_stage3d": {
+    "label": "SIMULATED hind-leg contingency test (paired by seed)",
+    "predictions": {
+      "Q1_feedback_that_follows_the_push_speeds_the_return": {
+        "outcome": "fail",
+        "test": "resistance recovery time shorter than the sham's in at least 22 of 32 seeds (one-sided sign test, p < 0.05; ties count against)",
+        "value": {
+          "seeds": 32,
+          "seeds_favouring_resistance": 14
+        }
+      },
+      "Q2_by_a_meaningful_margin": {
+        "outcome": "fail",
+        "test": "median over seeds of (sham - resistance) recovery time >= 5 ms",
+        "value": 0.0
+      }
+    },
+    "registration": {
+      "committed_at": "2026-10-25T00:00:11-04:00",
+      "file": "preregistration/embodied_stage3d_hind_leg_contingency.json",
+      "registered_in_commit": "8ea194a47acceaa0b5dbeaaa197196ede34ec309",
+      "sha256": "82725efc4dec2df47cbf41f52d60304cd6e9ff270f93d0303420a5fab489551b"
+    },
+    "reported": {
+      "open": {
+        "excursion_rad": 0.4998,
+        "pre_rad": 1.0425,
+        "recovery_ms": 23.0
+      },
+      "resistance": {
+        "excursion_rad": 0.7396,
+        "pre_rad": 0.7017,
+        "recovery_ms": 16.0
+      },
+      "resistance_unperturbed": {
+        "excursion_rad": 0.537,
+        "pre_rad": 0.7017,
+        "recovery_ms": 0.0
+      },
+      "sham": {
+        "excursion_rad": 0.7012,
+        "pre_rad": 0.7017,
+        "recovery_ms": 25.0
+      }
+    }
+  },
   "embodied_stage4a": {
     "flagged_in_time": {
       "planar_64": {

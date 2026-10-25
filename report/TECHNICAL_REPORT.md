@@ -1232,7 +1232,12 @@ The male CNS traces few proprioceptors for the front leg
 (4 <!-- metrics.json: embodied_stage3b_check.chordotonal_by_leg.front_L.claw -->
 claw neurons on the left, against
 22 <!-- metrics.json: embodied_stage3b_check.chordotonal_by_leg.hind_L.claw --> on the left hind leg), which is
-the most likely limit.
+the most likely limit. Closed through the well-traced right hind leg instead (25 claw neurons;
+flybody's servoed tibia), the feedback changes the leg's posture but makes the hold swing, and a
+registered paired test on fresh seeds found no part of it that speeds the return: resistance
+sooner than a sham in
+14 <!-- metrics.json: embodied_stage3d.predictions.Q1_feedback_that_follows_the_push_speeds_the_return.value.seeds_favouring_resistance -->
+of 32 seeds.
 
 ## 30. Drugs in the loop: the chip is late at every level
 

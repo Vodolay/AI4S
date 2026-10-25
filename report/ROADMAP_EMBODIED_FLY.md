@@ -706,6 +706,38 @@ over-extending it. In this model the inhibitory hemilineages act as broad brakes
 motor neurons, not as the joint-specific controllers the experiment shows: a limit of a
 connectome-only, leaky integrate-and-fire nerve cord to state beside the stage-2 walking results.
 
+**Stage 3c: the perturbation test on a well-traced leg. The feedback acts, but it makes the
+hold unstable (2 of 4).** Stages 3a and 3b used the front leg's four claw neurons. Stage 3c
+closed the loop through the right hind leg's 25, with flybody's servoed tibia: the walking command
+holds the tibia extended, and a 20 ms torque pushes it. The precondition passes (held at
+1.0284 <!-- metrics.json: embodied_stage3c.predictions.K0_the_leg_is_held_and_the_push_moves_it.value.pre_rad -->
+rad, pushed by
+0.4952 <!-- metrics.json: embodied_stage3c.predictions.K0_the_leg_is_held_and_the_push_moves_it.value.excursion_rad --> rad), and the
+opposite assignment does not speed the return. Resistance feedback does not speed it either
+(23.0 <!-- metrics.json: embodied_stage3c.predictions.K1_feedback_speeds_the_return.value.resistance -->
+ms against
+19.0 <!-- metrics.json: embodied_stage3c.predictions.K1_feedback_speeds_the_return.value.open --> ms open loop), so the contingency test is
+uninterpretable as registered. The reason differs from the front leg. Here the feedback is
+strong: it lowers the extensor pool from
+34.0 <!-- metrics.json: embodied_stage3c.reported.open.extensor_hz --> to
+18.0 <!-- metrics.json: embodied_stage3c.reported.resistance.extensor_hz --> Hz, the held angle falls to
+0.7182 <!-- metrics.json: embodied_stage3c.reported.resistance.pre_rad --> rad, and the traces show the leg swinging irregularly rather
+than holding. Against the sham, which receives the same tonic feedback, the resistance arm returns
+sooner
+(23.0 <!-- metrics.json: embodied_stage3c.reported.resistance.recovery_ms --> against
+32.5 <!-- metrics.json: embodied_stage3c.reported.sham.recovery_ms --> ms; exploratory, with recovery times spread widely in this
+unstable regime). So the feedback that follows the push might act on this leg, unlike the front
+leg. **Stage 3d tested that difference alone, paired by seed, on 32 fresh seeds, and it does not
+hold (0 of 2).** The resistance arm returns sooner than the sham in
+14 <!-- metrics.json: embodied_stage3d.predictions.Q1_feedback_that_follows_the_push_speeds_the_return.value.seeds_favouring_resistance -->
+of 32 seeds (22 needed), and the median paired difference is
+0.0 <!-- metrics.json: embodied_stage3d.predictions.Q2_by_a_meaningful_margin.value --> ms. Closed through either leg, the claw neurons'
+feedback changes the motor neurons and, on the hind leg, the posture, but no part of it that
+follows a push could be shown to speed the leg's return. Stage 3's go/no-go stays failed; what
+would change it is a muscle-driven, well-traced leg, which no available body model provides.
+
+![SIMULATED push on the right hind tibia (flybody, servoed) with claw-neuron feedback. Left: one seed per arm (the resistance trace lies under the sham until about 0.55 s); with resistance feedback the leg swings irregularly instead of holding. Right: every trial's recovery time.](../outputs/figures/embodied_stage3c_hind_leg_SIMULATED.png){width=80%}
+
 ## 8. What carries over unchanged
 
 Pre-registration before every run; licensed data with checksums in the manifest; every reported

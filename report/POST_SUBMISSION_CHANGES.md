@@ -41,6 +41,8 @@ the bottom.*
 | 30 | 2026-10-24/25 | Release: one command reproduces every fly number; report Act VIII, paper draft, decision log | reproduction identical; precision at movement onset (exploratory); the stage-2d corrected cell fails on fresh seeds (2 of 7) | `f053de3` … this branch |
 | 31 | 2026-10-25 | Embodied stage 5b: the identified 13A/13B leg neurons, manipulated | 2 of 5; silencing 13A shortens the reach as published; 13B and activation do not | `c20fa08` … this branch |
 | 32 | 2026-10-25 | Embodied stage 5c: the 13A/13B manipulations read at the joint | 0 of 4; the model's inhibitory leg neurons brake rather than steer; stage 5b's agreement came by another route | `04a2387` … this branch |
+| 33 | 2026-10-25 | Embodied stage 3c: the perturbation test on the well-traced hind leg | 2 of 4; strong feedback destabilizes the hold; resistance beats the sham (exploratory) | `22b082e` … this branch |
+| 34 | 2026-10-25 | Embodied stage 3d: the hind-leg contingency test, paired, fresh seeds | 0 of 2; no push-following effect; stage 3 stays a documented negative | `8ea194a` … this branch |
 
 ---
 
@@ -750,6 +752,42 @@ controllers: a stated limit of the connectome-only nerve cord.*
   (+0.8325 <!-- metrics.json: embodied_stage5c.predictions.J3_activating_13A_extends_the_tibia.value.shift_rad --> rad) instead of
   over-extending it.
 - **Evidence.** Roadmap §7; `outputs/fly/embodied_stage5c_SIMULATED.*`.
+
+---
+
+## 33. On a well-traced leg the sensors act, and destabilize the hold
+
+**Slide message:** *Closed through the hind leg's 25 position sensors, feedback is strong enough
+to change the leg, but it makes the hold swing instead of steadying it. Against blind input the
+feedback that follows a push may speed the return; a registered test of that alone is next.*
+
+- **What changed.** `src/neuromps/fly/embodied_stage3c.py`: a 1 ms closed loop for flybody's
+  servoed right hind tibia, its 25 claw neurons, and stage 3b's perturbation test; registered in
+  `preregistration/embodied_stage3c_hind_leg_reflex.json`.
+- **Effect.** 2 of 4: held and pushed as required; resistance feedback returns the leg in
+  23.0 <!-- metrics.json: embodied_stage3c.predictions.K1_feedback_speeds_the_return.value.resistance --> ms against
+  19.0 <!-- metrics.json: embodied_stage3c.predictions.K1_feedback_speeds_the_return.value.open --> open loop (fail); the extensor pool falls
+  from 34.0 <!-- metrics.json: embodied_stage3c.reported.open.extensor_hz --> to 18.0 <!-- metrics.json: embodied_stage3c.reported.resistance.extensor_hz --> Hz; against the
+  sham, 23.0 <!-- metrics.json: embodied_stage3c.reported.resistance.recovery_ms --> against 32.5 <!-- metrics.json: embodied_stage3c.reported.sham.recovery_ms --> ms
+  (exploratory).
+- **Evidence.** Roadmap §7 and figure; `outputs/fly/embodied_stage3c_SIMULATED.*`.
+
+---
+
+## 34. The registered retest: no push-following effect on the hind leg
+
+**Slide message:** *We registered the one hopeful sign from the hind leg as its own test, on
+fresh seeds and more of them, and it did not hold. The loop stays a documented negative, with the
+body model it would need named.*
+
+- **What changed.** `src/neuromps/fly/embodied_stage3d.py`: stage 3c's closed loop on 32 fresh
+  seeds, resistance against sham paired by seed; registered in
+  `preregistration/embodied_stage3d_hind_leg_contingency.json`.
+- **Effect.** 0 of 2: resistance returns sooner than the sham in
+  14 <!-- metrics.json: embodied_stage3d.predictions.Q1_feedback_that_follows_the_push_speeds_the_return.value.seeds_favouring_resistance -->
+  of 32 seeds (22 needed); median paired difference
+  0.0 <!-- metrics.json: embodied_stage3d.predictions.Q2_by_a_meaningful_margin.value --> ms.
+- **Evidence.** Roadmap §7; `outputs/fly/embodied_stage3d_SIMULATED.*`.
 
 ---
 

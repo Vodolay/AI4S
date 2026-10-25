@@ -53,6 +53,8 @@ def test_every_fly_study_module_with_a_command_is_a_step() -> None:
         "embodied_stage2h",
         "embodied_stage3a",
         "embodied_stage3b",
+        "embodied_stage3c",
+        "embodied_stage3d",
         "embodied_stage4a",
         "embodied_stage5",
         "rhythm_audit",

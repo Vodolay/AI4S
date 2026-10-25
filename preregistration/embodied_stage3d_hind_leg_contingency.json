@@ -1,0 +1,22 @@
+{
+  "title": "Embodied fly, stage 3d: does the claw-neuron feedback that follows a push speed the hind leg's return, against the same tonic feedback without it? A paired test on fresh seeds (SIMULATED, closed loop)",
+  "registered": "2026-10-25",
+  "status": "registered before any stage-3d simulation",
+  "parent": "preregistration/embodied_stage3c_hind_leg_reflex.json",
+  "relation_to_parent": "Stage 3c's contingency test was uninterpretable as registered because resistance feedback did not beat the open loop; exploratory, the resistance arm returned sooner than the sham (median 23.0 against 32.5 ms) in an unstable regime where recovery times spread widely. Because that difference was seen in stage 3c, it is tested here alone, paired by seed, on fresh seeds, with more of them. Decision D20 in report/DECISION_LOG.md.",
+  "seen_before_registration": [
+    "every stage-3c result (seeds 1300-1315), including the exploratory resistance-against-sham difference and the irregular swinging of the resistance-fed leg"
+  ],
+  "design": {
+    "everything_else": "exactly stage 3c: the stage-1c male nerve cord under the walking command, flybody's servoed right hind tibia, the 25 claw neurons with the resistance assignment, the 20 ms flexing torque of 0.3, the readouts",
+    "arms": "resistance (perturbed), resistance_unperturbed (builds the sham), sham (perturbed; the same seed's unperturbed resistance rates); open (perturbed) reported for context",
+    "seeds": "1320-1351 (32, fresh)",
+    "pairing": "for each seed, the recovery time of the resistance trial against that of the sham trial"
+  },
+  "predictions": {
+    "Q1_feedback_that_follows_the_push_speeds_the_return": {"statement": "With the tonic feedback the same, feedback that follows the push returns the tibia sooner", "test": "resistance recovery time shorter than the sham's in at least 22 of 32 seeds (one-sided sign test, p < 0.05; ties count against)"},
+    "Q2_by_a_meaningful_margin": {"statement": "The paired difference is not a millisecond or two", "test": "median over seeds of (sham - resistance) recovery time >= 5 ms"}
+  },
+  "not_claimed_even_if_all_pass": "that the hind leg's feedback is a resistance reflex in the fly: the leg is servoed, the tuning assignment is a stated bracket, and the resistance-fed leg does not hold steadily; a pass means that in this model the part of the claw neurons' feedback that follows a push speeds the leg's return beyond what the same tonic input does",
+  "reporting": "Both predictions with values and pass/fail; per arm the medians of pre-pulse angle, excursion and recovery time; the count of seeds favouring each arm."
+}

@@ -1,0 +1,85 @@
+{
+  "label": "SIMULATED hind-leg perturbation test through the claw neurons",
+  "predictions": {
+    "K0_the_leg_is_held_and_the_push_moves_it": {
+      "test": "open-loop median pre-pulse angle >= 0.3 rad and median excursion >= 0.2 rad; if not, K1-K3 are uninterpretable",
+      "value": {
+        "pre_rad": 1.0284,
+        "excursion_rad": 0.4952
+      },
+      "outcome": "pass"
+    },
+    "K1_feedback_speeds_the_return": {
+      "test": "median recovery time in the resistance arm <= 0.8 x the open-loop median",
+      "value": {
+        "open": 19.0,
+        "resistance": 23.0
+      },
+      "outcome": "fail"
+    },
+    "K2_the_speed_needs_the_loop": {
+      "test": "interpretable only if K1 passes: median recovery time in the resistance arm < the sham median",
+      "value": {
+        "resistance": 23.0,
+        "sham": 32.5
+      },
+      "outcome": "uninterpretable"
+    },
+    "K3_the_opposite_assignment_does_not_speed_it": {
+      "test": "median recovery time in the assistance arm >= the open-loop median",
+      "value": {
+        "open": 19.0,
+        "assistance": 23.0
+      },
+      "outcome": "pass"
+    }
+  },
+  "reported": {
+    "assistance": {
+      "pre_rad": 1.0515,
+      "excursion_rad": 0.4998,
+      "recovery_ms": 23.0,
+      "extensor_hz": 45.75,
+      "flexor_hz": 0.0,
+      "claw_mean_hz": 79.1598
+    },
+    "open": {
+      "pre_rad": 1.0284,
+      "excursion_rad": 0.4952,
+      "recovery_ms": 19.0,
+      "extensor_hz": 34.0,
+      "flexor_hz": 0.0,
+      "claw_mean_hz": 0.0
+    },
+    "resistance": {
+      "pre_rad": 0.7182,
+      "excursion_rad": 0.8464,
+      "recovery_ms": 23.0,
+      "extensor_hz": 18.0,
+      "flexor_hz": 0.375,
+      "claw_mean_hz": 25.1806
+    },
+    "resistance_unperturbed": {
+      "pre_rad": 0.7182,
+      "excursion_rad": 0.4842,
+      "recovery_ms": 22.5,
+      "extensor_hz": 18.0,
+      "flexor_hz": 0.375,
+      "claw_mean_hz": 25.2189
+    },
+    "sham": {
+      "pre_rad": 0.7182,
+      "excursion_rad": 0.8278,
+      "recovery_ms": 32.5,
+      "extensor_hz": 18.0,
+      "flexor_hz": 0.375,
+      "claw_mean_hz": 25.2189
+    }
+  },
+  "registration": {
+    "file": "preregistration/embodied_stage3c_hind_leg_reflex.json",
+    "sha256": "1413d50bcd2ac87af372286784e3fb6bc228267d28f8734af8fb7db6d96a6418",
+    "registered_in_commit": "22b082efd3891a7f3675bdf44d1a1d1fc3a64547",
+    "committed_at": "2026-10-24T23:55:51-04:00"
+  }
+}
