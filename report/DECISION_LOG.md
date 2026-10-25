@@ -211,6 +211,8 @@ it with its own command or `python -m neuromps.fly.pipeline --only <step>`.
 - **Taken:** fetch that table whole (4.65 GB, source `malecns_sizes`), checked against the
   bucket's CRC32C, because the bucket publishes no MD5 for it **(user: full file, not a
   column-only range read)**; rerun stage 2h with the published rule (stage 2i, registration
-  commit below) on fresh draws. A numpy CRC32C was written rather than adding a dependency.
+  commit d03ee27) on fresh draws. A numpy CRC32C was written rather than adding a dependency.
+- **Outcome:** 6 of 7 (registration commit d03ee27): the rhythm needs the circuit and
+  promotor and remotor keep a reliable, non-antiphase offset; flexor-extensor alternation fails.
 - **Revisit:** normalizing by the median over the whole nerve cord rather than over the
   network (stated choice: over the network, as for the synapse-count stand-in).

@@ -123,7 +123,8 @@ Every command below is run from the `AI4S` folder.
 
 A full run ends with the `fly` stage (the chip-to-animal study) and the `embodied` stage,
 which reruns every later fly study in dependency order, each as its own process (a few hours on
-a many-core machine, 1.7 GB of optional downloads). Any single study can be rerun:
+a many-core machine, 6.4 GB of optional downloads, most of it the male CNS neuron table for the
+volume size rule). Any single study can be rerun:
 
 ```bash
 .venv/bin/python -m neuromps.fly.pipeline --list            # every step, with what it needs

@@ -103,6 +103,18 @@ Each fetcher re-checks its source's advertised license at download time.
 
 *Note:* optional (fly replication only); v1.0 flat connectome, minconf 0.5
 
+### `malecns_sizes`
+
+- **License:** CC-BY-4.0 (stated on the project home page as 'licensed under CC-BY')
+- **License URL:** https://creativecommons.org/licenses/by/4.0/
+- **Source:** https://male-cns.janelia.org/
+- **Files recorded:** 1
+- **Status:** ok
+
+> Berg S, Beckett IR, Costa M, et al. Sexual dimorphism in the complete connectome of the Drosophila male central nervous system. Nature (2026); MaleCNS v1.0, https://male-cns.janelia.org/
+
+*Note:* optional (embodied volume size rule); v1.0/database/neuprint-inputs/Neuprint_Neurons.feather, generation 1780895325252595, checked against the bucket's CRC32C 53OdcQ==
+
 ### `mateus2024`
 
 - **License:** CC-BY-4.0

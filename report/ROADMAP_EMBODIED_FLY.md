@@ -517,6 +517,40 @@ Pugliese et al. also stop short of.
 
 ![SIMULATED left front-leg network of the male CNS with the fine input search. Left: one draw per size rule under DNg100 (no size scaling: regular promotor bursts about every 200 ms). Right: corrected motor rhythm score over feasible draws; without size scaling the lesion removes the rhythm.](../outputs/figures/embodied_stage2h_front_leg_SIMULATED.png){width=80%}
 
+**Stage 2i: with Pugliese et al.'s own size rule, neuron volume, the front-leg rhythm needs
+their circuit and promotor and remotor keep a fixed offset (6 of 7).** Stages 2e-2h used stand-ins
+for neuron size because the male CNS flat files have no volumes. The project's neuPrint neuron
+table (same release and licence) does have them. It was fetched whole and checked against the
+bucket's CRC32C, and stage 2h was rerun unchanged with the published rule (size = volume over
+the network's median) on fresh draws. Every network neuron has a volume. Volume agrees only
+loosely with the synapse-count stand-in (Spearman
+0.5738 <!-- metrics.json: embodied_stage2i.sizes.spearman_volume_vs_synapse_count -->), and DNg100 is
+11.1758 <!-- metrics.json: embodied_stage2i.sizes.DNg100.volume --> times the median. The walking command drives a
+regular front-leg rhythm (median score over the 32 feasible draws
+0.9446 <!-- metrics.json: embodied_stage2i.predictions.V1_the_walking_command_makes_a_leg_rhythm.value -->, period
+96.0 <!-- metrics.json: embodied_stage2i.predictions.V6_a_fly_like_step_period.value --> ms). Silencing the three-neuron circuit
+abolishes it (0.0115 <!-- metrics.json: embodied_stage2i.predictions.V5_the_rhythm_needs_the_three_neuron_circuit.value.lesion -->),
+which synapse-count sizes did not reproduce (stage 2h:
+0.6808 <!-- metrics.json: embodied_stage2h.synapse_count.predictions.H5_the_rhythm_needs_the_three_neuron_circuit.value.lesion -->
+with the circuit silenced). For the first time the promotor and remotor pools keep a reliable
+phase relation, defined in
+27 <!-- metrics.json: embodied_stage2i.predictions.V2_promotor_and_remotor_keep_a_reliable_offset.value.defined --> of 32
+draws with reliability
+0.843 <!-- metrics.json: embodied_stage2i.predictions.V2_promotor_and_remotor_keep_a_reliable_offset.value.R -->. **The offset
+is not alternation, and that is the limit of the result.** Remotor peaks shortly before promotor
+in each cycle, and the two antagonists are never in antiphase. The tibia flexor pool stays
+silent, so flexor-extensor alternation fails again (V3). Reported without prediction:
+silencing the relay neuron IN17A001 alone leaves much of the rhythm
+(0.6575 <!-- metrics.json: embodied_stage2i.circuit_check.relay_only_IN17A001.median_score -->), and silencing INXXX466
+and IN16B036 removes it
+(0.0263 <!-- metrics.json: embodied_stage2i.circuit_check.keep_relay_silence_INXXX466_IN16B036.median_score -->), as stage 2h found
+without size scaling. **What this changes:** with the published size rule, Pugliese et al.'s
+central front-leg claim reproduces on a second connectome, including the circuit's necessity. The
+synapse-count stand-in was the reason stage 2h's necessity test failed. Within-leg antagonist
+alternation is still not there.
+
+![SIMULATED left front-leg network of the male CNS with neuron volume as size. Left: one draw under DNg100: promotor, remotor and tibia extensor pools rise and fall together each cycle (remotor slightly ahead); the tibia flexor stays silent. Right: corrected motor rhythm score per feasible draw and condition.](../outputs/figures/embodied_stage2i_front_leg_SIMULATED.png){width=95%}
+
 **Stage 3a: the first closed loop. Claw-neuron feedback shifts the motor pools toward resistance
 but barely moves a held leg (go/no-go failed; 3 of 5).** The male nerve cord and the
 muscle-driven left front leg now run together, one millisecond at a time. The leg's femur-tibia
