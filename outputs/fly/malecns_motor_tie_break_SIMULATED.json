@@ -27,16 +27,16 @@
       "resolution": "still tied"
     }
   },
-  "registration": {
-    "file": "preregistration/fly_motor_tie_break.json",
-    "sha256": "99b26f3dc525d3af2c0203cadba8d87b43f1b938be0e2799d9bef80de9f07129",
-    "registered_in_commit": "69db4e6db590ee71e051487ebe4bdb44f3eb424b",
-    "committed_at": "2026-10-24T10:24:37-04:00"
-  },
   "combined_with_parent": {
     "chip_later": 4,
     "tied": 1,
     "chip_earlier": 0,
     "note": "MR5 stays failed as registered; this combines it with the finer-grid follow-up"
+  },
+  "registration": {
+    "file": "preregistration/fly_motor_tie_break.json",
+    "sha256": "99b26f3dc525d3af2c0203cadba8d87b43f1b938be0e2799d9bef80de9f07129",
+    "registered_in_commit": "69db4e6db590ee71e051487ebe4bdb44f3eb424b",
+    "committed_at": "2026-10-24T10:24:37-04:00"
   }
 }
