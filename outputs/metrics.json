@@ -1461,6 +1461,97 @@
       "simulate_grid_s": 43.5
     }
   },
+  "embodied_onsets": {
+    "chip_first_run": {
+      "ach_block": 0.4,
+      "excitability_block": 0.3999999999999999,
+      "gaba_block": 0.6,
+      "gaba_potentiate": 0.6000000000000001,
+      "glucl_block": 0.8
+    },
+    "chip_replication": {
+      "ach_block": 0.4,
+      "excitability_block": 0.3600000000000001,
+      "gaba_block": 0.6,
+      "gaba_potentiate": 0.6000000000000001,
+      "glucl_block": 0.8
+    },
+    "directions": {
+      "index": {
+        "ach_block": null,
+        "excitability_block": null,
+        "gaba_block": null,
+        "gaba_potentiate": null,
+        "glucl_block": null
+      },
+      "proboscis_sugar": {
+        "ach_block": "down",
+        "excitability_block": "down",
+        "gaba_block": "down",
+        "gaba_potentiate": "down",
+        "glucl_block": null
+      },
+      "proboscis_sugar_bitter": {
+        "ach_block": "down",
+        "excitability_block": "down",
+        "gaba_block": "up",
+        "gaba_potentiate": "down",
+        "glucl_block": "up"
+      },
+      "reach_depth": {
+        "ach_block": "down",
+        "excitability_block": "down",
+        "gaba_block": "down",
+        "gaba_potentiate": null,
+        "glucl_block": "down"
+      },
+      "walking": {
+        "ach_block": "up",
+        "excitability_block": "up",
+        "gaba_block": "down",
+        "gaba_potentiate": "up",
+        "glucl_block": "down"
+      }
+    },
+    "label": "SIMULATED drug onsets per readout (descriptive, from stages 4b-4e)",
+    "onsets": {
+      "index": {
+        "ach_block": 0.2,
+        "excitability_block": 0.24,
+        "gaba_block": 0.2,
+        "gaba_potentiate": 0.5,
+        "glucl_block": 0.4
+      },
+      "proboscis_sugar": {
+        "ach_block": 0.2,
+        "excitability_block": 0.36,
+        "gaba_block": 0.8,
+        "gaba_potentiate": 0.5,
+        "glucl_block": null
+      },
+      "proboscis_sugar_bitter": {
+        "ach_block": 0.2,
+        "excitability_block": 0.2,
+        "gaba_block": 0.2,
+        "gaba_potentiate": 0.25,
+        "glucl_block": 0.2
+      },
+      "reach_depth": {
+        "ach_block": 0.2,
+        "excitability_block": 0.24,
+        "gaba_block": 0.2,
+        "gaba_potentiate": null,
+        "glucl_block": 0.2
+      },
+      "walking": {
+        "ach_block": 0.2,
+        "excitability_block": 0.2,
+        "gaba_block": 0.2,
+        "gaba_potentiate": 0.25,
+        "glucl_block": 0.4
+      }
+    }
+  },
   "embodied_stage1": {
     "coverage": {
       "left_front_leg_motor_neurons": 68,

@@ -766,6 +766,8 @@ chip flags them. The walking network's vehicle state sits near a transition, so 
 strengthen it tip draws into rhythm. That makes a fictive rhythm read on its own a fragile drug
 readout in this model.
 
+![SIMULATED drug onsets of stages 4b-4e in one view (`fly.onset_figure`, recorded outputs only): per drug family, the dose at which each movement, the walking rhythm (fraction of draws) and the three-movement index first change, filled where the readout fell and open where it rose, against the dose at which the chip first flags (black: replication; dashed: first run, hidden where the two agree).](../outputs/figures/embodied_onsets_SIMULATED.png){width=95%}
+
 **Stage 5: checking directions against real flies. The registered search found no fly
 pharmacology to compare with (both predictions uninterpretable).** Before any search, the stage
 registered ten queries, inclusion rules, a mapping from published manipulations to the knobs and

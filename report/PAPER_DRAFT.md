@@ -252,7 +252,7 @@ model. Nothing here says what any compound does to a fly, a culture or a person.
 | 3 | Output-tract electrode against a planar array | `outputs/figures/fly_output_tract_SIMULATED.png` |
 | 4 | Motor-level onsets | `outputs/figures/fly_motor_onsets_SIMULATED.png`, `fly_motor_tie_break_SIMULATED.png` |
 | 5 | The body: the grooming reach through the brain-to-nerve-cord relay, and the proboscis | `outputs/figures/embodied_stage1f_depth_SIMULATED.png`, `embodied_stage2b_proboscis_SIMULATED.png` |
-| 6 | Drugs in the loop: movements against dose | `outputs/figures/embodied_stage4a_drugs_movement_SIMULATED.png` |
+| 6 | Drugs in the loop: when each movement, the walking rhythm and the movement index first change, against when the chip flags, per family | `outputs/figures/embodied_onsets_SIMULATED.png`, `embodied_stage4a_drugs_movement_SIMULATED.png` |
 | 7 | Walking: the published rate model's front-leg rhythm, and the registered negatives | `outputs/figures/embodied_stage2h_front_leg_SIMULATED.png`, `embodied_stage2c_sweep_SIMULATED.png` |
 | 8 | The closed loop and the perturbation test, front and hind leg | `outputs/figures/embodied_stage3b_perturbation_SIMULATED.png`, `embodied_stage3c_hind_leg_SIMULATED.png` |
 | S1 | The rhythm-measure audit | `outputs/figures/rhythm_audit_SIMULATED.png` |

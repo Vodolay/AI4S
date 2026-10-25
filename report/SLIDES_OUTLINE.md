@@ -72,8 +72,8 @@ after behaviour has already changed.
   grid: the chip stays late in every family with the full index. In GABA-A potentiation the
   lateness rests on the bitter-gated proboscis; without it the two tie at
   0.6 <!-- metrics.json: embodied_stage4c.predictions.F2_without_the_bitter_gate_chip_later.value.movement_onset -->.
-- **Figure:** a table of onsets per family from `outputs/fly/embodied_stage4b_SIMULATED.json`
-  and `embodied_stage4c_SIMULATED.json` (to draw).
+- **Figure:** `outputs/figures/embodied_onsets_SIMULATED.png` (every readout's onset against the
+  chip's, per family).
 - **Caveat:** say the failed leave-one-out prediction out loud; it is the honest limit.
 - **Say:** read through walking alone, GABA-A and GluCl block break the rhythm at
   0.2 <!-- metrics.json: embodied_stage4d.onsets.walking.gaba_block --> of the knob's range, long before the chip; an
