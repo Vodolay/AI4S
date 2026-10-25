@@ -203,3 +203,14 @@ it with its own command or `python -m neuromps.fly.pipeline --only <step>`.
   the headline has now been tested as far as the current bodies allow (stages 4a-4c), and the
   next scientific choices (D7 neuron volumes, a muscle-driven hind leg, a walking readout for
   drugs) are the team's to make.
+
+### D24. The volume size rule **(user)**
+- **Options (D7's unexplored branch):** neuron volumes from a future release, or MANC volumes
+  through the male-CNS-to-MANC matching; found instead: the male CNS v1.0 neuPrint neuron table
+  (same bucket, same CC-BY release) has a voxel count per body.
+- **Taken:** fetch that table whole (4.65 GB, source `malecns_sizes`), checked against the
+  bucket's CRC32C, because the bucket publishes no MD5 for it **(user: full file, not a
+  column-only range read)**; rerun stage 2h with the published rule (stage 2i, registration
+  commit below) on fresh draws. A numpy CRC32C was written rather than adding a dependency.
+- **Revisit:** normalizing by the median over the whole nerve cord rather than over the
+  network (stated choice: over the network, as for the synapse-count stand-in).
