@@ -203,3 +203,29 @@ it with its own command or `python -m neuromps.fly.pipeline --only <step>`.
   the headline has now been tested as far as the current bodies allow (stages 4a-4c), and the
   next scientific choices (D7 neuron volumes, a muscle-driven hind leg, a walking readout for
   drugs) are the team's to make.
+
+### D24. The volume size rule **(user)**
+- **Options (D7's unexplored branch):** neuron volumes from a future release, or MANC volumes
+  through the male-CNS-to-MANC matching; found instead: the male CNS v1.0 neuPrint neuron table
+  (same bucket, same CC-BY release) has a voxel count per body.
+- **Taken:** fetch that table whole (4.65 GB, source `malecns_sizes`), checked against the
+  bucket's CRC32C, because the bucket publishes no MD5 for it **(user: full file, not a
+  column-only range read)**; rerun stage 2h with the published rule (stage 2i, registration
+  commit d03ee27) on fresh draws. A numpy CRC32C was written rather than adding a dependency.
+- **Outcome:** 6 of 7 (registration commit d03ee27): the rhythm needs the circuit and
+  promotor and remotor keep a reliable, non-antiphase offset; flexor-extensor alternation fails.
+- **Revisit:** normalizing by the median over the whole nerve cord rather than over the
+  network (stated choice: over the network, as for the synapse-count stand-in).
+
+### D25. Checking that stage 2i comes from the neurons' own volumes
+- **Options:** report stage 2i as it stands; name the assumption most likely to make it wrong
+  and test it (the project rule for results that look good).
+- **Taken:** stage 2j (registration commit 1d1d644), fresh draws: the volume rule replicated,
+  volumes shuffled across neurons (a fresh permutation per draw), and normalization by the
+  nerve cord's median instead of the network's. **Why:** if shuffled volumes do as well, the
+  result is about the spread of sizes, not the identified neurons; the normalization was a
+  stated choice the published description does not fix.
+- **Outcome:** 2 of 4 (registration commit 1d1d644). Shuffled volumes give no rhythm; the
+  cord-median normalization changes nothing; the rhythm and the circuit's necessity replicate,
+  but the promotor-remotor offset does not reach the registered reliability, so it is not claimed.
+- **Revisit:** a registered test of the offset alone with more draws, if it matters for the paper.

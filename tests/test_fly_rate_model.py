@@ -69,3 +69,20 @@ def test_the_drive_input_brings_an_isolated_neuron_to_the_target_rate() -> None:
     assert amp.shape == (2, 2)
     run = rate_model.simulate(w, p, [0, 2], amp, record=np.array([0, 2]), duration_s=0.5)
     np.testing.assert_allclose(run.rates[-1], 50.0, rtol=1e-3)
+
+
+def test_volume_sizes_are_median_normalized_and_fill_missing_with_the_median() -> None:
+    got = rate_model.volume_sizes(np.array([100.0, 200.0, 300.0, np.nan, 0.0]))
+    assert np.allclose(got, [0.5, 1.0, 1.5, 1.0, 1.0])
+
+
+def test_volume_sizes_can_be_normalized_by_a_reference_population() -> None:
+    got = rate_model.volume_sizes(np.array([100.0, 200.0]), reference=np.array([50.0, 50.0, 400.0]))
+    assert np.allclose(got, [2.0, 4.0])
+
+
+def test_draw_accepts_a_size_per_neuron_and_replicate() -> None:
+    size = np.array([[1.0, 2.0], [4.0, 1.0]])
+    p = rate_model.draw(size, [1, 2])
+    q = rate_model.draw(np.ones(2), [1, 2])
+    assert np.allclose(p.a * size, q.a) and np.allclose(p.theta / size, q.theta)

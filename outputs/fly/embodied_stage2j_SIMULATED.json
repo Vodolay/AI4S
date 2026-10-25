@@ -1,0 +1,370 @@
+{
+  "label": "SIMULATED left front-leg network of the male CNS: volume, shuffled, cord median",
+  "predictions": {
+    "J0_the_volume_result_replicates": {
+      "test": "under 'volume', stage 2g's P1 (rhythm), P2 (reliable promotor-remotor offset) and P5 (the rhythm needs the circuit) all pass",
+      "value": {
+        "P0": "pass",
+        "P1": "pass",
+        "P2": "fail",
+        "P5": "pass"
+      },
+      "outcome": "fail"
+    },
+    "J1_circuit_necessity_needs_the_neurons_own_volumes": {
+      "test": "under 'volume_shuffled', P5 fails (uninterpretable if P0 fails there)",
+      "value": {
+        "P0": "pass",
+        "P1": "fail",
+        "P2": "fail",
+        "P5": "uninterpretable"
+      },
+      "outcome": "fail"
+    },
+    "J2_the_offset_needs_the_neurons_own_volumes": {
+      "test": "under 'volume_shuffled', P2 fails (uninterpretable if P0 fails there)",
+      "value": {
+        "P0": "pass",
+        "P1": "fail",
+        "P2": "fail",
+        "P5": "uninterpretable"
+      },
+      "outcome": "pass"
+    },
+    "J3_the_normalization_does_not_matter": {
+      "test": "under 'volume_cord', P1, P2 and P5 all pass (uninterpretable if P0 fails there)",
+      "value": {
+        "P0": "pass",
+        "P1": "pass",
+        "P2": "pass",
+        "P5": "pass"
+      },
+      "outcome": "pass"
+    }
+  },
+  "arms": {
+    "volume": {
+      "scores": {
+        "P0_the_rule_finds_a_working_input": {
+          "value": 32,
+          "outcome": "pass"
+        },
+        "P1_the_walking_command_makes_a_leg_rhythm": {
+          "value": 0.6992,
+          "outcome": "pass"
+        },
+        "P2_promotor_and_remotor_keep_a_reliable_offset": {
+          "value": {
+            "defined": 26,
+            "feasible": 32,
+            "R": 0.6082
+          },
+          "outcome": "fail"
+        },
+        "P3_tibia_flexor_and_extensor_alternate": {
+          "value": null,
+          "outcome": "fail"
+        },
+        "P4_the_walking_command_drives_the_rhythm_best": {
+          "value": {
+            "forward_walking": 0.6992,
+            "grooming": 0.0
+          },
+          "outcome": "pass"
+        },
+        "P5_the_rhythm_needs_the_three_neuron_circuit": {
+          "value": {
+            "forward_walking": 0.6992,
+            "lesion": 0.0318
+          },
+          "outcome": "pass"
+        },
+        "P6_a_fly_like_step_period": {
+          "value": 101.0,
+          "outcome": "pass"
+        }
+      },
+      "reported": {
+        "forward_walking": {
+          "feasible": 32,
+          "median_input": 250.0,
+          "median_recruited": 139.0,
+          "median_active_motor": 10.0,
+          "median_score": 0.6992,
+          "median_period_ms": 101.0,
+          "infeasible_too_few": 0,
+          "infeasible_too_many": 0,
+          "infeasible_median_recruited_when_too_many": null,
+          "infeasible_bracket_ratio_median": null,
+          "infeasible_never_bracketed": 0
+        },
+        "lesion": {
+          "feasible": 32,
+          "median_input": 250.0,
+          "median_recruited": 93.0,
+          "median_active_motor": 5.0,
+          "median_score": 0.0318,
+          "median_period_ms": 173.50000000000003,
+          "infeasible_too_few": 0,
+          "infeasible_too_many": 0,
+          "infeasible_median_recruited_when_too_many": null
+        },
+        "grooming": {
+          "feasible": 1,
+          "median_input": 7.764906320061533,
+          "median_recruited": 407.0,
+          "median_active_motor": 16.0,
+          "median_score": 0.0,
+          "median_period_ms": null,
+          "infeasible_too_few": 17,
+          "infeasible_too_many": 14,
+          "infeasible_median_recruited_when_too_many": 697.0
+        },
+        "dnb08": {
+          "feasible": 32,
+          "median_input": 31.25,
+          "median_recruited": 40.0,
+          "median_active_motor": 4.0,
+          "median_score": 0.0155,
+          "median_period_ms": 83.0,
+          "infeasible_too_few": 0,
+          "infeasible_too_many": 0,
+          "infeasible_median_recruited_when_too_many": null
+        },
+        "none": {
+          "feasible": 32,
+          "median_input": 0.0,
+          "median_recruited": 0.0,
+          "median_active_motor": 0.0,
+          "median_score": 0.0,
+          "median_period_ms": null,
+          "infeasible_too_few": 0,
+          "infeasible_too_many": 0,
+          "infeasible_median_recruited_when_too_many": null
+        }
+      }
+    },
+    "volume_shuffled": {
+      "scores": {
+        "P0_the_rule_finds_a_working_input": {
+          "value": 16,
+          "outcome": "pass"
+        },
+        "P1_the_walking_command_makes_a_leg_rhythm": {
+          "value": 0.0021,
+          "outcome": "fail"
+        },
+        "P2_promotor_and_remotor_keep_a_reliable_offset": {
+          "value": {
+            "defined": 0,
+            "feasible": 16,
+            "R": null
+          },
+          "outcome": "fail"
+        },
+        "P3_tibia_flexor_and_extensor_alternate": {
+          "value": null,
+          "outcome": "fail"
+        },
+        "P4_the_walking_command_drives_the_rhythm_best": {
+          "value": {
+            "forward_walking": 0.0021,
+            "grooming": 0.0
+          },
+          "outcome": "pass"
+        },
+        "P5_the_rhythm_needs_the_three_neuron_circuit": {
+          "value": {
+            "forward_walking": 0.0021,
+            "lesion": 0.0021
+          },
+          "outcome": "uninterpretable"
+        },
+        "P6_a_fly_like_step_period": {
+          "value": 110.0,
+          "outcome": "pass"
+        }
+      },
+      "reported": {
+        "forward_walking": {
+          "feasible": 16,
+          "median_input": 15.625,
+          "median_recruited": 15.0,
+          "median_active_motor": 1.5,
+          "median_score": 0.0021,
+          "median_period_ms": 110.0,
+          "infeasible_too_few": 10,
+          "infeasible_too_many": 6,
+          "infeasible_median_recruited_when_too_many": 1029.5,
+          "infeasible_bracket_ratio_median": 1.000000247888783,
+          "infeasible_never_bracketed": 0
+        },
+        "lesion": {
+          "feasible": 16,
+          "median_input": 15.625,
+          "median_recruited": 12.5,
+          "median_active_motor": 1.5,
+          "median_score": 0.0021,
+          "median_period_ms": 110.0,
+          "infeasible_too_few": 11,
+          "infeasible_too_many": 5,
+          "infeasible_median_recruited_when_too_many": 1050.0
+        },
+        "grooming": {
+          "feasible": 4,
+          "median_input": 3.3562970319328826,
+          "median_recruited": 5.5,
+          "median_active_motor": 0.5,
+          "median_score": 0.0,
+          "median_period_ms": null,
+          "infeasible_too_few": 10,
+          "infeasible_too_many": 18,
+          "infeasible_median_recruited_when_too_many": 984.0
+        },
+        "dnb08": {
+          "feasible": 15,
+          "median_input": 5.065779510355507,
+          "median_recruited": 7.0,
+          "median_active_motor": 0.0,
+          "median_score": 0.0,
+          "median_period_ms": 101.0,
+          "infeasible_too_few": 10,
+          "infeasible_too_many": 7,
+          "infeasible_median_recruited_when_too_many": 1035.0
+        },
+        "none": {
+          "feasible": 32,
+          "median_input": 0.0,
+          "median_recruited": 0.0,
+          "median_active_motor": 0.0,
+          "median_score": 0.0,
+          "median_period_ms": null,
+          "infeasible_too_few": 0,
+          "infeasible_too_many": 0,
+          "infeasible_median_recruited_when_too_many": null
+        }
+      }
+    },
+    "volume_cord": {
+      "scores": {
+        "P0_the_rule_finds_a_working_input": {
+          "value": 32,
+          "outcome": "pass"
+        },
+        "P1_the_walking_command_makes_a_leg_rhythm": {
+          "value": 0.9531,
+          "outcome": "pass"
+        },
+        "P2_promotor_and_remotor_keep_a_reliable_offset": {
+          "value": {
+            "defined": 24,
+            "feasible": 32,
+            "R": 0.9858
+          },
+          "outcome": "pass"
+        },
+        "P3_tibia_flexor_and_extensor_alternate": {
+          "value": null,
+          "outcome": "fail"
+        },
+        "P4_the_walking_command_drives_the_rhythm_best": {
+          "value": {
+            "forward_walking": 0.9531,
+            "grooming": 0.0
+          },
+          "outcome": "pass"
+        },
+        "P5_the_rhythm_needs_the_three_neuron_circuit": {
+          "value": {
+            "forward_walking": 0.9531,
+            "lesion": 0.0
+          },
+          "outcome": "pass"
+        },
+        "P6_a_fly_like_step_period": {
+          "value": 81.5,
+          "outcome": "pass"
+        }
+      },
+      "reported": {
+        "forward_walking": {
+          "feasible": 32,
+          "median_input": 1000.0,
+          "median_recruited": 41.0,
+          "median_active_motor": 3.0,
+          "median_score": 0.9531,
+          "median_period_ms": 81.5,
+          "infeasible_too_few": 0,
+          "infeasible_too_many": 0,
+          "infeasible_median_recruited_when_too_many": null,
+          "infeasible_bracket_ratio_median": null,
+          "infeasible_never_bracketed": 0
+        },
+        "lesion": {
+          "feasible": 32,
+          "median_input": 1000.0,
+          "median_recruited": 29.0,
+          "median_active_motor": 1.0,
+          "median_score": 0.0,
+          "median_period_ms": null,
+          "infeasible_too_few": 0,
+          "infeasible_too_many": 0,
+          "infeasible_median_recruited_when_too_many": null
+        },
+        "grooming": {
+          "feasible": 32,
+          "median_input": 250.0,
+          "median_recruited": 422.5,
+          "median_active_motor": 16.5,
+          "median_score": 0.0,
+          "median_period_ms": 105.5,
+          "infeasible_too_few": 0,
+          "infeasible_too_many": 0,
+          "infeasible_median_recruited_when_too_many": null
+        },
+        "dnb08": {
+          "feasible": 32,
+          "median_input": 250.0,
+          "median_recruited": 64.0,
+          "median_active_motor": 4.0,
+          "median_score": 0.0,
+          "median_period_ms": 80.5,
+          "infeasible_too_few": 0,
+          "infeasible_too_many": 0,
+          "infeasible_median_recruited_when_too_many": null
+        },
+        "none": {
+          "feasible": 32,
+          "median_input": 0.0,
+          "median_recruited": 0.0,
+          "median_active_motor": 0.0,
+          "median_score": 0.0,
+          "median_period_ms": null,
+          "infeasible_too_few": 0,
+          "infeasible_too_many": 0,
+          "infeasible_median_recruited_when_too_many": null
+        }
+      }
+    }
+  },
+  "runs_used": {
+    "volume/forward_walking": 2,
+    "volume/grooming": 30,
+    "volume/dnb08": 4,
+    "volume/none": 1,
+    "volume_shuffled/forward_walking": 30,
+    "volume_shuffled/grooming": 30,
+    "volume_shuffled/dnb08": 30,
+    "volume_shuffled/none": 1,
+    "volume_cord/forward_walking": 3,
+    "volume_cord/grooming": 1,
+    "volume_cord/dnb08": 1,
+    "volume_cord/none": 1
+  },
+  "registration": {
+    "file": "preregistration/embodied_stage2j_volume_specificity.json",
+    "sha256": "88560e28c270c81b94126f97a86090b7caab8f11d7e529c2cc04934690667806",
+    "registered_in_commit": "1d1d64496d002588790bb13ac82f78214f53ff11",
+    "committed_at": "2026-10-25T07:53:56-04:00"
+  }
+}

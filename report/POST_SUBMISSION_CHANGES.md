@@ -45,6 +45,8 @@ the bottom.*
 | 34 | 2026-10-25 | Embodied stage 3d: the hind-leg contingency test, paired, fresh seeds | 0 of 2; no push-following effect; stage 3 stays a documented negative | `8ea194a` … this branch |
 | 35 | 2026-10-25 | Embodied stage 4b: the movement-level headline on fresh seeds | 3 of 4; the chip is late in every family again; without the bitter-gated proboscis one family ties | `b23f6a3` … this branch |
 | 36 | 2026-10-25 | Embodied stage 4c: a finer dose grid inside the one-step margins | 3 of 4; excitability block resolves chip later; GABA-A potentiation's lateness rests on the bitter-gated proboscis | `f387845` … this branch |
+| 37 | 2026-10-25 | Embodied stage 2i: the front-leg rhythm with the published size rule, neuron volume | 6 of 7; the rhythm needs the three-neuron circuit; promotor and remotor keep a reliable offset, not antiphase; flexors silent | `d03ee27` … this branch |
+| 38 | 2026-10-25 | Embodied stage 2j: shuffled volumes and a whole-cord normalization | 2 of 4; shuffled volumes give no rhythm; the normalization changes nothing; the promotor-remotor offset does not replicate | `1d1d644` … this branch |
 
 ---
 
@@ -829,6 +831,43 @@ and we say so.*
   0.5 <!-- metrics.json: embodied_stage4c.predictions.F1_gaba_potentiation_chip_later.value.movement_onset -->, chip at 0.6 <!-- metrics.json: embodied_stage4c.predictions.F1_gaba_potentiation_chip_later.value.chip_onset -->; without the bitter-gated
   proboscis both at 0.6 <!-- metrics.json: embodied_stage4c.predictions.F2_without_the_bitter_gate_chip_later.value.movement_onset --> (F2 fails).
 - **Evidence.** Roadmap §7; `outputs/fly/embodied_stage4c_SIMULATED.*`.
+
+---
+
+## 37. With the published size rule, the walking circuit is necessary
+
+**Slide message:** *Using the neuron volumes the published model calls for, the walking
+command's front-leg rhythm needs the published three-neuron circuit on a second connectome. Our
+earlier stand-in for size had hidden that. The leg's antagonist muscles still do not alternate.*
+
+- **What changed.** `src/neuromps/fetch/malecns_sizes.py` fetches the male CNS v1.0 neuPrint
+  neuron table (4.65 GB, CC-BY), checked against the bucket's CRC32C by
+  `src/neuromps/fetch/crc32c.py` (numpy, no new dependency); `fly/malecns.neuron_sizes` reads its
+  size column. `src/neuromps/fly/embodied_stage2i.py` reruns stage 2h with size = volume over the
+  network median, fresh draws; registered in `preregistration/embodied_stage2i_volume_size_rule.json`.
+- **Effect.** 6 of 7: rhythm
+  0.9446 <!-- metrics.json: embodied_stage2i.predictions.V1_the_walking_command_makes_a_leg_rhythm.value -->, gone with the circuit silenced
+  (0.0115 <!-- metrics.json: embodied_stage2i.predictions.V5_the_rhythm_needs_the_three_neuron_circuit.value.lesion -->); promotor and remotor
+  phase-locked (R 0.843 <!-- metrics.json: embodied_stage2i.predictions.V2_promotor_and_remotor_keep_a_reliable_offset.value.R -->) with remotor slightly
+  ahead, not in antiphase; flexor-extensor alternation fails.
+- **Evidence.** Roadmap §7 and figure; `outputs/fly/embodied_stage2i_SIMULATED.*`.
+
+---
+
+## 38. The identified neurons' volumes matter; one hopeful detail does not hold
+
+**Slide message:** *Shuffle the same volumes across neurons and the walking rhythm disappears,
+so it is the identified neurons' sizes that matter. The fixed coxa offset we saw once did not
+replicate, and we do not claim it.*
+
+- **What changed.** `src/neuromps/fly/embodied_stage2j.py` (fresh draws, three size arms); the
+  rate model takes a size per neuron and draw; registered in
+  `preregistration/embodied_stage2j_volume_specificity.json`.
+- **Effect.** 2 of 4. Volume rule: rhythm 0.6992 <!-- metrics.json: embodied_stage2j.arms.volume.scores.P1_the_walking_command_makes_a_leg_rhythm.value --> and circuit
+  necessity replicate, the offset does not (R 0.6082 <!-- metrics.json: embodied_stage2j.arms.volume.scores.P2_promotor_and_remotor_keep_a_reliable_offset.value.R -->).
+  Shuffled: no rhythm (0.0021 <!-- metrics.json: embodied_stage2j.arms.volume_shuffled.scores.P1_the_walking_command_makes_a_leg_rhythm.value -->). Whole-cord median:
+  unchanged (rhythm 0.9531 <!-- metrics.json: embodied_stage2j.arms.volume_cord.scores.P1_the_walking_command_makes_a_leg_rhythm.value -->).
+- **Evidence.** Roadmap §7; `outputs/fly/embodied_stage2j_SIMULATED.*`.
 
 ---
 

@@ -1,0 +1,40 @@
+{
+  "title": "Embodied fly, stage 2j: is it the neurons' own volumes? Stage 2i replicated, against volumes shuffled across neurons and against a whole-cord normalization (SIMULATED, rate model, male CNS)",
+  "registered": "2026-10-25",
+  "status": "registered before any stage-2j simulation",
+  "parent": "preregistration/embodied_stage2i_volume_size_rule.json",
+  "relation_to_parent": "Stage 2i passed 6 of 7: with volume as size the walking command's front-leg rhythm needs the three-neuron circuit and promotor and remotor keep a reliable offset, neither of which held with the synapse-count stand-in. The assumption that could make this wrong is that the result comes from the neurons' own volumes rather than from the spread of sizes, or from the stated choice to normalize by the network's median. Stage 2j tests both on fresh draws. Stage 2i's outcomes stand. Decision D25 in report/DECISION_LOG.md.",
+  "seen_before_registration": [
+    "every stage-2i result (draws 1380-1411): P0-P6 as V0-V6, 6 of 7; the promotor-remotor offset is a short remotor lead (median phase near 0.84 cycles), not antiphase",
+    "data only: the median volume of the 2,133-neuron front-leg network is 2.7416 times the median over the 24,015-neuron nerve-cord network of stage 1c (5 of whose neurons lack a volume)"
+  ],
+  "design": {
+    "everything_else": "exactly stage 2i (and so stage 2h): network, rate model, drives, fine input search, lesion, stage 2g's measures and scoring",
+    "arms": {
+      "volume": "stage 2i's rule: volume over the network's median",
+      "volume_shuffled": "the same size values permuted across the network's neurons, a fresh permutation for each draw (numpy default_rng(seed).permutation), so every draw has the volume distribution but not the neurons' own volumes",
+      "volume_cord": "volume over the median of the stage-1c nerve-cord network (every size 2.7416 times larger than under 'volume')"
+    },
+    "draws": "32 per condition and arm, seeds 1420-1451 (fresh), shared across conditions and arms"
+  },
+  "predictions": {
+    "J0_the_volume_result_replicates": {
+      "statement": "Stage 2i's three walking results hold on fresh draws",
+      "test": "under 'volume', stage 2g's P1 (rhythm), P2 (reliable promotor-remotor offset) and P5 (the rhythm needs the circuit) all pass"
+    },
+    "J1_circuit_necessity_needs_the_neurons_own_volumes": {
+      "statement": "Shuffling the volumes across neurons loses the circuit's necessity",
+      "test": "under 'volume_shuffled', P5 fails (uninterpretable if P0 fails there)"
+    },
+    "J2_the_offset_needs_the_neurons_own_volumes": {
+      "statement": "Shuffling the volumes across neurons loses the reliable promotor-remotor offset",
+      "test": "under 'volume_shuffled', P2 fails (uninterpretable if P0 fails there)"
+    },
+    "J3_the_normalization_does_not_matter": {
+      "statement": "Normalizing by the nerve cord's median instead of the network's leaves the result",
+      "test": "under 'volume_cord', P1, P2 and P5 all pass (uninterpretable if P0 fails there)"
+    }
+  },
+  "not_claimed_even_if_all_pass": "that the fly's leg network works this way: a pass of J1 and J2 means that in this reimplementation the identified neurons' own volumes, not the spread of sizes, produce the circuit dependence and the offset",
+  "reporting": "Every prediction, pass, fail or uninterpretable; P0-P6 with values for every arm; feasibility and runs used per arm and drive; the stage-2i comparison."
+}

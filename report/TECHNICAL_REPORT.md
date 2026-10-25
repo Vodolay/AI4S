@@ -1213,7 +1213,12 @@ at a period of
 196.5 <!-- metrics.json: embodied_stage2h.none.predictions.H6_a_fly_like_step_period.value --> ms without size scaling, and silencing the
 published three-neuron circuit removes it
 (0.0 <!-- metrics.json: embodied_stage2h.none.predictions.H5_the_rhythm_needs_the_three_neuron_circuit.value.lesion -->).
-It depends on how neuron size is treated, and neither model alternates antagonist muscles. One
+With the published size rule, neuron volume, fetched later from the male CNS release, the
+circuit's necessity reproduces too (silenced:
+0.0115 <!-- metrics.json: embodied_stage2i.predictions.V5_the_rhythm_needs_the_three_neuron_circuit.value.lesion -->); a registered check finds no rhythm when the
+volumes are shuffled across neurons, so the rhythm needs the identified neurons' own volumes. A
+promotor-remotor offset seen once did not replicate reliably, and neither model alternates
+antagonist muscles. One
 earlier claim was withdrawn on the way: the rhythm measure registered since the first leg stage
 took the largest autocorrelation without requiring a peak, so smooth movements scored as
 rhythmic; a registered audit with a corrected measure reproduced every recorded outcome and

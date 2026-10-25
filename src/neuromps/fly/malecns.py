@@ -161,3 +161,42 @@ def cached(raw: Path = RAW, cache_dir: Path | None = None) -> tuple[Connectome, 
     columns = ["bodyId", "type", "flywireType", "rootSide", "somaSide", "superclass"]
     ann[columns].to_parquet(ann_path)
     return con, ann[columns]
+
+
+SIZE_COLUMNS = (":ID(Body-ID)", "size:long")
+
+
+def neuron_sizes(raw_root: Path = RAW_ROOT, cache_dir: Path | None = None) -> pd.Series:
+    """Voxel count per body ID, from the neuPrint neuron table (`malecns_sizes` source).
+
+    Only the two columns are read from the 4.65 GB table; the result is kept as a small
+    parquet file in `data/interim/fly/` and rebuilt when the table changes.
+    """
+    import pyarrow.feather as feather
+
+    from neuromps.fetch import malecns_sizes
+    from neuromps.paths import interim_dir
+    from neuromps.qc.provenance import sha256_file
+
+    table = Path(raw_root) / malecns_sizes.REL
+    cache = Path(cache_dir or interim_dir() / "fly") / "malecns_sizes.parquet"
+    stamp = cache.with_suffix(".source")
+    if not (cache.exists() and stamp.exists() and stamp.read_text() == _stat(table)):
+        frame = feather.read_table(table, columns=list(SIZE_COLUMNS)).to_pandas()
+        frame.columns = ["body", "size"]
+        cache.parent.mkdir(parents=True, exist_ok=True)
+        frame.to_parquet(cache, index=False)
+        stamp.write_text(_stat(table))
+        log.info(
+            "neuron sizes: %d bodies from %s (sha256 %s)",
+            len(frame),
+            table,
+            sha256_file(table)[:12],
+        )
+    frame = pd.read_parquet(cache)
+    return pd.Series(frame["size"].to_numpy(), index=frame["body"].to_numpy(), name="size")
+
+
+def _stat(path: Path) -> str:
+    s = Path(path).stat()
+    return f"{s.st_size}:{int(s.st_mtime)}"

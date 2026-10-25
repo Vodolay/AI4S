@@ -1,0 +1,49 @@
+{
+  "title": "Embodied fly, stage 2i: the front-leg rhythm with Pugliese et al.'s own size rule, neuron volume (SIMULATED, rate model, male CNS)",
+  "registered": "2026-10-25",
+  "status": "registered before any simulation with volume sizes",
+  "parent": "preregistration/embodied_stage2h_front_leg_bisection.json",
+  "relation_to_parent": "Stages 2e-2h used two stated stand-ins for neuron size (total synapse count, or none) because the male CNS flat files carry no volumes. The project's neuPrint neuron table (same CC-BY release) has a voxel count per body; it is now fetched (source malecns_sizes, checked against the bucket's CRC32C). Stage 2i reruns stage 2h unchanged with the published rule, on fresh draws. Stage 2h's outcomes stand. Decision D24 in report/DECISION_LOG.md (the user chose this branch).",
+  "seen_before_registration": [
+    "every stage-2e to 2h result; in stage 2h the rhythm needed the three-neuron circuit without size scaling (H5 passed) but not with synapse-count sizes (H5 failed); H2 and H3 failed under both rules",
+    "data only, no simulation: all 2,133 neurons of the front-leg network have a volume; median-normalized volume and median-normalized synapse count correlate with Spearman 0.5738; DNg100's two neurons have volume sizes 11.225 and 11.127 (synapse-count sizes 6.875 and 9.477); the circuit neurons IN17A001, INXXX466 and IN16B036 of the left front leg have volume sizes 3.227, 1.859 and 0.917 (synapse-count sizes 15.161, 6.903 and 3.57); volume sizes span 0.066 to 10.497 between the 1st and 99th percentiles"
+  ],
+  "design": {
+    "everything_else": "exactly stage 2h: the left front-leg network (2,133 neurons), fly.rate_model, drives (DNg100, the grooming pair, DNb08, none), the fine input search (geometric bisection, at most 30 runs, 5-500 recruited), the lesion at the final inputs, stage 2g's measures and scoring (corrected rhythm measure, motor rhythm score, pools, phases, reliability)",
+    "size_rule": "volume: each neuron's voxel count from Neuprint_Neurons.feather (male CNS v1.0), divided by the median over the network; a missing or non-positive volume takes the median (none are missing); a divided and theta multiplied by it, as published",
+    "draws": "32 per condition, seeds 1380-1411 (fresh), shared across conditions"
+  },
+  "predictions": {
+    "V0_a_working_input_exists": {
+      "statement": "Precondition: the fine search finds an input recruiting 5-500 neurons under DNg100",
+      "test": "at least 16 of 32 draws feasible; if not, V1-V6 are uninterpretable for that size rule"
+    },
+    "V1_the_walking_command_makes_a_leg_rhythm": {
+      "statement": "Pugliese et al.'s result, on the male CNS",
+      "test": "median over feasible draws of the motor rhythm score under forward walking >= 0.3"
+    },
+    "V2_promotor_and_remotor_keep_a_reliable_offset": {
+      "statement": "Pugliese et al.'s antagonist result",
+      "test": "phase(promotor -> remotor) defined in at least half the feasible forward-walking draws, and R >= 0.7 over those"
+    },
+    "V3_tibia_flexor_and_extensor_alternate": {
+      "statement": "Stage 2a's W2, within this network",
+      "test": "median circular distance of phase(tibia flexor -> tibia extensor) from 0.5 <= 0.15 over feasible draws (undefined phases count as failures)"
+    },
+    "V4_the_walking_command_drives_the_rhythm_best": {
+      "statement": "As their descending-neuron screen",
+      "test": "median motor rhythm score under forward walking above the grooming median (each over its own feasible draws)"
+    },
+    "V5_the_rhythm_needs_the_three_neuron_circuit": {
+      "statement": "Pugliese et al.'s necessity result; interpretable only if H1 passes",
+      "test": "V1 passes, and with the circuit silenced the median motor rhythm score < 0.3 and at most half the intact median"
+    },
+    "V6_a_fly_like_step_period": {
+      "statement": "As stage 2c's A6",
+      "test": "median over feasible forward-walking draws of the median corrected period over active motor neurons with a peak, between 60 and 200 ms"
+    }
+  },
+  "scoring": "stage 2g's code computes P0-P6, reported here as V0-V6",
+  "not_claimed_even_if_all_pass": "that the fly's leg network works this way: it is Pugliese et al.'s model and parameter distributions on a different connectome, now with their size rule, and no body; a pass of V1 and V5 means their front-leg result, including the circuit's necessity, holds in an independent reimplementation on the male CNS with the published size rule",
+  "reporting": "Every prediction, pass, fail or uninterpretable; feasibility, runs used and bracket ratios; DNb08; recruited and active motor neurons; the size summary (missing volumes, the correlation with synapse count, DNg100's and the circuit's sizes); stage 2h's silencing variants at each feasible draw's input (relay only, the other two only, all three) and the motor neuron types that carry the rhythm, reported without prediction."
+}

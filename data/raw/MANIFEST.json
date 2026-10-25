@@ -837,7 +837,7 @@
       "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
       "citation": "Tukker AM, Wijnolts FMJ, de Groot A, Westerink RHS. Toxicol Sci 178(1):71-87 (2020). doi:10.1093/toxsci/kfaa136",
       "note": "EXCLUDED 2026-09-16 (PI decision): non-commercial license is incompatible with a prize-bearing submission released under an open license. Revisit only if the competition rules clearly keep submissions under the entrant's own open license.",
-      "checked_at": "2026-10-25T00:21:30+00:00",
+      "checked_at": "2026-10-25T11:29:04+00:00",
       "files": []
     },
     "kapucu2022": {
@@ -2555,6 +2555,25 @@
           "sha256": "e35da783d1c686b2b58b3b87cd6a403ae43bfcfba8bff28e08ef752c1a56afc1",
           "bytes": 1051241946,
           "downloaded_at": "2026-10-23T02:33:03+00:00"
+        }
+      ]
+    },
+    "malecns_sizes": {
+      "name": "malecns_sizes",
+      "status": "ok",
+      "landing_url": "https://male-cns.janelia.org/",
+      "license": "CC-BY-4.0 (stated on the project home page as 'licensed under CC-BY')",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "citation": "Berg S, Beckett IR, Costa M, et al. Sexual dimorphism in the complete connectome of the Drosophila male central nervous system. Nature (2026); MaleCNS v1.0, https://male-cns.janelia.org/",
+      "note": "optional (embodied volume size rule); v1.0/database/neuprint-inputs/Neuprint_Neurons.feather, generation 1780895325252595, checked against the bucket's CRC32C 53OdcQ==",
+      "checked_at": "2026-10-25T11:40:03+00:00",
+      "files": [
+        {
+          "path": "malecns_sizes/Neuprint_Neurons.feather",
+          "url": "https://storage.googleapis.com/flyem-male-cns/v1.0/database/neuprint-inputs/Neuprint_Neurons.feather",
+          "sha256": "1142e5d09ed5599d96988c7dcea255d6532c6a83f7b9ec46a0656885d5bd40b3",
+          "bytes": 4648794426,
+          "downloaded_at": "2026-10-25T11:39:24+00:00"
         }
       ]
     },

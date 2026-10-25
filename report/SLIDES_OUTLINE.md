@@ -79,10 +79,16 @@ after behaviour has already changed.
 ### 9. Walking: negatives and a reproduction
 - **Message:** the connectome alone, as integrate-and-fire neurons, does not walk (extensors
   tonic at 54.12 <!-- metrics.json: embodied_stage2a.pool_rates_hz.forward_walking.L2_extensor -->
-  Hz, flexors silent); a published rate model's front-leg rhythm reproduces on the male CNS
-  (rhythm score 0.8886 <!-- metrics.json: embodied_stage2h.none.predictions.H1_the_walking_command_makes_a_leg_rhythm.value -->).
-- **Figure:** `outputs/figures/embodied_stage2h_front_leg_SIMULATED.png`.
-- **Caveat:** no flexor-extensor alternation; the rhythm depends on the size rule.
+  Hz, flexors silent); a published rate model, with its own size rule (neuron volume), drives a
+  front-leg rhythm on the male CNS
+  (0.9446 <!-- metrics.json: embodied_stage2i.predictions.V1_the_walking_command_makes_a_leg_rhythm.value -->)
+  that needs the published three-neuron circuit (silenced:
+  0.0115 <!-- metrics.json: embodied_stage2i.predictions.V5_the_rhythm_needs_the_three_neuron_circuit.value.lesion -->).
+- **Figure:** `outputs/figures/embodied_stage2i_front_leg_SIMULATED.png`.
+- **Say:** shuffle the same volumes across neurons and the rhythm is gone
+  (0.0021 <!-- metrics.json: embodied_stage2j.arms.volume_shuffled.scores.P1_the_walking_command_makes_a_leg_rhythm.value -->),
+  so the identified neurons' sizes matter.
+- **Caveat:** no flexor-extensor alternation; a coxa offset seen once did not replicate.
 
 ### 10. We audited our own measure
 - **Message:** our rhythm measure scored smooth signals as rhythmic; a registered audit withdrew

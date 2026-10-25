@@ -51,6 +51,19 @@ def sizes(con: Connectome) -> np.ndarray:
     return total / median
 
 
+def volume_sizes(volumes: np.ndarray, reference: np.ndarray | None = None) -> np.ndarray:
+    """Pugliese et al.'s size: neuron volume over the median volume of a population.
+
+    The population is the network itself unless `reference` volumes are given. Missing or
+    non-positive volumes take that median, as zero synapse counts do in `sizes`.
+    """
+    v = np.asarray(volumes, dtype=float).copy()
+    ref = v if reference is None else np.asarray(reference, dtype=float)
+    median = np.median(ref[np.isfinite(ref) & (ref > 0)])
+    v[~(np.isfinite(v) & (v > 0))] = median
+    return v / median
+
+
 def _positive_normal(rng, mean: float, sd: float, shape) -> np.ndarray:
     out = rng.normal(mean, sd, shape)
     while np.any(bad := out <= 0):
@@ -69,15 +82,19 @@ class Draws:
 
 
 def draw(size: np.ndarray, seeds: list[int]) -> Draws:
-    """One parameter draw per seed (a column each), scaled by size as published."""
+    """One parameter draw per seed (a column each), scaled by size as published.
+
+    `size` is one value per neuron, or one per neuron and seed (neurons x seeds).
+    """
     cols = {k: [] for k in DISTRIBUTIONS}
     for seed in seeds:
         rng = np.random.default_rng(seed)
         for k, (mean, sd) in DISTRIBUTIONS.items():
-            cols[k].append(_positive_normal(rng, mean, sd, size.size))
+            cols[k].append(_positive_normal(rng, mean, sd, size.shape[0]))
     got = {k: np.stack(v, axis=1) for k, v in cols.items()}
-    got["a"] = got["a"] / size[:, None]
-    got["theta"] = got["theta"] * size[:, None]
+    scale = size if size.ndim == 2 else size[:, None]
+    got["a"] = got["a"] / scale
+    got["theta"] = got["theta"] * scale
     return Draws(**got)
 
 

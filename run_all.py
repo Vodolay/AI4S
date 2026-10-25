@@ -16,7 +16,7 @@ path past its ten minutes on its own.
 The embodied stage (every later fly study: the male-CNS replication and motor
 readouts, the output-tract electrode, the embodied stages 1-5 and the rhythm-measure
 audit; see :mod:`neuromps.fly.pipeline`) is part of a full run only. It needs the
-optional sources flywire783, malecns, flymimic and flybody and the ``embodied``
+optional sources flywire783, malecns, malecns_sizes, flymimic and flybody and the ``embodied``
 extra (``pip install -e .[embodied]``), and takes a few hours on a many-core machine.
 """
 
@@ -30,7 +30,7 @@ from neuromps.paths import FULL, QUICK, outputs_dir, processed_dir, set_run_mode
 
 STAGES = ["fetch", "data", "models", "twin", "demo"]
 OPTIONAL_STAGES = ["fly", "embodied"]
-EMBODIED_SOURCES = ["flywire783", "malecns", "flymimic", "flybody"]
+EMBODIED_SOURCES = ["flywire783", "malecns", "malecns_sizes", "flymimic", "flybody"]
 
 
 def select_stages(stage: str, quick: bool, with_fly: bool) -> list[str]:

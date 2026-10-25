@@ -77,7 +77,10 @@ def next_inputs(inputs: np.ndarray, recruited: np.ndarray) -> np.ndarray:
     return out
 
 
-def _init() -> None:
+def _init(with_volumes: bool = False) -> None:
+    """Build the front-leg network; `with_volumes` adds the volume size rule (stage 2i)."""
+    from neuromps.fly import malecns
+
     embodied_stage1c._init()
     full = embodied_stage1c._STATE["con"]
     table = embodied_stage1c._annotations(full.root_ids)
@@ -93,10 +96,18 @@ def _init() -> None:
         & (sub["somaSide"] == "L").to_numpy()
     )
     sizes = rate_model.sizes(con)
+    rules = {"synapse_count": sizes, "none": np.ones_like(sizes)}
+    if with_volumes:
+        known = malecns.neuron_sizes()
+        volumes = known.reindex(con.root_ids).to_numpy()
+        rules["volume"] = rate_model.volume_sizes(volumes)
+        cord = known.reindex(full.root_ids).to_numpy()
+        rules["volume_cord"] = rate_model.volume_sizes(volumes, reference=cord)
+        _STATE["volumes_missing"] = int(np.sum(~np.isfinite(volumes) | (volumes <= 0)))
     _STATE.update(
         con=con,
         w=rate_model.weights(con),
-        sizes={"synapse_count": sizes, "none": np.ones_like(sizes)},
+        sizes=rules,
         drive={k: np.flatnonzero(types.isin(v).to_numpy()) for k, v in DRIVES.items()},
         cpg=np.flatnonzero(types.isin(CPG).to_numpy()),
         mn=mn,
@@ -310,7 +321,7 @@ def reported(table: pd.DataFrame) -> dict:
     return out
 
 
-def plot(examples: dict, table: pd.DataFrame, path) -> None:
+def plot(examples: dict, table: pd.DataFrame, path, rules=SIZE_RULES) -> None:
     """Per size rule: one feasible forward-walking draw's pools, and every draw's score."""
     import matplotlib
 
@@ -324,8 +335,14 @@ def plot(examples: dict, table: pd.DataFrame, path) -> None:
         "extensor": "#E69F00",
     }
     order = ["forward_walking", "grooming", "dnb08", "none", "lesion"]
-    fig, axes = plt.subplots(2, 2, figsize=(7.4, 5.4), gridspec_kw={"width_ratios": [1.5, 1]})
-    for r, rule in enumerate(SIZE_RULES):
+    fig, axes = plt.subplots(
+        len(rules),
+        2,
+        figsize=(7.4, 2.7 * len(rules)),
+        gridspec_kw={"width_ratios": [1.5, 1]},
+        squeeze=False,
+    )
+    for r, rule in enumerate(rules):
         left, right = axes[r]
         ex = examples.get(rule)
         if ex is not None:
@@ -351,7 +368,7 @@ def plot(examples: dict, table: pd.DataFrame, path) -> None:
         right.set_ylabel("motor rhythm score (corrected)", fontsize=7)
         right.set_title("feasible draws; dashed: registered 0.3", fontsize=7)
         right.tick_params(labelsize=6)
-    axes[1, 0].set_xlabel("time (s)", fontsize=7)
+    axes[-1, 0].set_xlabel("time (s)", fontsize=7)
     fig.suptitle(
         "SIMULATED left front-leg network of the male CNS (Pugliese et al. construction)",
         fontsize=8,
