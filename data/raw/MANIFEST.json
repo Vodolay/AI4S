@@ -68,7 +68,7 @@
       "license_url": "https://www.apache.org/licenses/LICENSE-2.0",
       "citation": "Vaxenburg R, Siwanowicz I, Merel J, et al. Whole-body physics simulation of fruit fly locomotion. Nature (2025); flybody model, github.com/TuragaLab/flybody at commit d015e9bfe441",
       "note": "optional (embodied fly only); commit d015e9bfe441; model file and meshes, each checked against its git blob hash; Blender source not fetched",
-      "checked_at": "2026-10-25T00:21:34+00:00",
+      "checked_at": "2026-10-25T13:32:30+00:00",
       "files": [
         {
           "path": "flybody/LICENSE",
@@ -696,7 +696,7 @@
       "license_url": "https://www.apache.org/licenses/LICENSE-2.0",
       "citation": "\u00d6zdil PG, et al. FlyMimic: musculoskeletal model of Drosophila limb movement (2026), as shipped in FlyGym 2 (NeuroMechFly v2; Wang-Chen S, et al. Nature Methods 21, 2353-2362 (2024)); github.com/NeLy-EPFL/flygym at commit a63dc91a7ce4",
       "note": "optional (embodied fly only); FlyGym commit a63dc91a7ce4; mesh archive neuromechfly_musculoskeletal_meshes_20260623a checked against its published SHA-256",
-      "checked_at": "2026-10-25T00:21:33+00:00",
+      "checked_at": "2026-10-25T13:32:30+00:00",
       "files": [
         {
           "path": "flymimic/LICENSE",
@@ -757,7 +757,7 @@
       "license_url": "https://creativecommons.org/licenses/by/4.0/",
       "citation": "Dorkenwald S, et al. Neuronal wiring diagram of an adult brain. Nature 634, 124-138 (2024); FlyWire connectivity data, doi:10.5281/zenodo.10676866. Schlegel P, et al. Whole-brain annotation and multi-connectome cell typing of Drosophila. Nature 634, 139-152 (2024); annotations v3.2.0, doi:10.5281/zenodo.23037340. Shiu PK, et al. A Drosophila computational brain model reveals sensorimotor processing. Nature 634, 210-219 (2024); code github.com/philshiu/Drosophila_brain_model",
       "note": "optional (fly stage only); Shiu et al. model files at commit 91bdd1e7dcf1; Zenodo 10676866 neuropil counts; Zenodo 23037340 annotations archive (the GitHub copy has no license and is not used)",
-      "checked_at": "2026-10-25T00:21:31+00:00",
+      "checked_at": "2026-10-25T13:32:23+00:00",
       "files": [
         {
           "path": "flywire783/2023_03_23_completeness_630_final.csv",
@@ -837,7 +837,7 @@
       "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
       "citation": "Tukker AM, Wijnolts FMJ, de Groot A, Westerink RHS. Toxicol Sci 178(1):71-87 (2020). doi:10.1093/toxsci/kfaa136",
       "note": "EXCLUDED 2026-09-16 (PI decision): non-commercial license is incompatible with a prize-bearing submission released under an open license. Revisit only if the competition rules clearly keep submissions under the entrant's own open license.",
-      "checked_at": "2026-10-25T11:29:04+00:00",
+      "checked_at": "2026-10-25T13:32:22+00:00",
       "files": []
     },
     "kapucu2022": {
@@ -2533,7 +2533,7 @@
       "license_url": "https://creativecommons.org/licenses/by/4.0/",
       "citation": "Berg S, Beckett IR, Costa M, et al. Sexual dimorphism in the complete connectome of the Drosophila male central nervous system. Nature (2026); MaleCNS v1.0, https://male-cns.janelia.org/",
       "note": "optional (fly replication only); v1.0 flat connectome, minconf 0.5",
-      "checked_at": "2026-10-25T00:21:32+00:00",
+      "checked_at": "2026-10-25T13:32:24+00:00",
       "files": [
         {
           "path": "malecns/body-annotations-male-cns-v1.0-minconf-0.5.feather",
@@ -2566,7 +2566,7 @@
       "license_url": "https://creativecommons.org/licenses/by/4.0/",
       "citation": "Berg S, Beckett IR, Costa M, et al. Sexual dimorphism in the complete connectome of the Drosophila male central nervous system. Nature (2026); MaleCNS v1.0, https://male-cns.janelia.org/",
       "note": "optional (embodied volume size rule); v1.0/database/neuprint-inputs/Neuprint_Neurons.feather, generation 1780895325252595, checked against the bucket's CRC32C 53OdcQ==",
-      "checked_at": "2026-10-25T11:40:03+00:00",
+      "checked_at": "2026-10-25T13:32:29+00:00",
       "files": [
         {
           "path": "malecns_sizes/Neuprint_Neurons.feather",

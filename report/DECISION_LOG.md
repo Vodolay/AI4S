@@ -259,3 +259,17 @@ it with its own command or `python -m neuromps.fly.pipeline --only <step>`.
   from the abstract, discussion, README and slides.
 - **Revisit:** a one-sided walking index (only loss of rhythm counts) would be a new rule chosen
   after seeing this result; register it only with a reason that does not depend on the outcome.
+
+### D28. The paper and new research move to a private repository **(user)**
+- **Options:** keep everything public; make the repository private (would break the
+  competition's links and the hosted demo, and erase stars and watchers); rewrite public history
+  (destructive, and GitHub keeps every pull request's commits regardless); keep new work private
+  from here on.
+- **Taken:** new work private from here on. The public repository `Vodolay/AI4S` keeps the
+  hackathon deliverables and everything already published (up to pull request 26). A private
+  repository `Vodolay/AI4S-paper` mirrors public master and adds a `paper-draft` branch holding
+  the paper draft, its outline, the slide outline (D23) and any new research toward the paper;
+  those three documents were removed from public master. **Why:** the user wants the preprint
+  and the research leading to it kept private until submission; what was already public stays
+  so, and its history timestamps the work.
+- **Revisit:** when the paper is submitted, `paper-draft` merges into public master.
