@@ -39,6 +39,7 @@ the bottom.*
 | 28 | 2026-10-24 | Embodied stage 4a: the drug design with movement as the readout | 3 of 6; the chip flags after movement fails in all five families; the tract no longer leads | `b1a49df` … this branch |
 | 29 | 2026-10-24 | Embodied stage 5: simulated directions against published fly findings | no qualifying pharmacology found (both predictions uninterpretable); identified-neuron studies agree in 1 of 3 | `1723e0c` … this branch |
 | 30 | 2026-10-24/25 | Release: one command reproduces every fly number; report Act VIII, paper draft, decision log | reproduction identical; precision at movement onset (exploratory); the stage-2d corrected cell fails on fresh seeds (2 of 7) | `f053de3` … this branch |
+| 31 | 2026-10-25 | Embodied stage 5b: the identified 13A/13B leg neurons, manipulated | 2 of 5; silencing 13A shortens the reach as published; 13B and activation do not | `c20fa08` … this branch |
 
 ---
 
@@ -712,6 +713,23 @@ a paper draft exists, and every choice of path is logged so other branches can b
   0.2035 <!-- metrics.json: embodied_stage2d_confirm.predictions.E1_the_walking_command_makes_a_rhythm.value.forward_walking -->).
 - **Evidence.** Roadmap §7; `outputs/fly/embodied_stage4a_precision_SIMULATED.json`,
   `outputs/fly/embodied_stage2d_confirm_SIMULATED.json`.
+
+---
+
+## 31. Manipulating the same neurons as the experiment: one of four directions reproduced
+
+**Slide message:** *Silencing the fly's GABAergic 13A leg neurons in the simulation shortens the
+grooming reach, as silencing them reduces grooming in real flies. The other three published
+manipulations do not show in the model's reach, which points to what the model still lacks.*
+
+- **What changed.** `src/neuromps/fly/embodied_stage5b.py` silences (outputs removed) or
+  activates (150 Hz) the left front leg's 13A or 13B neurons in the grooming relay, registered in
+  `preregistration/embodied_stage5b_identified_neurons.json` before running.
+- **Effect.** 2 of 5 pass: the reach is there; silencing 13A shortens it to
+  0.3806 <!-- metrics.json: embodied_stage5b.predictions.I1_silencing_13A_reduces_grooming.value.depth_mm --> mm from
+  0.9927 <!-- metrics.json: embodied_stage5b.predictions.I0_the_reach_is_there.value -->; 13B leaves it unchanged; activating 13A shortens it
+  only to 0.7309 <!-- metrics.json: embodied_stage5b.predictions.I3_activating_13A_reduces_grooming.value.depth_mm --> mm.
+- **Evidence.** Roadmap §7; `outputs/fly/embodied_stage5b_SIMULATED.*`.
 
 ---
 

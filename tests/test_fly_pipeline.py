@@ -71,6 +71,12 @@ def test_steps_run_as_their_own_commands_with_their_flags() -> None:
 def test_selection_by_start_and_only() -> None:
     assert [s.name for s in pipeline.select(pipeline.STEPS, only="stage5")] == ["stage5"]
     tail = pipeline.select(pipeline.STEPS, start="stage4a")
-    assert [s.name for s in tail] == ["stage4a", "stage4a_precision", "stage5", "rhythm_audit"]
+    assert [s.name for s in tail] == [
+        "stage4a",
+        "stage4a_precision",
+        "stage5",
+        "stage5b",
+        "rhythm_audit",
+    ]
     with pytest.raises(SystemExit):
         pipeline.select(pipeline.STEPS, only="nope")

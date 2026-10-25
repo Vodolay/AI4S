@@ -7574,6 +7574,85 @@
       "comparisons": 3
     }
   },
+  "embodied_stage5b": {
+    "label": "SIMULATED grooming reach with the 13A/13B leg neurons manipulated",
+    "population_sizes": {
+      "13A": 71,
+      "13B": 73
+    },
+    "predictions": {
+      "I0_the_reach_is_there": {
+        "outcome": "pass",
+        "test": "intact median depth >= 0.3 mm; if not, I1-I4 are uninterpretable",
+        "value": 0.9927
+      },
+      "I1_silencing_13A_reduces_grooming": {
+        "outcome": "pass",
+        "test": "simulated direction of depth under silence_13A is 'decrease'",
+        "value": {
+          "depth_mm": 0.3806,
+          "direction": "decrease"
+        }
+      },
+      "I2_silencing_13B_reduces_grooming": {
+        "outcome": "fail",
+        "test": "simulated direction under silence_13B is 'decrease'",
+        "value": {
+          "depth_mm": 0.9923,
+          "direction": "none"
+        }
+      },
+      "I3_activating_13A_reduces_grooming": {
+        "outcome": "fail",
+        "test": "simulated direction under activate_13A is 'decrease'",
+        "value": {
+          "depth_mm": 0.7309,
+          "direction": "none"
+        }
+      },
+      "I4_activating_13B_reduces_grooming": {
+        "outcome": "fail",
+        "test": "simulated direction under activate_13B is 'decrease'",
+        "value": {
+          "depth_mm": 0.9927,
+          "direction": "none"
+        }
+      }
+    },
+    "registration": {
+      "committed_at": "2026-10-24T23:31:06-04:00",
+      "file": "preregistration/embodied_stage5b_identified_neurons.json",
+      "registered_in_commit": "c20fa08c6f75572319fdf2eb448559b6553c20dd",
+      "sha256": "66763388db0727c391cc52371a9f4cc82792e6a72c6d8ca8d88128d8f6eb8f01"
+    },
+    "reported": {
+      "activate_13A": {
+        "depth_mm": 0.7309,
+        "front_hz": 1.1691,
+        "time_near_head": 0.887
+      },
+      "activate_13B": {
+        "depth_mm": 0.9927,
+        "front_hz": 14.6765,
+        "time_near_head": 0.921
+      },
+      "intact": {
+        "depth_mm": 0.9927,
+        "front_hz": 13.9265,
+        "time_near_head": 0.9135
+      },
+      "silence_13A": {
+        "depth_mm": 0.3806,
+        "front_hz": 16.1103,
+        "time_near_head": 0.8945
+      },
+      "silence_13B": {
+        "depth_mm": 0.9923,
+        "front_hz": 13.8456,
+        "time_near_head": 0.9135
+      }
+    }
+  },
   "extractor_agreement": {
     "by_feature": {
       "active_electrodes": {

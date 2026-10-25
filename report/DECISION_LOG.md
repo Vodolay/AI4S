@@ -117,3 +117,16 @@ it with its own command or `python -m neuromps.fly.pipeline --only <step>`.
   uncited-number budget unchanged) and `report/PAPER_DRAFT.md` (abstract to methods, every number
   cited). **Why:** the user asked for a paper and for the report to keep being retouched; the
   draft is a starting point for the team, not a submission.
+
+### D17. Testing the model against identified-neuron experiments (overnight)
+- **Options:** a hind-leg closed loop (D9), a volume size rule (D7), simulating the identified
+  neurons that stage 5's published studies manipulated (D11).
+- **Taken:** the identified neurons (stage 5b, registration commit c20fa08): the left front leg's
+  GABAergic 13A and 13B hemilineage neurons, silenced (outputs removed) or activated (150 Hz), in
+  the grooming relay of stage 1f. **Why:** it turns stage 5's indirect comparison into a direct
+  one with data already in hand, and it is affordable overnight. **Not possible:** Pool et al.'s
+  DSOG1 neurons are not annotated in FlyWire. **Detail:** 73 of the 76 annotated 13B neurons of
+  that neuromere are in the nerve-cord network used.
+- **Revisit:** subsets of 13A/13B (the study manipulated sub-populations), pulsed activation
+  (the study's 70 ms pulses induced grooming-like rhythms), the femur-tibia angle as a readout
+  ("legs locked in flexion").
