@@ -10,6 +10,10 @@ from neuromps.qc.provenance import sha256_file
 log = logging.getLogger("neuromps.fetch")
 
 
+class _Skipped(Exception):
+    """A queued download not started because another one had already failed."""
+
+
 def fetch_many(
     items: list[tuple[str, str]],
     raw_root: Path,
@@ -31,18 +35,31 @@ def fetch_many(
     they were requested in, so the manifest does not depend on which download
     finished first. Set ``workers=1`` for serial behaviour.
     """
+    import threading
     from concurrent.futures import ThreadPoolExecutor
+
+    # Set by the first failure. Cancelling queued futures from the main thread is
+    # a race: when every download fails at once, the workers can drain the whole
+    # queue before the main thread wakes to cancel it, so each worker checks this
+    # before it starts a file.
+    stop = threading.Event()
 
     def one(item: tuple[int, tuple[str, str]]) -> tuple[int, FileRecord]:
         index, (url, rel) = item
-        record = download_file(
-            url,
-            raw_root,
-            rel,
-            cached=cached.get(rel),
-            max_bytes=max_bytes,
-            expected_md5=(md5s or {}).get(rel),
-        )
+        if stop.is_set():
+            raise _Skipped(rel)
+        try:
+            record = download_file(
+                url,
+                raw_root,
+                rel,
+                cached=cached.get(rel),
+                max_bytes=max_bytes,
+                expected_md5=(md5s or {}).get(rel),
+            )
+        except BaseException:
+            stop.set()
+            raise
         status = "cached" if record is cached.get(rel) else f"{record.bytes / 1e6:.1f} MB"
         log.info("  [%d/%d] %s (%s)", index + 1, len(items), rel, status)
         return index, record
@@ -53,11 +70,18 @@ def fetch_many(
     futures = [pool.submit(one, item) for item in enumerate(items)]
     try:
         done = [future.result() for future in futures]
-    except BaseException:
+    except BaseException as first:
         # Cancel what has not started. Leaving the pool's context used to wait
         # for every queued file first, so a host that hung on each connection
         # took hours to report the failure the first file had already shown.
         pool.shutdown(wait=True, cancel_futures=True)
+        if isinstance(first, _Skipped):
+            # An earlier file was skipped after a later one failed: report the failure.
+            for future in futures:
+                if future.done() and not future.cancelled():
+                    error = future.exception()
+                    if error is not None and not isinstance(error, _Skipped):
+                        raise error from None
         raise
     pool.shutdown()
     return [record for _, record in sorted(done, key=lambda pair: pair[0])]
