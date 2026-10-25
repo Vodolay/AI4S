@@ -802,10 +802,12 @@ model.
 **Stage 6: release. One command reproduces every fly number.** `neuromps.fly.pipeline` reruns
 every fly study after the chip-to-animal study in dependency order, each as its own process,
 and `python run_all.py --full` runs it as its `embodied` stage. Run from scratch, the stage took
-10884.5 <!-- metrics.json: run_all_timings_full.by_stage_s.embodied -->
-s on the GB10 and reproduced every recorded value: the only differences were re-verification
-timestamps in the data manifest, the order of keys in two output files, and one field later code
-adds. Two overnight additions run in the same pipeline. First, the movement-level analogue of
+about three hours on the GB10 and reproduced every recorded value: the only differences were
+re-verification timestamps in the data manifest, the order of keys in two output files, and one
+field later code adds. Rerun after stages 2i-2j and 4b-4e and the onset figure were added, it
+took 15052.3 <!-- metrics.json: run_all_timings_full.by_stage_s.embodied --> s and reproduced every recorded value again; every output
+table, figure and JSON file was byte-identical, and only the run time and the manifest's
+re-verification timestamps changed. Two overnight additions run in the same pipeline. First, the movement-level analogue of
 the precision table (exploratory): at the dose where movement first fails, the chip has moved by
 only
 0.149 <!-- metrics.json: embodied_stage4a_precision.abs_log2_mfr_change_at_movement_onset.gaba_block -->

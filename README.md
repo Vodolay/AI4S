@@ -221,11 +221,11 @@ No model weights need downloading: the only trained artefact is the `sbi` poster
 | [report/LAB_NOTEBOOK.md](report/LAB_NOTEBOOK.md) | every decision with its date and commit, what was abandoned, 33 limitations |
 | [report/ROADMAP_EMBODIED_FLY.md](report/ROADMAP_EMBODIED_FLY.md) | the embodied fly: plan, and every stage's registered result |
 | [report/POST_SUBMISSION_CHANGES.md](report/POST_SUBMISSION_CHANGES.md) | every change since round 1, one slide message each |
-| [report/PAPER_DRAFT.md](report/PAPER_DRAFT.md) / [report/PAPER_OUTLINE.md](report/PAPER_OUTLINE.md) | the paper draft and its section-by-section status |
 | [report/DECISION_LOG.md](report/DECISION_LOG.md) | every crossroads on the embodied-fly path, the option taken, and where to branch |
-| [report/SLIDES_OUTLINE.md](report/SLIDES_OUTLINE.md) | a slide-by-slide outline of the post-submission story, every number cited |
 | [preregistration/](preregistration/) | every registered study, committed before it ran |
 | [CITATIONS.md](CITATIONS.md) / [THIRD_PARTY.md](THIRD_PARTY.md) | data sources and dependency licenses, both generated |
+
+The paper draft built on this work is kept privately until it is submitted.
 
 Numbers in these documents cite the `outputs/metrics.json` key that produced them, and
 

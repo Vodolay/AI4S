@@ -11230,7 +11230,7 @@
   "harness_full": {
     "brian2": "2.9.0",
     "by_stage_s": {
-      "embodied": 10884.5
+      "embodied": 15052.3
     },
     "cpu_count": 20,
     "label": "wall clock and environment for the most recent complete full run",
@@ -12612,7 +12612,7 @@
     "by_stage_s": {
       "data": 1037.1,
       "demo": 66.3,
-      "embodied": 10884.5,
+      "embodied": 15052.3,
       "fetch": 20.2,
       "models": 22.6,
       "twin": 1974.0
@@ -12621,7 +12621,7 @@
     "stages_run": [
       "embodied"
     ],
-    "total_s": 10884.5
+    "total_s": 15052.3
   },
   "species_transfer": {
     "source": "kapucu2022",

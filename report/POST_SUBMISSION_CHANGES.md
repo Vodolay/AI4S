@@ -49,6 +49,7 @@ the bottom.*
 | 38 | 2026-10-25 | Embodied stage 2j: shuffled volumes and a whole-cord normalization | 2 of 4; shuffled volumes give no rhythm; the normalization changes nothing; the promotor-remotor offset does not replicate | `1d1d644` … this branch |
 | 39 | 2026-10-25 | Embodied stage 4d: the walking rhythm as a drug readout | 2 of 4; acetylcholine block is the first chip-first case; GABA-A potentiation spares walking; the four-movement index stays chip-late | `73ffde6` … this branch |
 | 40 | 2026-10-25 | Embodied stage 4e: the walking readout as a fraction of rhythmic draws | 2 of 4; GABA-A and GluCl block break walking first again; the acetylcholine exception depends on the readout and is withdrawn | `180476f` … this branch |
+| 41 | 2026-10-25 | One command reproduces every fly number again; the paper draft moves to a private repository | every recorded value reproduced; documents only | this branch |
 
 ---
 
@@ -713,8 +714,8 @@ a paper draft exists, and every choice of path is logged so other branches can b
 - **What changed.** `src/neuromps/fly/pipeline.py` and the `embodied` stage of `run_all.py`;
   Act VIII of `report/TECHNICAL_REPORT.md`; `report/PAPER_DRAFT.md`; `report/DECISION_LOG.md`;
   the README's embodied-fly section.
-- **Effect.** A from-scratch run took
-  10884.5 <!-- metrics.json: run_all_timings_full.by_stage_s.embodied --> s and reproduced every recorded value.
+- **Effect.** A from-scratch run took about three hours and reproduced every recorded value
+  (rerun with the later studies: entry 41).
   Exploratory: at movement onset the chip has moved
   0.149 <!-- metrics.json: embodied_stage4a_precision.abs_log2_mfr_change_at_movement_onset.gaba_block --> to
   0.452 <!-- metrics.json: embodied_stage4a_precision.abs_log2_mfr_change_at_movement_onset.gaba_potentiate --> log2. The stage-2d cell
@@ -908,6 +909,22 @@ as a change before the chip flags. We took it out of the abstract.*
   0.4 <!-- metrics.json: embodied_stage4e.predictions.E1_acetylcholine_block_is_caught_first.value.chip_onset --> (E1 fails); by stage 4d's
   median readout it is chip-first again on these draws.
 - **Evidence.** Roadmap §7; `outputs/fly/embodied_stage4e_SIMULATED.*`.
+
+---
+
+## 41. Every fly number reproduces again; the paper is kept private until submission
+
+**Slide message:** *Rerun from scratch after seven more studies, one command reproduced every
+recorded number and every figure byte for byte.*
+
+- **What changed.** `python run_all.py --full --stage embodied` rerun on the current code (48
+  pipeline steps). The paper draft, its outline and the slide outline were removed from this
+  repository; they are kept, with any new research toward the paper, in a private repository
+  until the paper is submitted (decision D28).
+- **Effect.** The stage took 15052.3 <!-- metrics.json: run_all_timings_full.by_stage_s.embodied --> s. Every value in
+  `outputs/metrics.json` reproduced except the run time itself; every output table, figure and
+  JSON file was byte-identical; the data manifest changed only in its re-verification timestamps.
+- **Evidence.** Roadmap §7 (stage 6); `outputs/metrics.json`.
 
 ---
 
