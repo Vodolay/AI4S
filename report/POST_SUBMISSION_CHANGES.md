@@ -37,6 +37,7 @@ the bottom.*
 | 26 | 2026-10-24 | Embodied stage 3a: the first closed loop (claw-neuron feedback, grooming leg) | 3 of 5; go/no-go fails: feedback shifts motor pools toward resistance but barely moves a held leg, and a sham does the same | `5cdeba9` … this branch |
 | 27 | 2026-10-24 | Embodied stage 3b: a push on the tibia during the grooming hold | 2 of 5; the loop does not speed the return; the front leg's proprioceptors are thinly traced | `cd0a711` … this branch |
 | 28 | 2026-10-24 | Embodied stage 4a: the drug design with movement as the readout | 3 of 6; the chip flags after movement fails in all five families; the tract no longer leads | `b1a49df` … this branch |
+| 29 | 2026-10-24 | Embodied stage 5: simulated directions against published fly findings | no qualifying pharmacology found (both predictions uninterpretable); identified-neuron studies agree in 1 of 3 | `1723e0c` … this branch |
 
 ---
 
@@ -669,6 +670,26 @@ movement.*
   chip 0.6 <!-- metrics.json: embodied_stage4a.predictions.N3_the_chip_flags_before_movement_fails.value.gaba_block.chip -->); the tract no longer leads (4 families each); the bitter
   gate's release is not monotonic.
 - **Evidence.** Roadmap §7 and figure; `outputs/fly/embodied_stage4a_*`.
+
+---
+
+## 29. Checking against real flies: the experiments have not been done
+
+**Slide message:** *We registered how we would search the literature before searching, so we
+could not pick the papers that agree. No published study gives flies these drugs and scores
+feeding or grooming movements. The model makes predictions that real experiments have yet to
+test.*
+
+- **What changed.** `preregistration/embodied_stage5_real_fly_directions.json` (queries,
+  inclusion, mapping, comparison rule); `src/neuromps/fly/real_fly_literature.json` (every
+  candidate with its classification); `src/neuromps/fly/embodied_stage5.py` scores the
+  comparison against the stage-4a medians.
+- **Effect.** 0 <!-- metrics.json: embodied_stage5.predictions.V1_the_pharmacology_agrees.value.comparisons --> pharmacological
+  or receptor-genetic comparisons, so both predictions are uninterpretable. Identified-neuron
+  studies: the simulation agrees in 1 <!-- metrics.json: embodied_stage5.transmitter_neuron.agree --> of
+  3 <!-- metrics.json: embodied_stage5.transmitter_neuron.comparisons --> (agreement for silencing GABAergic grooming neurons;
+  mismatches explained by class-wide knobs and the absence of satiety).
+- **Evidence.** Roadmap §7; `outputs/fly/embodied_stage5_SIMULATED.json`.
 
 ---
 

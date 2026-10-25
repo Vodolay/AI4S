@@ -1,0 +1,65 @@
+{
+  "label": "Simulated movement directions (stage 4a) against published fly findings",
+  "predictions": {
+    "V1_the_pharmacology_agrees": {
+      "test": "agreement in more than half of those comparisons; at least 3 comparisons needed, otherwise uninterpretable",
+      "value": {
+        "comparisons": 0,
+        "agree": 0
+      },
+      "outcome": "uninterpretable"
+    },
+    "V2_disinhibition_and_feeding_agree": {
+      "test": "every pharmacological or receptor-genetic gaba_block comparison on proboscis extension agrees; at least 1 needed, otherwise uninterpretable",
+      "value": {
+        "comparisons": 0,
+        "agree": 0
+      },
+      "outcome": "uninterpretable"
+    }
+  },
+  "comparisons": [
+    {
+      "id": "pool2014_silence_sugar",
+      "category": "transmitter-neuron",
+      "family": "gaba_block",
+      "movement": "proboscis_sugar",
+      "published_direction": "increase",
+      "simulated_direction": "decrease",
+      "agrees": false
+    },
+    {
+      "id": "syed_silence_grooming",
+      "category": "transmitter-neuron",
+      "family": "gaba_block",
+      "movement": "reach_depth",
+      "published_direction": "decrease",
+      "simulated_direction": "decrease",
+      "agrees": true
+    },
+    {
+      "id": "syed_activate_grooming",
+      "category": "transmitter-neuron",
+      "family": "gaba_potentiate",
+      "movement": "reach_depth",
+      "published_direction": "decrease",
+      "simulated_direction": "none",
+      "agrees": false
+    }
+  ],
+  "transmitter_neuron": {
+    "comparisons": 3,
+    "agree": 1
+  },
+  "candidates": {
+    "impossible": 2,
+    "excluded": 16,
+    "inaccessible": 4
+  },
+  "registration": {
+    "file": "preregistration/embodied_stage5_real_fly_directions.json",
+    "sha256": "31165c28a72c4a17fd663212ceb73523868a3750d2bf395c85ae8fae861980cc",
+    "registered_in_commit": "1723e0cd01bb1731e1d2bfb1c35de900f1a17056",
+    "committed_at": "2026-10-24T20:00:21-04:00"
+  }
+}

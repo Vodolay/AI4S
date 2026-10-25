@@ -7432,6 +7432,71 @@
       "sha256": "ba27f3575f7a03bfc786c93cdcf7a241f9f02cf85c00199c733df20fa404dbf2"
     }
   },
+  "embodied_stage5": {
+    "candidates": {
+      "excluded": 16,
+      "impossible": 2,
+      "inaccessible": 4
+    },
+    "comparisons": [
+      {
+        "agrees": false,
+        "category": "transmitter-neuron",
+        "family": "gaba_block",
+        "id": "pool2014_silence_sugar",
+        "movement": "proboscis_sugar",
+        "published_direction": "increase",
+        "simulated_direction": "decrease"
+      },
+      {
+        "agrees": true,
+        "category": "transmitter-neuron",
+        "family": "gaba_block",
+        "id": "syed_silence_grooming",
+        "movement": "reach_depth",
+        "published_direction": "decrease",
+        "simulated_direction": "decrease"
+      },
+      {
+        "agrees": false,
+        "category": "transmitter-neuron",
+        "family": "gaba_potentiate",
+        "id": "syed_activate_grooming",
+        "movement": "reach_depth",
+        "published_direction": "decrease",
+        "simulated_direction": "none"
+      }
+    ],
+    "label": "Simulated movement directions (stage 4a) against published fly findings",
+    "predictions": {
+      "V1_the_pharmacology_agrees": {
+        "outcome": "uninterpretable",
+        "test": "agreement in more than half of those comparisons; at least 3 comparisons needed, otherwise uninterpretable",
+        "value": {
+          "agree": 0,
+          "comparisons": 0
+        }
+      },
+      "V2_disinhibition_and_feeding_agree": {
+        "outcome": "uninterpretable",
+        "test": "every pharmacological or receptor-genetic gaba_block comparison on proboscis extension agrees; at least 1 needed, otherwise uninterpretable",
+        "value": {
+          "agree": 0,
+          "comparisons": 0
+        }
+      }
+    },
+    "registration": {
+      "committed_at": "2026-10-24T20:00:21-04:00",
+      "file": "preregistration/embodied_stage5_real_fly_directions.json",
+      "registered_in_commit": "1723e0cd01bb1731e1d2bfb1c35de900f1a17056",
+      "sha256": "31165c28a72c4a17fd663212ceb73523868a3750d2bf395c85ae8fae861980cc"
+    },
+    "transmitter_neuron": {
+      "agree": 1,
+      "comparisons": 3
+    }
+  },
   "extractor_agreement": {
     "by_feature": {
       "active_electrodes": {
