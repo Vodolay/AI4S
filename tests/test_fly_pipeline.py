@@ -76,6 +76,7 @@ def test_selection_by_start_and_only() -> None:
         "stage4a_precision",
         "stage5",
         "stage5b",
+        "stage5c",
         "rhythm_audit",
     ]
     with pytest.raises(SystemExit):
