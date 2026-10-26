@@ -85,3 +85,15 @@ def test_registered_predictions_pass_and_fail():
     assert got["P2_picrotoxin"]["pass"] is False  # only 2 scored
     assert got["P3_tetrodotoxin"]["pass"] is True
     assert got["P4_firing_rate"]["pass"] is False  # picrotoxin's firing rate disagrees
+
+
+def test_follow_firing_rate_scores_established_features_against_the_rate_direction():
+    real = {
+        "Bicuculline": {
+            "mfr_hz": {"direction": "up", "established": True},
+            "a": {"direction": "up", "established": True},
+            "b": {"direction": "down", "established": True},
+            "c": {"direction": "up", "established": False},
+        }
+    }
+    assert tc.follow_firing_rate(real) == {"Bicuculline": {"scored": 2, "agreeing": 1}}

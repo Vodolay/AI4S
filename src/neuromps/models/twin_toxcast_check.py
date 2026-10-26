@@ -215,6 +215,26 @@ def magnitudes(twin: dict, real: dict, cells: dict) -> dict:
     return {"M1_drug_rank_on_firing_rate": m1, "M2_feature_rank_within_drug": m2}
 
 
+def follow_firing_rate(real: dict) -> dict:
+    """Post-hoc control (not registered): how far 'every feature moves with firing rate' gets.
+
+    At these saturating doses most features move together, so direction agreement
+    is a low bar. This rule knows only whether each drug raised or lowered firing
+    rate; scored on the same established cells as the twin, firing rate excluded.
+    The twin earns credit beyond it only where the two differ.
+    """
+    out = {}
+    for drug, feats in real.items():
+        anchor = feats["mfr_hz"]["direction"]
+        hits = [
+            ref["direction"] == anchor
+            for f, ref in feats.items()
+            if f != "mfr_hz" and ref["established"] and ref["direction"] is not None
+        ]
+        out[drug] = {"scored": len(hits), "agreeing": int(sum(hits))}
+    return out
+
+
 COLOURS = {"twin": "#D55E00", "real": "#0072B2"}
 
 
@@ -334,6 +354,10 @@ def main(argv: list[str] | None = None) -> int:
         "by_drug": {d: drug_summary(c) for d, c in cells.items()},
         "predictions": evaluate_predictions(cells),
         **magnitudes(twin["predictions"], real, cells),
+        "posthoc_follow_firing_rate": follow_firing_rate(real),
+        "twin_without_firing_rate": {
+            d: drug_summary({f: c for f, c in cells[d].items() if f != "mfr_hz"}) for d in cells
+        },
     }
     figures_dir().mkdir(parents=True, exist_ok=True)
     plot(twin["predictions"], real, cells, figures_dir() / "twin_toxcast_positive_controls.png")

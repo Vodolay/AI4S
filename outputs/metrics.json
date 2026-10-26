@@ -24432,6 +24432,520 @@
       ]
     }
   },
+  "twin_toxcast_positive_controls": {
+    "M1_drug_rank_on_firing_rate": {
+      "real_ttx_over_bicuculline": true,
+      "real_ttx_over_picrotoxin": true,
+      "twin_sodium_over_gabaa": true
+    },
+    "M2_feature_rank_within_drug": {
+      "Bicuculline": {
+        "features": 4,
+        "spearman": 0.2
+      },
+      "Picrotoxin": {
+        "features": 4,
+        "spearman": 0.8
+      },
+      "Tetrodotoxin": {
+        "features": 4,
+        "spearman": 0.2582
+      }
+    },
+    "by_drug": {
+      "Bicuculline": {
+        "agreeing": 4,
+        "scored": 4
+      },
+      "Picrotoxin": {
+        "agreeing": 4,
+        "scored": 4
+      },
+      "Tetrodotoxin": {
+        "agreeing": 4,
+        "scored": 4
+      }
+    },
+    "cells": {
+      "Bicuculline": {
+        "burst_duration_s": {
+          "agrees": true,
+          "real_direction": "up",
+          "real_established": true,
+          "twin_direction": "up"
+        },
+        "burst_rate_per_min": {
+          "agrees": null,
+          "real_direction": "up",
+          "real_established": true,
+          "twin_direction": null
+        },
+        "mfr_hz": {
+          "agrees": true,
+          "real_direction": "up",
+          "real_established": true,
+          "twin_direction": "up"
+        },
+        "pct_spikes_in_bursts": {
+          "agrees": true,
+          "real_direction": "up",
+          "real_established": true,
+          "twin_direction": "up"
+        },
+        "spikes_per_burst": {
+          "agrees": true,
+          "real_direction": "up",
+          "real_established": true,
+          "twin_direction": "up"
+        },
+        "synchrony_index": {
+          "agrees": null,
+          "real_direction": "up",
+          "real_established": false,
+          "twin_direction": "up"
+        }
+      },
+      "Picrotoxin": {
+        "burst_duration_s": {
+          "agrees": null,
+          "real_direction": "up",
+          "real_established": false,
+          "twin_direction": "up"
+        },
+        "burst_rate_per_min": {
+          "agrees": null,
+          "real_direction": "up",
+          "real_established": true,
+          "twin_direction": null
+        },
+        "mfr_hz": {
+          "agrees": true,
+          "real_direction": "up",
+          "real_established": true,
+          "twin_direction": "up"
+        },
+        "pct_spikes_in_bursts": {
+          "agrees": true,
+          "real_direction": "up",
+          "real_established": true,
+          "twin_direction": "up"
+        },
+        "spikes_per_burst": {
+          "agrees": true,
+          "real_direction": "up",
+          "real_established": true,
+          "twin_direction": "up"
+        },
+        "synchrony_index": {
+          "agrees": true,
+          "real_direction": "up",
+          "real_established": true,
+          "twin_direction": "up"
+        }
+      },
+      "Tetrodotoxin": {
+        "burst_duration_s": {
+          "agrees": null,
+          "real_direction": "down",
+          "real_established": false,
+          "twin_direction": null
+        },
+        "burst_rate_per_min": {
+          "agrees": true,
+          "real_direction": "down",
+          "real_established": true,
+          "twin_direction": "down"
+        },
+        "mfr_hz": {
+          "agrees": true,
+          "real_direction": "down",
+          "real_established": true,
+          "twin_direction": "down"
+        },
+        "pct_spikes_in_bursts": {
+          "agrees": true,
+          "real_direction": "down",
+          "real_established": true,
+          "twin_direction": "down"
+        },
+        "spikes_per_burst": {
+          "agrees": null,
+          "real_direction": "down",
+          "real_established": false,
+          "twin_direction": null
+        },
+        "synchrony_index": {
+          "agrees": true,
+          "real_direction": "down",
+          "real_established": true,
+          "twin_direction": "down"
+        }
+      }
+    },
+    "label": "SIMULATED twin knobs vs REAL ToxCast acute MEA positive controls (directions)",
+    "posthoc_follow_firing_rate": {
+      "Bicuculline": {
+        "agreeing": 4,
+        "scored": 4
+      },
+      "Picrotoxin": {
+        "agreeing": 4,
+        "scored": 4
+      },
+      "Tetrodotoxin": {
+        "agreeing": 3,
+        "scored": 3
+      }
+    },
+    "predictions": {
+      "P1_bicuculline": {
+        "agreeing": 4,
+        "pass": true,
+        "scored": 4
+      },
+      "P2_picrotoxin": {
+        "agreeing": 4,
+        "pass": true,
+        "scored": 4
+      },
+      "P3_tetrodotoxin": {
+        "agreeing": 4,
+        "pass": true,
+        "scored": 4
+      },
+      "P4_firing_rate": {
+        "pass": true,
+        "scored": {
+          "Bicuculline": true,
+          "Picrotoxin": true,
+          "Tetrodotoxin": true
+        }
+      }
+    },
+    "predictions_file": "outputs/twin/toxcast_positive_controls_predictions_simulated.json",
+    "real": {
+      "Bicuculline": {
+        "burst_duration_s": {
+          "ci95": [
+            1.0291,
+            1.326
+          ],
+          "dates": 68,
+          "direction": "up",
+          "established": true,
+          "median": 1.2011,
+          "median_fraction": 1.2991,
+          "wells": 348
+        },
+        "burst_rate_per_min": {
+          "ci95": [
+            0.1963,
+            0.5331
+          ],
+          "dates": 68,
+          "direction": "up",
+          "established": true,
+          "median": 0.3818,
+          "median_fraction": 0.303,
+          "wells": 348
+        },
+        "mfr_hz": {
+          "ci95": [
+            1.0413,
+            1.2139
+          ],
+          "dates": 68,
+          "direction": "up",
+          "established": true,
+          "median": 1.1237,
+          "median_fraction": 1.1791,
+          "wells": 348
+        },
+        "pct_spikes_in_bursts": {
+          "ci95": [
+            0.1154,
+            0.1908
+          ],
+          "dates": 68,
+          "direction": "up",
+          "established": true,
+          "median": 0.1448,
+          "median_fraction": 0.1055,
+          "wells": 348
+        },
+        "spikes_per_burst": {
+          "ci95": [
+            0.9761,
+            1.1357
+          ],
+          "dates": 68,
+          "direction": "up",
+          "established": true,
+          "median": 1.0418,
+          "median_fraction": 1.0589,
+          "wells": 348
+        },
+        "synchrony_index": {
+          "ci95": [
+            -0.0131,
+            0.0524
+          ],
+          "dates": 68,
+          "direction": "up",
+          "established": false,
+          "median": 0.0179,
+          "median_fraction": 0.0125,
+          "wells": 348
+        }
+      },
+      "Picrotoxin": {
+        "burst_duration_s": {
+          "ci95": [
+            -0.0032,
+            0.6127
+          ],
+          "dates": 27,
+          "direction": "up",
+          "established": false,
+          "median": 0.1565,
+          "median_fraction": 0.1146,
+          "wells": 77
+        },
+        "burst_rate_per_min": {
+          "ci95": [
+            0.3929,
+            1.5115
+          ],
+          "dates": 27,
+          "direction": "up",
+          "established": true,
+          "median": 0.8988,
+          "median_fraction": 0.8645,
+          "wells": 77
+        },
+        "mfr_hz": {
+          "ci95": [
+            1.3887,
+            1.8465
+          ],
+          "dates": 27,
+          "direction": "up",
+          "established": true,
+          "median": 1.6242,
+          "median_fraction": 2.0827,
+          "wells": 77
+        },
+        "pct_spikes_in_bursts": {
+          "ci95": [
+            0.1318,
+            0.2099
+          ],
+          "dates": 27,
+          "direction": "up",
+          "established": true,
+          "median": 0.1788,
+          "median_fraction": 0.1319,
+          "wells": 77
+        },
+        "spikes_per_burst": {
+          "ci95": [
+            0.5108,
+            0.9812
+          ],
+          "dates": 27,
+          "direction": "up",
+          "established": true,
+          "median": 0.8147,
+          "median_fraction": 0.7589,
+          "wells": 77
+        },
+        "synchrony_index": {
+          "ci95": [
+            0.0759,
+            0.124
+          ],
+          "dates": 27,
+          "direction": "up",
+          "established": true,
+          "median": 0.0962,
+          "median_fraction": 0.069,
+          "wells": 77
+        }
+      },
+      "Tetrodotoxin": {
+        "burst_duration_s": {
+          "ci95": [
+            -1.5788,
+            0.0825
+          ],
+          "dates": 3,
+          "direction": "down",
+          "established": false,
+          "median": -0.7482,
+          "median_fraction": -0.4046,
+          "wells": 4
+        },
+        "burst_rate_per_min": {
+          "ci95": [
+            -3.9552,
+            -3.2547
+          ],
+          "dates": 27,
+          "direction": "down",
+          "established": true,
+          "median": -3.68,
+          "median_fraction": -0.922,
+          "wells": 71
+        },
+        "mfr_hz": {
+          "ci95": [
+            -4.1729,
+            -3.3645
+          ],
+          "dates": 27,
+          "direction": "down",
+          "established": true,
+          "median": -4.0344,
+          "median_fraction": -0.939,
+          "wells": 71
+        },
+        "pct_spikes_in_bursts": {
+          "ci95": [
+            -4.3076,
+            -4.2699
+          ],
+          "dates": 25,
+          "direction": "down",
+          "established": true,
+          "median": -4.2884,
+          "median_fraction": -0.9488,
+          "wells": 47
+        },
+        "spikes_per_burst": {
+          "ci95": [
+            -2.2917,
+            0.0336
+          ],
+          "dates": 3,
+          "direction": "down",
+          "established": false,
+          "median": -1.0352,
+          "median_fraction": -0.5121,
+          "wells": 4
+        },
+        "synchrony_index": {
+          "ci95": [
+            -4.3155,
+            -0.5814
+          ],
+          "dates": 16,
+          "direction": "down",
+          "established": true,
+          "median": -4.1627,
+          "median_fraction": -0.9442,
+          "wells": 23
+        }
+      }
+    },
+    "registration": {
+      "committed_at": "2026-10-26T15:01:46-04:00",
+      "file": "preregistration/twin_toxcast_positive_controls.json",
+      "registered_in_commit": "4ae5b0c214880bfca557a00fb70c874dcae94d34",
+      "sha256": "86b3176a8fbf3d2a8585b6603bd5c4a27cab8550dfa16ce781253045ebe8d68d"
+    },
+    "twin": {
+      "gabaa_block": {
+        "burst_duration_s": {
+          "direction": "up",
+          "median": 0.5379,
+          "n_defined": 8,
+          "n_same_sign": 8
+        },
+        "burst_rate_per_min": {
+          "direction": null,
+          "median": -0.2606,
+          "n_defined": 8,
+          "n_same_sign": 6
+        },
+        "mfr_hz": {
+          "direction": "up",
+          "median": 2.3672,
+          "n_defined": 8,
+          "n_same_sign": 8
+        },
+        "pct_spikes_in_bursts": {
+          "direction": "up",
+          "median": 0.2925,
+          "n_defined": 8,
+          "n_same_sign": 8
+        },
+        "spikes_per_burst": {
+          "direction": "up",
+          "median": 2.9073,
+          "n_defined": 8,
+          "n_same_sign": 8
+        },
+        "synchrony_index": {
+          "direction": "up",
+          "median": 0.2851,
+          "n_defined": 8,
+          "n_same_sign": 8
+        }
+      },
+      "sodium_block": {
+        "burst_duration_s": {
+          "direction": null,
+          "median": null,
+          "n_defined": 0,
+          "n_same_sign": 0
+        },
+        "burst_rate_per_min": {
+          "direction": "down",
+          "median": -4.3219,
+          "n_defined": 8,
+          "n_same_sign": 8
+        },
+        "mfr_hz": {
+          "direction": "down",
+          "median": -3.0645,
+          "n_defined": 8,
+          "n_same_sign": 8
+        },
+        "pct_spikes_in_bursts": {
+          "direction": "down",
+          "median": -4.3219,
+          "n_defined": 8,
+          "n_same_sign": 8
+        },
+        "spikes_per_burst": {
+          "direction": null,
+          "median": null,
+          "n_defined": 0,
+          "n_same_sign": 0
+        },
+        "synchrony_index": {
+          "direction": "down",
+          "median": -4.3219,
+          "n_defined": 8,
+          "n_same_sign": 8
+        }
+      }
+    },
+    "twin_without_firing_rate": {
+      "Bicuculline": {
+        "agreeing": 3,
+        "scored": 3
+      },
+      "Picrotoxin": {
+        "agreeing": 3,
+        "scored": 3
+      },
+      "Tetrodotoxin": {
+        "agreeing": 3,
+        "scored": 3
+      }
+    }
+  },
   "uncertainty_and_ablations": {
     "conformal_sweep": [
       {
