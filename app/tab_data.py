@@ -33,6 +33,8 @@ def render(stamps: dict[str, float]) -> None:
 
     _dataset_card(metrics)
     st.divider()
+    _wells_needed(metrics)
+    st.divider()
     if records.empty:
         st.info(
             "The built asset is not in this checkout, so the record table is unavailable. "
@@ -75,6 +77,47 @@ def _dataset_card(metrics: dict) -> None:
     st.caption(
         f"Generated {asset.get('generated_at', 'unknown')} at conformance level 2: every record's "
         "provenance hash matched data/raw/MANIFEST.json, or the build would have refused to write."
+    )
+
+
+CHANGES = {
+    "20% fall": "down_20pct",
+    "50% fall": "down_50pct",
+    "20% rise": "up_20pct",
+    "50% rise": "up_50pct",
+}
+DESIGNS = {
+    "independent": ("Wells across days", "each well from its own exposure date"),
+    "one_date": ("One day, historical reference", "all wells from one date"),
+    "same_date_vehicle": ("One day, same-day vehicles", "and as many vehicle wells that day"),
+}
+
+
+def _wells_needed(metrics: dict) -> None:
+    """Wells needed per readout and design, read from the real ToxCast vehicle wells."""
+    floors = metrics.get("toxcast_noise_floors", {})
+    components = floors.get("components", {})
+    if not components:
+        return
+    st.subheader("Wells needed to see a change (REAL ToxCast vehicle wells)")
+    st.caption(
+        "From the EPA acute MEA screen's untreated wells (rat cortex): two-sided 5% false "
+        "alarms per test, 80% power. Report §32."
+    )
+    names = sorted(components, key=lambda k: components[k]["abs_q95_log2"])
+    with st.container(horizontal=True):
+        readout = st.selectbox("Readout", names, index=names.index(floors["headline_component"]))
+        change = st.segmented_control("Change", list(CHANGES), default="20% fall")
+    record = components[readout]
+    needed = record["wells_needed"]
+    with st.container(horizontal=True):
+        for design, (label, help_text) in DESIGNS.items():
+            value = needed[design][CHANGES[change or "20% fall"]]
+            shown = f">{floors['n_max']}" if value is None else str(value)
+            st.metric(label, shown, help=help_text, border=True)
+    st.caption(
+        f"Untreated wells: median change {100 * record['median_fraction']:+.0f}% over the "
+        f"exposure window; the exposure date carries {record['date_share']:.2f} of the variance."
     )
 
 
