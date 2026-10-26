@@ -352,6 +352,7 @@ def main(argv: list[str] | None = None) -> int:
         "real": real,
         "cells": cells,
         "by_drug": {d: drug_summary(c) for d, c in cells.items()},
+        "total": drug_summary({(d, f): c for d, cs in cells.items() for f, c in cs.items()}),
         "predictions": evaluate_predictions(cells),
         **magnitudes(twin["predictions"], real, cells),
         "posthoc_follow_firing_rate": follow_firing_rate(real),
@@ -359,6 +360,9 @@ def main(argv: list[str] | None = None) -> int:
             d: drug_summary({f: c for f, c in cells[d].items() if f != "mfr_hz"}) for d in cells
         },
     }
+    for key in ("posthoc_follow_firing_rate", "twin_without_firing_rate"):
+        per_drug = list(results[key].values())
+        results[key]["total"] = {k: sum(s[k] for s in per_drug) for k in ("scored", "agreeing")}
     figures_dir().mkdir(parents=True, exist_ok=True)
     plot(twin["predictions"], real, cells, figures_dir() / "twin_toxcast_positive_controls.png")
     update_metrics("twin_toxcast_positive_controls", results)

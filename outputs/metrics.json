@@ -19339,6 +19339,7 @@
       }
     },
     "draws_per_n": 20000,
+    "false_alarm_rate": 0.05,
     "headline_component": "firing_rate_mean",
     "label": "REAL ToxCast acute MEA vehicle wells: noise floors and wells needed",
     "n_grid": [
@@ -19360,6 +19361,7 @@
       96
     ],
     "n_max": 96,
+    "power": 0.8,
     "registration": {
       "committed_at": "2026-10-26T15:01:46-04:00",
       "file": "preregistration/toxcast_noise_floors.json",
@@ -24595,6 +24597,10 @@
       "Tetrodotoxin": {
         "agreeing": 3,
         "scored": 3
+      },
+      "total": {
+        "agreeing": 11,
+        "scored": 11
       }
     },
     "predictions": {
@@ -24853,6 +24859,10 @@
       "registered_in_commit": "4ae5b0c214880bfca557a00fb70c874dcae94d34",
       "sha256": "86b3176a8fbf3d2a8585b6603bd5c4a27cab8550dfa16ce781253045ebe8d68d"
     },
+    "total": {
+      "agreeing": 12,
+      "scored": 12
+    },
     "twin": {
       "gabaa_block": {
         "burst_duration_s": {
@@ -24943,6 +24953,10 @@
       "Tetrodotoxin": {
         "agreeing": 3,
         "scored": 3
+      },
+      "total": {
+        "agreeing": 9,
+        "scored": 9
       }
     }
   },

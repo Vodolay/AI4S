@@ -432,8 +432,8 @@ def _pct(c: dict, base: str, key: str) -> str:
 def markdown_table(components: dict) -> str:
     """The report's wells-needed table, each number carrying its metrics.json key."""
     head = (
-        "| component | untreated wells: median (5th to 95th pct.) | abs. q95, log2 | date share "
-        "| 20% fall: indep. / one date / same-date | 50% fall: indep. / one date / same-date |\n"
+        "| readout | untreated change, median (5th to 95th pct.) | abs. q95 (log2) | date share "
+        "| wells for a 20% fall (A / B / C) | wells for a 50% fall (A / B / C) |\n"
         "|---|---|---|---|---|---|\n"
     )
     lines = []
@@ -444,7 +444,7 @@ def markdown_table(components: dict) -> str:
             f"{_pct(c, base, 'q95_fraction')})"
         )
         cells = [
-            f"`{name}`",
+            name.replace("_", " "),
             spread,
             f"{c['abs_q95_log2']:.2f} <!-- metrics.json: {ROOT}.{base}.abs_q95_log2 -->",
             f"{c['date_share']:.2f} <!-- metrics.json: {ROOT}.{base}.date_share -->",
@@ -500,6 +500,8 @@ def main(argv: list[str] | None = None) -> int:
         "source": "invitrodb v4.3 MySQL dump (CC0), level-0 wells recovered (DECISION_LOG D55)",
         "n_grid": list(N_GRID),
         "n_max": max(N_GRID),
+        "false_alarm_rate": 0.05,  # two-sided, per test: the 95th percentile of |null|
+        "power": 0.8,  # the q80 / q20 terms of `detection`
         "draws_per_n": DRAWS // 10 if args.quick else DRAWS,
         "targets_log2": {k: round(v[1], 4) for k, v in TARGETS.items()},
         "headline_component": HEADLINE,
