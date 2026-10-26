@@ -104,6 +104,29 @@ def test_tab_one_shows_the_dataset_card_without_the_built_asset(app: AppTest) ->
     assert "Records" in labels and "Sources" in labels
 
 
+def test_the_wells_needed_panel_reads_metrics_and_follows_the_selection() -> None:
+    """The panel shows the three designs from metrics.json and updates on a new change size."""
+    import json
+
+    from neuromps.paths import OUTPUTS_ROOT
+
+    metrics = json.loads((OUTPUTS_ROOT / "metrics.json").read_text())
+    floors = metrics.get("toxcast_noise_floors")
+    if not floors:
+        pytest.skip("toxcast_noise_floors not in metrics.json")
+    at = AppTest.from_file(str(APP), default_timeout=120)
+    at.query_params["tab"] = "data"
+    at.run()
+    labels = [m.label for m in at.metric]
+    assert "Wells across days" in labels and "One day, same-day vehicles" in labels
+    needed = floors["components"][floors["headline_component"]]["wells_needed"]
+    across = next(m for m in at.metric if m.label == "Wells across days")
+    assert across.value == str(needed["independent"]["down_20pct"])
+    next(s for s in at.segmented_control if s.label == "Change").set_value("50% fall").run()
+    across = next(m for m in at.metric if m.label == "Wells across days")
+    assert across.value == str(needed["independent"]["down_50pct"])
+
+
 @pytest.mark.skipif(ASSET_BUILT, reason="the asset is present, so the table renders")
 def test_tab_one_explains_a_missing_asset(app: AppTest) -> None:
     messages = " ".join(i.value for i in app.info)

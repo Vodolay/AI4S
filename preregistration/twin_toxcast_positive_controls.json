@@ -1,0 +1,53 @@
+{
+  "title": "Out-of-sample check: the calibrated twin's drug knobs against the ToxCast acute MEA positive controls (SIMULATED twin, REAL wells)",
+  "registered": "2026-10-26T19:10:00Z",
+  "status": "registered before any statistic of a positive-control or vehicle well's response (rval) was computed or viewed, and before the twin was run for this check",
+  "origin": "the twin was calibrated on Kapucu/Axion baselines and its knobs were checked in HD13 against Kapucu and ScreenNeuroPharm pairs; ToxCast's rat cortical positive controls are a third laboratory's wells the twin has never seen",
+  "seen_before_registration": [
+    "positive-control well counts for acid 2447 (Bicuculline 349 wells at 25, Picrotoxin 80 at 25, Tetrodotoxin 74 at 1; concentrations in the dump's units, uM) and that they span 97 dates; no rval of any well",
+    "HD13 (twin_hd13_perturbation, seed 0, 40 s, same baseline noise): GABA-A block (gabaa_scale 0.2) moved mfr +2.706, burst rate -0.003, pct spikes in bursts +0.278, network burst rate -0.1, synchrony +0.267, isi_cv +1.763 log2; sodium block (threshold_scale 1.6) moved mfr -3.672 and floored the burst and synchrony features",
+    "HD13's real references: bicuculline from 60-electrode MCS chambers, where real firing rate fell while the twin's rose (the twin_prior registration's note)",
+    "general literature knowledge that GABA-A antagonists increase bursting and synchrony in cortical cultures and that TTX abolishes spiking"
+  ],
+  "drugs": {
+    "Bicuculline": {"knob": "gabaa_block", "parameter": "gabaa_scale", "value": 0.2, "reason": "GABA-A antagonist; 25 uM is far above its IC50, so the strong block HD13 used"},
+    "Picrotoxin": {"knob": "gabaa_block", "parameter": "gabaa_scale", "value": 0.2, "reason": "GABA-A channel blocker; the twin has one inhibition knob, so the same prediction as bicuculline"},
+    "Tetrodotoxin": {"knob": "sodium_block", "parameter": "threshold_scale", "value": 1.6, "reason": "sodium-channel block, the twin's excitability knob as in HD13"}
+  },
+  "no_knob": "none of the three lacks a knob; the twin has no separate knob for a channel blocker versus a competitive antagonist, so picrotoxin and bicuculline share one prediction",
+  "feature_mapping": {
+    "mfr_hz": {"acid": 2448, "component": "firing_rate_mean"},
+    "burst_rate_per_min": {"acid": 2449, "component": "burst_number"},
+    "burst_duration_s": {"acid": 2450, "component": "burst_duration_mean"},
+    "spikes_per_burst": {"acid": 2451, "component": "per_burst_spike_number_mean"},
+    "pct_spikes_in_bursts": {"acid": 2453, "component": "burst_percentage_mean"},
+    "synchrony_index": {"acid": 2461, "component": "synchrony_index", "note": "different algorithms (STTC vs Axion's); direction only"}
+  },
+  "not_mapped": "network_burst_rate_per_min vs network_burst_percentage (related, not the same quantity, schema/FEATURE_SET.md); isi_cv, active_electrodes (no acute counterpart); interburst interval, cross-correlation, the std components and per-network-burst components (no twin counterpart)",
+  "twin": {
+    "model": "the calibrated twin (twin.calibrate.calibrated_params) through twin.perturbation._features_for, the same features/mea.py path as every real recording",
+    "design": "8 chips, build seeds 9101-9108; each chip simulated untreated (noise seed build + 100000) and under each knob (noise seed build + 200000), 40 s; change = models.dataset.log_ratio(treated, untreated) per feature, floored at log2(0.05)",
+    "direction_rule": "per knob and feature, the median change over chips; a direction is predicted when |median| >= 0.1 log2 and at least 7 of 8 chips with a defined change share its sign, and at least 5 chips have a defined change; otherwise 'none' and the cell is not scored",
+    "commit_rule": "the predictions are computed by neuromps.models.twin_toxcast_check --predict and committed (outputs/twin/toxcast_positive_controls_predictions_simulated.json) before the real positive-control statistics are computed"
+  },
+  "real": {
+    "x": "log2(max(1 + rval/100, 0.05)) per well, NaN dropped",
+    "effect_per_well": "x of the positive-control well minus the median x of the vehicle wells (wllt 'n') of the same component and date; wells on a date without vehicle wells are dropped",
+    "effect": "median over wells, per drug and component",
+    "interval": "95% percentile interval by bootstrap over dates (2,000 resamples, seed 20261028)",
+    "established": "the interval excludes zero and at least 10 wells have a defined value",
+    "direction": "sign of the median"
+  },
+  "agreement": "a cell (drug, feature) is scored when the twin predicts a direction and the real direction is established; it agrees when the signs match",
+  "predictions": {
+    "P1_bicuculline": {"statement": "the GABA-A block knob moves the shared features the way bicuculline does", "test": "agreeing / scored >= 2/3, with at least 3 cells scored"},
+    "P2_picrotoxin": {"statement": "the GABA-A block knob moves the shared features the way picrotoxin does", "test": "agreeing / scored >= 2/3, with at least 3 cells scored"},
+    "P3_tetrodotoxin": {"statement": "the sodium-block knob moves the shared features the way TTX does", "test": "agreeing / scored >= 2/3, with at least 3 cells scored"},
+    "P4_firing_rate": {"statement": "the twin gets the firing-rate direction right for every drug where it is scored", "test": "all scored mfr_hz cells agree"}
+  },
+  "magnitude": {
+    "M1_drug_rank_on_firing_rate": "descriptive: whether |change in firing rate| is larger under the sodium-block knob than under the GABA-A knob in the twin, and larger for TTX than for bicuculline (and picrotoxin) in the real wells",
+    "M2_feature_rank_within_drug": "descriptive: Spearman correlation of |twin change| and |real change| over the scored features of each drug; no pass threshold, because HD8 showed magnitudes do not transfer across platforms"
+  },
+  "reporting": "every cell with both values, every prediction with pass/fail, whichever way it falls."
+}

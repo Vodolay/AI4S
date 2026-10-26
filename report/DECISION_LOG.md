@@ -273,3 +273,20 @@ it with its own command or `python -m neuromps.fly.pipeline --only <step>`.
   and the research leading to it kept private until submission; what was already public stays
   so, and its history timestamps the work.
 - **Revisit:** when the paper is submitted, `paper-draft` merges into public master.
+
+### D29. Recovering the ToxCast components that have no level-0 rows
+(Numbered D55 in the project's private research log, where it was first taken.)
+- **Found:** the invitrodb v4.3 dump's level-0 table lacks 8 of the 17 acute MEA components,
+  among them firing rate, spike number and burst number; level 3 still has their rows.
+- **Options:** use only the 9 components with level 0 (no firing rate); ask the EPA for the
+  missing rows; recover the wells from the dump's id allocation.
+- **Taken:** recovery (`neuromps.etl.toxcast_recover`). Level-0 ids come in contiguous runs of
+  equal length per component and batch, so a component's run start is predicted from the
+  reference component's; rval is recovered from level 3 exactly (rval = bval + resp x
+  (pval - bval) / 100). Wells are assigned by position in the reference run; for all 7 missing
+  electrophysiology components concentrations agree on every row and each date's stored baseline
+  is reproduced from the assigned wells on every date. Four present components have their runs in
+  another order (both checks fail on them), so present components keep their own level-0 wells.
+- **Assumption recorded:** positions within a date are not checked by the baseline, so the
+  physical-plate assignment of a recovered well rests on the run order alone.
+- **Revisit at:** `data/interim/toxcast_mea/recovery_checks.json`.

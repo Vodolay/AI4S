@@ -1,0 +1,268 @@
+{
+  "label": "SIMULATED: the calibrated twin's paired changes under each knob, 8 chips",
+  "registration": {
+    "file": "preregistration/twin_toxcast_positive_controls.json",
+    "sha256": "86b3176a8fbf3d2a8585b6603bd5c4a27cab8550dfa16ce781253045ebe8d68d",
+    "registered_in_commit": "4ae5b0c214880bfca557a00fb70c874dcae94d34",
+    "committed_at": "2026-10-26T15:01:46-04:00"
+  },
+  "knobs": {
+    "gabaa_block": {
+      "gabaa_scale": 0.2
+    },
+    "sodium_block": {
+      "threshold_scale": 1.6
+    }
+  },
+  "build_seeds": [
+    9101,
+    9102,
+    9103,
+    9104,
+    9105,
+    9106,
+    9107,
+    9108
+  ],
+  "duration_s": 40.0,
+  "per_chip": [
+    {
+      "knob": "gabaa_block",
+      "build_seed": 9101,
+      "mfr_hz": 2.6204533502,
+      "burst_rate_per_min": 0.4273063366,
+      "burst_duration_s": 0.3004888209,
+      "spikes_per_burst": 2.7639078188,
+      "pct_spikes_in_bursts": 0.5687279042,
+      "synchrony_index": 0.516337983
+    },
+    {
+      "knob": "gabaa_block",
+      "build_seed": 9102,
+      "mfr_hz": 2.3624784211,
+      "burst_rate_per_min": -0.3041410119,
+      "burst_duration_s": 0.6665265328,
+      "spikes_per_burst": 2.9584130889,
+      "pct_spikes_in_bursts": 0.2918679564,
+      "synchrony_index": 0.276747784
+    },
+    {
+      "knob": "gabaa_block",
+      "build_seed": 9103,
+      "mfr_hz": 2.37198674,
+      "burst_rate_per_min": -0.272421871,
+      "burst_duration_s": 0.5168167643,
+      "spikes_per_burst": 2.8726405936,
+      "pct_spikes_in_bursts": 0.228006769,
+      "synchrony_index": 0.2185993104
+    },
+    {
+      "knob": "gabaa_block",
+      "build_seed": 9104,
+      "mfr_hz": 2.4009480401,
+      "burst_rate_per_min": -0.063645262,
+      "burst_duration_s": 0.5988599366,
+      "spikes_per_burst": 2.9072333175,
+      "pct_spikes_in_bursts": 0.4426404036,
+      "synchrony_index": 0.4037381496
+    },
+    {
+      "knob": "gabaa_block",
+      "build_seed": 9105,
+      "mfr_hz": 2.3931745109,
+      "burst_rate_per_min": 0.079387455,
+      "burst_duration_s": 0.4714302259,
+      "spikes_per_burst": 2.9520941269,
+      "pct_spikes_in_bursts": 0.6351862822,
+      "synchrony_index": 0.5491026043
+    },
+    {
+      "knob": "gabaa_block",
+      "build_seed": 9106,
+      "mfr_hz": 2.2481198312,
+      "burst_rate_per_min": -0.2488040522,
+      "burst_duration_s": 0.3524848472,
+      "spikes_per_burst": 2.7785788205,
+      "pct_spikes_in_bursts": 0.2808998226,
+      "synchrony_index": 0.2933530776
+    },
+    {
+      "knob": "gabaa_block",
+      "build_seed": 9107,
+      "mfr_hz": 2.2484673355,
+      "burst_rate_per_min": -0.5218931357,
+      "burst_duration_s": 0.6423252728,
+      "spikes_per_burst": 3.0627560163,
+      "pct_spikes_in_bursts": 0.2931526071,
+      "synchrony_index": 0.2641443742
+    },
+    {
+      "knob": "gabaa_block",
+      "build_seed": 9108,
+      "mfr_hz": 2.3149176078,
+      "burst_rate_per_min": -0.3599284166,
+      "burst_duration_s": 0.5589258064,
+      "spikes_per_burst": 2.9074182262,
+      "pct_spikes_in_bursts": 0.2323687676,
+      "synchrony_index": 0.2355507519
+    },
+    {
+      "knob": "sodium_block",
+      "build_seed": 9101,
+      "mfr_hz": -2.4714953833,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "build_seed": 9102,
+      "mfr_hz": -2.7447087918,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "build_seed": 9103,
+      "mfr_hz": -3.9444917645,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "build_seed": 9104,
+      "mfr_hz": -2.5574637016,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "build_seed": 9105,
+      "mfr_hz": -2.9267694587,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "build_seed": 9106,
+      "mfr_hz": -3.4550382628,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -3.2202053401
+    },
+    {
+      "knob": "sodium_block",
+      "build_seed": 9107,
+      "mfr_hz": -3.2022824092,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "build_seed": 9108,
+      "mfr_hz": -3.5786906213,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    }
+  ],
+  "predictions": {
+    "gabaa_block": {
+      "mfr_hz": {
+        "n_defined": 8,
+        "median": 2.3672,
+        "n_same_sign": 8,
+        "direction": "up"
+      },
+      "burst_rate_per_min": {
+        "n_defined": 8,
+        "median": -0.2606,
+        "n_same_sign": 6,
+        "direction": null
+      },
+      "burst_duration_s": {
+        "n_defined": 8,
+        "median": 0.5379,
+        "n_same_sign": 8,
+        "direction": "up"
+      },
+      "spikes_per_burst": {
+        "n_defined": 8,
+        "median": 2.9073,
+        "n_same_sign": 8,
+        "direction": "up"
+      },
+      "pct_spikes_in_bursts": {
+        "n_defined": 8,
+        "median": 0.2925,
+        "n_same_sign": 8,
+        "direction": "up"
+      },
+      "synchrony_index": {
+        "n_defined": 8,
+        "median": 0.2851,
+        "n_same_sign": 8,
+        "direction": "up"
+      }
+    },
+    "sodium_block": {
+      "mfr_hz": {
+        "n_defined": 8,
+        "median": -3.0645,
+        "n_same_sign": 8,
+        "direction": "down"
+      },
+      "burst_rate_per_min": {
+        "n_defined": 8,
+        "median": -4.3219,
+        "n_same_sign": 8,
+        "direction": "down"
+      },
+      "burst_duration_s": {
+        "n_defined": 0,
+        "median": null,
+        "n_same_sign": 0,
+        "direction": null
+      },
+      "spikes_per_burst": {
+        "n_defined": 0,
+        "median": null,
+        "n_same_sign": 0,
+        "direction": null
+      },
+      "pct_spikes_in_bursts": {
+        "n_defined": 8,
+        "median": -4.3219,
+        "n_same_sign": 8,
+        "direction": "down"
+      },
+      "synchrony_index": {
+        "n_defined": 8,
+        "median": -4.3219,
+        "n_same_sign": 8,
+        "direction": "down"
+      }
+    }
+  }
+}

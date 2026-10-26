@@ -2656,7 +2656,7 @@
       "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
       "citation": "U.S. EPA Center for Computational Toxicology and Exposure. ToxCast Database: invitrodb version 4.3. doi:10.23645/epacomptox.6062623.v14",
       "note": "tier=full; invitrodb v4.3 via EPA Clowder",
-      "checked_at": "2026-09-22T07:38:12+00:00",
+      "checked_at": "2026-10-26T12:12:28+00:00",
       "files": [
         {
           "path": "toxcast_mea/assay_docs/AEID2454_CCTE_Shafer_MEA_acute_spike_number.pdf",
@@ -2909,6 +2909,13 @@
           "sha256": "03e527259e8b81ef729e8a714f87100d20caeaf7e281341985009ce2c6b6667b",
           "bytes": 326000,
           "downloaded_at": "2026-09-16T14:03:05+00:00"
+        },
+        {
+          "path": "toxcast_mea/mysql/invitrodb_v4_3.sql.gz",
+          "url": "https://clowder.edap-cluster.com/api/files/68c3365ce4b02565fc7cd3f3/blob",
+          "sha256": "ee159e1cdd28996f85db13e742700d8d76ef9d5baf31e3b5e00d249899529c7b",
+          "bytes": 17651807605,
+          "downloaded_at": "2026-10-26T12:11:49+00:00"
         },
         {
           "path": "toxcast_mea/release/invitrodb_v4_3_release_note_21AUG2025.html",

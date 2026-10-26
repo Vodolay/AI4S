@@ -203,6 +203,21 @@ ask the authors: the HESI NeuTox outputs exist as papers, not as a deposit.
   ~661 MB compressed transfer) from the 7.5 GB `INVITRODB_SUMMARY.zip` via HTTP range requests; the
   member's CRC32 is checked by `zipfile`; extracted size matches the zip listing (2,550,615,005 bytes).
   mc5-6 holds curve fits and hit calls, not per-concentration responses. The raw file is not modified.
+  - **Well-level rows: the full MySQL dump** (`toxcast_mea/mysql/invitrodb_v4_3.sql.gz`, 17,651,807,605
+    bytes, Clowder dataset "MySQL_Data"; `neuromps.fetch.toxcast_mysql`, outside the fetch tiers). Read
+    as text, never loaded or executed: `python -I -m neuromps.etl.toxcast_wells` streams it once
+    (~10 min) and writes `data/interim/toxcast_mea/` (schema, `mc0`-`mc3` parquet, `summary.json`).
+    **Gap in the dump:** `mc0`, `mc1` and `mc2` lack whole assay components that `mc3` has (also
+    outside MEA). For 8 of the 17 acute components (acids 2447-2449, 2455, 2457, 2459, 2461, 2495) the
+    dump has `mc3` rows but no level-0 wells; their `mc3.m0id` values occur nowhere in `mc0`. The
+    missing rows are spread over all 10 hash partitions of `mc0`, so this is not one lost partition.
+    `summary.json` reports it per component (`n_mc3_rows_without_mc0`, `components_without_mc0`).
+    **`apid` is not a physical plate** in these assays: it is the exposure date (e.g. `20150811`) and
+    pools several 48-well MEA plates. The physical plate is named only in `srcf`
+    (`TC_MW 1073-16_<culture date>_<exposure date>_...`); `summary.json` gives vehicle counts both per
+    `apid` (tcpl's plate key, used for `bval`) and per `srcf` plate. `mc0.rval` for the 15
+    electrophysiology endpoints is the per-well percent change from that well's own 40-min baseline
+    (assay description PDFs, section 1.2); LDH and AB are plate-reader values.
   - **Filter MEA rows by name (`aenm` starts with `CCTE_Shafer_MEA_`), never by AEID range.** AEIDs
     2454–2541 also contain 11 unrelated assays (CCTE_Deisenroth_AIME_*, CCTE_GLTED_hDIO2/3). By name:
     36 endpoints (17 acute, 19 dev), 20,375 rows, 808 chemicals, out of 3,527,285 rows in total.
