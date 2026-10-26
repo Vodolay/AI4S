@@ -156,7 +156,7 @@ Each fetcher re-checks its source's advertised license at download time.
 - **License:** CC0-1.0
 - **License URL:** https://creativecommons.org/publicdomain/zero/1.0/
 - **Source:** https://doi.org/10.23645/epacomptox.6062623.v14
-- **Files recorded:** 42
+- **Files recorded:** 43
 - **Status:** ok
 
 > U.S. EPA Center for Computational Toxicology and Exposure. ToxCast Database: invitrodb version 4.3. doi:10.23645/epacomptox.6062623.v14
