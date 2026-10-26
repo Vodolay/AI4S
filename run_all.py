@@ -103,6 +103,7 @@ def main(argv: list[str] | None = None) -> int:
             from neuromps.models.mechanism import main as run_models
             from neuromps.models.microchannels import main as run_microchannels
             from neuromps.models.rate_only import main as run_rate_only
+            from neuromps.models.toxcast_noise_floors import main as run_noise_floors
             from neuromps.models.transfer import main as run_transfer
             from neuromps.models.tunnels import main as run_tunnels
             from neuromps.report.architecture import main as draw_architecture
@@ -127,7 +128,11 @@ def main(argv: list[str] | None = None) -> int:
             # Skips itself when the 109 MB archive has not been fetched, which is
             # the case on the quick tier.
             run_microchannels(quick)
+            # Real vehicle wells: what change a chip can see. Skips itself when the
+            # ToxCast well table (built outside the fetch tiers) is absent.
+            run_noise_floors(quick)
         elif stage == "twin":
+            from neuromps.models.twin_toxcast_check import main as run_toxcast_check
             from neuromps.report.diagrams import main as draw_model_diagrams
             from neuromps.twin.calibrate import main as calibrate_twin
             from neuromps.twin.delta_inference import main as run_delta_inference
@@ -144,6 +149,9 @@ def main(argv: list[str] | None = None) -> int:
             # Whether the calibration's residual is a missing mechanism.
             run_depression(quick)
             run_knobs(quick)
+            # The same knobs against a laboratory the twin has never seen; reuses the
+            # committed predictions, and skips itself without the ToxCast well table.
+            run_toxcast_check(quick)
             run_inference(quick)
             run_real_inference(quick)
             # The same question put to a change against each chip's own
