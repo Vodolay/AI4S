@@ -44,7 +44,7 @@ features with its own software and its own definitions, and most deposit summary
 raw spikes, so a number in one paper rarely means the same thing as the "same" number in another.
 
 We built NeuroMPS to tackle that problem directly, and to find out honestly how far the data can be
-pushed. It has four parts, and after the first round we added a fifth.
+pushed. It has four parts, and after the first round we added two more.
 
 - **A standardized data asset.** We assembled 21,887 records <!-- metrics.json: data_asset.n_records -->
   from eight public sources, each verified against a SHA-256 checksum of its original file. One
@@ -96,6 +96,20 @@ pushed. It has four parts, and after the first round we added a fifth.
   tract, the fly's counterpart of a chip's microchannels, caught it in time where a planar array
   did not. A second, male connectome replicates the behaviour and ranking results, and read at
   its motor neurons the chip is never earlier than motor output.
+- **What a real screen's untreated wells say (Act IX, added after the first round).** From the
+  EPA's well-level database we measured how much an untreated well moves on its own, for each
+  of 15 MEA readouts. Over 714 <!-- metrics.json: toxcast_noise_floors.components.firing_rate_mean.wells --> vehicle wells, firing rate
+  drifts by a median of −32% <!-- metrics.json: toxcast_noise_floors.components.firing_rate_mean.median_fraction --> during exposure and the
+  exposure day carries 0.42 <!-- metrics.json: toxcast_noise_floors.components.firing_rate_mean.date_share --> of its variance. A one-day
+  experiment judged against a historical reference therefore cannot see even a halving of
+  firing rate, while 32
+  <!-- metrics.json: toxcast_noise_floors.components.firing_rate_mean.wells_needed.independent.down_20pct --> wells spread over days, or 32
+  <!-- metrics.json: toxcast_noise_floors.components.firing_rate_mean.wells_needed.same_date_vehicle.down_20pct --> treated and as many
+  vehicle wells on one day, see a fall of a fifth (§32, with a table for every readout). On the
+  screen's own positive controls, from a laboratory the twin never saw, the twin's knobs agree
+  on 12 <!-- metrics.json: twin_toxcast_positive_controls.total.agreeing --> of 12
+  <!-- metrics.json: twin_toxcast_positive_controls.total.scored --> scored directions, though a
+  rule that simply follows firing rate does as well (§33).
 
 ---
 
@@ -580,7 +594,9 @@ Blocking excitation and blocking sodium channels behave correctly on every score
 inhibition is mostly right. Potentiating inhibition is mostly wrong — and that is the knob with the
 weakest real reference behind it, just 17 pairs from two sources. So the twin is usable for
 reasoning about strong, well-evidenced perturbations, but we have not validated it for subtle
-allosteric modulation.
+allosteric modulation. On a laboratory it had never seen, the EPA's acute MEA screen, the GABA-A block
+and sodium-block knobs agree with the positive controls on every scored direction (§33, added
+after the first round).
 
 **The twin as a source of labelled training data (added after the first round).** Directions are
 one test; recognition is a harder one. We simulated pairs for the five mechanism classes the twin
@@ -758,7 +774,7 @@ what we would do instead.
 | 6 | posterior over-confidence | `gabaa_scale` fails rank uniformity at p = 0.0174 <!-- metrics.json: twin_hd14_inference.rank_uniformity_ks_p.gabaa_scale.ks_p --> | check rank uniformity before quoting an interval; quote only parameters that pass |
 | 7 | baseline read as drug effect | absolute features infer 0.5219 <!-- metrics.json: twin_hd15_real_inference.gabaa_scale_at_baseline.median --> inhibition scale on untreated chips | infer from paired deltas against each well's own baseline (§16) |
 | 8 | support rejection | the calibrated twin cannot sample 9 <!-- metrics.json: demo_precompute.posterior_draws.n_short_of_requested --> of 113 <!-- metrics.json: demo_precompute.posterior_draws.n_recordings --> real recordings | treat a refusal as an out-of-distribution flag and send the recording to a person |
-| 9 | vesicle depletion does not explain the GABA-A reversal (added after the first round) | under strong GABA-A block the twin's firing rate rises by 2.389 <!-- metrics.json: twin_depression_under_block.summary.control_mfr_delta_at_block --> log2; with depletion, by at least 0.8687 <!-- metrics.json: twin_depression_under_block.summary.smallest_mfr_delta_at_block_with_depression -->; on real chips it changes by −0.335 <!-- metrics.json: twin_depression_under_block.summary.real_gabaa_antagonist_mfr_delta --> | do not read the twin's firing-rate direction under disinhibition as the culture's; look for the missing mechanism elsewhere (recalibrating with depression, depolarization block) |
+| 9 | vesicle depletion does not explain the GABA-A reversal (added after the first round) | under strong GABA-A block the twin's firing rate rises by 2.389 <!-- metrics.json: twin_depression_under_block.summary.control_mfr_delta_at_block --> log2; with depletion, by at least 0.8687 <!-- metrics.json: twin_depression_under_block.summary.smallest_mfr_delta_at_block_with_depression -->; on real chips it changes by −0.335 <!-- metrics.json: twin_depression_under_block.summary.real_gabaa_antagonist_mfr_delta --> | do not read the twin's firing-rate direction under disinhibition as the culture's; look for the missing mechanism elsewhere (recalibrating with depression, depolarization block). Since round 1: in the EPA's rat cortical wells, GABA-A antagonists raise firing rate as the twin does (§33), so the real direction differs between laboratories |
 
 **On the first, which matters most.** §6 showed that the mechanism classifier had no dose
 relationship, and §16 showed that the inverse model could not recover dose either. So we asked
@@ -827,7 +843,7 @@ depletion added to the present twin as the explanation.
 The main bottleneck in making neural organ-on-a-chip systems useful is not microfluidic fabrication;
 it is making functional electrophysiology interpretable and reproducible. Academic centers and
 commercial vendors alike produce multi-channel MEA recordings that remain hard to compare across
-sites. Our results translate into practical guidance in five areas.
+sites. Our results translate into practical guidance in six areas.
 
 **Where this sits.** The US FDA Modernization Act 2.0 (2022) replaced the statutory reference to
 animal tests with "nonclinical tests", a category that names cell-based assays, organ chips and
@@ -883,6 +899,19 @@ reasonable guard against false hits; it is not evidence that a compound below it
 untouched. Third, where to record matters as much as how precisely: in the same simulation,
 electrodes on the brain's output tract caught GABA block in time where a planar array did not
 (§24), the same advice §15 gives from real devices: instrument the channels.
+
+**6. Sample size and plate layout, from real untreated wells (Act IX, added after the first
+round).** Before a lab runs a chip screen it needs to know how many wells a given change takes
+and how to lay them out. The EPA's own vehicle wells answer that for each of 15 readouts (§32).
+Untreated firing rate falls by a median of
+−32% <!-- metrics.json: toxcast_noise_floors.components.firing_rate_mean.median_fraction --> over the exposure window, and the exposure day
+carries 0.42 <!-- metrics.json: toxcast_noise_floors.components.firing_rate_mean.date_share --> of the variance, so every reading must be
+made against vehicle wells from the same day: against a historical reference no number of
+wells from one day sees a halving of firing rate, while
+4 <!-- metrics.json: toxcast_noise_floors.components.firing_rate_mean.wells_needed.same_date_vehicle.down_50pct --> treated and 4 vehicle
+wells on that day do. Burst-shape and synchrony readouts are several times quieter than firing
+rate and need far fewer wells for the same relative change. §34 turns this into three
+quality-control rules.
 
 ## 21. How to reproduce and check this work
 
@@ -1293,6 +1322,227 @@ brakes, not as joint-specific controllers.
 
 The stages run with `python run_all.py --stage embodied` (or one at a time through
 `python -m neuromps.fly.pipeline`).
+
+---
+
+# ACT IX: What a real screen's untreated wells say (after round 1)
+
+*Added after the first-round deadline (`report/POST_SUBMISSION_CHANGES.md`, entry 42). Unlike
+Acts VII and VIII, the measurements in this act are **real**: well-level recordings from the
+EPA's acute MEA screen. The twin's side of §33 is simulated and labelled so. Both analyses were
+registered before any response statistic was computed
+(`preregistration/toxcast_noise_floors.json`, `preregistration/twin_toxcast_positive_controls.json`).
+This is research decision support about measurement design; nothing here is a claim about any
+compound's effect.*
+
+## 32. How large a change can a chip see? The noise floor, per feature
+
+A lab that wants to use a neural chip has to answer a plain question before any modelling: how
+many wells does it take to see a fall of a fifth, and in which readout? The answer depends on how
+much an *untreated* well moves on its own, and on whether that movement is shared by wells
+recorded on the same day. Neither number is in the published curve fits we used in round 1. Both
+are in the EPA's raw database.
+
+**The data.** The EPA's ToxCast database (invitrodb, CC0) holds every well of its acute MEA screen: rat
+cortical cultures on 48-well plates, each well recorded 40 minutes before and 40 minutes after
+exposure, stored as the percent change from its own baseline. We read its full MySQL dump as
+text, never executing it, and extracted the 15 electrophysiology readouts
+(`neuromps.etl.toxcast_wells`). Seven of these readouts, firing rate among them, have no well rows in the
+public dump; we recovered them from the dump's own row numbering and checked the recovery
+against values the database stores independently: concentrations agree on every row and each
+exposure date's stored baseline is reproduced on every date (`neuromps.etl.toxcast_recover`;
+checks in `data/interim/toxcast_mea/recovery_checks.json`). The vehicle wells (DMSO or water)
+are the untreated reference: 714 <!-- metrics.json: toxcast_noise_floors.components.firing_rate_mean.wells -->
+wells on 97 <!-- metrics.json: toxcast_noise_floors.components.firing_rate_mean.dates -->
+exposure dates and 274 <!-- metrics.json: toxcast_noise_floors.components.firing_rate_mean.plates -->
+physical plates.
+
+![REAL ToxCast acute MEA vehicle wells. Left: each untreated well's change from its own baseline, 5th to 95th percentile (bar) and median (dot), per readout. Middle: the share of that variance carried by the exposure date, with a 95% interval from resampling dates. Right: the firing-rate fall detectable at 5% false alarms with 80% power against the number of wells, for three designs.](../outputs/figures/toxcast_noise_floors_real.png){width=100%}
+
+**Three findings a chip user needs.**
+
+1. **Untreated wells drift, and by a lot.** Over the 40-minute exposure window an untreated
+   well's firing rate falls by a median of
+   −32% <!-- metrics.json: toxcast_noise_floors.components.firing_rate_mean.median_fraction -->,
+   and one well in twenty falls by more than
+   −69% <!-- metrics.json: toxcast_noise_floors.components.firing_rate_mean.q05_fraction -->.
+   A treated well read only against its own baseline would show a large "effect" with no drug at
+   all. Every change must be read against vehicle wells. Burst counts and cross-correlation drift
+   the same way; burst shape, synchrony and network-burst readouts barely drift.
+2. **Much of the noise is the day, not the well.** The exposure date carries
+   0.42 <!-- metrics.json: toxcast_noise_floors.components.firing_rate_mean.date_share --> of the
+   variance in vehicle firing rate (95% interval
+   0.31 <!-- metrics.json: toxcast_noise_floors.components.firing_rate_mean.date_share_ci95.0 --> to
+   0.54 <!-- metrics.json: toxcast_noise_floors.components.firing_rate_mean.date_share_ci95.1 -->,
+   resampling dates); the physical plate adds almost nothing beyond it (plate share
+   0.40 <!-- metrics.json: toxcast_noise_floors.components.firing_rate_mean.plate_share -->).
+   Wells recorded on one day share that day's offset, so adding more of them does not average
+   it away.
+3. **So the design matters more than the well count.** For a 20% fall in firing rate:
+   32 <!-- metrics.json: toxcast_noise_floors.components.firing_rate_mean.wells_needed.independent.down_20pct -->
+   wells spread over independent dates suffice; the same number from one date, judged against
+   the screen's historical vehicle mean, never does (more than
+   96 <!-- metrics.json: toxcast_noise_floors.n_max --> wells; even a 50% fall stays out of
+   reach, since 96 wells from one date detect only a
+   52% <!-- metrics.json: toxcast_noise_floors.components.firing_rate_mean.curves.one_date.96.detectable_down_fraction -->
+   fall); and wells from one date judged against the same number of vehicle wells from that
+   date need
+   32 <!-- metrics.json: toxcast_noise_floors.components.firing_rate_mean.wells_needed.same_date_vehicle.down_20pct -->
+   of each. For a 50% fall the counts are
+   3 <!-- metrics.json: toxcast_noise_floors.components.firing_rate_mean.wells_needed.independent.down_50pct -->
+   independent wells, or
+   4 <!-- metrics.json: toxcast_noise_floors.components.firing_rate_mean.wells_needed.same_date_vehicle.down_50pct -->
+   treated and 4 vehicle wells on one date. A single well detects only a fall of
+   68% <!-- metrics.json: toxcast_noise_floors.components.firing_rate_mean.curves.independent.1.detectable_down_fraction -->
+   or more, and rises are harder to see than falls of the same percentage (a 20% rise needs
+   48 <!-- metrics.json: toxcast_noise_floors.components.firing_rate_mean.wells_needed.independent.up_20pct -->
+   independent wells).
+
+**Wells needed to detect a fall, per readout** (two-sided false alarms at
+5% <!-- metrics.json: toxcast_noise_floors.false_alarm_rate --> per test, power
+80% <!-- metrics.json: toxcast_noise_floors.power -->; smallest count on the grid 1 to
+96 <!-- metrics.json: toxcast_noise_floors.n_max -->; A: wells spread over independent dates;
+B: all wells from one date against the historical vehicle mean; C: that many treated *and* that
+many vehicle wells on one date; sorted by noise floor; every vehicle well of the screen, DMSO
+and water):
+
+| readout | untreated change, median (5th to 95th pct.) | abs. q95 (log2) | date share | wells for a 20% fall (A / B / C) | wells for a 50% fall (A / B / C) |
+|---|---|---|---|---|---|
+| network burst percentage | −1% <!-- metrics.json: toxcast_noise_floors.components.network_burst_percentage.median_fraction --> (−12% <!-- metrics.json: toxcast_noise_floors.components.network_burst_percentage.q05_fraction --> to +2% <!-- metrics.json: toxcast_noise_floors.components.network_burst_percentage.q95_fraction -->) | 0.20 <!-- metrics.json: toxcast_noise_floors.components.network_burst_percentage.abs_q95_log2 --> | 0.18 <!-- metrics.json: toxcast_noise_floors.components.network_burst_percentage.date_share --> | 3 <!-- metrics.json: toxcast_noise_floors.components.network_burst_percentage.wells_needed.independent.down_20pct --> / 8 <!-- metrics.json: toxcast_noise_floors.components.network_burst_percentage.wells_needed.one_date.down_20pct --> / 8 <!-- metrics.json: toxcast_noise_floors.components.network_burst_percentage.wells_needed.same_date_vehicle.down_20pct --> | 1 <!-- metrics.json: toxcast_noise_floors.components.network_burst_percentage.wells_needed.independent.down_50pct --> / 1 <!-- metrics.json: toxcast_noise_floors.components.network_burst_percentage.wells_needed.one_date.down_50pct --> / 1 <!-- metrics.json: toxcast_noise_floors.components.network_burst_percentage.wells_needed.same_date_vehicle.down_50pct --> |
+| synchrony index | −4% <!-- metrics.json: toxcast_noise_floors.components.synchrony_index.median_fraction --> (−16% <!-- metrics.json: toxcast_noise_floors.components.synchrony_index.q05_fraction --> to +3% <!-- metrics.json: toxcast_noise_floors.components.synchrony_index.q95_fraction -->) | 0.26 <!-- metrics.json: toxcast_noise_floors.components.synchrony_index.abs_q95_log2 --> | 0.32 <!-- metrics.json: toxcast_noise_floors.components.synchrony_index.date_share --> | 6 <!-- metrics.json: toxcast_noise_floors.components.synchrony_index.wells_needed.independent.down_20pct --> / 12 <!-- metrics.json: toxcast_noise_floors.components.synchrony_index.wells_needed.one_date.down_20pct --> / 10 <!-- metrics.json: toxcast_noise_floors.components.synchrony_index.wells_needed.same_date_vehicle.down_20pct --> | 1 <!-- metrics.json: toxcast_noise_floors.components.synchrony_index.wells_needed.independent.down_50pct --> / 1 <!-- metrics.json: toxcast_noise_floors.components.synchrony_index.wells_needed.one_date.down_50pct --> / 1 <!-- metrics.json: toxcast_noise_floors.components.synchrony_index.wells_needed.same_date_vehicle.down_50pct --> |
+| per network burst electrodes number mean | −6% <!-- metrics.json: toxcast_noise_floors.components.per_network_burst_electrodes_number_mean.median_fraction --> (−21% <!-- metrics.json: toxcast_noise_floors.components.per_network_burst_electrodes_number_mean.q05_fraction --> to +10% <!-- metrics.json: toxcast_noise_floors.components.per_network_burst_electrodes_number_mean.q95_fraction -->) | 0.40 <!-- metrics.json: toxcast_noise_floors.components.per_network_burst_electrodes_number_mean.abs_q95_log2 --> | 0.25 <!-- metrics.json: toxcast_noise_floors.components.per_network_burst_electrodes_number_mean.date_share --> | 3 <!-- metrics.json: toxcast_noise_floors.components.per_network_burst_electrodes_number_mean.wells_needed.independent.down_20pct --> / 4 <!-- metrics.json: toxcast_noise_floors.components.per_network_burst_electrodes_number_mean.wells_needed.one_date.down_20pct --> / 4 <!-- metrics.json: toxcast_noise_floors.components.per_network_burst_electrodes_number_mean.wells_needed.same_date_vehicle.down_20pct --> | 1 <!-- metrics.json: toxcast_noise_floors.components.per_network_burst_electrodes_number_mean.wells_needed.independent.down_50pct --> / 1 <!-- metrics.json: toxcast_noise_floors.components.per_network_burst_electrodes_number_mean.wells_needed.one_date.down_50pct --> / 1 <!-- metrics.json: toxcast_noise_floors.components.per_network_burst_electrodes_number_mean.wells_needed.same_date_vehicle.down_50pct --> |
+| burst percentage mean | −6% <!-- metrics.json: toxcast_noise_floors.components.burst_percentage_mean.median_fraction --> (−24% <!-- metrics.json: toxcast_noise_floors.components.burst_percentage_mean.q05_fraction --> to +3% <!-- metrics.json: toxcast_noise_floors.components.burst_percentage_mean.q95_fraction -->) | 0.40 <!-- metrics.json: toxcast_noise_floors.components.burst_percentage_mean.abs_q95_log2 --> | 0.39 <!-- metrics.json: toxcast_noise_floors.components.burst_percentage_mean.date_share --> | 3 <!-- metrics.json: toxcast_noise_floors.components.burst_percentage_mean.wells_needed.independent.down_20pct --> / 16 <!-- metrics.json: toxcast_noise_floors.components.burst_percentage_mean.wells_needed.one_date.down_20pct --> / 8 <!-- metrics.json: toxcast_noise_floors.components.burst_percentage_mean.wells_needed.same_date_vehicle.down_20pct --> | 1 <!-- metrics.json: toxcast_noise_floors.components.burst_percentage_mean.wells_needed.independent.down_50pct --> / 1 <!-- metrics.json: toxcast_noise_floors.components.burst_percentage_mean.wells_needed.one_date.down_50pct --> / 1 <!-- metrics.json: toxcast_noise_floors.components.burst_percentage_mean.wells_needed.same_date_vehicle.down_50pct --> |
+| per burst spike number mean | −5% <!-- metrics.json: toxcast_noise_floors.components.per_burst_spike_number_mean.median_fraction --> (−23% <!-- metrics.json: toxcast_noise_floors.components.per_burst_spike_number_mean.q05_fraction --> to +22% <!-- metrics.json: toxcast_noise_floors.components.per_burst_spike_number_mean.q95_fraction -->) | 0.43 <!-- metrics.json: toxcast_noise_floors.components.per_burst_spike_number_mean.abs_q95_log2 --> | 0.33 <!-- metrics.json: toxcast_noise_floors.components.per_burst_spike_number_mean.date_share --> | 4 <!-- metrics.json: toxcast_noise_floors.components.per_burst_spike_number_mean.wells_needed.independent.down_20pct --> / >96 <!-- metrics.json: toxcast_noise_floors.n_max --> / 6 <!-- metrics.json: toxcast_noise_floors.components.per_burst_spike_number_mean.wells_needed.same_date_vehicle.down_20pct --> | 1 <!-- metrics.json: toxcast_noise_floors.components.per_burst_spike_number_mean.wells_needed.independent.down_50pct --> / 1 <!-- metrics.json: toxcast_noise_floors.components.per_burst_spike_number_mean.wells_needed.one_date.down_50pct --> / 1 <!-- metrics.json: toxcast_noise_floors.components.per_burst_spike_number_mean.wells_needed.same_date_vehicle.down_50pct --> |
+| cross correlation HWHM | +1% <!-- metrics.json: toxcast_noise_floors.components.cross_correlation_HWHM.median_fraction --> (−26% <!-- metrics.json: toxcast_noise_floors.components.cross_correlation_HWHM.q05_fraction --> to +23% <!-- metrics.json: toxcast_noise_floors.components.cross_correlation_HWHM.q95_fraction -->) | 0.49 <!-- metrics.json: toxcast_noise_floors.components.cross_correlation_HWHM.abs_q95_log2 --> | 0.33 <!-- metrics.json: toxcast_noise_floors.components.cross_correlation_HWHM.date_share --> | 6 <!-- metrics.json: toxcast_noise_floors.components.cross_correlation_HWHM.wells_needed.independent.down_20pct --> / >96 <!-- metrics.json: toxcast_noise_floors.n_max --> / 10 <!-- metrics.json: toxcast_noise_floors.components.cross_correlation_HWHM.wells_needed.same_date_vehicle.down_20pct --> | 1 <!-- metrics.json: toxcast_noise_floors.components.cross_correlation_HWHM.wells_needed.independent.down_50pct --> / 1 <!-- metrics.json: toxcast_noise_floors.components.cross_correlation_HWHM.wells_needed.one_date.down_50pct --> / 1 <!-- metrics.json: toxcast_noise_floors.components.cross_correlation_HWHM.wells_needed.same_date_vehicle.down_50pct --> |
+| burst duration mean | +4% <!-- metrics.json: toxcast_noise_floors.components.burst_duration_mean.median_fraction --> (−20% <!-- metrics.json: toxcast_noise_floors.components.burst_duration_mean.q05_fraction --> to +43% <!-- metrics.json: toxcast_noise_floors.components.burst_duration_mean.q95_fraction -->) | 0.54 <!-- metrics.json: toxcast_noise_floors.components.burst_duration_mean.abs_q95_log2 --> | 0.36 <!-- metrics.json: toxcast_noise_floors.components.burst_duration_mean.date_share --> | 5 <!-- metrics.json: toxcast_noise_floors.components.burst_duration_mean.wells_needed.independent.down_20pct --> / >96 <!-- metrics.json: toxcast_noise_floors.n_max --> / 8 <!-- metrics.json: toxcast_noise_floors.components.burst_duration_mean.wells_needed.same_date_vehicle.down_20pct --> | 1 <!-- metrics.json: toxcast_noise_floors.components.burst_duration_mean.wells_needed.independent.down_50pct --> / 1 <!-- metrics.json: toxcast_noise_floors.components.burst_duration_mean.wells_needed.one_date.down_50pct --> / 1 <!-- metrics.json: toxcast_noise_floors.components.burst_duration_mean.wells_needed.same_date_vehicle.down_50pct --> |
+| per network burst spike number std | +2% <!-- metrics.json: toxcast_noise_floors.components.per_network_burst_spike_number_std.median_fraction --> (−31% <!-- metrics.json: toxcast_noise_floors.components.per_network_burst_spike_number_std.q05_fraction --> to +56% <!-- metrics.json: toxcast_noise_floors.components.per_network_burst_spike_number_std.q95_fraction -->) | 0.80 <!-- metrics.json: toxcast_noise_floors.components.per_network_burst_spike_number_std.abs_q95_log2 --> | 0.38 <!-- metrics.json: toxcast_noise_floors.components.per_network_burst_spike_number_std.date_share --> | 16 <!-- metrics.json: toxcast_noise_floors.components.per_network_burst_spike_number_std.wells_needed.independent.down_20pct --> / >96 <!-- metrics.json: toxcast_noise_floors.n_max --> / 20 <!-- metrics.json: toxcast_noise_floors.components.per_network_burst_spike_number_std.wells_needed.same_date_vehicle.down_20pct --> | 2 <!-- metrics.json: toxcast_noise_floors.components.per_network_burst_spike_number_std.wells_needed.independent.down_50pct --> / 2 <!-- metrics.json: toxcast_noise_floors.components.per_network_burst_spike_number_std.wells_needed.one_date.down_50pct --> / 2 <!-- metrics.json: toxcast_noise_floors.components.per_network_burst_spike_number_std.wells_needed.same_date_vehicle.down_50pct --> |
+| per network burst spike number mean | −25% <!-- metrics.json: toxcast_noise_floors.components.per_network_burst_spike_number_mean.median_fraction --> (−52% <!-- metrics.json: toxcast_noise_floors.components.per_network_burst_spike_number_mean.q05_fraction --> to +40% <!-- metrics.json: toxcast_noise_floors.components.per_network_burst_spike_number_mean.q95_fraction -->) | 1.11 <!-- metrics.json: toxcast_noise_floors.components.per_network_burst_spike_number_mean.abs_q95_log2 --> | 0.31 <!-- metrics.json: toxcast_noise_floors.components.per_network_burst_spike_number_mean.date_share --> | 20 <!-- metrics.json: toxcast_noise_floors.components.per_network_burst_spike_number_mean.wells_needed.independent.down_20pct --> / >96 <!-- metrics.json: toxcast_noise_floors.n_max --> / 32 <!-- metrics.json: toxcast_noise_floors.components.per_network_burst_spike_number_mean.wells_needed.same_date_vehicle.down_20pct --> | 2 <!-- metrics.json: toxcast_noise_floors.components.per_network_burst_spike_number_mean.wells_needed.independent.down_50pct --> / 3 <!-- metrics.json: toxcast_noise_floors.components.per_network_burst_spike_number_mean.wells_needed.one_date.down_50pct --> / 3 <!-- metrics.json: toxcast_noise_floors.components.per_network_burst_spike_number_mean.wells_needed.same_date_vehicle.down_50pct --> |
+| burst percentage std | +2% <!-- metrics.json: toxcast_noise_floors.components.burst_percentage_std.median_fraction --> (−29% <!-- metrics.json: toxcast_noise_floors.components.burst_percentage_std.q05_fraction --> to +121% <!-- metrics.json: toxcast_noise_floors.components.burst_percentage_std.q95_fraction -->) | 1.20 <!-- metrics.json: toxcast_noise_floors.components.burst_percentage_std.abs_q95_log2 --> | 0.19 <!-- metrics.json: toxcast_noise_floors.components.burst_percentage_std.date_share --> | 24 <!-- metrics.json: toxcast_noise_floors.components.burst_percentage_std.wells_needed.independent.down_20pct --> / >96 <!-- metrics.json: toxcast_noise_floors.n_max --> / 48 <!-- metrics.json: toxcast_noise_floors.components.burst_percentage_std.wells_needed.same_date_vehicle.down_20pct --> | 3 <!-- metrics.json: toxcast_noise_floors.components.burst_percentage_std.wells_needed.independent.down_50pct --> / 4 <!-- metrics.json: toxcast_noise_floors.components.burst_percentage_std.wells_needed.one_date.down_50pct --> / 4 <!-- metrics.json: toxcast_noise_floors.components.burst_percentage_std.wells_needed.same_date_vehicle.down_50pct --> |
+| spike number | −32% <!-- metrics.json: toxcast_noise_floors.components.spike_number.median_fraction --> (−69% <!-- metrics.json: toxcast_noise_floors.components.spike_number.q05_fraction --> to +5% <!-- metrics.json: toxcast_noise_floors.components.spike_number.q95_fraction -->) | 1.71 <!-- metrics.json: toxcast_noise_floors.components.spike_number.abs_q95_log2 --> | 0.42 <!-- metrics.json: toxcast_noise_floors.components.spike_number.date_share --> | 32 <!-- metrics.json: toxcast_noise_floors.components.spike_number.wells_needed.independent.down_20pct --> / >96 <!-- metrics.json: toxcast_noise_floors.n_max --> / 48 <!-- metrics.json: toxcast_noise_floors.components.spike_number.wells_needed.same_date_vehicle.down_20pct --> | 3 <!-- metrics.json: toxcast_noise_floors.components.spike_number.wells_needed.independent.down_50pct --> / >96 <!-- metrics.json: toxcast_noise_floors.n_max --> / 4 <!-- metrics.json: toxcast_noise_floors.components.spike_number.wells_needed.same_date_vehicle.down_50pct --> |
+| firing rate mean | −32% <!-- metrics.json: toxcast_noise_floors.components.firing_rate_mean.median_fraction --> (−69% <!-- metrics.json: toxcast_noise_floors.components.firing_rate_mean.q05_fraction --> to +5% <!-- metrics.json: toxcast_noise_floors.components.firing_rate_mean.q95_fraction -->) | 1.71 <!-- metrics.json: toxcast_noise_floors.components.firing_rate_mean.abs_q95_log2 --> | 0.42 <!-- metrics.json: toxcast_noise_floors.components.firing_rate_mean.date_share --> | 32 <!-- metrics.json: toxcast_noise_floors.components.firing_rate_mean.wells_needed.independent.down_20pct --> / >96 <!-- metrics.json: toxcast_noise_floors.n_max --> / 32 <!-- metrics.json: toxcast_noise_floors.components.firing_rate_mean.wells_needed.same_date_vehicle.down_20pct --> | 3 <!-- metrics.json: toxcast_noise_floors.components.firing_rate_mean.wells_needed.independent.down_50pct --> / >96 <!-- metrics.json: toxcast_noise_floors.n_max --> / 4 <!-- metrics.json: toxcast_noise_floors.components.firing_rate_mean.wells_needed.same_date_vehicle.down_50pct --> |
+| burst number | −35% <!-- metrics.json: toxcast_noise_floors.components.burst_number.median_fraction --> (−73% <!-- metrics.json: toxcast_noise_floors.components.burst_number.q05_fraction --> to +4% <!-- metrics.json: toxcast_noise_floors.components.burst_number.q95_fraction -->) | 1.87 <!-- metrics.json: toxcast_noise_floors.components.burst_number.abs_q95_log2 --> | 0.38 <!-- metrics.json: toxcast_noise_floors.components.burst_number.date_share --> | 48 <!-- metrics.json: toxcast_noise_floors.components.burst_number.wells_needed.independent.down_20pct --> / >96 <!-- metrics.json: toxcast_noise_floors.n_max --> / 48 <!-- metrics.json: toxcast_noise_floors.components.burst_number.wells_needed.same_date_vehicle.down_20pct --> | 4 <!-- metrics.json: toxcast_noise_floors.components.burst_number.wells_needed.independent.down_50pct --> / >96 <!-- metrics.json: toxcast_noise_floors.n_max --> / 5 <!-- metrics.json: toxcast_noise_floors.components.burst_number.wells_needed.same_date_vehicle.down_50pct --> |
+| interburst interval mean | +61% <!-- metrics.json: toxcast_noise_floors.components.interburst_interval_mean.median_fraction --> (−15% <!-- metrics.json: toxcast_noise_floors.components.interburst_interval_mean.q05_fraction --> to +327% <!-- metrics.json: toxcast_noise_floors.components.interburst_interval_mean.q95_fraction -->) | 2.13 <!-- metrics.json: toxcast_noise_floors.components.interburst_interval_mean.abs_q95_log2 --> | 0.15 <!-- metrics.json: toxcast_noise_floors.components.interburst_interval_mean.date_share --> | 48 <!-- metrics.json: toxcast_noise_floors.components.interburst_interval_mean.wells_needed.independent.down_20pct --> / >96 <!-- metrics.json: toxcast_noise_floors.n_max --> / 96 <!-- metrics.json: toxcast_noise_floors.components.interburst_interval_mean.wells_needed.same_date_vehicle.down_20pct --> | 5 <!-- metrics.json: toxcast_noise_floors.components.interburst_interval_mean.wells_needed.independent.down_50pct --> / 12 <!-- metrics.json: toxcast_noise_floors.components.interburst_interval_mean.wells_needed.one_date.down_50pct --> / 8 <!-- metrics.json: toxcast_noise_floors.components.interburst_interval_mean.wells_needed.same_date_vehicle.down_50pct --> |
+| cross correlation area | −43% <!-- metrics.json: toxcast_noise_floors.components.cross_correlation_area.median_fraction --> (−77% <!-- metrics.json: toxcast_noise_floors.components.cross_correlation_area.q05_fraction --> to +3% <!-- metrics.json: toxcast_noise_floors.components.cross_correlation_area.q95_fraction -->) | 2.15 <!-- metrics.json: toxcast_noise_floors.components.cross_correlation_area.abs_q95_log2 --> | 0.44 <!-- metrics.json: toxcast_noise_floors.components.cross_correlation_area.date_share --> | 48 <!-- metrics.json: toxcast_noise_floors.components.cross_correlation_area.wells_needed.independent.down_20pct --> / >96 <!-- metrics.json: toxcast_noise_floors.n_max --> / 64 <!-- metrics.json: toxcast_noise_floors.components.cross_correlation_area.wells_needed.same_date_vehicle.down_20pct --> | 5 <!-- metrics.json: toxcast_noise_floors.components.cross_correlation_area.wells_needed.independent.down_50pct --> / >96 <!-- metrics.json: toxcast_noise_floors.n_max --> / 6 <!-- metrics.json: toxcast_noise_floors.components.cross_correlation_area.wells_needed.same_date_vehicle.down_50pct --> |
+
+The same pattern holds across readouts. Burst shape (burst duration, spikes per burst, the share
+of spikes in bursts), synchrony and network-burst readouts are quiet: a handful of wells sees a
+fall of a fifth. Firing rate, spike and burst counts and cross-correlation area are several times
+noisier, and for them a one-date experiment against a historical reference cannot see even a
+halving.
+
+**How we checked the arithmetic.** The counts come from resampling the vehicle wells through a
+two-level model (a shrunken effect per date plus a within-date residual), which is what lets us
+ask about 96 wells from one date when no date has more than a handful. Two assumptions could make it
+wrong, and both are checked in `toxcast_noise_floors.components.*.model_checks`. First, the
+model might misrepresent the real wells: for firing rate, plain resampling of real wells (and,
+up to six wells, of real wells from one real date) gives thresholds within
+−0.135 <!-- metrics.json: toxcast_noise_floors.components.firing_rate_mean.model_checks.independent.largest_relative_difference -->
+(relative) of the model's. For three quiet readouts with a single well at the floor (synchrony,
+burst percentage, network-burst percentage) the model is conservative by up to
+−0.598 <!-- metrics.json: toxcast_noise_floors.components.synchrony_index.model_checks.independent.largest_relative_difference -->
+(relative), so their counts are upper bounds. Second, the vehicle might matter: on DMSO wells
+alone (706 <!-- metrics.json: toxcast_noise_floors.components.firing_rate_mean.dmso_only.wells -->),
+the date share of firing rate is
+0.41 <!-- metrics.json: toxcast_noise_floors.components.firing_rate_mean.dmso_only.date_share -->
+and the independent-well count for a 20% fall is unchanged at
+32 <!-- metrics.json: toxcast_noise_floors.components.firing_rate_mean.dmso_only.wells_needed.independent.down_20pct -->.
+The counts assume treated wells scatter around their shifted mean as vehicle wells scatter
+around theirs; a drug that also makes wells more variable needs more.
+
+## 33. The twin meets a laboratory it has never seen
+
+The twin was calibrated on one laboratory's baselines (ScreenNeuroPharm's chambers), and its drug
+knobs were checked (§14) against recordings from that laboratory and two others. The EPA screen
+is one it has never seen: on almost every exposure
+date it runs three positive controls, bicuculline and picrotoxin (both remove GABA-A
+inhibition) and tetrodotoxin (blocks sodium channels), each at one concentration. The twin has a
+knob for each mechanism: the GABA-A block knob for the first two, the excitability knob for TTX.
+Before computing any real statistic we registered the six readouts the two share, the rule for
+reading a direction from the twin (eight simulated chips, each recorded untreated and treated,
+must agree), and the agreement test; then the twin computed and we committed its predictions
+(`outputs/twin/toxcast_positive_controls_predictions_simulated.json`). Each real change is a
+well's change from its own baseline minus the median of the same date's vehicle wells, the
+correction §32 says every reading needs.
+
+![SIMULATED twin knob changes (squares) against REAL ToxCast positive-control changes (circles, median with a 95% interval from resampling dates), per shared readout. "agree" and "differ" are scored cells; "n/s" means the twin made no call or the real direction was not established.](../outputs/figures/twin_toxcast_positive_controls.png){width=100%}
+
+**Every scored direction agrees:**
+12 <!-- metrics.json: twin_toxcast_positive_controls.total.agreeing --> of
+12 <!-- metrics.json: twin_toxcast_positive_controls.total.scored -->, four per drug, so all
+four registered predictions pass. The one that matters most is firing rate under GABA-A block.
+The twin raises it
+(2.367 <!-- metrics.json: twin_toxcast_positive_controls.twin.gabaa_block.mfr_hz.median --> log2),
+and §18 (row 9) recorded that as the twin's one wrong direction, because the real GABA-A
+antagonist pairs in our asset, from two other laboratories, lower it
+(−0.335 <!-- metrics.json: twin_depression_under_block.summary.real_gabaa_antagonist_mfr_delta --> log2).
+In the EPA's rat cortical wells, bicuculline raises it by
+1.124 <!-- metrics.json: twin_toxcast_positive_controls.real.Bicuculline.mfr_hz.median --> log2
+over 348 <!-- metrics.json: twin_toxcast_positive_controls.real.Bicuculline.mfr_hz.wells --> wells
+and picrotoxin by
+1.624 <!-- metrics.json: twin_toxcast_positive_controls.real.Picrotoxin.mfr_hz.median --> log2,
+and TTX lowers it by
+−4.034 <!-- metrics.json: twin_toxcast_positive_controls.real.Tetrodotoxin.mfr_hz.median --> log2
+(silence) where the twin predicts
+−3.065 <!-- metrics.json: twin_toxcast_positive_controls.twin.sodium_block.mfr_hz.median -->.
+So the direction of firing rate under disinhibition differs between laboratories and platforms;
+it is not simply a defect of the twin.
+
+**Why this is a low bar, which we checked after seeing the result.** At these strong doses
+nearly every readout moves with firing rate. A rule that knows only whether each drug raised or
+lowered firing rate, and predicts every other readout the same way, scores
+11 <!-- metrics.json: twin_toxcast_positive_controls.posthoc_follow_firing_rate.total.agreeing -->
+of 11 <!-- metrics.json: twin_toxcast_positive_controls.posthoc_follow_firing_rate.total.scored -->
+on the same cells, where the twin, firing rate excluded, scores
+9 <!-- metrics.json: twin_toxcast_positive_controls.twin_without_firing_rate.total.agreeing -->
+of 9 <!-- metrics.json: twin_toxcast_positive_controls.twin_without_firing_rate.total.scored -->.
+The twin earns no credit beyond that rule, and where they differ the rule is right: burst rate
+rises under bicuculline
+(0.382 <!-- metrics.json: twin_toxcast_positive_controls.real.Bicuculline.burst_rate_per_min.median --> log2)
+and picrotoxin
+(0.899 <!-- metrics.json: twin_toxcast_positive_controls.real.Picrotoxin.burst_rate_per_min.median -->),
+while the twin leans the other way
+(−0.261 <!-- metrics.json: twin_toxcast_positive_controls.twin.gabaa_block.burst_rate_per_min.median -->,
+too inconsistent across chips to count as a call). Magnitudes do not transfer: the twin
+overstates the rise in spikes per burst under GABA-A block
+(2.907 <!-- metrics.json: twin_toxcast_positive_controls.twin.gabaa_block.spikes_per_burst.median -->
+log2 against
+1.042 <!-- metrics.json: twin_toxcast_positive_controls.real.Bicuculline.spikes_per_burst.median -->
+for bicuculline), as §14 found for the sodium knob. The fair summary: the twin is not wrong on
+an unseen laboratory's strongest controls, and that is all this test can show.
+
+## 34. A quality-control rule for chip screens, from §32
+
+Three rules follow from the vehicle wells. The computation in
+`neuromps.models.toxcast_noise_floors` applies unchanged to any lab's own vehicle wells, given
+a date for each.
+
+- **Judge every treated well against vehicle wells from the same day, never against its own
+  baseline alone.** The vehicle drift (a median
+  −32% <!-- metrics.json: toxcast_noise_floors.components.firing_rate_mean.median_fraction --> in
+  firing rate) is larger than most effects a screen looks for.
+- **Put vehicle wells on every exposure date, or spread replicates across dates.** With about
+  two-fifths of the variance shared by the day, a one-day experiment against a historical
+  reference is blind to a 50% fall in firing rate however many wells it uses; the same wells
+  against same-day vehicles see it with
+  4 <!-- metrics.json: toxcast_noise_floors.components.firing_rate_mean.wells_needed.same_date_vehicle.down_50pct -->
+  of each. The EPA's own normalization already works per date; a smaller lab should copy it.
+- **Choose readouts by their noise floor, not only by their meaning.** For a fall of a fifth,
+  burst-shape and synchrony readouts need a handful of wells where firing rate needs
+  32 <!-- metrics.json: toxcast_noise_floors.components.firing_rate_mean.wells_needed.independent.down_20pct -->.
+  This also sharpens §20's fly result: the
+  0.149 <!-- metrics.json: fly_confirm_network_bursts.precision.abs_log2_mfr_change_at_behavioural_onset.flywire_sweep.gaba_block -->
+  log2 firing-rate change at which the simulated fly's behaviour had already failed is below
+  what even 96 <!-- metrics.json: toxcast_noise_floors.n_max --> independent real wells detect
+  (a
+  0.167 <!-- metrics.json: toxcast_noise_floors.components.firing_rate_mean.curves.independent.96.detectable_up_log2 -->
+  log2 rise).
+
+**What this act does not show.** The noise floors are one laboratory's, on one rat cortical
+preparation and one platform; another lab's will differ and should be measured the same way.
+Seven of the fifteen readouts rest on recovered well assignments (§32); the checks that support
+them are exact, but they test dates and concentrations, not a well's position on its plate. The
+positive controls are single, saturating concentrations, so §33 tests directions at the extremes,
+not the twin's dose response.
 
 ---
 

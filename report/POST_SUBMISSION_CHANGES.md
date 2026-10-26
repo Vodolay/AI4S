@@ -50,6 +50,7 @@ the bottom.*
 | 39 | 2026-10-25 | Embodied stage 4d: the walking rhythm as a drug readout | 2 of 4; acetylcholine block is the first chip-first case; GABA-A potentiation spares walking; the four-movement index stays chip-late | `73ffde6` … this branch |
 | 40 | 2026-10-25 | Embodied stage 4e: the walking readout as a fraction of rhythmic draws | 2 of 4; GABA-A and GluCl block break walking first again; the acetylcholine exception depends on the readout and is withdrawn | `180476f` … this branch |
 | 41 | 2026-10-25 | One command reproduces every fly number again; the paper draft moves to a private repository | every recorded value reproduced; documents only | this branch |
+| 42 | 2026-10-26 | Real ToxCast vehicle wells: noise floors, wells needed, and the twin against unseen positive controls | new real-data results, both registered; twin 12 of 12 directions, no better than a firing-rate rule | `cf90872` … this branch |
 
 ---
 
@@ -925,6 +926,52 @@ recorded number and every figure byte for byte.*
   `outputs/metrics.json` reproduced except the run time itself; every output table, figure and
   JSON file was byte-identical; the data manifest changed only in its re-verification timestamps.
 - **Evidence.** Roadmap §7 (stage 6); `outputs/metrics.json`.
+
+## 42. How many wells a chip needs, from 714 real untreated wells
+
+**Slide message:** *In the EPA's own MEA screen, untreated firing rate falls by a third and the
+day explains two-fifths of the noise: judged against same-day vehicle wells, 4 wells see a
+halving; judged against a historical reference, no number of wells from one day does.*
+
+- **What changed.** The well-level rows of the EPA's acute MEA screen are now read from the
+  invitrodb MySQL dump (CC0; `neuromps.fetch.toxcast_mysql`, `neuromps.etl.toxcast_wells`),
+  with the seven electrophysiology readouts the public dump lacks recovered and checked
+  (`neuromps.etl.toxcast_recover`). Two analyses, each registered before any response statistic
+  was computed: per-readout noise floors and wells needed
+  (`src/neuromps/models/toxcast_noise_floors.py`, `preregistration/toxcast_noise_floors.json`),
+  and the twin's knobs against the screen's positive controls
+  (`src/neuromps/models/twin_toxcast_check.py`,
+  `preregistration/twin_toxcast_positive_controls.json`; the twin's predictions were committed
+  before the real side was computed).
+- **Why.** Round-1 judges scored practical value lowest. A lab using a chip first needs to know
+  how large a change it can see and how to lay out its plates; the screen's vehicle wells answer
+  that directly, and its positive controls are a laboratory the twin has never seen.
+- **Effect.**
+  - Over 714 <!-- metrics.json: toxcast_noise_floors.components.firing_rate_mean.wells --> vehicle wells on
+    97 <!-- metrics.json: toxcast_noise_floors.components.firing_rate_mean.dates --> dates, untreated firing rate falls by a median of
+    −32% <!-- metrics.json: toxcast_noise_floors.components.firing_rate_mean.median_fraction --> and the day carries
+    0.42 <!-- metrics.json: toxcast_noise_floors.components.firing_rate_mean.date_share --> of its variance.
+  - For a fall of a fifth in firing rate:
+    32 <!-- metrics.json: toxcast_noise_floors.components.firing_rate_mean.wells_needed.independent.down_20pct --> wells across days, or
+    32 <!-- metrics.json: toxcast_noise_floors.components.firing_rate_mean.wells_needed.same_date_vehicle.down_20pct --> treated and as many
+    vehicle wells on one day; from one day against a historical reference, more than
+    96 <!-- metrics.json: toxcast_noise_floors.n_max --> (even a halving is out of reach). For a
+    halving: 3 <!-- metrics.json: toxcast_noise_floors.components.firing_rate_mean.wells_needed.independent.down_50pct --> across days or
+    4 <!-- metrics.json: toxcast_noise_floors.components.firing_rate_mean.wells_needed.same_date_vehicle.down_50pct --> on one day with
+    same-day vehicles. A table gives every readout; burst shape and synchrony are several
+    times quieter.
+  - The twin agrees with the positive controls on
+    12 <!-- metrics.json: twin_toxcast_positive_controls.total.agreeing --> of
+    12 <!-- metrics.json: twin_toxcast_positive_controls.total.scored --> scored directions (all four registered
+    predictions pass), including firing rate under GABA-A block, which rises in these wells
+    (bicuculline 1.124 <!-- metrics.json: twin_toxcast_positive_controls.real.Bicuculline.mfr_hz.median --> log2) though
+    it falls in our asset's other GABA-A antagonist pairs. A post-hoc rule that follows firing
+    rate also scores 11 <!-- metrics.json: twin_toxcast_positive_controls.posthoc_follow_firing_rate.total.agreeing --> of
+    11 <!-- metrics.json: twin_toxcast_positive_controls.posthoc_follow_firing_rate.total.scored -->, so the test shows the
+    twin is not wrong at strong doses, not that it adds information.
+- **Evidence.** Report Act IX (§32-§34), the table in §32, §20 item 6, §18 row 9;
+  `outputs/figures/toxcast_noise_floors_real.png`,
+  `outputs/figures/twin_toxcast_positive_controls.png`, `outputs/tables/toxcast_wells_needed.md`.
 
 ---
 
