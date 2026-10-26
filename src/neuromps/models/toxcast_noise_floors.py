@@ -47,6 +47,7 @@ PREFIX = "CCTE_Shafer_MEA_acute_"
 EPHYS_ACIDS = tuple(range(2447, 2462))
 HEADLINE = "firing_rate_mean"
 HEADLINE_ACID = 2448
+ROOT = "toxcast_noise_floors"  # the metrics.json section
 FLOOR = 0.05  # the asset's floor for an abolished readout (models.dataset.FLOOR)
 N_GRID = (1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20, 24, 32, 48, 64, 96)
 DESIGNS = ("independent", "one_date", "same_date_vehicle")
@@ -227,21 +228,24 @@ def describe(rows: pd.DataFrame, n_missing: int) -> dict:
     """Counts, location, spread and the 95th percentile of |change|."""
     x = rows["x"].to_numpy()
     q95 = float(np.quantile(np.abs(x), 0.95))
+    median, q05, q95_signed = (float(np.quantile(x, q)) for q in (0.5, 0.05, 0.95))
     return {
         "wells": int(len(rows)),
         "dates": int(rows["apid"].nunique()),
         "plates": int(rows["plate"].nunique()),
         "rval_missing": int(n_missing),
         "at_floor": int((x <= np.log2(FLOOR) + 1e-12).sum()),
-        "median_log2": round(float(np.median(x)), 4),
+        "median_log2": round(median, 4),
         "mean_log2": round(float(x.mean()), 4),
         "sd_log2": round(float(x.std(ddof=1)), 4),
-        "q05_log2": round(float(np.quantile(x, 0.05)), 4),
-        "q95_log2": round(float(np.quantile(x, 0.95)), 4),
+        "q05_log2": round(q05, 4),
+        "q95_log2": round(q95_signed, 4),
         "abs_q95_log2": round(q95, 4),
-        # fractions, so the report's "%" displays are checked against value x 100
-        "abs_q95_fraction_up": round(float(2**q95 - 1), 4),
-        "abs_q95_fraction_down": round(float(1 - 2**-q95), 4),
+        # signed fractions (2^x - 1), so the report's "%" displays are checked
+        # against value x 100
+        "median_fraction": round(2**median - 1, 4),
+        "q05_fraction": round(2**q05 - 1, 4),
+        "q95_fraction": round(2**q95_signed - 1, 4),
     }
 
 
@@ -364,10 +368,18 @@ def plot(components: dict, headline_curves: dict, path: Path) -> None:
     names = sorted(components, key=lambda k: components[k]["abs_q95_log2"])
     y = np.arange(len(names))
     fig, axes = plt.subplots(1, 3, figsize=(11, 4.2), gridspec_kw={"width_ratios": [1.2, 1, 1.3]})
-    q95 = [100 * components[k]["abs_q95_fraction_up"] for k in names]
-    axes[0].barh(y, q95, color="#0072B2")
+    low = np.array([components[k]["q05_log2"] for k in names])
+    high = np.array([components[k]["q95_log2"] for k in names])
+    axes[0].barh(y, high - low, left=low, color="#56B4E9", height=0.6)
+    axes[0].plot([components[k]["median_log2"] for k in names], y, "o", ms=3.5, color="#000000")
+    axes[0].axvline(0, color="grey", lw=0.6)
+    ticks = np.log2([0.25, 0.5, 1, 2, 4])
+    axes[0].set_xticks(ticks, ["-75%", "-50%", "0", "+100%", "+300%"])
     axes[0].set_yticks(y, [k.replace("_", " ") for k in names], fontsize=7)
-    axes[0].set_xlabel("|change| an untreated well exceeds 5% of the time (% rise)", fontsize=7)
+    axes[0].set_xlabel(
+        "untreated well's change from its own baseline\n(bar: 5th-95th percentile; dot: median)",
+        fontsize=7,
+    )
     share = [components[k]["date_share"] for k in names]
     ci = np.array([components[k]["date_share_ci95"] for k in names])
     axes[1].barh(y, share, color="#E69F00")
@@ -412,21 +424,30 @@ def _cell(value, key: str) -> str:
     return f"{shown} <!-- metrics.json: toxcast_noise_floors.{pointer} -->"
 
 
+def _pct(c: dict, base: str, key: str) -> str:
+    shown = f"{100 * c[key]:+.0f}%".replace("-", "−")
+    return f"{shown} <!-- metrics.json: toxcast_noise_floors.{base}.{key} -->"
+
+
 def markdown_table(components: dict) -> str:
     """The report's wells-needed table, each number carrying its metrics.json key."""
     head = (
-        "| component | untreated 95th pct. | date share | "
-        "20% fall: indep. / one date / same-date | 50% fall: indep. / one date / same-date |\n"
-        "|---|---|---|---|---|\n"
+        "| component | untreated wells: median (5th to 95th pct.) | abs. q95, log2 | date share "
+        "| 20% fall: indep. / one date / same-date | 50% fall: indep. / one date / same-date |\n"
+        "|---|---|---|---|---|---|\n"
     )
     lines = []
     for name, c in sorted(components.items(), key=lambda kv: kv[1]["abs_q95_log2"]):
         base = f"components.{name}"
-        q95 = 100 * c["abs_q95_fraction_up"]
+        spread = (
+            f"{_pct(c, base, 'median_fraction')} ({_pct(c, base, 'q05_fraction')} to "
+            f"{_pct(c, base, 'q95_fraction')})"
+        )
         cells = [
             f"`{name}`",
-            f"{q95:.0f}% <!-- metrics.json: toxcast_noise_floors.{base}.abs_q95_fraction_up -->",
-            f"{c['date_share']:.2f} <!-- metrics.json: toxcast_noise_floors.{base}.date_share -->",
+            spread,
+            f"{c['abs_q95_log2']:.2f} <!-- metrics.json: {ROOT}.{base}.abs_q95_log2 -->",
+            f"{c['date_share']:.2f} <!-- metrics.json: {ROOT}.{base}.date_share -->",
         ]
         for target in ("down_20pct", "down_50pct"):
             cells.append(
