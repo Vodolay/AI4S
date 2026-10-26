@@ -1,0 +1,61 @@
+{
+  "title": "Per-feature noise floors of the ToxCast acute MEA vehicle wells, and the wells needed to detect a change (REAL data)",
+  "registered": "2026-10-26T19:05:00Z",
+  "status": "registered before any statistic of a vehicle or treated well's response (rval) was computed or viewed",
+  "origin": "round-1 scores on Practical Value: a lab using such a chip needs to know how large a change it can see, per feature and per number of wells",
+  "data": {
+    "table": "data/interim/toxcast_mea/ephys_wells_recovered.parquet (invitrodb v4.3 MySQL dump, CC0; level-0 wells recovered for 7 components as in neuromps.etl.toxcast_recover)",
+    "components": "the 15 acute electrophysiology components, acid 2447-2461 (CCTE_Shafer_MEA_acute_*; LDH and AB excluded: plate-reader viability, not electrophysiology)",
+    "wells": "wllt == 'n' (vehicle): DMSO at 0.001, 0.0015 or 0.002 and Water; one row per well and component",
+    "date": "apid, which in these assays is the exposure date (pools up to 3 physical 48-well plates)",
+    "plate": "the physical plate parsed from srcf (column `plate`)",
+    "response": "rval = per-well percent change from the well's own 40-min baseline (assay description PDFs, section 1.2)"
+  },
+  "seen_before_registration": [
+    "column names and dtypes of the recovered table; 177,025 rows",
+    "counts only: wllt n 10,706 rows, p 6,938, t 157,058, v 1,333, b 990; for acid 2447: 714 vehicle wells over 97 dates and 274 plates (706 DMSO, 8 Water); 2-3 plates per date; 1-9 vehicle wells per date (median 8)",
+    "positive-control counts for acid 2447: Bicuculline 349 wells (25), Picrotoxin 80 (25), Tetrodotoxin 74 (1)",
+    "data/interim/toxcast_mea/recovery_checks.json (the recovery's checks; no response statistic) and DECISION_LOG D55 text",
+    "the report's existing numbers, including the acute screen's firing-rate hit cutoff of -1.784 log2 (fly_screen_cutoffs) and the twin's HD13 knob deltas",
+    "no value of rval, bval or any statistic of them for any well type"
+  ],
+  "transform": {
+    "x": "log2(max(1 + rval/100, 0.05)); the floor is the asset's convention for an abolished readout (models.dataset.FLOOR)",
+    "missing": "rows with rval NaN are dropped for that component; the count is reported",
+    "floored": "the number of vehicle values at the floor is reported"
+  },
+  "per_component_summary": {
+    "counts": "wells, dates, plates",
+    "location_and_spread": "median, mean, SD, 5th and 95th percentiles of x",
+    "abs_q95": "95th percentile of |x|: the change against its own baseline that an untreated well exceeds 5% of the time; also shown as percent change (fractions in metrics.json)"
+  },
+  "date_share": {
+    "method": "one-way random-effects ANOVA by date, method of moments: sigma_b^2 = (MSB - MSW) / n0 with n0 = (N - sum n_j^2 / N) / (k - 1), truncated at 0; share = sigma_b^2 / (sigma_b^2 + sigma_w^2)",
+    "interval": "95% percentile interval from 2,000 bootstrap resamples of dates, seed 20261026",
+    "secondary": "the same decomposition by physical plate (which includes the date's share), reported, not interpreted on its own"
+  },
+  "detection": {
+    "statistic": "mean x of n test wells minus a reference",
+    "designs": {
+      "independent": "n wells, each from a date drawn independently; reference = the pooled vehicle mean (a large historical vehicle set)",
+      "one_date": "all n wells from one date; reference = the pooled vehicle mean; the date's effect does not average out",
+      "same_date_vehicle": "all n wells from one date, judged against the mean of n vehicle wells from the same date (the date's effect cancels; 2n wells in total)"
+    },
+    "null_model": "hierarchical resampling of the vehicle wells: date effects b_j = lambda_j (ybar_j - c) with lambda_j = sqrt(sigma_b^2 / (sigma_b^2 + sigma_w^2 / n_j)), dates drawn with probability proportional to their vehicle wells; residuals (y - ybar_j) * sqrt(n_j / (n_j - 1)) from dates with >= 2 wells, drawn with replacement",
+    "n_grid": [1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20, 24, 32, 48, 64, 96],
+    "draws_per_n": 20000,
+    "seed": 20261027,
+    "threshold": "d(n) = 95th percentile of |null statistic|: two-sided 5% false alarms per test",
+    "detectable_change": "the smallest true shift detected with 80% power at that threshold, assuming treated wells scatter like vehicle wells around the shifted mean: down = d + q80(null), up = d - q20(null)",
+    "wells_needed": "smallest n on the grid whose detectable change (in its direction) is <= the target; targets: 20% and 50% decreases (log2 0.8, log2 0.5) and 20% and 50% increases (log2 1.2, log2 1.5); '>96' when no grid n reaches it",
+    "headline_component": "firing_rate_mean (acid 2448)"
+  },
+  "assumption_checks": {
+    "model_vs_resampling_independent": "d(n) of the independent design from the model against plain resampling of vehicle wells with replacement, every grid n",
+    "model_vs_resampling_one_date": "d(n) of the one-date design from the model against drawing n real wells without replacement from one date with >= n vehicle wells (n <= 6), same seed",
+    "dmso_only": "abs_q95, date share and the firing-rate wells needed recomputed on DMSO wells only",
+    "reporting_rule": "each check's largest relative difference in d(n) is reported; above 0.25 for firing rate the report says the model is not supported at that n"
+  },
+  "predictions": "none: this analysis is descriptive. Every component is reported whichever way it falls.",
+  "reporting": "all 15 components in a table in the technical report (abs_q95, date share, wells needed per target and design); one figure."
+}
