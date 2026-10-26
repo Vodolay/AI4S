@@ -497,7 +497,7 @@ def main(argv: list[str] | None = None) -> int:
     results = {
         "label": "REAL ToxCast acute MEA vehicle wells: noise floors and wells needed",
         "registration": provenance(REGISTRATION),
-        "source": "invitrodb v4.3 MySQL dump (CC0), level-0 wells recovered (DECISION_LOG D55)",
+        "source": "invitrodb v4.3 MySQL dump (CC0), level-0 wells recovered (DECISION_LOG D29)",
         "n_grid": list(N_GRID),
         "n_max": max(N_GRID),
         "false_alarm_rate": 0.05,  # two-sided, per test: the 95th percentile of |null|

@@ -2,7 +2,7 @@
 
 The invitrodb v4.3 dump's level-0 table (mc0) lacks 7 of the 15 electrophysiology components
 (among them firing rate, spike number and burst number), though level 3 (mc3) has their rows.
-Two regularities of the dump recover the wells (decision D55 in report/DECISION_LOG.md):
+Two regularities of the dump recover the wells (decision D29 in report/DECISION_LOG.md):
 
 - level-0 ids are allocated in runs, one per component, in component order; within a batch
   every component's run has the same length and the same well order, and runs are contiguous.
