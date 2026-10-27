@@ -121,7 +121,8 @@ def compare(window: str, value) -> tuple[bool | str, str]:
         got = _to_float(token)
         text = token.strip().rstrip("%")
         decimals = len(text.split(".")[1]) if "." in text else 0
-        tolerance = max(0.5 * 10 ** (-decimals) * scale, 1e-9)
+        # In the units shown: a percentage written to whole points is good to half a point.
+        tolerance = max(0.5 * 10 ** (-decimals), 1e-9)
         if abs(got - want * scale) > tolerance + 1e-12:
             return False, shown
     return True, shown
