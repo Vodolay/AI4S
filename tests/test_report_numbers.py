@@ -64,6 +64,16 @@ def test_rounding_and_separators_are_not_discrepancies() -> None:
     assert check_text("99.2% <!-- metrics.json: p -->", metrics) == []
 
 
+def test_a_percentage_is_held_to_its_own_rounding() -> None:
+    """72% for 0.7475 is a different number, not a rounding; 75% and 74.8% are rounding."""
+    metrics = {"p": 0.7475}
+    assert check_text("75% <!-- metrics.json: p -->", metrics) == []
+    assert check_text("74.8% <!-- metrics.json: p -->", metrics) == []
+    assert check_text("72% <!-- metrics.json: p -->", metrics)[0]["problem"] == (
+        "does not match metrics"
+    )
+
+
 def test_an_interval_is_compared_element_wise() -> None:
     metrics = {"ci": [0.4216, 0.6845]}
     assert check_text("[0.4216, 0.6845] <!-- metrics.json: ci -->", metrics) == []
