@@ -37,7 +37,9 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install torch==2.14.0 --index-url https://download.pytorch.org/whl/cpu
-          pip install -e ".[dev]"
+          # embodied too: THIRD_PARTY.md records every pinned extra's license from
+          # installed metadata, so an extra missing here reads as "not installed".
+          pip install -e ".[dev,embodied]"
       - name: Lint
         # One command, the same one a developer runs. When CI checked
         # `ruff check` and `make lint` also checked `ruff format`, formatting
@@ -63,7 +65,9 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install torch==2.14.0 --index-url https://download.pytorch.org/whl/cpu
-          pip install -e ".[dev]"
+          # embodied too: THIRD_PARTY.md records every pinned extra's license from
+          # installed metadata, so an extra missing here reads as "not installed".
+          pip install -e ".[dev,embodied]"
       # Restore and save are split so that only a *successful* run writes the
       # cache. A run whose fetch was refused by a host leaves a partial
       # data/raw behind, and caching that tree made every later run start from
