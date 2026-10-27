@@ -8,6 +8,10 @@ data/raw/*
 !data/raw/MANIFEST.json
 data/interim/*
 data/processed/*
+# The built asset is committed for the hosted demo (data/processed/NOTICE.md).
+!data/processed/neuromps.parquet
+!data/processed/provenance.json
+!data/processed/NOTICE.md
 !data/**/.gitkeep
 # Figures are tracked, not ignored: the technical report embeds them, so they
 # have to travel with the source that cites them and be visible in a diff when a
