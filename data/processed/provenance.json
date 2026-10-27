@@ -1,0 +1,40 @@
+{
+  "counts": {
+    "by_data_level": {
+      "fitted_curve": 20375,
+      "spike_times": 1512
+    },
+    "by_mechanism_class": {
+      "ache_inhibitor": 44,
+      "gabaa_agonist_or_pam": 26,
+      "gabaa_antagonist": 537,
+      "glutamatergic_agonist": 55,
+      "glutamatergic_antagonist": 22,
+      "inactive": 88,
+      "na_channel_blocker": 113,
+      "na_channel_modulator": 69,
+      "none": 20933
+    },
+    "by_source": {
+      "brewer2021": 40,
+      "kapucu2022": 288,
+      "mateus2024": 108,
+      "screenneuropharm_bic": 580,
+      "sharf2022": 29,
+      "toxcast_mea": 20375,
+      "trujillo2019": 184,
+      "vassallo2017": 283
+    },
+    "by_species": {
+      "human": 357,
+      "rat": 21530
+    },
+    "by_usable": {
+      "False": 537,
+      "True": 21350
+    }
+  },
+  "generated_at": "2026-09-22T11:20:51+00:00",
+  "n_records": 21887,
+  "schema": "schema/neuromps_schema.json"
+}
