@@ -581,10 +581,13 @@ def _ratio_panel(ax, payload: dict) -> None:
     ax.plot([], [], "s", color="#009E73", label="12-well developmental (replication)")
     ax.axvline(1, color="grey", lw=0.6, ls="--")
     ax.set_xscale("log")
+    ticks = [0.125, 0.25, 0.5, 1, 2, 4, 8]
+    ax.set_xticks(ticks, [f"{t:g}" for t in ticks])
+    ax.minorticks_off()
     ax.set_yticks(y, [f.replace("_", " ") for f in FEATURES], fontsize=7)
     ax.invert_yaxis()
     ax.set_xlabel("R = SD human / SD rat of split-half change (95% interval)", fontsize=7)
-    ax.legend(fontsize=6, frameon=False, loc="lower right")
+    ax.legend(fontsize=6, frameon=False, loc="upper center", bbox_to_anchor=(0.5, -0.14), ncol=2)
 
 
 def _change_panel(ax, table: pd.DataFrame) -> None:
@@ -607,6 +610,9 @@ def _rate_panel(ax, table: pd.DataFrame, check: dict) -> None:
     if check.get("overlap_hz"):
         ax.axvspan(*check["overlap_hz"], color="#F0E442", alpha=0.35, lw=0, label="rate overlap")
     ax.set_xscale("log")
+    ticks = [0.5, 1, 2, 4, 8, 16]
+    ax.set_xticks(ticks, [f"{t:g}" for t in ticks])
+    ax.minorticks_off()
     ax.set_xlabel("full-recording mean firing rate (Hz)", fontsize=7)
     ax.set_ylabel("|firing-rate change| (log2)", fontsize=7)
     ax.legend(fontsize=6, frameon=False)
