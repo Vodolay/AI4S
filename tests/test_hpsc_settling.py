@@ -267,3 +267,37 @@ def test_plot_writes_a_real_data_figure(tmp_path):
     title = st.plot(payload, table, tmp_path / "fig.png")
     assert (tmp_path / "fig.png").exists()
     assert "REAL" in title and "Kapucu 2022" in title and "one lab" in title
+
+
+# ------------------------------------------------------------------ post hoc readings
+
+
+def test_first_window_check_drops_window_zero():
+    y = np.array([3.0, 2.0, 2.0, 2.0, 2.0, 2.0])
+    rows = []
+    for s in st.SPECIES:
+        for i in range(4):
+            yy = y + np.r_[0, 0, 0, 0.1 * i, 0.1 * i, 0.1 * i]
+            rows.append({"species": s, "unit": f"{s}:{i}", "defined": True, "y": list(yy)})
+    by = st._values(pd.DataFrame(rows))
+    got = st.first_window_check(by)
+    # Without window 0 the change is mean(y3..5) - mean(y1..2) = 0.1 i; window 0 drops by 1.
+    assert got["human"]["sd_d_without_window_0"] == pytest.approx(
+        np.std([0, 0.1, 0.2, 0.3], ddof=1), abs=1e-4
+    )
+    assert got["human"]["median_step_0_to_1"] == pytest.approx(-1.0)
+    assert got["ratio_sd_d_without_window_0"] == pytest.approx(1.0)
+
+
+def test_assumption_check_reports_the_scatter_around_a_curve():
+    x = np.arange(6) - 2.5
+    rows = [
+        {"species": s, "unit": f"{s}:{i}", "defined": True, **st.decompose(0.2 * x**2 + e)}
+        for s, scale in (("human", 0.2), ("rat", 0.1))
+        for i, e in enumerate(np.random.default_rng(13).normal(0, scale, (12, 6)))
+    ]
+    check = st.assumption_check(st._values(pd.DataFrame(rows)))
+    assert check["median_s_quad"]["human"] > check["median_s_quad"]["rat"]
+    assert check["median_s_quad_ratio"] == pytest.approx(
+        check["median_s_quad"]["human"] / check["median_s_quad"]["rat"], rel=1e-3
+    )

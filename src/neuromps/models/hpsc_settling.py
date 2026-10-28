@@ -362,8 +362,12 @@ def assumption_check(by: dict[str, pd.DataFrame]) -> dict:
     share = {s: sh._r4(float(by[s]["quad_lowers"].mean())) for s in SPECIES}
     share2 = {s: sh._r4(float(by[s]["quad_lowers_ddof2"].mean())) for s in SPECIES}
     linear = all(share[s] <= QUAD_MAJORITY for s in SPECIES)
+    # Descriptive: the scatter left around each well's curve (residual SD of the quadratic).
+    s_quad = {s: sh._r4(float(by[s]["s_quad"].median())) for s in SPECIES}
     return {
         "share_lowered": share,
+        "median_s_quad": s_quad,
+        "median_s_quad_ratio": sh._r4(s_quad["human"] / s_quad["rat"]) if s_quad["rat"] else None,
         "threshold_drop": sh._r4(QUAD_DROP),
         "threshold_share": QUAD_MAJORITY,
         "linear": bool(linear),
@@ -386,6 +390,25 @@ def slope_noise_check(by: dict[str, pd.DataFrame]) -> dict:
         }
     h, r = out["human"]["sd_b_beyond_scatter"], out["rat"]["sd_b_beyond_scatter"]
     out["ratio_beyond_scatter"] = sh._r4(h / r) if r else None
+    return out
+
+
+def first_window_check(by: dict[str, pd.DataFrame]) -> dict:
+    """Post hoc, descriptive: the split-half change with the first window left out.
+
+    Per species, the SD across wells of mean(y_3..5) - mean(y_1..2), as if the first five
+    minutes had been a longer settling period, and the median step from window 0 to 1.
+    """
+    out = {"note": "post hoc, not registered: the first window is dropped, nothing refitted"}
+    for s in SPECIES:
+        y = np.array(by[s]["y"].tolist(), dtype=float)
+        d = y[:, 3:].mean(axis=1) - y[:, 1:3].mean(axis=1)
+        out[s] = {
+            "sd_d_without_window_0": sh._r4(sh.sd(d)),
+            "median_step_0_to_1": sh._r4(float(np.median(y[:, 1] - y[:, 0]))),
+        }
+    h, r = (out[s]["sd_d_without_window_0"] for s in SPECIES)
+    out["ratio_sd_d_without_window_0"] = sh._r4(h / r) if r else None
     return out
 
 
@@ -420,6 +443,7 @@ def analyse(table: pd.DataFrame, resamples: int = RESAMPLES) -> dict:
         "per_window": per_window(by) if "rate_hz" in table else None,
         "assumption_check": check,
         "slope_noise_check_post_hoc": slope_noise_check(by) if enough else None,
+        "first_window_check_post_hoc": first_window_check(by) if enough and "y" in table else None,
         "white_noise_share": sh._r4(white_noise_share()),
         "implementation_notes": IMPLEMENTATION_NOTES,
     }
@@ -449,6 +473,12 @@ IMPLEMENTATION_NOTES = [
     "the SD of d_resid; the same formula on the SD of d of this windowed rate is given beside it.",
     "Not registered, reported for reading T3: with independent, equal-variance window values and "
     "no trend, var(d_trend)/var(d) = 27/35 (about 0.77), above T3's 0.5 threshold.",
+    "The registered caveat flag is set on T1 and T3 only, as registered; the residual SD s "
+    "of a straight line also absorbs any curvature, so when the trend is curved T2 measures "
+    "curvature as well as scatter; the median residual SD of the quadratic fit (s_quad) is "
+    "reported beside the check as the descriptive reading.",
+    "Added after the first real-data run and labelled post hoc: the slope spread expected "
+    "from s alone, and the split-half change with the first window dropped.",
 ]
 
 
