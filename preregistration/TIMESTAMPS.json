@@ -1,6 +1,6 @@
 {
   "note": "Internal timestamps from this repository's history; not third-party verified.",
-  "root": "bdbc70e72f62a3c2cea9752046699bfe18ba9d65092fa1efeb0884a16c48b90c",
+  "root": "8765d7f9bfd956e4068d3ead25ab2393d4c0d14d3c51bb72d84f2cdcdcf1c545",
   "registrations": [
     {
       "file": "fly_chip_to_animal.json",
@@ -309,6 +309,13 @@
       "commit": "e11bc052facab4a0140ed075b717ccb474b6c424",
       "committed_at": "2026-10-28T10:08:26-04:00",
       "chain": "bdbc70e72f62a3c2cea9752046699bfe18ba9d65092fa1efeb0884a16c48b90c"
+    },
+    {
+      "file": "hpsc_settling.json",
+      "sha256": "f7e8d6334502da238c216f70fe7333230643b7fac3df4a8352b9bf0445886264",
+      "commit": "e743c4cf223726c7eeb1c2467aa8f9d3fec1420c",
+      "committed_at": "2026-10-28T10:08:26-04:00",
+      "chain": "8765d7f9bfd956e4068d3ead25ab2393d4c0d14d3c51bb72d84f2cdcdcf1c545"
     }
   ],
   "registered_before_results": [
@@ -531,6 +538,12 @@
     {
       "output": "outputs/fly/tract_electrode_SIMULATED.json",
       "registration": "fly_output_tract_electrode.json",
+      "same_commit": false,
+      "registered_first": true
+    },
+    {
+      "output": "outputs/hpsc_settling_REAL.json",
+      "registration": "hpsc_settling.json",
       "same_commit": false,
       "registered_first": true
     },

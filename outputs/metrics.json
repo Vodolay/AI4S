@@ -15441,8 +15441,8 @@
     "unrecognised": []
   },
   "registration_timestamps": {
-    "n_outputs_checked": 40,
-    "n_registrations": 44,
+    "n_outputs_checked": 41,
+    "n_registrations": 45,
     "n_violations": 0,
     "not_covered": [
       "twin_depression_under_block.json",
@@ -15451,8 +15451,8 @@
       "twin_inference_recalibration.json"
     ],
     "submission": {
-      "n_outputs_checked": 40,
-      "n_registrations": 44,
+      "n_outputs_checked": 41,
+      "n_registrations": 45,
       "n_violations": 0,
       "not_covered": [
         "twin_depression_under_block.json",

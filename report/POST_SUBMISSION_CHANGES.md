@@ -999,7 +999,7 @@ checked against the commit that registered it, here, in the public repository.*
     105 <!-- metrics.json: registration_audit.submission.total.pass --> passed,
     88 <!-- metrics.json: registration_audit.submission.total.fail --> failed,
     39 <!-- metrics.json: registration_audit.submission.total.uninterpretable --> were uninterpretable.
-  - 40 <!-- metrics.json: registration_timestamps.submission.n_outputs_checked --> result files name their
+  - 41 <!-- metrics.json: registration_timestamps.submission.n_outputs_checked --> result files name their
     registration, and 0 <!-- metrics.json: registration_timestamps.submission.n_violations --> of them came
     before it; 4 <!-- metrics.json: registration_timestamps.submission.not_covered --> registrations are not
     covered because their results do not name them.
