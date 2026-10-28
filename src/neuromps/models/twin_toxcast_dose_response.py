@@ -863,6 +863,10 @@ def main(argv: list[str] | None = None) -> int:
     }
     figures_dir().mkdir(parents=True, exist_ok=True)
     plot(scored, results, figures_dir() / "twin_toxcast_dose_response.png")
+    # The twin's per-level curves live in the committed predictions file; the
+    # figure needed them here, but metrics.json keeps the results, not a copy.
+    for result in results.values():
+        result.pop("twin_levels", None)
     update_metrics(ROOT, payload)
     print(json.dumps({k: payload[k] for k in ("headline", "nulls", "predictions")}, indent=1))
     return 0
