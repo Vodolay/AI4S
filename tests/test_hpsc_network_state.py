@@ -221,6 +221,8 @@ def test_age_check_flags_an_age_effect_when_the_partial_rho_vanishes():
     got = ns.age_check(pd.DataFrame(rows))
     assert got["partial_rho"] > ns.AGE_PARTIAL
     assert got["per_div"]["n_divs"] == 8 and abs(got["per_div"]["median_rho"]) < 0.6
+    assert got["rho_nb0_div_post_hoc"] > 0.9 and got["rho_late_b_div_post_hoc"] < -0.9
+    assert 0 <= got["per_div"]["n_divs_negative"] <= 8
 
 
 def test_unscored_recordings_are_counted():
@@ -229,6 +231,15 @@ def test_unscored_recordings_are_counted():
     payload = ns.analyse(table, None, resamples=20)
     human = payload["replication"]["human"]
     assert human["unscored"]["nb0"] == 4 and human["n_recordings"] == len(table) // 2
+
+
+def test_nonzero_check_drops_recordings_without_a_window_zero_burst():
+    table = _table(np.random.default_rng(15), zero=0.5)
+    payload = ns.analyse(table, None, resamples=20)
+    got = payload["nonzero_nb0_check_post_hoc"]
+    assert "post hoc" in got["note"]
+    human = table[table["species"] == "human"]
+    assert got["human"]["n_recordings"] == int((human["nb0"] > 0).sum())
 
 
 # ------------------------------------------------------------------ inputs and post hoc

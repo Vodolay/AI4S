@@ -341,8 +341,13 @@ def age_check(rows: pd.DataFrame) -> dict:
             "median_rho": sh._r4(float(np.median(rhos))) if rhos else None,
             "n_divs": len(rhos),
             "n_divs_total": len(by_div),
+            # Post hoc, descriptive: how many of the per-DIV rhos are below 0.
+            "n_divs_negative": int(sum(r < 0 for r in rhos)),
             "by_div": by_div,
         },
+        # Post hoc, descriptive: how each side moves with age (why partial and raw differ).
+        "rho_nb0_div_post_hoc": sh._r4(spearman(nb, div)),
+        "rho_late_b_div_post_hoc": sh._r4(spearman(late, div)),
     }
 
 
@@ -357,8 +362,20 @@ def age_record(table: pd.DataFrame) -> dict:
         if partial is None
         else "the N1 relation may be an age effect"
         if partial > AGE_PARTIAL
-        else "the human relation holds after removing DIV from the ranks"
+        else "registered age flag not raised: the human partial rho is not above -0.1"
     )
+    return out
+
+
+def nonzero_check(table: pd.DataFrame, resamples: int) -> dict:
+    """Post hoc: rho(nb0, late_b) over the recordings with at least one window-0 network burst."""
+    out = {
+        "note": "post hoc, not registered, added after the first real-data run: is a missing "
+        "relation only the recordings with no network burst in window 0 (ties at zero)?"
+    }
+    for s in SPECIES:
+        rows = table[(table["species"] == s) & (_num(table, "nb0") > 0)]
+        out[s] = species_record(rows, resamples)["rho"]["nb0"] if len(rows) else None
     return out
 
 
@@ -444,6 +461,7 @@ def analyse(
             "sync0": {s: species[s]["rho"]["sync0"] for s in species} if species else None,
         },
         "age_check": age_record(replication) if have else None,
+        "nonzero_nb0_check_post_hoc": nonzero_check(replication, resamples) if have else None,
         "primary_pool_post_hoc": post_hoc_record(primary, resamples),
         "implementation_notes": IMPLEMENTATION_NOTES,
     }
@@ -481,6 +499,10 @@ IMPLEMENTATION_NOTES = [
     "recordings or a constant side gives no rho and is left out of the median.",
     "The post hoc pool is D35's usable wells (from D32's results file), one 30-min recording a "
     "well cut into D35's 5-min windows; its intervals use the same well bootstrap.",
+    "Added after the first real-data run and labelled post hoc: rho(nb0, late_b) over the "
+    "recordings with nb0 > 0, the count of negative per-DIV rhos, and the rank correlations "
+    "of nb0 and of late_b with DIV; the age-check verdict text was reworded to state only "
+    "whether the registered flag is raised.",
     "Before the code was committed, a timing check computed window-0 features on one "
     "developmental plate file (Rat_MEA1 DIV21) and printed one well's values; no late trend "
     "or correlation was computed before the commit.",
