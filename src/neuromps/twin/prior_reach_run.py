@@ -386,12 +386,23 @@ def rescore_section(section: dict) -> dict:
     return {**section, "predictions": predictions}
 
 
-def rescore() -> dict:
-    """The quick tier: re-score from metrics.json; a few milliseconds, nothing simulated."""
-    from neuromps.metrics import update_metrics
-    from neuromps.paths import metrics_path
+def recorded_section() -> dict:
+    """The recorded ``twin_prior_reach`` section: this run's, else the full run's committed one."""
+    from neuromps.paths import full_run_equivalent, metrics_path
 
-    section = json.loads(metrics_path().read_text()).get(pr.METRICS_KEY) or {}
+    for path in (metrics_path(), full_run_equivalent(metrics_path())):
+        if path.exists():
+            section = json.loads(path.read_text()).get(pr.METRICS_KEY)
+            if section:
+                return section
+    return {}
+
+
+def rescore() -> dict:
+    """The quick tier: re-score the committed record; milliseconds, nothing simulated."""
+    from neuromps.metrics import update_metrics
+
+    section = recorded_section()
     if "predictions" not in section:
         log.warning("no recorded %s run to re-score; the full tier produces it", pr.METRICS_KEY)
         return {}

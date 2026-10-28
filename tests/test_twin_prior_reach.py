@@ -294,3 +294,17 @@ def test_reading_follows_the_registered_rule() -> None:
     assert reading(ok, ok, ok).startswith("prior range")
     assert reading(fail, ok, ok).startswith("misspecification")
     assert reading({"outcome": "uninterpretable"}, ok, ok).startswith("uninterpretable")
+
+
+def test_quick_tier_reads_the_full_record_when_its_own_has_none(tmp_path, monkeypatch) -> None:
+    import neuromps.paths as paths
+    from neuromps.twin.prior_reach_run import recorded_section
+
+    quick, full = tmp_path / "quick.json", tmp_path / "full.json"
+    quick.write_text(json.dumps({"other": {}}))
+    full.write_text(json.dumps({pr.METRICS_KEY: {"budget": {"n": 1}}}))
+    monkeypatch.setattr(paths, "metrics_path", lambda: quick)
+    monkeypatch.setattr(paths, "full_run_equivalent", lambda path: full)
+    assert recorded_section() == {"budget": {"n": 1}}
+    full.write_text("{}")
+    assert recorded_section() == {}

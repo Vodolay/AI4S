@@ -463,11 +463,16 @@ it with its own command or `python -m neuromps.fly.pipeline --only <step>`.
 - **Found:** D31 (report §16) found the 113 real two-chamber recordings far from every twin
   simulation and calibration failing near them. Before registering, a diagnostic on HD14's pool
   (declared as seen) located the gap: on HD14's own scale the median distance from a real
-  recording to its nearest simulation is 2.43 against 0.409 between neighbouring simulations;
+  recording to its nearest simulation is
+  2.43 <!-- metrics.json: twin_prior_reach.diagnostic.real_to_nearest_hd14_simulation.median -->
+  against 0.409 <!-- metrics.json: twin_prior_reach.diagnostic.hd14_simulation_to_nearest_other.median -->
+  between neighbouring simulations;
   `log_rate_ratio` carries a third of it (real recordings run faster in compartment 0 than any
   simulation), `lag_ms` a sixth and the active-electrode counts a quarter; HD14's posterior,
   shown the real recordings, puts most of its raw mass above the `threshold_scale` bound (72%
-  of recordings) and some below the `log10_forward_ratio` bound (27%), while `inter_in_degree`
+  <!-- metrics.json: twin_prior_reach.diagnostic.hd14_posterior_edges.by_parameter.threshold_scale.recordings_mostly_above -->
+  of recordings) and some below the `log10_forward_ratio` bound (27%
+  <!-- metrics.json: twin_prior_reach.diagnostic.hd14_posterior_edges.by_parameter.log10_forward_ratio.recordings_mostly_below -->), while `inter_in_degree`
   and `gabaa_scale` stay inside.
 - **Options:** report the gap as misspecification without a test; widen every bound; widen or
   re-centre only the bounds the real recordings push against; change the model (a parameter for
@@ -490,4 +495,23 @@ it with its own command or `python -m neuromps.fly.pipeline --only <step>`.
   carried by `lag_ms` and by electrode counts above the layout's 48.
 - **Registered:** `preregistration/twin_prior_reach.json`, committed before any simulation from
   the new prior.
+- **Outcome:** 2 of 3 (registration commit 3c2e43e at 11:32 EDT; the first simulation started at
+  11:33). All 3,000 <!-- metrics.json: twin_prior_reach.budget.new_simulations_usable --> new
+  simulations finished well before the cut-off. R1 fails: the median real-to-nearest distance
+  falls only from 2.43 <!-- metrics.json: twin_prior_reach.predictions.R1_reach.hd14_pool_median -->
+  to 2.211 <!-- metrics.json: twin_prior_reach.predictions.R1_reach.new_pool_median --> (ratio
+  0.91 <!-- metrics.json: twin_prior_reach.predictions.R1_reach.ratio -->), on every scale
+  checked, and the same summaries carry what remains. R2 passes (share
+  0.8233 <!-- metrics.json: twin_prior_reach.predictions.R2_old_region_kept.share -->), and R3
+  passes for `threshold_scale` near the real recordings (p =
+  0.2682 <!-- metrics.json: twin_prior_reach.predictions.R3_calibrated_near_real.ks_p -->) while
+  `gabaa_scale` and `inter_in_degree` fail there. HD14's cache reproduces exactly under today's
+  code. Reading, as registered: misspecification within the widened box, not the prior's range;
+  the inverse model is not to be read on absolute real recordings. Report §16, change-log
+  entry 53.
 - **Revisit at:** `neuromps.twin.prior_reach`; `twin_prior_reach` in `outputs/metrics.json`.
+  Next: a model change, registered with fresh seeds: a chamber-specific excitability parameter
+  and a coupling-delay parameter, the two things the remaining summaries point to. The new flow
+  still puts most raw mass above the new `ampa_scale` bound for 30%
+  <!-- metrics.json: twin_prior_reach.calibration.new_flow_edges_on_real.by_parameter.ampa_scale.recordings_mostly_above -->
+  of recordings, so a still wider box for that knob is not ruled out.
