@@ -12017,6 +12017,308 @@
       "n_splits": 4
     }
   },
+  "registration_audit": {
+    "n_studies": 40,
+    "studies": {
+      "embodied_stage1": {
+        "fail": 2,
+        "other": 0,
+        "pass": 1,
+        "total": 3,
+        "uninterpretable": 0
+      },
+      "embodied_stage1b": {
+        "fail": 1,
+        "other": 0,
+        "pass": 0,
+        "total": 4,
+        "uninterpretable": 3
+      },
+      "embodied_stage1c": {
+        "fail": 2,
+        "other": 0,
+        "pass": 3,
+        "total": 5,
+        "uninterpretable": 0
+      },
+      "embodied_stage1d": {
+        "fail": 0,
+        "other": 0,
+        "pass": 4,
+        "total": 4,
+        "uninterpretable": 0
+      },
+      "embodied_stage1e": {
+        "fail": 1,
+        "other": 0,
+        "pass": 0,
+        "total": 5,
+        "uninterpretable": 4
+      },
+      "embodied_stage1f": {
+        "fail": 0,
+        "other": 0,
+        "pass": 5,
+        "total": 5,
+        "uninterpretable": 0
+      },
+      "embodied_stage2a": {
+        "fail": 4,
+        "other": 0,
+        "pass": 1,
+        "total": 5,
+        "uninterpretable": 0
+      },
+      "embodied_stage2b": {
+        "fail": 0,
+        "other": 0,
+        "pass": 6,
+        "total": 6,
+        "uninterpretable": 0
+      },
+      "embodied_stage2c": {
+        "fail": 7,
+        "other": 0,
+        "pass": 0,
+        "total": 7,
+        "uninterpretable": 0
+      },
+      "embodied_stage2d": {
+        "fail": 6,
+        "other": 0,
+        "pass": 1,
+        "total": 7,
+        "uninterpretable": 0
+      },
+      "embodied_stage2d_confirm": {
+        "fail": 5,
+        "other": 0,
+        "pass": 2,
+        "total": 7,
+        "uninterpretable": 0
+      },
+      "embodied_stage2e": {
+        "fail": 6,
+        "other": 0,
+        "pass": 2,
+        "total": 8,
+        "uninterpretable": 0
+      },
+      "embodied_stage2f__none": {
+        "fail": 1,
+        "other": 0,
+        "pass": 0,
+        "total": 8,
+        "uninterpretable": 7
+      },
+      "embodied_stage2f__synapse_count": {
+        "fail": 1,
+        "other": 0,
+        "pass": 0,
+        "total": 8,
+        "uninterpretable": 7
+      },
+      "embodied_stage2g__none": {
+        "fail": 1,
+        "other": 0,
+        "pass": 0,
+        "total": 7,
+        "uninterpretable": 6
+      },
+      "embodied_stage2g__synapse_count": {
+        "fail": 1,
+        "other": 0,
+        "pass": 0,
+        "total": 7,
+        "uninterpretable": 6
+      },
+      "embodied_stage2h__none": {
+        "fail": 2,
+        "other": 0,
+        "pass": 5,
+        "total": 7,
+        "uninterpretable": 0
+      },
+      "embodied_stage2h__synapse_count": {
+        "fail": 3,
+        "other": 0,
+        "pass": 4,
+        "total": 7,
+        "uninterpretable": 0
+      },
+      "embodied_stage2i": {
+        "fail": 1,
+        "other": 0,
+        "pass": 6,
+        "total": 7,
+        "uninterpretable": 0
+      },
+      "embodied_stage2j": {
+        "fail": 2,
+        "other": 0,
+        "pass": 2,
+        "total": 4,
+        "uninterpretable": 0
+      },
+      "embodied_stage3a": {
+        "fail": 1,
+        "other": 0,
+        "pass": 3,
+        "total": 5,
+        "uninterpretable": 1
+      },
+      "embodied_stage3b": {
+        "fail": 2,
+        "other": 0,
+        "pass": 2,
+        "total": 5,
+        "uninterpretable": 1
+      },
+      "embodied_stage3c": {
+        "fail": 1,
+        "other": 0,
+        "pass": 2,
+        "total": 4,
+        "uninterpretable": 1
+      },
+      "embodied_stage3d": {
+        "fail": 2,
+        "other": 0,
+        "pass": 0,
+        "total": 2,
+        "uninterpretable": 0
+      },
+      "embodied_stage4a": {
+        "fail": 3,
+        "other": 0,
+        "pass": 3,
+        "total": 6,
+        "uninterpretable": 0
+      },
+      "embodied_stage4b": {
+        "fail": 1,
+        "other": 0,
+        "pass": 3,
+        "total": 4,
+        "uninterpretable": 0
+      },
+      "embodied_stage4c": {
+        "fail": 1,
+        "other": 0,
+        "pass": 3,
+        "total": 4,
+        "uninterpretable": 0
+      },
+      "embodied_stage4d": {
+        "fail": 2,
+        "other": 0,
+        "pass": 2,
+        "total": 4,
+        "uninterpretable": 0
+      },
+      "embodied_stage4e": {
+        "fail": 2,
+        "other": 0,
+        "pass": 2,
+        "total": 4,
+        "uninterpretable": 0
+      },
+      "embodied_stage5": {
+        "fail": 0,
+        "other": 0,
+        "pass": 0,
+        "total": 2,
+        "uninterpretable": 2
+      },
+      "embodied_stage5b": {
+        "fail": 3,
+        "other": 0,
+        "pass": 2,
+        "total": 5,
+        "uninterpretable": 0
+      },
+      "embodied_stage5c": {
+        "fail": 4,
+        "other": 0,
+        "pass": 0,
+        "total": 4,
+        "uninterpretable": 0
+      },
+      "fly_chip_to_animal": {
+        "fail": 3,
+        "other": 0,
+        "pass": 7,
+        "total": 10,
+        "uninterpretable": 0
+      },
+      "fly_confirm_network_bursts": {
+        "fail": 2,
+        "other": 0,
+        "pass": 2,
+        "total": 4,
+        "uninterpretable": 0
+      },
+      "fly_malecns_replication": {
+        "fail": 0,
+        "other": 0,
+        "pass": 5,
+        "total": 5,
+        "uninterpretable": 0
+      },
+      "fly_motor_readout": {
+        "fail": 1,
+        "other": 0,
+        "pass": 6,
+        "total": 7,
+        "uninterpretable": 0
+      },
+      "fly_motor_tie_break": {
+        "fail": 1,
+        "other": 0,
+        "pass": 1,
+        "total": 2,
+        "uninterpretable": 0
+      },
+      "fly_output_tract": {
+        "fail": 0,
+        "other": 0,
+        "pass": 4,
+        "total": 4,
+        "uninterpretable": 0
+      },
+      "twin_depression_under_block": {
+        "fail": 1,
+        "other": 1,
+        "pass": 1,
+        "total": 3,
+        "uninterpretable": 0
+      },
+      "twin_prior_classifier": {
+        "fail": 2,
+        "other": 0,
+        "pass": 1,
+        "total": 3,
+        "uninterpretable": 0
+      }
+    },
+    "total": {
+      "fail": 78,
+      "other": 1,
+      "pass": 91,
+      "total": 208,
+      "uninterpretable": 38
+    }
+  },
+  "registration_timestamps": {
+    "n_outputs_checked": 37,
+    "n_registrations": 40,
+    "n_violations": 0,
+    "not_covered": [
+      "twin_depression_under_block.json",
+      "twin_prior_classifier.json",
+      "toxcast_noise_floors.json"
+    ]
+  },
   "rhythm_audit": {
     "embodied_stage1d": {
       "predictions": {
