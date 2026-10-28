@@ -57,6 +57,7 @@ the bottom.*
 | 46 | 2026-10-28 | Human iPSC against rat chips from one lab: split-half noise of untreated wells | 2 of 3 registered predictions pass; human firing rate about twice as noisy, but not across readouts; wells needed reported as a lower bound | `35df26a` … this branch |
 | 47 | 2026-10-28 | Our extractor rerun under the Kapucu 2022 depositors' stated settings, one change at a time (post hoc); the feature definitions recorded as D33 | none to earlier results; the twofold burst-rate difference is traced mainly to the burst-rate denominator, on the hPSC plates; two report wording errors fixed | `46d1607`, `e10a2ff` … this branch |
 | 48 | 2026-10-28 | The depositors' logISI burst detector, implemented and tested against their meaRtools output (D34, registered) | 1 of 4 registered predictions pass; burst duration and spikes per burst reach their scale but not their ordering, the hPSC burst rate overshoots; the detector attribution stays open | `e11bc05`, `9570a9f`, `6f63385` … this branch |
+| 49 | 2026-10-28 | Settling or steady noise in the human iPSC split-half spread (D35) | 3 of 3 registered predictions pass; the registered linearity check fails for human wells; the human spread is mostly uneven settling, and five more minutes would not remove it | `e743c4c`, `bc6a56b` … this branch |
 
 ---
 
@@ -993,9 +994,9 @@ checked against the commit that registered it, here, in the public repository.*
 - **Why.** The final-round deck quoted registration counts and a hash chain that existed only in
   the private manuscript repository, so a reader of this repository could not check them.
 - **Effect.**
-  - 45 <!-- metrics.json: registration_audit.submission.n_studies --> registered studies here made
-    230 <!-- metrics.json: registration_audit.submission.total.total --> predictions:
-    102 <!-- metrics.json: registration_audit.submission.total.pass --> passed,
+  - 46 <!-- metrics.json: registration_audit.submission.n_studies --> registered studies here made
+    233 <!-- metrics.json: registration_audit.submission.total.total --> predictions:
+    105 <!-- metrics.json: registration_audit.submission.total.pass --> passed,
     88 <!-- metrics.json: registration_audit.submission.total.fail --> failed,
     39 <!-- metrics.json: registration_audit.submission.total.uninterpretable --> were uninterpretable.
   - 40 <!-- metrics.json: registration_timestamps.submission.n_outputs_checked --> result files name their
@@ -1241,8 +1242,6 @@ is a human iPSC effect. Post hoc.*
   `extractor_agreement.settings_ladder`; tests `tests/test_features_mea.py`,
   `tests/test_extractor_ladder.py`.
 
----
-
 ## 48. The depositors' burst detector, tested: it does not explain the rest of the gap as registered
 
 **Slide message:** *With the depositors' own adaptive burst detector (logISI) added to their
@@ -1296,6 +1295,63 @@ our implementation differs from theirs.*
   `outputs/figures/extractor_logisi_real.png`, `outputs/extractor_logisi_REAL.json` (with every
   electrode's threshold), `outputs/metrics.json` key `extractor_agreement.logisi`; tests
   `tests/test_features_mea.py`, `tests/test_extractor_logisi.py`.
+
+---
+
+## 49. The human iPSC split-half noise is mostly uneven settling, not steady noise
+
+**Slide message:** *Within one untreated 30-minute recording, almost all of a human iPSC well's
+split-half firing-rate change is its own trend (share 0.996 <!-- metrics.json: hpsc_settling.predictions.T3_settling_carries_the_human_spread.share_human -->),
+and human wells differ far more than rat wells in that trend (SD ratio
+3.65 <!-- metrics.json: hpsc_settling.predictions.T1_human_settling_more_uneven.ratio -->);
+so on these data a longer settling period before dosing is the first thing to try, but the
+recordings are too short to say how long it must be.*
+
+- **What changed.** A registered follow-up to entry 46 on the same Kapucu et al. 2022 baselines
+  and usable wells (`src/neuromps/models/hpsc_settling.py`, `preregistration/hpsc_settling.json`,
+  decision D35, report §36, "Registered follow-up"). Each recording is cut into six 5-minute
+  windows; per well, the firing rate on one fixed electrode set gives a straight-line slope (its
+  settling) and a residual SD (its scatter), and the split-half change splits into a trend part
+  and a residual part.
+- **Why.** Entry 46 noted that part of the human spread might be wells settling at different
+  speeds; for an assay the two readings call for different fixes (a longer settling period
+  against more wells).
+- **Effect.**
+  - T1 passes: the slope's SD is
+    0.076 <!-- metrics.json: hpsc_settling.predictions.T1_human_settling_more_uneven.sd_b_human -->
+    human against 0.021 <!-- metrics.json: hpsc_settling.predictions.T1_human_settling_more_uneven.sd_b_rat -->
+    rat (log2 per window), ratio 95% interval
+    2.72 to 5.04 <!-- metrics.json: hpsc_settling.predictions.T1_human_settling_more_uneven.ci95 -->.
+  - T2 passes: median residual SD ratio
+    10.2 <!-- metrics.json: hpsc_settling.predictions.T2_human_steady_noise_larger.ratio -->
+    (7.91 to 11.43 <!-- metrics.json: hpsc_settling.predictions.T2_human_steady_noise_larger.ci95 -->),
+    but most of it is curvature a straight line misses (next point), so it is not read as
+    tenfold steady noise.
+  - T3 passes: the trend's share is
+    0.996 <!-- metrics.json: hpsc_settling.predictions.T3_settling_carries_the_human_spread.share_human -->
+    human and 0.946 <!-- metrics.json: hpsc_settling.predictions.T3_settling_carries_the_human_spread.share_rat -->
+    rat. The registered threshold sits below what a line absorbs from pure steady noise (about
+    0.77 <!-- metrics.json: hpsc_settling.predictions.T3_settling_carries_the_human_spread.white_noise_reference -->),
+    which we found when implementing it; the human share is well above that reference.
+  - The registered linearity check fails for human wells: a quadratic term lowers the residual
+    SD by more than a third in a share of
+    1.0 <!-- metrics.json: hpsc_settling.assumption_check.share_lowered.human --> of them
+    (0.26 <!-- metrics.json: hpsc_settling.assumption_check.share_lowered.rat --> of rat wells),
+    so T1 and T3 are read with that caveat. The human median rate falls from
+    6.73 <!-- metrics.json: hpsc_settling.per_window.human.0 --> to
+    4.26 <!-- metrics.json: hpsc_settling.per_window.human.3 --> Hz by the fourth window, then
+    partly recovers.
+  - Post hoc: dropping the first window leaves the human spread
+    3.16 <!-- metrics.json: hpsc_settling.first_window_check_post_hoc.ratio_sd_d_without_window_0 -->
+    times the rat one, so five more minutes of settling would not close the gap. The
+    residual-only wells needed (1 <!-- metrics.json: hpsc_settling.wells_needed_residual_only.human.down_20pct -->
+    human well for a 20% fall) are illustrative only and are not used.
+  - No earlier result changes: entry 46's numbers are unchanged, and §36's caveat now states the
+    measured reading. The registration counts in §21 and entry 43 rise by this study's three
+    predictions and one checked result file.
+- **Evidence.** Report §36; decision D35; `outputs/figures/hpsc_settling_real.png`,
+  `outputs/hpsc_settling_REAL.json` (with the per-well table), `outputs/metrics.json` key
+  `hpsc_settling`; tests `tests/test_hpsc_settling.py`.
 
 ---
 

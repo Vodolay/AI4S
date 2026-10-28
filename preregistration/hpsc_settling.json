@@ -1,0 +1,49 @@
+{
+  "title": "Settling or steady noise? Within-recording firing-rate trends of untreated human iPSC and rat wells (REAL data, Kapucu 2022)",
+  "registered": "2026-10-28T14:08:26Z",
+  "decision": "D35",
+  "status": "registered before any windowed (sub-half) feature was computed for any well",
+  "origin": "D32 (report section 36) found human iPSC firing rate about twice as noisy as rat between the two halves of one untreated recording, and noted that human wells fall more within the recording, so part of the split-half spread may be uneven settling rather than steady noise; no test separated the two",
+  "seen_before_registration": [
+    "everything in hpsc_split_half (D32): per-well split-half changes, their SDs and R per feature, the usable wells (24 human, 38 rat on the 48-well baselines), the mean firing-rate change (human -0.32, rat -0.17 log2), the figure of per-well changes, and the firing-rate overlap check",
+    "no firing rate or other feature of any window shorter than half a recording, for any well"
+  ],
+  "data": "the D32 primary pool only: hPSC_MEA3Baseline_DIV29 and Rat_MEA2Baseline_DIV22 (48-well, 30-min untreated baselines), the wells D32 judged usable",
+  "method": {
+    "windows": "each recording cut into 6 consecutive windows of equal length (5 min for these 30-min recordings); window k = 0..5",
+    "electrodes": "per well, the electrodes active over the whole recording (the extractor's active rule at defaults); the same set in every window, so a changing electrode set cannot move the rate",
+    "rate": "r_k = mean over those electrodes of spikes in window k / window length; y_k = log2(max(r_k, 1 / (n_electrodes x window length)))",
+    "trend": "per well, ordinary least squares of y_k on (k - 2.5): slope b (log2 per window) and residual SD s (ddof 2)",
+    "decomposition": "per well, the split-half change is d = mean(y_3..5) - mean(y_0..2); its trend part is d_trend = 3b; its residual part is d - d_trend",
+    "bootstrap": "2,000 resamples of wells within each species, seed 20261028"
+  },
+  "predictions": {
+    "T1_human_settling_more_uneven": {
+      "statement": "human wells settle more unevenly: the spread of the within-recording slope across wells is larger in human than in rat wells",
+      "test": "pass if the 95% interval of SD(b)_human / SD(b)_rat lies above 1; fail otherwise"
+    },
+    "T2_human_steady_noise_larger": {
+      "statement": "human wells are also noisier around their own trend",
+      "test": "pass if the 95% interval of median(s)_human / median(s)_rat lies above 1; fail otherwise"
+    },
+    "T3_settling_carries_the_human_spread": {
+      "statement": "in human wells, the trend carries most of the split-half spread",
+      "test": "pass if var(d_trend) / var(d) over human wells is at least 0.5 (point estimate); fail otherwise; the same share for rat wells is reported"
+    }
+  },
+  "uninterpretable": "every prediction is uninterpretable if fewer than 10 wells per species have a defined rate in all six windows",
+  "reported_not_tested": {
+    "wells_needed": "the D32 wells-needed lower bound recomputed from the residual part alone (what remains if each well's own trend were removed, for example by a longer settling period before dosing), stated as illustrative",
+    "per_window": "the median rate per window per species, as a settling curve"
+  },
+  "assumption_check": {
+    "assumption": "a straight line describes the within-recording trend well enough that its slope means settling",
+    "check": "per well, add a quadratic term and report the share of wells in which it lowers the residual SD by more than a third; if that share exceeds one half in either species, the report says the trend is not linear and reads T1 and T3 with that caveat"
+  },
+  "reporting": "all three predictions reported with values whatever the outcome",
+  "outputs": {
+    "metrics_key": "hpsc_settling",
+    "results_file": "outputs/hpsc_settling_REAL.json (names this registration)",
+    "figure": "outputs/figures/hpsc_settling_real.png"
+  }
+}

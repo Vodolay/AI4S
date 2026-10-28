@@ -431,3 +431,30 @@ it with its own command or `python -m neuromps.fly.pipeline --only <step>`.
   explain the rest of the gap as registered, or our implementation differs; the attribution stays open.
   Report §3, change-log entry 48.
 - **Revisit at:** `outputs/metrics.json` key `extractor_agreement.logisi`.
+
+### D35. Separating settling from steady noise in untreated human iPSC wells **(user)**
+- **Found:** D32 (report §36) measured human iPSC firing rate about twice as noisy as rat between
+  the halves of one untreated recording, and noted that human wells fall more within the
+  recording; part of that spread may be wells settling at different speeds, not steady noise.
+- **Options:** state the ambiguity and stop; separate the two within the same recordings.
+- **Taken:** six windows per 30-minute baseline, a straight-line trend per well on a fixed
+  electrode set, and three registered predictions (`preregistration/hpsc_settling.json`): human
+  wells settle more unevenly; human wells are also noisier around their own trend; in human wells
+  the trend carries most of the split-half spread. **Why:** for assay design the two call for
+  different fixes (a longer settling period before dosing against more wells), so which one
+  dominates matters.
+- **Assumption recorded:** a straight line describes the settling; checked with a quadratic term.
+- **Outcome:** 3 of 3 (registration commit e743c4c; code and tests committed before the first
+  real-data run in bc6a56b). Human slopes spread
+  3.65 <!-- metrics.json: hpsc_settling.predictions.T1_human_settling_more_uneven.ratio --> times
+  as widely as rat; the trend carries a share of
+  0.996 <!-- metrics.json: hpsc_settling.predictions.T3_settling_carries_the_human_spread.share_human -->
+  of the human split-half variance. The linearity check fails for human wells (a fall and partial
+  recovery), so T1 and T3 carry that caveat, and T2's residual SD is mostly curvature, not steady
+  noise. The T3 threshold turned out to sit below what a line absorbs from pure noise (about
+  0.77 <!-- metrics.json: hpsc_settling.predictions.T3_settling_carries_the_human_spread.white_noise_reference -->);
+  recorded, not changed. Reading: D32's human spread is mostly uneven settling; a longer settling
+  period is the first fix to try, but five more minutes would not close the gap (post hoc), and
+  the 30-minute recordings do not show how long it must be. Report §36, change-log entry 49.
+- **Revisit at:** `outputs/metrics.json` key `hpsc_settling`. Next: longer untreated human
+  recordings, to find where the fall ends.
