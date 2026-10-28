@@ -79,3 +79,9 @@ def test_reads_the_manuscript_only_list_and_its_absence(tmp_path) -> None:
 
 
 PASS_FAIL = {"x": {"outcome": "pass"}, "y": {"outcome": "fail"}}
+
+
+def test_reads_predictions_nested_under_by_prediction() -> None:
+    nested = {"by_prediction": PASS_FAIL, "n_passed": 1, "n_registered": 2}
+    got = audit.audit({"a": {"predictions": nested}})
+    assert got["studies"]["a"]["total"] == 2 and got["unrecognised"] == []

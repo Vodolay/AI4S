@@ -53,6 +53,7 @@ the bottom.*
 | 42 | 2026-10-26 | Real ToxCast vehicle wells: noise floors, wells needed, and the twin against unseen positive controls | new real-data results, both registered; twin 12 of 12 directions, no better than a firing-rate rule | `cf90872` … this branch |
 | 43 | 2026-10-27 | The registration audit and hash chain, in this repository | every registered prediction counted; no result file precedes its registration; corrected 2026-10-28 to count two studies it had missed | `d183585` … this branch |
 | 44 | 2026-10-28 | The twin's knob dose-response against real concentration-response curves | 2 of 4 registered predictions pass; the mechanism label matters, the curve shape does not clear the line | `f3e1fb9` … this branch |
+| 45 | 2026-10-27/28 | The twin's inverse model recalibrated: 5.8x the simulations and a five-flow ensemble (D31) | 2 of 7 registered predictions pass; on fresh simulations the round-1 model fails all five parameters; the ensemble passes only `threshold_scale` under the registered rule | `0bc29aa` … this branch |
 
 ---
 
@@ -975,8 +976,6 @@ halving; judged against a historical reference, no number of wells from one day 
   `outputs/figures/toxcast_noise_floors_real.png`,
   `outputs/figures/twin_toxcast_positive_controls.png`, `outputs/tables/toxcast_wells_needed.md`.
 
----
-
 ## 43. The registrations audited and hash-chained in this repository
 
 **Slide message:** *Every registered prediction is counted by a script, and every result file is
@@ -991,14 +990,14 @@ checked against the commit that registered it, here, in the public repository.*
 - **Why.** The final-round deck quoted registration counts and a hash chain that existed only in
   the private manuscript repository, so a reader of this repository could not check them.
 - **Effect.**
-  - 42 <!-- metrics.json: registration_audit.submission.n_studies --> registered studies here made
-    216 <!-- metrics.json: registration_audit.submission.total.total --> predictions:
-    97 <!-- metrics.json: registration_audit.submission.total.pass --> passed,
-    80 <!-- metrics.json: registration_audit.submission.total.fail --> failed,
+  - 43 <!-- metrics.json: registration_audit.submission.n_studies --> registered studies here made
+    223 <!-- metrics.json: registration_audit.submission.total.total --> predictions:
+    99 <!-- metrics.json: registration_audit.submission.total.pass --> passed,
+    85 <!-- metrics.json: registration_audit.submission.total.fail --> failed,
     38 <!-- metrics.json: registration_audit.submission.total.uninterpretable --> were uninterpretable.
   - 38 <!-- metrics.json: registration_timestamps.submission.n_outputs_checked --> result files name their
     registration, and 0 <!-- metrics.json: registration_timestamps.submission.n_violations --> of them came
-    before it; 3 <!-- metrics.json: registration_timestamps.submission.not_covered --> registrations are not
+    before it; 4 <!-- metrics.json: registration_timestamps.submission.not_covered --> registrations are not
     covered because their results do not name them.
   - No earlier result changes.
 - **Correction (2026-10-28).** As first merged, the audit counted 40 studies and 208
@@ -1008,7 +1007,8 @@ checked against the commit that registered it, here, in the public repository.*
   registered minimum is not met; no verdict changes), and the audit now names any study it cannot
   read (`registration_audit.unrecognised`, empty) and leaves out, by name, the rhythm audit, which
   re-reads predictions already counted under their own stages (`registration_audit.excluded`).
-  The counts above include both studies.
+  The counts above include both studies, and the inverse-model recalibration (entry 45), whose
+  predictions sit one level down under `by_prediction`, a layout the audit now also reads.
 
 ---
 
@@ -1060,6 +1060,58 @@ loss of activity.*
 - **Evidence.** Report §35; `outputs/figures/twin_toxcast_dose_response.png`,
   `outputs/twin/toxcast_dose_response_predictions_simulated.json`, `outputs/metrics.json` key
   `twin_toxcast_dose_response`.
+
+---
+
+## 45. The inverse model, recalibrated: sharper, still over-confident
+
+**Slide message:** *On 1,000 fresh simulations, the round-1 inverse model is over-confident on all
+five parameters; five times the simulations and a five-flow ensemble keep its sharpness and move
+it toward calibration, but only the excitability parameter passes the registered checks.*
+
+- **What changed.** A registered test (decision D31,
+  `preregistration/twin_inference_recalibration.json`, committed before any new simulation) of two
+  remedies for the two parameters the round-1 posterior failed: the same flow retrained on a
+  larger pool, and an equal-weight ensemble of five flows. 12,750
+  <!-- metrics.json: twin_hd14b_recalibration.budget.new_train_simulations --> fresh training
+  simulations finished before the registered 05:00 cut (pool 15,750
+  <!-- metrics.json: twin_hd14b_recalibration.budget.pool_simulations -->), plus 1,000
+  <!-- metrics.json: twin_hd14b_recalibration.budget.held_out --> fresh held-out runs.
+  `src/neuromps/twin/recalibration.py` (seeds, chunked simulation, coverage),
+  `src/neuromps/twin/recalibration_run.py` (training, evaluation, scoring), a step in
+  `run_all.py`'s twin stage. The round-1 result and code path are unchanged.
+- **Why.** The inverse-model slide withholds two of five parameters; whether that is a limit of
+  the simulation budget or of the estimator decides what to try next.
+- **Effect.** 2 <!-- metrics.json: twin_hd14b_recalibration.predictions.n_passed --> of
+  7 <!-- metrics.json: twin_hd14b_recalibration.predictions.n_registered --> registered predictions
+  pass.
+  - The round-1 failure replicates, and widens: on fresh simulations the round-1 flow fails all
+    five parameters (`inter_in_degree` p = 0.0001
+    <!-- metrics.json: twin_hd14b_recalibration.results.M0.H300.ks.inter_in_degree.ks_p -->). Post
+    hoc checks rule out a changed simulator (6
+    <!-- metrics.json: twin_hd14b_recalibration.post_hoc.simulator_reproduces_hd14_cache.n_identical -->
+    of 6 of its runs re-simulate identically) and the evaluation code (on its own held-out set it
+    reproduces the round-1 passes, while its 50% intervals cover only 0.3933
+    <!-- metrics.json: twin_hd14b_recalibration.post_hoc.M0_on_hd14_own_holdout.coverage.inter_in_degree.L50.coverage -->
+    to 0.47
+    <!-- metrics.json: twin_hd14b_recalibration.post_hoc.M0_on_hd14_own_holdout.coverage.ampa_scale.L50.coverage -->).
+  - The ensemble keeps contraction (passes; `threshold_scale` 0.742
+    <!-- metrics.json: twin_hd14b_recalibration.results.M2.H300.contraction.threshold_scale.contraction -->)
+    but fails `inter_in_degree` on the 300-run test (p = 0.0056
+    <!-- metrics.json: twin_hd14b_recalibration.results.M2.H300.ks.inter_in_degree.ks_p -->), is
+    over-confident for four parameters by coverage, fails four of five on all 1,000 runs, and
+    costs 1.953 s
+    <!-- metrics.json: twin_hd14b_recalibration.amortized_inference.M2.median_seconds_per_posterior -->
+    per posterior against the registered 1 s.
+  - Budget alone fixes neither failing parameter (`gabaa_scale` p = 0.0025
+    <!-- metrics.json: twin_hd14b_recalibration.results.M1.H300.ks.gabaa_scale.ks_p -->).
+  - The check near the real recordings fails on `ampa_scale` (p = 0.0121
+    <!-- metrics.json: twin_hd14b_recalibration.assumption_check.ks_p.ampa_scale -->).
+  - Under the registered adoption rule the slide may quote `threshold_scale` from the ensemble,
+    and nothing else.
+- **Evidence.** Report §16 (the follow-up after the calibration table), §18 row 6, Appendix G;
+  `outputs/twin/hd14b_recalibration_simulated.png`; `twin_hd14b_recalibration` in
+  `outputs/metrics.json`.
 
 ---
 

@@ -317,3 +317,32 @@ it with its own command or `python -m neuromps.fly.pipeline --only <step>`.
   comparable span of the mechanism to the knob grid. Checked by rescoring with the grid's two
   strongest levels dropped (`sensitivity_truncated_grid`).
 - **Revisit at:** `outputs/metrics.json` key `twin_toxcast_dose_response`, report §35.
+
+### D31. Recalibrating the twin's inverse model: more simulations, then an ensemble
+- **Found:** the inverse model (one masked autoregressive flow, 2,700 training simulations,
+  `twin_hd14_inference`) fails the rank-uniformity check for `gabaa_scale` and
+  `inter_in_degree`, so the slide withholds both.
+- **Options:** keep withholding them; correct the check for five parameters (Bonferroni would
+  pass both, which lowers the bar rather than fixes the model); retrain the same flow on more
+  simulations; average several flows; change the flow family.
+- **Taken:** a registered test of the two remedies that do not touch the bar: about 15,000 fresh
+  simulations (5x; truncated at 05:00 EDT on 2026-10-28 by a prefix rule fixed in advance) for
+  the same flow, and an equal-weight ensemble of five flows on the same pool, both judged on
+  1,000 fresh held-out simulations by the original per-parameter test at 0.05, plus coverage,
+  contraction against the old model on the same simulations, and a check near the real
+  recordings. The flow family is not changed, so budget and averaging are the only differences.
+  **Why:** a slide that withholds two of five parameters should say whether that is a limit of
+  the budget, of the estimator, or of what the summaries carry.
+- **Registered:** `preregistration/twin_inference_recalibration.json` (seven predictions and the
+  assumption check), committed before any new simulation.
+- **Outcome:** 2 of 7 (registration commit 0bc29aa, amended before any simulation in 176b36e).
+  51 of 60 training chunks finished before the cut. On fresh simulations the round-1 model fails
+  all five parameters, not two; the ensemble keeps its sharpness and passes four of five on the
+  300-run test, but fails `inter_in_degree`, stays over-confident by coverage for four
+  parameters, and takes about 2 s per posterior. Budget alone fixes neither failing parameter.
+  Under the registered rule the slide quotes `threshold_scale` only. Report §16, change-log
+  entry 45.
+- **Revisit at:** `neuromps.twin.recalibration`; `twin_hd14b_recalibration` in `outputs/metrics.json`.
+  Next branches, each to be registered with fresh seeds: a different flow family (neural spline
+  flow) on the same pool, which would separate estimator from summaries; or summaries that carry
+  connectivity more directly (the failure that neither remedy moves).
