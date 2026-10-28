@@ -76,6 +76,21 @@ def test_completed_prefix_stops_at_the_first_gap(tmp_path) -> None:
     assert rc.completed_prefix(small, root=tmp_path) == [0, 1]
 
 
+def _fake_job(args):
+    return np.zeros(19)
+
+
+def test_a_chunk_is_written_whole_and_reloads_with_its_seeds(tmp_path, monkeypatch) -> None:
+    monkeypatch.setattr(rc, "_simulate_job", _fake_job)
+    small = rc.SimulationSet("t", draw_base=11, network_base=500, n=3)
+    path = rc.simulate_chunk(small, 0, processes=1, root=tmp_path)
+    assert path == rc.chunk_path(small, 0, root=tmp_path)
+    assert not list(tmp_path.glob("*.partial.npz"))
+    loaded = rc.load_set(small, root=tmp_path)
+    assert loaded["chunks"] == 1 and len(loaded["theta"]) == 3
+    np.testing.assert_array_equal(loaded["theta"], draw_parameters(3, 11))
+
+
 # --- coverage ----------------------------------------------------------------------
 
 

@@ -152,7 +152,12 @@ def simulate_chunk(sim_set: SimulationSet, k: int, processes: int, root: Path | 
         "label": "SIMULATED",
     }
     path = chunk_path(sim_set, k, root)
-    save_simulations(path, theta, x, metadata)
+    # Written under another name and renamed, so a chunk is on disk complete or
+    # not at all: `completed_prefix` counts files, and a reader must never see a
+    # half-written one.
+    partial = path.with_name(path.stem + ".partial.npz")
+    save_simulations(partial, theta, x, metadata)
+    partial.replace(path)
     return path
 
 
