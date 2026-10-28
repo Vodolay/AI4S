@@ -12923,6 +12923,483 @@
     "total_is_complete_pass": true,
     "total_s": 519.0
   },
+  "hpsc_network_state": {
+    "age_check": {
+      "age_effect_possible": false,
+      "human": {
+        "n_recordings": 144,
+        "partial_rho": -0.3922,
+        "per_div": {
+          "by_div": {
+            "28": {
+              "n": 12,
+              "rho": -0.4623
+            },
+            "31": {
+              "n": 12,
+              "rho": -0.1049
+            },
+            "35": {
+              "n": 12,
+              "rho": 0.0
+            },
+            "38": {
+              "n": 12,
+              "rho": -0.3579
+            },
+            "42": {
+              "n": 12,
+              "rho": -0.4127
+            },
+            "45": {
+              "n": 12,
+              "rho": -0.0559
+            },
+            "48": {
+              "n": 12,
+              "rho": null
+            },
+            "51": {
+              "n": 12,
+              "rho": -0.1666
+            },
+            "56": {
+              "n": 12,
+              "rho": 0.3057
+            },
+            "59": {
+              "n": 12,
+              "rho": 0.6381
+            },
+            "63": {
+              "n": 12,
+              "rho": 0.583
+            },
+            "66": {
+              "n": 12,
+              "rho": 0.2591
+            }
+          },
+          "median_rho": -0.0559,
+          "n_divs": 11,
+          "n_divs_negative": 6,
+          "n_divs_total": 12
+        },
+        "rho": -0.0575,
+        "rho_late_b_div_post_hoc": -0.1869,
+        "rho_nb0_div_post_hoc": -0.8253
+      },
+      "rat": {
+        "n_recordings": 58,
+        "partial_rho": 0.0643,
+        "per_div": {
+          "by_div": {
+            "21": {
+              "n": 12,
+              "rho": -0.2211
+            },
+            "24": {
+              "n": 12,
+              "rho": 0.575
+            },
+            "28": {
+              "n": 12,
+              "rho": 0.1678
+            },
+            "31": {
+              "n": 12,
+              "rho": -0.3398
+            },
+            "35": {
+              "n": 10,
+              "rho": -0.3939
+            }
+          },
+          "median_rho": -0.2211,
+          "n_divs": 5,
+          "n_divs_negative": 3,
+          "n_divs_total": 5
+        },
+        "rho": -0.0642,
+        "rho_late_b_div_post_hoc": 0.315,
+        "rho_nb0_div_post_hoc": -0.3826
+      },
+      "threshold_partial": -0.1,
+      "verdict": "registered age flag not raised: the human partial rho is not above -0.1"
+    },
+    "figure": "outputs/figures/hpsc_network_state_real.png",
+    "implementation_notes": [
+      "The replication recordings are read from D32's results file of the same run (hpsc_split_half_REAL.json, pool replication, usable true) as (plate, DIV, well); on a full run without those rows D32's replication table is rebuilt; a --quick run has none and N1-N3 are then uninterpretable with a status.",
+      "Windows follow D32 and D35: the plate file's last spike time is the duration, cut into 6 equal windows; window 0 is t < duration / 6 and goes to extract_features with that length; a spike on the edge starts window 1.",
+      "nb0, sync0 and mfr0 are extract_features' network_burst_rate_per_min, synchrony_index and mfr_hz on window 0 at FeatureParams defaults; window 0's own active rule selects electrodes.",
+      "late_b uses D35's electrode set (active over the whole recording), D35's per-window rate and its one-spike floor; the slope is fitted on y_1..y_5 against k = 1..5.",
+      "A recording is scored for a feature when the feature and late_b are both defined; synchrony_index can be undefined with active electrodes (no STTC pair), which leaves only sync0 unscored.",
+      "Spearman rho is the Pearson correlation of average ranks; a constant side gives no rho; a bootstrap resample with no rho is dropped from the interval and counted as nonfinite.",
+      "Each species' interval uses a fresh generator (seed 20261028); each resample draws that species' wells (plate:well) with replacement and keeps all of a drawn well's recordings; rho(nb0), rho(sync0), rho(mfr0) and the N3 difference come from the same draws.",
+      "The N3 difference is computed on the recordings scored for both nb0 and mfr0.",
+      "'Lies below 0' is strict (upper end < 0) and 'lies above 0' strict (lower end > 0); N2 passes unless the rat interval's upper end is below 0.",
+      "Uninterpretable is read literally: fewer than 30 scored recordings, or fewer than 8 wells among them, for the tested statistic's species; N1 and N3 also when nb0 is exactly 0 in more than 80% of scored human recordings.",
+      "The partial Spearman regresses the average ranks of nb0 and of late_b (over the scored recordings) by OLS on an intercept and DIV as a number, and correlates the residuals; the per-DIV rhos pool both plates of a species at the same DIV, and a DIV with fewer than 3 recordings or a constant side gives no rho and is left out of the median.",
+      "The post hoc pool is D35's usable wells (from D32's results file), one 30-min recording a well cut into D35's 5-min windows; its intervals use the same well bootstrap.",
+      "Added after the first real-data run and labelled post hoc: rho(nb0, late_b) over the recordings with nb0 > 0, the count of negative per-DIV rhos, and the rank correlations of nb0 and of late_b with DIV; the age-check verdict text was reworded to state only whether the registered flag is raised.",
+      "Before the code was committed, a timing check computed window-0 features on one developmental plate file (Rat_MEA1 DIV21) and printed one well's values; no late trend or correlation was computed before the commit."
+    ],
+    "label": "REAL Kapucu 2022 untreated wells: early network state and later settling, human iPSC vs rat (registered replication, D36)",
+    "n_windows": 6,
+    "nonzero_nb0_check_post_hoc": {
+      "human": {
+        "ci95": [
+          -0.3434,
+          0.0043
+        ],
+        "n_recordings": 81,
+        "n_wells": 12,
+        "nonfinite": 0,
+        "point": -0.1731
+      },
+      "note": "post hoc, not registered, added after the first real-data run: is a missing relation only the recordings with no network burst in window 0 (ties at zero)?",
+      "rat": {
+        "ci95": [
+          -0.2808,
+          0.1961
+        ],
+        "n_recordings": 58,
+        "n_wells": 12,
+        "nonfinite": 0,
+        "point": -0.0642
+      }
+    },
+    "predictions": {
+      "N1_early_network_bursting_predicts_settling_in_human": {
+        "ci95": [
+          -0.2273,
+          0.0855
+        ],
+        "n_recordings": 144,
+        "n_wells": 12,
+        "nb0_zero_share": 0.4375,
+        "nb0_zero_share_human": 0.4375,
+        "nonfinite": 0,
+        "outcome": "fail",
+        "pass": false,
+        "value": -0.0575
+      },
+      "N2_not_in_rat": {
+        "ci95": [
+          -0.2808,
+          0.1961
+        ],
+        "n_recordings": 58,
+        "n_wells": 12,
+        "nb0_zero_share_human": 0.4375,
+        "nonfinite": 0,
+        "outcome": "pass",
+        "pass": true,
+        "value": -0.0642
+      },
+      "N3_network_state_not_firing_rate": {
+        "ci95": [
+          -0.0893,
+          0.1083
+        ],
+        "n_recordings": 144,
+        "n_wells": 12,
+        "nb0_zero_share_human": 0.4375,
+        "nonfinite": 0,
+        "outcome": "fail",
+        "pass": false,
+        "value": 0.0186
+      }
+    },
+    "primary_pool_post_hoc": {
+      "human": {
+        "divs": [
+          29
+        ],
+        "late_b_negative_share": 0.5833,
+        "median_late_b": -0.032,
+        "n_recordings": 24,
+        "n_wells": 24,
+        "nb0_zero_share": 0.0833,
+        "rho": {
+          "mfr0": {
+            "ci95": [
+              -0.4117,
+              0.3893
+            ],
+            "n_recordings": 24,
+            "n_wells": 24,
+            "nonfinite": 0,
+            "point": -0.0165
+          },
+          "nb0": {
+            "ci95": [
+              -0.8996,
+              -0.4152
+            ],
+            "n_recordings": 24,
+            "n_wells": 24,
+            "nonfinite": 0,
+            "point": -0.7264
+          },
+          "sync0": {
+            "ci95": [
+              -0.7843,
+              -0.0442
+            ],
+            "n_recordings": 24,
+            "n_wells": 24,
+            "nonfinite": 0,
+            "point": -0.487
+          }
+        },
+        "rho_mfr0_minus_nb0": {
+          "ci95": [
+            0.2452,
+            1.119
+          ],
+          "n_recordings": 24,
+          "n_wells": 24,
+          "nonfinite": 0,
+          "point": 0.7099
+        },
+        "unscored": {
+          "late_b": 0,
+          "mfr0": 0,
+          "nb0": 0,
+          "sync0": 0
+        }
+      },
+      "label": "post hoc, not registered: the exploratory observation that motivated D36, recomputed on D35's usable wells of the two 48-well baselines (one recording a well)",
+      "post_hoc": true,
+      "rat": {
+        "divs": [
+          22
+        ],
+        "late_b_negative_share": 0.9211,
+        "median_late_b": -0.0358,
+        "n_recordings": 38,
+        "n_wells": 38,
+        "nb0_zero_share": 0.4211,
+        "rho": {
+          "mfr0": {
+            "ci95": [
+              -0.3923,
+              0.3121
+            ],
+            "n_recordings": 38,
+            "n_wells": 38,
+            "nonfinite": 0,
+            "point": -0.036
+          },
+          "nb0": {
+            "ci95": [
+              -0.182,
+              0.4739
+            ],
+            "n_recordings": 38,
+            "n_wells": 38,
+            "nonfinite": 0,
+            "point": 0.1678
+          },
+          "sync0": {
+            "ci95": [
+              -0.2628,
+              0.4932
+            ],
+            "n_recordings": 38,
+            "n_wells": 38,
+            "nonfinite": 0,
+            "point": 0.1238
+          }
+        },
+        "rho_mfr0_minus_nb0": {
+          "ci95": [
+            -0.3969,
+            0.0008
+          ],
+          "n_recordings": 38,
+          "n_wells": 38,
+          "nonfinite": 0,
+          "point": -0.2038
+        },
+        "unscored": {
+          "late_b": 0,
+          "mfr0": 0,
+          "nb0": 0,
+          "sync0": 0
+        }
+      },
+      "window_minutes": 5.0
+    },
+    "registration": {
+      "committed_at": "2026-10-28T10:49:24-04:00",
+      "file": "preregistration/hpsc_network_state.json",
+      "registered_in_commit": "f669016d96238a97423c583d36046c2627a811a1",
+      "sha256": "7f934b654dd8578061c68f5660447738da22cb078ef007c74784f1bdf048af82"
+    },
+    "replication": {
+      "human": {
+        "divs": [
+          28,
+          31,
+          35,
+          38,
+          42,
+          45,
+          48,
+          51,
+          56,
+          59,
+          63,
+          66
+        ],
+        "late_b_negative_share": 0.8472,
+        "median_late_b": -0.0766,
+        "n_recordings": 144,
+        "n_wells": 12,
+        "nb0_zero_share": 0.4375,
+        "rho": {
+          "mfr0": {
+            "ci95": [
+              -0.2485,
+              0.1514
+            ],
+            "n_recordings": 144,
+            "n_wells": 12,
+            "nonfinite": 0,
+            "point": -0.0388
+          },
+          "nb0": {
+            "ci95": [
+              -0.2273,
+              0.0855
+            ],
+            "n_recordings": 144,
+            "n_wells": 12,
+            "nonfinite": 0,
+            "point": -0.0575
+          },
+          "sync0": {
+            "ci95": [
+              -0.337,
+              -0.0096
+            ],
+            "n_recordings": 144,
+            "n_wells": 12,
+            "nonfinite": 0,
+            "point": -0.1656
+          }
+        },
+        "rho_mfr0_minus_nb0": {
+          "ci95": [
+            -0.0893,
+            0.1083
+          ],
+          "n_recordings": 144,
+          "n_wells": 12,
+          "nonfinite": 0,
+          "point": 0.0186
+        },
+        "unscored": {
+          "late_b": 0,
+          "mfr0": 0,
+          "nb0": 0,
+          "sync0": 0
+        }
+      },
+      "rat": {
+        "divs": [
+          21,
+          24,
+          28,
+          31,
+          35
+        ],
+        "late_b_negative_share": 0.431,
+        "median_late_b": 0.0132,
+        "n_recordings": 58,
+        "n_wells": 12,
+        "nb0_zero_share": 0.0,
+        "rho": {
+          "mfr0": {
+            "ci95": [
+              -0.6261,
+              -0.1303
+            ],
+            "n_recordings": 58,
+            "n_wells": 12,
+            "nonfinite": 0,
+            "point": -0.4107
+          },
+          "nb0": {
+            "ci95": [
+              -0.2808,
+              0.1961
+            ],
+            "n_recordings": 58,
+            "n_wells": 12,
+            "nonfinite": 0,
+            "point": -0.0642
+          },
+          "sync0": {
+            "ci95": [
+              -0.569,
+              -0.1272
+            ],
+            "n_recordings": 58,
+            "n_wells": 12,
+            "nonfinite": 0,
+            "point": -0.3698
+          }
+        },
+        "rho_mfr0_minus_nb0": {
+          "ci95": [
+            -0.6691,
+            -0.0954
+          ],
+          "n_recordings": 58,
+          "n_wells": 12,
+          "nonfinite": 0,
+          "point": -0.3465
+        },
+        "unscored": {
+          "late_b": 0,
+          "mfr0": 0,
+          "nb0": 0,
+          "sync0": 0
+        }
+      }
+    },
+    "replication_status": "scored",
+    "reported_not_tested": {
+      "sync0": {
+        "human": {
+          "ci95": [
+            -0.337,
+            -0.0096
+          ],
+          "n_recordings": 144,
+          "n_wells": 12,
+          "nonfinite": 0,
+          "point": -0.1656
+        },
+        "rat": {
+          "ci95": [
+            -0.569,
+            -0.1272
+          ],
+          "n_recordings": 58,
+          "n_wells": 12,
+          "nonfinite": 0,
+          "point": -0.3698
+        }
+      }
+    },
+    "resamples": 2000,
+    "results_file": "outputs/hpsc_network_state_REAL.json",
+    "seed": 20261028
+  },
   "hpsc_settling": {
     "assumption_check": {
       "linear": false,
@@ -14508,7 +14985,7 @@
       "registration_audit": "this audit's own output",
       "rhythm_audit": "re-reads the predictions of stages 1d-2e, counted under their own keys"
     },
-    "n_studies": 45,
+    "n_studies": 46,
     "studies": {
       "embodied_stage1": {
         "fail": 2,
@@ -14776,6 +15253,13 @@
         "total": 4,
         "uninterpretable": 0
       },
+      "hpsc_network_state": {
+        "fail": 2,
+        "other": 0,
+        "pass": 1,
+        "total": 3,
+        "uninterpretable": 0
+      },
       "hpsc_settling": {
         "fail": 0,
         "other": 0,
@@ -14827,43 +15311,45 @@
       }
     },
     "submission": {
-      "n_studies": 45,
+      "n_studies": 46,
       "total": {
-        "fail": 86,
+        "fail": 88,
         "other": 1,
-        "pass": 104,
-        "total": 229,
+        "pass": 105,
+        "total": 232,
         "uninterpretable": 38
       }
     },
     "total": {
-      "fail": 86,
+      "fail": 88,
       "other": 1,
-      "pass": 104,
-      "total": 229,
+      "pass": 105,
+      "total": 232,
       "uninterpretable": 38
     },
     "unrecognised": []
   },
   "registration_timestamps": {
     "n_outputs_checked": 40,
-    "n_registrations": 44,
+    "n_registrations": 45,
     "n_violations": 0,
     "not_covered": [
       "twin_depression_under_block.json",
       "twin_prior_classifier.json",
       "toxcast_noise_floors.json",
-      "twin_inference_recalibration.json"
+      "twin_inference_recalibration.json",
+      "hpsc_network_state.json"
     ],
     "submission": {
       "n_outputs_checked": 40,
-      "n_registrations": 44,
+      "n_registrations": 45,
       "n_violations": 0,
       "not_covered": [
         "twin_depression_under_block.json",
         "twin_prior_classifier.json",
         "toxcast_noise_floors.json",
-        "twin_inference_recalibration.json"
+        "twin_inference_recalibration.json",
+        "hpsc_network_state.json"
       ]
     }
   },

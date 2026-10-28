@@ -600,10 +600,15 @@ def plot(
     post = payload["primary_pool_post_hoc"] or {}
     fig, axes = plt.subplots(1, 4, figsize=(15, 4.2))
     panels = (
-        (replication, rep.get("human"), "human", "REGISTERED replication: human iPSC, 12-well"),
-        (replication, rep.get("rat"), "rat", "REGISTERED replication: rat, 12-well"),
-        (primary, post.get("human"), "human", "POST HOC: human iPSC, 48-well DIV29"),
-        (primary, post.get("rat"), "rat", "POST HOC: rat, 48-well DIV22"),
+        (
+            replication,
+            rep.get("human"),
+            "human",
+            "REGISTERED replication: human iPSC, 12-well, 100-s windows",
+        ),
+        (replication, rep.get("rat"), "rat", "REGISTERED replication: rat, 12-well, 100-s windows"),
+        (primary, post.get("human"), "human", "POST HOC: human iPSC, 48-well DIV29, 5-min windows"),
+        (primary, post.get("rat"), "rat", "POST HOC: rat, 48-well DIV22, 5-min windows"),
     )
     for ax, (rows, record, species, title) in zip(axes, panels, strict=True):
         _panel(ax, rows, record, species, title, by_plate=rows is replication)
