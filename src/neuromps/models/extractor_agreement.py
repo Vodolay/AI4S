@@ -22,12 +22,13 @@ from __future__ import annotations
 
 import logging
 import re
+from dataclasses import dataclass, field
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
 
-from neuromps.features.mea import extract_features
+from neuromps.features.mea import FeatureParams, extract_features
 from neuromps.parallel import worker_processes
 
 log = logging.getLogger("neuromps.models")
@@ -92,9 +93,72 @@ def read_meartools(output_dir: Path, prefix: str) -> pd.DataFrame:
     return pd.concat(rows, ignore_index=True) if rows else pd.DataFrame()
 
 
+NOISY_MODES = ("kept", "dropped_per_div", "dropped_all_divs")
+
+
+@dataclass(frozen=True)
+class Definition:
+    """One set of feature definitions to run over the deposit's spike files.
+
+    ``params`` go to the shared extractor unchanged. ``noisy`` says what happens to
+    the deposit's noisy-electrode list before extraction: ``kept`` (our default,
+    the ETL flags them and drops nothing), ``dropped_per_div`` (the list in that
+    recording's DIV column) or ``dropped_all_divs`` (any electrode listed on any
+    DIV of the plate, the alternative reading of the file).
+    """
+
+    name: str
+    params: FeatureParams = field(default_factory=FeatureParams)
+    noisy: str = "kept"
+
+    def __post_init__(self) -> None:
+        if self.noisy not in NOISY_MODES:
+            raise ValueError(f"noisy must be one of {NOISY_MODES}, got {self.noisy!r}")
+
+
+# The published agreement: our extractor exactly as the asset uses it.
+DEFAULT_DEFINITION = Definition("S0_ours")
+
+
+def noisy_lists(path: Path | None, div: int) -> dict[str, frozenset[str]]:
+    """The deposit's noisy electrodes for one DIV, and over all its DIVs.
+
+    The developmental files hold one column per DIV. A DIV with no column of its
+    own drops nothing rather than borrowing another DIV's list.
+    """
+    empty: dict[str, frozenset[str]] = {
+        "dropped_per_div": frozenset(),
+        "dropped_all_divs": frozenset(),
+    }
+    if path is None:
+        return empty
+    table = pd.read_csv(path, dtype=str)
+    table.columns = [str(c).strip() for c in table.columns]
+
+    def listed(columns: list[str]) -> frozenset[str]:
+        values = table[columns].stack().dropna() if columns else pd.Series(dtype=str)
+        return frozenset(v.strip() for v in values if v.strip())
+
+    column = f"DIV{div}"
+    return {
+        "dropped_per_div": listed([column]) if column in table.columns else frozenset(),
+        "dropped_all_divs": listed(list(table.columns)),
+    }
+
+
+def _channels_for(
+    channels: dict[str, np.ndarray], noisy: dict[str, frozenset[str]], definition: Definition
+) -> dict[str, np.ndarray]:
+    """The well's electrodes a definition keeps."""
+    if definition.noisy == "kept":
+        return channels
+    drop = noisy.get(definition.noisy, frozenset())
+    return {name: times for name, times in channels.items() if name not in drop}
+
+
 def _features_job(args) -> list[dict]:
-    """Our features for every well of one recording, in its own process."""
-    path, div = args
+    """Our features for every well of one recording, under each definition, in its own process."""
+    path, div, noisy, definitions = args
     from neuromps.etl.kapucu import _load_spikes
 
     try:
@@ -104,12 +168,34 @@ def _features_job(args) -> list[dict]:
         return []
     rows = []
     for well, channels in wells.items():
-        computed = extract_features(channels, duration_s)
-        for feature in MEARTOOLS_FILES:
-            value = computed.get(feature)
-            if value is not None and np.isfinite(value):
-                rows.append({"well": well, "div": div, "feature": feature, "ours": float(value)})
+        computed_for: dict[tuple, dict] = {}
+        for definition in definitions:
+            key = (definition.params, definition.noisy)
+            if key not in computed_for:
+                kept = _channels_for(channels, noisy, definition)
+                computed_for[key] = extract_features(kept, duration_s, definition.params)
+            computed = computed_for[key]
+            for feature in MEARTOOLS_FILES:
+                value = computed.get(feature)
+                if value is not None and np.isfinite(value):
+                    rows.append(
+                        {
+                            "well": well,
+                            "div": div,
+                            "feature": feature,
+                            "ours": float(value),
+                            "variant": definition.name,
+                        }
+                    )
     return rows
+
+
+def _definition_groups(definitions: tuple[Definition, ...]) -> list[tuple[Definition, ...]]:
+    """Definitions that compute the same thing travel together, so each runs once."""
+    groups: dict[tuple, list[Definition]] = {}
+    for definition in definitions:
+        groups.setdefault((definition.params, definition.noisy), []).append(definition)
+    return [tuple(group) for group in groups.values()]
 
 
 def our_features(
@@ -117,24 +203,44 @@ def our_features(
     prefix: str,
     processes: int | None = None,
     max_recordings: int | None = None,
+    definitions: tuple[Definition, ...] = (DEFAULT_DEFINITION,),
 ) -> pd.DataFrame:
-    """Run the shared extractor over one plate's recordings.
+    """Run the shared extractor over one plate's recordings, under each definition.
 
     ``max_recordings`` exists for the quick tier, which only has to reach every
-    branch; a path test does not need all twenty DIVs of a plate.
+    branch; a path test does not need all twenty DIVs of a plate. One job per
+    recording and group of identical definitions, so a ladder of definitions
+    spreads over the pool instead of lengthening each job.
     """
     import multiprocessing as mp
 
-    jobs = []
+    recordings = []
     for path in sorted(spikes_dir.glob(f"{prefix}_DIV*_spikes.csv")):
         match = re.search(r"_DIV(\d+)_spikes\.csv$", path.name)
         if match:
-            jobs.append((path, int(match.group(1))))
-    jobs = jobs[:max_recordings] if max_recordings else jobs
-    if not jobs:
+            recordings.append((path, int(match.group(1))))
+    recordings = recordings[:max_recordings] if max_recordings else recordings
+    if not recordings:
         return pd.DataFrame()
+    # Only a definition that drops noisy electrodes reads the list; the default never does.
+    noisy_path = (
+        next(iter(sorted(spikes_dir.glob("noisy_electrodes*.csv"))), None)
+        if any(d.noisy != "kept" for d in definitions)
+        else None
+    )
+    jobs = [
+        (path, div, noisy_lists(noisy_path, div), group)
+        for path, div in recordings
+        for group in _definition_groups(definitions)
+    ]
     processes = processes or worker_processes()
-    log.info("extracting %s: %d recordings on %d processes", prefix, len(jobs), processes)
+    log.info(
+        "extracting %s: %d recordings x %d definitions on %d processes",
+        prefix,
+        len(recordings),
+        len(definitions),
+        processes,
+    )
     with mp.Pool(processes) as pool:
         results = pool.map(_features_job, jobs, chunksize=1)
     return pd.DataFrame([row for batch in results for row in batch])
@@ -144,8 +250,14 @@ def paired_table(
     plates: tuple[str, ...] = PLATES,
     root: Path = DATA_ROOT,
     max_recordings: int | None = None,
+    definitions: tuple[Definition, ...] | None = None,
+    processes: int | None = None,
 ) -> pd.DataFrame:
-    """Our value beside theirs for every well, DIV and feature both computed."""
+    """Our value beside theirs for every well, DIV and feature both computed.
+
+    With ``definitions`` the table gains a ``variant`` column, one block of rows
+    per definition; without, it is the published agreement's table, unchanged.
+    """
     frames = []
     for plate in plates:
         plate_dir = root / plate
@@ -158,7 +270,15 @@ def paired_table(
         if prefix is None:
             log.warning("no spike files found for %s", plate)
             continue
-        ours = our_features(spikes_dir, prefix, max_recordings=max_recordings)
+        ours = our_features(
+            spikes_dir,
+            prefix,
+            processes=processes,
+            max_recordings=max_recordings,
+            definitions=definitions or (DEFAULT_DEFINITION,),
+        )
+        if definitions is None:
+            ours = ours.drop(columns="variant", errors="ignore")
         theirs = read_meartools(output_dir, prefix)
         if ours.empty or theirs.empty:
             continue
@@ -166,7 +286,8 @@ def paired_table(
         joined["plate"] = plate
         frames.append(joined)
     if not frames:
-        return pd.DataFrame(columns=["plate", "well", "div", "feature", "ours", "theirs"])
+        columns = ["plate", "well", "div", "feature", "ours", "theirs"]
+        return pd.DataFrame(columns=columns + (["variant"] if definitions else []))
     table = pd.concat(frames, ignore_index=True)
     return table[table["theirs"].notna() & np.isfinite(table["theirs"])]
 
@@ -320,6 +441,40 @@ def plot_agreement(table: pd.DataFrame, by_feature: dict, path: Path) -> Path:
     return path
 
 
+def default_rows(table: pd.DataFrame) -> pd.DataFrame:
+    """The published agreement's rows (S0) out of a table carrying several definitions."""
+    s0 = table[table["variant"] == DEFAULT_DEFINITION.name]
+    return s0.drop(columns="variant").reset_index(drop=True)
+
+
+def _previous_by_feature() -> dict | None:
+    """The agreement already in this run's metrics.json, before it is overwritten."""
+    import json
+
+    from neuromps.paths import metrics_path
+
+    path = metrics_path()
+    if not path.exists():
+        return None
+    return json.loads(path.read_text()).get("extractor_agreement", {}).get("by_feature")
+
+
+def agreement_record(table: pd.DataFrame, by_feature: dict) -> dict:
+    """The published agreement's metrics section, before its figure and ladder are added."""
+    return {
+        "label": "REAL recordings, our extractor against the depositors' meaRtools output",
+        "question": (
+            "does features/mea.py reproduce the numbers an independent implementation "
+            "computed from the same spike files"
+        ),
+        "n_plates": int(table["plate"].nunique()),
+        "n_recordings": int(table.groupby(["plate", "well", "div"]).ngroups),
+        "n_paired_values": int(len(table)),
+        "by_feature": by_feature,
+        **summarise(by_feature),
+    }
+
+
 def main(argv: list[str] | None = None) -> int:
     """CLI: measure the extractor against the depositors' own numbers."""
     import argparse
@@ -334,8 +489,17 @@ def main(argv: list[str] | None = None) -> int:
     args = p.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 
+    from neuromps.models import extractor_ladder
+
     plates = PLATES[:1] if args.quick else PLATES
-    table = paired_table(plates, max_recordings=4 if args.quick else None)
+    # One sweep computes the published agreement (S0) and the post hoc settings
+    # ladder together; the S0 rows are the agreement's table, row for row.
+    ladder_table = paired_table(
+        plates,
+        max_recordings=4 if args.quick else None,
+        definitions=extractor_ladder.ALL_DEFINITIONS,
+    )
+    table = default_rows(ladder_table)
     if table.empty:
         log.warning("no paired recordings found; is %s fetched?", DATA_ROOT)
         update_metrics(
@@ -343,20 +507,12 @@ def main(argv: list[str] | None = None) -> int:
         )
         return 0
     by_feature = agreement_by_feature(table, seed=args.seed)
-    result = {
-        "label": "REAL recordings, our extractor against the depositors' meaRtools output",
-        "question": (
-            "does features/mea.py reproduce the numbers an independent implementation "
-            "computed from the same spike files"
-        ),
-        "n_plates": int(table["plate"].nunique()),
-        "n_recordings": int(table.groupby(["plate", "well", "div"]).ngroups),
-        "n_paired_values": int(len(table)),
-        "by_feature": by_feature,
-        **summarise(by_feature),
-    }
+    result = agreement_record(table, by_feature)
     figure = plot_agreement(table, by_feature, figures_dir() / "extractor_agreement_real.png")
     result["figure"] = figure.name
+    result["settings_ladder"] = extractor_ladder.run(
+        ladder_table, by_feature, _previous_by_feature(), plates
+    )
     update_metrics("extractor_agreement", result)
     print(json.dumps({k: v for k, v in result.items() if k != "by_feature"}, indent=2))
     for feature, entry in sorted(by_feature.items()):
