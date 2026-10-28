@@ -1,7 +1,7 @@
 {
   "title": "Does a larger simulation budget and an ensemble bring all five twin parameters into calibration? (SIMULATED)",
   "registered": "2026-10-27",
-  "decision": "D31 (report/DECISION_LOG.md); change-log entry 44 (report/POST_SUBMISSION_CHANGES.md)",
+  "decision": "D31 (report/DECISION_LOG.md); change-log entry 45 (report/POST_SUBMISSION_CHANGES.md; numbered 44 at registration and renumbered at the lead's request, bookkeeping only)",
   "status": "registered before any new simulation was run and before any new estimator was trained",
   "origin": "the inverse-model slide withholds gabaa_scale and inter_in_degree because they fail the SBC rank-uniformity check (twin_hd14_inference); the question is whether that is a budget or an estimator limit, or neither",
   "seen_before_registration": [

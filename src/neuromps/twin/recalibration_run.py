@@ -32,7 +32,10 @@ log = logging.getLogger("neuromps.twin.recalibration")
 FAILED_BEFORE = ("gabaa_scale", "inter_in_degree")
 FIGURE_NAME = "hd14b_recalibration_simulated.png"
 REGISTRATION_COMMITS = {"registered": "0bc29aa", "amended": "176b36e"}
-QUICK = {"members": 2, "max_epochs": 3, "n_samples": 50, "n_eval": 10}
+# The quick tier trains to convergence too: on its few dozen simulations that takes
+# seconds, while a flow stopped after a few epochs accepts ~0.1% of its proposals and
+# rejection sampling from it outlasts the whole quick budget.
+QUICK = {"members": 2, "max_epochs": None, "n_samples": 50, "n_eval": 10}
 
 
 def models_dir() -> Path:
@@ -70,13 +73,23 @@ def training_pools() -> dict:
     }
 
 
+def pool_fingerprint(theta: np.ndarray, x: np.ndarray) -> str:
+    """Short hash of a training pool, so a saved model is reused only for the same data."""
+    import hashlib
+
+    payload = np.ascontiguousarray(theta, dtype=float).tobytes()
+    payload += np.ascontiguousarray(x, dtype=float).tobytes()
+    return hashlib.sha256(payload).hexdigest()[:12]
+
+
 def load_or_train(name: str, seeds, theta, x, max_epochs=None) -> list:
     """Members of one estimator, reloaded if this exact pool and seed were trained before."""
     import torch
 
     members = []
+    tag = f"{name}_n{len(theta)}_{pool_fingerprint(theta, x)}"
     for seed in seeds:
-        path = models_dir() / f"{name}_n{len(theta)}_seed{seed}_simulated.pt"
+        path = models_dir() / f"{tag}_seed{seed}_simulated.pt"
         if path.exists() and max_epochs is None:
             members.append(torch.load(path, weights_only=False))
             continue
