@@ -2553,7 +2553,9 @@ as calibrated.
 
 After round 1 (§16, decision D31) the first-round flow and the five-flow ensemble were judged on the
 same 1,000 <!-- metrics.json: twin_hd14b_recalibration.budget.held_out --> fresh held-out simulations. The ensemble's histograms are flatter and its coverage sits
-closer to the diagonal, but the U shape of over-confidence remains for four parameters.
+closer to the diagonal, but the U shape of over-confidence remains for four parameters. After the round the figure was redrawn, with its legend moved off
+the panels, from simulations regenerated with the registered seeds; every recorded calibration
+statistic of the study was reproduced exactly first (change log, entry 52).
 
 ![SIMULATED: the first-round flow (top) and the five-flow ensemble on 15,750 simulations (middle) on 1,000 fresh held-out simulations; grey is the band a calibrated model fills 99% of the time. Bottom: empirical against nominal coverage of central credible intervals for all four estimators.](../outputs/twin/hd14b_recalibration_simulated.png){width=100%}
 

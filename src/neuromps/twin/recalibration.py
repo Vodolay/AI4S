@@ -376,8 +376,18 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument(
         "--rescore", action="store_true", help="score the predictions again from the record"
     )
+    p.add_argument(
+        "--replot",
+        action="store_true",
+        help="redraw the figure from the recorded run's ranks, checking every recorded value; "
+        "never writes metrics.json",
+    )
     args = p.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+    if args.replot:
+        from neuromps.twin.recalibration_replot import replot
+
+        return replot(processes=min(args.processes, MAX_PROCESSES))
     if args.rescore:
         from neuromps.twin.recalibration_run import rescore
 

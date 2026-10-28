@@ -60,6 +60,7 @@ the bottom.*
 | 49 | 2026-10-28 | Settling or steady noise in the human iPSC split-half spread (D35) | 3 of 3 registered predictions pass; the registered linearity check fails for human wells; the human spread is mostly uneven settling, and five more minutes would not remove it | `e743c4c`, `bc6a56b` … this branch |
 | 50 | 2026-10-28 | Does early network bursting predict how an untreated human iPSC well settles? A registered replication on the developmental plates (D36) | 1 of 3 registered predictions pass; the post hoc 48-well relation does not replicate (N1 fails), so stratifying human wells by baseline network bursting is not supported | `f669016`, `d7ba7da` … this branch |
 | 51 | 2026-10-28 | Named definition sets: the asset's spike-time features under ours and the Kapucu 2022 depositors' stated definitions, in a sidecar table, with a translation table (D37) | none to earlier results (asset and metrics byte-identical); three features carry over as the same number, three by a plate-dependent factor, burst rate not at all | this branch |
+| 52 | 2026-10-28 | The recalibration figure (D31) redrawn: the coverage legend moved off the `threshold_scale` panel; its lost simulation cache regenerated with the registered seeds; a `--replot` path | none; every recorded calibration statistic reproduced exactly before the figure was redrawn | this branch |
 | 53 | 2026-10-28 | Is the twin's distance from the real recordings the prior's range? A registered wider prior (D38) | 2 of 3 registered predictions pass; widening the box where the posterior pointed barely moves the real recordings closer, so the gap is misspecification; the inverse model is not to be read on absolute real recordings | `3c2e43e`, `c3a7d3a`, `44f78f1` … this branch |
 
 ---
@@ -1454,6 +1455,41 @@ features are the same number under both, three differ by a factor that depends o
   `data/processed/features_by_definition.parquet`; `outputs/tables/feature_definitions.md`;
   `outputs/metrics.json` key `feature_definitions`; tests `tests/test_feature_definitions.py`,
   `tests/test_definition_sidecar.py`, `tests/test_feature_translation.py`.
+
+## 52. The recalibration figure, redrawn from regenerated simulations; no number changed
+
+**Slide message:** *The D31 figure's coverage legend no longer covers a panel. It was redrawn from
+simulations regenerated with the registered seeds, and only after every recorded calibration
+statistic of the study had been reproduced exactly.*
+
+- **What changed.** The coverage row's legend in
+  `outputs/twin/hd14b_recalibration_simulated.png` sat on the `threshold_scale` panel; it is now
+  one figure-level legend below the bottom row (same panels, same data, same title). The figure is
+  drawn from ranks that existed only in memory during the run, and the simulation chunks and
+  trained models behind them, git-ignored, had been deleted with a worktree. A new path,
+  `python -m neuromps.twin.recalibration --replot` (`src/neuromps/twin/recalibration_replot.py`),
+  simulates only what the record fixes: the registered held-out set (1,000
+  <!-- metrics.json: twin_hd14b_recalibration.budget.held_out -->) and exactly the 51
+  <!-- metrics.json: twin_hd14b_recalibration.budget.new_train_chunks_completed --> training
+  chunks the run completed, never one beyond. It retrains M1, M2 and M3 with their registered
+  seeds, draws the ranks with the registered evaluation seed, persists them
+  (`data/interim/recalibration/ranks_simulated.npz`, git-ignored) so a later redraw takes seconds,
+  and compares every value under `twin_hd14b_recalibration.results`, `near_real` and `budget` with
+  the record. The figure is drawn only if all of them are equal. The path reads
+  `outputs/metrics.json` and never writes it; the timing is not recomputed.
+- **One guard, relaxed narrowly.** HD14's simulation cache carries the summary-code fingerprint the
+  run was made under. Entries 47 and 48 added definition options, off by default, to the feature
+  extractor, which changes that fingerprint without changing a value. The redraw path accepts the
+  cache only if the six rows the study's post hoc check re-simulates come out identical under
+  today's code (they did, with a largest difference of zero); every other cache guard is unchanged.
+- **Effect.** None on any result. Every value checked (all of `results`, `near_real` and `budget`)
+  was reproduced exactly, so training and sampling are bit-reproducible here and no value needed a
+  tolerance; `outputs/metrics.json` is
+  byte-identical. Appendix G gains one sentence.
+- **Evidence.** `outputs/twin/hd14b_recalibration_simulated.png`; the check is printed by
+  `python -m neuromps.twin.recalibration --replot`; tests
+  `tests/test_twin_recalibration_replot.py` (the comparison, the ranks file, the cache rule, and a
+  legend that overlaps no panel).
 
 ---
 

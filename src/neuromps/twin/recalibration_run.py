@@ -51,9 +51,12 @@ def hd14_pool() -> tuple[np.ndarray, np.ndarray]:
     return cached["theta"][inside], cached["x"][inside]
 
 
-def training_pools() -> dict:
-    """HD14's own training set, and the registered pool: all of HD14's plus every new chunk."""
-    theta_old, x_old = hd14_pool()
+def training_pools(hd14: tuple[np.ndarray, np.ndarray] | None = None) -> dict:
+    """HD14's own training set, and the registered pool: all of HD14's plus every new chunk.
+
+    ``hd14`` is HD14's pool when the caller has already loaded and checked it.
+    """
+    theta_old, x_old = hd14 if hd14 is not None else hd14_pool()
     new = rc.load_set(rc.TRAIN)
     n_train_old = len(theta_old) - holdout_size(len(theta_old))
     return {
@@ -113,12 +116,16 @@ def summarize(ranks: np.ndarray, widths: np.ndarray, index, n_samples: int) -> d
     }
 
 
-def evaluate(posterior, held: dict, near_index, n_samples: int) -> tuple[dict, np.ndarray]:
-    """One estimator on H300, H1000 and the near-real subset, all from one sampling pass."""
+def sample_ranks(posterior, held: dict, n_samples: int) -> tuple[np.ndarray, np.ndarray]:
+    """Per held-out simulation: SBC ranks and posterior widths, from the registered seed."""
     import torch
 
     torch.manual_seed(rc.EVALUATION_SEED)
-    ranks, widths = rc.ranks_and_widths(posterior, held["theta"], held["x"], n_samples)
+    return rc.ranks_and_widths(posterior, held["theta"], held["x"], n_samples)
+
+
+def summarize_subsets(ranks: np.ndarray, widths: np.ndarray, near_index, n_samples: int) -> dict:
+    """H300, H1000 and the near-real subset, summarised from the same ranks."""
     primary = np.arange(min(rc.PRIMARY_N, len(ranks)))
     out = {
         "H300": summarize(ranks, widths, primary, n_samples),
@@ -126,7 +133,13 @@ def evaluate(posterior, held: dict, near_index, n_samples: int) -> tuple[dict, n
     }
     if near_index is not None and len(near_index):
         out["near_real"] = summarize(ranks, widths, near_index, n_samples)
-    return out, ranks
+    return out
+
+
+def evaluate(posterior, held: dict, near_index, n_samples: int) -> tuple[dict, np.ndarray]:
+    """One estimator on H300, H1000 and the near-real subset, all from one sampling pass."""
+    ranks, widths = sample_ranks(posterior, held, n_samples)
+    return summarize_subsets(ranks, widths, near_index, n_samples), ranks
 
 
 def real_recordings() -> np.ndarray:
@@ -306,11 +319,30 @@ def _coverage_row(axes, results: dict) -> None:
         ax.set_xlabel("nominal", fontsize=6.5)
         ax.tick_params(labelsize=6)
     axes[0].set_ylabel("empirical coverage", fontsize=6.5)
-    axes[-1].legend(fontsize=5, loc="lower right", frameon=False)
 
 
-def plot_calibration(ranks: dict, results: dict, n_samples: int, n_pool: int, path) -> None:
-    """HD14 against the ensemble on the same fresh held-out simulations."""
+def _legend_below(fig, axes) -> None:
+    """The coverage row's legend, once for the figure, under the bottom row.
+
+    Inside a panel it covered threshold_scale's lines; below the axes it covers
+    nothing. Placed after the layout is fixed, then kept by ``bbox_inches="tight"``.
+    """
+    handles, labels = axes[0].get_legend_handles_labels()
+    to_figure = fig.transFigure.inverted()
+    bottom = min(ax.get_tightbbox().transformed(to_figure).y0 for ax in axes)
+    fig.legend(
+        handles,
+        labels,
+        loc="upper center",
+        bbox_to_anchor=(0.5, bottom - 0.01),
+        ncol=len(labels),
+        fontsize=6,
+        frameon=False,
+    )
+
+
+def calibration_figure(ranks: dict, results: dict, n_samples: int, n_pool: int):
+    """HD14 against the ensemble on the same fresh held-out simulations (the figure object)."""
     import matplotlib
 
     matplotlib.use("Agg")
@@ -329,6 +361,15 @@ def plot_calibration(ranks: dict, results: dict, n_samples: int, n_pool: int, pa
         fontsize=7.5,
     )
     fig.tight_layout()
+    _legend_below(fig, axes[2])
+    return fig
+
+
+def plot_calibration(ranks: dict, results: dict, n_samples: int, n_pool: int, path) -> None:
+    """Draw `calibration_figure` to ``path``."""
+    import matplotlib.pyplot as plt
+
+    fig = calibration_figure(ranks, results, n_samples, n_pool)
     fig.savefig(path, dpi=300, bbox_inches="tight")
     plt.close(fig)
 
