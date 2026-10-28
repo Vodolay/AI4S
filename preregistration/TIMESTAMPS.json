@@ -1,6 +1,6 @@
 {
   "note": "Internal timestamps from this repository's history; not third-party verified.",
-  "root": "af0f2b246750b750828e26f4992f6222e661b4e0665d5d286e7d329f78b49129",
+  "root": "44944bb56432b349d97b73bc062799cca00948520a0f1cf2d6f5b13f757b651a",
   "registrations": [
     {
       "file": "fly_chip_to_animal.json",
@@ -302,6 +302,13 @@
       "commit": "44eb52242631a3b2524381c9a5249f6d2d6c9a9f",
       "committed_at": "2026-10-28T07:27:53-04:00",
       "chain": "af0f2b246750b750828e26f4992f6222e661b4e0665d5d286e7d329f78b49129"
+    },
+    {
+      "file": "hpsc_settling.json",
+      "sha256": "f7e8d6334502da238c216f70fe7333230643b7fac3df4a8352b9bf0445886264",
+      "commit": "e743c4cf223726c7eeb1c2467aa8f9d3fec1420c",
+      "committed_at": "2026-10-28T10:08:26-04:00",
+      "chain": "44944bb56432b349d97b73bc062799cca00948520a0f1cf2d6f5b13f757b651a"
     }
   ],
   "registered_before_results": [
