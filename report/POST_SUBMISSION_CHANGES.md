@@ -51,6 +51,7 @@ the bottom.*
 | 40 | 2026-10-25 | Embodied stage 4e: the walking readout as a fraction of rhythmic draws | 2 of 4; GABA-A and GluCl block break walking first again; the acetylcholine exception depends on the readout and is withdrawn | `180476f` … this branch |
 | 41 | 2026-10-25 | One command reproduces every fly number again; the paper draft moves to a private repository | every recorded value reproduced; documents only | this branch |
 | 42 | 2026-10-26 | Real ToxCast vehicle wells: noise floors, wells needed, and the twin against unseen positive controls | new real-data results, both registered; twin 12 of 12 directions, no better than a firing-rate rule | `cf90872` … this branch |
+| 43 | 2026-10-27 | The registration audit and hash chain, in this repository | every registered prediction counted; no result file precedes its registration; corrected 2026-10-28 to count two studies it had missed | `d183585` … this branch |
 | 44 | 2026-10-28 | The twin's knob dose-response against real concentration-response curves | 2 of 4 registered predictions pass; the mechanism label matters, the curve shape does not clear the line | `f3e1fb9` … this branch |
 
 ---
@@ -976,6 +977,41 @@ halving; judged against a historical reference, no number of wells from one day 
 
 ---
 
+## 43. The registrations audited and hash-chained in this repository
+
+**Slide message:** *Every registered prediction is counted by a script, and every result file is
+checked against the commit that registered it, here, in the public repository.*
+
+- **What changed.** Two report tools come over from the manuscript repository, where they were
+  first written: `neuromps.report.audit` counts the outcome of every registered prediction in
+  `outputs/metrics.json` (now run at the end of every `run_all`), and
+  `neuromps.report.timestamps` writes `preregistration/TIMESTAMPS.json` (each registration's
+  checksum and first commit, a hash chain over them, and whether each result file came after its
+  registration) and its counts to `metrics.json`. Report §21 describes both.
+- **Why.** The final-round deck quoted registration counts and a hash chain that existed only in
+  the private manuscript repository, so a reader of this repository could not check them.
+- **Effect.**
+  - 42 <!-- metrics.json: registration_audit.n_studies --> registered studies here made
+    216 <!-- metrics.json: registration_audit.total.total --> predictions:
+    97 <!-- metrics.json: registration_audit.total.pass --> passed,
+    80 <!-- metrics.json: registration_audit.total.fail --> failed,
+    38 <!-- metrics.json: registration_audit.total.uninterpretable --> were uninterpretable.
+  - 38 <!-- metrics.json: registration_timestamps.n_outputs_checked --> result files name their
+    registration, and 0 <!-- metrics.json: registration_timestamps.n_violations --> of them came
+    before it; 3 <!-- metrics.json: registration_timestamps.not_covered --> registrations are not
+    covered because their results do not name them.
+  - No earlier result changes.
+- **Correction (2026-10-28).** As first merged, the audit counted 40 studies and 208
+  predictions. It counted only predictions that carry an `outcome` word, and two studies record a
+  pass flag instead: the twin against the ToxCast positive controls (entry 42) and the dose
+  response (entry 44). Both now record an outcome as well (pass, fail, or uninterpretable when a
+  registered minimum is not met; no verdict changes), and the audit now names any study it cannot
+  read (`registration_audit.unrecognised`, empty) and leaves out, by name, the rhythm audit, which
+  re-reads predictions already counted under their own stages (`registration_audit.excluded`).
+  The counts above include both studies.
+
+---
+
 ## 44. The dose response: what the twin's knobs get right, and where the test broke
 
 **Slide message:** *Asked to reproduce the shape of real concentration-response curves, the twin
@@ -1044,28 +1080,3 @@ no biological basis, and organoid–monolayer differences have many confounds, s
 prove nothing. The embodied fly is not dropped but scheduled: it adds new information only with
 the loop closed (nerve cord to muscles, body, sensory feedback), which is a research project
 for after the final; reading the motor neurons (entry 10) is its first step.
-
-## 43. The registrations audited and hash-chained in this repository
-
-**Slide message:** *Every registered prediction is counted by a script, and every result file is
-checked against the commit that registered it, here, in the public repository.*
-
-- **What changed.** Two report tools come over from the manuscript repository, where they were
-  first written: `neuromps.report.audit` counts the outcome of every registered prediction in
-  `outputs/metrics.json` (now run at the end of every `run_all`), and
-  `neuromps.report.timestamps` writes `preregistration/TIMESTAMPS.json` (each registration's
-  checksum and first commit, a hash chain over them, and whether each result file came after its
-  registration) and its counts to `metrics.json`. Report §21 describes both.
-- **Why.** The final-round deck quoted registration counts and a hash chain that existed only in
-  the private manuscript repository, so a reader of this repository could not check them.
-- **Effect.**
-  - 40 <!-- metrics.json: registration_audit.n_studies --> registered studies here made
-    208 <!-- metrics.json: registration_audit.total.total --> predictions:
-    91 <!-- metrics.json: registration_audit.total.pass --> passed,
-    78 <!-- metrics.json: registration_audit.total.fail --> failed,
-    38 <!-- metrics.json: registration_audit.total.uninterpretable --> were uninterpretable.
-  - 37 <!-- metrics.json: registration_timestamps.n_outputs_checked --> result files name their
-    registration, and 0 <!-- metrics.json: registration_timestamps.n_violations --> of them came
-    before it; 3 <!-- metrics.json: registration_timestamps.not_covered --> registrations are not
-    covered because their results do not name them.
-  - No earlier result changes.

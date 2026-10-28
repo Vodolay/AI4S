@@ -12018,7 +12018,11 @@
     }
   },
   "registration_audit": {
-    "n_studies": 40,
+    "excluded": {
+      "registration_audit": "this audit's own output",
+      "rhythm_audit": "re-reads the predictions of stages 1d-2e, counted under their own keys"
+    },
+    "n_studies": 42,
     "studies": {
       "embodied_stage1": {
         "fail": 2,
@@ -12299,19 +12303,34 @@
         "pass": 1,
         "total": 3,
         "uninterpretable": 0
+      },
+      "twin_toxcast_dose_response": {
+        "fail": 2,
+        "other": 0,
+        "pass": 2,
+        "total": 4,
+        "uninterpretable": 0
+      },
+      "twin_toxcast_positive_controls": {
+        "fail": 0,
+        "other": 0,
+        "pass": 4,
+        "total": 4,
+        "uninterpretable": 0
       }
     },
     "total": {
-      "fail": 78,
+      "fail": 80,
       "other": 1,
-      "pass": 91,
-      "total": 208,
+      "pass": 97,
+      "total": 216,
       "uninterpretable": 38
-    }
+    },
+    "unrecognised": []
   },
   "registration_timestamps": {
-    "n_outputs_checked": 37,
-    "n_registrations": 40,
+    "n_outputs_checked": 38,
+    "n_registrations": 41,
     "n_violations": 0,
     "not_covered": [
       "twin_depression_under_block.json",
@@ -31913,23 +31932,27 @@
     "predictions": {
       "P1_shape": {
         "hit_rate": 0.3846,
+        "outcome": "fail",
         "pairs": 26,
         "pass": false
       },
       "P2_beats_follow_firing_rate": {
         "margin": -0.1791,
         "null_mean_spearman": 0.5189,
+        "outcome": "fail",
         "pass": false
       },
       "P3_beats_shuffled_mechanism": {
         "margin": 0.4717,
         "null_mean_spearman": -0.1319,
+        "outcome": "pass",
         "pass": true
       },
       "P4_first_mover": {
         "agreeing": 8,
         "compounds": 11,
         "descriptive_only": false,
+        "outcome": "pass",
         "pass": true,
         "rate": 0.7273
       }
@@ -32255,20 +32278,24 @@
     "predictions": {
       "P1_bicuculline": {
         "agreeing": 4,
+        "outcome": "pass",
         "pass": true,
         "scored": 4
       },
       "P2_picrotoxin": {
         "agreeing": 4,
+        "outcome": "pass",
         "pass": true,
         "scored": 4
       },
       "P3_tetrodotoxin": {
         "agreeing": 4,
+        "outcome": "pass",
         "pass": true,
         "scored": 4
       },
       "P4_firing_rate": {
+        "outcome": "pass",
         "pass": true,
         "scored": {
           "Bicuculline": true,
