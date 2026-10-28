@@ -100,6 +100,7 @@ def main(argv: list[str] | None = None) -> int:
             from neuromps.models.cross_lab import main as run_cross_lab
             from neuromps.models.dose_response import main as run_dose_response
             from neuromps.models.extractor_agreement import main as run_extractor_agreement
+            from neuromps.models.hpsc_settling import main as run_settling
             from neuromps.models.hpsc_split_half import main as run_split_half
             from neuromps.models.mechanism import main as run_models
             from neuromps.models.microchannels import main as run_microchannels
@@ -135,6 +136,9 @@ def main(argv: list[str] | None = None) -> int:
             # The same question for human iPSC wells: split-half noise against rat, one lab.
             # A quick run takes the two 48-well baselines only (the quick data tier).
             run_split_half(quick)
+            # D35: is that human spread settling or steady noise? Same two plates, D32's
+            # usable wells (read from its results file just written); a few seconds.
+            run_settling(quick)
         elif stage == "twin":
             from neuromps.models.twin_toxcast_check import main as run_toxcast_check
             from neuromps.models.twin_toxcast_dose_response import main as run_toxcast_doses
