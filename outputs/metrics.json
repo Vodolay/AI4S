@@ -12950,7 +12950,7 @@
   },
   "registration_timestamps": {
     "n_outputs_checked": 39,
-    "n_registrations": 42,
+    "n_registrations": 43,
     "n_violations": 0,
     "not_covered": [
       "twin_depression_under_block.json",
@@ -12960,7 +12960,7 @@
     ],
     "submission": {
       "n_outputs_checked": 39,
-      "n_registrations": 42,
+      "n_registrations": 43,
       "n_violations": 0,
       "not_covered": [
         "twin_depression_under_block.json",

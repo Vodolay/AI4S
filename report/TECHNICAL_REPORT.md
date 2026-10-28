@@ -1047,7 +1047,7 @@ which re-reads predictions already counted under their own stages.
 `neuromps.report.timestamps` writes `preregistration/TIMESTAMPS.json`: each registration's
 checksum and the commit that first added it, a hash chain over them in commit order, and, for
 every result file that names its registration, whether the registration's commit came first. Of
-42 <!-- metrics.json: registration_timestamps.submission.n_registrations --> registrations,
+43 <!-- metrics.json: registration_timestamps.submission.n_registrations --> registrations,
 39 <!-- metrics.json: registration_timestamps.submission.n_outputs_checked --> result files were checked and
 0 <!-- metrics.json: registration_timestamps.submission.n_violations --> came before their registration. The
 check cannot see the
