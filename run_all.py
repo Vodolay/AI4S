@@ -133,6 +133,7 @@ def main(argv: list[str] | None = None) -> int:
             run_noise_floors(quick)
         elif stage == "twin":
             from neuromps.models.twin_toxcast_check import main as run_toxcast_check
+            from neuromps.models.twin_toxcast_dose_response import main as run_toxcast_doses
             from neuromps.report.diagrams import main as draw_model_diagrams
             from neuromps.twin.calibrate import main as calibrate_twin
             from neuromps.twin.delta_inference import main as run_delta_inference
@@ -153,6 +154,9 @@ def main(argv: list[str] | None = None) -> int:
             # The same knobs against a laboratory the twin has never seen; reuses the
             # committed predictions, and skips itself without the ToxCast well table.
             run_toxcast_check(quick)
+            # The same knobs over a dose grid, against the screen's concentration-response
+            # wells; also reuses committed predictions, and skips itself without the table.
+            run_toxcast_doses(quick)
             run_inference(quick)
             # D31: the registered recalibration of that posterior. Quick is a token
             # run on the quick cache; full reuses the recorded simulation chunks and
@@ -188,6 +192,10 @@ def main(argv: list[str] | None = None) -> int:
         # timeout writes no summary, and then the log is all there is to explain
         # where the time went.
         logging.info("stage %r finished in %.1f s", stage, timings[stage])
+    # Count every registered prediction's outcome, now that the stages have written them.
+    from neuromps.report.audit import main as run_audit
+
+    run_audit([])
     elapsed = round(time.time() - t0, 1)
     logging.info("run_all finished in %.1f s; results in %s", elapsed, outputs_dir())
     _record_timings(timings, elapsed, quick=args.quick, stages=stages)

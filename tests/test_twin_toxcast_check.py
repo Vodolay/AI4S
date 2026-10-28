@@ -85,6 +85,12 @@ def test_registered_predictions_pass_and_fail():
     assert got["P2_picrotoxin"]["pass"] is False  # only 2 scored
     assert got["P3_tetrodotoxin"]["pass"] is True
     assert got["P4_firing_rate"]["pass"] is False  # picrotoxin's firing rate disagrees
+    assert {k: v["outcome"] for k, v in got.items()} == {
+        "P1_bicuculline": "pass",
+        "P2_picrotoxin": "uninterpretable",  # under the three-cell floor
+        "P3_tetrodotoxin": "pass",
+        "P4_firing_rate": "fail",
+    }
 
 
 def test_follow_firing_rate_scores_established_features_against_the_rate_direction():

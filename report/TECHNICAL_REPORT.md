@@ -109,7 +109,17 @@ pushed. It has four parts, and after the first round we added two more.
   screen's own positive controls, from a laboratory the twin never saw, the twin's knobs agree
   on 12 <!-- metrics.json: twin_toxcast_positive_controls.total.agreeing --> of 12
   <!-- metrics.json: twin_toxcast_positive_controls.total.scored --> scored directions, though a
-  rule that simply follows firing rate does as well (§33).
+  rule that simply follows firing rate does as well (§33). Put to the harder test — does the
+  knob grid reproduce the *shape* of real concentration-response curves? —
+  2 <!-- metrics.json: twin_toxcast_dose_response.headline.predictions_passing --> of
+  4 <!-- metrics.json: twin_toxcast_dose_response.headline.predictions_total --> registered
+  predictions pass: the twin beats a wrong-mechanism knob by
+  0.47 <!-- metrics.json: twin_toxcast_dose_response.predictions.P3_beats_shuffled_mechanism.margin -->
+  in rank correlation and names the first-moving readout for
+  8 <!-- metrics.json: twin_toxcast_dose_response.predictions.P4_first_mover.agreeing --> of
+  11 <!-- metrics.json: twin_toxcast_dose_response.predictions.P4_first_mover.compounds -->
+  compounds, but fewer than half its curves clear the registered line and the firing-rate rule
+  is again ahead (§35).
 
 ---
 
@@ -1016,12 +1026,35 @@ To reproduce everything from a clean machine, run these steps in a terminal:
 | 4. quick run | `.venv/bin/python run_all.py --quick` | every stage end to end on the reduced data tier |
 | 5. full run | `.venv/bin/python run_all.py` | the full data tier, 3,000 <!-- metrics.json: twin_hd14_inference.n_simulations --> forward simulations, every figure |
 | 6. check the numbers | `.venv/bin/python -m neuromps.report.verify` | re-reads every citation in this report and fails on any disagreement |
-| 7. open the demo | `.venv/bin/streamlit run app/app.py` | interactive mechanism prediction, twin sweeps and record browser |
+| 7. check the registrations | `.venv/bin/python -m neuromps.report.timestamps` | hash-chains every registration and checks that each was committed before its results (needs the full git history, not a shallow clone) |
+| 8. open the demo | `.venv/bin/streamlit run app/app.py` | interactive mechanism prediction, twin sweeps and record browser |
 
 Use the environment's own `python` and `streamlit`, as shown. We ran these steps on a fresh clone,
 and every cited number reproduced exactly except ten that depend on the machine: the timings, and
 the counts and intervals from posterior sampling that stops at a time limit (§16). Provenance is
 guarded throughout: `data/raw/MANIFEST.json` records every source's URL, license and checksum.
+
+The registrations are checked the same way. Every study that registered its predictions in
+`preregistration/` records each prediction's outcome, and `neuromps.report.audit` (run at the end
+of every `run_all`) counts them: 43 <!-- metrics.json: registration_audit.submission.n_studies --> studies made
+223 <!-- metrics.json: registration_audit.submission.total.total --> registered predictions, of which
+99 <!-- metrics.json: registration_audit.submission.total.pass --> passed,
+85 <!-- metrics.json: registration_audit.submission.total.fail --> failed and
+38 <!-- metrics.json: registration_audit.submission.total.uninterpretable --> were uninterpretable.
+The audit names any study whose predictions carry no outcome, so that none is left out
+unnoticed (none is now; `registration_audit.unrecognised`), and it leaves out the rhythm audit,
+which re-reads predictions already counted under their own stages.
+`neuromps.report.timestamps` writes `preregistration/TIMESTAMPS.json`: each registration's
+checksum and the commit that first added it, a hash chain over them in commit order, and, for
+every result file that names its registration, whether the registration's commit came first. Of
+41 <!-- metrics.json: registration_timestamps.submission.n_registrations --> registrations,
+38 <!-- metrics.json: registration_timestamps.submission.n_outputs_checked --> result files were checked and
+0 <!-- metrics.json: registration_timestamps.submission.n_violations --> came before their registration. The
+check cannot see the
+3 <!-- metrics.json: registration_timestamps.submission.not_covered --> registrations whose results do not
+name them (the twin's depression test, its prior classifier and the ToxCast noise floors), and it
+rests on this repository's own history, not on a third-party timestamp. The two manuscripts in
+preparation register their studies the same way in a separate, private repository.
 
 ## 22. AI assistance disclosure
 
@@ -1418,9 +1451,10 @@ The stages run with `python run_all.py --stage embodied` (or one at a time throu
 
 *Added after the first-round deadline (`report/POST_SUBMISSION_CHANGES.md`, entry 42). Unlike
 Acts VII and VIII, the measurements in this act are **real**: well-level recordings from the
-EPA's acute MEA screen. The twin's side of §33 is simulated and labelled so. Both analyses were
-registered before any response statistic was computed
-(`preregistration/toxcast_noise_floors.json`, `preregistration/twin_toxcast_positive_controls.json`).
+EPA's acute MEA screen. The twin's side of §33 and §35 is simulated and labelled so. All three
+analyses were registered before any response statistic was computed
+(`preregistration/toxcast_noise_floors.json`, `preregistration/twin_toxcast_positive_controls.json`,
+`preregistration/twin_toxcast_dose_response.json`).
 This is research decision support about measurement design; nothing here is a claim about any
 compound's effect.*
 
@@ -1630,8 +1664,113 @@ a date for each.
 preparation and one platform; another lab's will differ and should be measured the same way.
 Seven of the fifteen readouts rest on recovered well assignments (§32); the checks that support
 them are exact, but they test dates and concentrations, not a well's position on its plate. The
-positive controls are single, saturating concentrations, so §33 tests directions at the extremes,
-not the twin's dose response.
+positive controls are single, saturating concentrations, so §33 tests directions at the extremes;
+§35 puts the dose response itself to the test.
+
+## 35. The dose response: the twin's knob grid against real concentration-response curves
+
+§33 left the obvious question open. The screen's positive controls are run at one saturating
+concentration, so they say nothing about whether the twin's knobs move the readouts *in the
+order* a rising concentration does. The screen also runs about five hundred compounds over
+seven concentrations each, and for some of them the primary target is one of the twin's four
+knobs.
+
+Registered first (decision D30,
+`preregistration/twin_toxcast_dose_response.json`
+<!-- metrics.json: twin_toxcast_dose_response.registration.file -->, committed before the twin
+ran): the
+compound list with one class label each, the knob grids, the rank rule matching a concentration
+to a knob level, the rule for which bins count as moving, an exclusion rule for the screen's own
+viability readout, and the predictions with their thresholds. Firing rate was declared already
+seen — an earlier private analysis had looked at it — and is reported here, never tested. The
+twin's curves (12 simulated chips, four knobs, seven levels each, every recording paired with
+its own chip untreated and run through the same `features/mea.py` path) were committed before a
+single treated well was read. Concentrations
+are matched to knob levels by rank, because the two axes share no unit and every registered score
+is unchanged by a monotone map between them.
+
+![Left: Spearman correlation between the SIMULATED twin's matched curve and the REAL ToxCast curve, one bar per compound and readout, with the registered hit line and the two nulls' means. Right: the best-scoring pair, REAL wells (circles, median against same-date vehicle wells) against the SIMULATED twin's rank-matched knob curve (squares).](../outputs/figures/twin_toxcast_dose_response.png){width=100%}
+
+**Two of the four registered predictions pass**
+(2 <!-- metrics.json: twin_toxcast_dose_response.headline.predictions_passing --> of
+4 <!-- metrics.json: twin_toxcast_dose_response.headline.predictions_total -->), over
+13 <!-- metrics.json: twin_toxcast_dose_response.headline.compounds_scored --> compounds and
+26 <!-- metrics.json: twin_toxcast_dose_response.headline.pairs_scored --> scored
+compound-readout pairs.
+
+- **P1 (shape) fails.** Only
+  10 <!-- metrics.json: twin_toxcast_dose_response.twin.hits --> of
+  26 <!-- metrics.json: twin_toxcast_dose_response.twin.pairs --> pairs reach the registered
+  correlation of 0.6, a hit rate of
+  0.38 <!-- metrics.json: twin_toxcast_dose_response.twin.hit_rate --> against the 0.5 the
+  registration required, at a mean Spearman of
+  0.34 <!-- metrics.json: twin_toxcast_dose_response.twin.mean_spearman -->.
+- **P2 (beat the follow-firing-rate rule) fails**, as in §33. Predicting every readout's curve
+  from the compound's own real firing-rate curve scores
+  0.52 <!-- metrics.json: twin_toxcast_dose_response.nulls.follow_firing_rate.mean_spearman -->,
+  so the twin is behind by
+  −0.18 <!-- metrics.json: twin_toxcast_dose_response.predictions.P2_beats_follow_firing_rate.margin -->.
+- **P3 (the mechanism label matters) passes, and not narrowly.** Scored under a knob the
+  compound is not labelled with, the same curves give
+  −0.13 <!-- metrics.json: twin_toxcast_dose_response.nulls.shuffled_mechanism.mean_spearman -->
+  over 64 <!-- metrics.json: twin_toxcast_dose_response.nulls.shuffled_mechanism.pairs -->
+  combinations, so the labelled knob leads by
+  0.47 <!-- metrics.json: twin_toxcast_dose_response.predictions.P3_beats_shuffled_mechanism.margin -->.
+  Whatever the twin's curves carry, it is specific to the mechanism, not a shape any knob would
+  produce.
+- **P4 (which readout moves first) passes.** The twin names the first-moving readout for
+  8 <!-- metrics.json: twin_toxcast_dose_response.predictions.P4_first_mover.agreeing --> of
+  11 <!-- metrics.json: twin_toxcast_dose_response.predictions.P4_first_mover.compounds -->
+  compounds where both sides make a call, a rate of
+  0.73 <!-- metrics.json: twin_toxcast_dose_response.predictions.P4_first_mover.rate -->; in
+  almost every case that readout is spikes per burst, which the vehicle wells of §32 also showed
+  to be among the quietest.
+- **Firing rate (seen, so reported only).** At each compound's highest retained concentration the
+  twin's sign agrees with the real one for
+  9 <!-- metrics.json: twin_toxcast_dose_response.firing_rate_sign.agreeing --> of
+  13 <!-- metrics.json: twin_toxcast_dose_response.firing_rate_sign.compounds --> compounds.
+  Three of the four that differ are GABA-A antagonists whose real firing rate collapses at the
+  top concentration where the twin's disinhibition knob raises it; the fourth is the one
+  barbiturate, where the real change is small and the twin's knob is weak.
+
+**The assumption this rests on, and the check.** The rank match assumes the screen's
+concentration range covers a comparable span of each mechanism to the knob grid. Rescoring with
+the grid's two strongest levels removed changes little
+(0.31 <!-- metrics.json: twin_toxcast_dose_response.sensitivity_truncated_grid.twin.mean_spearman --> against
+0.34 <!-- metrics.json: twin_toxcast_dose_response.twin.mean_spearman -->), so the result does
+not hinge on where the grid ends.
+
+**Where the registered test broke, found after the fact.** The registered exclusion rule — drop
+every concentration from the first one at which the plates' own viability readout falls below
+its vehicle noise floor — excluded nothing anywhere. In a forty-minute acute exposure that
+readout barely moves, and for two compounds some bins pooled more wells than any single
+exposure date's vehicle set can supply, so the rule had no power to judge them at all
+(`viability_untestable_bins`
+<!-- metrics.json: twin_toxcast_dose_response.viability_untestable_bins -->). The top
+concentration therefore stayed in every curve. **Post hoc**, dropping each compound's highest
+concentration lifts the twin to
+0.65 <!-- metrics.json: twin_toxcast_dose_response.posthoc_without_top_bin.dropping_top_bin.twin.mean_spearman -->
+mean Spearman and
+17 <!-- metrics.json: twin_toxcast_dose_response.posthoc_without_top_bin.dropping_top_bin.twin.hits -->
+of 22 <!-- metrics.json: twin_toxcast_dose_response.posthoc_without_top_bin.dropping_top_bin.twin.pairs -->
+pairs above the hit line, ahead of the firing-rate rule
+(0.45 <!-- metrics.json: twin_toxcast_dose_response.posthoc_without_top_bin.dropping_top_bin.nulls.follow_firing_rate.mean_spearman -->).
+Dropping any one bin would do that only if the curves were noise, so we checked: dropping the
+lowest concentration instead gives
+0.22 <!-- metrics.json: twin_toxcast_dose_response.posthoc_without_top_bin.dropping_bottom_bin.twin.mean_spearman -->
+and a middle one
+0.32 <!-- metrics.json: twin_toxcast_dose_response.posthoc_without_top_bin.dropping_middle_bin.twin.mean_spearman -->,
+both at or below the registered score. The failure is specific to the highest concentration,
+which is exactly where this screen cannot tell a mechanism apart from a general loss of
+activity. None of this changes the registered verdict: **P1 and P2 fail as registered.**
+
+**What this section does not show.** The twin's sodium and AMPA knobs are not dose-responsive at
+the grid used here: both abolish activity at their weakest level, so for them the match is a step,
+not a curve, and the one sodium-channel compound contributes no scored pair. A compound's wells
+are pooled across exposure dates while the null draws within one date, which makes the moving-bin
+rule slightly permissive for the few compounds run on more than one date. And the class labels
+are the compounds' established primary targets, not measurements made here; a compound that acts
+on something else as well will not match its knob however good the twin is.
 
 ---
 

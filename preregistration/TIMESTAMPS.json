@@ -1,0 +1,524 @@
+{
+  "note": "Internal timestamps from this repository's history; not third-party verified.",
+  "root": "7c68c20043f44c9674d78255327dc137b9537af1709b107df9fce83db056a19b",
+  "registrations": [
+    {
+      "file": "fly_chip_to_animal.json",
+      "sha256": "6b70053be3cc188e967643006f17d1aaded2890018ccde2dd717e5f43d91bc03",
+      "commit": "c83eb14d20f18ce1ebd923bdd061256880a5330d",
+      "committed_at": "2026-10-22T22:23:00-04:00",
+      "chain": "b38bc19ad4b0b02aac37daaaebba10d865671e972bc4aa959606b8b4b90ceffd"
+    },
+    {
+      "file": "fly_malecns_replication.json",
+      "sha256": "617cd7dd3595fe7d9dd58ebbdd19d441e1ebb7869eb2d004362da2b660f2629b",
+      "commit": "886ddde74dcc8d056c46636162200b6c29638e0e",
+      "committed_at": "2026-10-22T22:32:39-04:00",
+      "chain": "aea0abfcbf41391c0c6dc3af9867fdb671cb20ea79bf428cf1130294e78e340a"
+    },
+    {
+      "file": "fly_confirm_network_bursts.json",
+      "sha256": "e3de7aa605a106caa9dd3a0a2e044bd33b75d1a715357b17fc52190fb6c75307",
+      "commit": "f6511fc95faf52e5b6fa0c960acfd23e5b52f515",
+      "committed_at": "2026-10-22T23:15:07-04:00",
+      "chain": "c27f513119b6026708056b93507e531a2435cc8322106855c8cbe03ecd201fa8"
+    },
+    {
+      "file": "twin_depression_under_block.json",
+      "sha256": "350e278b579fedf2088ed36680ad18386f513c127348813456dfb35709e40917",
+      "commit": "3071ab49bf7f65b195358bb2bdc89c7d31e588ed",
+      "committed_at": "2026-10-24T08:14:03-04:00",
+      "chain": "0aaecc73f249213de74ef5c133181a05efe6ac5e6225aa27850fde190c6866e5"
+    },
+    {
+      "file": "fly_output_tract_electrode.json",
+      "sha256": "c29014d096c13fdd93a878cc66825c3487b74622e18522c1ba605dc2ba5ef1d0",
+      "commit": "cd074b3f2d0e866fb47487225b2ddba9d40f44fe",
+      "committed_at": "2026-10-24T08:17:25-04:00",
+      "chain": "01ff51a43e507dd17e2e67d71b7935b83946598c4098e5bbda67b2bc0606c102"
+    },
+    {
+      "file": "twin_prior_classifier.json",
+      "sha256": "a414882d81ff65214b1f94e297ed94e26f7ccad2156433ee8de3dcca9f78da5f",
+      "commit": "761068e7f3610ae5a07dbb8358e73fbb20cad74b",
+      "committed_at": "2026-10-24T08:19:42-04:00",
+      "chain": "dcc446f302f5e17fb9a165093fd3959de27bee3ec82c0e4606544139adaf8f77"
+    },
+    {
+      "file": "fly_motor_readout.json",
+      "sha256": "a42eb892bdcc5a9089c9960209b8ac0ce03a255d50290886795c63f86ffdf152",
+      "commit": "a1c5f277009843bc344815abdf05838684cdcd3b",
+      "committed_at": "2026-10-24T10:00:53-04:00",
+      "chain": "5639ae8a855075493e89091ec4d693f25547d32926affd7b835214a55f53d5e2"
+    },
+    {
+      "file": "fly_motor_tie_break.json",
+      "sha256": "99b26f3dc525d3af2c0203cadba8d87b43f1b938be0e2799d9bef80de9f07129",
+      "commit": "69db4e6db590ee71e051487ebe4bdb44f3eb424b",
+      "committed_at": "2026-10-24T10:24:37-04:00",
+      "chain": "b106c5cdcac56865f3f13afe3cb35f6a245dbe2db38ba441a5168c43deba6635"
+    },
+    {
+      "file": "embodied_stage1_open_loop_leg.json",
+      "sha256": "17983ff6493bb453ef66b967381e041ebe83fc91d85bb32aa3c97507314f951a",
+      "commit": "cbdd6d6b2144b03d87019946330153fa811af2a1",
+      "committed_at": "2026-10-24T11:05:16-04:00",
+      "chain": "5c36e8d1c46bd95d0e8aa4392e1716e462b5b0d8561241a54dc648548231ea8f"
+    },
+    {
+      "file": "embodied_stage1b_rescaled_weight.json",
+      "sha256": "631b11051e7d5f44a5adfc5436c8f542f734539ff822a2386265af014b66341a",
+      "commit": "48d0975177ee05f50da32632242c1bd9ab23818f",
+      "committed_at": "2026-10-24T11:09:23-04:00",
+      "chain": "928ae3c2afc91002532a202cd3adad86233a11acd6404cd4e939b0a51c16c1a2"
+    },
+    {
+      "file": "embodied_stage1c_nerve_cord_from_descending_neurons.json",
+      "sha256": "73aff020fa778fda565c29922b0c1585cc6449cb05211f9626eefe71231d55eb",
+      "commit": "739f6f0d667d3aa2d94f1769690afc54c6a104ff",
+      "committed_at": "2026-10-24T11:16:53-04:00",
+      "chain": "9ac0f7f2b00d27b5155e5d0efefef0a6586c351519adae215c77879e4152a05a"
+    },
+    {
+      "file": "embodied_stage1d_reach_versus_swing.json",
+      "sha256": "b124a987d6e40277196253ae3168bcd6b68aa42b2384bef4e511d0e218cbfc53",
+      "commit": "66502eb103ecf9f7fe936f1e39ddf0e4eda12238",
+      "committed_at": "2026-10-24T12:14:04-04:00",
+      "chain": "02f49a86e459ddd40cd2c650446d7d921ea6d441bda8f1de483158432284041d"
+    },
+    {
+      "file": "embodied_stage1e_flywire_brain_to_male_nerve_cord.json",
+      "sha256": "6c3041d1dffed2864ab8d1ec35d30ed99bd349361e820e8a440c9442087d9b46",
+      "commit": "f2f5ad37120cbca7bc4001bc8717278d75c6c7cd",
+      "committed_at": "2026-10-24T12:45:09-04:00",
+      "chain": "a1c5c291cdc1d0cc5e1ec51c29411b2fd3591773c8556324cfa39e5f8d555d96"
+    },
+    {
+      "file": "embodied_stage1f_relay_depth_of_reach.json",
+      "sha256": "219086482476b8d7b18abcfa1dac0bf5f14f94ffc4ba960bb4dc014c6e9e9d9b",
+      "commit": "c8a0fbb227da8452e459cd00b9af0913f8f8b5fa",
+      "committed_at": "2026-10-24T12:49:07-04:00",
+      "chain": "f9e06fc36b2566248c23032206125bcb52b008aa326fe40c114128d73e46c186"
+    },
+    {
+      "file": "embodied_stage2a_fictive_walking.json",
+      "sha256": "c5558a0b8380dc48f31e98294062ec5c367a08b3a4e012d4fecd9de72f858b84",
+      "commit": "91c5b9e52309eeb7a806d8e25289d0fddab37aae",
+      "committed_at": "2026-10-24T13:03:00-04:00",
+      "chain": "f423e7ae79b96af86d38cca6cd92a85d21040ecbdfdcde3184253233715b3ae2"
+    },
+    {
+      "file": "embodied_stage2b_proboscis_extension.json",
+      "sha256": "931fd3427cd19f8cd5823421bd1c197fa1782b53861aed6e79603b8e87ab2c4b",
+      "commit": "76f90e8bd5a98586e0aa9db959b97f99005ccbd1",
+      "committed_at": "2026-10-24T13:16:21-04:00",
+      "chain": "d8e5f9499dbfcbef8ea3b9c57338cc2ab75c95e87529a6bdec4d0d692a7f03f4"
+    },
+    {
+      "file": "embodied_stage2c_adaptation_sweep.json",
+      "sha256": "80a02ec73f57ad3bb96683db6ee432ea74dc26606973a7b23c6e34bbc072ddbc",
+      "commit": "c4c29a1eb7402112de30c03d0a182b7554867224",
+      "committed_at": "2026-10-24T15:10:33-04:00",
+      "chain": "c7c87e1ee85f68b580ca31ae510c15d2e56ddd3364a4c6242d199b41c264bb91"
+    },
+    {
+      "file": "embodied_stage2d_glutamate_sign.json",
+      "sha256": "0f5d1fabf278eee211ab439d3e0bd07df0d6c61edc5c60a94036277e700aabac",
+      "commit": "edbf611cb98c34e8f1d1adc3e7277928598e8edd",
+      "committed_at": "2026-10-24T15:23:49-04:00",
+      "chain": "b1fb05200a621acec841c8966bd6a33c5a0c4c3c08f5b3b000847ccfb13cd827"
+    },
+    {
+      "file": "embodied_stage2e_rate_model_walking.json",
+      "sha256": "e08fe8755127246d40c28af0b7c215495fcd3c75cf2f34131e0189620a78fbc9",
+      "commit": "21df803f52429e76a9ccd95053065ff6c04f8f7e",
+      "committed_at": "2026-10-24T15:40:28-04:00",
+      "chain": "5c873c35396fa5503b88f17b1a9c0ac3a6b631b143e2b06cfdd4cc7ab2a100aa"
+    },
+    {
+      "file": "rhythm_measure_audit.json",
+      "sha256": "0046e06c39edf595a82c569899b9f79d644afcc95c98a2c56b22df6803c0bf11",
+      "commit": "76611c0f112ef706d62a904770d22726463aca4a",
+      "committed_at": "2026-10-24T16:40:25-04:00",
+      "chain": "670b8158a2bb15ce5d70a45221932279f8916110ba68049dc231f6925df5f6c0"
+    },
+    {
+      "file": "embodied_stage2f_rate_model_driven.json",
+      "sha256": "9f405ce98036473009e7e4de67988b7c7666ae43ac1ab3ba40e135a38ea7966b",
+      "commit": "7e36cfb21d9406b72e4931dbd09ae71332c5bcb6",
+      "committed_at": "2026-10-24T17:58:42-04:00",
+      "chain": "60cb44e4ac6239613adb93e0649c38a8f828b6f528a7ac2ffef6573c75937089"
+    },
+    {
+      "file": "embodied_stage2g_front_leg_network.json",
+      "sha256": "d29247036ec1b3a3ed9da3956923b8a481fbf8cb3b48b16ef38392404b8204cc",
+      "commit": "00cefa1d7e577623ceeca0672fd96a8a842e61d5",
+      "committed_at": "2026-10-24T18:27:28-04:00",
+      "chain": "e33053801e407f09982f2193a4f85020b71baa019ce4b6b950a22e254a4b466b"
+    },
+    {
+      "file": "embodied_stage2h_front_leg_bisection.json",
+      "sha256": "258d949f2c20667730cf46de950fe37f1af71658f58b4096a80f6f373f42696f",
+      "commit": "c6d787450b97a7e9775d8569fd7dfb37b4c55272",
+      "committed_at": "2026-10-24T18:49:08-04:00",
+      "chain": "0b291927e5aa263068273670818cfe1f71e6eac1e0f92d464187355c427aaa40"
+    },
+    {
+      "file": "embodied_stage3a_claw_feedback.json",
+      "sha256": "e1a3c43cc77c24a0c4ebd0da6c10488b781fb591d3147d8bbb813d2ca6e26040",
+      "commit": "5cdeba96f00249603222e9504c912fa83b188df9",
+      "committed_at": "2026-10-24T19:16:18-04:00",
+      "chain": "518499f8f6ecd1cebe18052c8cd27a344911082c6f8a02ace3a4d7eb91a60816"
+    },
+    {
+      "file": "embodied_stage3b_perturbation_reflex.json",
+      "sha256": "8d68f86dc1daa55a84f3f3546095add65c499f4e62c59dca3940dd44d0ae9f58",
+      "commit": "cd0a7112febd135ca130f4eaa030c1c3eeba300f",
+      "committed_at": "2026-10-24T19:24:47-04:00",
+      "chain": "2719fbb4834d46ec0380bf93436d151661bf6e8c47a66994f91e671189689a98"
+    },
+    {
+      "file": "embodied_stage4a_drugs_and_movement.json",
+      "sha256": "ba27f3575f7a03bfc786c93cdcf7a241f9f02cf85c00199c733df20fa404dbf2",
+      "commit": "b1a49df7989977bf8dd4668363e9db4ad5175b66",
+      "committed_at": "2026-10-24T19:38:28-04:00",
+      "chain": "bd3e15f23ddcf2d6aaa254c7ab1341bf7dac6bb6b7ac36e5496886c0ee6444b5"
+    },
+    {
+      "file": "embodied_stage5_real_fly_directions.json",
+      "sha256": "31165c28a72c4a17fd663212ceb73523868a3750d2bf395c85ae8fae861980cc",
+      "commit": "1723e0cd01bb1731e1d2bfb1c35de900f1a17056",
+      "committed_at": "2026-10-24T20:00:21-04:00",
+      "chain": "ed4e19011429eeeedb4baeca23c74a43dba2de35022679cfb8c68bee8088b3f3"
+    },
+    {
+      "file": "embodied_stage2d_confirm_corrected.json",
+      "sha256": "b512bf3e5b5cf09709c758076fdb22cd6b30a3b260ac5e462ce436a04c7590f6",
+      "commit": "8495b5764755d3cf3cd2a0970e3e1d444ae89316",
+      "committed_at": "2026-10-24T22:53:28-04:00",
+      "chain": "38e41b1a7f740b297f142f480654d0d8da29e6894064febc381698adc1240f7b"
+    },
+    {
+      "file": "embodied_stage5b_identified_neurons.json",
+      "sha256": "66763388db0727c391cc52371a9f4cc82792e6a72c6d8ca8d88128d8f6eb8f01",
+      "commit": "c20fa08c6f75572319fdf2eb448559b6553c20dd",
+      "committed_at": "2026-10-24T23:31:06-04:00",
+      "chain": "049be21c322fe77103dee7e34f5b26a5b00837f9d8b49305881517c1dd9e97ec"
+    },
+    {
+      "file": "embodied_stage5c_identified_neurons_joints.json",
+      "sha256": "bd248377a05cc67d82a8be4bd05d0a5084787a85ea8cca1d99b8d61951236876",
+      "commit": "04a238734151ad4dd4b4fc9278abd0d681752fb4",
+      "committed_at": "2026-10-24T23:40:05-04:00",
+      "chain": "acc5bed340b9d0cf2f3dd42d3d2173ef664c93277ee7a0813bc1d404bca6efbb"
+    },
+    {
+      "file": "embodied_stage3c_hind_leg_reflex.json",
+      "sha256": "1413d50bcd2ac87af372286784e3fb6bc228267d28f8734af8fb7db6d96a6418",
+      "commit": "22b082efd3891a7f3675bdf44d1a1d1fc3a64547",
+      "committed_at": "2026-10-24T23:55:51-04:00",
+      "chain": "1e1016a770527269cea9d181a7ea3d54bc0d15ff3944a15777c2fe4b31ba1b6e"
+    },
+    {
+      "file": "embodied_stage3d_hind_leg_contingency.json",
+      "sha256": "82725efc4dec2df47cbf41f52d60304cd6e9ff270f93d0303420a5fab489551b",
+      "commit": "8ea194a47acceaa0b5dbeaaa197196ede34ec309",
+      "committed_at": "2026-10-25T00:00:11-04:00",
+      "chain": "dadc26925feb83d5694157ae81e5d7ec391db889e1973d2ffa9f1884e11c710e"
+    },
+    {
+      "file": "embodied_stage4b_movement_replication.json",
+      "sha256": "7973474d87d24c9a55eaf1a5656adf512452b27376a5d0f1d99b2fbe38af5e1a",
+      "commit": "b23f6a38c32934cb6e3aad449181ff6fb0961f55",
+      "committed_at": "2026-10-25T00:12:52-04:00",
+      "chain": "fad58ea331612ee012e348acb20b6b5be2cf43164b5ef6c492c79929b6e5d6f0"
+    },
+    {
+      "file": "embodied_stage4c_fine_dose_grid.json",
+      "sha256": "23c1bf73213d1b9a273388086ebfac4dfe83741c132954d7555855c66ceaa5b5",
+      "commit": "f387845321b2ce9fd304be133a50a8f83ea18939",
+      "committed_at": "2026-10-25T00:43:42-04:00",
+      "chain": "f81bca6ac462129efa5b1baa76940f20700689f796c8f647c1704dc4099731f2"
+    },
+    {
+      "file": "embodied_stage2i_volume_size_rule.json",
+      "sha256": "0b2b15cdf7b59261b37e4367af658673c7d4e966de5806abd6a3d33c785acb02",
+      "commit": "d03ee279248c941df4c8e4ef2c414aa5736983b5",
+      "committed_at": "2026-10-25T07:41:25-04:00",
+      "chain": "ba553e83a1357d86e1e9fbf68c53907d8a3062d9759b8c0d3233b3d292c0a520"
+    },
+    {
+      "file": "embodied_stage2j_volume_specificity.json",
+      "sha256": "88560e28c270c81b94126f97a86090b7caab8f11d7e529c2cc04934690667806",
+      "commit": "1d1d64496d002588790bb13ac82f78214f53ff11",
+      "committed_at": "2026-10-25T07:53:56-04:00",
+      "chain": "7b6e119fced1b62acb13c9dfaf6ad9aa69b11f53f213b63b88bffa58fa982597"
+    },
+    {
+      "file": "embodied_stage4d_walking_readout.json",
+      "sha256": "ed0a56546ff4c665dcf48f5d63aaa5e10fd901428adc88882ae77a64a563483a",
+      "commit": "73ffde61ac7081c1b82a6d42492c73375cfc6da5",
+      "committed_at": "2026-10-25T08:42:46-04:00",
+      "chain": "5ed9b243c766e6cc112d094642e80576f089fbc22f1818102faaf0a557f07dca"
+    },
+    {
+      "file": "embodied_stage4e_walking_fraction.json",
+      "sha256": "b7fdb1482188d1e8ac84cd989c148b68631d008e7de1e97f53e4288dfc6c9708",
+      "commit": "180476f329aafa66a43a1297cd85325c8cf97dee",
+      "committed_at": "2026-10-25T09:11:01-04:00",
+      "chain": "bd94ad2552f6e1308b8e871793a01f18d3bc00573365fa06dbf53ee6b2dafe30"
+    },
+    {
+      "file": "toxcast_noise_floors.json",
+      "sha256": "235704a053d0021a2fe10ceb4e1d2e4db94fe80d5c6da633cd41e35ccf05f04c",
+      "commit": "4ae5b0c214880bfca557a00fb70c874dcae94d34",
+      "committed_at": "2026-10-26T15:01:46-04:00",
+      "chain": "f3283219c0c30b8458430d2c274a99d23d121ac3c6edf913010a464d2a5b9a92"
+    },
+    {
+      "file": "twin_toxcast_positive_controls.json",
+      "sha256": "86b3176a8fbf3d2a8585b6603bd5c4a27cab8550dfa16ce781253045ebe8d68d",
+      "commit": "4ae5b0c214880bfca557a00fb70c874dcae94d34",
+      "committed_at": "2026-10-26T15:01:46-04:00",
+      "chain": "c7dc89c868fa8781624b62179a2dfb04239e04d41fad98e43808bb83cb3688ee"
+    },
+    {
+      "file": "twin_toxcast_dose_response.json",
+      "sha256": "b399d65ea98068bdb74a5b49ec2776e02cddd5ecc44c184f605278b0fd072158",
+      "commit": "f3e1fb9b6de551a4e934c14e34432d25179693cd",
+      "committed_at": "2026-10-27T22:13:21-04:00",
+      "chain": "7c68c20043f44c9674d78255327dc137b9537af1709b107df9fce83db056a19b"
+    }
+  ],
+  "registered_before_results": [
+    {
+      "output": "outputs/fly/chip_to_animal_SIMULATED.json",
+      "registration": "fly_chip_to_animal.json",
+      "same_commit": false,
+      "registered_first": true
+    },
+    {
+      "output": "outputs/fly/confirm_network_bursts_SIMULATED.json",
+      "registration": "fly_confirm_network_bursts.json",
+      "same_commit": false,
+      "registered_first": true
+    },
+    {
+      "output": "outputs/fly/embodied_stage1_SIMULATED.json",
+      "registration": "embodied_stage1_open_loop_leg.json",
+      "same_commit": false,
+      "registered_first": true
+    },
+    {
+      "output": "outputs/fly/embodied_stage1b_SIMULATED.json",
+      "registration": "embodied_stage1b_rescaled_weight.json",
+      "same_commit": false,
+      "registered_first": true
+    },
+    {
+      "output": "outputs/fly/embodied_stage1c_SIMULATED.json",
+      "registration": "embodied_stage1c_nerve_cord_from_descending_neurons.json",
+      "same_commit": false,
+      "registered_first": true
+    },
+    {
+      "output": "outputs/fly/embodied_stage1d_SIMULATED.json",
+      "registration": "embodied_stage1d_reach_versus_swing.json",
+      "same_commit": false,
+      "registered_first": true
+    },
+    {
+      "output": "outputs/fly/embodied_stage1e_SIMULATED.json",
+      "registration": "embodied_stage1e_flywire_brain_to_male_nerve_cord.json",
+      "same_commit": false,
+      "registered_first": true
+    },
+    {
+      "output": "outputs/fly/embodied_stage1f_SIMULATED.json",
+      "registration": "embodied_stage1f_relay_depth_of_reach.json",
+      "same_commit": false,
+      "registered_first": true
+    },
+    {
+      "output": "outputs/fly/embodied_stage2a_SIMULATED.json",
+      "registration": "embodied_stage2a_fictive_walking.json",
+      "same_commit": false,
+      "registered_first": true
+    },
+    {
+      "output": "outputs/fly/embodied_stage2b_SIMULATED.json",
+      "registration": "embodied_stage2b_proboscis_extension.json",
+      "same_commit": false,
+      "registered_first": true
+    },
+    {
+      "output": "outputs/fly/embodied_stage2c_SIMULATED.json",
+      "registration": "embodied_stage2c_adaptation_sweep.json",
+      "same_commit": false,
+      "registered_first": true
+    },
+    {
+      "output": "outputs/fly/embodied_stage2d_SIMULATED.json",
+      "registration": "embodied_stage2d_glutamate_sign.json",
+      "same_commit": false,
+      "registered_first": true
+    },
+    {
+      "output": "outputs/fly/embodied_stage2d_confirm_SIMULATED.json",
+      "registration": "embodied_stage2d_confirm_corrected.json",
+      "same_commit": false,
+      "registered_first": true
+    },
+    {
+      "output": "outputs/fly/embodied_stage2e_SIMULATED.json",
+      "registration": "embodied_stage2e_rate_model_walking.json",
+      "same_commit": false,
+      "registered_first": true
+    },
+    {
+      "output": "outputs/fly/embodied_stage2f_SIMULATED.json",
+      "registration": "embodied_stage2f_rate_model_driven.json",
+      "same_commit": false,
+      "registered_first": true
+    },
+    {
+      "output": "outputs/fly/embodied_stage2g_SIMULATED.json",
+      "registration": "embodied_stage2g_front_leg_network.json",
+      "same_commit": false,
+      "registered_first": true
+    },
+    {
+      "output": "outputs/fly/embodied_stage2h_SIMULATED.json",
+      "registration": "embodied_stage2h_front_leg_bisection.json",
+      "same_commit": false,
+      "registered_first": true
+    },
+    {
+      "output": "outputs/fly/embodied_stage2i_SIMULATED.json",
+      "registration": "embodied_stage2i_volume_size_rule.json",
+      "same_commit": false,
+      "registered_first": true
+    },
+    {
+      "output": "outputs/fly/embodied_stage2j_SIMULATED.json",
+      "registration": "embodied_stage2j_volume_specificity.json",
+      "same_commit": false,
+      "registered_first": true
+    },
+    {
+      "output": "outputs/fly/embodied_stage3a_SIMULATED.json",
+      "registration": "embodied_stage3a_claw_feedback.json",
+      "same_commit": false,
+      "registered_first": true
+    },
+    {
+      "output": "outputs/fly/embodied_stage3b_SIMULATED.json",
+      "registration": "embodied_stage3b_perturbation_reflex.json",
+      "same_commit": false,
+      "registered_first": true
+    },
+    {
+      "output": "outputs/fly/embodied_stage3c_SIMULATED.json",
+      "registration": "embodied_stage3c_hind_leg_reflex.json",
+      "same_commit": false,
+      "registered_first": true
+    },
+    {
+      "output": "outputs/fly/embodied_stage3d_SIMULATED.json",
+      "registration": "embodied_stage3d_hind_leg_contingency.json",
+      "same_commit": false,
+      "registered_first": true
+    },
+    {
+      "output": "outputs/fly/embodied_stage4a_SIMULATED.json",
+      "registration": "embodied_stage4a_drugs_and_movement.json",
+      "same_commit": false,
+      "registered_first": true
+    },
+    {
+      "output": "outputs/fly/embodied_stage4b_SIMULATED.json",
+      "registration": "embodied_stage4b_movement_replication.json",
+      "same_commit": false,
+      "registered_first": true
+    },
+    {
+      "output": "outputs/fly/embodied_stage4c_SIMULATED.json",
+      "registration": "embodied_stage4c_fine_dose_grid.json",
+      "same_commit": false,
+      "registered_first": true
+    },
+    {
+      "output": "outputs/fly/embodied_stage4d_SIMULATED.json",
+      "registration": "embodied_stage4d_walking_readout.json",
+      "same_commit": false,
+      "registered_first": true
+    },
+    {
+      "output": "outputs/fly/embodied_stage4e_SIMULATED.json",
+      "registration": "embodied_stage4e_walking_fraction.json",
+      "same_commit": false,
+      "registered_first": true
+    },
+    {
+      "output": "outputs/fly/embodied_stage5_SIMULATED.json",
+      "registration": "embodied_stage5_real_fly_directions.json",
+      "same_commit": false,
+      "registered_first": true
+    },
+    {
+      "output": "outputs/fly/embodied_stage5b_SIMULATED.json",
+      "registration": "embodied_stage5b_identified_neurons.json",
+      "same_commit": false,
+      "registered_first": true
+    },
+    {
+      "output": "outputs/fly/embodied_stage5c_SIMULATED.json",
+      "registration": "embodied_stage5c_identified_neurons_joints.json",
+      "same_commit": false,
+      "registered_first": true
+    },
+    {
+      "output": "outputs/fly/malecns_motor_SIMULATED.json",
+      "registration": "fly_motor_readout.json",
+      "same_commit": false,
+      "registered_first": true
+    },
+    {
+      "output": "outputs/fly/malecns_motor_tie_break_SIMULATED.json",
+      "registration": "fly_motor_tie_break.json",
+      "same_commit": false,
+      "registered_first": true
+    },
+    {
+      "output": "outputs/fly/malecns_replication_SIMULATED.json",
+      "registration": "fly_malecns_replication.json",
+      "same_commit": false,
+      "registered_first": true
+    },
+    {
+      "output": "outputs/fly/rhythm_audit_SIMULATED.json",
+      "registration": "rhythm_measure_audit.json",
+      "same_commit": false,
+      "registered_first": true
+    },
+    {
+      "output": "outputs/fly/tract_electrode_SIMULATED.json",
+      "registration": "fly_output_tract_electrode.json",
+      "same_commit": false,
+      "registered_first": true
+    },
+    {
+      "output": "outputs/twin/toxcast_dose_response_predictions_simulated.json",
+      "registration": "twin_toxcast_dose_response.json",
+      "same_commit": false,
+      "registered_first": true
+    },
+    {
+      "output": "outputs/twin/toxcast_positive_controls_predictions_simulated.json",
+      "registration": "twin_toxcast_positive_controls.json",
+      "same_commit": false,
+      "registered_first": true
+    }
+  ],
+  "violations": []
+}

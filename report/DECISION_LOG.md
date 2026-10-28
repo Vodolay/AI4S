@@ -291,6 +291,33 @@ it with its own command or `python -m neuromps.fly.pipeline --only <step>`.
   physical-plate assignment of a recovered well rests on the run order alone.
 - **Revisit at:** `data/interim/toxcast_mea/recovery_checks.json`.
 
+### D30. Testing the twin's dose response against real concentration-response wells
+- **Found:** §33 showed the twin's knobs get the direction of the EPA acute screen's three
+  positive controls right, but each is run at one saturating concentration, so §34 recorded the
+  open question: nothing there tests the twin's dose response. The screen also runs about 500
+  compounds over seven concentrations each, with a viability readout on the same plates.
+- **Options:** leave the dose response untested (the deck's closing slide already lists it as a
+  next step); match knob levels to concentrations by potency (needs an IC50 per compound and per
+  platform, which §14/HD8 showed does not transfer); match by rank and score only what a rank
+  match can carry.
+- **Taken:** the rank match, registered in `preregistration/twin_toxcast_dose_response.json`
+  before any treated-well value was computed, with the compound list and one class label per
+  compound fixed in the registration from published primary-target annotation. Scores are a
+  Spearman rank correlation of the twin's matched curve against the real one per compound and
+  readout, which readout moves first, and two nulls the twin must beat: the compound's own real
+  firing-rate curve (the §33 follow-firing-rate rule, extended to curves) and the twin's curve
+  under a knob the compound is not labelled with. **Why:** the knob scales and the concentration
+  axis share no unit, and every registered score is invariant to a monotone map between them, so
+  a rank match supplies exactly what the scores can use.
+- **Registered before looking:** firing rate counts as already seen (a private analysis looked at
+  it) and is excluded from the shape tests; bins are retained only up to the first that the
+  screen's own viability readout flags, so that a collapse at the top concentration cannot be
+  read as pharmacology; a compound needs four retained bins to be scored.
+- **Assumption recorded:** the rank match assumes the screen's concentration range covers a
+  comparable span of the mechanism to the knob grid. Checked by rescoring with the grid's two
+  strongest levels dropped (`sensitivity_truncated_grid`).
+- **Revisit at:** `outputs/metrics.json` key `twin_toxcast_dose_response`, report §35.
+
 ### D31. Recalibrating the twin's inverse model: more simulations, then an ensemble
 - **Found:** the inverse model (one masked autoregressive flow, 2,700 training simulations,
   `twin_hd14_inference`) fails the rank-uniformity check for `gabaa_scale` and

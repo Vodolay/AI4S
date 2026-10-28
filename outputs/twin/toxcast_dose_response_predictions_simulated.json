@@ -1,0 +1,5006 @@
+{
+  "label": "SIMULATED: the calibrated twin's paired changes over each knob's level grid",
+  "registration": {
+    "file": "preregistration/twin_toxcast_dose_response.json",
+    "sha256": "b399d65ea98068bdb74a5b49ec2776e02cddd5ecc44c184f605278b0fd072158",
+    "registered_in_commit": "f3e1fb9b6de551a4e934c14e34432d25179693cd",
+    "committed_at": "2026-10-27T22:13:21-04:00"
+  },
+  "knob_grids": {
+    "gabaa_block": {
+      "parameter": "gabaa_scale",
+      "levels": [
+        0.9,
+        0.8,
+        0.65,
+        0.5,
+        0.35,
+        0.2,
+        0.1
+      ]
+    },
+    "gabaa_potentiate": {
+      "parameter": "gabaa_scale",
+      "levels": [
+        1.1,
+        1.25,
+        1.5,
+        1.8,
+        2.2,
+        2.6,
+        3.0
+      ]
+    },
+    "sodium_block": {
+      "parameter": "threshold_scale",
+      "levels": [
+        1.05,
+        1.1,
+        1.2,
+        1.3,
+        1.4,
+        1.6,
+        1.8
+      ]
+    },
+    "ampa_block": {
+      "parameter": "ampa_scale",
+      "levels": [
+        0.9,
+        0.8,
+        0.7,
+        0.6,
+        0.5,
+        0.4,
+        0.3
+      ]
+    }
+  },
+  "build_seeds": [
+    9201,
+    9202,
+    9203,
+    9204,
+    9205,
+    9206,
+    9207,
+    9208,
+    9209,
+    9210,
+    9211,
+    9212
+  ],
+  "duration_s": 40.0,
+  "per_chip": [
+    {
+      "knob": "gabaa_block",
+      "level": 0,
+      "value": 0.9,
+      "build_seed": 9201,
+      "mfr_hz": -0.0947614652,
+      "burst_rate_per_min": -0.2186008422,
+      "burst_duration_s": -0.0794875414,
+      "spikes_per_burst": 0.0863291445,
+      "pct_spikes_in_bursts": -0.0375431131,
+      "synchrony_index": -0.0291714153
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 0,
+      "value": 0.9,
+      "build_seed": 9202,
+      "mfr_hz": 0.0328106507,
+      "burst_rate_per_min": 0.0068946131,
+      "burst_duration_s": -0.102279661,
+      "spikes_per_burst": 0.0358053293,
+      "pct_spikes_in_bursts": 0.0093995974,
+      "synchrony_index": 0.0095681519
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 0,
+      "value": 0.9,
+      "build_seed": 9203,
+      "mfr_hz": 0.1949482554,
+      "burst_rate_per_min": 0.1832870232,
+      "burst_duration_s": -0.018001123,
+      "spikes_per_burst": 0.1047387016,
+      "pct_spikes_in_bursts": 0.0930686298,
+      "synchrony_index": 0.0862364326
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 0,
+      "value": 0.9,
+      "build_seed": 9204,
+      "mfr_hz": 0.0003883781,
+      "burst_rate_per_min": -0.084219045,
+      "burst_duration_s": 0.1403969674,
+      "spikes_per_burst": 0.0936495584,
+      "pct_spikes_in_bursts": 0.0093669771,
+      "synchrony_index": 0.0041945684
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 0,
+      "value": 0.9,
+      "build_seed": 9205,
+      "mfr_hz": -0.4190871921,
+      "burst_rate_per_min": -0.7634378055,
+      "burst_duration_s": -0.0543696879,
+      "spikes_per_burst": 0.103826885,
+      "pct_spikes_in_bursts": -0.2405363766,
+      "synchrony_index": -0.2078247004
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 0,
+      "value": 0.9,
+      "build_seed": 9206,
+      "mfr_hz": 0.2260825014,
+      "burst_rate_per_min": 0.2674961759,
+      "burst_duration_s": -0.047786296,
+      "spikes_per_burst": 0.0429910238,
+      "pct_spikes_in_bursts": 0.0846405099,
+      "synchrony_index": 0.0674020513
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 0,
+      "value": 0.9,
+      "build_seed": 9207,
+      "mfr_hz": 0.246287331,
+      "burst_rate_per_min": 0.3118073422,
+      "burst_duration_s": 0.0540787922,
+      "spikes_per_burst": 0.0622432635,
+      "pct_spikes_in_bursts": 0.1277645421,
+      "synchrony_index": 0.0863994945
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 0,
+      "value": 0.9,
+      "build_seed": 9208,
+      "mfr_hz": 0.1046767686,
+      "burst_rate_per_min": -0.0010917103,
+      "burst_duration_s": 0.0339440127,
+      "spikes_per_burst": 0.1230971688,
+      "pct_spikes_in_bursts": 0.0172801335,
+      "synchrony_index": 0.0122119633
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 0,
+      "value": 0.9,
+      "build_seed": 9209,
+      "mfr_hz": 0.0906248313,
+      "burst_rate_per_min": 0.0836448869,
+      "burst_duration_s": 0.0658213623,
+      "spikes_per_burst": 0.0574994065,
+      "pct_spikes_in_bursts": 0.0506083056,
+      "synchrony_index": 0.030674655
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 0,
+      "value": 0.9,
+      "build_seed": 9210,
+      "mfr_hz": 0.0778687454,
+      "burst_rate_per_min": 0.0272536093,
+      "burst_duration_s": -0.0291871175,
+      "spikes_per_burst": 0.0994461805,
+      "pct_spikes_in_bursts": 0.0487944837,
+      "synchrony_index": 0.0406038665
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 0,
+      "value": 0.9,
+      "build_seed": 9211,
+      "mfr_hz": -0.315868444,
+      "burst_rate_per_min": -0.5135615834,
+      "burst_duration_s": 0.0135548467,
+      "spikes_per_burst": 0.0755775305,
+      "pct_spikes_in_bursts": -0.1216791616,
+      "synchrony_index": -0.1062214273
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 0,
+      "value": 0.9,
+      "build_seed": 9212,
+      "mfr_hz": -0.1311413021,
+      "burst_rate_per_min": -0.3061974184,
+      "burst_duration_s": 0.1905945468,
+      "spikes_per_burst": 0.1159325441,
+      "pct_spikes_in_bursts": -0.0588213644,
+      "synchrony_index": -0.0568803197
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 1,
+      "value": 0.8,
+      "build_seed": 9201,
+      "mfr_hz": -0.0117690258,
+      "burst_rate_per_min": -0.3369208094,
+      "burst_duration_s": 0.1893324209,
+      "spikes_per_burst": 0.3017094708,
+      "pct_spikes_in_bursts": -0.0234858074,
+      "synchrony_index": -0.0215397527
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 1,
+      "value": 0.8,
+      "build_seed": 9202,
+      "mfr_hz": 0.1558696768,
+      "burst_rate_per_min": 0.0086131303,
+      "burst_duration_s": 0.1622068137,
+      "spikes_per_burst": 0.2423926757,
+      "pct_spikes_in_bursts": 0.0946536894,
+      "synchrony_index": 0.0539612269
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 1,
+      "value": 0.8,
+      "build_seed": 9203,
+      "mfr_hz": -0.2701661865,
+      "burst_rate_per_min": -0.7765926683,
+      "burst_duration_s": -0.1279991418,
+      "spikes_per_burst": 0.2693884203,
+      "pct_spikes_in_bursts": -0.2371748227,
+      "synchrony_index": -0.1859651962
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 1,
+      "value": 0.8,
+      "build_seed": 9204,
+      "mfr_hz": 0.3437091592,
+      "burst_rate_per_min": 0.2171712788,
+      "burst_duration_s": -0.0433737831,
+      "spikes_per_burst": 0.2347616594,
+      "pct_spikes_in_bursts": 0.1082515703,
+      "synchrony_index": 0.1053176554
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 1,
+      "value": 0.8,
+      "build_seed": 9205,
+      "mfr_hz": 0.0771404642,
+      "burst_rate_per_min": 0.0208335034,
+      "burst_duration_s": 0.0177865026,
+      "spikes_per_burst": 0.0770755028,
+      "pct_spikes_in_bursts": 0.0201925959,
+      "synchrony_index": 0.0322255331
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 1,
+      "value": 0.8,
+      "build_seed": 9206,
+      "mfr_hz": 0.215404726,
+      "burst_rate_per_min": 0.1168251231,
+      "burst_duration_s": 0.0687413549,
+      "spikes_per_burst": 0.1741344081,
+      "pct_spikes_in_bursts": 0.0753309391,
+      "synchrony_index": 0.0623176579
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 1,
+      "value": 0.8,
+      "build_seed": 9207,
+      "mfr_hz": -0.0203434283,
+      "burst_rate_per_min": -0.210145361,
+      "burst_duration_s": -0.001722472,
+      "spikes_per_burst": 0.1796543277,
+      "pct_spikes_in_bursts": -0.0105249436,
+      "synchrony_index": -0.0299153572
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 1,
+      "value": 0.8,
+      "build_seed": 9208,
+      "mfr_hz": 0.1510986325,
+      "burst_rate_per_min": 0.0,
+      "burst_duration_s": 0.0453303396,
+      "spikes_per_burst": 0.1666184267,
+      "pct_spikes_in_bursts": 0.0154973899,
+      "synchrony_index": 0.018162332
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 1,
+      "value": 0.8,
+      "build_seed": 9209,
+      "mfr_hz": 0.1119529804,
+      "burst_rate_per_min": 0.018401972,
+      "burst_duration_s": 0.0718649491,
+      "spikes_per_burst": 0.1424468757,
+      "pct_spikes_in_bursts": 0.0489132301,
+      "synchrony_index": 0.0219442762
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 1,
+      "value": 0.8,
+      "build_seed": 9210,
+      "mfr_hz": 0.435087911,
+      "burst_rate_per_min": 0.4372201191,
+      "burst_duration_s": -0.0559661479,
+      "spikes_per_burst": 0.2218927271,
+      "pct_spikes_in_bursts": 0.223716458,
+      "synchrony_index": 0.1887754182
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 1,
+      "value": 0.8,
+      "build_seed": 9211,
+      "mfr_hz": -0.2854849836,
+      "burst_rate_per_min": -0.6681887819,
+      "burst_duration_s": 0.1163393401,
+      "spikes_per_burst": 0.2495354098,
+      "pct_spikes_in_bursts": -0.1327932079,
+      "synchrony_index": -0.1200914137
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 1,
+      "value": 0.8,
+      "build_seed": 9212,
+      "mfr_hz": 0.1706474645,
+      "burst_rate_per_min": 0.0246796332,
+      "burst_duration_s": 0.1275840081,
+      "spikes_per_burst": 0.1824610026,
+      "pct_spikes_in_bursts": 0.0359130979,
+      "synchrony_index": 0.0248939018
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 2,
+      "value": 0.65,
+      "build_seed": 9201,
+      "mfr_hz": 0.2884045164,
+      "burst_rate_per_min": -0.2072855289,
+      "burst_duration_s": 0.2038489931,
+      "spikes_per_burst": 0.5474899525,
+      "pct_spikes_in_bursts": 0.051767035,
+      "synchrony_index": 0.0539335025
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 2,
+      "value": 0.65,
+      "build_seed": 9202,
+      "mfr_hz": -0.0666606585,
+      "burst_rate_per_min": -0.5457610506,
+      "burst_duration_s": 0.0851426373,
+      "spikes_per_burst": 0.4249256053,
+      "pct_spikes_in_bursts": -0.0540729719,
+      "synchrony_index": -0.0577531085
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 2,
+      "value": 0.65,
+      "build_seed": 9203,
+      "mfr_hz": 0.467088865,
+      "burst_rate_per_min": 0.2218846983,
+      "burst_duration_s": -0.0546889664,
+      "spikes_per_burst": 0.4468071657,
+      "pct_spikes_in_bursts": 0.2012986111,
+      "synchrony_index": 0.1767522382
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 2,
+      "value": 0.65,
+      "build_seed": 9204,
+      "mfr_hz": 0.3333158324,
+      "burst_rate_per_min": 0.0371061539,
+      "burst_duration_s": 0.0342420819,
+      "spikes_per_burst": 0.3992447483,
+      "pct_spikes_in_bursts": 0.1028643418,
+      "synchrony_index": 0.0908840456
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 2,
+      "value": 0.65,
+      "build_seed": 9205,
+      "mfr_hz": 0.418955998,
+      "burst_rate_per_min": 0.1634987323,
+      "burst_duration_s": 0.201255291,
+      "spikes_per_burst": 0.4114513262,
+      "pct_spikes_in_bursts": 0.1552306343,
+      "synchrony_index": 0.1325677792
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 2,
+      "value": 0.65,
+      "build_seed": 9206,
+      "mfr_hz": 0.2852836118,
+      "burst_rate_per_min": 0.0296000169,
+      "burst_duration_s": -0.0457129567,
+      "spikes_per_burst": 0.3211798101,
+      "pct_spikes_in_bursts": 0.0651925879,
+      "synchrony_index": 0.0576641011
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 2,
+      "value": 0.65,
+      "build_seed": 9207,
+      "mfr_hz": 0.6735656349,
+      "burst_rate_per_min": 0.5234015229,
+      "burst_duration_s": 0.1442546717,
+      "spikes_per_burst": 0.4004817387,
+      "pct_spikes_in_bursts": 0.2502528687,
+      "synchrony_index": 0.1790350116
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 2,
+      "value": 0.65,
+      "build_seed": 9208,
+      "mfr_hz": 0.6785704463,
+      "burst_rate_per_min": 0.2968294557,
+      "burst_duration_s": 0.1360397824,
+      "spikes_per_burst": 0.498354971,
+      "pct_spikes_in_bursts": 0.1165611187,
+      "synchrony_index": 0.1027103495
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 2,
+      "value": 0.65,
+      "build_seed": 9209,
+      "mfr_hz": 0.3192655065,
+      "burst_rate_per_min": 0.0284238913,
+      "burst_duration_s": -0.0363676591,
+      "spikes_per_burst": 0.3824940407,
+      "pct_spikes_in_bursts": 0.0916110866,
+      "synchrony_index": 0.0739929388
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 2,
+      "value": 0.65,
+      "build_seed": 9210,
+      "mfr_hz": 0.5026166112,
+      "burst_rate_per_min": 0.3167602265,
+      "burst_duration_s": 0.079900616,
+      "spikes_per_burst": 0.4297367525,
+      "pct_spikes_in_bursts": 0.2439186011,
+      "synchrony_index": 0.2042312501
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 2,
+      "value": 0.65,
+      "build_seed": 9211,
+      "mfr_hz": 0.3422749598,
+      "burst_rate_per_min": 0.02921718,
+      "burst_duration_s": 0.0952625121,
+      "spikes_per_burst": 0.4137981526,
+      "pct_spikes_in_bursts": 0.1006514752,
+      "synchrony_index": 0.0914928707
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 2,
+      "value": 0.65,
+      "build_seed": 9212,
+      "mfr_hz": 0.2113099057,
+      "burst_rate_per_min": -0.1727800254,
+      "burst_duration_s": 0.2906653668,
+      "spikes_per_burst": 0.4311155394,
+      "pct_spikes_in_bursts": 0.0468427306,
+      "synchrony_index": 0.0285141162
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 3,
+      "value": 0.5,
+      "build_seed": 9201,
+      "mfr_hz": 0.141075044,
+      "burst_rate_per_min": -0.9763310941,
+      "burst_duration_s": 0.2132588044,
+      "spikes_per_burst": 1.0882769595,
+      "pct_spikes_in_bursts": -0.0291473902,
+      "synchrony_index": -0.0134006965
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 3,
+      "value": 0.5,
+      "build_seed": 9202,
+      "mfr_hz": 0.7404030686,
+      "burst_rate_per_min": 0.2027602334,
+      "burst_duration_s": 0.230653386,
+      "spikes_per_burst": 0.8280266811,
+      "pct_spikes_in_bursts": 0.2895215722,
+      "synchrony_index": 0.2172960696
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 3,
+      "value": 0.5,
+      "build_seed": 9203,
+      "mfr_hz": 1.0964335252,
+      "burst_rate_per_min": 0.6154348529,
+      "burst_duration_s": 0.2354814229,
+      "spikes_per_burst": 0.860548813,
+      "pct_spikes_in_bursts": 0.3792979882,
+      "synchrony_index": 0.3389212918
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 3,
+      "value": 0.5,
+      "build_seed": 9204,
+      "mfr_hz": 0.5303155079,
+      "burst_rate_per_min": -0.1761569552,
+      "burst_duration_s": 0.0487783175,
+      "spikes_per_burst": 0.8321367082,
+      "pct_spikes_in_bursts": 0.1253605473,
+      "synchrony_index": 0.1267420286
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 3,
+      "value": 0.5,
+      "build_seed": 9205,
+      "mfr_hz": 0.5061239207,
+      "burst_rate_per_min": -0.1933947246,
+      "burst_duration_s": 0.2574436754,
+      "spikes_per_burst": 0.8428783424,
+      "pct_spikes_in_bursts": 0.1427350581,
+      "synchrony_index": 0.1254929839
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 3,
+      "value": 0.5,
+      "build_seed": 9206,
+      "mfr_hz": 0.594809548,
+      "burst_rate_per_min": 0.0376597867,
+      "burst_duration_s": 0.1168296279,
+      "spikes_per_burst": 0.705791478,
+      "pct_spikes_in_bursts": 0.1485342244,
+      "synchrony_index": 0.1262127482
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 3,
+      "value": 0.5,
+      "build_seed": 9207,
+      "mfr_hz": 0.6744404001,
+      "burst_rate_per_min": 0.1032207204,
+      "burst_duration_s": 0.1284194069,
+      "spikes_per_burst": 0.7775645044,
+      "pct_spikes_in_bursts": 0.206079594,
+      "synchrony_index": 0.160368511
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 3,
+      "value": 0.5,
+      "build_seed": 9208,
+      "mfr_hz": 0.7072357026,
+      "burst_rate_per_min": -0.080794082,
+      "burst_duration_s": 0.271897278,
+      "spikes_per_burst": 0.8880987476,
+      "pct_spikes_in_bursts": 0.0996759632,
+      "synchrony_index": 0.0925522415
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 3,
+      "value": 0.5,
+      "build_seed": 9209,
+      "mfr_hz": 0.6325712766,
+      "burst_rate_per_min": 0.0500512051,
+      "burst_duration_s": 0.125521705,
+      "spikes_per_burst": 0.7262358428,
+      "pct_spikes_in_bursts": 0.1436720854,
+      "synchrony_index": 0.1239524924
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 3,
+      "value": 0.5,
+      "build_seed": 9210,
+      "mfr_hz": 1.0539945054,
+      "burst_rate_per_min": 0.5717187494,
+      "burst_duration_s": 0.142579642,
+      "spikes_per_burst": 0.8546710869,
+      "pct_spikes_in_bursts": 0.3717084684,
+      "synchrony_index": 0.3228916855
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 3,
+      "value": 0.5,
+      "build_seed": 9211,
+      "mfr_hz": 0.7822976976,
+      "burst_rate_per_min": 0.0349902771,
+      "burst_duration_s": 0.3223625381,
+      "spikes_per_burst": 0.9210951161,
+      "pct_spikes_in_bursts": 0.1737097838,
+      "synchrony_index": 0.1617294444
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 3,
+      "value": 0.5,
+      "build_seed": 9212,
+      "mfr_hz": 0.6545844478,
+      "burst_rate_per_min": -0.0453019234,
+      "burst_duration_s": 0.246926084,
+      "spikes_per_burst": 0.8252393933,
+      "pct_spikes_in_bursts": 0.1250911738,
+      "synchrony_index": 0.1135338898
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 4,
+      "value": 0.35,
+      "build_seed": 9201,
+      "mfr_hz": 1.0756270502,
+      "burst_rate_per_min": -0.6223230282,
+      "burst_duration_s": 0.4496524102,
+      "spikes_per_burst": 1.8297486261,
+      "pct_spikes_in_bursts": 0.1317723345,
+      "synchrony_index": 0.1390457728
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 4,
+      "value": 0.35,
+      "build_seed": 9202,
+      "mfr_hz": 1.4464206688,
+      "burst_rate_per_min": 0.2012582082,
+      "burst_duration_s": 0.1990609635,
+      "spikes_per_burst": 1.6493528792,
+      "pct_spikes_in_bursts": 0.4031216913,
+      "synchrony_index": 0.327961075
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 4,
+      "value": 0.35,
+      "build_seed": 9203,
+      "mfr_hz": 1.2374954168,
+      "burst_rate_per_min": -0.0747488673,
+      "burst_duration_s": 0.3802295306,
+      "spikes_per_burst": 1.6772962899,
+      "pct_spikes_in_bursts": 0.365083703,
+      "synchrony_index": 0.3327614649
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 4,
+      "value": 0.35,
+      "build_seed": 9204,
+      "mfr_hz": 0.9526856534,
+      "burst_rate_per_min": -0.4399410077,
+      "burst_duration_s": 0.1843473088,
+      "spikes_per_burst": 1.5656570199,
+      "pct_spikes_in_bursts": 0.1726631393,
+      "synchrony_index": 0.1742895552
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 4,
+      "value": 0.35,
+      "build_seed": 9205,
+      "mfr_hz": 1.2857959073,
+      "burst_rate_per_min": -0.0588936891,
+      "burst_duration_s": 0.3441501781,
+      "spikes_per_burst": 1.6315987596,
+      "pct_spikes_in_bursts": 0.2865494551,
+      "synchrony_index": 0.2656574576
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 4,
+      "value": 0.35,
+      "build_seed": 9206,
+      "mfr_hz": 1.19901141,
+      "burst_rate_per_min": -0.0546461117,
+      "burst_duration_s": 0.2619508783,
+      "spikes_per_burst": 1.4688937034,
+      "pct_spikes_in_bursts": 0.2153418796,
+      "synchrony_index": 0.2003737484
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 4,
+      "value": 0.35,
+      "build_seed": 9207,
+      "mfr_hz": 1.2486696246,
+      "burst_rate_per_min": -0.0223101617,
+      "burst_duration_s": 0.3048562537,
+      "spikes_per_burst": 1.5690617554,
+      "pct_spikes_in_bursts": 0.2980243717,
+      "synchrony_index": 0.234902781
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 4,
+      "value": 0.35,
+      "build_seed": 9208,
+      "mfr_hz": 1.2558139728,
+      "burst_rate_per_min": -0.3241123421,
+      "burst_duration_s": 0.3202150377,
+      "spikes_per_burst": 1.720281561,
+      "pct_spikes_in_bursts": 0.1399490143,
+      "synchrony_index": 0.1348477622
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 4,
+      "value": 0.35,
+      "build_seed": 9209,
+      "mfr_hz": 1.1586685107,
+      "burst_rate_per_min": -0.1136264217,
+      "burst_duration_s": 0.1137015479,
+      "spikes_per_burst": 1.4623312209,
+      "pct_spikes_in_bursts": 0.1900289639,
+      "synchrony_index": 0.1794245214
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 4,
+      "value": 0.35,
+      "build_seed": 9210,
+      "mfr_hz": 1.5372436108,
+      "burst_rate_per_min": 0.3669577834,
+      "burst_duration_s": 0.1915357668,
+      "spikes_per_burst": 1.5992280869,
+      "pct_spikes_in_bursts": 0.4282105724,
+      "synchrony_index": 0.3898846786
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 4,
+      "value": 0.35,
+      "build_seed": 9211,
+      "mfr_hz": 0.8333864201,
+      "burst_rate_per_min": -0.6663139342,
+      "burst_duration_s": 0.4190910349,
+      "spikes_per_burst": 1.6458434208,
+      "pct_spikes_in_bursts": 0.146164004,
+      "synchrony_index": 0.1424297619
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 4,
+      "value": 0.35,
+      "build_seed": 9212,
+      "mfr_hz": 1.2904714301,
+      "burst_rate_per_min": -0.1716113781,
+      "burst_duration_s": 0.4042769654,
+      "spikes_per_burst": 1.6455707935,
+      "pct_spikes_in_bursts": 0.1834035474,
+      "synchrony_index": 0.167921655
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 5,
+      "value": 0.2,
+      "build_seed": 9201,
+      "mfr_hz": 2.2696990516,
+      "burst_rate_per_min": -0.4673174466,
+      "burst_duration_s": 0.4717434942,
+      "spikes_per_burst": 2.9418239983,
+      "pct_spikes_in_bursts": 0.2048291328,
+      "synchrony_index": 0.2150084194
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 5,
+      "value": 0.2,
+      "build_seed": 9202,
+      "mfr_hz": 2.7323797926,
+      "burst_rate_per_min": 0.2057596005,
+      "burst_duration_s": 0.5849892309,
+      "spikes_per_burst": 3.0211632194,
+      "pct_spikes_in_bursts": 0.4933437756,
+      "synchrony_index": 0.419215815
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 5,
+      "value": 0.2,
+      "build_seed": 9203,
+      "mfr_hz": 2.8865104558,
+      "burst_rate_per_min": 0.3790582022,
+      "burst_duration_s": 0.6081909342,
+      "spikes_per_burst": 3.0166573543,
+      "pct_spikes_in_bursts": 0.5091385598,
+      "synchrony_index": 0.4823985961
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 5,
+      "value": 0.2,
+      "build_seed": 9204,
+      "mfr_hz": 2.6119948847,
+      "burst_rate_per_min": 0.0446286032,
+      "burst_duration_s": 0.2865150885,
+      "spikes_per_burst": 2.8706248835,
+      "pct_spikes_in_bursts": 0.3029405926,
+      "synchrony_index": 0.3063353867
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 5,
+      "value": 0.2,
+      "build_seed": 9205,
+      "mfr_hz": 2.407584222,
+      "burst_rate_per_min": -0.1933947246,
+      "burst_duration_s": 0.581553856,
+      "spikes_per_burst": 2.9595192186,
+      "pct_spikes_in_bursts": 0.358385718,
+      "synchrony_index": 0.3402234845
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 5,
+      "value": 0.2,
+      "build_seed": 9206,
+      "mfr_hz": 2.2161900799,
+      "burst_rate_per_min": -0.3962543656,
+      "burst_duration_s": 0.4357498634,
+      "spikes_per_burst": 2.8829646467,
+      "pct_spikes_in_bursts": 0.2706554954,
+      "synchrony_index": 0.2632843037
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 5,
+      "value": 0.2,
+      "build_seed": 9207,
+      "mfr_hz": 2.2596790323,
+      "burst_rate_per_min": -0.2801079192,
+      "burst_duration_s": 0.446024294,
+      "spikes_per_burst": 2.9042128925,
+      "pct_spikes_in_bursts": 0.3643958556,
+      "synchrony_index": 0.304401272
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 5,
+      "value": 0.2,
+      "build_seed": 9208,
+      "mfr_hz": 2.6011925986,
+      "burst_rate_per_min": -0.0819486999,
+      "burst_duration_s": 0.5469454671,
+      "spikes_per_burst": 2.8887024628,
+      "pct_spikes_in_bursts": 0.205526668,
+      "synchrony_index": 0.2033325688
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 5,
+      "value": 0.2,
+      "build_seed": 9209,
+      "mfr_hz": 2.4519577082,
+      "burst_rate_per_min": -0.2120890606,
+      "burst_duration_s": 0.4284541432,
+      "spikes_per_burst": 2.9085883667,
+      "pct_spikes_in_bursts": 0.2445181789,
+      "synchrony_index": 0.2464012963
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 5,
+      "value": 0.2,
+      "build_seed": 9210,
+      "mfr_hz": 2.9407464238,
+      "burst_rate_per_min": 0.4648925375,
+      "burst_duration_s": 0.484612661,
+      "spikes_per_burst": 2.9991161809,
+      "pct_spikes_in_bursts": 0.5223693204,
+      "synchrony_index": 0.4845480071
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 5,
+      "value": 0.2,
+      "build_seed": 9211,
+      "mfr_hz": 2.0851731668,
+      "burst_rate_per_min": -0.4984722473,
+      "burst_duration_s": 0.4947748906,
+      "spikes_per_burst": 2.8393784031,
+      "pct_spikes_in_bursts": 0.2557418454,
+      "synchrony_index": 0.2504915249
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 5,
+      "value": 0.2,
+      "build_seed": 9212,
+      "mfr_hz": 2.5146688137,
+      "burst_rate_per_min": -0.1553489429,
+      "burst_duration_s": 0.6652915194,
+      "spikes_per_burst": 2.9094155681,
+      "pct_spikes_in_bursts": 0.2399806044,
+      "synchrony_index": 0.2340790957
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 6,
+      "value": 0.1,
+      "build_seed": 9201,
+      "mfr_hz": 3.2070566742,
+      "burst_rate_per_min": -0.4658185425,
+      "burst_duration_s": 0.9258263822,
+      "spikes_per_burst": 3.9037668791,
+      "pct_spikes_in_bursts": 0.230853349,
+      "synchrony_index": 0.241175184
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 6,
+      "value": 0.1,
+      "build_seed": 9202,
+      "mfr_hz": 3.7810933768,
+      "burst_rate_per_min": 0.2012582082,
+      "burst_duration_s": 0.9068396324,
+      "spikes_per_burst": 4.102323053,
+      "pct_spikes_in_bursts": 0.5213214927,
+      "synchrony_index": 0.4478678315
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 6,
+      "value": 0.1,
+      "build_seed": 9203,
+      "mfr_hz": 3.4983705974,
+      "burst_rate_per_min": -0.0766212816,
+      "burst_duration_s": 0.8807523982,
+      "spikes_per_burst": 4.0925420466,
+      "pct_spikes_in_bursts": 0.5175774786,
+      "synchrony_index": 0.4929268354
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 6,
+      "value": 0.1,
+      "build_seed": 9204,
+      "mfr_hz": 3.1528484909,
+      "burst_rate_per_min": -0.4384421036,
+      "burst_duration_s": 0.7226591079,
+      "spikes_per_burst": 3.8958484217,
+      "pct_spikes_in_bursts": 0.3041615492,
+      "synchrony_index": 0.3091094018
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 6,
+      "value": 0.1,
+      "build_seed": 9205,
+      "mfr_hz": 3.6250800349,
+      "burst_rate_per_min": -0.057528147,
+      "burst_duration_s": 0.9531592126,
+      "spikes_per_burst": 4.0752019482,
+      "pct_spikes_in_bursts": 0.392344874,
+      "synchrony_index": 0.374678136
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 6,
+      "value": 0.1,
+      "build_seed": 9206,
+      "mfr_hz": 3.5075404703,
+      "burst_rate_per_min": -0.1636224856,
+      "burst_duration_s": 0.7812380711,
+      "spikes_per_burst": 3.9788238165,
+      "pct_spikes_in_bursts": 0.3076716066,
+      "synchrony_index": 0.2997154641
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 6,
+      "value": 0.1,
+      "build_seed": 9207,
+      "mfr_hz": 3.6586419782,
+      "burst_rate_per_min": 0.0894149208,
+      "burst_duration_s": 0.831821302,
+      "spikes_per_burst": 3.9784728022,
+      "pct_spikes_in_bursts": 0.409263355,
+      "synchrony_index": 0.3482787961
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 6,
+      "value": 0.1,
+      "build_seed": 9208,
+      "mfr_hz": 3.3338721648,
+      "burst_rate_per_min": -0.3241123421,
+      "burst_duration_s": 0.9474723213,
+      "spikes_per_burst": 3.8712604945,
+      "pct_spikes_in_bursts": 0.2132680555,
+      "synchrony_index": 0.211554679
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 6,
+      "value": 0.1,
+      "build_seed": 9209,
+      "mfr_hz": 3.3222575233,
+      "burst_rate_per_min": -0.4330520094,
+      "burst_duration_s": 0.8143578977,
+      "spikes_per_burst": 4.0110210223,
+      "pct_spikes_in_bursts": 0.2556824131,
+      "synchrony_index": 0.2590759624
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 6,
+      "value": 0.1,
+      "build_seed": 9210,
+      "mfr_hz": 3.7122369593,
+      "burst_rate_per_min": 0.1958656203,
+      "burst_duration_s": 0.8256804305,
+      "spikes_per_burst": 4.0542120493,
+      "pct_spikes_in_bursts": 0.5369216357,
+      "synchrony_index": 0.5004279201
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 6,
+      "value": 0.1,
+      "build_seed": 9211,
+      "mfr_hz": 2.7963846294,
+      "burst_rate_per_min": -0.8562848779,
+      "burst_duration_s": 0.8833273163,
+      "spikes_per_burst": 3.9284034498,
+      "pct_spikes_in_bursts": 0.2756726038,
+      "synchrony_index": 0.2706934718
+    },
+    {
+      "knob": "gabaa_block",
+      "level": 6,
+      "value": 0.1,
+      "build_seed": 9212,
+      "mfr_hz": 3.4079183915,
+      "burst_rate_per_min": -0.2719817031,
+      "burst_duration_s": 0.9891673395,
+      "spikes_per_burst": 3.9322551635,
+      "pct_spikes_in_bursts": 0.252970724,
+      "synchrony_index": 0.2488304527
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 0,
+      "value": 1.1,
+      "build_seed": 9201,
+      "mfr_hz": -0.1856803102,
+      "burst_rate_per_min": -0.2427842102,
+      "burst_duration_s": -0.1250348142,
+      "spikes_per_burst": -0.0291345392,
+      "pct_spikes_in_bursts": -0.086266612,
+      "synchrony_index": -0.0651475073
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 0,
+      "value": 1.1,
+      "build_seed": 9202,
+      "mfr_hz": -0.5343894085,
+      "burst_rate_per_min": -0.8790839001,
+      "burst_duration_s": -0.2877300403,
+      "spikes_per_burst": -0.0899103438,
+      "pct_spikes_in_bursts": -0.434093029,
+      "synchrony_index": -0.3259994376
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 0,
+      "value": 1.1,
+      "build_seed": 9203,
+      "mfr_hz": 0.0646520889,
+      "burst_rate_per_min": 0.1564380648,
+      "burst_duration_s": -0.0333597924,
+      "spikes_per_burst": -0.038897059,
+      "pct_spikes_in_bursts": 0.0528749392,
+      "synchrony_index": 0.0494658924
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 0,
+      "value": 1.1,
+      "build_seed": 9204,
+      "mfr_hz": -0.2736255445,
+      "burst_rate_per_min": -0.3358136211,
+      "burst_duration_s": -0.0319515259,
+      "spikes_per_burst": -0.0606480154,
+      "pct_spikes_in_bursts": -0.1223527631,
+      "synchrony_index": -0.1093037385
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 0,
+      "value": 1.1,
+      "build_seed": 9205,
+      "mfr_hz": 0.0446074877,
+      "burst_rate_per_min": 0.102505441,
+      "burst_duration_s": -0.0750029587,
+      "spikes_per_burst": -0.0246864091,
+      "pct_spikes_in_bursts": 0.0330877825,
+      "synchrony_index": 0.0287869318
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 0,
+      "value": 1.1,
+      "build_seed": 9206,
+      "mfr_hz": 0.0316380453,
+      "burst_rate_per_min": 0.0831494851,
+      "burst_duration_s": -0.0348302354,
+      "spikes_per_burst": -0.0378317645,
+      "pct_spikes_in_bursts": 0.0132900122,
+      "synchrony_index": 0.0052892623
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 0,
+      "value": 1.1,
+      "build_seed": 9207,
+      "mfr_hz": 0.1143466672,
+      "burst_rate_per_min": 0.2165825488,
+      "burst_duration_s": 0.0770027354,
+      "spikes_per_burst": -0.0480487643,
+      "pct_spikes_in_bursts": 0.0541377711,
+      "synchrony_index": 0.0308027403
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 0,
+      "value": 1.1,
+      "build_seed": 9208,
+      "mfr_hz": -0.0098732868,
+      "burst_rate_per_min": 0.0692456108,
+      "burst_duration_s": 0.0497738479,
+      "spikes_per_burst": -0.0932261637,
+      "pct_spikes_in_bursts": -0.0141304797,
+      "synchrony_index": -0.0076069467
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 0,
+      "value": 1.1,
+      "build_seed": 9209,
+      "mfr_hz": -0.1272291304,
+      "burst_rate_per_min": -0.0996679641,
+      "burst_duration_s": -0.1919642112,
+      "spikes_per_burst": -0.0527579758,
+      "pct_spikes_in_bursts": -0.0252245116,
+      "synchrony_index": -0.0330821271
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 0,
+      "value": 1.1,
+      "build_seed": 9210,
+      "mfr_hz": 0.3543366038,
+      "burst_rate_per_min": 0.5210926763,
+      "burst_duration_s": 0.1330895976,
+      "spikes_per_burst": 0.0226470467,
+      "pct_spikes_in_bursts": 0.1888818192,
+      "synchrony_index": 0.157121297
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 0,
+      "value": 1.1,
+      "build_seed": 9211,
+      "mfr_hz": -0.3842435311,
+      "burst_rate_per_min": -0.5186266385,
+      "burst_duration_s": -0.0976586932,
+      "spikes_per_burst": -0.046139444,
+      "pct_spikes_in_bursts": -0.1806383413,
+      "synchrony_index": -0.133703042
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 0,
+      "value": 1.1,
+      "build_seed": 9212,
+      "mfr_hz": -0.0427750569,
+      "burst_rate_per_min": 0.0796937352,
+      "burst_duration_s": 0.0074715591,
+      "spikes_per_burst": -0.1236500669,
+      "pct_spikes_in_bursts": -0.0008315111,
+      "synchrony_index": -0.0051374201
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 1,
+      "value": 1.25,
+      "build_seed": 9201,
+      "mfr_hz": -0.0924296936,
+      "burst_rate_per_min": -0.0207585602,
+      "burst_duration_s": -0.1286436247,
+      "spikes_per_burst": -0.0964568601,
+      "pct_spikes_in_bursts": -0.0248323481,
+      "synchrony_index": -0.0185671892
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 1,
+      "value": 1.25,
+      "build_seed": 9202,
+      "mfr_hz": -0.1250002176,
+      "burst_rate_per_min": -0.0385208453,
+      "burst_duration_s": 0.0133386149,
+      "spikes_per_burst": -0.1569199703,
+      "pct_spikes_in_bursts": -0.0708781266,
+      "synchrony_index": -0.0597391493
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 1,
+      "value": 1.25,
+      "build_seed": 9203,
+      "mfr_hz": 0.3342271375,
+      "burst_rate_per_min": 0.5083412191,
+      "burst_duration_s": -0.1945392947,
+      "spikes_per_burst": -0.0053693226,
+      "pct_spikes_in_bursts": 0.1687432316,
+      "synchrony_index": 0.1596654399
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 1,
+      "value": 1.25,
+      "build_seed": 9204,
+      "mfr_hz": -0.0393755177,
+      "burst_rate_per_min": 0.1013770204,
+      "burst_duration_s": -0.0905142325,
+      "spikes_per_burst": -0.1363831746,
+      "pct_spikes_in_bursts": 0.0045754217,
+      "synchrony_index": 0.0053965219
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 1,
+      "value": 1.25,
+      "build_seed": 9205,
+      "mfr_hz": 0.2697352773,
+      "burst_rate_per_min": 0.4788541732,
+      "burst_duration_s": 0.0227641457,
+      "spikes_per_burst": -0.072402453,
+      "pct_spikes_in_bursts": 0.1365396067,
+      "synchrony_index": 0.1175008832
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 1,
+      "value": 1.25,
+      "build_seed": 9206,
+      "mfr_hz": 0.1161135197,
+      "burst_rate_per_min": 0.317176607,
+      "burst_duration_s": -0.0890764717,
+      "spikes_per_burst": -0.1464443427,
+      "pct_spikes_in_bursts": 0.0544738811,
+      "synchrony_index": 0.0465928956
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 1,
+      "value": 1.25,
+      "build_seed": 9207,
+      "mfr_hz": 0.0673078422,
+      "burst_rate_per_min": 0.1670523322,
+      "burst_duration_s": 0.0155414533,
+      "spikes_per_burst": -0.0588275338,
+      "pct_spikes_in_bursts": 0.0409844447,
+      "synchrony_index": 0.0222954995
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 1,
+      "value": 1.25,
+      "build_seed": 9208,
+      "mfr_hz": -0.0292141877,
+      "burst_rate_per_min": 0.073400243,
+      "burst_duration_s": 0.1340980548,
+      "spikes_per_burst": -0.1295003379,
+      "pct_spikes_in_bursts": -0.0268873724,
+      "synchrony_index": -0.0245270937
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 1,
+      "value": 1.25,
+      "build_seed": 9209,
+      "mfr_hz": -0.0692366575,
+      "burst_rate_per_min": 0.0437766595,
+      "burst_duration_s": -0.1507807718,
+      "spikes_per_burst": -0.1246368701,
+      "pct_spikes_in_bursts": -0.0115801306,
+      "synchrony_index": -0.0245873434
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 1,
+      "value": 1.25,
+      "build_seed": 9210,
+      "mfr_hz": 0.1223034014,
+      "burst_rate_per_min": 0.2561397928,
+      "burst_duration_s": -0.1529638668,
+      "spikes_per_burst": -0.0689870253,
+      "pct_spikes_in_bursts": 0.0640689234,
+      "synchrony_index": 0.0563258363
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 1,
+      "value": 1.25,
+      "build_seed": 9211,
+      "mfr_hz": -0.5257722218,
+      "burst_rate_per_min": -0.7004397181,
+      "burst_duration_s": -0.013022538,
+      "spikes_per_burst": -0.0724068025,
+      "pct_spikes_in_bursts": -0.2470649628,
+      "synchrony_index": -0.2121763353
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 1,
+      "value": 1.25,
+      "build_seed": 9212,
+      "mfr_hz": 0.112206901,
+      "burst_rate_per_min": 0.2489643048,
+      "burst_duration_s": 0.1809120668,
+      "spikes_per_burst": -0.0959901013,
+      "pct_spikes_in_bursts": 0.040336074,
+      "synchrony_index": 0.0202523944
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 2,
+      "value": 1.5,
+      "build_seed": 9201,
+      "mfr_hz": -0.2334605994,
+      "burst_rate_per_min": -0.1352273807,
+      "burst_duration_s": -0.271349785,
+      "spikes_per_burst": -0.1733525817,
+      "pct_spikes_in_bursts": -0.0751891411,
+      "synchrony_index": -0.0565801046
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 2,
+      "value": 1.5,
+      "build_seed": 9202,
+      "mfr_hz": -0.3062651589,
+      "burst_rate_per_min": -0.3972933572,
+      "burst_duration_s": -0.1833046135,
+      "spikes_per_burst": -0.1417822139,
+      "pct_spikes_in_bursts": -0.2329553781,
+      "synchrony_index": -0.1660250259
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 2,
+      "value": 1.5,
+      "build_seed": 9203,
+      "mfr_hz": 0.0018537333,
+      "burst_rate_per_min": 0.1028484076,
+      "burst_duration_s": -0.1150807996,
+      "spikes_per_burst": -0.1120943005,
+      "pct_spikes_in_bursts": -0.0110332801,
+      "synchrony_index": 0.0046658823
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 2,
+      "value": 1.5,
+      "build_seed": 9204,
+      "mfr_hz": -0.2155678982,
+      "burst_rate_per_min": -0.0301619705,
+      "burst_duration_s": -0.2644466354,
+      "spikes_per_burst": -0.2588624975,
+      "pct_spikes_in_bursts": -0.0725760291,
+      "synchrony_index": -0.0569592239
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 2,
+      "value": 1.5,
+      "build_seed": 9205,
+      "mfr_hz": -0.0820380252,
+      "burst_rate_per_min": 0.0591035203,
+      "burst_duration_s": -0.1446449142,
+      "spikes_per_burst": -0.178686439,
+      "pct_spikes_in_bursts": -0.0378623633,
+      "synchrony_index": -0.018048734
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 2,
+      "value": 1.5,
+      "build_seed": 9206,
+      "mfr_hz": 0.0626595167,
+      "burst_rate_per_min": 0.2988511349,
+      "burst_duration_s": -0.172040758,
+      "spikes_per_burst": -0.2000464444,
+      "pct_spikes_in_bursts": 0.0360889438,
+      "synchrony_index": 0.0300296496
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 2,
+      "value": 1.5,
+      "build_seed": 9207,
+      "mfr_hz": -0.2864654412,
+      "burst_rate_per_min": -0.305723021,
+      "burst_duration_s": -0.1464689734,
+      "spikes_per_burst": -0.1236801933,
+      "pct_spikes_in_bursts": -0.1432833559,
+      "synchrony_index": -0.1239603683
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 2,
+      "value": 1.5,
+      "build_seed": 9208,
+      "mfr_hz": -0.066183725,
+      "burst_rate_per_min": 0.1452211344,
+      "burst_duration_s": -0.0031152303,
+      "spikes_per_burst": -0.2242153331,
+      "pct_spikes_in_bursts": -0.0128295738,
+      "synchrony_index": -0.0107221458
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 2,
+      "value": 1.5,
+      "build_seed": 9209,
+      "mfr_hz": -0.3471469931,
+      "burst_rate_per_min": -0.2380647668,
+      "burst_duration_s": -0.2845496388,
+      "spikes_per_burst": -0.2199536194,
+      "pct_spikes_in_bursts": -0.1106784026,
+      "synchrony_index": -0.0968982042
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 2,
+      "value": 1.5,
+      "build_seed": 9210,
+      "mfr_hz": 0.0991151753,
+      "burst_rate_per_min": 0.2402142467,
+      "burst_duration_s": 0.049969891,
+      "spikes_per_burst": -0.0872692831,
+      "pct_spikes_in_bursts": 0.0534720717,
+      "synchrony_index": 0.0511383096
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 2,
+      "value": 1.5,
+      "build_seed": 9211,
+      "mfr_hz": -0.3836510891,
+      "burst_rate_per_min": -0.3986030412,
+      "burst_duration_s": -0.1384327813,
+      "spikes_per_burst": -0.1630844628,
+      "pct_spikes_in_bursts": -0.1776113114,
+      "synchrony_index": -0.1470841633
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 2,
+      "value": 1.5,
+      "build_seed": 9212,
+      "mfr_hz": -0.5664314332,
+      "burst_rate_per_min": -0.6217277421,
+      "burst_duration_s": -0.1191990507,
+      "spikes_per_burst": -0.2074414417,
+      "pct_spikes_in_bursts": -0.2607859345,
+      "synchrony_index": -0.204933373
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 3,
+      "value": 1.8,
+      "build_seed": 9201,
+      "mfr_hz": -0.4456901497,
+      "burst_rate_per_min": -0.3842721942,
+      "burst_duration_s": -0.1060376106,
+      "spikes_per_burst": -0.2456620744,
+      "pct_spikes_in_bursts": -0.1843041042,
+      "synchrony_index": -0.1515395877
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 3,
+      "value": 1.8,
+      "build_seed": 9202,
+      "mfr_hz": 0.0071521855,
+      "burst_rate_per_min": 0.2191801162,
+      "burst_duration_s": -0.2129927145,
+      "spikes_per_burst": -0.1826256258,
+      "pct_spikes_in_bursts": 0.0290991777,
+      "synchrony_index": 0.0237709799
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 3,
+      "value": 1.8,
+      "build_seed": 9203,
+      "mfr_hz": 0.2099310255,
+      "burst_rate_per_min": 0.4549019602,
+      "burst_duration_s": -0.1627176517,
+      "spikes_per_burst": -0.1406106233,
+      "pct_spikes_in_bursts": 0.1042735906,
+      "synchrony_index": 0.1190133027
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 3,
+      "value": 1.8,
+      "build_seed": 9204,
+      "mfr_hz": -0.4083848074,
+      "burst_rate_per_min": -0.3470190759,
+      "burst_duration_s": -0.204423995,
+      "spikes_per_burst": -0.2732455895,
+      "pct_spikes_in_bursts": -0.2109041839,
+      "synchrony_index": -0.1648486277
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 3,
+      "value": 1.8,
+      "build_seed": 9205,
+      "mfr_hz": 0.139083757,
+      "burst_rate_per_min": 0.3815350859,
+      "burst_duration_s": -0.1214319149,
+      "spikes_per_burst": -0.1794966383,
+      "pct_spikes_in_bursts": 0.0626673897,
+      "synchrony_index": 0.062779759
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 3,
+      "value": 1.8,
+      "build_seed": 9206,
+      "mfr_hz": -0.1009789507,
+      "burst_rate_per_min": 0.1139692428,
+      "burst_duration_s": -0.3463930114,
+      "spikes_per_burst": -0.266707851,
+      "pct_spikes_in_bursts": -0.05100058,
+      "synchrony_index": -0.029809511
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 3,
+      "value": 1.8,
+      "build_seed": 9207,
+      "mfr_hz": -0.1673471296,
+      "burst_rate_per_min": -0.0654167352,
+      "burst_duration_s": -0.1961212631,
+      "spikes_per_burst": -0.1788209793,
+      "pct_spikes_in_bursts": -0.0770050473,
+      "synchrony_index": -0.0470699461
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 3,
+      "value": 1.8,
+      "build_seed": 9208,
+      "mfr_hz": -0.2998262409,
+      "burst_rate_per_min": -0.1590530959,
+      "burst_duration_s": -0.1677890089,
+      "spikes_per_burst": -0.2574854533,
+      "pct_spikes_in_bursts": -0.1166583204,
+      "synchrony_index": -0.0848652211
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 3,
+      "value": 1.8,
+      "build_seed": 9209,
+      "mfr_hz": -0.2957637508,
+      "burst_rate_per_min": -0.148098639,
+      "burst_duration_s": -0.1905125495,
+      "spikes_per_burst": -0.2554492291,
+      "pct_spikes_in_bursts": -0.1079237258,
+      "synchrony_index": -0.0887678296
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 3,
+      "value": 1.8,
+      "build_seed": 9210,
+      "mfr_hz": -0.0631081307,
+      "burst_rate_per_min": 0.0802632939,
+      "burst_duration_s": -0.3160650512,
+      "spikes_per_burst": -0.1499791668,
+      "pct_spikes_in_bursts": -0.0069152435,
+      "synchrony_index": -0.0020029412
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 3,
+      "value": 1.8,
+      "build_seed": 9211,
+      "mfr_hz": 0.0927499344,
+      "burst_rate_per_min": 0.3706802732,
+      "burst_duration_s": 0.0251486097,
+      "spikes_per_burst": -0.2212591834,
+      "pct_spikes_in_bursts": 0.0568013979,
+      "synchrony_index": 0.0482598592
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 3,
+      "value": 1.8,
+      "build_seed": 9212,
+      "mfr_hz": -0.4018775682,
+      "burst_rate_per_min": -0.2807748216,
+      "burst_duration_s": 0.0183674555,
+      "spikes_per_burst": -0.2769924505,
+      "pct_spikes_in_bursts": -0.154398792,
+      "synchrony_index": -0.1171930674
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 4,
+      "value": 2.2,
+      "build_seed": 9201,
+      "mfr_hz": -0.4466825919,
+      "burst_rate_per_min": -0.3814433795,
+      "burst_duration_s": -0.2952086411,
+      "spikes_per_burst": -0.2361223359,
+      "pct_spikes_in_bursts": -0.1709261452,
+      "synchrony_index": -0.131673051
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 4,
+      "value": 2.2,
+      "build_seed": 9202,
+      "mfr_hz": 0.0711451443,
+      "burst_rate_per_min": 0.3332866019,
+      "burst_duration_s": -0.1044601978,
+      "spikes_per_burst": -0.2057077116,
+      "pct_spikes_in_bursts": 0.0557441934,
+      "synchrony_index": 0.0540319869
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 4,
+      "value": 2.2,
+      "build_seed": 9203,
+      "mfr_hz": -0.0686009799,
+      "burst_rate_per_min": 0.035103801,
+      "burst_duration_s": -0.2688704557,
+      "spikes_per_burst": -0.1725404461,
+      "pct_spikes_in_bursts": -0.0689514468,
+      "synchrony_index": -0.0285175205
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 4,
+      "value": 2.2,
+      "build_seed": 9204,
+      "mfr_hz": -0.4153612276,
+      "burst_rate_per_min": -0.2636978664,
+      "burst_duration_s": -0.3150504602,
+      "spikes_per_burst": -0.3366036321,
+      "pct_spikes_in_bursts": -0.183742202,
+      "synchrony_index": -0.1450381553
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 4,
+      "value": 2.2,
+      "build_seed": 9205,
+      "mfr_hz": 0.0685904182,
+      "burst_rate_per_min": 0.2608468466,
+      "burst_duration_s": 0.1067857174,
+      "spikes_per_burst": -0.1630576841,
+      "pct_spikes_in_bursts": 0.0290653686,
+      "synchrony_index": 0.0293162526
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 4,
+      "value": 2.2,
+      "build_seed": 9206,
+      "mfr_hz": -0.0554504041,
+      "burst_rate_per_min": 0.1891604615,
+      "burst_duration_s": -0.1880944787,
+      "spikes_per_burst": -0.2738572183,
+      "pct_spikes_in_bursts": -0.0292897415,
+      "synchrony_index": -0.0157891807
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 4,
+      "value": 2.2,
+      "build_seed": 9207,
+      "mfr_hz": 0.0224491785,
+      "burst_rate_per_min": 0.2767035412,
+      "burst_duration_s": -0.00951865,
+      "spikes_per_burst": -0.2446159229,
+      "pct_spikes_in_bursts": 0.0096087545,
+      "synchrony_index": 0.0154598869
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 4,
+      "value": 2.2,
+      "build_seed": 9208,
+      "mfr_hz": -0.015977741,
+      "burst_rate_per_min": 0.2977175413,
+      "burst_duration_s": -0.1713947003,
+      "spikes_per_burst": -0.3203750654,
+      "pct_spikes_in_bursts": -0.0067107898,
+      "synchrony_index": 0.0011776577
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 4,
+      "value": 2.2,
+      "build_seed": 9209,
+      "mfr_hz": -0.1752658181,
+      "burst_rate_per_min": 0.0625190176,
+      "burst_duration_s": -0.335550798,
+      "spikes_per_burst": -0.3001761073,
+      "pct_spikes_in_bursts": -0.0623311596,
+      "synchrony_index": -0.0412517901
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 4,
+      "value": 2.2,
+      "build_seed": 9210,
+      "mfr_hz": -0.081117315,
+      "burst_rate_per_min": 0.1171957346,
+      "burst_duration_s": -0.1197390445,
+      "spikes_per_burst": -0.2532333533,
+      "pct_spikes_in_bursts": -0.0551105042,
+      "synchrony_index": -0.0186102862
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 4,
+      "value": 2.2,
+      "build_seed": 9211,
+      "mfr_hz": -0.3849350211,
+      "burst_rate_per_min": -0.287802311,
+      "burst_duration_s": -0.1110203347,
+      "spikes_per_burst": -0.2688748217,
+      "pct_spikes_in_bursts": -0.1710400235,
+      "synchrony_index": -0.1433557423
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 4,
+      "value": 2.2,
+      "build_seed": 9212,
+      "mfr_hz": -0.1472217375,
+      "burst_rate_per_min": 0.0865474062,
+      "burst_duration_s": -0.143645494,
+      "spikes_per_burst": -0.2837543006,
+      "pct_spikes_in_bursts": -0.0488389205,
+      "synchrony_index": -0.032576326
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 5,
+      "value": 2.6,
+      "build_seed": 9201,
+      "mfr_hz": -0.183648186,
+      "burst_rate_per_min": 0.0615813222,
+      "burst_duration_s": -0.2396857493,
+      "spikes_per_burst": -0.3141321975,
+      "pct_spikes_in_bursts": -0.0690372551,
+      "synchrony_index": -0.0372008831
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 5,
+      "value": 2.6,
+      "build_seed": 9202,
+      "mfr_hz": 0.1628401178,
+      "burst_rate_per_min": 0.4542389494,
+      "burst_duration_s": -0.0539673002,
+      "spikes_per_burst": -0.1849722824,
+      "pct_spikes_in_bursts": 0.1058545485,
+      "synchrony_index": 0.0845594264
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 5,
+      "value": 2.6,
+      "build_seed": 9203,
+      "mfr_hz": 0.148354101,
+      "burst_rate_per_min": 0.3611875253,
+      "burst_duration_s": -0.1951783964,
+      "spikes_per_burst": -0.1388854876,
+      "pct_spikes_in_bursts": 0.0739095151,
+      "synchrony_index": 0.0906332817
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 5,
+      "value": 2.6,
+      "build_seed": 9204,
+      "mfr_hz": -0.3016782832,
+      "burst_rate_per_min": -0.0449124219,
+      "burst_duration_s": -0.1777754976,
+      "spikes_per_burst": -0.368563187,
+      "pct_spikes_in_bursts": -0.1113308297,
+      "synchrony_index": -0.1003564726
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 5,
+      "value": 2.6,
+      "build_seed": 9205,
+      "mfr_hz": 0.0488784923,
+      "burst_rate_per_min": 0.3344642639,
+      "burst_duration_s": -0.1775679777,
+      "spikes_per_burst": -0.2528058199,
+      "pct_spikes_in_bursts": 0.0321502574,
+      "synchrony_index": 0.0544677384
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 5,
+      "value": 2.6,
+      "build_seed": 9206,
+      "mfr_hz": -0.0512590749,
+      "burst_rate_per_min": 0.2760379122,
+      "burst_duration_s": -0.1644645209,
+      "spikes_per_burst": -0.3483035652,
+      "pct_spikes_in_bursts": -0.020930456,
+      "synchrony_index": -0.006233778
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 5,
+      "value": 2.6,
+      "build_seed": 9207,
+      "mfr_hz": -0.4602031232,
+      "burst_rate_per_min": -0.4748881093,
+      "burst_duration_s": -0.2233444727,
+      "spikes_per_burst": -0.2675871378,
+      "pct_spikes_in_bursts": -0.282476502,
+      "synchrony_index": -0.2000623589
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 5,
+      "value": 2.6,
+      "build_seed": 9208,
+      "mfr_hz": -0.2239445409,
+      "burst_rate_per_min": 0.0323729748,
+      "burst_duration_s": -0.0644899013,
+      "spikes_per_burst": -0.3443036254,
+      "pct_spikes_in_bursts": -0.087928431,
+      "synchrony_index": -0.0682812074
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 5,
+      "value": 2.6,
+      "build_seed": 9209,
+      "mfr_hz": -0.1930809454,
+      "burst_rate_per_min": 0.0073889792,
+      "burst_duration_s": -0.0737472476,
+      "spikes_per_burst": -0.2504414746,
+      "pct_spikes_in_bursts": -0.0502369242,
+      "synchrony_index": -0.0540396333
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 5,
+      "value": 2.6,
+      "build_seed": 9210,
+      "mfr_hz": 0.1810206667,
+      "burst_rate_per_min": 0.553088046,
+      "burst_duration_s": -0.3137841736,
+      "spikes_per_burst": -0.252444625,
+      "pct_spikes_in_bursts": 0.1194586338,
+      "synchrony_index": 0.1209628231
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 5,
+      "value": 2.6,
+      "build_seed": 9211,
+      "mfr_hz": -0.1523730756,
+      "burst_rate_per_min": 0.1405055656,
+      "burst_duration_s": 0.0624278851,
+      "spikes_per_burst": -0.3284336026,
+      "pct_spikes_in_bursts": -0.0352968952,
+      "synchrony_index": -0.0293638684
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 5,
+      "value": 2.6,
+      "build_seed": 9212,
+      "mfr_hz": -0.1982488475,
+      "burst_rate_per_min": 0.0164999087,
+      "burst_duration_s": -0.0512603444,
+      "spikes_per_burst": -0.3107752882,
+      "pct_spikes_in_bursts": -0.0951045034,
+      "synchrony_index": -0.0554512584
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 6,
+      "value": 3.0,
+      "build_seed": 9201,
+      "mfr_hz": -0.6103149048,
+      "burst_rate_per_min": -0.5554365484,
+      "burst_duration_s": -0.1695640135,
+      "spikes_per_burst": -0.3197263135,
+      "pct_spikes_in_bursts": -0.2649474288,
+      "synchrony_index": -0.2126615224
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 6,
+      "value": 3.0,
+      "build_seed": 9202,
+      "mfr_hz": -0.590658471,
+      "burst_rate_per_min": -0.8918511961,
+      "burst_duration_s": 0.2294306811,
+      "spikes_per_burst": -0.214865907,
+      "pct_spikes_in_bursts": -0.5161068373,
+      "synchrony_index": -0.358282801
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 6,
+      "value": 3.0,
+      "build_seed": 9203,
+      "mfr_hz": -0.1174790147,
+      "burst_rate_per_min": -0.0710113133,
+      "burst_duration_s": -0.1553006766,
+      "spikes_per_burst": -0.1524047836,
+      "pct_spikes_in_bursts": -0.1059344702,
+      "synchrony_index": -0.0674003325
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 6,
+      "value": 3.0,
+      "build_seed": 9204,
+      "mfr_hz": -0.3701458302,
+      "burst_rate_per_min": -0.1711692405,
+      "burst_duration_s": -0.1574892257,
+      "spikes_per_burst": -0.3628970027,
+      "pct_spikes_in_bursts": -0.1625958184,
+      "synchrony_index": -0.1265678047
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 6,
+      "value": 3.0,
+      "build_seed": 9205,
+      "mfr_hz": -0.39679966,
+      "burst_rate_per_min": -0.3584539709,
+      "burst_duration_s": -0.0399917831,
+      "spikes_per_burst": -0.2893782029,
+      "pct_spikes_in_bursts": -0.2515238103,
+      "synchrony_index": -0.1844244095
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 6,
+      "value": 3.0,
+      "build_seed": 9206,
+      "mfr_hz": -0.1030766029,
+      "burst_rate_per_min": 0.1918714458,
+      "burst_duration_s": -0.0136974329,
+      "spikes_per_burst": -0.3294916881,
+      "pct_spikes_in_bursts": -0.0343053728,
+      "synchrony_index": -0.0277513664
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 6,
+      "value": 3.0,
+      "build_seed": 9207,
+      "mfr_hz": -0.3228465994,
+      "burst_rate_per_min": -0.2244437441,
+      "burst_duration_s": -0.2093133971,
+      "spikes_per_burst": -0.2819066193,
+      "pct_spikes_in_bursts": -0.1838724785,
+      "synchrony_index": -0.1242818249
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 6,
+      "value": 3.0,
+      "build_seed": 9208,
+      "mfr_hz": -0.1356963011,
+      "burst_rate_per_min": 0.1860823902,
+      "burst_duration_s": -0.2802813911,
+      "spikes_per_burst": -0.3649442244,
+      "pct_spikes_in_bursts": -0.0431734056,
+      "synchrony_index": -0.0176943339
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 6,
+      "value": 3.0,
+      "build_seed": 9209,
+      "mfr_hz": -0.1337074608,
+      "burst_rate_per_min": 0.1502426356,
+      "burst_duration_s": -0.171202153,
+      "spikes_per_burst": -0.3186666846,
+      "pct_spikes_in_bursts": -0.0347969235,
+      "synchrony_index": -0.0229094282
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 6,
+      "value": 3.0,
+      "build_seed": 9210,
+      "mfr_hz": -0.288732886,
+      "burst_rate_per_min": -0.2551461214,
+      "burst_duration_s": -0.3232416151,
+      "spikes_per_burst": -0.2636786573,
+      "pct_spikes_in_bursts": -0.2293202964,
+      "synchrony_index": -0.1631976597
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 6,
+      "value": 3.0,
+      "build_seed": 9211,
+      "mfr_hz": -0.4078417469,
+      "burst_rate_per_min": -0.2964758544,
+      "burst_duration_s": -0.1337014788,
+      "spikes_per_burst": -0.2765913385,
+      "pct_spikes_in_bursts": -0.1648364574,
+      "synchrony_index": -0.1298227328
+    },
+    {
+      "knob": "gabaa_potentiate",
+      "level": 6,
+      "value": 3.0,
+      "build_seed": 9212,
+      "mfr_hz": -0.4998194856,
+      "burst_rate_per_min": -0.3975125852,
+      "burst_duration_s": -0.2273623864,
+      "spikes_per_burst": -0.3088891868,
+      "pct_spikes_in_bursts": -0.2053630875,
+      "synchrony_index": -0.1567580662
+    },
+    {
+      "knob": "sodium_block",
+      "level": 0,
+      "value": 1.05,
+      "build_seed": 9201,
+      "mfr_hz": -1.8794885771,
+      "burst_rate_per_min": -2.8149681062,
+      "burst_duration_s": 0.0010053166,
+      "spikes_per_burst": -0.0728202336,
+      "pct_spikes_in_bursts": -1.0086804608,
+      "synchrony_index": -0.6504520946
+    },
+    {
+      "knob": "sodium_block",
+      "level": 0,
+      "value": 1.05,
+      "build_seed": 9202,
+      "mfr_hz": -1.3329813136,
+      "burst_rate_per_min": -2.1899325491,
+      "burst_duration_s": 0.2517099587,
+      "spikes_per_burst": 0.0404385401,
+      "pct_spikes_in_bursts": -0.8119620519,
+      "synchrony_index": -0.4771624001
+    },
+    {
+      "knob": "sodium_block",
+      "level": 0,
+      "value": 1.05,
+      "build_seed": 9203,
+      "mfr_hz": -1.5885374826,
+      "burst_rate_per_min": -3.1114003121,
+      "burst_duration_s": -0.1268741247,
+      "spikes_per_burst": -0.0325808265,
+      "pct_spikes_in_bursts": -1.5517365229,
+      "synchrony_index": -1.0474096695
+    },
+    {
+      "knob": "sodium_block",
+      "level": 0,
+      "value": 1.05,
+      "build_seed": 9204,
+      "mfr_hz": -2.0277795599,
+      "burst_rate_per_min": -3.8106752803,
+      "burst_duration_s": -0.5129695593,
+      "spikes_per_burst": -0.1280913476,
+      "pct_spikes_in_bursts": -1.9013759898,
+      "synchrony_index": -1.3068869407
+    },
+    {
+      "knob": "sodium_block",
+      "level": 0,
+      "value": 1.05,
+      "build_seed": 9205,
+      "mfr_hz": -1.9139839774,
+      "burst_rate_per_min": -3.6449030117,
+      "burst_duration_s": 0.0739780599,
+      "spikes_per_burst": -0.2217269739,
+      "pct_spikes_in_bursts": -1.9543471496,
+      "synchrony_index": -1.2766821227
+    },
+    {
+      "knob": "sodium_block",
+      "level": 0,
+      "value": 1.05,
+      "build_seed": 9206,
+      "mfr_hz": -1.5608648019,
+      "burst_rate_per_min": -2.3364380811,
+      "burst_duration_s": -0.1649064871,
+      "spikes_per_burst": -0.082679604,
+      "pct_spikes_in_bursts": -0.8571509881,
+      "synchrony_index": -0.5901166626
+    },
+    {
+      "knob": "sodium_block",
+      "level": 0,
+      "value": 1.05,
+      "build_seed": 9207,
+      "mfr_hz": -1.7776486616,
+      "burst_rate_per_min": -3.6574887593,
+      "burst_duration_s": -0.1934670106,
+      "spikes_per_burst": -0.083775469,
+      "pct_spikes_in_bursts": -1.9649203656,
+      "synchrony_index": -1.1693698365
+    },
+    {
+      "knob": "sodium_block",
+      "level": 0,
+      "value": 1.05,
+      "build_seed": 9208,
+      "mfr_hz": -2.317944581,
+      "burst_rate_per_min": -3.8293476504,
+      "burst_duration_s": 0.3375963453,
+      "spikes_per_burst": -0.0975179577,
+      "pct_spikes_in_bursts": -1.6060112815,
+      "synchrony_index": -1.0858638084
+    },
+    {
+      "knob": "sodium_block",
+      "level": 0,
+      "value": 1.05,
+      "build_seed": 9209,
+      "mfr_hz": -1.5646066774,
+      "burst_rate_per_min": -2.105633631,
+      "burst_duration_s": 0.11979522,
+      "spikes_per_burst": -0.0764875503,
+      "pct_spikes_in_bursts": -0.6175478381,
+      "synchrony_index": -0.4622249453
+    },
+    {
+      "knob": "sodium_block",
+      "level": 0,
+      "value": 1.05,
+      "build_seed": 9210,
+      "mfr_hz": -1.6659802474,
+      "burst_rate_per_min": -3.1733681893,
+      "burst_duration_s": -0.4038410232,
+      "spikes_per_burst": -0.1231402831,
+      "pct_spikes_in_bursts": -1.6203746727,
+      "synchrony_index": -1.0578055799
+    },
+    {
+      "knob": "sodium_block",
+      "level": 0,
+      "value": 1.05,
+      "build_seed": 9211,
+      "mfr_hz": -2.2695378196,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": 1.1953980421,
+      "spikes_per_burst": -1.3270664472,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -3.9034397505
+    },
+    {
+      "knob": "sodium_block",
+      "level": 0,
+      "value": 1.05,
+      "build_seed": 9212,
+      "mfr_hz": -2.2580694676,
+      "burst_rate_per_min": -3.9500536082,
+      "burst_duration_s": 0.0305243429,
+      "spikes_per_burst": -0.2505142278,
+      "pct_spikes_in_bursts": -1.9289867495,
+      "synchrony_index": -1.172350342
+    },
+    {
+      "knob": "sodium_block",
+      "level": 1,
+      "value": 1.1,
+      "build_seed": 9201,
+      "mfr_hz": -2.6454132279,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 1,
+      "value": 1.1,
+      "build_seed": 9202,
+      "mfr_hz": -1.9565597743,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 1,
+      "value": 1.1,
+      "build_seed": 9203,
+      "mfr_hz": -2.1628420734,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 1,
+      "value": 1.1,
+      "build_seed": 9204,
+      "mfr_hz": -2.6890005981,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 1,
+      "value": 1.1,
+      "build_seed": 9205,
+      "mfr_hz": -2.4556336831,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 1,
+      "value": 1.1,
+      "build_seed": 9206,
+      "mfr_hz": -2.5342290503,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": 1.3410570823,
+      "spikes_per_burst": -1.342208799,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -3.7970499429
+    },
+    {
+      "knob": "sodium_block",
+      "level": 1,
+      "value": 1.1,
+      "build_seed": 9207,
+      "mfr_hz": -2.2091430433,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.2365248039
+    },
+    {
+      "knob": "sodium_block",
+      "level": 1,
+      "value": 1.1,
+      "build_seed": 9208,
+      "mfr_hz": -2.8916988032,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 1,
+      "value": 1.1,
+      "build_seed": 9209,
+      "mfr_hz": -2.9032344988,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -3.8291379318
+    },
+    {
+      "knob": "sodium_block",
+      "level": 1,
+      "value": 1.1,
+      "build_seed": 9210,
+      "mfr_hz": -2.1616341676,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 1,
+      "value": 1.1,
+      "build_seed": 9211,
+      "mfr_hz": -2.5399249315,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 1,
+      "value": 1.1,
+      "build_seed": 9212,
+      "mfr_hz": -2.7910370466,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 2,
+      "value": 1.2,
+      "build_seed": 9201,
+      "mfr_hz": -2.9745379501,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 2,
+      "value": 1.2,
+      "build_seed": 9202,
+      "mfr_hz": -2.2126864728,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 2,
+      "value": 1.2,
+      "build_seed": 9203,
+      "mfr_hz": -2.3747045918,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 2,
+      "value": 1.2,
+      "build_seed": 9204,
+      "mfr_hz": -3.1267765828,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 2,
+      "value": 1.2,
+      "build_seed": 9205,
+      "mfr_hz": -2.8735633169,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 2,
+      "value": 1.2,
+      "build_seed": 9206,
+      "mfr_hz": -3.1960896038,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 2,
+      "value": 1.2,
+      "build_seed": 9207,
+      "mfr_hz": -2.661491185,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 2,
+      "value": 1.2,
+      "build_seed": 9208,
+      "mfr_hz": -3.0222807114,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 2,
+      "value": 1.2,
+      "build_seed": 9209,
+      "mfr_hz": -3.440192612,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 2,
+      "value": 1.2,
+      "build_seed": 9210,
+      "mfr_hz": -2.4970329151,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 2,
+      "value": 1.2,
+      "build_seed": 9211,
+      "mfr_hz": -2.8429668236,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 2,
+      "value": 1.2,
+      "build_seed": 9212,
+      "mfr_hz": -3.3650704327,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 3,
+      "value": 1.3,
+      "build_seed": 9201,
+      "mfr_hz": -3.0535617109,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 3,
+      "value": 1.3,
+      "build_seed": 9202,
+      "mfr_hz": -2.3453795558,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 3,
+      "value": 1.3,
+      "build_seed": 9203,
+      "mfr_hz": -2.5014096207,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 3,
+      "value": 1.3,
+      "build_seed": 9204,
+      "mfr_hz": -3.4551006537,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 3,
+      "value": 1.3,
+      "build_seed": 9205,
+      "mfr_hz": -2.9095230191,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 3,
+      "value": 1.3,
+      "build_seed": 9206,
+      "mfr_hz": -3.7009605462,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 3,
+      "value": 1.3,
+      "build_seed": 9207,
+      "mfr_hz": -2.7362661735,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 3,
+      "value": 1.3,
+      "build_seed": 9208,
+      "mfr_hz": -3.0888996031,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 3,
+      "value": 1.3,
+      "build_seed": 9209,
+      "mfr_hz": -3.6566336546,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 3,
+      "value": 1.3,
+      "build_seed": 9210,
+      "mfr_hz": -2.8193779229,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 3,
+      "value": 1.3,
+      "build_seed": 9211,
+      "mfr_hz": -2.9519280404,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 3,
+      "value": 1.3,
+      "build_seed": 9212,
+      "mfr_hz": -3.5349565983,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 4,
+      "value": 1.4,
+      "build_seed": 9201,
+      "mfr_hz": -3.138358336,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 4,
+      "value": 1.4,
+      "build_seed": 9202,
+      "mfr_hz": -2.3787972442,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 4,
+      "value": 1.4,
+      "build_seed": 9203,
+      "mfr_hz": -2.4392779843,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 4,
+      "value": 1.4,
+      "build_seed": 9204,
+      "mfr_hz": -3.4178907699,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 4,
+      "value": 1.4,
+      "build_seed": 9205,
+      "mfr_hz": -2.6905321733,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 4,
+      "value": 1.4,
+      "build_seed": 9206,
+      "mfr_hz": -3.7477381567,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 4,
+      "value": 1.4,
+      "build_seed": 9207,
+      "mfr_hz": -3.0259717025,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 4,
+      "value": 1.4,
+      "build_seed": 9208,
+      "mfr_hz": -3.0443409334,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 4,
+      "value": 1.4,
+      "build_seed": 9209,
+      "mfr_hz": -3.5891417844,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 4,
+      "value": 1.4,
+      "build_seed": 9210,
+      "mfr_hz": -2.83256916,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 4,
+      "value": 1.4,
+      "build_seed": 9211,
+      "mfr_hz": -2.8286889698,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 4,
+      "value": 1.4,
+      "build_seed": 9212,
+      "mfr_hz": -3.5595321582,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 5,
+      "value": 1.6,
+      "build_seed": 9201,
+      "mfr_hz": -3.1517067052,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 5,
+      "value": 1.6,
+      "build_seed": 9202,
+      "mfr_hz": -2.3197787138,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 5,
+      "value": 1.6,
+      "build_seed": 9203,
+      "mfr_hz": -2.5626584784,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 5,
+      "value": 1.6,
+      "build_seed": 9204,
+      "mfr_hz": -3.7786524911,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 5,
+      "value": 1.6,
+      "build_seed": 9205,
+      "mfr_hz": -2.8824945879,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -3.608308323
+    },
+    {
+      "knob": "sodium_block",
+      "level": 5,
+      "value": 1.6,
+      "build_seed": 9206,
+      "mfr_hz": -3.237968316,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 5,
+      "value": 1.6,
+      "build_seed": 9207,
+      "mfr_hz": -2.9474906053,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 5,
+      "value": 1.6,
+      "build_seed": 9208,
+      "mfr_hz": -3.1793393427,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 5,
+      "value": 1.6,
+      "build_seed": 9209,
+      "mfr_hz": -3.4155663688,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 5,
+      "value": 1.6,
+      "build_seed": 9210,
+      "mfr_hz": -2.9642085068,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 5,
+      "value": 1.6,
+      "build_seed": 9211,
+      "mfr_hz": -2.5399384069,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 5,
+      "value": 1.6,
+      "build_seed": 9212,
+      "mfr_hz": -3.2699526426,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.1944826873
+    },
+    {
+      "knob": "sodium_block",
+      "level": 6,
+      "value": 1.8,
+      "build_seed": 9201,
+      "mfr_hz": -3.2963302683,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 6,
+      "value": 1.8,
+      "build_seed": 9202,
+      "mfr_hz": -2.1236604605,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 6,
+      "value": 1.8,
+      "build_seed": 9203,
+      "mfr_hz": -3.0612961793,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 6,
+      "value": 1.8,
+      "build_seed": 9204,
+      "mfr_hz": -4.1863974978,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 6,
+      "value": 1.8,
+      "build_seed": 9205,
+      "mfr_hz": -2.7822083577,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -2.7092138554
+    },
+    {
+      "knob": "sodium_block",
+      "level": 6,
+      "value": 1.8,
+      "build_seed": 9206,
+      "mfr_hz": -3.0553150097,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 6,
+      "value": 1.8,
+      "build_seed": 9207,
+      "mfr_hz": -2.9622992908,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 6,
+      "value": 1.8,
+      "build_seed": 9208,
+      "mfr_hz": -3.7049677041,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 6,
+      "value": 1.8,
+      "build_seed": 9209,
+      "mfr_hz": -3.9556613474,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 6,
+      "value": 1.8,
+      "build_seed": 9210,
+      "mfr_hz": -3.1731477652,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 6,
+      "value": 1.8,
+      "build_seed": 9211,
+      "mfr_hz": -2.6225248249,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "sodium_block",
+      "level": 6,
+      "value": 1.8,
+      "build_seed": 9212,
+      "mfr_hz": -3.2957689344,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 0,
+      "value": 0.9,
+      "build_seed": 9201,
+      "mfr_hz": -1.9601602508,
+      "burst_rate_per_min": -3.8073549221,
+      "burst_duration_s": -0.4478455116,
+      "spikes_per_burst": -0.1951375736,
+      "pct_spikes_in_bursts": -2.0422702566,
+      "synchrony_index": -1.4672535573
+    },
+    {
+      "knob": "ampa_block",
+      "level": 0,
+      "value": 0.9,
+      "build_seed": 9202,
+      "mfr_hz": -1.415549729,
+      "burst_rate_per_min": -3.1664735763,
+      "burst_duration_s": -0.449159405,
+      "spikes_per_burst": -0.276617812,
+      "pct_spikes_in_bursts": -2.0244535825,
+      "synchrony_index": -1.3274777904
+    },
+    {
+      "knob": "ampa_block",
+      "level": 0,
+      "value": 0.9,
+      "build_seed": 9203,
+      "mfr_hz": -1.3183318445,
+      "burst_rate_per_min": -3.255944981,
+      "burst_duration_s": -0.5906145211,
+      "spikes_per_burst": -0.0163711139,
+      "pct_spikes_in_bursts": -1.9507825434,
+      "synchrony_index": -1.4248878374
+    },
+    {
+      "knob": "ampa_block",
+      "level": 0,
+      "value": 0.9,
+      "build_seed": 9204,
+      "mfr_hz": -1.768640019,
+      "burst_rate_per_min": -3.8269395863,
+      "burst_duration_s": -0.6124714849,
+      "spikes_per_burst": -0.4981580359,
+      "pct_spikes_in_bursts": -2.5525538482,
+      "synchrony_index": -1.9519742925
+    },
+    {
+      "knob": "ampa_block",
+      "level": 0,
+      "value": 0.9,
+      "build_seed": 9205,
+      "mfr_hz": -1.6608173457,
+      "burst_rate_per_min": -3.7282483771,
+      "burst_duration_s": -0.3380998242,
+      "spikes_per_burst": -0.3923512376,
+      "pct_spikes_in_bursts": -2.4586354575,
+      "synchrony_index": -1.6054239394
+    },
+    {
+      "knob": "ampa_block",
+      "level": 0,
+      "value": 0.9,
+      "build_seed": 9206,
+      "mfr_hz": -1.7687999803,
+      "burst_rate_per_min": -3.9110214361,
+      "burst_duration_s": -0.7677244957,
+      "spikes_per_burst": -0.4290472044,
+      "pct_spikes_in_bursts": -2.569510533,
+      "synchrony_index": -1.7800326562
+    },
+    {
+      "knob": "ampa_block",
+      "level": 0,
+      "value": 0.9,
+      "build_seed": 9207,
+      "mfr_hz": -1.4252596625,
+      "burst_rate_per_min": -2.7121715208,
+      "burst_duration_s": -0.3623254392,
+      "spikes_per_burst": -0.3160255408,
+      "pct_spikes_in_bursts": -1.6055969249,
+      "synchrony_index": -1.0323028909
+    },
+    {
+      "knob": "ampa_block",
+      "level": 0,
+      "value": 0.9,
+      "build_seed": 9208,
+      "mfr_hz": -1.8171612702,
+      "burst_rate_per_min": -2.8846906842,
+      "burst_duration_s": -0.1708014649,
+      "spikes_per_burst": -0.2905211808,
+      "pct_spikes_in_bursts": -1.3574945708,
+      "synchrony_index": -1.0092927814
+    },
+    {
+      "knob": "ampa_block",
+      "level": 0,
+      "value": 0.9,
+      "build_seed": 9209,
+      "mfr_hz": -1.9511717514,
+      "burst_rate_per_min": -4.1136264217,
+      "burst_duration_s": -0.4964526418,
+      "spikes_per_burst": -0.2766951693,
+      "pct_spikes_in_bursts": -2.4391731278,
+      "synchrony_index": -1.7445196381
+    },
+    {
+      "knob": "ampa_block",
+      "level": 0,
+      "value": 0.9,
+      "build_seed": 9210,
+      "mfr_hz": -1.2895379934,
+      "burst_rate_per_min": -2.9982814828,
+      "burst_duration_s": 0.0490795251,
+      "spikes_per_burst": -0.2786501294,
+      "pct_spikes_in_bursts": -1.9799099334,
+      "synchrony_index": -1.2992773282
+    },
+    {
+      "knob": "ampa_block",
+      "level": 0,
+      "value": 0.9,
+      "build_seed": 9211,
+      "mfr_hz": -2.0186172135,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": 1.0126032405,
+      "spikes_per_burst": -1.1895629234,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.1581963166
+    },
+    {
+      "knob": "ampa_block",
+      "level": 0,
+      "value": 0.9,
+      "build_seed": 9212,
+      "mfr_hz": -1.8032480783,
+      "burst_rate_per_min": -2.9989632087,
+      "burst_duration_s": -0.1467705605,
+      "spikes_per_burst": -0.4104705421,
+      "pct_spikes_in_bursts": -1.598706621,
+      "synchrony_index": -1.0990454676
+    },
+    {
+      "knob": "ampa_block",
+      "level": 1,
+      "value": 0.8,
+      "build_seed": 9201,
+      "mfr_hz": -2.1713076714,
+      "burst_rate_per_min": -3.9737353177,
+      "burst_duration_s": -0.1450279147,
+      "spikes_per_burst": -0.6337511048,
+      "pct_spikes_in_bursts": -2.4345285948,
+      "synchrony_index": -1.6709148827
+    },
+    {
+      "knob": "ampa_block",
+      "level": 1,
+      "value": 0.8,
+      "build_seed": 9202,
+      "mfr_hz": -1.5847424068,
+      "burst_rate_per_min": -3.516957621,
+      "burst_duration_s": 0.1882008836,
+      "spikes_per_burst": -0.698689338,
+      "pct_spikes_in_bursts": -2.6333357004,
+      "synchrony_index": -1.6694191383
+    },
+    {
+      "knob": "ampa_block",
+      "level": 1,
+      "value": 0.8,
+      "build_seed": 9203,
+      "mfr_hz": -1.5029914336,
+      "burst_rate_per_min": -3.2902964858,
+      "burst_duration_s": -0.2109302755,
+      "spikes_per_burst": -0.3191515744,
+      "pct_spikes_in_bursts": -2.1051084326,
+      "synchrony_index": -1.4721253889
+    },
+    {
+      "knob": "ampa_block",
+      "level": 1,
+      "value": 0.8,
+      "build_seed": 9204,
+      "mfr_hz": -1.9592141596,
+      "burst_rate_per_min": -3.9235693368,
+      "burst_duration_s": -0.0034969441,
+      "spikes_per_burst": -0.4059769727,
+      "pct_spikes_in_bursts": -2.3610113426,
+      "synchrony_index": -1.7898955982
+    },
+    {
+      "knob": "ampa_block",
+      "level": 1,
+      "value": 0.8,
+      "build_seed": 9205,
+      "mfr_hz": -1.8957503346,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 1,
+      "value": 0.8,
+      "build_seed": 9206,
+      "mfr_hz": -2.018097956,
+      "burst_rate_per_min": -4.0418730935,
+      "burst_duration_s": -0.040434796,
+      "spikes_per_burst": -0.6480377215,
+      "pct_spikes_in_bursts": -2.6703303782,
+      "synchrony_index": -1.8726353103
+    },
+    {
+      "knob": "ampa_block",
+      "level": 1,
+      "value": 0.8,
+      "build_seed": 9207,
+      "mfr_hz": -1.7849298514,
+      "burst_rate_per_min": -3.9594946796,
+      "burst_duration_s": -0.1339331328,
+      "spikes_per_burst": -0.5064121791,
+      "pct_spikes_in_bursts": -2.6806282586,
+      "synchrony_index": -1.755160951
+    },
+    {
+      "knob": "ampa_block",
+      "level": 1,
+      "value": 0.8,
+      "build_seed": 9208,
+      "mfr_hz": -2.2812861104,
+      "burst_rate_per_min": -3.9934670302,
+      "burst_duration_s": -0.166296481,
+      "spikes_per_burst": -0.6676812374,
+      "pct_spikes_in_bursts": -2.3777941135,
+      "synchrony_index": -1.6378708104
+    },
+    {
+      "knob": "ampa_block",
+      "level": 1,
+      "value": 0.8,
+      "build_seed": 9209,
+      "mfr_hz": -2.1936390479,
+      "burst_rate_per_min": -4.2656295152,
+      "burst_duration_s": 0.3007451641,
+      "spikes_per_burst": -0.5916093975,
+      "pct_spikes_in_bursts": -2.6635820886,
+      "synchrony_index": -1.9942514358
+    },
+    {
+      "knob": "ampa_block",
+      "level": 1,
+      "value": 0.8,
+      "build_seed": 9210,
+      "mfr_hz": -1.6692543185,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": -0.2505945014,
+      "spikes_per_burst": -1.309695959,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 1,
+      "value": 0.8,
+      "build_seed": 9211,
+      "mfr_hz": -2.1190227206,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 1,
+      "value": 0.8,
+      "build_seed": 9212,
+      "mfr_hz": -2.1833400232,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": 1.9284547218,
+      "spikes_per_burst": -1.435942064,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 2,
+      "value": 0.7,
+      "build_seed": 9201,
+      "mfr_hz": -2.3873299355,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": 0.9815592867,
+      "spikes_per_burst": -1.4614988307,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 2,
+      "value": 0.7,
+      "build_seed": 9202,
+      "mfr_hz": -1.7224951358,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": 1.1949233164,
+      "spikes_per_burst": -1.212313057,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 2,
+      "value": 0.7,
+      "build_seed": 9203,
+      "mfr_hz": -1.7292480447,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 2,
+      "value": 0.7,
+      "build_seed": 9204,
+      "mfr_hz": -2.2129285356,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 2,
+      "value": 0.7,
+      "build_seed": 9205,
+      "mfr_hz": -1.9598730632,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 2,
+      "value": 0.7,
+      "build_seed": 9206,
+      "mfr_hz": -2.1677979082,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": 0.9615752979,
+      "spikes_per_burst": -1.342208799,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 2,
+      "value": 0.7,
+      "build_seed": 9207,
+      "mfr_hz": -1.8647584381,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": 1.15989532,
+      "spikes_per_burst": -1.3206823693,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 2,
+      "value": 0.7,
+      "build_seed": 9208,
+      "mfr_hz": -2.4856502295,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": 1.5821459854,
+      "spikes_per_burst": -1.4867179645,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 2,
+      "value": 0.7,
+      "build_seed": 9209,
+      "mfr_hz": -2.3979971787,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 2,
+      "value": 0.7,
+      "build_seed": 9210,
+      "mfr_hz": -1.7051595273,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": 1.4514866416,
+      "spikes_per_burst": -1.309695959,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 2,
+      "value": 0.7,
+      "build_seed": 9211,
+      "mfr_hz": -2.2082898565,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": 1.8584979177,
+      "spikes_per_burst": -1.3270664472,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 2,
+      "value": 0.7,
+      "build_seed": 9212,
+      "mfr_hz": -2.2632071138,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 3,
+      "value": 0.6,
+      "build_seed": 9201,
+      "mfr_hz": -2.4200098584,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 3,
+      "value": 0.6,
+      "build_seed": 9202,
+      "mfr_hz": -1.7414394024,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 3,
+      "value": 0.6,
+      "build_seed": 9203,
+      "mfr_hz": -1.7702650883,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 3,
+      "value": 0.6,
+      "build_seed": 9204,
+      "mfr_hz": -2.2839777613,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 3,
+      "value": 0.6,
+      "build_seed": 9205,
+      "mfr_hz": -2.0236266497,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": 1.9352444332,
+      "spikes_per_burst": -1.2186354425,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 3,
+      "value": 0.6,
+      "build_seed": 9206,
+      "mfr_hz": -2.2650774273,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 3,
+      "value": 0.6,
+      "build_seed": 9207,
+      "mfr_hz": -1.937174468,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 3,
+      "value": 0.6,
+      "build_seed": 9208,
+      "mfr_hz": -2.5813020864,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 3,
+      "value": 0.6,
+      "build_seed": 9209,
+      "mfr_hz": -2.4848466372,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 3,
+      "value": 0.6,
+      "build_seed": 9210,
+      "mfr_hz": -1.768418459,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 3,
+      "value": 0.6,
+      "build_seed": 9211,
+      "mfr_hz": -2.2278875514,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": 1.8697816236,
+      "spikes_per_burst": -1.3270664472,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 3,
+      "value": 0.6,
+      "build_seed": 9212,
+      "mfr_hz": -2.3357576335,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 4,
+      "value": 0.5,
+      "build_seed": 9201,
+      "mfr_hz": -2.5212641053,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 4,
+      "value": 0.5,
+      "build_seed": 9202,
+      "mfr_hz": -1.7585718555,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 4,
+      "value": 0.5,
+      "build_seed": 9203,
+      "mfr_hz": -1.778467286,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 4,
+      "value": 0.5,
+      "build_seed": 9204,
+      "mfr_hz": -2.2774510486,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 4,
+      "value": 0.5,
+      "build_seed": 9205,
+      "mfr_hz": -2.088723894,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 4,
+      "value": 0.5,
+      "build_seed": 9206,
+      "mfr_hz": -2.2072855289,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": 1.9489034737,
+      "spikes_per_burst": -1.342208799,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 4,
+      "value": 0.5,
+      "build_seed": 9207,
+      "mfr_hz": -1.9495319947,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 4,
+      "value": 0.5,
+      "build_seed": 9208,
+      "mfr_hz": -2.6124237821,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 4,
+      "value": 0.5,
+      "build_seed": 9209,
+      "mfr_hz": -2.5170587441,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 4,
+      "value": 0.5,
+      "build_seed": 9210,
+      "mfr_hz": -1.8403926398,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 4,
+      "value": 0.5,
+      "build_seed": 9211,
+      "mfr_hz": -2.2878842148,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 4,
+      "value": 0.5,
+      "build_seed": 9212,
+      "mfr_hz": -2.4027627904,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 5,
+      "value": 0.4,
+      "build_seed": 9201,
+      "mfr_hz": -2.4574992543,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": 2.2112799435,
+      "spikes_per_burst": -1.1984644248,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 5,
+      "value": 0.4,
+      "build_seed": 9202,
+      "mfr_hz": -1.7935659663,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 5,
+      "value": 0.4,
+      "build_seed": 9203,
+      "mfr_hz": -1.8063692651,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 5,
+      "value": 0.4,
+      "build_seed": 9204,
+      "mfr_hz": -2.3607896116,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 5,
+      "value": 0.4,
+      "build_seed": 9205,
+      "mfr_hz": -2.1303040318,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 5,
+      "value": 0.4,
+      "build_seed": 9206,
+      "mfr_hz": -2.2805443416,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 5,
+      "value": 0.4,
+      "build_seed": 9207,
+      "mfr_hz": -1.9689282044,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 5,
+      "value": 0.4,
+      "build_seed": 9208,
+      "mfr_hz": -2.6419307578,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 5,
+      "value": 0.4,
+      "build_seed": 9209,
+      "mfr_hz": -2.5972930855,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 5,
+      "value": 0.4,
+      "build_seed": 9210,
+      "mfr_hz": -1.8782512462,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 5,
+      "value": 0.4,
+      "build_seed": 9211,
+      "mfr_hz": -2.3223144754,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 5,
+      "value": 0.4,
+      "build_seed": 9212,
+      "mfr_hz": -2.3978803948,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 6,
+      "value": 0.3,
+      "build_seed": 9201,
+      "mfr_hz": -2.5173148258,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": 2.0733146834,
+      "spikes_per_burst": -1.4614988307,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 6,
+      "value": 0.3,
+      "build_seed": 9202,
+      "mfr_hz": -1.8067956173,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 6,
+      "value": 0.3,
+      "build_seed": 9203,
+      "mfr_hz": -1.8655390834,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 6,
+      "value": 0.3,
+      "build_seed": 9204,
+      "mfr_hz": -2.3876250548,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 6,
+      "value": 0.3,
+      "build_seed": 9205,
+      "mfr_hz": -2.1872154918,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 6,
+      "value": 0.3,
+      "build_seed": 9206,
+      "mfr_hz": -2.3152049736,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 6,
+      "value": 0.3,
+      "build_seed": 9207,
+      "mfr_hz": -2.0170428,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 6,
+      "value": 0.3,
+      "build_seed": 9208,
+      "mfr_hz": -2.6823340459,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 6,
+      "value": 0.3,
+      "build_seed": 9209,
+      "mfr_hz": -2.5803616396,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 6,
+      "value": 0.3,
+      "build_seed": 9210,
+      "mfr_hz": -1.8809626596,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 6,
+      "value": 0.3,
+      "build_seed": 9211,
+      "mfr_hz": -2.3205554914,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    },
+    {
+      "knob": "ampa_block",
+      "level": 6,
+      "value": 0.3,
+      "build_seed": 9212,
+      "mfr_hz": -2.4146997083,
+      "burst_rate_per_min": -4.3219280949,
+      "burst_duration_s": null,
+      "spikes_per_burst": null,
+      "pct_spikes_in_bursts": -4.3219280949,
+      "synchrony_index": -4.3219280949
+    }
+  ],
+  "curves": {
+    "ampa_block": {
+      "mfr_hz": [
+        {
+          "median": -1.7687,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -1.9887,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -2.188,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -2.2465,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -2.2424,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -2.3014,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -2.3179,
+          "n_defined": 12,
+          "moves": true
+        }
+      ],
+      "burst_rate_per_min": [
+        {
+          "median": -3.4921,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -4.0177,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -4.3219,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -4.3219,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -4.3219,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -4.3219,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -4.3219,
+          "n_defined": 12,
+          "moves": true
+        }
+      ],
+      "burst_duration_s": [
+        {
+          "median": -0.4051,
+          "n_defined": 12,
+          "moves": false
+        },
+        {
+          "median": -0.0872,
+          "n_defined": 10,
+          "moves": false
+        },
+        {
+          "median": 1.1949,
+          "n_defined": 7,
+          "moves": false
+        },
+        {
+          "median": 1.9025,
+          "n_defined": 2,
+          "moves": false
+        },
+        {
+          "median": 1.9489,
+          "n_defined": 1,
+          "moves": false
+        },
+        {
+          "median": 2.2113,
+          "n_defined": 1,
+          "moves": false
+        },
+        {
+          "median": 2.0733,
+          "n_defined": 1,
+          "moves": false
+        }
+      ],
+      "spikes_per_burst": [
+        {
+          "median": -0.3033,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -0.6409,
+          "n_defined": 10,
+          "moves": true
+        },
+        {
+          "median": -1.3271,
+          "n_defined": 7,
+          "moves": false
+        },
+        {
+          "median": -1.2729,
+          "n_defined": 2,
+          "moves": false
+        },
+        {
+          "median": -1.3422,
+          "n_defined": 1,
+          "moves": false
+        },
+        {
+          "median": -1.1985,
+          "n_defined": 1,
+          "moves": false
+        },
+        {
+          "median": -1.4615,
+          "n_defined": 1,
+          "moves": false
+        }
+      ],
+      "pct_spikes_in_bursts": [
+        {
+          "median": -2.0334,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -2.667,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -4.3219,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -4.3219,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -4.3219,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -4.3219,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -4.3219,
+          "n_defined": 12,
+          "moves": true
+        }
+      ],
+      "synchrony_index": [
+        {
+          "median": -1.4461,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -1.8313,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -4.3219,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -4.3219,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -4.3219,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -4.3219,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -4.3219,
+          "n_defined": 12,
+          "moves": true
+        }
+      ]
+    },
+    "gabaa_block": {
+      "mfr_hz": [
+        {
+          "median": 0.0553,
+          "n_defined": 12,
+          "moves": false
+        },
+        {
+          "median": 0.1315,
+          "n_defined": 12,
+          "moves": false
+        },
+        {
+          "median": 0.3378,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": 0.6645,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": 1.2431,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": 2.4833,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": 3.4531,
+          "n_defined": 12,
+          "moves": true
+        }
+      ],
+      "burst_rate_per_min": [
+        {
+          "median": 0.0029,
+          "n_defined": 12,
+          "moves": false
+        },
+        {
+          "median": 0.0135,
+          "n_defined": 12,
+          "moves": false
+        },
+        {
+          "median": 0.0334,
+          "n_defined": 12,
+          "moves": false
+        },
+        {
+          "median": 0.0363,
+          "n_defined": 12,
+          "moves": false
+        },
+        {
+          "median": -0.0942,
+          "n_defined": 12,
+          "moves": false
+        },
+        {
+          "median": -0.1744,
+          "n_defined": 12,
+          "moves": false
+        },
+        {
+          "median": -0.2178,
+          "n_defined": 12,
+          "moves": false
+        }
+      ],
+      "burst_duration_s": [
+        {
+          "median": -0.0022,
+          "n_defined": 12,
+          "moves": false
+        },
+        {
+          "median": 0.057,
+          "n_defined": 12,
+          "moves": false
+        },
+        {
+          "median": 0.0902,
+          "n_defined": 12,
+          "moves": false
+        },
+        {
+          "median": 0.222,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": 0.3125,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": 0.4897,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": 0.882,
+          "n_defined": 12,
+          "moves": true
+        }
+      ],
+      "spikes_per_burst": [
+        {
+          "median": 0.09,
+          "n_defined": 12,
+          "moves": false
+        },
+        {
+          "median": 0.2022,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": 0.4194,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": 0.8375,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": 1.6386,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": 2.909,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": 3.9786,
+          "n_defined": 12,
+          "moves": true
+        }
+      ],
+      "pct_spikes_in_bursts": [
+        {
+          "median": 0.0133,
+          "n_defined": 12,
+          "moves": false
+        },
+        {
+          "median": 0.0281,
+          "n_defined": 12,
+          "moves": false
+        },
+        {
+          "median": 0.1018,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": 0.1461,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": 0.2027,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": 0.2868,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": 0.3059,
+          "n_defined": 12,
+          "moves": true
+        }
+      ],
+      "synchrony_index": [
+        {
+          "median": 0.0109,
+          "n_defined": 12,
+          "moves": false
+        },
+        {
+          "median": 0.0234,
+          "n_defined": 12,
+          "moves": false
+        },
+        {
+          "median": 0.0912,
+          "n_defined": 12,
+          "moves": false
+        },
+        {
+          "median": 0.1265,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": 0.1899,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": 0.2838,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": 0.3044,
+          "n_defined": 12,
+          "moves": true
+        }
+      ]
+    },
+    "gabaa_potentiate": {
+      "mfr_hz": [
+        {
+          "median": -0.0263,
+          "n_defined": 12,
+          "moves": false
+        },
+        {
+          "median": 0.019,
+          "n_defined": 12,
+          "moves": false
+        },
+        {
+          "median": -0.2245,
+          "n_defined": 12,
+          "moves": false
+        },
+        {
+          "median": -0.1342,
+          "n_defined": 12,
+          "moves": false
+        },
+        {
+          "median": -0.0749,
+          "n_defined": 12,
+          "moves": false
+        },
+        {
+          "median": -0.168,
+          "n_defined": 12,
+          "moves": false
+        },
+        {
+          "median": -0.3465,
+          "n_defined": 12,
+          "moves": true
+        }
+      ],
+      "burst_rate_per_min": [
+        {
+          "median": 0.0745,
+          "n_defined": 12,
+          "moves": false
+        },
+        {
+          "median": 0.1342,
+          "n_defined": 12,
+          "moves": false
+        },
+        {
+          "median": -0.0827,
+          "n_defined": 12,
+          "moves": false
+        },
+        {
+          "median": 0.0074,
+          "n_defined": 12,
+          "moves": false
+        },
+        {
+          "median": 0.1019,
+          "n_defined": 12,
+          "moves": false
+        },
+        {
+          "median": 0.101,
+          "n_defined": 12,
+          "moves": false
+        },
+        {
+          "median": -0.2398,
+          "n_defined": 12,
+          "moves": false
+        }
+      ],
+      "burst_duration_s": [
+        {
+          "median": -0.0341,
+          "n_defined": 12,
+          "moves": false
+        },
+        {
+          "median": -0.051,
+          "n_defined": 12,
+          "moves": false
+        },
+        {
+          "median": -0.1456,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -0.1792,
+          "n_defined": 12,
+          "moves": false
+        },
+        {
+          "median": -0.1575,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -0.171,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -0.1635,
+          "n_defined": 12,
+          "moves": true
+        }
+      ],
+      "spikes_per_burst": [
+        {
+          "median": -0.0471,
+          "n_defined": 12,
+          "moves": false
+        },
+        {
+          "median": -0.0962,
+          "n_defined": 12,
+          "moves": false
+        },
+        {
+          "median": -0.176,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -0.2335,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -0.2611,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -0.2892,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -0.2991,
+          "n_defined": 12,
+          "moves": true
+        }
+      ],
+      "pct_spikes_in_bursts": [
+        {
+          "median": -0.0075,
+          "n_defined": 12,
+          "moves": false
+        },
+        {
+          "median": 0.0225,
+          "n_defined": 12,
+          "moves": false
+        },
+        {
+          "median": -0.0739,
+          "n_defined": 12,
+          "moves": false
+        },
+        {
+          "median": -0.064,
+          "n_defined": 12,
+          "moves": false
+        },
+        {
+          "median": -0.052,
+          "n_defined": 12,
+          "moves": false
+        },
+        {
+          "median": -0.0428,
+          "n_defined": 12,
+          "moves": false
+        },
+        {
+          "median": -0.1744,
+          "n_defined": 12,
+          "moves": true
+        }
+      ],
+      "synchrony_index": [
+        {
+          "median": -0.0064,
+          "n_defined": 12,
+          "moves": false
+        },
+        {
+          "median": 0.0128,
+          "n_defined": 12,
+          "moves": false
+        },
+        {
+          "median": -0.0568,
+          "n_defined": 12,
+          "moves": false
+        },
+        {
+          "median": -0.0384,
+          "n_defined": 12,
+          "moves": false
+        },
+        {
+          "median": -0.0236,
+          "n_defined": 12,
+          "moves": false
+        },
+        {
+          "median": -0.0333,
+          "n_defined": 12,
+          "moves": false
+        },
+        {
+          "median": -0.1282,
+          "n_defined": 12,
+          "moves": true
+        }
+      ]
+    },
+    "sodium_block": {
+      "mfr_hz": [
+        {
+          "median": -1.8286,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -2.5371,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -2.9241,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -3.0027,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -3.0352,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -3.058,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -3.1172,
+          "n_defined": 12,
+          "moves": true
+        }
+      ],
+      "burst_rate_per_min": [
+        {
+          "median": -3.4091,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -4.3219,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -4.3219,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -4.3219,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -4.3219,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -4.3219,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -4.3219,
+          "n_defined": 12,
+          "moves": true
+        }
+      ],
+      "burst_duration_s": [
+        {
+          "median": 0.0158,
+          "n_defined": 12,
+          "moves": false
+        },
+        {
+          "median": 1.3411,
+          "n_defined": 1,
+          "moves": false
+        },
+        {
+          "median": null,
+          "n_defined": 0,
+          "moves": false
+        },
+        {
+          "median": null,
+          "n_defined": 0,
+          "moves": false
+        },
+        {
+          "median": null,
+          "n_defined": 0,
+          "moves": false
+        },
+        {
+          "median": null,
+          "n_defined": 0,
+          "moves": false
+        },
+        {
+          "median": null,
+          "n_defined": 0,
+          "moves": false
+        }
+      ],
+      "spikes_per_burst": [
+        {
+          "median": -0.0906,
+          "n_defined": 12,
+          "moves": false
+        },
+        {
+          "median": -1.3422,
+          "n_defined": 1,
+          "moves": false
+        },
+        {
+          "median": null,
+          "n_defined": 0,
+          "moves": false
+        },
+        {
+          "median": null,
+          "n_defined": 0,
+          "moves": false
+        },
+        {
+          "median": null,
+          "n_defined": 0,
+          "moves": false
+        },
+        {
+          "median": null,
+          "n_defined": 0,
+          "moves": false
+        },
+        {
+          "median": null,
+          "n_defined": 0,
+          "moves": false
+        }
+      ],
+      "pct_spikes_in_bursts": [
+        {
+          "median": -1.6132,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -4.3219,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -4.3219,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -4.3219,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -4.3219,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -4.3219,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -4.3219,
+          "n_defined": 12,
+          "moves": true
+        }
+      ],
+      "synchrony_index": [
+        {
+          "median": -1.0718,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -4.3219,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -4.3219,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -4.3219,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -4.3219,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -4.3219,
+          "n_defined": 12,
+          "moves": true
+        },
+        {
+          "median": -4.3219,
+          "n_defined": 12,
+          "moves": true
+        }
+      ]
+    }
+  }
+}

@@ -232,7 +232,10 @@ def score_predictions(results: dict, timing: dict) -> dict:
             _ps(m2["H1000"]),
         ),
     }
-    out = {name: {"passed": bool(ok), "value": value} for name, (ok, value) in rows.items()}
+    out = {
+        name: {"passed": bool(ok), "outcome": "pass" if ok else "fail", "value": value}
+        for name, (ok, value) in rows.items()
+    }
     out["P3_no_contraction_lost"]["floor"] = floor
     return {
         "by_prediction": out,
@@ -480,6 +483,24 @@ def post_hoc_checks(m0) -> dict:
             "coverage": block["coverage"],
         },
     }
+
+
+def rescore_section(section: dict) -> dict:
+    """The recorded section with its predictions scored again from its recorded results."""
+    timing = section["amortized_inference"]
+    return {**section, "predictions": score_predictions(section["results"], timing)}
+
+
+def rescore() -> dict:
+    """Score the registered predictions again from metrics.json, without re-evaluating."""
+    import json
+
+    from neuromps.metrics import update_metrics
+    from neuromps.paths import metrics_path
+
+    section = rescore_section(json.loads(metrics_path().read_text())[rc.METRICS_KEY])
+    update_metrics(rc.METRICS_KEY, section)
+    return section["predictions"]
 
 
 def add_post_hoc() -> dict:

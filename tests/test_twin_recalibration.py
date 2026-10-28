@@ -284,3 +284,21 @@ def test_predictions_fail_on_lost_contraction_slow_sampling_and_over_confidence(
     assert not rows["P5_budget_alone_suffices"]["passed"]
     assert rows["P1_ensemble_all_calibrated"]["passed"]
     assert adopted_parameters(results) == []  # every parameter over-confident at 0.8
+
+
+def test_each_prediction_records_the_outcome_the_audit_counts() -> None:
+    from neuromps.twin.recalibration_run import score_predictions
+
+    results = _results(m0_p=0.3, m1_p=0.01, m2_p=0.3, m2_cov=0.5, m2_shrink=0.4)
+    rows = score_predictions(results, {"M2": {"median_seconds_per_posterior": 1.5}})
+    for row in rows["by_prediction"].values():
+        assert row["outcome"] == ("pass" if row["passed"] else "fail")
+
+
+def test_rescore_rebuilds_the_predictions_from_the_recorded_section() -> None:
+    from neuromps.twin.recalibration_run import rescore_section, score_predictions
+
+    results = _results(m0_p=0.01, m1_p=0.2, m2_p=0.3)
+    timing = {"M2": {"median_seconds_per_posterior": 0.4}}
+    section = {"results": results, "amortized_inference": timing, "predictions": {"stale": 1}}
+    assert rescore_section(section)["predictions"] == score_predictions(results, timing)

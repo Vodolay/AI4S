@@ -373,8 +373,16 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument(
         "--post-hoc", action="store_true", help="add only the post hoc checks to the record"
     )
+    p.add_argument(
+        "--rescore", action="store_true", help="score the predictions again from the record"
+    )
     args = p.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+    if args.rescore:
+        from neuromps.twin.recalibration_run import rescore
+
+        print(json.dumps(rescore(), indent=2, default=str))
+        return 0
     if args.post_hoc:
         from neuromps.twin.recalibration_run import add_post_hoc
 

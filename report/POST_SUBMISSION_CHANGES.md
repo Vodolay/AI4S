@@ -51,6 +51,8 @@ the bottom.*
 | 40 | 2026-10-25 | Embodied stage 4e: the walking readout as a fraction of rhythmic draws | 2 of 4; GABA-A and GluCl block break walking first again; the acetylcholine exception depends on the readout and is withdrawn | `180476f` … this branch |
 | 41 | 2026-10-25 | One command reproduces every fly number again; the paper draft moves to a private repository | every recorded value reproduced; documents only | this branch |
 | 42 | 2026-10-26 | Real ToxCast vehicle wells: noise floors, wells needed, and the twin against unseen positive controls | new real-data results, both registered; twin 12 of 12 directions, no better than a firing-rate rule | `cf90872` … this branch |
+| 43 | 2026-10-27 | The registration audit and hash chain, in this repository | every registered prediction counted; no result file precedes its registration; corrected 2026-10-28 to count two studies it had missed | `d183585` … this branch |
+| 44 | 2026-10-28 | The twin's knob dose-response against real concentration-response curves | 2 of 4 registered predictions pass; the mechanism label matters, the curve shape does not clear the line | `f3e1fb9` … this branch |
 | 45 | 2026-10-27/28 | The twin's inverse model recalibrated: 5.8x the simulations and a five-flow ensemble (D31) | 2 of 7 registered predictions pass; on fresh simulations the round-1 model fails all five parameters; the ensemble passes only `threshold_scale` under the registered rule | `0bc29aa` … this branch |
 
 ---
@@ -973,6 +975,93 @@ halving; judged against a historical reference, no number of wells from one day 
 - **Evidence.** Report Act IX (§32-§34), the table in §32, §20 item 6, §18 row 9;
   `outputs/figures/toxcast_noise_floors_real.png`,
   `outputs/figures/twin_toxcast_positive_controls.png`, `outputs/tables/toxcast_wells_needed.md`.
+
+## 43. The registrations audited and hash-chained in this repository
+
+**Slide message:** *Every registered prediction is counted by a script, and every result file is
+checked against the commit that registered it, here, in the public repository.*
+
+- **What changed.** Two report tools come over from the manuscript repository, where they were
+  first written: `neuromps.report.audit` counts the outcome of every registered prediction in
+  `outputs/metrics.json` (now run at the end of every `run_all`), and
+  `neuromps.report.timestamps` writes `preregistration/TIMESTAMPS.json` (each registration's
+  checksum and first commit, a hash chain over them, and whether each result file came after its
+  registration) and its counts to `metrics.json`. Report §21 describes both.
+- **Why.** The final-round deck quoted registration counts and a hash chain that existed only in
+  the private manuscript repository, so a reader of this repository could not check them.
+- **Effect.**
+  - 43 <!-- metrics.json: registration_audit.submission.n_studies --> registered studies here made
+    223 <!-- metrics.json: registration_audit.submission.total.total --> predictions:
+    99 <!-- metrics.json: registration_audit.submission.total.pass --> passed,
+    85 <!-- metrics.json: registration_audit.submission.total.fail --> failed,
+    38 <!-- metrics.json: registration_audit.submission.total.uninterpretable --> were uninterpretable.
+  - 38 <!-- metrics.json: registration_timestamps.submission.n_outputs_checked --> result files name their
+    registration, and 0 <!-- metrics.json: registration_timestamps.submission.n_violations --> of them came
+    before it; 3 <!-- metrics.json: registration_timestamps.submission.not_covered --> registrations are not
+    covered because their results do not name them.
+  - No earlier result changes.
+- **Correction (2026-10-28).** As first merged, the audit counted 40 studies and 208
+  predictions. It counted only predictions that carry an `outcome` word, and two studies record a
+  pass flag instead: the twin against the ToxCast positive controls (entry 42) and the dose
+  response (entry 44). Both now record an outcome as well (pass, fail, or uninterpretable when a
+  registered minimum is not met; no verdict changes), and the audit now names any study it cannot
+  read (`registration_audit.unrecognised`, empty) and leaves out, by name, the rhythm audit, which
+  re-reads predictions already counted under their own stages (`registration_audit.excluded`).
+  The counts above include both studies, and the inverse-model recalibration (entry 45), whose
+  predictions sit one level down under `by_prediction`, a layout the audit now also reads.
+
+---
+
+## 44. The dose response: what the twin's knobs get right, and where the test broke
+
+**Slide message:** *Asked to reproduce the shape of real concentration-response curves, the twin
+beats a wrong-mechanism knob by 0.47 in rank correlation and names the first-moving readout for
+8 of 11 compounds, but fewer than half its curves clear the registered line — and the failure
+sits entirely at the top concentration, where this screen cannot tell a mechanism from a general
+loss of activity.*
+
+- **What changed.** A third registered analysis on the EPA acute MEA screen
+  (`src/neuromps/models/twin_toxcast_dose_response.py`,
+  `preregistration/twin_toxcast_dose_response.json`, decision D30, report §35). The twin's four
+  drug knobs were simulated over a seven-level grid on 12 chips and the curves committed before
+  any treated well was read; concentrations are matched to knob levels by rank; scores are a
+  Spearman correlation per compound and readout, which readout moves first, and two nulls.
+- **Why.** §34 recorded the gap in §33: the positive controls are single saturating
+  concentrations, so nothing tested the twin's dose response — the next step the closing slide
+  of the deck names.
+- **Effect.**
+  - 2 <!-- metrics.json: twin_toxcast_dose_response.headline.predictions_passing --> of
+    4 <!-- metrics.json: twin_toxcast_dose_response.headline.predictions_total --> registered
+    predictions pass over
+    13 <!-- metrics.json: twin_toxcast_dose_response.headline.compounds_scored --> compounds and
+    26 <!-- metrics.json: twin_toxcast_dose_response.headline.pairs_scored --> scored pairs.
+  - Passing: the labelled knob beats a knob the compound is not labelled with by
+    0.47 <!-- metrics.json: twin_toxcast_dose_response.predictions.P3_beats_shuffled_mechanism.margin -->
+    in mean Spearman, and the twin names the first-moving readout for
+    8 <!-- metrics.json: twin_toxcast_dose_response.predictions.P4_first_mover.agreeing --> of
+    11 <!-- metrics.json: twin_toxcast_dose_response.predictions.P4_first_mover.compounds -->
+    compounds.
+  - Failing: only
+    10 <!-- metrics.json: twin_toxcast_dose_response.twin.hits --> of
+    26 <!-- metrics.json: twin_toxcast_dose_response.twin.pairs --> pairs clear the registered
+    correlation line, and the follow-firing-rate rule of §33 is again ahead
+    (0.52 <!-- metrics.json: twin_toxcast_dose_response.nulls.follow_firing_rate.mean_spearman -->
+    against
+    0.34 <!-- metrics.json: twin_toxcast_dose_response.twin.mean_spearman -->).
+  - The registered exclusion rule, which drops concentrations from the first one the plates'
+    viability readout flags, excluded nothing: over forty minutes that readout barely moves.
+    Post hoc, dropping each compound's highest concentration raises the twin to
+    0.65 <!-- metrics.json: twin_toxcast_dose_response.posthoc_without_top_bin.dropping_top_bin.twin.mean_spearman -->,
+    while dropping the lowest gives
+    0.22 <!-- metrics.json: twin_toxcast_dose_response.posthoc_without_top_bin.dropping_bottom_bin.twin.mean_spearman -->
+    and a middle one
+    0.32 <!-- metrics.json: twin_toxcast_dose_response.posthoc_without_top_bin.dropping_middle_bin.twin.mean_spearman -->.
+    The registered verdict stands; the post-hoc result says where to look next.
+- **Evidence.** Report §35; `outputs/figures/twin_toxcast_dose_response.png`,
+  `outputs/twin/toxcast_dose_response_predictions_simulated.json`, `outputs/metrics.json` key
+  `twin_toxcast_dose_response`.
+
+---
 
 ## 45. The inverse model, recalibrated: sharper, still over-confident
 
