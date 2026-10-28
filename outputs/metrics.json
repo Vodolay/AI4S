@@ -21038,6 +21038,181 @@
         "q90": 1.094
       }
     },
+    "post_hoc": {
+      "M0_on_hd14_own_holdout": {
+        "contraction": {
+          "ampa_scale": {
+            "contraction": 0.6,
+            "posterior_sd": 0.1154,
+            "prior_sd": 0.2887
+          },
+          "gabaa_scale": {
+            "contraction": 0.301,
+            "posterior_sd": 0.3833,
+            "prior_sd": 0.5485
+          },
+          "inter_in_degree": {
+            "contraction": 0.271,
+            "posterior_sd": 3.7894,
+            "prior_sd": 5.1962
+          },
+          "log10_forward_ratio": {
+            "contraction": 0.442,
+            "posterior_sd": 0.2095,
+            "prior_sd": 0.3753
+          },
+          "threshold_scale": {
+            "contraction": 0.66,
+            "posterior_sd": 0.0294,
+            "prior_sd": 0.0866
+          }
+        },
+        "coverage": {
+          "ampa_scale": {
+            "L50": {
+              "coverage": 0.47,
+              "floor": 0.4134,
+              "n": 300,
+              "over_confident": false
+            },
+            "L80": {
+              "coverage": 0.7467,
+              "floor": 0.7307,
+              "n": 300,
+              "over_confident": false
+            },
+            "L95": {
+              "coverage": 0.9033,
+              "floor": 0.9123,
+              "n": 300,
+              "over_confident": true
+            }
+          },
+          "gabaa_scale": {
+            "L50": {
+              "coverage": 0.4167,
+              "floor": 0.4134,
+              "n": 300,
+              "over_confident": false
+            },
+            "L80": {
+              "coverage": 0.6833,
+              "floor": 0.7307,
+              "n": 300,
+              "over_confident": true
+            },
+            "L95": {
+              "coverage": 0.9133,
+              "floor": 0.9123,
+              "n": 300,
+              "over_confident": false
+            }
+          },
+          "inter_in_degree": {
+            "L50": {
+              "coverage": 0.3933,
+              "floor": 0.4134,
+              "n": 300,
+              "over_confident": true
+            },
+            "L80": {
+              "coverage": 0.71,
+              "floor": 0.7307,
+              "n": 300,
+              "over_confident": true
+            },
+            "L95": {
+              "coverage": 0.9,
+              "floor": 0.9123,
+              "n": 300,
+              "over_confident": true
+            }
+          },
+          "log10_forward_ratio": {
+            "L50": {
+              "coverage": 0.4133,
+              "floor": 0.4134,
+              "n": 300,
+              "over_confident": true
+            },
+            "L80": {
+              "coverage": 0.6967,
+              "floor": 0.7307,
+              "n": 300,
+              "over_confident": true
+            },
+            "L95": {
+              "coverage": 0.8833,
+              "floor": 0.9123,
+              "n": 300,
+              "over_confident": true
+            }
+          },
+          "threshold_scale": {
+            "L50": {
+              "coverage": 0.4667,
+              "floor": 0.4134,
+              "n": 300,
+              "over_confident": false
+            },
+            "L80": {
+              "coverage": 0.7867,
+              "floor": 0.7307,
+              "n": 300,
+              "over_confident": false
+            },
+            "L95": {
+              "coverage": 0.9433,
+              "floor": 0.9123,
+              "n": 300,
+              "over_confident": false
+            }
+          }
+        },
+        "ks": {
+          "ampa_scale": {
+            "ks_p": 0.7076,
+            "ks_statistic": 0.04,
+            "n_evaluated": 300
+          },
+          "gabaa_scale": {
+            "ks_p": 0.0345,
+            "ks_statistic": 0.0817,
+            "n_evaluated": 300
+          },
+          "inter_in_degree": {
+            "ks_p": 0.0037,
+            "ks_statistic": 0.1017,
+            "n_evaluated": 300
+          },
+          "log10_forward_ratio": {
+            "ks_p": 0.0874,
+            "ks_statistic": 0.0717,
+            "n_evaluated": 300
+          },
+          "threshold_scale": {
+            "ks_p": 0.7551,
+            "ks_statistic": 0.0383,
+            "n_evaluated": 300
+          }
+        },
+        "n": 300
+      },
+      "label": "POST HOC: added after seeing the registered results; not registered",
+      "simulator_reproduces_hd14_cache": {
+        "max_abs_difference": 0.0,
+        "n_checked": 6,
+        "n_identical": 6,
+        "rows": [
+          0,
+          1,
+          2,
+          2700,
+          2701,
+          2999
+        ]
+      }
+    },
     "posterior_samples": 200,
     "predictions": {
       "by_prediction": {
