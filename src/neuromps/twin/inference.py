@@ -77,20 +77,25 @@ SUMMARY_NAMES = tuple(
 MISSING = 0.0
 
 
-def prior_bounds_tensor():
-    """Prior box as torch tensors, in `PARAMETER_NAMES` order."""
+def prior_bounds_tensor(bounds: dict | None = None):
+    """Prior box as torch tensors, in `PARAMETER_NAMES` order.
+
+    ``bounds`` replaces `PRIOR_BOUNDS` for a study that registers its own box
+    (D38, `twin/prior_reach.py`); left unset it is HD14's prior.
+    """
     import torch
 
-    low = torch.tensor([PRIOR_BOUNDS[name][0] for name in PARAMETER_NAMES], dtype=torch.float32)
-    high = torch.tensor([PRIOR_BOUNDS[name][1] for name in PARAMETER_NAMES], dtype=torch.float32)
+    bounds = bounds or PRIOR_BOUNDS
+    low = torch.tensor([bounds[name][0] for name in PARAMETER_NAMES], dtype=torch.float32)
+    high = torch.tensor([bounds[name][1] for name in PARAMETER_NAMES], dtype=torch.float32)
     return low, high
 
 
-def build_prior():
-    """Uniform prior over the box, for sbi."""
+def build_prior(bounds: dict | None = None):
+    """Uniform prior over the box (HD14's unless ``bounds`` is given), for sbi."""
     from sbi.utils import BoxUniform
 
-    low, high = prior_bounds_tensor()
+    low, high = prior_bounds_tensor(bounds)
     return BoxUniform(low=low, high=high)
 
 
@@ -371,7 +376,7 @@ def _simulate_job(args) -> np.ndarray:
         return np.full(len(SUMMARY_NAMES), np.nan)
 
 
-def draw_parameters(n_simulations: int, seed: int) -> np.ndarray:
+def draw_parameters(n_simulations: int, seed: int, bounds: dict | None = None) -> np.ndarray:
     """The prior draws a run simulates, from torch's stream reseeded with ``seed``.
 
     Called on the cached path too, where the draws themselves are not needed:
@@ -381,7 +386,7 @@ def draw_parameters(n_simulations: int, seed: int) -> np.ndarray:
     import torch
 
     torch.manual_seed(seed)
-    return build_prior().sample((n_simulations,)).numpy()
+    return build_prior(bounds).sample((n_simulations,)).numpy()
 
 
 def run_simulations(
@@ -540,15 +545,20 @@ def describe_saved_posterior() -> dict:
     return {key: section[key] for key in ("density_estimator", "amortized_inference")}
 
 
-def train_posterior(theta: np.ndarray, x: np.ndarray, max_epochs: int | None = None):
-    """Train a neural posterior estimator (NPE) on cached simulations."""
+def train_posterior(
+    theta: np.ndarray, x: np.ndarray, max_epochs: int | None = None, bounds: dict | None = None
+):
+    """Train a neural posterior estimator (NPE) on cached simulations.
+
+    ``bounds`` is the prior box the simulations were drawn from (HD14's if unset).
+    """
     import torch
     from sbi.inference import NPE
 
     # Named rather than left to the library default: the report states the
     # architecture, and a default that changed in an sbi upgrade would change the
     # model without changing a line here.
-    inference = NPE(prior=build_prior(), density_estimator=DENSITY_ESTIMATOR)
+    inference = NPE(prior=build_prior(bounds), density_estimator=DENSITY_ESTIMATOR)
     inference.append_simulations(
         torch.as_tensor(theta, dtype=torch.float32), torch.as_tensor(x, dtype=torch.float32)
     )
