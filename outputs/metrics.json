@@ -12900,11 +12900,11 @@
   "harness_quick": {
     "brian2": "2.9.0",
     "by_stage_s": {
-      "data": 55.4,
-      "demo": 40.7,
-      "fetch": 16.0,
-      "models": 88.2,
-      "twin": 344.3
+      "data": 37.2,
+      "demo": 30.8,
+      "fetch": 29.1,
+      "models": 99.6,
+      "twin": 322.5
     },
     "cpu_count": 20,
     "label": "wall clock and environment for the most recent complete --quick run",
@@ -12921,7 +12921,7 @@
     ],
     "torch": "2.14.0",
     "total_is_complete_pass": true,
-    "total_s": 544.7
+    "total_s": 519.0
   },
   "hpsc_settling": {
     "assumption_check": {
