@@ -845,6 +845,19 @@ def _headline(scored: dict, predictions: dict, results: dict) -> dict:
     }
 
 
+def _firing_rate_signs(results: dict) -> dict:
+    """The SEEN readout, per compound and counted: sign agreement at the top bin."""
+    per_compound = {n: r["firing_rate_sign"] for n, r in results.items() if r.get("scored")}
+    agree = [v["agrees"] for v in per_compound.values() if v["agrees"] is not None]
+    return {
+        "note": "firing rate was seen before registration; reported, not tested",
+        "compounds": len(agree),
+        "agreeing": int(sum(agree)),
+        "disagreeing": sorted(n for n, v in per_compound.items() if v["agrees"] is False),
+        "per_compound": per_compound,
+    }
+
+
 def _posthoc_top_bin(results: dict, curves: dict) -> dict:
     """The post-hoc rescore without each compound's highest concentration.
 
@@ -872,9 +885,7 @@ def build_payload(results: dict, scored: dict, curves: dict) -> dict:
         "nulls": scored["nulls"],
         "predictions": predictions,
         "first_mover": first_mover,
-        "firing_rate_sign": {
-            n: r["firing_rate_sign"] for n, r in results.items() if r.get("scored")
-        },
+        "firing_rate_sign": _firing_rate_signs(results),
         "sensitivity_truncated_grid": {
             "levels": TRUNCATED_LEVELS,
             "twin": check["twin"],

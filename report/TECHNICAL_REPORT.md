@@ -1613,9 +1613,13 @@ compound-readout pairs.
   0.73 <!-- metrics.json: twin_toxcast_dose_response.predictions.P4_first_mover.rate -->; in
   almost every case that readout is spikes per burst, which the vehicle wells of §32 also showed
   to be among the quietest.
-- **Firing rate (seen, so reported only).** At each compound's highest concentration the twin's
-  sign agrees with the real one for 9 of 13 compounds. The four that differ are GABA-A
-  antagonists whose real firing rate collapses at the top concentration while the twin's rises.
+- **Firing rate (seen, so reported only).** At each compound's highest retained concentration the
+  twin's sign agrees with the real one for
+  9 <!-- metrics.json: twin_toxcast_dose_response.firing_rate_sign.agreeing --> of
+  13 <!-- metrics.json: twin_toxcast_dose_response.firing_rate_sign.compounds --> compounds.
+  Three of the four that differ are GABA-A antagonists whose real firing rate collapses at the
+  top concentration where the twin's disinhibition knob raises it; the fourth is the one
+  barbiturate, where the real change is small and the twin's knob is weak.
 
 **The assumption this rests on, and the check.** The rank match assumes the screen's
 concentration range covers a comparable span of each mechanism to the knob grid. Rescoring with

@@ -31102,70 +31102,81 @@
     },
     "dropped": {},
     "firing_rate_sign": {
-      "Abamectin": {
-        "agrees": true,
-        "real": -3.5067,
-        "twin": -0.3465
-      },
-      "Aldrin": {
-        "agrees": true,
-        "real": 0.593,
-        "twin": 3.4531
-      },
-      "Dieldrin": {
-        "agrees": false,
-        "real": -0.7638,
-        "twin": 3.4531
-      },
-      "Emamectin benzoate": {
-        "agrees": true,
-        "real": -4.1729,
-        "twin": -0.3465
-      },
-      "Endosulfan": {
-        "agrees": false,
-        "real": -3.5852,
-        "twin": 3.4531
-      },
-      "Endrin": {
-        "agrees": true,
-        "real": 1.6401,
-        "twin": 3.4531
-      },
-      "Fipronil": {
-        "agrees": false,
-        "real": -3.8396,
-        "twin": 3.4531
-      },
-      "Heptachlor": {
-        "agrees": true,
-        "real": 1.2333,
-        "twin": 3.4531
-      },
-      "Heptachlor epoxide B": {
-        "agrees": true,
-        "real": 0.2587,
-        "twin": 3.4531
-      },
-      "Indoxacarb": {
-        "agrees": true,
-        "real": -4.3482,
-        "twin": -3.1172
-      },
-      "Lindane": {
-        "agrees": true,
-        "real": 1.8044,
-        "twin": 3.4531
-      },
-      "Octachloro-4,7-methanotetrahydroindane": {
-        "agrees": true,
-        "real": 0.2007,
-        "twin": 3.4531
-      },
-      "Phenobarbital sodium": {
-        "agrees": false,
-        "real": 0.5267,
-        "twin": -0.3465
+      "agreeing": 9,
+      "compounds": 13,
+      "disagreeing": [
+        "Dieldrin",
+        "Endosulfan",
+        "Fipronil",
+        "Phenobarbital sodium"
+      ],
+      "note": "firing rate was seen before registration; reported, not tested",
+      "per_compound": {
+        "Abamectin": {
+          "agrees": true,
+          "real": -3.5067,
+          "twin": -0.3465
+        },
+        "Aldrin": {
+          "agrees": true,
+          "real": 0.593,
+          "twin": 3.4531
+        },
+        "Dieldrin": {
+          "agrees": false,
+          "real": -0.7638,
+          "twin": 3.4531
+        },
+        "Emamectin benzoate": {
+          "agrees": true,
+          "real": -4.1729,
+          "twin": -0.3465
+        },
+        "Endosulfan": {
+          "agrees": false,
+          "real": -3.5852,
+          "twin": 3.4531
+        },
+        "Endrin": {
+          "agrees": true,
+          "real": 1.6401,
+          "twin": 3.4531
+        },
+        "Fipronil": {
+          "agrees": false,
+          "real": -3.8396,
+          "twin": 3.4531
+        },
+        "Heptachlor": {
+          "agrees": true,
+          "real": 1.2333,
+          "twin": 3.4531
+        },
+        "Heptachlor epoxide B": {
+          "agrees": true,
+          "real": 0.2587,
+          "twin": 3.4531
+        },
+        "Indoxacarb": {
+          "agrees": true,
+          "real": -4.3482,
+          "twin": -3.1172
+        },
+        "Lindane": {
+          "agrees": true,
+          "real": 1.8044,
+          "twin": 3.4531
+        },
+        "Octachloro-4,7-methanotetrahydroindane": {
+          "agrees": true,
+          "real": 0.2007,
+          "twin": 3.4531
+        },
+        "Phenobarbital sodium": {
+          "agrees": false,
+          "real": 0.5267,
+          "twin": -0.3465
+        }
       }
     },
     "first_mover": {
