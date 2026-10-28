@@ -13,11 +13,15 @@ from __future__ import annotations
 import json
 import logging
 from collections import Counter
+from pathlib import Path
 
 from neuromps.metrics import update_metrics
-from neuromps.paths import outputs_dir
+from neuromps.paths import REPO_ROOT, outputs_dir
 
 OUTCOMES = ("pass", "fail", "uninterpretable")
+# Registrations of the manuscripts in preparation, one file name per line. The file exists only
+# in the private manuscript repository; without it the submission is every study.
+MANUSCRIPT_ONLY = "MANUSCRIPT_ONLY.txt"
 EXCLUDED = {
     "registration_audit": "this audit's own output",
     "rhythm_audit": "re-reads the predictions of stages 1d-2e, counted under their own keys",
@@ -46,31 +50,58 @@ def _unreadable(entry) -> bool:
     return isinstance(preds, dict) and bool(preds) and not _registered(entry)
 
 
-def audit(metrics: dict) -> dict:
+def _registration_file(*entries) -> str | None:
+    """The file name of the first registration the entries name, innermost first."""
+    for entry in entries:
+        reg = entry.get("registration")
+        reg = reg.get("file") if isinstance(reg, dict) else reg
+        if isinstance(reg, str):
+            return Path(reg).name
+    return None
+
+
+def _totals(studies: dict) -> dict:
+    return {o: sum(s[o] for s in studies.values()) for o in (*OUTCOMES, "other", "total")}
+
+
+def manuscript_only(folder: Path = REPO_ROOT / "preregistration") -> set[str]:
+    """The registration file names listed as manuscript-only (empty without the list)."""
+    path = folder / MANUSCRIPT_ONLY
+    if not path.exists():
+        return set()
+    lines = (line.strip() for line in path.read_text().splitlines())
+    return {line for line in lines if line and not line.startswith("#")}
+
+
+def audit(metrics: dict, manuscript_only: set[str] = frozenset()) -> dict:
     """Per study (and per sub-design), the outcome counts; plus the totals.
 
     ``unrecognised`` names every study with a ``predictions`` mapping that carries no
     ``outcome``, so that a study the counts leave out is listed rather than silently missed.
+    ``submission`` repeats the totals without the studies registered in a manuscript-only file.
     """
-    studies, unrecognised = {}, []
+    studies, unrecognised, files = {}, [], {}
     for key, entry in metrics.items():
         if key in EXCLUDED:
             continue
         if _registered(entry):
-            studies[key] = _counts(entry["predictions"])
+            studies[key], files[key] = _counts(entry["predictions"]), _registration_file(entry)
         elif _unreadable(entry):
             unrecognised.append(key)
         elif isinstance(entry, dict):
             for sub, inner in entry.items():
+                name = f"{key}__{sub}"
                 if _registered(inner):
-                    studies[f"{key}__{sub}"] = _counts(inner["predictions"])
+                    studies[name] = _counts(inner["predictions"])
+                    files[name] = _registration_file(inner, entry)
                 elif _unreadable(inner):
-                    unrecognised.append(f"{key}__{sub}")
-    total = {o: sum(s[o] for s in studies.values()) for o in (*OUTCOMES, "other", "total")}
+                    unrecognised.append(name)
+    shown = {k: v for k, v in studies.items() if files[k] not in manuscript_only}
     return {
         "studies": studies,
-        "total": total,
+        "total": _totals(studies),
         "n_studies": len(studies),
+        "submission": {"n_studies": len(shown), "total": _totals(shown)},
         "unrecognised": unrecognised,
         "excluded": {k: v for k, v in EXCLUDED.items() if k in metrics},
     }
@@ -84,7 +115,7 @@ def main(argv: list[str] | None = None) -> int:
         logging.warning("%s not written yet; nothing to audit", path)
         return 0
     metrics = json.loads(path.read_text())
-    got = audit(metrics)
+    got = audit(metrics, manuscript_only())
     update_metrics("registration_audit", got)
     print(json.dumps(got["total"]), got["n_studies"], "studies")
     if got["unrecognised"]:

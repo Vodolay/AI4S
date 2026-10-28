@@ -12319,6 +12319,16 @@
         "uninterpretable": 0
       }
     },
+    "submission": {
+      "n_studies": 42,
+      "total": {
+        "fail": 80,
+        "other": 1,
+        "pass": 97,
+        "total": 216,
+        "uninterpretable": 38
+      }
+    },
     "total": {
       "fail": 80,
       "other": 1,
@@ -12336,7 +12346,17 @@
       "twin_depression_under_block.json",
       "twin_prior_classifier.json",
       "toxcast_noise_floors.json"
-    ]
+    ],
+    "submission": {
+      "n_outputs_checked": 38,
+      "n_registrations": 41,
+      "n_violations": 0,
+      "not_covered": [
+        "twin_depression_under_block.json",
+        "twin_prior_classifier.json",
+        "toxcast_noise_floors.json"
+      ]
+    }
   },
   "rhythm_audit": {
     "embodied_stage1d": {
