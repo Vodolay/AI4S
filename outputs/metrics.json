@@ -9677,6 +9677,1658 @@
       "synchrony_index"
     ],
     "scale_tolerance": 0.05,
+    "settings_ladder": {
+      "assumption": "noisy_electrodes_<plate>.csv lists noisy electrodes per DIV column, and a DIV's list applies to that DIV's recording only; checked against the alternative reading that any electrode listed on any DIV is noisy throughout (check_noisy_dropped_all_divs)",
+      "assumption_check": {
+        "active_electrodes_fraction_exact": {
+          "S2_noisy_dropped": 1.0,
+          "check_noisy_dropped_all_divs": 0.253
+        },
+        "noisy_column_coverage": {
+          "Rat_MEA1": {
+            "divs_with_a_noisy_column": 10,
+            "spike_file_divs": 10
+          },
+          "hPSC_MEA1": {
+            "divs_with_a_noisy_column": 19,
+            "spike_file_divs": 19
+          },
+          "hPSC_MEA2": {
+            "divs_with_a_noisy_column": 19,
+            "spike_file_divs": 19
+          }
+        }
+      },
+      "bursting_fraction_of_active_S2": {
+        "Rat_MEA1": 0.9815,
+        "hPSC_MEA1": 0.6225,
+        "hPSC_MEA2": 0.6283,
+        "pooled": 0.738
+      },
+      "by_variant": {
+        "S0_ours": {
+          "Rat_MEA1": {
+            "active_electrodes": {
+              "fraction_exact": 0.2593,
+              "fraction_within_10pct": 0.4815,
+              "median_ratio": 1.1101,
+              "n": 108,
+              "spearman_rho": 0.9709
+            },
+            "burst_duration_s": {
+              "fraction_within_10pct": 0.0638,
+              "median_ratio": 0.7698,
+              "n": 94,
+              "spearman_rho": 0.8205
+            },
+            "burst_rate_per_min": {
+              "fraction_within_10pct": 0.5,
+              "median_ratio": 0.9573,
+              "n": 94,
+              "spearman_rho": 0.9851
+            },
+            "mfr_hz": {
+              "fraction_within_10pct": 0.5093,
+              "median_ratio": 0.9077,
+              "n": 108,
+              "spearman_rho": 0.9925
+            },
+            "pct_spikes_in_bursts": {
+              "fraction_within_10pct": 0.8298,
+              "median_ratio": 0.9866,
+              "n": 108,
+              "spearman_rho": 0.9833
+            },
+            "spikes_per_burst": {
+              "fraction_within_10pct": 0.6809,
+              "median_ratio": 0.9364,
+              "n": 94,
+              "spearman_rho": 0.9242
+            },
+            "synchrony_index": {
+              "fraction_within_10pct": 0.5588,
+              "median_ratio": 0.9251,
+              "n": 102,
+              "spearman_rho": 0.9897
+            }
+          },
+          "hPSC_MEA1": {
+            "active_electrodes": {
+              "fraction_exact": 0.0,
+              "fraction_within_10pct": 0.0351,
+              "median_ratio": 1.4242,
+              "n": 114,
+              "spearman_rho": 0.954
+            },
+            "burst_duration_s": {
+              "fraction_within_10pct": 0.5357,
+              "median_ratio": 0.9274,
+              "n": 112,
+              "spearman_rho": 0.7714
+            },
+            "burst_rate_per_min": {
+              "fraction_within_10pct": 0.0089,
+              "median_ratio": 0.3417,
+              "n": 112,
+              "spearman_rho": 0.914
+            },
+            "mfr_hz": {
+              "fraction_within_10pct": 0.0526,
+              "median_ratio": 0.7193,
+              "n": 114,
+              "spearman_rho": 0.9794
+            },
+            "pct_spikes_in_bursts": {
+              "fraction_within_10pct": 0.6964,
+              "median_ratio": 0.993,
+              "n": 114,
+              "spearman_rho": 0.9853
+            },
+            "spikes_per_burst": {
+              "fraction_within_10pct": 0.6786,
+              "median_ratio": 0.9503,
+              "n": 112,
+              "spearman_rho": 0.9605
+            },
+            "synchrony_index": {
+              "fraction_within_10pct": 0.0614,
+              "median_ratio": 0.7253,
+              "n": 114,
+              "spearman_rho": 0.9808
+            }
+          },
+          "hPSC_MEA2": {
+            "active_electrodes": {
+              "fraction_exact": 0.0,
+              "fraction_within_10pct": 0.0175,
+              "median_ratio": 1.4373,
+              "n": 114,
+              "spearman_rho": 0.9545
+            },
+            "burst_duration_s": {
+              "fraction_within_10pct": 0.4211,
+              "median_ratio": 0.8785,
+              "n": 114,
+              "spearman_rho": 0.6084
+            },
+            "burst_rate_per_min": {
+              "fraction_within_10pct": 0.0263,
+              "median_ratio": 0.3841,
+              "n": 114,
+              "spearman_rho": 0.9179
+            },
+            "mfr_hz": {
+              "fraction_within_10pct": 0.0439,
+              "median_ratio": 0.721,
+              "n": 114,
+              "spearman_rho": 0.9659
+            },
+            "pct_spikes_in_bursts": {
+              "fraction_within_10pct": 0.6754,
+              "median_ratio": 0.9662,
+              "n": 114,
+              "spearman_rho": 0.9281
+            },
+            "spikes_per_burst": {
+              "fraction_within_10pct": 0.5526,
+              "median_ratio": 0.9475,
+              "n": 114,
+              "spearman_rho": 0.868
+            },
+            "synchrony_index": {
+              "fraction_within_10pct": 0.0175,
+              "median_ratio": 0.6445,
+              "n": 114,
+              "spearman_rho": 0.9713
+            }
+          },
+          "pooled": {
+            "active_electrodes": {
+              "fraction_exact": 0.0833,
+              "fraction_within_10pct": 0.1726,
+              "median_ratio": 1.3624,
+              "n": 336,
+              "spearman_rho": 0.9763
+            },
+            "burst_duration_s": {
+              "fraction_within_10pct": 0.3563,
+              "median_ratio": 0.8189,
+              "n": 320,
+              "spearman_rho": 0.7926
+            },
+            "burst_rate_per_min": {
+              "fraction_within_10pct": 0.1594,
+              "median_ratio": 0.4423,
+              "n": 320,
+              "spearman_rho": 0.8907
+            },
+            "mfr_hz": {
+              "fraction_within_10pct": 0.1964,
+              "median_ratio": 0.7539,
+              "n": 336,
+              "spearman_rho": 0.9831
+            },
+            "pct_spikes_in_bursts": {
+              "fraction_within_10pct": 0.7281,
+              "median_ratio": 0.9864,
+              "n": 336,
+              "spearman_rho": 0.9703
+            },
+            "spikes_per_burst": {
+              "fraction_within_10pct": 0.6344,
+              "median_ratio": 0.9418,
+              "n": 320,
+              "spearman_rho": 0.9167
+            },
+            "synchrony_index": {
+              "fraction_within_10pct": 0.2,
+              "median_ratio": 0.736,
+              "n": 330,
+              "spearman_rho": 0.9839
+            }
+          }
+        },
+        "S1_active_gt10": {
+          "Rat_MEA1": {
+            "active_electrodes": {
+              "fraction_exact": 0.9907,
+              "fraction_within_10pct": 0.9907,
+              "median_ratio": 1.0,
+              "n": 108,
+              "spearman_rho": 1.0
+            },
+            "burst_duration_s": {
+              "fraction_within_10pct": 0.0638,
+              "median_ratio": 0.7705,
+              "n": 94,
+              "spearman_rho": 0.8118
+            },
+            "burst_rate_per_min": {
+              "fraction_within_10pct": 0.6383,
+              "median_ratio": 1.0191,
+              "n": 94,
+              "spearman_rho": 0.9907
+            },
+            "mfr_hz": {
+              "fraction_within_10pct": 0.9907,
+              "median_ratio": 1.0,
+              "n": 108,
+              "spearman_rho": 0.9967
+            },
+            "pct_spikes_in_bursts": {
+              "fraction_within_10pct": 0.8404,
+              "median_ratio": 0.9905,
+              "n": 108,
+              "spearman_rho": 0.9784
+            },
+            "spikes_per_burst": {
+              "fraction_within_10pct": 0.734,
+              "median_ratio": 0.9378,
+              "n": 94,
+              "spearman_rho": 0.9242
+            },
+            "synchrony_index": {
+              "fraction_within_10pct": 0.9902,
+              "median_ratio": 1.0,
+              "n": 102,
+              "spearman_rho": 1.0
+            }
+          },
+          "hPSC_MEA1": {
+            "active_electrodes": {
+              "fraction_exact": 0.9561,
+              "fraction_within_10pct": 1.0,
+              "median_ratio": 1.0,
+              "n": 114,
+              "spearman_rho": 0.9997
+            },
+            "burst_duration_s": {
+              "fraction_within_10pct": 0.5357,
+              "median_ratio": 0.9275,
+              "n": 112,
+              "spearman_rho": 0.7747
+            },
+            "burst_rate_per_min": {
+              "fraction_within_10pct": 0.0804,
+              "median_ratio": 0.5273,
+              "n": 112,
+              "spearman_rho": 0.9378
+            },
+            "mfr_hz": {
+              "fraction_within_10pct": 0.9912,
+              "median_ratio": 1.0,
+              "n": 114,
+              "spearman_rho": 0.9994
+            },
+            "pct_spikes_in_bursts": {
+              "fraction_within_10pct": 0.7857,
+              "median_ratio": 1.0083,
+              "n": 114,
+              "spearman_rho": 0.9889
+            },
+            "spikes_per_burst": {
+              "fraction_within_10pct": 0.6964,
+              "median_ratio": 0.9523,
+              "n": 112,
+              "spearman_rho": 0.9618
+            },
+            "synchrony_index": {
+              "fraction_within_10pct": 0.9825,
+              "median_ratio": 1.0,
+              "n": 114,
+              "spearman_rho": 0.9997
+            }
+          },
+          "hPSC_MEA2": {
+            "active_electrodes": {
+              "fraction_exact": 0.8947,
+              "fraction_within_10pct": 0.9825,
+              "median_ratio": 1.0,
+              "n": 114,
+              "spearman_rho": 0.9997
+            },
+            "burst_duration_s": {
+              "fraction_within_10pct": 0.4211,
+              "median_ratio": 0.8785,
+              "n": 114,
+              "spearman_rho": 0.6081
+            },
+            "burst_rate_per_min": {
+              "fraction_within_10pct": 0.1316,
+              "median_ratio": 0.5567,
+              "n": 114,
+              "spearman_rho": 0.9261
+            },
+            "mfr_hz": {
+              "fraction_within_10pct": 0.9737,
+              "median_ratio": 1.0,
+              "n": 114,
+              "spearman_rho": 0.956
+            },
+            "pct_spikes_in_bursts": {
+              "fraction_within_10pct": 0.7807,
+              "median_ratio": 1.0001,
+              "n": 114,
+              "spearman_rho": 0.9339
+            },
+            "spikes_per_burst": {
+              "fraction_within_10pct": 0.5526,
+              "median_ratio": 0.9475,
+              "n": 114,
+              "spearman_rho": 0.8679
+            },
+            "synchrony_index": {
+              "fraction_within_10pct": 0.9386,
+              "median_ratio": 1.0,
+              "n": 114,
+              "spearman_rho": 0.9992
+            }
+          },
+          "pooled": {
+            "active_electrodes": {
+              "fraction_exact": 0.9464,
+              "fraction_within_10pct": 0.9911,
+              "median_ratio": 1.0,
+              "n": 336,
+              "spearman_rho": 0.9999
+            },
+            "burst_duration_s": {
+              "fraction_within_10pct": 0.3563,
+              "median_ratio": 0.8208,
+              "n": 320,
+              "spearman_rho": 0.7926
+            },
+            "burst_rate_per_min": {
+              "fraction_within_10pct": 0.2625,
+              "median_ratio": 0.6998,
+              "n": 320,
+              "spearman_rho": 0.9177
+            },
+            "mfr_hz": {
+              "fraction_within_10pct": 0.9851,
+              "median_ratio": 1.0,
+              "n": 336,
+              "spearman_rho": 0.986
+            },
+            "pct_spikes_in_bursts": {
+              "fraction_within_10pct": 0.8,
+              "median_ratio": 1.0008,
+              "n": 336,
+              "spearman_rho": 0.9678
+            },
+            "spikes_per_burst": {
+              "fraction_within_10pct": 0.6562,
+              "median_ratio": 0.9436,
+              "n": 320,
+              "spearman_rho": 0.9168
+            },
+            "synchrony_index": {
+              "fraction_within_10pct": 0.9697,
+              "median_ratio": 1.0,
+              "n": 330,
+              "spearman_rho": 0.9997
+            }
+          }
+        },
+        "S2_noisy_dropped": {
+          "Rat_MEA1": {
+            "active_electrodes": {
+              "fraction_exact": 1.0,
+              "fraction_within_10pct": 1.0,
+              "median_ratio": 1.0,
+              "n": 108,
+              "spearman_rho": 1.0
+            },
+            "burst_duration_s": {
+              "fraction_within_10pct": 0.0638,
+              "median_ratio": 0.7705,
+              "n": 94,
+              "spearman_rho": 0.843
+            },
+            "burst_rate_per_min": {
+              "fraction_within_10pct": 0.6383,
+              "median_ratio": 1.0191,
+              "n": 94,
+              "spearman_rho": 0.9907
+            },
+            "mfr_hz": {
+              "fraction_within_10pct": 1.0,
+              "median_ratio": 1.0,
+              "n": 108,
+              "spearman_rho": 1.0
+            },
+            "pct_spikes_in_bursts": {
+              "fraction_within_10pct": 0.8404,
+              "median_ratio": 0.9905,
+              "n": 108,
+              "spearman_rho": 0.9877
+            },
+            "spikes_per_burst": {
+              "fraction_within_10pct": 0.734,
+              "median_ratio": 0.9378,
+              "n": 94,
+              "spearman_rho": 0.9806
+            },
+            "synchrony_index": {
+              "fraction_within_10pct": 1.0,
+              "median_ratio": 1.0,
+              "n": 102,
+              "spearman_rho": 1.0
+            }
+          },
+          "hPSC_MEA1": {
+            "active_electrodes": {
+              "fraction_exact": 1.0,
+              "fraction_within_10pct": 1.0,
+              "median_ratio": 1.0,
+              "n": 114,
+              "spearman_rho": 1.0
+            },
+            "burst_duration_s": {
+              "fraction_within_10pct": 0.5357,
+              "median_ratio": 0.9275,
+              "n": 112,
+              "spearman_rho": 0.776
+            },
+            "burst_rate_per_min": {
+              "fraction_within_10pct": 0.0804,
+              "median_ratio": 0.5273,
+              "n": 112,
+              "spearman_rho": 0.9378
+            },
+            "mfr_hz": {
+              "fraction_within_10pct": 1.0,
+              "median_ratio": 1.0,
+              "n": 114,
+              "spearman_rho": 1.0
+            },
+            "pct_spikes_in_bursts": {
+              "fraction_within_10pct": 0.7768,
+              "median_ratio": 1.0083,
+              "n": 114,
+              "spearman_rho": 0.9891
+            },
+            "spikes_per_burst": {
+              "fraction_within_10pct": 0.7054,
+              "median_ratio": 0.9523,
+              "n": 112,
+              "spearman_rho": 0.9619
+            },
+            "synchrony_index": {
+              "fraction_within_10pct": 1.0,
+              "median_ratio": 1.0,
+              "n": 114,
+              "spearman_rho": 1.0
+            }
+          },
+          "hPSC_MEA2": {
+            "active_electrodes": {
+              "fraction_exact": 1.0,
+              "fraction_within_10pct": 1.0,
+              "median_ratio": 1.0,
+              "n": 114,
+              "spearman_rho": 1.0
+            },
+            "burst_duration_s": {
+              "fraction_within_10pct": 0.4298,
+              "median_ratio": 0.8804,
+              "n": 114,
+              "spearman_rho": 0.6395
+            },
+            "burst_rate_per_min": {
+              "fraction_within_10pct": 0.1579,
+              "median_ratio": 0.5508,
+              "n": 114,
+              "spearman_rho": 0.9273
+            },
+            "mfr_hz": {
+              "fraction_within_10pct": 1.0,
+              "median_ratio": 1.0,
+              "n": 114,
+              "spearman_rho": 1.0
+            },
+            "pct_spikes_in_bursts": {
+              "fraction_within_10pct": 0.7982,
+              "median_ratio": 1.0,
+              "n": 114,
+              "spearman_rho": 0.9725
+            },
+            "spikes_per_burst": {
+              "fraction_within_10pct": 0.5877,
+              "median_ratio": 0.9466,
+              "n": 114,
+              "spearman_rho": 0.9006
+            },
+            "synchrony_index": {
+              "fraction_within_10pct": 1.0,
+              "median_ratio": 1.0,
+              "n": 114,
+              "spearman_rho": 1.0
+            }
+          },
+          "pooled": {
+            "active_electrodes": {
+              "fraction_exact": 1.0,
+              "fraction_within_10pct": 1.0,
+              "median_ratio": 1.0,
+              "n": 336,
+              "spearman_rho": 1.0
+            },
+            "burst_duration_s": {
+              "fraction_within_10pct": 0.3594,
+              "median_ratio": 0.8208,
+              "n": 320,
+              "spearman_rho": 0.8167
+            },
+            "burst_rate_per_min": {
+              "fraction_within_10pct": 0.2719,
+              "median_ratio": 0.6967,
+              "n": 320,
+              "spearman_rho": 0.9177
+            },
+            "mfr_hz": {
+              "fraction_within_10pct": 1.0,
+              "median_ratio": 1.0,
+              "n": 336,
+              "spearman_rho": 1.0
+            },
+            "pct_spikes_in_bursts": {
+              "fraction_within_10pct": 0.8031,
+              "median_ratio": 1.0007,
+              "n": 336,
+              "spearman_rho": 0.9897
+            },
+            "spikes_per_burst": {
+              "fraction_within_10pct": 0.6719,
+              "median_ratio": 0.9433,
+              "n": 320,
+              "spearman_rho": 0.9443
+            },
+            "synchrony_index": {
+              "fraction_within_10pct": 1.0,
+              "median_ratio": 1.0,
+              "n": 330,
+              "spearman_rho": 1.0
+            }
+          }
+        },
+        "S3_rate_per_bursting_electrode": {
+          "Rat_MEA1": {
+            "active_electrodes": {
+              "fraction_exact": 1.0,
+              "fraction_within_10pct": 1.0,
+              "median_ratio": 1.0,
+              "n": 108,
+              "spearman_rho": 1.0
+            },
+            "burst_duration_s": {
+              "fraction_within_10pct": 0.0638,
+              "median_ratio": 0.7705,
+              "n": 94,
+              "spearman_rho": 0.843
+            },
+            "burst_rate_per_min": {
+              "fraction_within_10pct": 0.766,
+              "median_ratio": 1.04,
+              "n": 94,
+              "spearman_rho": 0.9943
+            },
+            "mfr_hz": {
+              "fraction_within_10pct": 1.0,
+              "median_ratio": 1.0,
+              "n": 108,
+              "spearman_rho": 1.0
+            },
+            "pct_spikes_in_bursts": {
+              "fraction_within_10pct": 0.8404,
+              "median_ratio": 0.9905,
+              "n": 108,
+              "spearman_rho": 0.9877
+            },
+            "spikes_per_burst": {
+              "fraction_within_10pct": 0.734,
+              "median_ratio": 0.9378,
+              "n": 94,
+              "spearman_rho": 0.9806
+            },
+            "synchrony_index": {
+              "fraction_within_10pct": 1.0,
+              "median_ratio": 1.0,
+              "n": 102,
+              "spearman_rho": 1.0
+            }
+          },
+          "hPSC_MEA1": {
+            "active_electrodes": {
+              "fraction_exact": 1.0,
+              "fraction_within_10pct": 1.0,
+              "median_ratio": 1.0,
+              "n": 114,
+              "spearman_rho": 1.0
+            },
+            "burst_duration_s": {
+              "fraction_within_10pct": 0.5357,
+              "median_ratio": 0.9275,
+              "n": 112,
+              "spearman_rho": 0.776
+            },
+            "burst_rate_per_min": {
+              "fraction_within_10pct": 0.2768,
+              "median_ratio": 0.8579,
+              "n": 112,
+              "spearman_rho": 0.971
+            },
+            "mfr_hz": {
+              "fraction_within_10pct": 1.0,
+              "median_ratio": 1.0,
+              "n": 114,
+              "spearman_rho": 1.0
+            },
+            "pct_spikes_in_bursts": {
+              "fraction_within_10pct": 0.7768,
+              "median_ratio": 1.0083,
+              "n": 114,
+              "spearman_rho": 0.9891
+            },
+            "spikes_per_burst": {
+              "fraction_within_10pct": 0.7054,
+              "median_ratio": 0.9523,
+              "n": 112,
+              "spearman_rho": 0.9619
+            },
+            "synchrony_index": {
+              "fraction_within_10pct": 1.0,
+              "median_ratio": 1.0,
+              "n": 114,
+              "spearman_rho": 1.0
+            }
+          },
+          "hPSC_MEA2": {
+            "active_electrodes": {
+              "fraction_exact": 1.0,
+              "fraction_within_10pct": 1.0,
+              "median_ratio": 1.0,
+              "n": 114,
+              "spearman_rho": 1.0
+            },
+            "burst_duration_s": {
+              "fraction_within_10pct": 0.4298,
+              "median_ratio": 0.8804,
+              "n": 114,
+              "spearman_rho": 0.6395
+            },
+            "burst_rate_per_min": {
+              "fraction_within_10pct": 0.2807,
+              "median_ratio": 0.8973,
+              "n": 114,
+              "spearman_rho": 0.9797
+            },
+            "mfr_hz": {
+              "fraction_within_10pct": 1.0,
+              "median_ratio": 1.0,
+              "n": 114,
+              "spearman_rho": 1.0
+            },
+            "pct_spikes_in_bursts": {
+              "fraction_within_10pct": 0.7982,
+              "median_ratio": 1.0,
+              "n": 114,
+              "spearman_rho": 0.9725
+            },
+            "spikes_per_burst": {
+              "fraction_within_10pct": 0.5877,
+              "median_ratio": 0.9466,
+              "n": 114,
+              "spearman_rho": 0.9006
+            },
+            "synchrony_index": {
+              "fraction_within_10pct": 1.0,
+              "median_ratio": 1.0,
+              "n": 114,
+              "spearman_rho": 1.0
+            }
+          },
+          "pooled": {
+            "active_electrodes": {
+              "fraction_exact": 1.0,
+              "fraction_within_10pct": 1.0,
+              "median_ratio": 1.0,
+              "n": 336,
+              "spearman_rho": 1.0
+            },
+            "burst_duration_s": {
+              "fraction_within_10pct": 0.3594,
+              "median_ratio": 0.8208,
+              "n": 320,
+              "spearman_rho": 0.8167
+            },
+            "burst_rate_per_min": {
+              "fraction_within_10pct": 0.4219,
+              "median_ratio": 0.944,
+              "n": 320,
+              "spearman_rho": 0.9819
+            },
+            "mfr_hz": {
+              "fraction_within_10pct": 1.0,
+              "median_ratio": 1.0,
+              "n": 336,
+              "spearman_rho": 1.0
+            },
+            "pct_spikes_in_bursts": {
+              "fraction_within_10pct": 0.8031,
+              "median_ratio": 1.0007,
+              "n": 336,
+              "spearman_rho": 0.9897
+            },
+            "spikes_per_burst": {
+              "fraction_within_10pct": 0.6719,
+              "median_ratio": 0.9433,
+              "n": 320,
+              "spearman_rho": 0.9443
+            },
+            "synchrony_index": {
+              "fraction_within_10pct": 1.0,
+              "median_ratio": 1.0,
+              "n": 330,
+              "spearman_rho": 1.0
+            }
+          }
+        },
+        "check_noisy_dropped_all_divs": {
+          "Rat_MEA1": {
+            "active_electrodes": {
+              "fraction_exact": 0.463,
+              "fraction_within_10pct": 0.9537,
+              "median_ratio": 0.9841,
+              "n": 108,
+              "spearman_rho": 0.9546
+            },
+            "burst_duration_s": {
+              "fraction_within_10pct": 0.0638,
+              "median_ratio": 0.7721,
+              "n": 94,
+              "spearman_rho": 0.8369
+            },
+            "burst_rate_per_min": {
+              "fraction_within_10pct": 0.6277,
+              "median_ratio": 1.016,
+              "n": 94,
+              "spearman_rho": 0.9909
+            },
+            "mfr_hz": {
+              "fraction_within_10pct": 0.9815,
+              "median_ratio": 1.0,
+              "n": 108,
+              "spearman_rho": 0.9993
+            },
+            "pct_spikes_in_bursts": {
+              "fraction_within_10pct": 0.8298,
+              "median_ratio": 0.987,
+              "n": 108,
+              "spearman_rho": 0.9875
+            },
+            "spikes_per_burst": {
+              "fraction_within_10pct": 0.7021,
+              "median_ratio": 0.9366,
+              "n": 94,
+              "spearman_rho": 0.978
+            },
+            "synchrony_index": {
+              "fraction_within_10pct": 0.9804,
+              "median_ratio": 1.0,
+              "n": 102,
+              "spearman_rho": 0.9995
+            }
+          },
+          "hPSC_MEA1": {
+            "active_electrodes": {
+              "fraction_exact": 0.2193,
+              "fraction_within_10pct": 0.9211,
+              "median_ratio": 0.956,
+              "n": 114,
+              "spearman_rho": 0.9952
+            },
+            "burst_duration_s": {
+              "fraction_within_10pct": 0.5089,
+              "median_ratio": 0.919,
+              "n": 112,
+              "spearman_rho": 0.7718
+            },
+            "burst_rate_per_min": {
+              "fraction_within_10pct": 0.0804,
+              "median_ratio": 0.5592,
+              "n": 112,
+              "spearman_rho": 0.936
+            },
+            "mfr_hz": {
+              "fraction_within_10pct": 0.9737,
+              "median_ratio": 1.0157,
+              "n": 114,
+              "spearman_rho": 0.9974
+            },
+            "pct_spikes_in_bursts": {
+              "fraction_within_10pct": 0.7679,
+              "median_ratio": 1.0203,
+              "n": 114,
+              "spearman_rho": 0.9859
+            },
+            "spikes_per_burst": {
+              "fraction_within_10pct": 0.6786,
+              "median_ratio": 0.9489,
+              "n": 112,
+              "spearman_rho": 0.9593
+            },
+            "synchrony_index": {
+              "fraction_within_10pct": 0.807,
+              "median_ratio": 1.0,
+              "n": 114,
+              "spearman_rho": 0.9969
+            }
+          },
+          "hPSC_MEA2": {
+            "active_electrodes": {
+              "fraction_exact": 0.0877,
+              "fraction_within_10pct": 0.5702,
+              "median_ratio": 0.908,
+              "n": 114,
+              "spearman_rho": 0.9788
+            },
+            "burst_duration_s": {
+              "fraction_within_10pct": 0.386,
+              "median_ratio": 0.8577,
+              "n": 114,
+              "spearman_rho": 0.6547
+            },
+            "burst_rate_per_min": {
+              "fraction_within_10pct": 0.1316,
+              "median_ratio": 0.5496,
+              "n": 114,
+              "spearman_rho": 0.915
+            },
+            "mfr_hz": {
+              "fraction_within_10pct": 0.807,
+              "median_ratio": 1.0,
+              "n": 114,
+              "spearman_rho": 0.9887
+            },
+            "pct_spikes_in_bursts": {
+              "fraction_within_10pct": 0.6316,
+              "median_ratio": 0.9891,
+              "n": 114,
+              "spearman_rho": 0.9471
+            },
+            "spikes_per_burst": {
+              "fraction_within_10pct": 0.5175,
+              "median_ratio": 0.9084,
+              "n": 114,
+              "spearman_rho": 0.9017
+            },
+            "synchrony_index": {
+              "fraction_within_10pct": 0.7105,
+              "median_ratio": 1.0,
+              "n": 114,
+              "spearman_rho": 0.9935
+            }
+          },
+          "pooled": {
+            "active_electrodes": {
+              "fraction_exact": 0.253,
+              "fraction_within_10pct": 0.8125,
+              "median_ratio": 0.9531,
+              "n": 336,
+              "spearman_rho": 0.9915
+            },
+            "burst_duration_s": {
+              "fraction_within_10pct": 0.3344,
+              "median_ratio": 0.8219,
+              "n": 320,
+              "spearman_rho": 0.8166
+            },
+            "burst_rate_per_min": {
+              "fraction_within_10pct": 0.2594,
+              "median_ratio": 0.6976,
+              "n": 320,
+              "spearman_rho": 0.9126
+            },
+            "mfr_hz": {
+              "fraction_within_10pct": 0.9196,
+              "median_ratio": 1.0,
+              "n": 336,
+              "spearman_rho": 0.9955
+            },
+            "pct_spikes_in_bursts": {
+              "fraction_within_10pct": 0.7375,
+              "median_ratio": 0.9998,
+              "n": 336,
+              "spearman_rho": 0.9839
+            },
+            "spikes_per_burst": {
+              "fraction_within_10pct": 0.6281,
+              "median_ratio": 0.9328,
+              "n": 320,
+              "spearman_rho": 0.9404
+            },
+            "synchrony_index": {
+              "fraction_within_10pct": 0.8273,
+              "median_ratio": 1.0,
+              "n": 330,
+              "spearman_rho": 0.9983
+            }
+          }
+        },
+        "only_active_gt10": {
+          "Rat_MEA1": {
+            "active_electrodes": {
+              "fraction_exact": 0.9907,
+              "fraction_within_10pct": 0.9907,
+              "median_ratio": 1.0,
+              "n": 108,
+              "spearman_rho": 1.0
+            },
+            "burst_duration_s": {
+              "fraction_within_10pct": 0.0638,
+              "median_ratio": 0.7705,
+              "n": 94,
+              "spearman_rho": 0.8118
+            },
+            "burst_rate_per_min": {
+              "fraction_within_10pct": 0.6383,
+              "median_ratio": 1.0191,
+              "n": 94,
+              "spearman_rho": 0.9907
+            },
+            "mfr_hz": {
+              "fraction_within_10pct": 0.9907,
+              "median_ratio": 1.0,
+              "n": 108,
+              "spearman_rho": 0.9967
+            },
+            "pct_spikes_in_bursts": {
+              "fraction_within_10pct": 0.8404,
+              "median_ratio": 0.9905,
+              "n": 108,
+              "spearman_rho": 0.9784
+            },
+            "spikes_per_burst": {
+              "fraction_within_10pct": 0.734,
+              "median_ratio": 0.9378,
+              "n": 94,
+              "spearman_rho": 0.9242
+            },
+            "synchrony_index": {
+              "fraction_within_10pct": 0.9902,
+              "median_ratio": 1.0,
+              "n": 102,
+              "spearman_rho": 1.0
+            }
+          },
+          "hPSC_MEA1": {
+            "active_electrodes": {
+              "fraction_exact": 0.9561,
+              "fraction_within_10pct": 1.0,
+              "median_ratio": 1.0,
+              "n": 114,
+              "spearman_rho": 0.9997
+            },
+            "burst_duration_s": {
+              "fraction_within_10pct": 0.5357,
+              "median_ratio": 0.9275,
+              "n": 112,
+              "spearman_rho": 0.7747
+            },
+            "burst_rate_per_min": {
+              "fraction_within_10pct": 0.0804,
+              "median_ratio": 0.5273,
+              "n": 112,
+              "spearman_rho": 0.9378
+            },
+            "mfr_hz": {
+              "fraction_within_10pct": 0.9912,
+              "median_ratio": 1.0,
+              "n": 114,
+              "spearman_rho": 0.9994
+            },
+            "pct_spikes_in_bursts": {
+              "fraction_within_10pct": 0.7857,
+              "median_ratio": 1.0083,
+              "n": 114,
+              "spearman_rho": 0.9889
+            },
+            "spikes_per_burst": {
+              "fraction_within_10pct": 0.6964,
+              "median_ratio": 0.9523,
+              "n": 112,
+              "spearman_rho": 0.9618
+            },
+            "synchrony_index": {
+              "fraction_within_10pct": 0.9825,
+              "median_ratio": 1.0,
+              "n": 114,
+              "spearman_rho": 0.9997
+            }
+          },
+          "hPSC_MEA2": {
+            "active_electrodes": {
+              "fraction_exact": 0.8947,
+              "fraction_within_10pct": 0.9825,
+              "median_ratio": 1.0,
+              "n": 114,
+              "spearman_rho": 0.9997
+            },
+            "burst_duration_s": {
+              "fraction_within_10pct": 0.4211,
+              "median_ratio": 0.8785,
+              "n": 114,
+              "spearman_rho": 0.6081
+            },
+            "burst_rate_per_min": {
+              "fraction_within_10pct": 0.1316,
+              "median_ratio": 0.5567,
+              "n": 114,
+              "spearman_rho": 0.9261
+            },
+            "mfr_hz": {
+              "fraction_within_10pct": 0.9737,
+              "median_ratio": 1.0,
+              "n": 114,
+              "spearman_rho": 0.956
+            },
+            "pct_spikes_in_bursts": {
+              "fraction_within_10pct": 0.7807,
+              "median_ratio": 1.0001,
+              "n": 114,
+              "spearman_rho": 0.9339
+            },
+            "spikes_per_burst": {
+              "fraction_within_10pct": 0.5526,
+              "median_ratio": 0.9475,
+              "n": 114,
+              "spearman_rho": 0.8679
+            },
+            "synchrony_index": {
+              "fraction_within_10pct": 0.9386,
+              "median_ratio": 1.0,
+              "n": 114,
+              "spearman_rho": 0.9992
+            }
+          },
+          "pooled": {
+            "active_electrodes": {
+              "fraction_exact": 0.9464,
+              "fraction_within_10pct": 0.9911,
+              "median_ratio": 1.0,
+              "n": 336,
+              "spearman_rho": 0.9999
+            },
+            "burst_duration_s": {
+              "fraction_within_10pct": 0.3563,
+              "median_ratio": 0.8208,
+              "n": 320,
+              "spearman_rho": 0.7926
+            },
+            "burst_rate_per_min": {
+              "fraction_within_10pct": 0.2625,
+              "median_ratio": 0.6998,
+              "n": 320,
+              "spearman_rho": 0.9177
+            },
+            "mfr_hz": {
+              "fraction_within_10pct": 0.9851,
+              "median_ratio": 1.0,
+              "n": 336,
+              "spearman_rho": 0.986
+            },
+            "pct_spikes_in_bursts": {
+              "fraction_within_10pct": 0.8,
+              "median_ratio": 1.0008,
+              "n": 336,
+              "spearman_rho": 0.9678
+            },
+            "spikes_per_burst": {
+              "fraction_within_10pct": 0.6562,
+              "median_ratio": 0.9436,
+              "n": 320,
+              "spearman_rho": 0.9168
+            },
+            "synchrony_index": {
+              "fraction_within_10pct": 0.9697,
+              "median_ratio": 1.0,
+              "n": 330,
+              "spearman_rho": 0.9997
+            }
+          }
+        },
+        "only_noisy_dropped": {
+          "Rat_MEA1": {
+            "active_electrodes": {
+              "fraction_exact": 0.2593,
+              "fraction_within_10pct": 0.4815,
+              "median_ratio": 1.1101,
+              "n": 108,
+              "spearman_rho": 0.9709
+            },
+            "burst_duration_s": {
+              "fraction_within_10pct": 0.0638,
+              "median_ratio": 0.7698,
+              "n": 94,
+              "spearman_rho": 0.8752
+            },
+            "burst_rate_per_min": {
+              "fraction_within_10pct": 0.5,
+              "median_ratio": 0.9573,
+              "n": 94,
+              "spearman_rho": 0.9851
+            },
+            "mfr_hz": {
+              "fraction_within_10pct": 0.5093,
+              "median_ratio": 0.9048,
+              "n": 108,
+              "spearman_rho": 0.9946
+            },
+            "pct_spikes_in_bursts": {
+              "fraction_within_10pct": 0.8298,
+              "median_ratio": 0.9866,
+              "n": 108,
+              "spearman_rho": 0.9887
+            },
+            "spikes_per_burst": {
+              "fraction_within_10pct": 0.6809,
+              "median_ratio": 0.9364,
+              "n": 94,
+              "spearman_rho": 0.9799
+            },
+            "synchrony_index": {
+              "fraction_within_10pct": 0.5588,
+              "median_ratio": 0.9251,
+              "n": 102,
+              "spearman_rho": 0.9897
+            }
+          },
+          "hPSC_MEA1": {
+            "active_electrodes": {
+              "fraction_exact": 0.0,
+              "fraction_within_10pct": 0.0351,
+              "median_ratio": 1.4242,
+              "n": 114,
+              "spearman_rho": 0.9562
+            },
+            "burst_duration_s": {
+              "fraction_within_10pct": 0.5357,
+              "median_ratio": 0.9274,
+              "n": 112,
+              "spearman_rho": 0.7734
+            },
+            "burst_rate_per_min": {
+              "fraction_within_10pct": 0.0089,
+              "median_ratio": 0.3408,
+              "n": 112,
+              "spearman_rho": 0.9142
+            },
+            "mfr_hz": {
+              "fraction_within_10pct": 0.0526,
+              "median_ratio": 0.7193,
+              "n": 114,
+              "spearman_rho": 0.9805
+            },
+            "pct_spikes_in_bursts": {
+              "fraction_within_10pct": 0.7054,
+              "median_ratio": 0.9932,
+              "n": 114,
+              "spearman_rho": 0.9855
+            },
+            "spikes_per_burst": {
+              "fraction_within_10pct": 0.6875,
+              "median_ratio": 0.9503,
+              "n": 112,
+              "spearman_rho": 0.9611
+            },
+            "synchrony_index": {
+              "fraction_within_10pct": 0.0614,
+              "median_ratio": 0.7267,
+              "n": 114,
+              "spearman_rho": 0.9806
+            }
+          },
+          "hPSC_MEA2": {
+            "active_electrodes": {
+              "fraction_exact": 0.0,
+              "fraction_within_10pct": 0.0175,
+              "median_ratio": 1.4373,
+              "n": 114,
+              "spearman_rho": 0.9536
+            },
+            "burst_duration_s": {
+              "fraction_within_10pct": 0.4298,
+              "median_ratio": 0.8804,
+              "n": 114,
+              "spearman_rho": 0.6411
+            },
+            "burst_rate_per_min": {
+              "fraction_within_10pct": 0.0263,
+              "median_ratio": 0.3839,
+              "n": 114,
+              "spearman_rho": 0.9192
+            },
+            "mfr_hz": {
+              "fraction_within_10pct": 0.0439,
+              "median_ratio": 0.7136,
+              "n": 114,
+              "spearman_rho": 0.9845
+            },
+            "pct_spikes_in_bursts": {
+              "fraction_within_10pct": 0.6842,
+              "median_ratio": 0.9636,
+              "n": 114,
+              "spearman_rho": 0.9663
+            },
+            "spikes_per_burst": {
+              "fraction_within_10pct": 0.5877,
+              "median_ratio": 0.9466,
+              "n": 114,
+              "spearman_rho": 0.9009
+            },
+            "synchrony_index": {
+              "fraction_within_10pct": 0.0175,
+              "median_ratio": 0.6488,
+              "n": 114,
+              "spearman_rho": 0.9726
+            }
+          },
+          "pooled": {
+            "active_electrodes": {
+              "fraction_exact": 0.0833,
+              "fraction_within_10pct": 0.1726,
+              "median_ratio": 1.3548,
+              "n": 336,
+              "spearman_rho": 0.9767
+            },
+            "burst_duration_s": {
+              "fraction_within_10pct": 0.3594,
+              "median_ratio": 0.8189,
+              "n": 320,
+              "spearman_rho": 0.8179
+            },
+            "burst_rate_per_min": {
+              "fraction_within_10pct": 0.1594,
+              "median_ratio": 0.4432,
+              "n": 320,
+              "spearman_rho": 0.891
+            },
+            "mfr_hz": {
+              "fraction_within_10pct": 0.1964,
+              "median_ratio": 0.7521,
+              "n": 336,
+              "spearman_rho": 0.9879
+            },
+            "pct_spikes_in_bursts": {
+              "fraction_within_10pct": 0.7344,
+              "median_ratio": 0.9854,
+              "n": 336,
+              "spearman_rho": 0.9879
+            },
+            "spikes_per_burst": {
+              "fraction_within_10pct": 0.65,
+              "median_ratio": 0.9413,
+              "n": 320,
+              "spearman_rho": 0.9441
+            },
+            "synchrony_index": {
+              "fraction_within_10pct": 0.2,
+              "median_ratio": 0.736,
+              "n": 330,
+              "spearman_rho": 0.9843
+            }
+          }
+        },
+        "only_rate_per_bursting_electrode": {
+          "Rat_MEA1": {
+            "active_electrodes": {
+              "fraction_exact": 0.2593,
+              "fraction_within_10pct": 0.4815,
+              "median_ratio": 1.1101,
+              "n": 108,
+              "spearman_rho": 0.9709
+            },
+            "burst_duration_s": {
+              "fraction_within_10pct": 0.0638,
+              "median_ratio": 0.7698,
+              "n": 94,
+              "spearman_rho": 0.8205
+            },
+            "burst_rate_per_min": {
+              "fraction_within_10pct": 0.7128,
+              "median_ratio": 1.0269,
+              "n": 94,
+              "spearman_rho": 0.9938
+            },
+            "mfr_hz": {
+              "fraction_within_10pct": 0.5093,
+              "median_ratio": 0.9077,
+              "n": 108,
+              "spearman_rho": 0.9925
+            },
+            "pct_spikes_in_bursts": {
+              "fraction_within_10pct": 0.8298,
+              "median_ratio": 0.9866,
+              "n": 108,
+              "spearman_rho": 0.9833
+            },
+            "spikes_per_burst": {
+              "fraction_within_10pct": 0.6809,
+              "median_ratio": 0.9364,
+              "n": 94,
+              "spearman_rho": 0.9242
+            },
+            "synchrony_index": {
+              "fraction_within_10pct": 0.5588,
+              "median_ratio": 0.9251,
+              "n": 102,
+              "spearman_rho": 0.9897
+            }
+          },
+          "hPSC_MEA1": {
+            "active_electrodes": {
+              "fraction_exact": 0.0,
+              "fraction_within_10pct": 0.0351,
+              "median_ratio": 1.4242,
+              "n": 114,
+              "spearman_rho": 0.954
+            },
+            "burst_duration_s": {
+              "fraction_within_10pct": 0.5357,
+              "median_ratio": 0.9274,
+              "n": 112,
+              "spearman_rho": 0.7714
+            },
+            "burst_rate_per_min": {
+              "fraction_within_10pct": 0.2321,
+              "median_ratio": 0.8333,
+              "n": 112,
+              "spearman_rho": 0.9667
+            },
+            "mfr_hz": {
+              "fraction_within_10pct": 0.0526,
+              "median_ratio": 0.7193,
+              "n": 114,
+              "spearman_rho": 0.9794
+            },
+            "pct_spikes_in_bursts": {
+              "fraction_within_10pct": 0.6964,
+              "median_ratio": 0.993,
+              "n": 114,
+              "spearman_rho": 0.9853
+            },
+            "spikes_per_burst": {
+              "fraction_within_10pct": 0.6786,
+              "median_ratio": 0.9503,
+              "n": 112,
+              "spearman_rho": 0.9605
+            },
+            "synchrony_index": {
+              "fraction_within_10pct": 0.0614,
+              "median_ratio": 0.7253,
+              "n": 114,
+              "spearman_rho": 0.9808
+            }
+          },
+          "hPSC_MEA2": {
+            "active_electrodes": {
+              "fraction_exact": 0.0,
+              "fraction_within_10pct": 0.0175,
+              "median_ratio": 1.4373,
+              "n": 114,
+              "spearman_rho": 0.9545
+            },
+            "burst_duration_s": {
+              "fraction_within_10pct": 0.4211,
+              "median_ratio": 0.8785,
+              "n": 114,
+              "spearman_rho": 0.6084
+            },
+            "burst_rate_per_min": {
+              "fraction_within_10pct": 0.2456,
+              "median_ratio": 0.8681,
+              "n": 114,
+              "spearman_rho": 0.9755
+            },
+            "mfr_hz": {
+              "fraction_within_10pct": 0.0439,
+              "median_ratio": 0.721,
+              "n": 114,
+              "spearman_rho": 0.9659
+            },
+            "pct_spikes_in_bursts": {
+              "fraction_within_10pct": 0.6754,
+              "median_ratio": 0.9662,
+              "n": 114,
+              "spearman_rho": 0.9281
+            },
+            "spikes_per_burst": {
+              "fraction_within_10pct": 0.5526,
+              "median_ratio": 0.9475,
+              "n": 114,
+              "spearman_rho": 0.868
+            },
+            "synchrony_index": {
+              "fraction_within_10pct": 0.0175,
+              "median_ratio": 0.6445,
+              "n": 114,
+              "spearman_rho": 0.9713
+            }
+          },
+          "pooled": {
+            "active_electrodes": {
+              "fraction_exact": 0.0833,
+              "fraction_within_10pct": 0.1726,
+              "median_ratio": 1.3624,
+              "n": 336,
+              "spearman_rho": 0.9763
+            },
+            "burst_duration_s": {
+              "fraction_within_10pct": 0.3563,
+              "median_ratio": 0.8189,
+              "n": 320,
+              "spearman_rho": 0.7926
+            },
+            "burst_rate_per_min": {
+              "fraction_within_10pct": 0.3781,
+              "median_ratio": 0.9087,
+              "n": 320,
+              "spearman_rho": 0.9803
+            },
+            "mfr_hz": {
+              "fraction_within_10pct": 0.1964,
+              "median_ratio": 0.7539,
+              "n": 336,
+              "spearman_rho": 0.9831
+            },
+            "pct_spikes_in_bursts": {
+              "fraction_within_10pct": 0.7281,
+              "median_ratio": 0.9864,
+              "n": 336,
+              "spearman_rho": 0.9703
+            },
+            "spikes_per_burst": {
+              "fraction_within_10pct": 0.6344,
+              "median_ratio": 0.9418,
+              "n": 320,
+              "spearman_rho": 0.9167
+            },
+            "synchrony_index": {
+              "fraction_within_10pct": 0.2,
+              "median_ratio": 0.736,
+              "n": 330,
+              "spearman_rho": 0.9839
+            }
+          }
+        }
+      },
+      "check_s0_reproduces_published_agreement": true,
+      "definitions": {
+        "S0_ours": {
+          "active_min_spikes_per_min": 5.0,
+          "active_strict": false,
+          "burst_rate_denominator": "active",
+          "changes_from_S0": [],
+          "noisy": "kept"
+        },
+        "S1_active_gt10": {
+          "active_min_spikes_per_min": 10.0,
+          "active_strict": true,
+          "burst_rate_denominator": "active",
+          "changes_from_S0": [
+            "active_min_spikes_per_min",
+            "active_strict"
+          ],
+          "noisy": "kept"
+        },
+        "S2_noisy_dropped": {
+          "active_min_spikes_per_min": 10.0,
+          "active_strict": true,
+          "burst_rate_denominator": "active",
+          "changes_from_S0": [
+            "active_min_spikes_per_min",
+            "active_strict",
+            "noisy"
+          ],
+          "noisy": "dropped_per_div"
+        },
+        "S3_rate_per_bursting_electrode": {
+          "active_min_spikes_per_min": 10.0,
+          "active_strict": true,
+          "burst_rate_denominator": "bursting",
+          "changes_from_S0": [
+            "active_min_spikes_per_min",
+            "active_strict",
+            "burst_rate_denominator",
+            "noisy"
+          ],
+          "noisy": "dropped_per_div"
+        },
+        "check_noisy_dropped_all_divs": {
+          "active_min_spikes_per_min": 10.0,
+          "active_strict": true,
+          "burst_rate_denominator": "active",
+          "changes_from_S0": [
+            "active_min_spikes_per_min",
+            "active_strict",
+            "noisy"
+          ],
+          "noisy": "dropped_all_divs"
+        },
+        "only_active_gt10": {
+          "active_min_spikes_per_min": 10.0,
+          "active_strict": true,
+          "burst_rate_denominator": "active",
+          "changes_from_S0": [
+            "active_min_spikes_per_min",
+            "active_strict"
+          ],
+          "noisy": "kept"
+        },
+        "only_noisy_dropped": {
+          "active_min_spikes_per_min": 5.0,
+          "active_strict": false,
+          "burst_rate_denominator": "active",
+          "changes_from_S0": [
+            "noisy"
+          ],
+          "noisy": "dropped_per_div"
+        },
+        "only_rate_per_bursting_electrode": {
+          "active_min_spikes_per_min": 5.0,
+          "active_strict": false,
+          "burst_rate_denominator": "bursting",
+          "changes_from_S0": [
+            "burst_rate_denominator"
+          ],
+          "noisy": "kept"
+        }
+      },
+      "depositors_stated_settings": {
+        "active_min_spikes_per_min": 10.0,
+        "active_rule": "more than 10 spikes per minute",
+        "burst_detector": "logISI (adaptive), at least 5 spikes, bursts merged when under 100 ms apart",
+        "burst_merge_interval_ms": 100,
+        "burst_min_spikes": 5,
+        "burst_rate_over": "electrodes exhibiting bursts",
+        "noisy_electrodes": "discarded by the analysis code",
+        "source": "data/raw/kapucu2022/paper/PMC8969177.xml, Methods",
+        "sttc_dt_ms": 50
+      },
+      "figure": "extractor_settings_ladder_real.png",
+      "gap_closed_S0_to_S3": {
+        "active_electrodes": {
+          "Rat_MEA1": 1.0,
+          "hPSC_MEA1": 1.0,
+          "hPSC_MEA2": 1.0,
+          "pooled": 1.0
+        },
+        "burst_duration_s": {
+          "Rat_MEA1": 0.0034,
+          "hPSC_MEA1": 0.0016,
+          "hPSC_MEA2": 0.0165,
+          "pooled": 0.0113
+        },
+        "burst_rate_per_min": {
+          "Rat_MEA1": 0.1011,
+          "hPSC_MEA1": 0.8573,
+          "hPSC_MEA2": 0.8867,
+          "pooled": 0.9293
+        },
+        "mfr_hz": {
+          "Rat_MEA1": 1.0,
+          "hPSC_MEA1": 1.0,
+          "hPSC_MEA2": 1.0,
+          "pooled": 1.0
+        },
+        "pct_spikes_in_bursts": {
+          "Rat_MEA1": 0.2949,
+          "hPSC_MEA1": -0.1722,
+          "hPSC_MEA2": 1.0,
+          "pooled": 0.9492
+        },
+        "spikes_per_burst": {
+          "Rat_MEA1": 0.022,
+          "hPSC_MEA1": 0.0408,
+          "hPSC_MEA2": -0.0163,
+          "pooled": 0.0271
+        },
+        "synchrony_index": {
+          "Rat_MEA1": 1.0,
+          "hPSC_MEA1": 1.0,
+          "hPSC_MEA2": 1.0,
+          "pooled": 1.0
+        }
+      },
+      "label": "POST HOC (exploratory; the result was seen in a scratch analysis before this code was written; not registered): REAL recordings (Kapucu 2022), our extractor rerun on the depositors' spike files under their stated settings, one change at a time, against the meaRtools output they published",
+      "ladder": [
+        "S0_ours",
+        "S1_active_gt10",
+        "S2_noisy_dropped",
+        "S3_rate_per_bursting_electrode"
+      ],
+      "noisy_dropped": "before extraction, so before the active-electrode threshold",
+      "not_tested": "the burst detector: the depositors' adaptive logISI against our fixed rule",
+      "one_at_a_time": [
+        "only_active_gt10",
+        "only_noisy_dropped",
+        "only_rate_per_bursting_electrode"
+      ],
+      "our_settings": {
+        "active_min_spikes_per_min": 5.0,
+        "active_rule": "at least 5 spikes per minute",
+        "burst_detector": "fixed: ISI <= 100 ms, at least 5 spikes",
+        "burst_max_isi_ms": 100,
+        "burst_min_spikes": 5,
+        "burst_rate_over": "active electrodes",
+        "noisy_electrodes": "flagged in qc, kept",
+        "sttc_dt_ms": 50
+      },
+      "s0_agreement_matches_previous_record": true,
+      "s0_matches_this_runs_agreement": true,
+      "status": "post hoc, exploratory, not registered"
+    },
     "uncheckable": [
       "isi_cv",
       "network_burst_rate_per_min"

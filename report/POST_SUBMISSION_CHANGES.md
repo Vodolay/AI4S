@@ -55,6 +55,7 @@ the bottom.*
 | 44 | 2026-10-28 | The twin's knob dose-response against real concentration-response curves | 2 of 4 registered predictions pass; the mechanism label matters, the curve shape does not clear the line | `f3e1fb9` … this branch |
 | 45 | 2026-10-27/28 | The twin's inverse model recalibrated: 5.8x the simulations and a five-flow ensemble (D31) | 2 of 7 registered predictions pass; on fresh simulations the round-1 model fails all five parameters; the ensemble passes only `threshold_scale` under the registered rule | `0bc29aa` … this branch |
 | 46 | 2026-10-28 | Human iPSC against rat chips from one lab: split-half noise of untreated wells | 2 of 3 registered predictions pass; human firing rate about twice as noisy, but not across readouts; wells needed reported as a lower bound | `35df26a` … this branch |
+| 47 | 2026-10-28 | Our extractor rerun under the Kapucu 2022 depositors' stated settings, one change at a time (post hoc); the feature definitions recorded as D33 | none to earlier results; the twofold burst-rate difference is traced mainly to the burst-rate denominator, on the hPSC plates; two report wording errors fixed | `46d1607`, `e10a2ff` … this branch |
 
 ---
 
@@ -1160,6 +1161,84 @@ change; the difference is not general across readouts.*
 - **Evidence.** Report §36; `outputs/figures/hpsc_split_half_real.png`,
   `outputs/hpsc_split_half_REAL.json` (with the per-well table), `outputs/metrics.json` key
   `hpsc_split_half`.
+
+## 47. Why the extractor disagrees with meaRtools on burst rate, and what we chose
+
+**Slide message:** *On the same spike files, our burst rate is less than half the depositors'
+published meaRtools value (ratio 0.4423); rerun with their stated settings, most of the gap is one
+choice, dividing by the electrodes that burst rather than by every active one (ratio 0.944), and it
+is a human iPSC effect. Post hoc.*
+
+- **What changed.** `features/mea.py` gains two definition options, off by default
+  (`active_strict`, `burst_rate_denominator`); at their defaults every feature value and every
+  method record is byte-identical, which a golden-value test pins. A new module,
+  `src/neuromps/models/extractor_ladder.py`, runs inside the existing extractor-agreement stage
+  and reruns our extractor on the depositors' spike files with their stated choices switched on
+  one at a time: active above 10 spikes/min (S1), their noisy electrodes dropped for each DIV
+  (S2), burst rate per bursting electrode (S3), each change alone, and an assumption check. The
+  definitions themselves are recorded retroactively as decision D33. Two wording errors in the
+  report are fixed: the executive summary said we had run the depositors' meaRtools pipeline (we
+  ran our extractor on their spike files and compared with the output they published), and the
+  §3 figure caption described a different plot.
+- **Why.** The judges' question was why a reader should trust our extractor. §3 showed where it
+  disagrees with an independent implementation but not why; a twofold burst-rate gap with no
+  explanation reads as a possible bug.
+- **Effect.**
+  - The ladder's first step is the published comparison, unchanged (check:
+    true <!-- metrics.json: extractor_agreement.settings_ladder.check_s0_reproduces_published_agreement -->);
+    the agreement numbers in §3 do not move.
+  - Pooled burst rate, median ratio ours/theirs: 0.4423
+    <!-- metrics.json: extractor_agreement.settings_ladder.by_variant.S0_ours.pooled.burst_rate_per_min.median_ratio -->
+    as published, 0.6998
+    <!-- metrics.json: extractor_agreement.settings_ladder.by_variant.S1_active_gt10.pooled.burst_rate_per_min.median_ratio -->
+    at S1, 0.6967
+    <!-- metrics.json: extractor_agreement.settings_ladder.by_variant.S2_noisy_dropped.pooled.burst_rate_per_min.median_ratio -->
+    at S2 and 0.944
+    <!-- metrics.json: extractor_agreement.settings_ladder.by_variant.S3_rate_per_bursting_electrode.pooled.burst_rate_per_min.median_ratio -->
+    at S3; the denominator alone gives 0.9087
+    <!-- metrics.json: extractor_agreement.settings_ladder.by_variant.only_rate_per_bursting_electrode.pooled.burst_rate_per_min.median_ratio -->.
+    The ladder closes a share of 0.9293
+    <!-- metrics.json: extractor_agreement.settings_ladder.gap_closed_S0_to_S3.burst_rate_per_min.pooled -->
+    of the pooled log-ratio gap.
+  - It is an hPSC effect: hPSC_MEA1 moves from 0.3417
+    <!-- metrics.json: extractor_agreement.settings_ladder.by_variant.S0_ours.hPSC_MEA1.burst_rate_per_min.median_ratio -->
+    to 0.8579
+    <!-- metrics.json: extractor_agreement.settings_ladder.by_variant.S3_rate_per_bursting_electrode.hPSC_MEA1.burst_rate_per_min.median_ratio -->,
+    hPSC_MEA2 from 0.3841
+    <!-- metrics.json: extractor_agreement.settings_ladder.by_variant.S0_ours.hPSC_MEA2.burst_rate_per_min.median_ratio -->
+    to 0.8973
+    <!-- metrics.json: extractor_agreement.settings_ladder.by_variant.S3_rate_per_bursting_electrode.hPSC_MEA2.burst_rate_per_min.median_ratio -->,
+    and the rat plate from 0.9573
+    <!-- metrics.json: extractor_agreement.settings_ladder.by_variant.S0_ours.Rat_MEA1.burst_rate_per_min.median_ratio -->
+    to 1.04
+    <!-- metrics.json: extractor_agreement.settings_ladder.by_variant.S3_rate_per_bursting_electrode.Rat_MEA1.burst_rate_per_min.median_ratio -->.
+    In a median hPSC_MEA1 recording a share of only 0.6225
+    <!-- metrics.json: extractor_agreement.settings_ladder.bursting_fraction_of_active_S2.hPSC_MEA1 -->
+    of active electrodes burst, against 0.9815
+    <!-- metrics.json: extractor_agreement.settings_ladder.bursting_fraction_of_active_S2.Rat_MEA1 -->
+    on the rat plate.
+  - With the same electrodes (S2), firing rate, active-electrode count and STTC reproduce theirs:
+    rank agreement 1.0
+    <!-- metrics.json: extractor_agreement.settings_ladder.by_variant.S2_noisy_dropped.pooled.mfr_hz.spearman_rho -->
+    for firing rate, and an identical active-electrode count in a share of 1.0
+    <!-- metrics.json: extractor_agreement.settings_ladder.by_variant.S2_noisy_dropped.pooled.active_electrodes.fraction_exact -->
+    of recordings. Burst duration and spikes per burst barely move (S3 ratios 0.8208
+    <!-- metrics.json: extractor_agreement.settings_ladder.by_variant.S3_rate_per_bursting_electrode.pooled.burst_duration_s.median_ratio -->
+    and 0.9433
+    <!-- metrics.json: extractor_agreement.settings_ladder.by_variant.S3_rate_per_bursting_electrode.pooled.spikes_per_burst.median_ratio -->):
+    that remainder is the burst detector, which is not tested.
+  - The assumption that the noisy-electrode file is read per DIV column was checked: read as
+    "listed on any DIV, noisy throughout", the active-electrode count matches in a share of only
+    0.253
+    <!-- metrics.json: extractor_agreement.settings_ladder.assumption_check.active_electrodes_fraction_exact.check_noisy_dropped_all_divs -->
+    of recordings.
+  - Post hoc and not registered: a scratch analysis showed these numbers before the module was
+    written, so the registration counts (§21, entry 43) do not change. No earlier result, record
+    or twin output changes; the asset is not rebuilt.
+- **Evidence.** Report §3 ("Where the difference comes from"); decision D33;
+  `outputs/figures/extractor_settings_ladder_real.png`; `outputs/metrics.json` key
+  `extractor_agreement.settings_ladder`; tests `tests/test_features_mea.py`,
+  `tests/test_extractor_ladder.py`.
 
 ---
 

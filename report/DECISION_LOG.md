@@ -366,3 +366,44 @@ it with its own command or `python -m neuromps.fly.pipeline --only <step>`.
   day-to-day variation, so the wells it implies are a lower bound, and are not compared
   numerically with the ToxCast vehicle-well numbers.
 - **Revisit at:** `outputs/metrics.json` key `hpsc_split_half`.
+
+### D33. The feature definitions, recorded retroactively, and what they cost
+- **What was decided, in Phase 1 (2026-09-16, `dd3d59b`):** an electrode is active at 5 or more
+  spikes per minute; a burst is a run of at least 5 spikes with every inter-spike interval at most
+  100 <!-- metrics.json: extractor_agreement.settings_ladder.our_settings.burst_max_isi_ms --> ms;
+  burst rate is bursts per minute per active electrode; the deposits' noisy electrodes are flagged
+  in each record's QC block and not dropped; synchrony is STTC with a 50 ms window. All live as the
+  defaults of `FeatureParams` in `src/neuromps/features/mea.py`, the one extractor the ETL and the
+  twin both call.
+- **What was not recorded at the time:** the rationale. The lab notebook's Phase-1 entry lists the
+  values, and gives a source only for the activity threshold; the burst rule, the burst-rate
+  denominator and keeping noisy electrodes were chosen without a written reason. This entry
+  records them after the fact.
+- **The reason, stated now:** one fixed, stated definition applied identically to every source and
+  to the twin, so that a feature means the same thing in every record and in every simulation; the
+  values follow the common fixed-threshold convention. The activity threshold is the one the EPA
+  acute MEA assay states (its assay documents, e.g.
+  `data/raw/toxcast_mea/assay_docs/AEID2466_CCTE_Shafer_MEA_acute_burst_percentage_mean.pdf`,
+  §2.5). The 50 ms STTC window is the one the Kapucu 2022 depositors state. Whether the burst rule
+  matches a vendor's (Axion AxIS) default is **unverified**: no document in `data/raw` or the
+  repository states it, so we do not claim it. Keeping noisy electrodes follows the standard's rule
+  that upstream exclusions are preserved and flagged rather than silently dropped
+  (`schema/STANDARD.md` §5).
+- **What the choices cost (post hoc evidence):** `src/neuromps/models/extractor_ladder.py` reruns
+  the extractor under the Kapucu 2022 depositors' stated settings one change at a time, against the
+  meaRtools output they published. With their active threshold and their noisy-electrode lists,
+  firing rate, active-electrode count and STTC reproduce theirs; most of the twofold burst-rate
+  difference is the denominator, and it is an hPSC effect (report §3). The ladder closes a share of
+  0.9293 <!-- metrics.json: extractor_agreement.settings_ladder.gap_closed_S0_to_S3.burst_rate_per_min.pooled -->
+  of the pooled burst-rate log-ratio gap. The detector difference (fixed rule against adaptive
+  logISI) is named and not tested. This is post hoc: the result was seen before the code was
+  written, and it is not registered.
+- **Options:** keep the definitions (taken); switch the asset to meaRtools-like settings (rejected:
+  it would rebuild every record and the twin's calibration targets for a gain on one source); or
+  store features under named definition sets.
+- **Taken:** keep the definitions unchanged; the extractor gains two options, off by default and
+  named in the method record only when used (`active_strict`, `burst_rate_denominator`), so the
+  asset, its method records and the twin are byte-identical.
+- **Revisit at:** a future version could store each record's features under named definition sets
+  (for example `neuromps_v1` and `meartools_like`), selected per consumer, with the method record
+  naming the set. `outputs/metrics.json` key `extractor_agreement.settings_ladder`.

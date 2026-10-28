@@ -9,13 +9,14 @@ differ between tools, so `FeatureParams.as_method_record()` emits the method
 names that the schema requires alongside the values.
 """
 
-from collections.abc import Mapping
+from collections.abc import Iterable, Mapping
 from dataclasses import dataclass
 
 import numpy as np
 from scipy.stats import binom
 
 SECONDS_PER_MINUTE = 60.0
+BURST_RATE_DENOMINATORS = ("active", "bursting")
 
 # The feature vector, in one place. Everything downstream - the schema, the
 # twin's summary vector, the report's "nine features" - is counting this tuple,
@@ -45,9 +46,37 @@ class FeatureParams:
     network_burst_min_fraction: float = 0.25
     network_burst_false_positives: float = 0.05
     sttc_dt_s: float = 0.05
+    # Alternative definitions, off by default (D33). They exist so that one
+    # extractor can be run under another tool's stated settings - the post hoc
+    # comparison with the Kapucu 2022 meaRtools output - without a fork.
+    # `active_strict`: active means a spike count above the threshold, not at or
+    # above it. `burst_rate_denominator`: bursts per minute per active electrode
+    # ("active") or per electrode with at least one burst ("bursting").
+    active_strict: bool = False
+    burst_rate_denominator: str = "active"
+
+    def __post_init__(self) -> None:
+        if self.burst_rate_denominator not in BURST_RATE_DENOMINATORS:
+            raise ValueError(
+                f"burst_rate_denominator must be one of {BURST_RATE_DENOMINATORS}, "
+                f"got {self.burst_rate_denominator!r}"
+            )
 
     def as_method_record(self) -> dict[str, object]:
-        """Method fields for a schema record (see STANDARD.md section 4.2)."""
+        """Method fields for a schema record (see STANDARD.md section 4.2).
+
+        The alternative definitions appear only when they are not the default, so
+        every record built with the defaults is unchanged.
+        """
+        record = self._default_method_record()
+        if self.active_strict:
+            record["active_electrode_threshold_strict"] = True
+        if self.burst_rate_denominator != "active":
+            record["burst_rate_denominator"] = self.burst_rate_denominator
+        return record
+
+    def _default_method_record(self) -> dict[str, object]:
+        """The method fields every record has carried since Phase 1."""
         return {
             "computed_by": "neuromps.features.mea",
             "burst_method": (
@@ -181,8 +210,7 @@ def extract_features(
         raise ValueError(f"duration_s must be positive, got {duration_s}")
     p = params or FeatureParams()
     trains = {k: np.sort(np.asarray(v, dtype=float)) for k, v in spikes.items()}
-    min_spikes = p.active_min_spikes_per_min * duration_s / SECONDS_PER_MINUTE
-    active = [t for t in trains.values() if t.size >= min_spikes and t.size > 0]
+    active = _active_trains(trains.values(), duration_s, p)
     out: dict[str, float | int | None] = dict.fromkeys(
         n for n in FEATURE_NAMES if n != "active_electrodes"
     )
@@ -195,6 +223,16 @@ def extract_features(
     out["network_burst_rate_per_min"] = _network_burst_rate(active, duration_s, p)
     out["synchrony_index"] = _mean_sttc(active, duration_s, p)
     return out
+
+
+def _active_trains(
+    trains: Iterable[np.ndarray], duration_s: float, p: FeatureParams
+) -> list[np.ndarray]:
+    """Electrodes at (or, if ``active_strict``, above) the active threshold, with a spike."""
+    min_spikes = p.active_min_spikes_per_min * duration_s / SECONDS_PER_MINUTE
+    if p.active_strict:
+        return [t for t in trains if t.size > min_spikes and t.size > 0]
+    return [t for t in trains if t.size >= min_spikes and t.size > 0]
 
 
 def _mean_isi_cv(active: list[np.ndarray]) -> float | None:
@@ -211,16 +249,21 @@ def _burst_features(
     active: list[np.ndarray], duration_s: float, p: FeatureParams
 ) -> dict[str, float | None]:
     """Burst rate, duration, size and the share of spikes inside bursts."""
-    n_bursts, durations, sizes, spikes_in_bursts, total = 0, [], [], 0, 0
+    n_bursts, durations, sizes, spikes_in_bursts, total, bursting = 0, [], [], 0, 0, 0
     for t in active:
         total += t.size
-        for start, end in _bursts(t, p):
+        found = _bursts(t, p)
+        bursting += bool(found)
+        for start, end in found:
             n_bursts += 1
             durations.append(t[end] - t[start])
             sizes.append(end - start + 1)
             spikes_in_bursts += end - start + 1
+    denominator = len(active) if p.burst_rate_denominator == "active" else bursting
     return {
-        "burst_rate_per_min": n_bursts / len(active) / (duration_s / SECONDS_PER_MINUTE),
+        "burst_rate_per_min": (
+            n_bursts / denominator / (duration_s / SECONDS_PER_MINUTE) if denominator else None
+        ),
         "burst_duration_s": float(np.mean(durations)) if durations else None,
         "spikes_per_burst": float(np.mean(sizes)) if sizes else None,
         "pct_spikes_in_bursts": 100.0 * spikes_in_bursts / total if total else None,
