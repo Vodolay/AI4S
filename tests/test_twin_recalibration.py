@@ -83,17 +83,17 @@ def test_coverage_from_ranks_counts_the_central_interval() -> None:
     ranks = np.array([[0], [10], [50], [100], [150], [190], [200]])
     out = rc.coverage_from_ranks(ranks, n_samples=200, levels=(0.5, 0.95))
     # central 50%: 50 <= r <= 150 -> ranks 50, 100, 150
-    assert out[PARAMETER_NAMES[0]]["0.5"]["coverage"] == pytest.approx(3 / 7, abs=1e-4)
+    assert out[PARAMETER_NAMES[0]]["L50"]["coverage"] == pytest.approx(3 / 7, abs=1e-4)
     # central 95%: 5 <= r <= 195 -> all but 0 and 200
-    assert out[PARAMETER_NAMES[0]]["0.95"]["coverage"] == pytest.approx(5 / 7, abs=1e-4)
+    assert out[PARAMETER_NAMES[0]]["L95"]["coverage"] == pytest.approx(5 / 7, abs=1e-4)
 
 
 def test_coverage_flags_over_confidence_only() -> None:
     n = 1000
     narrow = np.zeros((n, 1), dtype=int)  # every truth outside: over-confident
     wide = np.full((n, 1), 100)  # every truth at the median: too wide, not a failure
-    assert rc.coverage_from_ranks(narrow, 200, (0.8,))[PARAMETER_NAMES[0]]["0.8"]["over_confident"]
-    assert not rc.coverage_from_ranks(wide, 200, (0.8,))[PARAMETER_NAMES[0]]["0.8"][
+    assert rc.coverage_from_ranks(narrow, 200, (0.8,))[PARAMETER_NAMES[0]]["L80"]["over_confident"]
+    assert not rc.coverage_from_ranks(wide, 200, (0.8,))[PARAMETER_NAMES[0]]["L80"][
         "over_confident"
     ]
 
@@ -104,7 +104,7 @@ def test_uniform_ranks_are_not_flagged() -> None:
     out = rc.coverage_from_ranks(ranks, 200, rc.COVERAGE_LEVELS)
     assert not any(cell["over_confident"] for p in out.values() for cell in p.values())
     for p in out.values():
-        assert p["0.8"]["coverage"] == pytest.approx(0.8, abs=0.04)
+        assert p["L80"]["coverage"] == pytest.approx(0.8, abs=0.04)
 
 
 def test_coverage_tolerance_is_three_binomial_standard_errors() -> None:
@@ -115,7 +115,7 @@ def test_interval_edges_survive_floating_point_rounding() -> None:
     """(1 - 0.95)/2 rounds above 0.025; rank 5 of 200 must still count as inside."""
     ranks = np.array([[5], [195], [4], [196]])
     out = rc.coverage_from_ranks(ranks, 200, (0.95,))
-    assert out[PARAMETER_NAMES[0]]["0.95"]["coverage"] == pytest.approx(0.5)
+    assert out[PARAMETER_NAMES[0]]["L95"]["coverage"] == pytest.approx(0.5)
 
 
 def test_holm_adjustment() -> None:
@@ -208,3 +208,56 @@ def test_near_real_subset_selects_by_summary_distance() -> None:
     assert set(index) == {0, 3, 4}
     assert distance.shape == (2,)
     assert np.all(distance >= 0)
+
+
+# --- scoring the registered predictions -------------------------------------------
+
+
+def _block(p: float, coverage: float = 0.8, shrink: float = 0.5) -> dict:
+    """A results block where every parameter has the same KS p, coverage and contraction."""
+    ks = {n: {"ks_p": p, "ks_statistic": 0.05, "n_evaluated": 300} for n in PARAMETER_NAMES}
+    cells = {
+        rc.level_key(level): {
+            "coverage": coverage,
+            "over_confident": level == 0.8 and coverage < rc.coverage_floor(level, 1000),
+        }
+        for level in rc.COVERAGE_LEVELS
+    }
+    return {
+        "ks": ks,
+        "all_pass_alpha": p >= rc.ALPHA,
+        "coverage": {n: dict(cells) for n in PARAMETER_NAMES},
+        "contraction": {n: {"contraction": shrink} for n in PARAMETER_NAMES},
+    }
+
+
+def _results(m0_p: float, m1_p: float, m2_p: float, m2_cov=0.8, m2_shrink=0.5) -> dict:
+    rows = (("M0", m0_p, 0.8, 0.5), ("M1", m1_p, 0.8, 0.5), ("M2", m2_p, m2_cov, m2_shrink))
+    return {
+        name: {"H300": _block(p, cov, shrink), "H1000": _block(p, cov, shrink)}
+        for name, p, cov, shrink in rows
+    }
+
+
+def test_predictions_pass_when_the_ensemble_is_calibrated_and_sharp() -> None:
+    from neuromps.twin.recalibration_run import adopted_parameters, score_predictions
+
+    results = _results(m0_p=0.01, m1_p=0.2, m2_p=0.3)
+    scored = score_predictions(results, {"M2": {"median_seconds_per_posterior": 0.4}})
+    assert scored["n_passed"] == scored["n_registered"] == 7
+    assert adopted_parameters(results) == list(PARAMETER_NAMES)
+
+
+def test_predictions_fail_on_lost_contraction_slow_sampling_and_over_confidence() -> None:
+    from neuromps.twin.recalibration_run import adopted_parameters, score_predictions
+
+    results = _results(m0_p=0.3, m1_p=0.01, m2_p=0.3, m2_cov=0.5, m2_shrink=0.4)
+    scored = score_predictions(results, {"M2": {"median_seconds_per_posterior": 1.5}})
+    rows = scored["by_prediction"]
+    assert not rows["P0_hd14_failure_replicates"]["passed"]
+    assert not rows["P2_ensemble_coverage"]["passed"]
+    assert not rows["P3_no_contraction_lost"]["passed"]  # 0.4 < 0.5 - 0.05
+    assert not rows["P4_still_amortised"]["passed"]
+    assert not rows["P5_budget_alone_suffices"]["passed"]
+    assert rows["P1_ensemble_all_calibrated"]["passed"]
+    assert adopted_parameters(results) == []  # every parameter over-confident at 0.8

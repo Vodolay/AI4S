@@ -161,9 +161,14 @@ def simulate_set(
     processes: int = MAX_PROCESSES,
     deadline: datetime | None = None,
     root: Path | None = None,
+    max_chunks: int | None = None,
 ) -> list[int]:
-    """Simulate every missing chunk in order, starting none after ``deadline``."""
-    for k in range(n_chunks(sim_set)):
+    """Simulate every missing chunk in order, starting none after ``deadline``.
+
+    ``max_chunks`` reproduces a recorded run: a rerun from a clean clone
+    simulates exactly the chunks the registered run completed, no more.
+    """
+    for k in range(min(n_chunks(sim_set), max_chunks or n_chunks(sim_set))):
         if chunk_path(sim_set, k, root).exists():
             continue
         now = datetime.now(tz=ZoneInfo("America/New_York"))
@@ -226,7 +231,7 @@ def coverage_from_ranks(
             inside = (scaled[:, i] >= low) & (scaled[:, i] <= high)
             coverage = float(inside.mean())
             floor = coverage_floor(level, n)
-            out[name][str(level)] = {
+            out[name][level_key(level)] = {
                 "coverage": round(coverage, 4),
                 "floor": round(floor, 4),
                 "over_confident": bool(coverage < floor),
@@ -246,16 +251,24 @@ def holm_adjust(p_values: dict) -> dict:
     return adjusted
 
 
-def ranks_and_contraction(posterior, theta: np.ndarray, x: np.ndarray, n_samples: int):
-    """SBC ranks and contraction from one posterior sample per observation.
+def level_key(level: float) -> str:
+    """Dot-free key for a credible level, so report citations can path into it."""
+    return f"L{round(level * 100)}"
 
-    The same definitions as `inference.posterior_ranks` and `inference.contraction`
-    (a test holds them equal), drawn once instead of twice.
+
+def ranks_and_widths(
+    posterior, theta: np.ndarray, x: np.ndarray, n_samples: int
+) -> tuple[np.ndarray, np.ndarray]:
+    """Per observation: SBC rank of each true value and the posterior's standard deviation.
+
+    The definitions of `inference.posterior_ranks` and `inference.contraction`
+    (a test holds them equal), drawn once instead of twice, and kept per
+    observation so any subset can be summarised without sampling again.
     """
     import torch
 
     ranks = np.empty((len(theta), theta.shape[1]), dtype=int)
-    widths = []
+    widths = np.empty((len(theta), theta.shape[1]), dtype=float)
     for i, (true_value, observation) in enumerate(zip(theta, x, strict=True)):
         samples = posterior.sample(
             (n_samples,),
@@ -263,11 +276,17 @@ def ranks_and_contraction(posterior, theta: np.ndarray, x: np.ndarray, n_samples
             show_progress_bars=False,
         ).numpy()
         ranks[i] = (samples < true_value).sum(axis=0)
-        widths.append(samples.std(axis=0))
-    return ranks, _contraction_from_widths(np.mean(widths, axis=0))
+        widths[i] = samples.std(axis=0)
+    return ranks, widths
 
 
-def _contraction_from_widths(posterior_sd: np.ndarray) -> dict:
+def ranks_and_contraction(posterior, theta: np.ndarray, x: np.ndarray, n_samples: int):
+    """SBC ranks and the contraction summary, from one sample per observation."""
+    ranks, widths = ranks_and_widths(posterior, theta, x, n_samples)
+    return ranks, contraction_from_widths(widths.mean(axis=0))
+
+
+def contraction_from_widths(posterior_sd: np.ndarray) -> dict:
     """`inference.contraction`'s summary of mean posterior widths."""
     prior_sd = np.array(
         [(high - low) / np.sqrt(12) for low, high in (PRIOR_BOUNDS[n] for n in PARAMETER_NAMES)]
@@ -356,10 +375,35 @@ def main(argv: list[str] | None = None) -> int:
             done = simulate_set(TRAIN, args.processes, deadline)
             log.info("training chunks done: %d of %d", len(done), n_chunks(TRAIN))
         return 0
+    if not args.quick:
+        _reproduce_simulations(args.processes)
     from neuromps.twin.recalibration_run import run
 
-    print(json.dumps(run(quick=args.quick), indent=2))
+    print(json.dumps(run(quick=args.quick), indent=2, default=str))
     return 0
+
+
+def recorded_train_chunks() -> int | None:
+    """How many training chunks the recorded run used, if there is a record."""
+    from neuromps.paths import metrics_path
+
+    if not metrics_path().exists():
+        return None
+    section = json.loads(metrics_path().read_text()).get(METRICS_KEY) or {}
+    return (section.get("budget") or {}).get("new_train_chunks_completed")
+
+
+def _reproduce_simulations(processes: int) -> None:
+    """On a full run, simulate whatever the recorded run had and this clone lacks.
+
+    With a record, exactly its chunks; without one, the registered rule (no
+    chunk after the deadline). On the machine that holds the cache this is a
+    no-op; on a clean clone it is several hours of simulation.
+    """
+    recorded = recorded_train_chunks()
+    simulate_set(HELD_OUT, processes)
+    deadline = None if recorded else DEADLINE
+    simulate_set(TRAIN, processes, deadline=deadline, max_chunks=recorded)
 
 
 if __name__ == "__main__":
