@@ -13,9 +13,33 @@
   "simulator": "unchanged: neuromps.twin.inference.simulate_summary at the calibrated density, 10 s, the default layout, the same prior (PRIOR_BOUNDS) drawn by draw_parameters, the same 19-dimensional summary vector; every chunk file carries the summary-pipeline and calibration fingerprints and is refused by check_cache_matches_code if either has changed",
   "seeds": {
     "rule": "every new simulation uses a seed outside HD14's (network seeds 0-2999, +1000 for delays; prior-draw seed 0); simulations come in chunks of 250, chunk k of a set draws its parameters with draw_parameters(250, draw_base + k) and simulates row j with network seed network_base + 250 k + j",
-    "held_out": {"draw_base": 32000, "network_base": 32000000, "n": 1000},
-    "train": {"draw_base": 31000, "network_base": 31000000, "n_target": 15000},
-    "training_seeds": {"M1_single_maf": 3101, "M2_ensemble_members": [3111, 3112, 3113, 3114, 3115], "M3_ensemble_members_on_hd14_set": [3121, 3122, 3123, 3124, 3125]},
+    "held_out": {
+      "draw_base": 32000,
+      "network_base": 32000000,
+      "n": 1000
+    },
+    "train": {
+      "draw_base": 31000,
+      "network_base": 31000000,
+      "n_target": 15000
+    },
+    "training_seeds": {
+      "M1_single_maf": 3101,
+      "M2_ensemble_members": [
+        3111,
+        3112,
+        3113,
+        3114,
+        3115
+      ],
+      "M3_ensemble_members_on_hd14_set": [
+        3121,
+        3122,
+        3123,
+        3124,
+        3125
+      ]
+    },
     "evaluation_sampling_seed": 3200
   },
   "budget": {
@@ -42,23 +66,51 @@
     "alpha": 0.05,
     "multiplicity": "none: each parameter is tested at 0.05 on its own. The null hypothesis is 'calibrated', so a correction raises the bar for detecting miscalibration and lowers it for passing; under Bonferroni (0.01) HD14's two failures would themselves pass. The uncorrected rule is the one HD14 failed under, so it is kept. Holm-adjusted p values are reported beside it, not used.",
     "chance_of_a_false_fail": "with five independent tests at 0.05, an exactly calibrated estimator passes all five with probability about 0.77; a single borderline failure is therefore reported as such, not explained away",
-    "expected_coverage": "central (equal-tailed) marginal credible intervals at levels 0.5, 0.8 and 0.95, read off the same ranks: covered when (1 - L)/2 <= rank/200 <= (1 + L)/2. A parameter is over-confident at level L if its coverage on the set is below L - 2 sqrt(L (1 - L) / n); coverage above nominal (too wide) is reported, not failed",
+    "expected_coverage": "central (equal-tailed) marginal credible intervals at levels 0.5, 0.8 and 0.95, read off the same ranks: covered when (1 - L)/2 <= rank/200 <= (1 + L)/2 (compared with a 1e-9 tolerance so that floating-point rounding does not drop the boundary ranks). A parameter is over-confident at level L if its coverage on the set is below L - 3 sqrt(L (1 - L) / n); coverage above nominal (too wide) is reported, not failed",
     "contraction": "1 - mean posterior standard deviation / prior standard deviation (neuromps.twin.inference definition), 200 samples, on H300, every estimator on the same simulations",
     "timing": "median wall-clock seconds for one posterior of 1,000 draws, over 20 held-out observations (neuromps.twin.inference.amortized_timing), M0 and M2 timed in the same process"
   },
   "predictions": {
-    "P0_hd14_failure_replicates": {"statement": "On fresh simulations the HD14 posterior still fails at least one of the two parameters it failed", "test": "M0, H300: KS p < 0.05 for gabaa_scale or inter_in_degree"},
-    "P1_ensemble_all_calibrated": {"statement": "The ensemble trained on the larger set passes the calibration check for all five parameters", "test": "M2, H300: KS p >= 0.05 for all five"},
-    "P2_ensemble_coverage": {"statement": "The ensemble is not over-confident at any registered level", "test": "M2, H1000: coverage >= L - 2 sqrt(L(1-L)/n) for all five parameters at L = 0.5, 0.8, 0.95"},
-    "P3_no_contraction_lost": {"statement": "The ensemble does not buy calibration by widening the posterior", "test": "M2, H300: contraction of every parameter >= M0's contraction on H300 - 0.05"},
-    "P4_still_amortised": {"statement": "A posterior still costs under a second", "test": "M2: median seconds per 1,000-draw posterior < 1.0"},
-    "P5_budget_alone_suffices": {"statement": "More simulations alone fix both failing parameters: the HD14 architecture retrained on the larger pool passes them, so the ensemble is not needed for calibration", "test": "M1, H300: KS p >= 0.05 for gabaa_scale and for inter_in_degree"},
-    "P6_ensemble_calibrated_at_higher_power": {"statement": "The ensemble's calibration holds on the larger held-out set too", "test": "M2, H1000: KS p >= 0.05 for all five"}
+    "P0_hd14_failure_replicates": {
+      "statement": "On fresh simulations the HD14 posterior still fails at least one of the two parameters it failed",
+      "test": "M0, H300: KS p < 0.05 for gabaa_scale or inter_in_degree"
+    },
+    "P1_ensemble_all_calibrated": {
+      "statement": "The ensemble trained on the larger set passes the calibration check for all five parameters",
+      "test": "M2, H300: KS p >= 0.05 for all five"
+    },
+    "P2_ensemble_coverage": {
+      "statement": "The ensemble is not over-confident at any registered level",
+      "test": "M2, H1000: coverage >= L - 3 sqrt(L(1-L)/n) for all five parameters at L = 0.5, 0.8, 0.95"
+    },
+    "P3_no_contraction_lost": {
+      "statement": "The ensemble does not buy calibration by widening the posterior",
+      "test": "M2, H300: contraction of every parameter >= M0's contraction on H300 - 0.05"
+    },
+    "P4_still_amortised": {
+      "statement": "A posterior still costs under a second",
+      "test": "M2: median seconds per 1,000-draw posterior < 1.0"
+    },
+    "P5_budget_alone_suffices": {
+      "statement": "More simulations alone fix both failing parameters: the HD14 architecture retrained on the larger pool passes them, so the ensemble is not needed for calibration",
+      "test": "M1, H300: KS p >= 0.05 for gabaa_scale and for inter_in_degree"
+    },
+    "P6_ensemble_calibrated_at_higher_power": {
+      "statement": "The ensemble's calibration holds on the larger held-out set too",
+      "test": "M2, H1000: KS p >= 0.05 for all five"
+    }
   },
   "assumption_check": {
     "assumption": "calibration averaged over the prior holds where the real recordings lie",
     "check": "M2 on the near_real set: KS p >= 0.05 for all five and coverage not over-confident at L = 0.5, 0.8, 0.95 (same rules as above); reported as a check, with the distance of the real recordings to their nearest simulation beside it, because a real recording far from every simulation is outside what any held-out set can vouch for"
   },
   "adoption_rule": "the slide quotes a parameter of the adopted estimator (M2) only if it passes P1's test and is not over-confident under P2's; a parameter that fails stays withheld as before. If M2 fails a parameter that M1 passes, both results are reported and the slide still uses M2, the registered estimator.",
-  "reporting": "Every prediction with its value and pass or fail, whichever way it falls; anything decided after seeing results is labelled post hoc. Results go to outputs/metrics.json under twin_hd14b_recalibration; the HD14 result and code path (twin_hd14_inference) are left as they are."
+  "reporting": "Every prediction with its value and pass or fail, whichever way it falls; anything decided after seeing results is labelled post hoc. Results go to outputs/metrics.json under twin_hd14b_recalibration; the HD14 result and code path (twin_hd14_inference) are left as they are.",
+  "amendments": [
+    {
+      "date": "2026-10-27, 22:25 EDT, before any new simulation or training",
+      "change": "coverage floor from 2 to 3 binomial standard errors, and a 1e-9 tolerance at the interval boundaries",
+      "why": "a test written for the rule (tests/test_twin_recalibration.py) showed that exactly uniform ranks were flagged: over 15 cells (5 parameters x 3 levels) a 2-SE one-sided floor flags an exactly calibrated estimator in about 25% of held-out sets of 1,000 (simulated, 4,000 repetitions), and floating-point rounding of (1 - 0.95)/2 dropped rank 5 of 200 from the 95% interval, which biased that level low and raised the rate to about 50%. With 3 SE and the tolerance the rate is about 2% (n = 1,000) and 3% (n = 300). No simulation had been run and no estimator trained."
+    }
+  ]
 }
