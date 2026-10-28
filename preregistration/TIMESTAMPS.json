@@ -1,6 +1,6 @@
 {
   "note": "Internal timestamps from this repository's history; not third-party verified.",
-  "root": "577f3aa593aab702d5e3fe2dd1d9aeb355a1b14bc97c3a945205b3c0d208255f",
+  "root": "7c885a16ccab20b3e5ebda33e7d18275302451442781dae10c16cd22cca7ab3c",
   "registrations": [
     {
       "file": "fly_chip_to_animal.json",
@@ -304,21 +304,34 @@
       "chain": "af0f2b246750b750828e26f4992f6222e661b4e0665d5d286e7d329f78b49129"
     },
     {
+      "file": "extractor_logisi.json",
+      "sha256": "7c9e0ec259b0102159c03ce0f12a3a3a5e3db98a7e5a6b2f96b5cde8e4ed0f9c",
+      "commit": "e11bc052facab4a0140ed075b717ccb474b6c424",
+      "committed_at": "2026-10-28T10:08:26-04:00",
+      "chain": "bdbc70e72f62a3c2cea9752046699bfe18ba9d65092fa1efeb0884a16c48b90c"
+    },
+    {
       "file": "hpsc_settling.json",
       "sha256": "f7e8d6334502da238c216f70fe7333230643b7fac3df4a8352b9bf0445886264",
       "commit": "e743c4cf223726c7eeb1c2467aa8f9d3fec1420c",
       "committed_at": "2026-10-28T10:08:26-04:00",
-      "chain": "44944bb56432b349d97b73bc062799cca00948520a0f1cf2d6f5b13f757b651a"
+      "chain": "8765d7f9bfd956e4068d3ead25ab2393d4c0d14d3c51bb72d84f2cdcdcf1c545"
     },
     {
       "file": "hpsc_network_state.json",
       "sha256": "7f934b654dd8578061c68f5660447738da22cb078ef007c74784f1bdf048af82",
       "commit": "f669016d96238a97423c583d36046c2627a811a1",
       "committed_at": "2026-10-28T10:49:24-04:00",
-      "chain": "577f3aa593aab702d5e3fe2dd1d9aeb355a1b14bc97c3a945205b3c0d208255f"
+      "chain": "7c885a16ccab20b3e5ebda33e7d18275302451442781dae10c16cd22cca7ab3c"
     }
   ],
   "registered_before_results": [
+    {
+      "output": "outputs/extractor_logisi_REAL.json",
+      "registration": "extractor_logisi.json",
+      "same_commit": false,
+      "registered_first": true
+    },
     {
       "output": "outputs/fly/chip_to_animal_SIMULATED.json",
       "registration": "fly_chip_to_animal.json",
