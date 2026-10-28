@@ -11271,6 +11271,602 @@
     "total_is_complete_pass": true,
     "total_s": 544.7
   },
+  "hpsc_split_half": {
+    "assumption_check": {
+      "R": 4.6225,
+      "ci95": [
+        2.188,
+        7.8946
+      ],
+      "feature": "mfr_hz",
+      "human_range_hz": [
+        3.5281,
+        6.4504
+      ],
+      "kept": {
+        "human": 7,
+        "rat": 14
+      },
+      "nonfinite": 0,
+      "other_side_of_one": false,
+      "overlap_hz": [
+        3.5281,
+        4.8943
+      ],
+      "percentiles": [
+        10,
+        90
+      ],
+      "pool": "primary",
+      "rat_range_hz": [
+        1.6361,
+        4.8943
+      ],
+      "resamples": 2000
+    },
+    "figure": "outputs/figures/hpsc_split_half_real.png",
+    "implementation_notes": [
+      "A spike exactly at the cut (half the plate file's last spike time) starts the second half; the plate's last spike ends it.",
+      "Wells are the union of the spike file and the expLog, as in the asset; a well with no spikes has 0 active electrodes and is not usable.",
+      "Replication noisy electrodes are read from the DIV column of the series' table.",
+      "A feature's change is also unscored when a half's value is non-finite; for synchrony_index (STTC), a non-positive second half is floored at 0.05 like any fall.",
+      "Usable and per-feature well counts are distinct wells (plate:well); on the replication pool SD pools all of a species' usable well-recordings and the bootstrap draws wells.",
+      "P2 is judged on the primary pool, with SD (not the robust SD).",
+      "P1 needs the interval's lower end strictly above 1; P3 needs R strictly above 1.",
+      "Each R interval uses a fresh generator with seed 20261028, drawing human then rat per resample; resamples with SD_rat = 0 would be dropped and are counted as nonfinite.",
+      "The overlap check uses the usable primary wells: each species' 10th and 90th percentile (numpy linear) of the full-recording firing rate; wells inside both ranges, ends included.",
+      "Wells needed use the primary pool's firing-rate SD of d for each species."
+    ],
+    "label": "REAL Kapucu 2022 untreated wells: split-half noise, human iPSC vs rat",
+    "predictions": {
+      "P1_human_firing_rate_noisier": {
+        "R": 2.0603,
+        "ci95": [
+          1.3861,
+          3.5557
+        ],
+        "outcome": "pass",
+        "pass": true,
+        "usable_wells": {
+          "human": 24,
+          "rat": 38
+        }
+      },
+      "P2_human_noisier_across_features": {
+        "features_scored": 8,
+        "human_noisier": 4,
+        "noisier_features": [
+          "mfr_hz",
+          "burst_duration_s",
+          "spikes_per_burst",
+          "isi_cv"
+        ],
+        "outcome": "fail",
+        "pass": false,
+        "scored_features": [
+          "mfr_hz",
+          "burst_rate_per_min",
+          "burst_duration_s",
+          "spikes_per_burst",
+          "pct_spikes_in_bursts",
+          "network_burst_rate_per_min",
+          "synchrony_index",
+          "isi_cv"
+        ]
+      },
+      "P3_replicates_on_developmental_plates": {
+        "R": 1.5398,
+        "ci95": [
+          0.7477,
+          2.945
+        ],
+        "outcome": "pass",
+        "pass": true,
+        "usable_wells": {
+          "human": 12,
+          "rat": 12
+        }
+      }
+    },
+    "primary": {
+      "features": {
+        "burst_duration_s": {
+          "R": 1.3504,
+          "ci95": [
+            0.8241,
+            2.4311
+          ],
+          "human": {
+            "mean": 0.0836,
+            "n_values": 24,
+            "n_wells": 24,
+            "robust_sd": 0.1079,
+            "sd": 0.1063,
+            "unscored": 0
+          },
+          "nonfinite": 0,
+          "rat": {
+            "mean": -0.038,
+            "n_values": 38,
+            "n_wells": 38,
+            "robust_sd": 0.0594,
+            "sd": 0.0787,
+            "unscored": 0
+          },
+          "resamples": 2000,
+          "scored": true
+        },
+        "burst_rate_per_min": {
+          "R": 0.726,
+          "ci95": [
+            0.4944,
+            1.1462
+          ],
+          "human": {
+            "mean": -0.4387,
+            "n_values": 24,
+            "n_wells": 24,
+            "robust_sd": 0.1828,
+            "sd": 0.1797,
+            "unscored": 0
+          },
+          "nonfinite": 0,
+          "rat": {
+            "mean": -0.2702,
+            "n_values": 38,
+            "n_wells": 38,
+            "robust_sd": 0.126,
+            "sd": 0.2475,
+            "unscored": 0
+          },
+          "resamples": 2000,
+          "scored": true
+        },
+        "isi_cv": {
+          "R": 3.1067,
+          "ci95": [
+            2.0062,
+            4.3642
+          ],
+          "human": {
+            "mean": 0.1937,
+            "n_values": 24,
+            "n_wells": 24,
+            "robust_sd": 0.0935,
+            "sd": 0.1052,
+            "unscored": 0
+          },
+          "nonfinite": 0,
+          "rat": {
+            "mean": 0.0012,
+            "n_values": 38,
+            "n_wells": 38,
+            "robust_sd": 0.0318,
+            "sd": 0.0339,
+            "unscored": 0
+          },
+          "resamples": 2000,
+          "scored": true
+        },
+        "mfr_hz": {
+          "R": 2.0603,
+          "ci95": [
+            1.3861,
+            3.5557
+          ],
+          "human": {
+            "mean": -0.3232,
+            "n_values": 24,
+            "n_wells": 24,
+            "robust_sd": 0.2496,
+            "sd": 0.2125,
+            "unscored": 0
+          },
+          "nonfinite": 0,
+          "rat": {
+            "mean": -0.1688,
+            "n_values": 38,
+            "n_wells": 38,
+            "robust_sd": 0.0556,
+            "sd": 0.1031,
+            "unscored": 0
+          },
+          "resamples": 2000,
+          "scored": true
+        },
+        "network_burst_rate_per_min": {
+          "R": 0.6766,
+          "ci95": [
+            0.3727,
+            1.2167
+          ],
+          "human": {
+            "mean": 0.7727,
+            "n_values": 22,
+            "n_wells": 22,
+            "robust_sd": 0.4474,
+            "sd": 1.008,
+            "unscored": 2
+          },
+          "nonfinite": 0,
+          "rat": {
+            "mean": -0.8294,
+            "n_values": 22,
+            "n_wells": 22,
+            "robust_sd": 1.0819,
+            "sd": 1.4899,
+            "unscored": 16
+          },
+          "resamples": 2000,
+          "scored": true
+        },
+        "pct_spikes_in_bursts": {
+          "R": 0.355,
+          "ci95": [
+            0.2057,
+            0.6536
+          ],
+          "human": {
+            "mean": 0.03,
+            "n_values": 24,
+            "n_wells": 24,
+            "robust_sd": 0.0738,
+            "sd": 0.0727,
+            "unscored": 0
+          },
+          "nonfinite": 0,
+          "rat": {
+            "mean": -0.1312,
+            "n_values": 38,
+            "n_wells": 38,
+            "robust_sd": 0.0841,
+            "sd": 0.2047,
+            "unscored": 0
+          },
+          "resamples": 2000,
+          "scored": true
+        },
+        "spikes_per_burst": {
+          "R": 2.0659,
+          "ci95": [
+            1.2346,
+            3.7474
+          ],
+          "human": {
+            "mean": 0.1455,
+            "n_values": 24,
+            "n_wells": 24,
+            "robust_sd": 0.1655,
+            "sd": 0.1572,
+            "unscored": 0
+          },
+          "nonfinite": 0,
+          "rat": {
+            "mean": -0.0298,
+            "n_values": 38,
+            "n_wells": 38,
+            "robust_sd": 0.0552,
+            "sd": 0.0761,
+            "unscored": 0
+          },
+          "resamples": 2000,
+          "scored": true
+        },
+        "synchrony_index": {
+          "R": 0.4197,
+          "ci95": [
+            0.2299,
+            0.9854
+          ],
+          "human": {
+            "mean": 0.1725,
+            "n_values": 24,
+            "n_wells": 24,
+            "robust_sd": 0.167,
+            "sd": 0.1924,
+            "unscored": 0
+          },
+          "nonfinite": 0,
+          "rat": {
+            "mean": -0.1154,
+            "n_values": 38,
+            "n_wells": 38,
+            "robust_sd": 0.1591,
+            "sd": 0.4585,
+            "unscored": 0
+          },
+          "resamples": 2000,
+          "scored": true
+        }
+      },
+      "median_active_electrodes_usable": {
+        "human": 16.0,
+        "rat": 15.0
+      },
+      "min_wells_per_feature": 10,
+      "noisy_electrodes_in_usable": {
+        "human": 1,
+        "rat": 0
+      },
+      "recording_files": {
+        "human": 1,
+        "rat": 1
+      },
+      "usable_recordings": {
+        "human": 24,
+        "rat": 38
+      },
+      "usable_wells": {
+        "human": 24,
+        "rat": 38
+      },
+      "wells": {
+        "human": 48,
+        "rat": 48
+      }
+    },
+    "registration": {
+      "committed_at": "2026-10-28T07:27:53-04:00",
+      "file": "preregistration/hpsc_split_half.json",
+      "registered_in_commit": "44eb52242631a3b2524381c9a5249f6d2d6c9a9f",
+      "sha256": "59fad1edd1962f5f4f4b91354d68acd6ca20b4bc8bf73cdc534a9e8fda692d3e"
+    },
+    "replication": {
+      "features": {
+        "burst_duration_s": {
+          "R": 1.7296,
+          "ci95": [
+            0.5468,
+            3.6515
+          ],
+          "human": {
+            "mean": -0.0567,
+            "n_values": 144,
+            "n_wells": 12,
+            "robust_sd": 0.1308,
+            "sd": 0.3663,
+            "unscored": 0
+          },
+          "nonfinite": 0,
+          "rat": {
+            "mean": -0.1095,
+            "n_values": 58,
+            "n_wells": 12,
+            "robust_sd": 0.0996,
+            "sd": 0.2118,
+            "unscored": 0
+          },
+          "resamples": 2000,
+          "scored": true
+        },
+        "burst_rate_per_min": {
+          "R": 2.225,
+          "ci95": [
+            1.5656,
+            3.4534
+          ],
+          "human": {
+            "mean": -0.1248,
+            "n_values": 144,
+            "n_wells": 12,
+            "robust_sd": 0.3532,
+            "sd": 0.5037,
+            "unscored": 0
+          },
+          "nonfinite": 0,
+          "rat": {
+            "mean": 0.0138,
+            "n_values": 58,
+            "n_wells": 12,
+            "robust_sd": 0.163,
+            "sd": 0.2264,
+            "unscored": 0
+          },
+          "resamples": 2000,
+          "scored": true
+        },
+        "isi_cv": {
+          "R": 0.7046,
+          "ci95": [
+            0.5045,
+            1.0963
+          ],
+          "human": {
+            "mean": 0.0096,
+            "n_values": 144,
+            "n_wells": 12,
+            "robust_sd": 0.132,
+            "sd": 0.1539,
+            "unscored": 0
+          },
+          "nonfinite": 0,
+          "rat": {
+            "mean": -0.1006,
+            "n_values": 58,
+            "n_wells": 12,
+            "robust_sd": 0.129,
+            "sd": 0.2184,
+            "unscored": 0
+          },
+          "resamples": 2000,
+          "scored": true
+        },
+        "mfr_hz": {
+          "R": 1.5398,
+          "ci95": [
+            0.7477,
+            2.945
+          ],
+          "human": {
+            "mean": -0.126,
+            "n_values": 144,
+            "n_wells": 12,
+            "robust_sd": 0.2294,
+            "sd": 0.4244,
+            "unscored": 0
+          },
+          "nonfinite": 0,
+          "rat": {
+            "mean": -0.0384,
+            "n_values": 58,
+            "n_wells": 12,
+            "robust_sd": 0.1555,
+            "sd": 0.2756,
+            "unscored": 0
+          },
+          "resamples": 2000,
+          "scored": true
+        },
+        "network_burst_rate_per_min": {
+          "R": 2.4704,
+          "ci95": [
+            1.4625,
+            6.4067
+          ],
+          "human": {
+            "mean": 0.1048,
+            "n_values": 94,
+            "n_wells": 12,
+            "robust_sd": 0.8146,
+            "sd": 1.6164,
+            "unscored": 50
+          },
+          "nonfinite": 0,
+          "rat": {
+            "mean": 0.0063,
+            "n_values": 58,
+            "n_wells": 12,
+            "robust_sd": 0.2668,
+            "sd": 0.6543,
+            "unscored": 0
+          },
+          "resamples": 2000,
+          "scored": true
+        },
+        "pct_spikes_in_bursts": {
+          "R": 4.1405,
+          "ci95": [
+            2.3568,
+            9.5632
+          ],
+          "human": {
+            "mean": -0.0669,
+            "n_values": 144,
+            "n_wells": 12,
+            "robust_sd": 0.1504,
+            "sd": 0.4711,
+            "unscored": 0
+          },
+          "nonfinite": 0,
+          "rat": {
+            "mean": -0.0456,
+            "n_values": 58,
+            "n_wells": 12,
+            "robust_sd": 0.0411,
+            "sd": 0.1138,
+            "unscored": 0
+          },
+          "resamples": 2000,
+          "scored": true
+        },
+        "spikes_per_burst": {
+          "R": 1.6093,
+          "ci95": [
+            0.5984,
+            3.1616
+          ],
+          "human": {
+            "mean": -0.0494,
+            "n_values": 144,
+            "n_wells": 12,
+            "robust_sd": 0.1761,
+            "sd": 0.4067,
+            "unscored": 0
+          },
+          "nonfinite": 0,
+          "rat": {
+            "mean": -0.0979,
+            "n_values": 58,
+            "n_wells": 12,
+            "robust_sd": 0.175,
+            "sd": 0.2527,
+            "unscored": 0
+          },
+          "resamples": 2000,
+          "scored": true
+        },
+        "synchrony_index": {
+          "R": 1.6371,
+          "ci95": [
+            1.1614,
+            2.7973
+          ],
+          "human": {
+            "mean": 0.1357,
+            "n_values": 144,
+            "n_wells": 12,
+            "robust_sd": 0.3037,
+            "sd": 0.3653,
+            "unscored": 0
+          },
+          "nonfinite": 0,
+          "rat": {
+            "mean": -0.0878,
+            "n_values": 58,
+            "n_wells": 12,
+            "robust_sd": 0.1159,
+            "sd": 0.2231,
+            "unscored": 0
+          },
+          "resamples": 2000,
+          "scored": true
+        }
+      },
+      "median_active_electrodes_usable": {
+        "human": 40.0,
+        "rat": 63.0
+      },
+      "min_wells_per_feature": 6,
+      "noisy_electrodes_in_usable": {
+        "human": 150,
+        "rat": 19
+      },
+      "recording_files": {
+        "human": 24,
+        "rat": 5
+      },
+      "usable_recordings": {
+        "human": 144,
+        "rat": 58
+      },
+      "usable_wells": {
+        "human": 12,
+        "rat": 12
+      },
+      "wells": {
+        "human": 24,
+        "rat": 12
+      }
+    },
+    "resamples": 2000,
+    "results_file": "outputs/hpsc_split_half_REAL.json",
+    "seed": 20261028,
+    "wells_needed": {
+      "false_alarm_rate": 0.05,
+      "human": {
+        "down_20pct": 7,
+        "down_50pct": 1,
+        "sd_log2": 0.2125
+      },
+      "note": "LOWER BOUND: split-half noise leaves out handling, compound addition and day-to-day variation, which the ToxCast vehicle wells include",
+      "power": 0.8,
+      "rat": {
+        "down_20pct": 2,
+        "down_50pct": 1,
+        "sd_log2": 0.1031
+      }
+    }
+  },
   "mechanism_baselines": {
     "label_source_confounding": {
       "by_label": {
