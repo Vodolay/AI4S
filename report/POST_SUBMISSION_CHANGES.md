@@ -997,7 +997,7 @@ checked against the commit that registered it, here, in the public repository.*
     38 <!-- metrics.json: registration_audit.submission.total.uninterpretable --> were uninterpretable.
   - 38 <!-- metrics.json: registration_timestamps.submission.n_outputs_checked --> result files name their
     registration, and 0 <!-- metrics.json: registration_timestamps.submission.n_violations --> of them came
-    before it; 3 <!-- metrics.json: registration_timestamps.submission.not_covered --> registrations are not
+    before it; 4 <!-- metrics.json: registration_timestamps.submission.not_covered --> registrations are not
     covered because their results do not name them.
   - No earlier result changes.
 - **Correction (2026-10-28).** As first merged, the audit counted 40 studies and 208

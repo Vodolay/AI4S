@@ -1047,12 +1047,13 @@ which re-reads predictions already counted under their own stages.
 `neuromps.report.timestamps` writes `preregistration/TIMESTAMPS.json`: each registration's
 checksum and the commit that first added it, a hash chain over them in commit order, and, for
 every result file that names its registration, whether the registration's commit came first. Of
-41 <!-- metrics.json: registration_timestamps.submission.n_registrations --> registrations,
+42 <!-- metrics.json: registration_timestamps.submission.n_registrations --> registrations,
 38 <!-- metrics.json: registration_timestamps.submission.n_outputs_checked --> result files were checked and
 0 <!-- metrics.json: registration_timestamps.submission.n_violations --> came before their registration. The
 check cannot see the
-3 <!-- metrics.json: registration_timestamps.submission.not_covered --> registrations whose results do not
-name them (the twin's depression test, its prior classifier and the ToxCast noise floors), and it
+4 <!-- metrics.json: registration_timestamps.submission.not_covered --> registrations whose results do not
+name them (the twin's depression test, its prior classifier, the ToxCast noise floors and the
+inverse-model recalibration, whose results are recorded only in `metrics.json`), and it
 rests on this repository's own history, not on a third-party timestamp. The two manuscripts in
 preparation register their studies the same way in a separate, private repository.
 
