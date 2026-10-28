@@ -15,7 +15,93 @@
     "detector": "logISI after Pasquale et al. 2010 (J Comput Neurosci 29:213), implemented as an option of features/mea.py (FeatureParams.burst_detector = 'logisi'; the default stays the fixed rule, so every existing output is unchanged)",
     "variant": "S4_logisi = S3 (active > 10 spikes/min, the deposit's noisy electrodes dropped per DIV, burst rate per bursting electrode) with the logISI detector; reported beside S3 and S0",
     "statistics": "as the ladder: per plate and pooled, per feature, median ratio ours/theirs, Spearman rho, share within 10%",
-    "implementation": "TO BE COMPLETED BEFORE THE REAL-DATA RUN AND COMMITTED WITH THIS FILE: histogram binning, smoothing, peak and minimum rules, the ISI-threshold cutoff, the void parameter, how bursts are extended when the threshold exceeds the cutoff, merging, minimum spikes, and the fallback when no valid threshold exists; each choice with its source (Pasquale 2010 text, the depositors' Methods, or meaRtools' documentation)"
+    "implementation": {
+      "summary": "features/mea.py, FeatureParams(burst_detector='logisi') with logisi_cutoff_s=0.1, logisi_void_threshold=0.7, logisi_bin_log10=0.1, logisi_smooth_bins=5, logisi_max_threshold_s=1.0, logisi_merge_s=0.1, burst_min_spikes=5; one threshold per active electrode per recording, from that electrode's whole recording",
+      "choices": [
+        {
+          "step": "inter-spike intervals",
+          "choice": "differences of the electrode's sorted spike times over the whole recording; zero intervals (two spikes on one time stamp) have no logarithm and are left out of the histogram, but count as within any threshold when bursts are detected",
+          "source": "our choice (zero intervals are not discussed in the sources read)"
+        },
+        {
+          "step": "histogram binning",
+          "choice": "counts of log10(ISI in s) in bins 0.1 log10 units wide, on the fixed grid of edges k*0.1 (integer k), from the bin holding the shortest ISI to the bin holding the longest; a bin's ISI is 10 to the power of its centre",
+          "source": "bin width: Pasquale et al. 2010 as described by Cotterill & Eglen 2018 (arXiv 1802.01287, LogISI section: a bin size of 0.1 in log(ISI) units); grid alignment and the centre as the bin's ISI: our choice"
+        },
+        {
+          "step": "smoothing",
+          "choice": "local linear regression with tricube weights over 5 neighbouring bins centred on each bin (lowess in one pass, no robustness iterations; the window shrinks at the edges); negative fitted values set to 0",
+          "source": "our choice: the descriptions we could read (Cotterill et al. 2016, J Neurophysiol 116:306; Cotterill & Eglen 2018) do not state a smoothing method or span; the Pasquale 2010 article itself was not accessible to us"
+        },
+        {
+          "step": "peaks",
+          "choice": "a bin whose smoothed count is above 0, above its left neighbour and at least its right neighbour (edge bins compared with their one neighbour); no minimum height or prominence",
+          "source": "our choice, standing in for the custom peak finder of Pasquale 2010 that Cotterill & Eglen 2018 cite without describing"
+        },
+        {
+          "step": "intraburst peak and ISI-threshold cutoff",
+          "choice": "the highest peak whose bin ISI is at or below the cutoff, 100 ms (ties: the shorter ISI)",
+          "source": "rule: Pasquale 2010 as described by Cotterill & Eglen 2018 and Cotterill et al. 2016 (the largest peak at or below the maximum cutoff value); 100 ms: the cutoff of Cotterill et al. 2016 Table 1, and the value the depositors' shared analysis script passes (cutoff = 0.1, as quoted in a web-search result; the script was not opened); the depositors' Methods do not state a cutoff"
+        },
+        {
+          "step": "void parameter and minimum rule",
+          "choice": "for each later peak in ISI order, the minimum of the smoothed histogram strictly between the intraburst peak and that peak (first occurrence); void = 1 - C_min / sqrt(C_intraburst_peak * C_peak); the threshold is the ISI of the first such minimum whose void exceeds 0.7, which is the smallest such minimum",
+          "source": "Pasquale 2010 as described by Cotterill & Eglen 2018 (definition and 0.7) and Cotterill et al. 2016 (threshold 0.7)"
+        },
+        {
+          "step": "threshold at or below the cutoff",
+          "choice": "bursts are runs of at least 5 spikes in which every ISI is at or below the threshold",
+          "source": "Pasquale 2010 as described by Cotterill & Eglen 2018 (they write less than; we use at or below, as the fixed rule in features/mea.py does, which differs only at exact equality); 5 spikes: the depositors' Methods"
+        },
+        {
+          "step": "burst extension when the threshold exceeds the cutoff",
+          "choice": "for a threshold above 100 ms and at most 1 s: burst cores are runs of at least 5 spikes with every ISI at or below 100 ms; each core is extended at both edges, one spike at a time, while the next ISI outward is at or below the threshold",
+          "source": "Pasquale 2010 as described by Cotterill et al. 2016 and Cotterill & Eglen 2018 (bursts detected at the cutoff, then extended to include spikes within the threshold of their beginning or end); extending repeatedly, spike by spike, is our reading"
+        },
+        {
+          "step": "ceiling",
+          "choice": "a threshold above 1 s is not used: the electrode falls back (below), reason threshold_above_ceiling",
+          "source": "a comment in the depositors' shared script logisi_algorithm_2018_LAa.R (no threshold found, or one above 1 second, means the cutoff is used), as quoted in a web-search result; the script was not opened"
+        },
+        {
+          "step": "fallback when no valid threshold exists",
+          "choice": "no peak at or below 100 ms (no_intraburst_peak), no minimum with void above 0.7 (no_void_minimum), a threshold above 1 s (threshold_above_ceiling) or no positive ISI (too_few_isis): bursts are detected with 100 ms alone and not extended, which is exactly the fixed rule; each fallback is counted with its reason",
+          "source": "no void minimum: Pasquale 2010 as described by Cotterill et al. 2016 and Cotterill & Eglen 2018 (the cutoff is used); no intraburst peak: those descriptions classify the train as having no bursts, but the depositors' script comment (as quoted above) uses the cutoff whenever no threshold is found, and we follow the depositors"
+        },
+        {
+          "step": "minimum spikes",
+          "choice": "5, applied to each burst or burst core when it is detected, before extension and merging; a run of fewer than 5 spikes is not a burst and is not merged",
+          "source": "5: the depositors' Methods; the order (detect with the minimum, then extend, then merge): our choice, following Pasquale's sequence of detection then extension"
+        },
+        {
+          "step": "merging",
+          "choice": "after detection and extension, bursts that overlap or whose gap (last spike of one to first spike of the next) is under 100 ms are joined into one burst running from the first's first spike to the second's last, including any spikes between them",
+          "source": "under 100 ms: the depositors' Methods (bursts merged when their interburst interval is under 100 ms); the gap's definition and including spikes between: our choice"
+        },
+        {
+          "step": "burst statistics",
+          "choice": "unchanged from the fixed rule: duration is last minus first spike time, size is the spikes from first to last, a well's duration and size are means over all its bursts on its active electrodes, burst rate per bursting electrode (S3)",
+          "source": "features/mea.py as used by the ladder's S3"
+        },
+        {
+          "step": "fallback share for the uninterpretable rule",
+          "choice": "active electrode-recordings under S4's electrode set (active above 10 spikes/min, the deposit's noisy electrodes for that DIV dropped) in every spike file of the plate, whose threshold fell back; pooled over the plates a prediction concerns",
+          "source": "our reading of the registration's rule"
+        },
+        {
+          "step": "judging the bands",
+          "choice": "on the statistics as the ladder reports them (median ratio and Spearman rho rounded to 4 decimals), band ends included",
+          "source": "the registration's statistics are the ladder's"
+        }
+      ],
+      "sources_read": [
+        "Kapucu et al. 2022 Methods, data/raw/kapucu2022/paper/PMC8969177.xml (logISI with small modifications; minimum 5 spikes; merge under 100 ms; not part of the original meaRtools)",
+        "Cotterill & Eglen 2018, Burst detection methods, arXiv 1802.01287 (LogISI section)",
+        "Cotterill et al. 2016, J Neurophysiol 116:306, PMC4969396 (logISI description, Table 1 cutoff 100 ms, void threshold 0.7)",
+        "a web-search result quoting comments and the call of the depositors' shared scripts on gin.g-node.org (NeuroGroup_TUNI/Comparative_MEA_dataset, Codes/meaRtools); the scripts themselves were not opened"
+      ],
+      "not_reached": "meaRtools' CRAN reference manual (HTTP 404); per the depositors logISI is not part of meaRtools in any case. Pasquale et al. 2010 itself (publisher copy) was not accessible; its content is taken from the two descriptions above."
+    }
   },
   "predictions": {
     "L1_burst_duration_closes": {
