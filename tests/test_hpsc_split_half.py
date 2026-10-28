@@ -308,6 +308,9 @@ def test_end_to_end_finds_the_noisier_human_set():
     assert {p["outcome"] for p in preds.values()} == {"pass"}
     assert payload["primary"]["usable_wells"] == {"human": 30, "rat": 30}
     assert payload["replication"]["usable_wells"] == {"human": 8, "rat": 8}
+    assert payload["replication"]["recording_files"] == {"human": 4, "rat": 4}
+    assert payload["primary"]["median_active_electrodes_usable"] == {"human": 16, "rat": 16}
+    assert abs(payload["primary"]["features"]["isi_cv"]["rat"]["mean"]) < 0.2
     head = payload["primary"]["features"]["mfr_hz"]
     assert head["R"] > 1.5 and head["ci95"][0] > 1.0  # constructed ratio: 3
     assert head["human"]["sd"] == pytest.approx(

@@ -324,6 +324,9 @@ def species_spread(rows: pd.DataFrame, feature: str) -> dict:
         "n_wells": int(rows.loc[rows[column].notna(), "unit"].nunique()),
         "n_values": int(values.size),
         "unscored": int(rows[column].isna().sum()),
+        # Reported beside the spread, not tested: a shift shared by every well
+        # (drift between the halves) moves the mean and leaves the SD alone.
+        "mean": _r4(float(values.mean())) if values.size else None,
         "sd": _r4(sd(values)),
         "robust_sd": _r4(robust_sd(values)),
     }
@@ -356,8 +359,15 @@ def compare_pool(table: pd.DataFrame, pool: str, resamples: int) -> dict | None:
         "wells": {s: int(rows.loc[rows["species"] == s, "unit"].nunique()) for s in SPECIES},
         "usable_wells": {s: int(by[s]["unit"].nunique()) for s in SPECIES},
         "usable_recordings": {s: len(by[s]) for s in SPECIES},
-        "recordings": {s: int(rows.loc[rows["species"] == s, "div"].nunique()) for s in SPECIES},
+        "recording_files": {
+            s: len(rows.loc[rows["species"] == s, ["plate", "div"]].drop_duplicates())
+            for s in SPECIES
+        },
         "noisy_electrodes_in_usable": {s: int(by[s]["n_noisy"].sum()) for s in SPECIES},
+        # Post hoc, descriptive: fewer electrodes would make a well's mean rate noisier.
+        "median_active_electrodes_usable": {
+            s: _r4(float(by[s]["active_full"].median())) if len(by[s]) else None for s in SPECIES
+        },
         "features": {f: compare_feature(usable, f, MIN_WELLS[pool], resamples) for f in FEATURES},
     }
 
