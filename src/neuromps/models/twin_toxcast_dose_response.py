@@ -610,6 +610,28 @@ def first_mover_table(results: dict) -> dict:
     return {n: r["first_mover"] for n, r in results.items() if r.get("scored")}
 
 
+def untestable_bins(results: dict) -> dict:
+    """Bins the vehicle null cannot judge: no exposure date holds enough vehicle wells.
+
+    The registered null draws ``n`` pseudo-treated wells from a date that also
+    keeps three others, so a bin pooling more wells than any single date's
+    vehicle set can supply gets no threshold and cannot be called moving. Counted
+    here rather than left silent, because it only ever makes the test stricter.
+    """
+    out = {}
+    for name, result in results.items():
+        if "real" not in result:
+            continue
+        missing = {
+            feature: sorted({p["bin"] for p in curve if p["wells"] > 0 and p["threshold"] is None})
+            for feature, curve in result["real"].items()
+        }
+        missing = {f: b for f, b in missing.items() if b}
+        if missing:
+            out[name] = missing
+    return out
+
+
 # ------------------------------------------------------------------------- figure
 
 
@@ -812,6 +834,7 @@ def main(argv: list[str] | None = None) -> int:
             "nulls": check["nulls"],
         },
         "dropped": {n: r["dropped"] for n, r in results.items() if r.get("dropped")},
+        "untestable_bins": untestable_bins(results),
         "compounds": results,
         "pairs": scored["pairs"],
     }
