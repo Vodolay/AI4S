@@ -458,3 +458,36 @@ it with its own command or `python -m neuromps.fly.pipeline --only <step>`.
   the 30-minute recordings do not show how long it must be. Report §36, change-log entry 49.
 - **Revisit at:** `outputs/metrics.json` key `hpsc_settling`. Next: longer untreated human
   recordings, to find where the fall ends.
+
+### D38. Is the twin's distance from the real recordings the prior's range or misspecification?
+- **Found:** D31 (report §16) found the 113 real two-chamber recordings far from every twin
+  simulation and calibration failing near them. Before registering, a diagnostic on HD14's pool
+  (declared as seen) located the gap: on HD14's own scale the median distance from a real
+  recording to its nearest simulation is 2.43 against 0.409 between neighbouring simulations;
+  `log_rate_ratio` carries a third of it (real recordings run faster in compartment 0 than any
+  simulation), `lag_ms` a sixth and the active-electrode counts a quarter; HD14's posterior,
+  shown the real recordings, puts most of its raw mass above the `threshold_scale` bound (72%
+  of recordings) and some below the `log10_forward_ratio` bound (27%), while `inter_in_degree`
+  and `gabaa_scale` stay inside.
+- **Options:** report the gap as misspecification without a test; widen every bound; widen or
+  re-centre only the bounds the real recordings push against; change the model (a parameter for
+  compartment-specific excitability, conduction delay, electrode coverage).
+- **Taken:** a registered test of the third option, because it is the one that can separate the
+  two readings at fixed model: `log10_forward_ratio` re-centred to -1.3..1.3, `ampa_scale` to
+  0.4..1.8, `threshold_scale` to 0.85..1.35, the other two unchanged; at most 3,000 new
+  simulations (600 held out, simulated first) with a cut-off at 06:00 New York time on
+  2026-10-29; distances on one fixed scale (HD14's pool), at equal pool sizes; R1 (reach: the
+  median real-to-nearest distance at most halves), R2 (the old region keeps a neighbour for at
+  least half of HD14's held-out simulations), R3 (one HD14-recipe flow on the new pool passes
+  the KS rank test for `threshold_scale` on the 200 held-out simulations nearest the real
+  recordings). **Why:** whether the twin's inverse model can ever be read on real recordings
+  depends on which of the two it is, and only widening where the posterior pointed tells them
+  apart without changing the model.
+- **Assumption recorded:** HD14's cached summaries are what today's code produces, although the
+  summary-code hash moved after two off-by-default extractor options were added (checked by
+  re-simulating six rows exactly); and an R1 pass is not an artifact of HD14's scale (checked on
+  two other scales). A misspecification reading is expected in any case for the part of the gap
+  carried by `lag_ms` and by electrode counts above the layout's 48.
+- **Registered:** `preregistration/twin_prior_reach.json`, committed before any simulation from
+  the new prior.
+- **Revisit at:** `neuromps.twin.prior_reach`; `twin_prior_reach` in `outputs/metrics.json`.
