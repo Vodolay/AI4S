@@ -1,6 +1,6 @@
 {
   "note": "Internal timestamps from this repository's history; not third-party verified.",
-  "root": "7c68c20043f44c9674d78255327dc137b9537af1709b107df9fce83db056a19b",
+  "root": "f12f7cc0a5f0db727e940f295e61c7e31e55978186da082fbb9a2c0df493bb80",
   "registrations": [
     {
       "file": "fly_chip_to_animal.json",
@@ -283,11 +283,18 @@
       "chain": "c7dc89c868fa8781624b62179a2dfb04239e04d41fad98e43808bb83cb3688ee"
     },
     {
+      "file": "twin_inference_recalibration.json",
+      "sha256": "3a829c572e8ae21bf6ceb1374945a4d66cab4cd10d570811051a1ae4bce5d98a",
+      "commit": "0bc29aa96e48cbf1e2ab219c4236052ff5e69a2a",
+      "committed_at": "2026-10-27T22:09:51-04:00",
+      "chain": "501eb64b75e12fb9581b4293083868b812740c5cc51bf04942c1c7a74f5dbd5c"
+    },
+    {
       "file": "twin_toxcast_dose_response.json",
       "sha256": "b399d65ea98068bdb74a5b49ec2776e02cddd5ecc44c184f605278b0fd072158",
       "commit": "f3e1fb9b6de551a4e934c14e34432d25179693cd",
       "committed_at": "2026-10-27T22:13:21-04:00",
-      "chain": "7c68c20043f44c9674d78255327dc137b9537af1709b107df9fce83db056a19b"
+      "chain": "f12f7cc0a5f0db727e940f295e61c7e31e55978186da082fbb9a2c0df493bb80"
     }
   ],
   "registered_before_results": [
