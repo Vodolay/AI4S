@@ -1,0 +1,1243 @@
+{
+  "label": "SIMULATED twin pools against REAL two-chamber recordings - prior reach (D38)",
+  "registration": {
+    "file": "preregistration/twin_prior_reach.json",
+    "sha256": "fd55468f4deec73fed72a9a6bb0c50493002ece04aa00985000a408d260001ca",
+    "registered_in_commit": "3c2e43e73c941c710976587737ad61e6fc05e8cb",
+    "committed_at": "2026-10-28T11:32:36-04:00"
+  },
+  "budget": {
+    "registered_max": 3000,
+    "held_out_chunks": "3 of 3",
+    "train_chunks": "10 of 10",
+    "held_out_chunks_completed": 3,
+    "train_chunks_completed": 10,
+    "new_simulations_finished": 3000,
+    "new_simulations_usable": 3000,
+    "held_out_usable": 600,
+    "train_usable": 2400,
+    "failed": 0,
+    "truncated_by_cut_off": false
+  },
+  "reference_scale": "per-summary mean and SD of HD14's 3,000 simulations, for every pool",
+  "predictions": {
+    "R1_reach": {
+      "outcome": "fail",
+      "new_pool_median": 2.211,
+      "hd14_pool_median": 2.43,
+      "ratio": 0.91,
+      "threshold_ratio": 0.5
+    },
+    "R2_old_region_kept": {
+      "outcome": "pass",
+      "share": 0.8233,
+      "threshold_share": 0.5
+    },
+    "R3_calibrated_near_real": {
+      "outcome": "pass",
+      "ks_p": 0.2682,
+      "alpha": 0.05
+    }
+  },
+  "reach": {
+    "R1": {
+      "outcome": "fail",
+      "new_pool_median": 2.211,
+      "hd14_pool_median": 2.43,
+      "ratio": 0.91,
+      "threshold_ratio": 0.5
+    },
+    "n_compared_each": 3000,
+    "real_to_nearest_new_simulation": {
+      "median": 2.211,
+      "q90": 4.069,
+      "max": 13.007
+    },
+    "real_to_nearest_hd14_simulation": {
+      "median": 2.43,
+      "q90": 5.864,
+      "max": 18.344
+    },
+    "hd14_neighbour_distance_median": 0.409,
+    "share_real_within_hd14_neighbour_distance": {
+      "new_pool": 0.0,
+      "hd14_pool": 0.0
+    },
+    "remaining_distance_share_of_total": {
+      "c0_mfr_hz": 0.0192,
+      "c0_burst_rate_per_min": 0.0089,
+      "c0_pct_spikes_in_bursts": 0.0387,
+      "c0_network_burst_rate_per_min": 0.0087,
+      "c0_synchrony_index": 0.0171,
+      "c0_isi_cv": 0.0196,
+      "c0_active_electrodes": 0.1024,
+      "c1_mfr_hz": 0.0166,
+      "c1_burst_rate_per_min": 0.0057,
+      "c1_pct_spikes_in_bursts": 0.0216,
+      "c1_network_burst_rate_per_min": 0.0107,
+      "c1_synchrony_index": 0.012,
+      "c1_isi_cv": 0.0137,
+      "c1_active_electrodes": 0.1736,
+      "log_rate_ratio": 0.2998,
+      "peak_correlation": 0.013,
+      "lag_ms": 0.1829,
+      "asymmetry": 0.0283,
+      "coupling_measured": 0.0076
+    },
+    "nearest_new_simulation_parameters_q10_q50_q90": {
+      "log10_forward_ratio": [
+        -1.083,
+        -0.236,
+        0.792
+      ],
+      "inter_in_degree": [
+        3.472,
+        12.298,
+        19.338
+      ],
+      "gabaa_scale": [
+        0.302,
+        0.962,
+        1.563
+      ],
+      "ampa_scale": [
+        0.96,
+        1.315,
+        1.673
+      ],
+      "threshold_scale": [
+        1.032,
+        1.157,
+        1.297
+      ]
+    },
+    "feature_positions_in_new_pool": {
+      "c0_mfr_hz": {
+        "real_median": 9.5811,
+        "real_median_z": 0.007,
+        "pool_q01": 0.4,
+        "pool_q99": 147.064,
+        "median_real_quantile_in_pool": 0.634,
+        "share_below_q01": 0.0,
+        "share_above_q99": 0.0,
+        "share_outside_pool_range": 0.0
+      },
+      "c0_burst_rate_per_min": {
+        "real_median": 9.7652,
+        "real_median_z": -0.372,
+        "pool_q01": 0.0,
+        "pool_q99": 90.0,
+        "median_real_quantile_in_pool": 0.563,
+        "share_below_q01": 0.0,
+        "share_above_q99": 0.0,
+        "share_outside_pool_range": 0.0
+      },
+      "c0_pct_spikes_in_bursts": {
+        "real_median": 92.0092,
+        "real_median_z": 1.116,
+        "pool_q01": 0.0,
+        "pool_q99": 99.9808,
+        "median_real_quantile_in_pool": 0.629,
+        "share_below_q01": 0.0,
+        "share_above_q99": 0.0,
+        "share_outside_pool_range": 0.0
+      },
+      "c0_network_burst_rate_per_min": {
+        "real_median": 9.7541,
+        "real_median_z": -0.444,
+        "pool_q01": 0.0,
+        "pool_q99": 90.06,
+        "median_real_quantile_in_pool": 0.571,
+        "share_below_q01": 0.0,
+        "share_above_q99": 0.0,
+        "share_outside_pool_range": 0.0
+      },
+      "c0_synchrony_index": {
+        "real_median": 0.7487,
+        "real_median_z": 0.698,
+        "pool_q01": -0.0075,
+        "pool_q99": 0.9996,
+        "median_real_quantile_in_pool": 0.557,
+        "share_below_q01": 0.0,
+        "share_above_q99": 0.0,
+        "share_outside_pool_range": 0.0
+      },
+      "c0_isi_cv": {
+        "real_median": 3.7612,
+        "real_median_z": 0.634,
+        "pool_q01": 0.3032,
+        "pool_q99": 17.8057,
+        "median_real_quantile_in_pool": 0.703,
+        "share_below_q01": 0.0,
+        "share_above_q99": 0.0,
+        "share_outside_pool_range": 0.0
+      },
+      "c0_active_electrodes": {
+        "real_median": 44.0,
+        "real_median_z": -0.007,
+        "pool_q01": 12.0,
+        "pool_q99": 48.0,
+        "median_real_quantile_in_pool": 0.435,
+        "share_below_q01": 0.035,
+        "share_above_q99": 0.08,
+        "share_outside_pool_range": 0.08
+      },
+      "c1_mfr_hz": {
+        "real_median": 6.1316,
+        "real_median_z": -0.314,
+        "pool_q01": 0.4,
+        "pool_q99": 166.2838,
+        "median_real_quantile_in_pool": 0.593,
+        "share_below_q01": 0.0,
+        "share_above_q99": 0.0,
+        "share_outside_pool_range": 0.0
+      },
+      "c1_burst_rate_per_min": {
+        "real_median": 10.2634,
+        "real_median_z": -0.382,
+        "pool_q01": 0.0,
+        "pool_q99": 90.015,
+        "median_real_quantile_in_pool": 0.563,
+        "share_below_q01": 0.0,
+        "share_above_q99": 0.0,
+        "share_outside_pool_range": 0.0
+      },
+      "c1_pct_spikes_in_bursts": {
+        "real_median": 88.1121,
+        "real_median_z": 0.953,
+        "pool_q01": 0.0,
+        "pool_q99": 99.986,
+        "median_real_quantile_in_pool": 0.598,
+        "share_below_q01": 0.0,
+        "share_above_q99": 0.0,
+        "share_outside_pool_range": 0.0
+      },
+      "c1_network_burst_rate_per_min": {
+        "real_median": 9.8791,
+        "real_median_z": -0.479,
+        "pool_q01": 0.0,
+        "pool_q99": 90.06,
+        "median_real_quantile_in_pool": 0.568,
+        "share_below_q01": 0.0,
+        "share_above_q99": 0.0,
+        "share_outside_pool_range": 0.0
+      },
+      "c1_synchrony_index": {
+        "real_median": 0.7715,
+        "real_median_z": 0.687,
+        "pool_q01": -0.0072,
+        "pool_q99": 0.9997,
+        "median_real_quantile_in_pool": 0.561,
+        "share_below_q01": 0.0,
+        "share_above_q99": 0.0,
+        "share_outside_pool_range": 0.0
+      },
+      "c1_isi_cv": {
+        "real_median": 3.7764,
+        "real_median_z": 0.383,
+        "pool_q01": 0.2989,
+        "pool_q99": 18.0698,
+        "median_real_quantile_in_pool": 0.7,
+        "share_below_q01": 0.0,
+        "share_above_q99": 0.0,
+        "share_outside_pool_range": 0.0
+      },
+      "c1_active_electrodes": {
+        "real_median": 42.0,
+        "real_median_z": -0.479,
+        "pool_q01": 13.0,
+        "pool_q99": 48.0,
+        "median_real_quantile_in_pool": 0.412,
+        "share_below_q01": 0.018,
+        "share_above_q99": 0.027,
+        "share_outside_pool_range": 0.027
+      },
+      "log_rate_ratio": {
+        "real_median": 0.2634,
+        "real_median_z": 1.482,
+        "pool_q01": -1.235,
+        "pool_q99": 1.2109,
+        "median_real_quantile_in_pool": 0.701,
+        "share_below_q01": 0.044,
+        "share_above_q99": 0.15,
+        "share_outside_pool_range": 0.115
+      },
+      "peak_correlation": {
+        "real_median": 0.8902,
+        "real_median_z": 0.876,
+        "pool_q01": -0.0497,
+        "pool_q99": 0.9981,
+        "median_real_quantile_in_pool": 0.62,
+        "share_below_q01": 0.0,
+        "share_above_q99": 0.0,
+        "share_outside_pool_range": 0.0
+      },
+      "lag_ms": {
+        "real_median": 0.0,
+        "real_median_z": -0.207,
+        "pool_q01": -15.0,
+        "pool_q99": 15.0,
+        "median_real_quantile_in_pool": 0.171,
+        "share_below_q01": 0.018,
+        "share_above_q99": 0.115,
+        "share_outside_pool_range": 0.0
+      },
+      "asymmetry": {
+        "real_median": -0.0117,
+        "real_median_z": -0.193,
+        "pool_q01": -0.4018,
+        "pool_q99": 0.4356,
+        "median_real_quantile_in_pool": 0.279,
+        "share_below_q01": 0.0,
+        "share_above_q99": 0.009,
+        "share_outside_pool_range": 0.0
+      },
+      "coupling_measured": {
+        "real_median": 1.0,
+        "real_median_z": 0.619,
+        "pool_q01": 0.0,
+        "pool_q99": 1.0,
+        "median_real_quantile_in_pool": 0.352,
+        "share_below_q01": 0.0,
+        "share_above_q99": 0.0,
+        "share_outside_pool_range": 0.0
+      }
+    }
+  },
+  "old_region": {
+    "R2": {
+      "outcome": "pass",
+      "share": 0.8233,
+      "threshold_share": 0.5
+    },
+    "share": 0.8233,
+    "threshold_distance": 0.8915,
+    "n_hd14_held_out": 300,
+    "n_reference": 2700,
+    "median_distance_to_new_pool": 0.4847
+  },
+  "calibration": {
+    "R3": {
+      "outcome": "pass",
+      "ks_p": 0.2682,
+      "alpha": 0.05
+    },
+    "n_train": 2400,
+    "near_real": {
+      "n": 200,
+      "ks": {
+        "log10_forward_ratio": {
+          "ks_statistic": 0.055,
+          "ks_p": 0.5617,
+          "n_evaluated": 200
+        },
+        "inter_in_degree": {
+          "ks_statistic": 0.11,
+          "ks_p": 0.0146,
+          "n_evaluated": 200
+        },
+        "gabaa_scale": {
+          "ks_statistic": 0.14,
+          "ks_p": 0.0007,
+          "n_evaluated": 200
+        },
+        "ampa_scale": {
+          "ks_statistic": 0.06,
+          "ks_p": 0.4502,
+          "n_evaluated": 200
+        },
+        "threshold_scale": {
+          "ks_statistic": 0.07,
+          "ks_p": 0.2682,
+          "n_evaluated": 200
+        }
+      },
+      "coverage": {
+        "log10_forward_ratio": {
+          "L50": {
+            "coverage": 0.465,
+            "floor": 0.3939,
+            "over_confident": false,
+            "n": 200
+          },
+          "L80": {
+            "coverage": 0.78,
+            "floor": 0.7151,
+            "over_confident": false,
+            "n": 200
+          },
+          "L95": {
+            "coverage": 0.93,
+            "floor": 0.9038,
+            "over_confident": false,
+            "n": 200
+          }
+        },
+        "inter_in_degree": {
+          "L50": {
+            "coverage": 0.365,
+            "floor": 0.3939,
+            "over_confident": true,
+            "n": 200
+          },
+          "L80": {
+            "coverage": 0.685,
+            "floor": 0.7151,
+            "over_confident": true,
+            "n": 200
+          },
+          "L95": {
+            "coverage": 0.88,
+            "floor": 0.9038,
+            "over_confident": true,
+            "n": 200
+          }
+        },
+        "gabaa_scale": {
+          "L50": {
+            "coverage": 0.3,
+            "floor": 0.3939,
+            "over_confident": true,
+            "n": 200
+          },
+          "L80": {
+            "coverage": 0.625,
+            "floor": 0.7151,
+            "over_confident": true,
+            "n": 200
+          },
+          "L95": {
+            "coverage": 0.885,
+            "floor": 0.9038,
+            "over_confident": true,
+            "n": 200
+          }
+        },
+        "ampa_scale": {
+          "L50": {
+            "coverage": 0.45,
+            "floor": 0.3939,
+            "over_confident": false,
+            "n": 200
+          },
+          "L80": {
+            "coverage": 0.73,
+            "floor": 0.7151,
+            "over_confident": false,
+            "n": 200
+          },
+          "L95": {
+            "coverage": 0.92,
+            "floor": 0.9038,
+            "over_confident": false,
+            "n": 200
+          }
+        },
+        "threshold_scale": {
+          "L50": {
+            "coverage": 0.47,
+            "floor": 0.3939,
+            "over_confident": false,
+            "n": 200
+          },
+          "L80": {
+            "coverage": 0.75,
+            "floor": 0.7151,
+            "over_confident": false,
+            "n": 200
+          },
+          "L95": {
+            "coverage": 0.94,
+            "floor": 0.9038,
+            "over_confident": false,
+            "n": 200
+          }
+        }
+      },
+      "contraction": {
+        "log10_forward_ratio": 0.533,
+        "inter_in_degree": 0.268,
+        "gabaa_scale": 0.265,
+        "ampa_scale": 0.505,
+        "threshold_scale": 0.663
+      }
+    },
+    "all_held_out": {
+      "n": 600,
+      "ks": {
+        "log10_forward_ratio": {
+          "ks_statistic": 0.0417,
+          "ks_p": 0.2418,
+          "n_evaluated": 600
+        },
+        "inter_in_degree": {
+          "ks_statistic": 0.1017,
+          "ks_p": 0.0,
+          "n_evaluated": 600
+        },
+        "gabaa_scale": {
+          "ks_statistic": 0.1017,
+          "ks_p": 0.0,
+          "n_evaluated": 600
+        },
+        "ampa_scale": {
+          "ks_statistic": 0.0667,
+          "ks_p": 0.0092,
+          "n_evaluated": 600
+        },
+        "threshold_scale": {
+          "ks_statistic": 0.055,
+          "ks_p": 0.0511,
+          "n_evaluated": 600
+        }
+      },
+      "coverage": {
+        "log10_forward_ratio": {
+          "L50": {
+            "coverage": 0.4667,
+            "floor": 0.4388,
+            "over_confident": false,
+            "n": 600
+          },
+          "L80": {
+            "coverage": 0.7467,
+            "floor": 0.751,
+            "over_confident": true,
+            "n": 600
+          },
+          "L95": {
+            "coverage": 0.9133,
+            "floor": 0.9233,
+            "over_confident": true,
+            "n": 600
+          }
+        },
+        "inter_in_degree": {
+          "L50": {
+            "coverage": 0.3567,
+            "floor": 0.4388,
+            "over_confident": true,
+            "n": 600
+          },
+          "L80": {
+            "coverage": 0.655,
+            "floor": 0.751,
+            "over_confident": true,
+            "n": 600
+          },
+          "L95": {
+            "coverage": 0.8783,
+            "floor": 0.9233,
+            "over_confident": true,
+            "n": 600
+          }
+        },
+        "gabaa_scale": {
+          "L50": {
+            "coverage": 0.3533,
+            "floor": 0.4388,
+            "over_confident": true,
+            "n": 600
+          },
+          "L80": {
+            "coverage": 0.6633,
+            "floor": 0.751,
+            "over_confident": true,
+            "n": 600
+          },
+          "L95": {
+            "coverage": 0.8817,
+            "floor": 0.9233,
+            "over_confident": true,
+            "n": 600
+          }
+        },
+        "ampa_scale": {
+          "L50": {
+            "coverage": 0.4133,
+            "floor": 0.4388,
+            "over_confident": true,
+            "n": 600
+          },
+          "L80": {
+            "coverage": 0.705,
+            "floor": 0.751,
+            "over_confident": true,
+            "n": 600
+          },
+          "L95": {
+            "coverage": 0.9117,
+            "floor": 0.9233,
+            "over_confident": true,
+            "n": 600
+          }
+        },
+        "threshold_scale": {
+          "L50": {
+            "coverage": 0.4667,
+            "floor": 0.4388,
+            "over_confident": false,
+            "n": 600
+          },
+          "L80": {
+            "coverage": 0.7267,
+            "floor": 0.751,
+            "over_confident": true,
+            "n": 600
+          },
+          "L95": {
+            "coverage": 0.91,
+            "floor": 0.9233,
+            "over_confident": true,
+            "n": 600
+          }
+        }
+      },
+      "contraction": {
+        "log10_forward_ratio": 0.531,
+        "inter_in_degree": 0.281,
+        "gabaa_scale": 0.305,
+        "ampa_scale": 0.556,
+        "threshold_scale": 0.696
+      }
+    },
+    "new_flow_edges_on_real": {
+      "n_recordings": 113,
+      "n_draws_per_recording": 1000,
+      "median_acceptance": 0.468,
+      "by_parameter": {
+        "log10_forward_ratio": {
+          "bounds": [
+            -1.3,
+            1.3
+          ],
+          "median_share_below": 0.0,
+          "median_share_above": 0.0,
+          "recordings_mostly_below": 0.115,
+          "recordings_mostly_above": 0.009
+        },
+        "inter_in_degree": {
+          "bounds": [
+            2.0,
+            20.0
+          ],
+          "median_share_below": 0.016,
+          "median_share_above": 0.013,
+          "recordings_mostly_below": 0.0,
+          "recordings_mostly_above": 0.018
+        },
+        "gabaa_scale": {
+          "bounds": [
+            0.1,
+            2.0
+          ],
+          "median_share_below": 0.009,
+          "median_share_above": 0.002,
+          "recordings_mostly_below": 0.0,
+          "recordings_mostly_above": 0.0
+        },
+        "ampa_scale": {
+          "bounds": [
+            0.4,
+            1.8
+          ],
+          "median_share_below": 0.0,
+          "median_share_above": 0.204,
+          "recordings_mostly_below": 0.027,
+          "recordings_mostly_above": 0.301
+        },
+        "threshold_scale": {
+          "bounds": [
+            0.85,
+            1.35
+          ],
+          "median_share_below": 0.0,
+          "median_share_above": 0.273,
+          "recordings_mostly_below": 0.0,
+          "recordings_mostly_above": 0.159
+        }
+      }
+    },
+    "density_estimator": {
+      "family": "masked autoregressive flow",
+      "requested": "maf",
+      "n_autoregressive_transforms": 5,
+      "n_permutations": 5,
+      "hidden_units_per_layer": 50,
+      "n_parameters": 34550
+    }
+  },
+  "assumption_checks": {
+    "A1_hd14_cache_reproduced": {
+      "rows": [
+        0,
+        1,
+        2,
+        2700,
+        2701,
+        2999
+      ],
+      "n_checked": 6,
+      "n_identical": 6,
+      "max_abs_difference": 0.0,
+      "passed": true,
+      "summary_code": {
+        "cached": "1520eac0462f1bc5",
+        "current": "5edd7927cf714495",
+        "matches": false
+      }
+    },
+    "A2_reach_not_an_artifact_of_the_scale": {
+      "new_pool_scale": 0.876,
+      "pooled_scale": 0.856,
+      "all_at_most_threshold": false
+    }
+  },
+  "diagnostic": {
+    "label": "SIMULATED HD14 pool against REAL recordings; seen before registration",
+    "scale": "z-scored with HD14's 3,000 simulations (the registered reference scale)",
+    "n_real": 113,
+    "n_hd14": 3000,
+    "real_to_nearest_hd14_simulation": {
+      "median": 2.43,
+      "q90": 5.864,
+      "max": 18.344
+    },
+    "hd14_simulation_to_nearest_other": {
+      "median": 0.409,
+      "q90": 0.91,
+      "max": 10.975
+    },
+    "distance_share_of_total": {
+      "c0_mfr_hz": 0.014,
+      "c0_burst_rate_per_min": 0.0075,
+      "c0_pct_spikes_in_bursts": 0.0327,
+      "c0_network_burst_rate_per_min": 0.0066,
+      "c0_synchrony_index": 0.012,
+      "c0_isi_cv": 0.016,
+      "c0_active_electrodes": 0.113,
+      "c1_mfr_hz": 0.0115,
+      "c1_burst_rate_per_min": 0.0055,
+      "c1_pct_spikes_in_bursts": 0.0242,
+      "c1_network_burst_rate_per_min": 0.0058,
+      "c1_synchrony_index": 0.0102,
+      "c1_isi_cv": 0.0092,
+      "c1_active_electrodes": 0.1638,
+      "log_rate_ratio": 0.3379,
+      "peak_correlation": 0.0118,
+      "lag_ms": 0.1814,
+      "asymmetry": 0.027,
+      "coupling_measured": 0.0097
+    },
+    "largest_shares": [
+      {
+        "summary": "log_rate_ratio",
+        "share": 0.3379
+      },
+      {
+        "summary": "lag_ms",
+        "share": 0.1814
+      },
+      {
+        "summary": "c1_active_electrodes",
+        "share": 0.1638
+      },
+      {
+        "summary": "c0_active_electrodes",
+        "share": 0.113
+      },
+      {
+        "summary": "c0_pct_spikes_in_bursts",
+        "share": 0.0327
+      }
+    ],
+    "feature_positions": {
+      "c0_mfr_hz": {
+        "real_median": 9.5811,
+        "real_median_z": 0.007,
+        "pool_q01": 0.6,
+        "pool_q99": 82.9944,
+        "median_real_quantile_in_pool": 0.72,
+        "share_below_q01": 0.0,
+        "share_above_q99": 0.0,
+        "share_outside_pool_range": 0.0
+      },
+      "c0_burst_rate_per_min": {
+        "real_median": 9.7652,
+        "real_median_z": -0.372,
+        "pool_q01": 0.0,
+        "pool_q99": 78.39,
+        "median_real_quantile_in_pool": 0.57,
+        "share_below_q01": 0.0,
+        "share_above_q99": 0.0,
+        "share_outside_pool_range": 0.0
+      },
+      "c0_pct_spikes_in_bursts": {
+        "real_median": 92.0092,
+        "real_median_z": 1.116,
+        "pool_q01": 0.0,
+        "pool_q99": 99.8624,
+        "median_real_quantile_in_pool": 0.74,
+        "share_below_q01": 0.0,
+        "share_above_q99": 0.0,
+        "share_outside_pool_range": 0.0
+      },
+      "c0_network_burst_rate_per_min": {
+        "real_median": 9.7541,
+        "real_median_z": -0.444,
+        "pool_q01": 0.0,
+        "pool_q99": 84.0,
+        "median_real_quantile_in_pool": 0.535,
+        "share_below_q01": 0.0,
+        "share_above_q99": 0.0,
+        "share_outside_pool_range": 0.0
+      },
+      "c0_synchrony_index": {
+        "real_median": 0.7487,
+        "real_median_z": 0.698,
+        "pool_q01": 0.0007,
+        "pool_q99": 0.9979,
+        "median_real_quantile_in_pool": 0.594,
+        "share_below_q01": 0.018,
+        "share_above_q99": 0.0,
+        "share_outside_pool_range": 0.0
+      },
+      "c0_isi_cv": {
+        "real_median": 3.7612,
+        "real_median_z": 0.634,
+        "pool_q01": 0.412,
+        "pool_q99": 12.3412,
+        "median_real_quantile_in_pool": 0.831,
+        "share_below_q01": 0.0,
+        "share_above_q99": 0.0,
+        "share_outside_pool_range": 0.0
+      },
+      "c0_active_electrodes": {
+        "real_median": 44.0,
+        "real_median_z": -0.007,
+        "pool_q01": 28.0,
+        "pool_q99": 48.0,
+        "median_real_quantile_in_pool": 0.33,
+        "share_below_q01": 0.115,
+        "share_above_q99": 0.08,
+        "share_outside_pool_range": 0.15
+      },
+      "c1_mfr_hz": {
+        "real_median": 6.1316,
+        "real_median_z": -0.314,
+        "pool_q01": 0.6147,
+        "pool_q99": 120.1182,
+        "median_real_quantile_in_pool": 0.597,
+        "share_below_q01": 0.0,
+        "share_above_q99": 0.0,
+        "share_outside_pool_range": 0.0
+      },
+      "c1_burst_rate_per_min": {
+        "real_median": 10.2634,
+        "real_median_z": -0.382,
+        "pool_q01": 0.0,
+        "pool_q99": 82.7537,
+        "median_real_quantile_in_pool": 0.558,
+        "share_below_q01": 0.0,
+        "share_above_q99": 0.0,
+        "share_outside_pool_range": 0.0
+      },
+      "c1_pct_spikes_in_bursts": {
+        "real_median": 88.1121,
+        "real_median_z": 0.953,
+        "pool_q01": 0.0,
+        "pool_q99": 99.9551,
+        "median_real_quantile_in_pool": 0.637,
+        "share_below_q01": 0.0,
+        "share_above_q99": 0.0,
+        "share_outside_pool_range": 0.0
+      },
+      "c1_network_burst_rate_per_min": {
+        "real_median": 9.8791,
+        "real_median_z": -0.479,
+        "pool_q01": 0.0,
+        "pool_q99": 84.0,
+        "median_real_quantile_in_pool": 0.511,
+        "share_below_q01": 0.0,
+        "share_above_q99": 0.0,
+        "share_outside_pool_range": 0.0
+      },
+      "c1_synchrony_index": {
+        "real_median": 0.7715,
+        "real_median_z": 0.687,
+        "pool_q01": 0.0023,
+        "pool_q99": 0.9992,
+        "median_real_quantile_in_pool": 0.582,
+        "share_below_q01": 0.009,
+        "share_above_q99": 0.0,
+        "share_outside_pool_range": 0.0
+      },
+      "c1_isi_cv": {
+        "real_median": 3.7764,
+        "real_median_z": 0.383,
+        "pool_q01": 0.4278,
+        "pool_q99": 14.535,
+        "median_real_quantile_in_pool": 0.757,
+        "share_below_q01": 0.0,
+        "share_above_q99": 0.0,
+        "share_outside_pool_range": 0.0
+      },
+      "c1_active_electrodes": {
+        "real_median": 42.0,
+        "real_median_z": -0.479,
+        "pool_q01": 28.99,
+        "pool_q99": 48.0,
+        "median_real_quantile_in_pool": 0.24,
+        "share_below_q01": 0.133,
+        "share_above_q99": 0.027,
+        "share_outside_pool_range": 0.115
+      },
+      "log_rate_ratio": {
+        "real_median": 0.2634,
+        "real_median_z": 1.482,
+        "pool_q01": -1.2607,
+        "pool_q99": 0.4951,
+        "median_real_quantile_in_pool": 0.95,
+        "share_below_q01": 0.044,
+        "share_above_q99": 0.372,
+        "share_outside_pool_range": 0.195
+      },
+      "peak_correlation": {
+        "real_median": 0.8902,
+        "real_median_z": 0.876,
+        "pool_q01": 0.0415,
+        "pool_q99": 0.9981,
+        "median_real_quantile_in_pool": 0.648,
+        "share_below_q01": 0.08,
+        "share_above_q99": 0.0,
+        "share_outside_pool_range": 0.0
+      },
+      "lag_ms": {
+        "real_median": 0.0,
+        "real_median_z": -0.207,
+        "pool_q01": -20.0,
+        "pool_q99": 20.0,
+        "median_real_quantile_in_pool": 0.095,
+        "share_below_q01": 0.0,
+        "share_above_q99": 0.088,
+        "share_outside_pool_range": 0.035
+      },
+      "asymmetry": {
+        "real_median": -0.0117,
+        "real_median_z": -0.193,
+        "pool_q01": -0.4392,
+        "pool_q99": 0.4468,
+        "median_real_quantile_in_pool": 0.236,
+        "share_below_q01": 0.0,
+        "share_above_q99": 0.009,
+        "share_outside_pool_range": 0.0
+      },
+      "coupling_measured": {
+        "real_median": 1.0,
+        "real_median_z": 0.619,
+        "pool_q01": 0.0,
+        "pool_q99": 1.0,
+        "median_real_quantile_in_pool": 0.277,
+        "share_below_q01": 0.0,
+        "share_above_q99": 0.0,
+        "share_outside_pool_range": 0.0
+      }
+    },
+    "sensitivity": {
+      "c0_mfr_hz": {
+        "rho": {
+          "log10_forward_ratio": -0.087,
+          "inter_in_degree": 0.167,
+          "gabaa_scale": -0.106,
+          "ampa_scale": 0.651,
+          "threshold_scale": -0.597
+        },
+        "strongest": "ampa_scale",
+        "max_abs_rho": 0.651
+      },
+      "c0_burst_rate_per_min": {
+        "rho": {
+          "log10_forward_ratio": -0.044,
+          "inter_in_degree": 0.133,
+          "gabaa_scale": 0.029,
+          "ampa_scale": 0.719,
+          "threshold_scale": -0.527
+        },
+        "strongest": "ampa_scale",
+        "max_abs_rho": 0.719
+      },
+      "c0_pct_spikes_in_bursts": {
+        "rho": {
+          "log10_forward_ratio": -0.09,
+          "inter_in_degree": 0.192,
+          "gabaa_scale": -0.117,
+          "ampa_scale": 0.747,
+          "threshold_scale": -0.428
+        },
+        "strongest": "ampa_scale",
+        "max_abs_rho": 0.747
+      },
+      "c0_network_burst_rate_per_min": {
+        "rho": {
+          "log10_forward_ratio": 0.0,
+          "inter_in_degree": 0.074,
+          "gabaa_scale": 0.104,
+          "ampa_scale": 0.676,
+          "threshold_scale": -0.532
+        },
+        "strongest": "ampa_scale",
+        "max_abs_rho": 0.676
+      },
+      "c0_synchrony_index": {
+        "rho": {
+          "log10_forward_ratio": -0.076,
+          "inter_in_degree": 0.174,
+          "gabaa_scale": -0.104,
+          "ampa_scale": 0.822,
+          "threshold_scale": -0.387
+        },
+        "strongest": "ampa_scale",
+        "max_abs_rho": 0.822
+      },
+      "c0_isi_cv": {
+        "rho": {
+          "log10_forward_ratio": -0.09,
+          "inter_in_degree": 0.179,
+          "gabaa_scale": -0.134,
+          "ampa_scale": 0.712,
+          "threshold_scale": -0.481
+        },
+        "strongest": "ampa_scale",
+        "max_abs_rho": 0.712
+      },
+      "c0_active_electrodes": {
+        "rho": {
+          "log10_forward_ratio": -0.032,
+          "inter_in_degree": 0.107,
+          "gabaa_scale": 0.007,
+          "ampa_scale": 0.588,
+          "threshold_scale": -0.586
+        },
+        "strongest": "ampa_scale",
+        "max_abs_rho": 0.588
+      },
+      "c1_mfr_hz": {
+        "rho": {
+          "log10_forward_ratio": -0.006,
+          "inter_in_degree": 0.191,
+          "gabaa_scale": -0.108,
+          "ampa_scale": 0.676,
+          "threshold_scale": -0.582
+        },
+        "strongest": "ampa_scale",
+        "max_abs_rho": 0.676
+      },
+      "c1_burst_rate_per_min": {
+        "rho": {
+          "log10_forward_ratio": -0.003,
+          "inter_in_degree": 0.132,
+          "gabaa_scale": 0.049,
+          "ampa_scale": 0.719,
+          "threshold_scale": -0.542
+        },
+        "strongest": "ampa_scale",
+        "max_abs_rho": 0.719
+      },
+      "c1_pct_spikes_in_bursts": {
+        "rho": {
+          "log10_forward_ratio": -0.032,
+          "inter_in_degree": 0.199,
+          "gabaa_scale": -0.103,
+          "ampa_scale": 0.755,
+          "threshold_scale": -0.445
+        },
+        "strongest": "ampa_scale",
+        "max_abs_rho": 0.755
+      },
+      "c1_network_burst_rate_per_min": {
+        "rho": {
+          "log10_forward_ratio": 0.045,
+          "inter_in_degree": 0.067,
+          "gabaa_scale": 0.175,
+          "ampa_scale": 0.631,
+          "threshold_scale": -0.511
+        },
+        "strongest": "ampa_scale",
+        "max_abs_rho": 0.631
+      },
+      "c1_synchrony_index": {
+        "rho": {
+          "log10_forward_ratio": -0.012,
+          "inter_in_degree": 0.204,
+          "gabaa_scale": -0.109,
+          "ampa_scale": 0.822,
+          "threshold_scale": -0.402
+        },
+        "strongest": "ampa_scale",
+        "max_abs_rho": 0.822
+      },
+      "c1_isi_cv": {
+        "rho": {
+          "log10_forward_ratio": -0.019,
+          "inter_in_degree": 0.202,
+          "gabaa_scale": -0.139,
+          "ampa_scale": 0.735,
+          "threshold_scale": -0.472
+        },
+        "strongest": "ampa_scale",
+        "max_abs_rho": 0.735
+      },
+      "c1_active_electrodes": {
+        "rho": {
+          "log10_forward_ratio": 0.006,
+          "inter_in_degree": 0.107,
+          "gabaa_scale": 0.009,
+          "ampa_scale": 0.593,
+          "threshold_scale": -0.585
+        },
+        "strongest": "ampa_scale",
+        "max_abs_rho": 0.593
+      },
+      "log_rate_ratio": {
+        "rho": {
+          "log10_forward_ratio": -0.401,
+          "inter_in_degree": -0.2,
+          "gabaa_scale": 0.042,
+          "ampa_scale": -0.498,
+          "threshold_scale": 0.224
+        },
+        "strongest": "ampa_scale",
+        "max_abs_rho": 0.498
+      },
+      "peak_correlation": {
+        "rho": {
+          "log10_forward_ratio": -0.138,
+          "inter_in_degree": 0.286,
+          "gabaa_scale": -0.148,
+          "ampa_scale": 0.699,
+          "threshold_scale": -0.391
+        },
+        "strongest": "ampa_scale",
+        "max_abs_rho": 0.699
+      },
+      "lag_ms": {
+        "rho": {
+          "log10_forward_ratio": 0.29,
+          "inter_in_degree": 0.18,
+          "gabaa_scale": 0.045,
+          "ampa_scale": 0.082,
+          "threshold_scale": 0.038
+        },
+        "strongest": "log10_forward_ratio",
+        "max_abs_rho": 0.29
+      },
+      "asymmetry": {
+        "rho": {
+          "log10_forward_ratio": 0.057,
+          "inter_in_degree": 0.209,
+          "gabaa_scale": -0.062,
+          "ampa_scale": 0.209,
+          "threshold_scale": -0.002
+        },
+        "strongest": "inter_in_degree",
+        "max_abs_rho": 0.209
+      },
+      "coupling_measured": {
+        "rho": {
+          "log10_forward_ratio": 0.049,
+          "inter_in_degree": 0.177,
+          "gabaa_scale": 0.019,
+          "ampa_scale": 0.594,
+          "threshold_scale": -0.395
+        },
+        "strongest": "ampa_scale",
+        "max_abs_rho": 0.594
+      }
+    },
+    "nearest_simulation_parameters_q10_q50_q90": {
+      "log10_forward_ratio": [
+        0.025,
+        0.139,
+        0.931
+      ],
+      "inter_in_degree": [
+        2.965,
+        8.131,
+        16.803
+      ],
+      "gabaa_scale": [
+        0.283,
+        0.495,
+        1.644
+      ],
+      "ampa_scale": [
+        0.741,
+        1.117,
+        1.311
+      ],
+      "threshold_scale": [
+        0.983,
+        1.096,
+        1.127
+      ]
+    },
+    "hd14_posterior_edges": {
+      "n_recordings": 113,
+      "n_draws_per_recording": 1000,
+      "median_acceptance": 0.035,
+      "by_parameter": {
+        "log10_forward_ratio": {
+          "bounds": [
+            0.0,
+            1.3
+          ],
+          "median_share_below": 0.012,
+          "median_share_above": 0.0,
+          "recordings_mostly_below": 0.274,
+          "recordings_mostly_above": 0.009
+        },
+        "inter_in_degree": {
+          "bounds": [
+            2.0,
+            20.0
+          ],
+          "median_share_below": 0.005,
+          "median_share_above": 0.025,
+          "recordings_mostly_below": 0.0,
+          "recordings_mostly_above": 0.0
+        },
+        "gabaa_scale": {
+          "bounds": [
+            0.1,
+            2.0
+          ],
+          "median_share_below": 0.027,
+          "median_share_above": 0.002,
+          "recordings_mostly_below": 0.0,
+          "recordings_mostly_above": 0.0
+        },
+        "ampa_scale": {
+          "bounds": [
+            0.4,
+            1.4
+          ],
+          "median_share_below": 0.0,
+          "median_share_above": 0.117,
+          "recordings_mostly_below": 0.0,
+          "recordings_mostly_above": 0.018
+        },
+        "threshold_scale": {
+          "bounds": [
+            0.85,
+            1.15
+          ],
+          "median_share_below": 0.0,
+          "median_share_above": 0.843,
+          "recordings_mostly_below": 0.0,
+          "recordings_mostly_above": 0.717
+        }
+      }
+    }
+  },
+  "reading": "misspecification within the widened box: widening the three edge-loaded parameters does not halve the distance (R1 fail); the summaries carrying what remains are where the twin does not produce the real recordings; old region kept: pass; calibration near real (R3): pass"
+}

@@ -60,6 +60,7 @@ the bottom.*
 | 49 | 2026-10-28 | Settling or steady noise in the human iPSC split-half spread (D35) | 3 of 3 registered predictions pass; the registered linearity check fails for human wells; the human spread is mostly uneven settling, and five more minutes would not remove it | `e743c4c`, `bc6a56b` … this branch |
 | 50 | 2026-10-28 | Does early network bursting predict how an untreated human iPSC well settles? A registered replication on the developmental plates (D36) | 1 of 3 registered predictions pass; the post hoc 48-well relation does not replicate (N1 fails), so stratifying human wells by baseline network bursting is not supported | `f669016`, `d7ba7da` … this branch |
 | 51 | 2026-10-28 | Named definition sets: the asset's spike-time features under ours and the Kapucu 2022 depositors' stated definitions, in a sidecar table, with a translation table (D37) | none to earlier results (asset and metrics byte-identical); three features carry over as the same number, three by a plate-dependent factor, burst rate not at all | this branch |
+| 53 | 2026-10-28 | Is the twin's distance from the real recordings the prior's range? A registered wider prior (D38) | 2 of 3 registered predictions pass; widening the box where the posterior pointed barely moves the real recordings closer, so the gap is misspecification; the inverse model is not to be read on absolute real recordings | `3c2e43e`, `c3a7d3a`, `44f78f1` … this branch |
 
 ---
 
@@ -996,12 +997,12 @@ checked against the commit that registered it, here, in the public repository.*
 - **Why.** The final-round deck quoted registration counts and a hash chain that existed only in
   the private manuscript repository, so a reader of this repository could not check them.
 - **Effect.**
-  - 47 <!-- metrics.json: registration_audit.submission.n_studies --> registered studies here made
-    236 <!-- metrics.json: registration_audit.submission.total.total --> predictions:
-    106 <!-- metrics.json: registration_audit.submission.total.pass --> passed,
-    90 <!-- metrics.json: registration_audit.submission.total.fail --> failed,
+  - 48 <!-- metrics.json: registration_audit.submission.n_studies --> registered studies here made
+    239 <!-- metrics.json: registration_audit.submission.total.total --> predictions:
+    108 <!-- metrics.json: registration_audit.submission.total.pass --> passed,
+    91 <!-- metrics.json: registration_audit.submission.total.fail --> failed,
     39 <!-- metrics.json: registration_audit.submission.total.uninterpretable --> were uninterpretable.
-  - 42 <!-- metrics.json: registration_timestamps.submission.n_outputs_checked --> result files name their
+  - 43 <!-- metrics.json: registration_timestamps.submission.n_outputs_checked --> result files name their
     registration, and 0 <!-- metrics.json: registration_timestamps.submission.n_violations --> of them came
     before it; 4 <!-- metrics.json: registration_timestamps.submission.not_covered --> registrations are not
     covered because their results do not name them.
@@ -1453,6 +1454,58 @@ features are the same number under both, three differ by a factor that depends o
   `data/processed/features_by_definition.parquet`; `outputs/tables/feature_definitions.md`;
   `outputs/metrics.json` key `feature_definitions`; tests `tests/test_feature_definitions.py`,
   `tests/test_definition_sidecar.py`, `tests/test_feature_translation.py`.
+
+---
+
+## 53. A wider prior does not bring the twin to the real recordings: the gap is the model
+
+**Slide message:** *Widening the twin's prior where its posterior pointed moves the median real
+recording only from 2.43 <!-- metrics.json: twin_prior_reach.predictions.R1_reach.hd14_pool_median -->
+to 2.211 <!-- metrics.json: twin_prior_reach.predictions.R1_reach.new_pool_median --> units from
+its nearest simulation (registered target: half); the twin does not produce these recordings, so
+its inverse model is not to be read on them, under either prior.*
+
+- **What changed.** A registered follow-up to entry 45 (`src/neuromps/twin/prior_reach.py`,
+  `src/neuromps/twin/prior_reach_run.py`, `preregistration/twin_prior_reach.json`, decision
+  D38, report §16, "A registered follow-up"). A diagnostic on the round-1 pool, declared as seen,
+  located the gap in four summaries (the chambers' rate ratio, the coupling lag, the two
+  active-electrode counts) and showed the round-1 posterior pushing past the `threshold_scale`
+  and `log10_forward_ratio` bounds for the real recordings. The registered box widens those two
+  and `ampa_scale` and keeps the other two; 3,000
+  <!-- metrics.json: twin_prior_reach.budget.new_simulations_usable --> fresh simulations (600
+  held out) were run from it, all before the registered cut-off, and every distance is read on
+  the round-1 pool's scale at equal pool sizes. `neuromps.twin.inference` now takes an optional
+  prior box (unchanged when none is given), and `run_all.py` gains a full-tier step; the quick
+  tier only re-scores the committed record.
+- **Why.** Entry 45 found the real recordings far from every simulation; whether that is the
+  prior's range or something the twin cannot produce decides whether a wider prior or a
+  different model is the next step.
+- **Effect.**
+  - R1 fails: the ratio of median distances is
+    0.91 <!-- metrics.json: twin_prior_reach.predictions.R1_reach.ratio --> (registered pass at
+    0.5 or below), and the verdict holds on the new pool's own scale
+    (0.876 <!-- metrics.json: twin_prior_reach.assumption_checks.A2_reach_not_an_artifact_of_the_scale.new_pool_scale -->)
+    and on the pooled one. The chambers' rate ratio still carries a share of
+    0.2998 <!-- metrics.json: twin_prior_reach.reach.remaining_distance_share_of_total.log_rate_ratio -->
+    of what remains.
+  - R2 passes: the new pool keeps a near neighbour for a share of
+    0.8233 <!-- metrics.json: twin_prior_reach.predictions.R2_old_region_kept.share --> of the
+    round-1 held-out simulations.
+  - R3 passes: one flow on the new pool is calibrated for `threshold_scale` on the 200 held-out
+    simulations nearest the real recordings (p =
+    0.2682 <!-- metrics.json: twin_prior_reach.predictions.R3_calibrated_near_real.ks_p -->);
+    on the same simulations it fails `gabaa_scale` and `inter_in_degree`.
+  - The round-1 cache, whose summary-code hash moved with two off-by-default extractor options
+    (entry 47), reproduces exactly (6
+    <!-- metrics.json: twin_prior_reach.assumption_checks.A1_hd14_cache_reproduced.n_identical -->
+    of 6 rows), so both pools come from one simulator.
+  - No earlier result changes: entry 45's record (`twin_hd14b_recalibration`) is untouched. §18's
+    support-rejection row now says the gap is misspecification, not the prior's range. The
+    registration counts in §21 and entry 43 rise by this study's three predictions, one
+    registration and one checked result file.
+- **Evidence.** Report §16; decision D38; `outputs/twin/prior_reach_simulated.png`,
+  `outputs/twin/prior_reach_SIMULATED.json`, `outputs/metrics.json` key `twin_prior_reach`;
+  tests `tests/test_twin_prior_reach.py`.
 
 ---
 
