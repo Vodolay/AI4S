@@ -50,9 +50,15 @@ pushed. It has four parts, and after the first round we added two more.
   from eight public sources, each verified against a SHA-256 checksum of its original file. One
   feature extractor computes every number from the 1,512
   <!-- metrics.json: data_asset.counts.by_data_level.spike_times --> spike-time recordings, so
-  comparisons inside the asset are exact. When we ran the depositors' own meaRtools pipeline on the
-  same recordings, it disagreed with ours by more than a factor of two on burst rate (§3) — exactly
-  the kind of divergence the asset exists to remove.
+  comparisons inside the asset are exact. On the same spike files, our extractor and the
+  depositors' published meaRtools output differ more than twofold in burst rate (§3), the kind of
+  divergence that pooling published summary tables would hide. A post hoc rerun of our extractor
+  under their stated settings traces it to the human iPSC plates and mainly to the burst-rate
+  denominator: dividing by the electrodes that burst rather than by every active one moves the
+  pooled ratio from 0.4423
+  <!-- metrics.json: extractor_agreement.settings_ladder.by_variant.S0_ours.pooled.burst_rate_per_min.median_ratio -->
+  to 0.9087
+  <!-- metrics.json: extractor_agreement.settings_ladder.by_variant.only_rate_per_bursting_electrode.pooled.burst_rate_per_min.median_ratio -->.
 - **Benchmarks on real recordings.** We grouped every cross-validation split by culture and
   bootstrapped over cultures rather than rows. Under those rules, within one laboratory, a simple
   linear model (balanced accuracy 0.537
@@ -208,7 +214,8 @@ rate, burst duration, spikes per burst, percentage of spikes in bursts, network 
 synchrony index, the coefficient of variation of inter-spike intervals, and the number of active
 electrodes.
 
-We detect bursts with a stated rule — spikes closer than 100 ms, at least five in a row — rather than
+We detect bursts with a stated rule — spikes closer than 100
+<!-- metrics.json: extractor_agreement.settings_ladder.our_settings.burst_max_isi_ms --> ms, at least five in a row — rather than
 a vendor default. For synchrony we use the spike-time tiling coefficient (STTC) with a 50 ms
 coincidence window. Unlike a plain correlation, STTC does not reward two electrodes just for both
 being busy.
@@ -231,7 +238,7 @@ important methodological result in the report, so here it is, plainly.
 | `burst_rate_per_min` | 0.8907 <!-- metrics.json: extractor_agreement.by_feature.burst_rate_per_min.spearman_rho --> | 0.4423 <!-- metrics.json: extractor_agreement.by_feature.burst_rate_per_min.median_ratio_ours_over_theirs --> | disagrees twofold, purely from definition |
 | `burst_duration_s` | 0.7926 <!-- metrics.json: extractor_agreement.by_feature.burst_duration_s.spearman_rho --> | 0.8189 <!-- metrics.json: extractor_agreement.by_feature.burst_duration_s.median_ratio_ours_over_theirs --> | the weakest rank agreement of the seven |
 
-![Our extractor against the depositors' own meaRtools output, REAL recordings. Rank agreement on the horizontal axis, ratio of values on the vertical. Only `pct_spikes_in_bursts` lands on equality; burst rate differs twofold from definitional choice alone.](../outputs/figures/extractor_agreement_real.png){width=100%}
+![Our extractor against the meaRtools output the depositors published, REAL recordings. One panel per feature: our value (vertical) against their published value (horizontal) for each well and DIV, coloured by plate; the dashed line is equality. Only `pct_spikes_in_bursts` lands on equality; burst rate differs about twofold.](../outputs/figures/extractor_agreement_real.png){width=100%}
 
 Read the two columns separately. The left one asks "do we rank recordings the same way?", and the
 right one asks "do we get the same number?" Only one feature passes both tests. Three rank
@@ -242,6 +249,85 @@ recordings almost identically but on a different scale. And the burst measures d
 number. Across papers they are not: "bursts per minute" from two laboratories can differ twofold from
 the algorithm definitions alone, before any biology enters the picture. That is exactly why we
 recompute everything from raw spikes instead of pooling published summary tables.
+
+**Where the difference comes from (post hoc).** The comparison above runs our extractor on the
+depositors' spike files and sets it beside the output they published; it does not rerun meaRtools.
+To find out which choices separate the two, we reran our own extractor with the depositors' stated
+settings (Kapucu et al. 2022, Methods) switched on one at a time. This is post hoc: a scratch
+analysis showed the result before the code in `models/extractor_ladder.py` was written, so it is
+labelled exploratory and is not registered.
+
+| setting | depositors (meaRtools, as stated) | ours (`features/mea.py`) | ladder step |
+|---|---|---|---|
+| active electrode | more than 10 <!-- metrics.json: extractor_agreement.settings_ladder.depositors_stated_settings.active_min_spikes_per_min --> spikes/min | at least 5 <!-- metrics.json: extractor_agreement.settings_ladder.our_settings.active_min_spikes_per_min --> spikes/min | S1 |
+| noisy electrodes | discarded | flagged, kept | S2 |
+| burst rate divided by | electrodes that burst | every active electrode | S3 |
+| burst detector | logISI (adaptive); bursts closer than 100 <!-- metrics.json: extractor_agreement.settings_ladder.depositors_stated_settings.burst_merge_interval_ms --> ms merged | fixed: ISI ≤ 100 <!-- metrics.json: extractor_agreement.settings_ladder.our_settings.burst_max_isi_ms --> ms | not tested |
+| minimum spikes per burst | 5 | 5 | same |
+| STTC window | 50 ms | 50 ms | same |
+
+Each step keeps the one before it; the median ratio ours/theirs for burst rate, per plate:
+
+| burst rate | pooled | hPSC_MEA1 | hPSC_MEA2 | Rat_MEA1 |
+|---|---|---|---|---|
+| S0, ours | 0.4423 <!-- metrics.json: extractor_agreement.settings_ladder.by_variant.S0_ours.pooled.burst_rate_per_min.median_ratio --> | 0.3417 <!-- metrics.json: extractor_agreement.settings_ladder.by_variant.S0_ours.hPSC_MEA1.burst_rate_per_min.median_ratio --> | 0.3841 <!-- metrics.json: extractor_agreement.settings_ladder.by_variant.S0_ours.hPSC_MEA2.burst_rate_per_min.median_ratio --> | 0.9573 <!-- metrics.json: extractor_agreement.settings_ladder.by_variant.S0_ours.Rat_MEA1.burst_rate_per_min.median_ratio --> |
+| S1, active above 10 spikes/min | 0.6998 <!-- metrics.json: extractor_agreement.settings_ladder.by_variant.S1_active_gt10.pooled.burst_rate_per_min.median_ratio --> | 0.5273 <!-- metrics.json: extractor_agreement.settings_ladder.by_variant.S1_active_gt10.hPSC_MEA1.burst_rate_per_min.median_ratio --> | 0.5567 <!-- metrics.json: extractor_agreement.settings_ladder.by_variant.S1_active_gt10.hPSC_MEA2.burst_rate_per_min.median_ratio --> | 1.0191 <!-- metrics.json: extractor_agreement.settings_ladder.by_variant.S1_active_gt10.Rat_MEA1.burst_rate_per_min.median_ratio --> |
+| S2, + noisy electrodes dropped | 0.6967 <!-- metrics.json: extractor_agreement.settings_ladder.by_variant.S2_noisy_dropped.pooled.burst_rate_per_min.median_ratio --> | 0.5273 <!-- metrics.json: extractor_agreement.settings_ladder.by_variant.S2_noisy_dropped.hPSC_MEA1.burst_rate_per_min.median_ratio --> | 0.5508 <!-- metrics.json: extractor_agreement.settings_ladder.by_variant.S2_noisy_dropped.hPSC_MEA2.burst_rate_per_min.median_ratio --> | 1.0191 <!-- metrics.json: extractor_agreement.settings_ladder.by_variant.S2_noisy_dropped.Rat_MEA1.burst_rate_per_min.median_ratio --> |
+| S3, + rate per bursting electrode | 0.944 <!-- metrics.json: extractor_agreement.settings_ladder.by_variant.S3_rate_per_bursting_electrode.pooled.burst_rate_per_min.median_ratio --> | 0.8579 <!-- metrics.json: extractor_agreement.settings_ladder.by_variant.S3_rate_per_bursting_electrode.hPSC_MEA1.burst_rate_per_min.median_ratio --> | 0.8973 <!-- metrics.json: extractor_agreement.settings_ladder.by_variant.S3_rate_per_bursting_electrode.hPSC_MEA2.burst_rate_per_min.median_ratio --> | 1.04 <!-- metrics.json: extractor_agreement.settings_ladder.by_variant.S3_rate_per_bursting_electrode.Rat_MEA1.burst_rate_per_min.median_ratio --> |
+| the denominator alone, from S0 | 0.9087 <!-- metrics.json: extractor_agreement.settings_ladder.by_variant.only_rate_per_bursting_electrode.pooled.burst_rate_per_min.median_ratio --> | 0.8333 <!-- metrics.json: extractor_agreement.settings_ladder.by_variant.only_rate_per_bursting_electrode.hPSC_MEA1.burst_rate_per_min.median_ratio --> | 0.8681 <!-- metrics.json: extractor_agreement.settings_ladder.by_variant.only_rate_per_bursting_electrode.hPSC_MEA2.burst_rate_per_min.median_ratio --> | 1.0269 <!-- metrics.json: extractor_agreement.settings_ladder.by_variant.only_rate_per_bursting_electrode.Rat_MEA1.burst_rate_per_min.median_ratio --> |
+
+![Our extractor with the depositors' stated settings, one change at a time; REAL recordings, post hoc. Left: burst rate, median ratio ours/theirs per plate across the ladder. Right: active electrodes, firing rate and STTC (pooled) under our settings and after steps S1 and S2. Dashed line is equality.](../outputs/figures/extractor_settings_ladder_real.png){width=100%}
+
+**The reading.** With the same electrodes, our firing rate, active-electrode count and STTC
+reproduce theirs. The activity threshold alone brings all three to a pooled median ratio of 1.0
+<!-- metrics.json: extractor_agreement.settings_ladder.by_variant.S1_active_gt10.pooled.mfr_hz.median_ratio -->,
+and dropping the deposit's noisy electrodes as well brings their rank agreement to
+1.0 <!-- metrics.json: extractor_agreement.settings_ladder.by_variant.S2_noisy_dropped.pooled.synchrony_index.spearman_rho -->,
+with the active-electrode count identical in a share of 1.0
+<!-- metrics.json: extractor_agreement.settings_ladder.by_variant.S2_noisy_dropped.pooled.active_electrodes.fraction_exact -->
+of recordings. Most of the burst-rate gap is the denominator: from S0 to S3 the ladder closes a
+share of 0.9293
+<!-- metrics.json: extractor_agreement.settings_ladder.gap_closed_S0_to_S3.burst_rate_per_min.pooled -->
+of the pooled log-ratio gap, and the rank agreement rises from 0.8907
+<!-- metrics.json: extractor_agreement.settings_ladder.by_variant.S0_ours.pooled.burst_rate_per_min.spearman_rho -->
+to 0.9819
+<!-- metrics.json: extractor_agreement.settings_ladder.by_variant.S3_rate_per_bursting_electrode.pooled.burst_rate_per_min.spearman_rho -->.
+It is an hPSC effect. On the rat plate our burst rate already sat at a ratio of 0.9573
+<!-- metrics.json: extractor_agreement.settings_ladder.by_variant.S0_ours.Rat_MEA1.burst_rate_per_min.median_ratio -->
+to theirs, while in a median hPSC recording only a share of 0.6225
+<!-- metrics.json: extractor_agreement.settings_ladder.bursting_fraction_of_active_S2.hPSC_MEA1 -->
+(hPSC_MEA1) and 0.6283
+<!-- metrics.json: extractor_agreement.settings_ladder.bursting_fraction_of_active_S2.hPSC_MEA2 -->
+(hPSC_MEA2) of the active electrodes burst at all, against 0.9815
+<!-- metrics.json: extractor_agreement.settings_ladder.bursting_fraction_of_active_S2.Rat_MEA1 -->
+on the rat plate. Dividing by every active electrode therefore lowers the human rate and hardly
+moves the rat one. What remains is the detector, which we did not change: burst duration stays at
+a pooled ratio of 0.8208
+<!-- metrics.json: extractor_agreement.settings_ladder.by_variant.S3_rate_per_bursting_electrode.pooled.burst_duration_s.median_ratio -->
+and spikes per burst at 0.9433
+<!-- metrics.json: extractor_agreement.settings_ladder.by_variant.S3_rate_per_bursting_electrode.pooled.spikes_per_burst.median_ratio -->
+at S3. The ladder's first step reproduces the published comparison above exactly (check:
+true <!-- metrics.json: extractor_agreement.settings_ladder.check_s0_reproduces_published_agreement -->).
+One assumption could mislead here: that the deposit's noisy-electrode file lists electrodes per DIV
+column. Under the alternative reading, that an electrode listed on any DIV is noisy throughout, the
+active-electrode count matches theirs in a share of only 0.253
+<!-- metrics.json: extractor_agreement.settings_ladder.assumption_check.active_electrodes_fraction_exact.check_noisy_dropped_all_divs -->
+of recordings, so the per-DIV reading is the one their output follows. A per-electrode averaging
+hypothesis, tried in the scratch analysis, moved the share of spikes in bursts further from theirs;
+it was dropped and is not in the code.
+
+**What this does and does not say.** We do not claim our definitions are more correct than the
+depositors'. They are fixed, stated, recorded in every record's method block, and applied
+identically to every source and to the twin (decision D33). A fixed rule keeps "burst" meaning the
+same thing in an immature hPSC culture and a mature rat one, which is what pooling across sources
+needs; an adaptive detector such as logISI moves with each culture's own spike-interval
+distribution, which suits describing one culture and complicates comparing two. No burst detector
+performs best on every data set (Cotterill et al. 2016, *J Neurophysiol*), and ours has a known
+cost: the fixed 100
+<!-- metrics.json: extractor_agreement.settings_ladder.our_settings.burst_max_isi_ms --> ms rule
+probably under-detects loose bursts in hPSC recordings, which is where the burst-duration
+difference sits. A reader pooling our features with meaRtools output should convert, or recompute,
+rather than mix them.
 
 ## 4. The three questions we asked the data
 

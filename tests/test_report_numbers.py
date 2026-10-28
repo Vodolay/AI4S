@@ -218,7 +218,8 @@ UNCITED_BUDGET = {
     # which also paid for the two license versions Appendix O has to name.
     # 20 after the review pass: two bare values gained citations, which paid
     # for the one number in a statute's name (FDA Modernization Act 2.0, §20).
-    "TECHNICAL_REPORT.md": 20,
+    # 19 after the extractor settings ladder (§3) cited the 100 ms burst rule.
+    "TECHNICAL_REPORT.md": 19,
 }
 
 
