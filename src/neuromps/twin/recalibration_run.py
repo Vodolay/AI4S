@@ -422,6 +422,77 @@ def run(quick: bool = False) -> dict:
     twin_dir().mkdir(parents=True, exist_ok=True)
     n_pool = len(pools["pool"][0])
     plot_calibration(ranks, results, n_samples, n_pool, twin_dir() / FIGURE_NAME)
+    if not quick:
+        payload["post_hoc"] = post_hoc_checks(models["M0"])
     update_metrics(rc.METRICS_KEY, payload)
     keys = ("budget", "predictions", "assumption_check", "adopted_parameters")
     return {k: payload[k] for k in keys}
+
+
+# --- post hoc (decided after seeing the results) ----------------------------------
+
+RESIMULATED_ROWS = (0, 1, 2, 2700, 2701, 2999)
+
+
+def same_rows(cached: np.ndarray, fresh: np.ndarray) -> dict:
+    """How many re-simulated summary vectors equal their cached ones exactly."""
+    equal = [bool(np.array_equal(a, b)) for a, b in zip(cached, fresh, strict=True)]
+    worst = float(np.max(np.abs(np.asarray(cached) - np.asarray(fresh)))) if len(equal) else 0.0
+    return {"n_checked": len(equal), "n_identical": int(sum(equal)), "max_abs_difference": worst}
+
+
+def _resimulate_hd14(rows: tuple[int, ...]) -> dict:
+    """Re-run HD14's own draws with today's simulator and compare with its cache."""
+    import multiprocessing as mp
+
+    from neuromps.twin.inference import SIMULATED_S, _simulate_job
+
+    cached = load_simulations(simulation_cache())
+    jobs = [(cached["theta"][i], None, SIMULATED_S, i) for i in rows]
+    with mp.Pool(min(len(rows), rc.MAX_PROCESSES)) as pool:
+        fresh = pool.map(_simulate_job, jobs)
+    return {"rows": list(rows), **same_rows(cached["x"][list(rows)], np.vstack(fresh))}
+
+
+def post_hoc_checks(m0) -> dict:
+    """Two checks added after M0 failed all five parameters on fresh simulations.
+
+    HD14 passed three parameters on its own held-out set and this study's M0
+    fails all five on fresh ones. Two explanations other than chance are ruled
+    in or out here: a simulator that no longer reproduces HD14's cache (a
+    distribution shift), and an evaluation that differs from HD14's own.
+    """
+    import torch
+
+    theta, x = hd14_pool()
+    n_hold = holdout_size(len(theta))
+    torch.manual_seed(rc.EVALUATION_SEED)
+    samples = rc.N_POSTERIOR_SAMPLES
+    ranks, widths = rc.ranks_and_widths(m0, theta[-n_hold:], x[-n_hold:], samples)
+    block = summarize(ranks, widths, np.arange(len(ranks)), samples)
+    return {
+        "label": "POST HOC: added after seeing the registered results; not registered",
+        "simulator_reproduces_hd14_cache": _resimulate_hd14(RESIMULATED_ROWS),
+        "M0_on_hd14_own_holdout": {
+            "n": block["n"],
+            "ks": block["ks"],
+            "contraction": block["contraction"],
+            "coverage": block["coverage"],
+        },
+    }
+
+
+def add_post_hoc() -> dict:
+    """Run only the post hoc checks and add them to the recorded section."""
+    import json
+
+    import torch
+
+    from neuromps.metrics import update_metrics
+    from neuromps.paths import metrics_path
+
+    section = json.loads(metrics_path().read_text())[rc.METRICS_KEY]
+    m0 = torch.load(twin_dir() / POSTERIOR_NAME, weights_only=False)
+    section["post_hoc"] = post_hoc_checks(m0)
+    update_metrics(rc.METRICS_KEY, section)
+    return section["post_hoc"]

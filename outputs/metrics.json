@@ -20955,6 +20955,2188 @@
       "coupling_measured"
     ]
   },
+  "twin_hd14b_recalibration": {
+    "adopted_parameters": [
+      "threshold_scale"
+    ],
+    "alpha": 0.05,
+    "amortized_inference": {
+      "M0": {
+        "median_seconds_per_posterior": 0.3286,
+        "n_observations": 20,
+        "posterior_draws": 1000,
+        "torch_threads": 20
+      },
+      "M1": {
+        "median_seconds_per_posterior": 0.4625,
+        "n_observations": 20,
+        "posterior_draws": 1000,
+        "torch_threads": 20
+      },
+      "M2": {
+        "median_seconds_per_posterior": 1.953,
+        "n_observations": 20,
+        "posterior_draws": 1000,
+        "torch_threads": 20
+      }
+    },
+    "assumption_check": {
+      "assumption": "calibration averaged over the prior holds where the real recordings lie",
+      "evaluated": true,
+      "ks_p": {
+        "ampa_scale": 0.0121,
+        "gabaa_scale": 0.1726,
+        "inter_in_degree": 0.0874,
+        "log10_forward_ratio": 0.8006,
+        "threshold_scale": 0.4705
+      },
+      "over_confident_cells": [
+        "inter_in_degree L95",
+        "ampa_scale L95"
+      ],
+      "passed": false
+    },
+    "budget": {
+      "hd14_simulations": 3000,
+      "hd14_train": 2700,
+      "held_out": 1000,
+      "held_out_failed": 0,
+      "new_train_chunks_completed": 51,
+      "new_train_chunks_registered": 60,
+      "new_train_failed": 0,
+      "new_train_simulations": 12750,
+      "new_train_target": 15000,
+      "pool_simulations": 15750,
+      "truncated_by_deadline": true
+    },
+    "density_estimator": {
+      "family": "masked autoregressive flow",
+      "hidden_units_per_layer": 50,
+      "n_autoregressive_transforms": 5,
+      "n_parameters": 34550,
+      "n_permutations": 5,
+      "requested": "maf"
+    },
+    "label": "SIMULATED - recalibration of the twin's inverse model (D31)",
+    "near_real": {
+      "n_real": 113,
+      "n_selected": 300,
+      "note": "Euclidean distance on the 19 summaries z-scored with the training pool",
+      "real_to_nearest_simulation": {
+        "max": 23.391,
+        "median": 2.661,
+        "q90": 6.77
+      },
+      "selected_simulation_to_nearest_real": {
+        "max": 2.826,
+        "median": 2.164,
+        "q90": 2.677
+      },
+      "simulation_to_nearest_other_simulation": {
+        "max": 3.635,
+        "median": 0.541,
+        "q90": 1.094
+      }
+    },
+    "posterior_samples": 200,
+    "predictions": {
+      "by_prediction": {
+        "P0_hd14_failure_replicates": {
+          "passed": true,
+          "value": {
+            "gabaa_scale": 0.01,
+            "inter_in_degree": 0.0001
+          }
+        },
+        "P1_ensemble_all_calibrated": {
+          "passed": false,
+          "value": {
+            "ampa_scale": 0.3485,
+            "gabaa_scale": 0.1726,
+            "inter_in_degree": 0.0056,
+            "log10_forward_ratio": 0.065,
+            "threshold_scale": 0.3128
+          }
+        },
+        "P2_ensemble_coverage": {
+          "passed": false,
+          "value": [
+            "log10_forward_ratio L50",
+            "log10_forward_ratio L80",
+            "log10_forward_ratio L95",
+            "inter_in_degree L50",
+            "inter_in_degree L80",
+            "inter_in_degree L95",
+            "gabaa_scale L50",
+            "gabaa_scale L80",
+            "gabaa_scale L95",
+            "ampa_scale L50",
+            "ampa_scale L80"
+          ]
+        },
+        "P3_no_contraction_lost": {
+          "floor": {
+            "ampa_scale": 0.556,
+            "gabaa_scale": 0.261,
+            "inter_in_degree": 0.227,
+            "log10_forward_ratio": 0.399,
+            "threshold_scale": 0.609
+          },
+          "passed": true,
+          "value": {
+            "ampa_scale": 0.663,
+            "gabaa_scale": 0.31,
+            "inter_in_degree": 0.306,
+            "log10_forward_ratio": 0.464,
+            "threshold_scale": 0.742
+          }
+        },
+        "P4_still_amortised": {
+          "passed": false,
+          "value": 1.953
+        },
+        "P5_budget_alone_suffices": {
+          "passed": false,
+          "value": {
+            "gabaa_scale": 0.0025,
+            "inter_in_degree": 0.0056
+          }
+        },
+        "P6_ensemble_calibrated_at_higher_power": {
+          "passed": false,
+          "value": {
+            "ampa_scale": 0.0086,
+            "gabaa_scale": 0.0,
+            "inter_in_degree": 0.0007,
+            "log10_forward_ratio": 0.0481,
+            "threshold_scale": 0.1935
+          }
+        }
+      },
+      "n_passed": 2,
+      "n_registered": 7
+    },
+    "quick_token_run": false,
+    "registration": "preregistration/twin_inference_recalibration.json",
+    "registration_commits": {
+      "amended": "176b36e",
+      "registered": "0bc29aa"
+    },
+    "results": {
+      "M0": {
+        "H1000": {
+          "all_pass_alpha": false,
+          "contraction": {
+            "ampa_scale": {
+              "contraction": 0.608,
+              "posterior_sd": 0.1132,
+              "prior_sd": 0.2887
+            },
+            "gabaa_scale": {
+              "contraction": 0.313,
+              "posterior_sd": 0.3766,
+              "prior_sd": 0.5485
+            },
+            "inter_in_degree": {
+              "contraction": 0.279,
+              "posterior_sd": 3.7482,
+              "prior_sd": 5.1962
+            },
+            "log10_forward_ratio": {
+              "contraction": 0.451,
+              "posterior_sd": 0.206,
+              "prior_sd": 0.3753
+            },
+            "threshold_scale": {
+              "contraction": 0.66,
+              "posterior_sd": 0.0295,
+              "prior_sd": 0.0866
+            }
+          },
+          "coverage": {
+            "ampa_scale": {
+              "L50": {
+                "coverage": 0.396,
+                "floor": 0.4526,
+                "n": 1000,
+                "over_confident": true
+              },
+              "L80": {
+                "coverage": 0.697,
+                "floor": 0.7621,
+                "n": 1000,
+                "over_confident": true
+              },
+              "L95": {
+                "coverage": 0.909,
+                "floor": 0.9293,
+                "n": 1000,
+                "over_confident": true
+              }
+            },
+            "gabaa_scale": {
+              "L50": {
+                "coverage": 0.38,
+                "floor": 0.4526,
+                "n": 1000,
+                "over_confident": true
+              },
+              "L80": {
+                "coverage": 0.683,
+                "floor": 0.7621,
+                "n": 1000,
+                "over_confident": true
+              },
+              "L95": {
+                "coverage": 0.89,
+                "floor": 0.9293,
+                "n": 1000,
+                "over_confident": true
+              }
+            },
+            "inter_in_degree": {
+              "L50": {
+                "coverage": 0.372,
+                "floor": 0.4526,
+                "n": 1000,
+                "over_confident": true
+              },
+              "L80": {
+                "coverage": 0.699,
+                "floor": 0.7621,
+                "n": 1000,
+                "over_confident": true
+              },
+              "L95": {
+                "coverage": 0.893,
+                "floor": 0.9293,
+                "n": 1000,
+                "over_confident": true
+              }
+            },
+            "log10_forward_ratio": {
+              "L50": {
+                "coverage": 0.447,
+                "floor": 0.4526,
+                "n": 1000,
+                "over_confident": true
+              },
+              "L80": {
+                "coverage": 0.736,
+                "floor": 0.7621,
+                "n": 1000,
+                "over_confident": true
+              },
+              "L95": {
+                "coverage": 0.909,
+                "floor": 0.9293,
+                "n": 1000,
+                "over_confident": true
+              }
+            },
+            "threshold_scale": {
+              "L50": {
+                "coverage": 0.472,
+                "floor": 0.4526,
+                "n": 1000,
+                "over_confident": false
+              },
+              "L80": {
+                "coverage": 0.761,
+                "floor": 0.7621,
+                "n": 1000,
+                "over_confident": true
+              },
+              "L95": {
+                "coverage": 0.917,
+                "floor": 0.9293,
+                "n": 1000,
+                "over_confident": true
+              }
+            }
+          },
+          "holm_adjusted_p": {
+            "ampa_scale": 0.0,
+            "gabaa_scale": 0.0,
+            "inter_in_degree": 0.0,
+            "log10_forward_ratio": 0.0112,
+            "threshold_scale": 0.0281
+          },
+          "ks": {
+            "ampa_scale": {
+              "ks_p": 0.0,
+              "ks_statistic": 0.094,
+              "n_evaluated": 1000
+            },
+            "gabaa_scale": {
+              "ks_p": 0.0,
+              "ks_statistic": 0.11,
+              "n_evaluated": 1000
+            },
+            "inter_in_degree": {
+              "ks_p": 0.0,
+              "ks_statistic": 0.107,
+              "n_evaluated": 1000
+            },
+            "log10_forward_ratio": {
+              "ks_p": 0.0056,
+              "ks_statistic": 0.054,
+              "n_evaluated": 1000
+            },
+            "threshold_scale": {
+              "ks_p": 0.0281,
+              "ks_statistic": 0.046,
+              "n_evaluated": 1000
+            }
+          },
+          "n": 1000
+        },
+        "H300": {
+          "all_pass_alpha": false,
+          "contraction": {
+            "ampa_scale": {
+              "contraction": 0.606,
+              "posterior_sd": 0.1137,
+              "prior_sd": 0.2887
+            },
+            "gabaa_scale": {
+              "contraction": 0.311,
+              "posterior_sd": 0.3778,
+              "prior_sd": 0.5485
+            },
+            "inter_in_degree": {
+              "contraction": 0.277,
+              "posterior_sd": 3.756,
+              "prior_sd": 5.1962
+            },
+            "log10_forward_ratio": {
+              "contraction": 0.449,
+              "posterior_sd": 0.2067,
+              "prior_sd": 0.3753
+            },
+            "threshold_scale": {
+              "contraction": 0.659,
+              "posterior_sd": 0.0295,
+              "prior_sd": 0.0866
+            }
+          },
+          "coverage": {
+            "ampa_scale": {
+              "L50": {
+                "coverage": 0.3933,
+                "floor": 0.4134,
+                "n": 300,
+                "over_confident": true
+              },
+              "L80": {
+                "coverage": 0.6833,
+                "floor": 0.7307,
+                "n": 300,
+                "over_confident": true
+              },
+              "L95": {
+                "coverage": 0.9133,
+                "floor": 0.9123,
+                "n": 300,
+                "over_confident": false
+              }
+            },
+            "gabaa_scale": {
+              "L50": {
+                "coverage": 0.3633,
+                "floor": 0.4134,
+                "n": 300,
+                "over_confident": true
+              },
+              "L80": {
+                "coverage": 0.71,
+                "floor": 0.7307,
+                "n": 300,
+                "over_confident": true
+              },
+              "L95": {
+                "coverage": 0.8833,
+                "floor": 0.9123,
+                "n": 300,
+                "over_confident": true
+              }
+            },
+            "inter_in_degree": {
+              "L50": {
+                "coverage": 0.3667,
+                "floor": 0.4134,
+                "n": 300,
+                "over_confident": true
+              },
+              "L80": {
+                "coverage": 0.67,
+                "floor": 0.7307,
+                "n": 300,
+                "over_confident": true
+              },
+              "L95": {
+                "coverage": 0.8967,
+                "floor": 0.9123,
+                "n": 300,
+                "over_confident": true
+              }
+            },
+            "log10_forward_ratio": {
+              "L50": {
+                "coverage": 0.4167,
+                "floor": 0.4134,
+                "n": 300,
+                "over_confident": false
+              },
+              "L80": {
+                "coverage": 0.7233,
+                "floor": 0.7307,
+                "n": 300,
+                "over_confident": true
+              },
+              "L95": {
+                "coverage": 0.9133,
+                "floor": 0.9123,
+                "n": 300,
+                "over_confident": false
+              }
+            },
+            "threshold_scale": {
+              "L50": {
+                "coverage": 0.4667,
+                "floor": 0.4134,
+                "n": 300,
+                "over_confident": false
+              },
+              "L80": {
+                "coverage": 0.77,
+                "floor": 0.7307,
+                "n": 300,
+                "over_confident": false
+              },
+              "L95": {
+                "coverage": 0.9167,
+                "floor": 0.9123,
+                "n": 300,
+                "over_confident": false
+              }
+            }
+          },
+          "holm_adjusted_p": {
+            "ampa_scale": 0.0345,
+            "gabaa_scale": 0.03,
+            "inter_in_degree": 0.0005,
+            "log10_forward_ratio": 0.0148,
+            "threshold_scale": 0.03
+          },
+          "ks": {
+            "ampa_scale": {
+              "ks_p": 0.0345,
+              "ks_statistic": 0.0817,
+              "n_evaluated": 300
+            },
+            "gabaa_scale": {
+              "ks_p": 0.01,
+              "ks_statistic": 0.0933,
+              "n_evaluated": 300
+            },
+            "inter_in_degree": {
+              "ks_p": 0.0001,
+              "ks_statistic": 0.1267,
+              "n_evaluated": 300
+            },
+            "log10_forward_ratio": {
+              "ks_p": 0.0037,
+              "ks_statistic": 0.1017,
+              "n_evaluated": 300
+            },
+            "threshold_scale": {
+              "ks_p": 0.0121,
+              "ks_statistic": 0.0917,
+              "n_evaluated": 300
+            }
+          },
+          "n": 300
+        },
+        "near_real": {
+          "all_pass_alpha": false,
+          "contraction": {
+            "ampa_scale": {
+              "contraction": 0.612,
+              "posterior_sd": 0.1119,
+              "prior_sd": 0.2887
+            },
+            "gabaa_scale": {
+              "contraction": 0.333,
+              "posterior_sd": 0.3656,
+              "prior_sd": 0.5485
+            },
+            "inter_in_degree": {
+              "contraction": 0.308,
+              "posterior_sd": 3.596,
+              "prior_sd": 5.1962
+            },
+            "log10_forward_ratio": {
+              "contraction": 0.607,
+              "posterior_sd": 0.1473,
+              "prior_sd": 0.3753
+            },
+            "threshold_scale": {
+              "contraction": 0.624,
+              "posterior_sd": 0.0325,
+              "prior_sd": 0.0866
+            }
+          },
+          "coverage": {
+            "ampa_scale": {
+              "L50": {
+                "coverage": 0.4033,
+                "floor": 0.4134,
+                "n": 300,
+                "over_confident": true
+              },
+              "L80": {
+                "coverage": 0.6833,
+                "floor": 0.7307,
+                "n": 300,
+                "over_confident": true
+              },
+              "L95": {
+                "coverage": 0.91,
+                "floor": 0.9123,
+                "n": 300,
+                "over_confident": true
+              }
+            },
+            "gabaa_scale": {
+              "L50": {
+                "coverage": 0.3867,
+                "floor": 0.4134,
+                "n": 300,
+                "over_confident": true
+              },
+              "L80": {
+                "coverage": 0.69,
+                "floor": 0.7307,
+                "n": 300,
+                "over_confident": true
+              },
+              "L95": {
+                "coverage": 0.8833,
+                "floor": 0.9123,
+                "n": 300,
+                "over_confident": true
+              }
+            },
+            "inter_in_degree": {
+              "L50": {
+                "coverage": 0.4,
+                "floor": 0.4134,
+                "n": 300,
+                "over_confident": true
+              },
+              "L80": {
+                "coverage": 0.7333,
+                "floor": 0.7307,
+                "n": 300,
+                "over_confident": false
+              },
+              "L95": {
+                "coverage": 0.89,
+                "floor": 0.9123,
+                "n": 300,
+                "over_confident": true
+              }
+            },
+            "log10_forward_ratio": {
+              "L50": {
+                "coverage": 0.5133,
+                "floor": 0.4134,
+                "n": 300,
+                "over_confident": false
+              },
+              "L80": {
+                "coverage": 0.78,
+                "floor": 0.7307,
+                "n": 300,
+                "over_confident": false
+              },
+              "L95": {
+                "coverage": 0.92,
+                "floor": 0.9123,
+                "n": 300,
+                "over_confident": false
+              }
+            },
+            "threshold_scale": {
+              "L50": {
+                "coverage": 0.4633,
+                "floor": 0.4134,
+                "n": 300,
+                "over_confident": false
+              },
+              "L80": {
+                "coverage": 0.7833,
+                "floor": 0.7307,
+                "n": 300,
+                "over_confident": false
+              },
+              "L95": {
+                "coverage": 0.9167,
+                "floor": 0.9123,
+                "n": 300,
+                "over_confident": false
+              }
+            }
+          },
+          "holm_adjusted_p": {
+            "ampa_scale": 0.004,
+            "gabaa_scale": 0.0052,
+            "inter_in_degree": 0.2265,
+            "log10_forward_ratio": 0.2318,
+            "threshold_scale": 0.2318
+          },
+          "ks": {
+            "ampa_scale": {
+              "ks_p": 0.0008,
+              "ks_statistic": 0.1133,
+              "n_evaluated": 300
+            },
+            "gabaa_scale": {
+              "ks_p": 0.0013,
+              "ks_statistic": 0.11,
+              "n_evaluated": 300
+            },
+            "inter_in_degree": {
+              "ks_p": 0.0755,
+              "ks_statistic": 0.0733,
+              "n_evaluated": 300
+            },
+            "log10_forward_ratio": {
+              "ks_p": 0.1159,
+              "ks_statistic": 0.0683,
+              "n_evaluated": 300
+            },
+            "threshold_scale": {
+              "ks_p": 0.1159,
+              "ks_statistic": 0.0683,
+              "n_evaluated": 300
+            }
+          },
+          "n": 300
+        }
+      },
+      "M1": {
+        "H1000": {
+          "all_pass_alpha": false,
+          "contraction": {
+            "ampa_scale": {
+              "contraction": 0.682,
+              "posterior_sd": 0.0918,
+              "prior_sd": 0.2887
+            },
+            "gabaa_scale": {
+              "contraction": 0.369,
+              "posterior_sd": 0.3464,
+              "prior_sd": 0.5485
+            },
+            "inter_in_degree": {
+              "contraction": 0.356,
+              "posterior_sd": 3.348,
+              "prior_sd": 5.1962
+            },
+            "log10_forward_ratio": {
+              "contraction": 0.474,
+              "posterior_sd": 0.1972,
+              "prior_sd": 0.3753
+            },
+            "threshold_scale": {
+              "contraction": 0.768,
+              "posterior_sd": 0.0201,
+              "prior_sd": 0.0866
+            }
+          },
+          "coverage": {
+            "ampa_scale": {
+              "L50": {
+                "coverage": 0.427,
+                "floor": 0.4526,
+                "n": 1000,
+                "over_confident": true
+              },
+              "L80": {
+                "coverage": 0.737,
+                "floor": 0.7621,
+                "n": 1000,
+                "over_confident": true
+              },
+              "L95": {
+                "coverage": 0.928,
+                "floor": 0.9293,
+                "n": 1000,
+                "over_confident": true
+              }
+            },
+            "gabaa_scale": {
+              "L50": {
+                "coverage": 0.398,
+                "floor": 0.4526,
+                "n": 1000,
+                "over_confident": true
+              },
+              "L80": {
+                "coverage": 0.685,
+                "floor": 0.7621,
+                "n": 1000,
+                "over_confident": true
+              },
+              "L95": {
+                "coverage": 0.893,
+                "floor": 0.9293,
+                "n": 1000,
+                "over_confident": true
+              }
+            },
+            "inter_in_degree": {
+              "L50": {
+                "coverage": 0.401,
+                "floor": 0.4526,
+                "n": 1000,
+                "over_confident": true
+              },
+              "L80": {
+                "coverage": 0.688,
+                "floor": 0.7621,
+                "n": 1000,
+                "over_confident": true
+              },
+              "L95": {
+                "coverage": 0.885,
+                "floor": 0.9293,
+                "n": 1000,
+                "over_confident": true
+              }
+            },
+            "log10_forward_ratio": {
+              "L50": {
+                "coverage": 0.437,
+                "floor": 0.4526,
+                "n": 1000,
+                "over_confident": true
+              },
+              "L80": {
+                "coverage": 0.735,
+                "floor": 0.7621,
+                "n": 1000,
+                "over_confident": true
+              },
+              "L95": {
+                "coverage": 0.911,
+                "floor": 0.9293,
+                "n": 1000,
+                "over_confident": true
+              }
+            },
+            "threshold_scale": {
+              "L50": {
+                "coverage": 0.48,
+                "floor": 0.4526,
+                "n": 1000,
+                "over_confident": false
+              },
+              "L80": {
+                "coverage": 0.796,
+                "floor": 0.7621,
+                "n": 1000,
+                "over_confident": false
+              },
+              "L95": {
+                "coverage": 0.933,
+                "floor": 0.9293,
+                "n": 1000,
+                "over_confident": false
+              }
+            }
+          },
+          "holm_adjusted_p": {
+            "ampa_scale": 0.0006,
+            "gabaa_scale": 0.0,
+            "inter_in_degree": 0.0,
+            "log10_forward_ratio": 0.0022,
+            "threshold_scale": 0.3227
+          },
+          "ks": {
+            "ampa_scale": {
+              "ks_p": 0.0002,
+              "ks_statistic": 0.067,
+              "n_evaluated": 1000
+            },
+            "gabaa_scale": {
+              "ks_p": 0.0,
+              "ks_statistic": 0.11,
+              "n_evaluated": 1000
+            },
+            "inter_in_degree": {
+              "ks_p": 0.0,
+              "ks_statistic": 0.092,
+              "n_evaluated": 1000
+            },
+            "log10_forward_ratio": {
+              "ks_p": 0.0011,
+              "ks_statistic": 0.061,
+              "n_evaluated": 1000
+            },
+            "threshold_scale": {
+              "ks_p": 0.3227,
+              "ks_statistic": 0.03,
+              "n_evaluated": 1000
+            }
+          },
+          "n": 1000
+        },
+        "H300": {
+          "all_pass_alpha": false,
+          "contraction": {
+            "ampa_scale": {
+              "contraction": 0.678,
+              "posterior_sd": 0.0931,
+              "prior_sd": 0.2887
+            },
+            "gabaa_scale": {
+              "contraction": 0.369,
+              "posterior_sd": 0.3462,
+              "prior_sd": 0.5485
+            },
+            "inter_in_degree": {
+              "contraction": 0.352,
+              "posterior_sd": 3.3676,
+              "prior_sd": 5.1962
+            },
+            "log10_forward_ratio": {
+              "contraction": 0.473,
+              "posterior_sd": 0.1979,
+              "prior_sd": 0.3753
+            },
+            "threshold_scale": {
+              "contraction": 0.768,
+              "posterior_sd": 0.0201,
+              "prior_sd": 0.0866
+            }
+          },
+          "coverage": {
+            "ampa_scale": {
+              "L50": {
+                "coverage": 0.4367,
+                "floor": 0.4134,
+                "n": 300,
+                "over_confident": false
+              },
+              "L80": {
+                "coverage": 0.73,
+                "floor": 0.7307,
+                "n": 300,
+                "over_confident": true
+              },
+              "L95": {
+                "coverage": 0.9167,
+                "floor": 0.9123,
+                "n": 300,
+                "over_confident": false
+              }
+            },
+            "gabaa_scale": {
+              "L50": {
+                "coverage": 0.37,
+                "floor": 0.4134,
+                "n": 300,
+                "over_confident": true
+              },
+              "L80": {
+                "coverage": 0.69,
+                "floor": 0.7307,
+                "n": 300,
+                "over_confident": true
+              },
+              "L95": {
+                "coverage": 0.87,
+                "floor": 0.9123,
+                "n": 300,
+                "over_confident": true
+              }
+            },
+            "inter_in_degree": {
+              "L50": {
+                "coverage": 0.3733,
+                "floor": 0.4134,
+                "n": 300,
+                "over_confident": true
+              },
+              "L80": {
+                "coverage": 0.6533,
+                "floor": 0.7307,
+                "n": 300,
+                "over_confident": true
+              },
+              "L95": {
+                "coverage": 0.8767,
+                "floor": 0.9123,
+                "n": 300,
+                "over_confident": true
+              }
+            },
+            "log10_forward_ratio": {
+              "L50": {
+                "coverage": 0.4333,
+                "floor": 0.4134,
+                "n": 300,
+                "over_confident": false
+              },
+              "L80": {
+                "coverage": 0.7067,
+                "floor": 0.7307,
+                "n": 300,
+                "over_confident": true
+              },
+              "L95": {
+                "coverage": 0.91,
+                "floor": 0.9123,
+                "n": 300,
+                "over_confident": true
+              }
+            },
+            "threshold_scale": {
+              "L50": {
+                "coverage": 0.47,
+                "floor": 0.4134,
+                "n": 300,
+                "over_confident": false
+              },
+              "L80": {
+                "coverage": 0.7667,
+                "floor": 0.7307,
+                "n": 300,
+                "over_confident": false
+              },
+              "L95": {
+                "coverage": 0.9233,
+                "floor": 0.9123,
+                "n": 300,
+                "over_confident": false
+              }
+            }
+          },
+          "holm_adjusted_p": {
+            "ampa_scale": 0.195,
+            "gabaa_scale": 0.0125,
+            "inter_in_degree": 0.0224,
+            "log10_forward_ratio": 0.195,
+            "threshold_scale": 0.195
+          },
+          "ks": {
+            "ampa_scale": {
+              "ks_p": 0.1726,
+              "ks_statistic": 0.0633,
+              "n_evaluated": 300
+            },
+            "gabaa_scale": {
+              "ks_p": 0.0025,
+              "ks_statistic": 0.105,
+              "n_evaluated": 300
+            },
+            "inter_in_degree": {
+              "ks_p": 0.0056,
+              "ks_statistic": 0.0983,
+              "n_evaluated": 300
+            },
+            "log10_forward_ratio": {
+              "ks_p": 0.0874,
+              "ks_statistic": 0.0717,
+              "n_evaluated": 300
+            },
+            "threshold_scale": {
+              "ks_p": 0.065,
+              "ks_statistic": 0.075,
+              "n_evaluated": 300
+            }
+          },
+          "n": 300
+        },
+        "near_real": {
+          "all_pass_alpha": false,
+          "contraction": {
+            "ampa_scale": {
+              "contraction": 0.701,
+              "posterior_sd": 0.0863,
+              "prior_sd": 0.2887
+            },
+            "gabaa_scale": {
+              "contraction": 0.429,
+              "posterior_sd": 0.3132,
+              "prior_sd": 0.5485
+            },
+            "inter_in_degree": {
+              "contraction": 0.395,
+              "posterior_sd": 3.1425,
+              "prior_sd": 5.1962
+            },
+            "log10_forward_ratio": {
+              "contraction": 0.629,
+              "posterior_sd": 0.1392,
+              "prior_sd": 0.3753
+            },
+            "threshold_scale": {
+              "contraction": 0.769,
+              "posterior_sd": 0.02,
+              "prior_sd": 0.0866
+            }
+          },
+          "coverage": {
+            "ampa_scale": {
+              "L50": {
+                "coverage": 0.4467,
+                "floor": 0.4134,
+                "n": 300,
+                "over_confident": false
+              },
+              "L80": {
+                "coverage": 0.7433,
+                "floor": 0.7307,
+                "n": 300,
+                "over_confident": false
+              },
+              "L95": {
+                "coverage": 0.9167,
+                "floor": 0.9123,
+                "n": 300,
+                "over_confident": false
+              }
+            },
+            "gabaa_scale": {
+              "L50": {
+                "coverage": 0.48,
+                "floor": 0.4134,
+                "n": 300,
+                "over_confident": false
+              },
+              "L80": {
+                "coverage": 0.73,
+                "floor": 0.7307,
+                "n": 300,
+                "over_confident": true
+              },
+              "L95": {
+                "coverage": 0.9133,
+                "floor": 0.9123,
+                "n": 300,
+                "over_confident": false
+              }
+            },
+            "inter_in_degree": {
+              "L50": {
+                "coverage": 0.4367,
+                "floor": 0.4134,
+                "n": 300,
+                "over_confident": false
+              },
+              "L80": {
+                "coverage": 0.7267,
+                "floor": 0.7307,
+                "n": 300,
+                "over_confident": true
+              },
+              "L95": {
+                "coverage": 0.8867,
+                "floor": 0.9123,
+                "n": 300,
+                "over_confident": true
+              }
+            },
+            "log10_forward_ratio": {
+              "L50": {
+                "coverage": 0.4933,
+                "floor": 0.4134,
+                "n": 300,
+                "over_confident": false
+              },
+              "L80": {
+                "coverage": 0.7767,
+                "floor": 0.7307,
+                "n": 300,
+                "over_confident": false
+              },
+              "L95": {
+                "coverage": 0.9167,
+                "floor": 0.9123,
+                "n": 300,
+                "over_confident": false
+              }
+            },
+            "threshold_scale": {
+              "L50": {
+                "coverage": 0.4767,
+                "floor": 0.4134,
+                "n": 300,
+                "over_confident": false
+              },
+              "L80": {
+                "coverage": 0.77,
+                "floor": 0.7307,
+                "n": 300,
+                "over_confident": false
+              },
+              "L95": {
+                "coverage": 0.9267,
+                "floor": 0.9123,
+                "n": 300,
+                "over_confident": false
+              }
+            }
+          },
+          "holm_adjusted_p": {
+            "ampa_scale": 0.0224,
+            "gabaa_scale": 0.0363,
+            "inter_in_degree": 0.001,
+            "log10_forward_ratio": 0.1116,
+            "threshold_scale": 0.5156
+          },
+          "ks": {
+            "ampa_scale": {
+              "ks_p": 0.0056,
+              "ks_statistic": 0.0983,
+              "n_evaluated": 300
+            },
+            "gabaa_scale": {
+              "ks_p": 0.0121,
+              "ks_statistic": 0.0917,
+              "n_evaluated": 300
+            },
+            "inter_in_degree": {
+              "ks_p": 0.0002,
+              "ks_statistic": 0.125,
+              "n_evaluated": 300
+            },
+            "log10_forward_ratio": {
+              "ks_p": 0.0558,
+              "ks_statistic": 0.0767,
+              "n_evaluated": 300
+            },
+            "threshold_scale": {
+              "ks_p": 0.5156,
+              "ks_statistic": 0.0467,
+              "n_evaluated": 300
+            }
+          },
+          "n": 300
+        }
+      },
+      "M2": {
+        "H1000": {
+          "all_pass_alpha": false,
+          "contraction": {
+            "ampa_scale": {
+              "contraction": 0.667,
+              "posterior_sd": 0.0961,
+              "prior_sd": 0.2887
+            },
+            "gabaa_scale": {
+              "contraction": 0.309,
+              "posterior_sd": 0.3791,
+              "prior_sd": 0.5485
+            },
+            "inter_in_degree": {
+              "contraction": 0.311,
+              "posterior_sd": 3.5787,
+              "prior_sd": 5.1962
+            },
+            "log10_forward_ratio": {
+              "contraction": 0.465,
+              "posterior_sd": 0.2009,
+              "prior_sd": 0.3753
+            },
+            "threshold_scale": {
+              "contraction": 0.741,
+              "posterior_sd": 0.0224,
+              "prior_sd": 0.0866
+            }
+          },
+          "coverage": {
+            "ampa_scale": {
+              "L50": {
+                "coverage": 0.446,
+                "floor": 0.4526,
+                "n": 1000,
+                "over_confident": true
+              },
+              "L80": {
+                "coverage": 0.759,
+                "floor": 0.7621,
+                "n": 1000,
+                "over_confident": true
+              },
+              "L95": {
+                "coverage": 0.932,
+                "floor": 0.9293,
+                "n": 1000,
+                "over_confident": false
+              }
+            },
+            "gabaa_scale": {
+              "L50": {
+                "coverage": 0.424,
+                "floor": 0.4526,
+                "n": 1000,
+                "over_confident": true
+              },
+              "L80": {
+                "coverage": 0.72,
+                "floor": 0.7621,
+                "n": 1000,
+                "over_confident": true
+              },
+              "L95": {
+                "coverage": 0.918,
+                "floor": 0.9293,
+                "n": 1000,
+                "over_confident": true
+              }
+            },
+            "inter_in_degree": {
+              "L50": {
+                "coverage": 0.41,
+                "floor": 0.4526,
+                "n": 1000,
+                "over_confident": true
+              },
+              "L80": {
+                "coverage": 0.727,
+                "floor": 0.7621,
+                "n": 1000,
+                "over_confident": true
+              },
+              "L95": {
+                "coverage": 0.896,
+                "floor": 0.9293,
+                "n": 1000,
+                "over_confident": true
+              }
+            },
+            "log10_forward_ratio": {
+              "L50": {
+                "coverage": 0.441,
+                "floor": 0.4526,
+                "n": 1000,
+                "over_confident": true
+              },
+              "L80": {
+                "coverage": 0.742,
+                "floor": 0.7621,
+                "n": 1000,
+                "over_confident": true
+              },
+              "L95": {
+                "coverage": 0.916,
+                "floor": 0.9293,
+                "n": 1000,
+                "over_confident": true
+              }
+            },
+            "threshold_scale": {
+              "L50": {
+                "coverage": 0.473,
+                "floor": 0.4526,
+                "n": 1000,
+                "over_confident": false
+              },
+              "L80": {
+                "coverage": 0.788,
+                "floor": 0.7621,
+                "n": 1000,
+                "over_confident": false
+              },
+              "L95": {
+                "coverage": 0.937,
+                "floor": 0.9293,
+                "n": 1000,
+                "over_confident": false
+              }
+            }
+          },
+          "holm_adjusted_p": {
+            "ampa_scale": 0.0258,
+            "gabaa_scale": 0.0,
+            "inter_in_degree": 0.0028,
+            "log10_forward_ratio": 0.0962,
+            "threshold_scale": 0.1935
+          },
+          "ks": {
+            "ampa_scale": {
+              "ks_p": 0.0086,
+              "ks_statistic": 0.052,
+              "n_evaluated": 1000
+            },
+            "gabaa_scale": {
+              "ks_p": 0.0,
+              "ks_statistic": 0.077,
+              "n_evaluated": 1000
+            },
+            "inter_in_degree": {
+              "ks_p": 0.0007,
+              "ks_statistic": 0.063,
+              "n_evaluated": 1000
+            },
+            "log10_forward_ratio": {
+              "ks_p": 0.0481,
+              "ks_statistic": 0.043,
+              "n_evaluated": 1000
+            },
+            "threshold_scale": {
+              "ks_p": 0.1935,
+              "ks_statistic": 0.034,
+              "n_evaluated": 1000
+            }
+          },
+          "n": 1000
+        },
+        "H300": {
+          "all_pass_alpha": false,
+          "contraction": {
+            "ampa_scale": {
+              "contraction": 0.663,
+              "posterior_sd": 0.0972,
+              "prior_sd": 0.2887
+            },
+            "gabaa_scale": {
+              "contraction": 0.31,
+              "posterior_sd": 0.3786,
+              "prior_sd": 0.5485
+            },
+            "inter_in_degree": {
+              "contraction": 0.306,
+              "posterior_sd": 3.6062,
+              "prior_sd": 5.1962
+            },
+            "log10_forward_ratio": {
+              "contraction": 0.464,
+              "posterior_sd": 0.201,
+              "prior_sd": 0.3753
+            },
+            "threshold_scale": {
+              "contraction": 0.742,
+              "posterior_sd": 0.0224,
+              "prior_sd": 0.0866
+            }
+          },
+          "coverage": {
+            "ampa_scale": {
+              "L50": {
+                "coverage": 0.44,
+                "floor": 0.4134,
+                "n": 300,
+                "over_confident": false
+              },
+              "L80": {
+                "coverage": 0.75,
+                "floor": 0.7307,
+                "n": 300,
+                "over_confident": false
+              },
+              "L95": {
+                "coverage": 0.9167,
+                "floor": 0.9123,
+                "n": 300,
+                "over_confident": false
+              }
+            },
+            "gabaa_scale": {
+              "L50": {
+                "coverage": 0.4067,
+                "floor": 0.4134,
+                "n": 300,
+                "over_confident": true
+              },
+              "L80": {
+                "coverage": 0.75,
+                "floor": 0.7307,
+                "n": 300,
+                "over_confident": false
+              },
+              "L95": {
+                "coverage": 0.8967,
+                "floor": 0.9123,
+                "n": 300,
+                "over_confident": true
+              }
+            },
+            "inter_in_degree": {
+              "L50": {
+                "coverage": 0.3867,
+                "floor": 0.4134,
+                "n": 300,
+                "over_confident": true
+              },
+              "L80": {
+                "coverage": 0.6867,
+                "floor": 0.7307,
+                "n": 300,
+                "over_confident": true
+              },
+              "L95": {
+                "coverage": 0.8833,
+                "floor": 0.9123,
+                "n": 300,
+                "over_confident": true
+              }
+            },
+            "log10_forward_ratio": {
+              "L50": {
+                "coverage": 0.44,
+                "floor": 0.4134,
+                "n": 300,
+                "over_confident": false
+              },
+              "L80": {
+                "coverage": 0.7133,
+                "floor": 0.7307,
+                "n": 300,
+                "over_confident": true
+              },
+              "L95": {
+                "coverage": 0.91,
+                "floor": 0.9123,
+                "n": 300,
+                "over_confident": true
+              }
+            },
+            "threshold_scale": {
+              "L50": {
+                "coverage": 0.4667,
+                "floor": 0.4134,
+                "n": 300,
+                "over_confident": false
+              },
+              "L80": {
+                "coverage": 0.7533,
+                "floor": 0.7307,
+                "n": 300,
+                "over_confident": false
+              },
+              "L95": {
+                "coverage": 0.94,
+                "floor": 0.9123,
+                "n": 300,
+                "over_confident": false
+              }
+            }
+          },
+          "holm_adjusted_p": {
+            "ampa_scale": 0.6256,
+            "gabaa_scale": 0.5178,
+            "inter_in_degree": 0.028,
+            "log10_forward_ratio": 0.26,
+            "threshold_scale": 0.6256
+          },
+          "ks": {
+            "ampa_scale": {
+              "ks_p": 0.3485,
+              "ks_statistic": 0.0533,
+              "n_evaluated": 300
+            },
+            "gabaa_scale": {
+              "ks_p": 0.1726,
+              "ks_statistic": 0.0633,
+              "n_evaluated": 300
+            },
+            "inter_in_degree": {
+              "ks_p": 0.0056,
+              "ks_statistic": 0.0983,
+              "n_evaluated": 300
+            },
+            "log10_forward_ratio": {
+              "ks_p": 0.065,
+              "ks_statistic": 0.075,
+              "n_evaluated": 300
+            },
+            "threshold_scale": {
+              "ks_p": 0.3128,
+              "ks_statistic": 0.055,
+              "n_evaluated": 300
+            }
+          },
+          "n": 300
+        },
+        "near_real": {
+          "all_pass_alpha": false,
+          "contraction": {
+            "ampa_scale": {
+              "contraction": 0.687,
+              "posterior_sd": 0.0902,
+              "prior_sd": 0.2887
+            },
+            "gabaa_scale": {
+              "contraction": 0.375,
+              "posterior_sd": 0.3427,
+              "prior_sd": 0.5485
+            },
+            "inter_in_degree": {
+              "contraction": 0.357,
+              "posterior_sd": 3.3428,
+              "prior_sd": 5.1962
+            },
+            "log10_forward_ratio": {
+              "contraction": 0.618,
+              "posterior_sd": 0.1434,
+              "prior_sd": 0.3753
+            },
+            "threshold_scale": {
+              "contraction": 0.75,
+              "posterior_sd": 0.0217,
+              "prior_sd": 0.0866
+            }
+          },
+          "coverage": {
+            "ampa_scale": {
+              "L50": {
+                "coverage": 0.4567,
+                "floor": 0.4134,
+                "n": 300,
+                "over_confident": false
+              },
+              "L80": {
+                "coverage": 0.7467,
+                "floor": 0.7307,
+                "n": 300,
+                "over_confident": false
+              },
+              "L95": {
+                "coverage": 0.9067,
+                "floor": 0.9123,
+                "n": 300,
+                "over_confident": true
+              }
+            },
+            "gabaa_scale": {
+              "L50": {
+                "coverage": 0.4833,
+                "floor": 0.4134,
+                "n": 300,
+                "over_confident": false
+              },
+              "L80": {
+                "coverage": 0.7533,
+                "floor": 0.7307,
+                "n": 300,
+                "over_confident": false
+              },
+              "L95": {
+                "coverage": 0.9333,
+                "floor": 0.9123,
+                "n": 300,
+                "over_confident": false
+              }
+            },
+            "inter_in_degree": {
+              "L50": {
+                "coverage": 0.4633,
+                "floor": 0.4134,
+                "n": 300,
+                "over_confident": false
+              },
+              "L80": {
+                "coverage": 0.7333,
+                "floor": 0.7307,
+                "n": 300,
+                "over_confident": false
+              },
+              "L95": {
+                "coverage": 0.8933,
+                "floor": 0.9123,
+                "n": 300,
+                "over_confident": true
+              }
+            },
+            "log10_forward_ratio": {
+              "L50": {
+                "coverage": 0.4967,
+                "floor": 0.4134,
+                "n": 300,
+                "over_confident": false
+              },
+              "L80": {
+                "coverage": 0.7867,
+                "floor": 0.7307,
+                "n": 300,
+                "over_confident": false
+              },
+              "L95": {
+                "coverage": 0.92,
+                "floor": 0.9123,
+                "n": 300,
+                "over_confident": false
+              }
+            },
+            "threshold_scale": {
+              "L50": {
+                "coverage": 0.4733,
+                "floor": 0.4134,
+                "n": 300,
+                "over_confident": false
+              },
+              "L80": {
+                "coverage": 0.7633,
+                "floor": 0.7307,
+                "n": 300,
+                "over_confident": false
+              },
+              "L95": {
+                "coverage": 0.9367,
+                "floor": 0.9123,
+                "n": 300,
+                "over_confident": false
+              }
+            }
+          },
+          "holm_adjusted_p": {
+            "ampa_scale": 0.0605,
+            "gabaa_scale": 0.5178,
+            "inter_in_degree": 0.3496,
+            "log10_forward_ratio": 0.941,
+            "threshold_scale": 0.941
+          },
+          "ks": {
+            "ampa_scale": {
+              "ks_p": 0.0121,
+              "ks_statistic": 0.0917,
+              "n_evaluated": 300
+            },
+            "gabaa_scale": {
+              "ks_p": 0.1726,
+              "ks_statistic": 0.0633,
+              "n_evaluated": 300
+            },
+            "inter_in_degree": {
+              "ks_p": 0.0874,
+              "ks_statistic": 0.0717,
+              "n_evaluated": 300
+            },
+            "log10_forward_ratio": {
+              "ks_p": 0.8006,
+              "ks_statistic": 0.0367,
+              "n_evaluated": 300
+            },
+            "threshold_scale": {
+              "ks_p": 0.4705,
+              "ks_statistic": 0.0483,
+              "n_evaluated": 300
+            }
+          },
+          "n": 300
+        }
+      },
+      "M3": {
+        "H1000": {
+          "all_pass_alpha": false,
+          "contraction": {
+            "ampa_scale": {
+              "contraction": 0.583,
+              "posterior_sd": 0.1204,
+              "prior_sd": 0.2887
+            },
+            "gabaa_scale": {
+              "contraction": 0.318,
+              "posterior_sd": 0.3742,
+              "prior_sd": 0.5485
+            },
+            "inter_in_degree": {
+              "contraction": 0.279,
+              "posterior_sd": 3.7443,
+              "prior_sd": 5.1962
+            },
+            "log10_forward_ratio": {
+              "contraction": 0.445,
+              "posterior_sd": 0.2082,
+              "prior_sd": 0.3753
+            },
+            "threshold_scale": {
+              "contraction": 0.641,
+              "posterior_sd": 0.0311,
+              "prior_sd": 0.0866
+            }
+          },
+          "coverage": {
+            "ampa_scale": {
+              "L50": {
+                "coverage": 0.401,
+                "floor": 0.4526,
+                "n": 1000,
+                "over_confident": true
+              },
+              "L80": {
+                "coverage": 0.72,
+                "floor": 0.7621,
+                "n": 1000,
+                "over_confident": true
+              },
+              "L95": {
+                "coverage": 0.911,
+                "floor": 0.9293,
+                "n": 1000,
+                "over_confident": true
+              }
+            },
+            "gabaa_scale": {
+              "L50": {
+                "coverage": 0.389,
+                "floor": 0.4526,
+                "n": 1000,
+                "over_confident": true
+              },
+              "L80": {
+                "coverage": 0.679,
+                "floor": 0.7621,
+                "n": 1000,
+                "over_confident": true
+              },
+              "L95": {
+                "coverage": 0.903,
+                "floor": 0.9293,
+                "n": 1000,
+                "over_confident": true
+              }
+            },
+            "inter_in_degree": {
+              "L50": {
+                "coverage": 0.382,
+                "floor": 0.4526,
+                "n": 1000,
+                "over_confident": true
+              },
+              "L80": {
+                "coverage": 0.679,
+                "floor": 0.7621,
+                "n": 1000,
+                "over_confident": true
+              },
+              "L95": {
+                "coverage": 0.894,
+                "floor": 0.9293,
+                "n": 1000,
+                "over_confident": true
+              }
+            },
+            "log10_forward_ratio": {
+              "L50": {
+                "coverage": 0.463,
+                "floor": 0.4526,
+                "n": 1000,
+                "over_confident": false
+              },
+              "L80": {
+                "coverage": 0.741,
+                "floor": 0.7621,
+                "n": 1000,
+                "over_confident": true
+              },
+              "L95": {
+                "coverage": 0.901,
+                "floor": 0.9293,
+                "n": 1000,
+                "over_confident": true
+              }
+            },
+            "threshold_scale": {
+              "L50": {
+                "coverage": 0.487,
+                "floor": 0.4526,
+                "n": 1000,
+                "over_confident": false
+              },
+              "L80": {
+                "coverage": 0.778,
+                "floor": 0.7621,
+                "n": 1000,
+                "over_confident": false
+              },
+              "L95": {
+                "coverage": 0.92,
+                "floor": 0.9293,
+                "n": 1000,
+                "over_confident": true
+              }
+            }
+          },
+          "holm_adjusted_p": {
+            "ampa_scale": 0.0,
+            "gabaa_scale": 0.0,
+            "inter_in_degree": 0.0,
+            "log10_forward_ratio": 0.0233,
+            "threshold_scale": 0.009
+          },
+          "ks": {
+            "ampa_scale": {
+              "ks_p": 0.0,
+              "ks_statistic": 0.101,
+              "n_evaluated": 1000
+            },
+            "gabaa_scale": {
+              "ks_p": 0.0,
+              "ks_statistic": 0.1,
+              "n_evaluated": 1000
+            },
+            "inter_in_degree": {
+              "ks_p": 0.0,
+              "ks_statistic": 0.088,
+              "n_evaluated": 1000
+            },
+            "log10_forward_ratio": {
+              "ks_p": 0.0233,
+              "ks_statistic": 0.047,
+              "n_evaluated": 1000
+            },
+            "threshold_scale": {
+              "ks_p": 0.0045,
+              "ks_statistic": 0.055,
+              "n_evaluated": 1000
+            }
+          },
+          "n": 1000
+        },
+        "H300": {
+          "all_pass_alpha": false,
+          "contraction": {
+            "ampa_scale": {
+              "contraction": 0.583,
+              "posterior_sd": 0.1204,
+              "prior_sd": 0.2887
+            },
+            "gabaa_scale": {
+              "contraction": 0.32,
+              "posterior_sd": 0.3732,
+              "prior_sd": 0.5485
+            },
+            "inter_in_degree": {
+              "contraction": 0.279,
+              "posterior_sd": 3.7452,
+              "prior_sd": 5.1962
+            },
+            "log10_forward_ratio": {
+              "contraction": 0.438,
+              "posterior_sd": 0.211,
+              "prior_sd": 0.3753
+            },
+            "threshold_scale": {
+              "contraction": 0.642,
+              "posterior_sd": 0.031,
+              "prior_sd": 0.0866
+            }
+          },
+          "coverage": {
+            "ampa_scale": {
+              "L50": {
+                "coverage": 0.4067,
+                "floor": 0.4134,
+                "n": 300,
+                "over_confident": true
+              },
+              "L80": {
+                "coverage": 0.72,
+                "floor": 0.7307,
+                "n": 300,
+                "over_confident": true
+              },
+              "L95": {
+                "coverage": 0.9067,
+                "floor": 0.9123,
+                "n": 300,
+                "over_confident": true
+              }
+            },
+            "gabaa_scale": {
+              "L50": {
+                "coverage": 0.3733,
+                "floor": 0.4134,
+                "n": 300,
+                "over_confident": true
+              },
+              "L80": {
+                "coverage": 0.7,
+                "floor": 0.7307,
+                "n": 300,
+                "over_confident": true
+              },
+              "L95": {
+                "coverage": 0.8867,
+                "floor": 0.9123,
+                "n": 300,
+                "over_confident": true
+              }
+            },
+            "inter_in_degree": {
+              "L50": {
+                "coverage": 0.39,
+                "floor": 0.4134,
+                "n": 300,
+                "over_confident": true
+              },
+              "L80": {
+                "coverage": 0.6367,
+                "floor": 0.7307,
+                "n": 300,
+                "over_confident": true
+              },
+              "L95": {
+                "coverage": 0.89,
+                "floor": 0.9123,
+                "n": 300,
+                "over_confident": true
+              }
+            },
+            "log10_forward_ratio": {
+              "L50": {
+                "coverage": 0.4367,
+                "floor": 0.4134,
+                "n": 300,
+                "over_confident": false
+              },
+              "L80": {
+                "coverage": 0.7267,
+                "floor": 0.7307,
+                "n": 300,
+                "over_confident": true
+              },
+              "L95": {
+                "coverage": 0.88,
+                "floor": 0.9123,
+                "n": 300,
+                "over_confident": true
+              }
+            },
+            "threshold_scale": {
+              "L50": {
+                "coverage": 0.45,
+                "floor": 0.4134,
+                "n": 300,
+                "over_confident": false
+              },
+              "L80": {
+                "coverage": 0.7833,
+                "floor": 0.7307,
+                "n": 300,
+                "over_confident": false
+              },
+              "L95": {
+                "coverage": 0.93,
+                "floor": 0.9123,
+                "n": 300,
+                "over_confident": false
+              }
+            }
+          },
+          "holm_adjusted_p": {
+            "ampa_scale": 0.0332,
+            "gabaa_scale": 0.0332,
+            "inter_in_degree": 0.0065,
+            "log10_forward_ratio": 0.0332,
+            "threshold_scale": 0.0332
+          },
+          "ks": {
+            "ampa_scale": {
+              "ks_p": 0.0145,
+              "ks_statistic": 0.09,
+              "n_evaluated": 300
+            },
+            "gabaa_scale": {
+              "ks_p": 0.01,
+              "ks_statistic": 0.0933,
+              "n_evaluated": 300
+            },
+            "inter_in_degree": {
+              "ks_p": 0.0013,
+              "ks_statistic": 0.11,
+              "n_evaluated": 300
+            },
+            "log10_forward_ratio": {
+              "ks_p": 0.0207,
+              "ks_statistic": 0.0867,
+              "n_evaluated": 300
+            },
+            "threshold_scale": {
+              "ks_p": 0.0083,
+              "ks_statistic": 0.095,
+              "n_evaluated": 300
+            }
+          },
+          "n": 300
+        },
+        "near_real": {
+          "all_pass_alpha": false,
+          "contraction": {
+            "ampa_scale": {
+              "contraction": 0.572,
+              "posterior_sd": 0.1236,
+              "prior_sd": 0.2887
+            },
+            "gabaa_scale": {
+              "contraction": 0.323,
+              "posterior_sd": 0.3716,
+              "prior_sd": 0.5485
+            },
+            "inter_in_degree": {
+              "contraction": 0.307,
+              "posterior_sd": 3.6015,
+              "prior_sd": 5.1962
+            },
+            "log10_forward_ratio": {
+              "contraction": 0.579,
+              "posterior_sd": 0.1579,
+              "prior_sd": 0.3753
+            },
+            "threshold_scale": {
+              "contraction": 0.59,
+              "posterior_sd": 0.0356,
+              "prior_sd": 0.0866
+            }
+          },
+          "coverage": {
+            "ampa_scale": {
+              "L50": {
+                "coverage": 0.4067,
+                "floor": 0.4134,
+                "n": 300,
+                "over_confident": true
+              },
+              "L80": {
+                "coverage": 0.73,
+                "floor": 0.7307,
+                "n": 300,
+                "over_confident": true
+              },
+              "L95": {
+                "coverage": 0.9133,
+                "floor": 0.9123,
+                "n": 300,
+                "over_confident": false
+              }
+            },
+            "gabaa_scale": {
+              "L50": {
+                "coverage": 0.4367,
+                "floor": 0.4134,
+                "n": 300,
+                "over_confident": false
+              },
+              "L80": {
+                "coverage": 0.7233,
+                "floor": 0.7307,
+                "n": 300,
+                "over_confident": true
+              },
+              "L95": {
+                "coverage": 0.9133,
+                "floor": 0.9123,
+                "n": 300,
+                "over_confident": false
+              }
+            },
+            "inter_in_degree": {
+              "L50": {
+                "coverage": 0.4233,
+                "floor": 0.4134,
+                "n": 300,
+                "over_confident": false
+              },
+              "L80": {
+                "coverage": 0.7,
+                "floor": 0.7307,
+                "n": 300,
+                "over_confident": true
+              },
+              "L95": {
+                "coverage": 0.8867,
+                "floor": 0.9123,
+                "n": 300,
+                "over_confident": true
+              }
+            },
+            "log10_forward_ratio": {
+              "L50": {
+                "coverage": 0.5467,
+                "floor": 0.4134,
+                "n": 300,
+                "over_confident": false
+              },
+              "L80": {
+                "coverage": 0.7867,
+                "floor": 0.7307,
+                "n": 300,
+                "over_confident": false
+              },
+              "L95": {
+                "coverage": 0.93,
+                "floor": 0.9123,
+                "n": 300,
+                "over_confident": false
+              }
+            },
+            "threshold_scale": {
+              "L50": {
+                "coverage": 0.4967,
+                "floor": 0.4134,
+                "n": 300,
+                "over_confident": false
+              },
+              "L80": {
+                "coverage": 0.76,
+                "floor": 0.7307,
+                "n": 300,
+                "over_confident": false
+              },
+              "L95": {
+                "coverage": 0.9067,
+                "floor": 0.9123,
+                "n": 300,
+                "over_confident": true
+              }
+            }
+          },
+          "holm_adjusted_p": {
+            "ampa_scale": 0.001,
+            "gabaa_scale": 0.1035,
+            "inter_in_degree": 0.058,
+            "log10_forward_ratio": 0.3034,
+            "threshold_scale": 0.3034
+          },
+          "ks": {
+            "ampa_scale": {
+              "ks_p": 0.0002,
+              "ks_statistic": 0.1233,
+              "n_evaluated": 300
+            },
+            "gabaa_scale": {
+              "ks_p": 0.0345,
+              "ks_statistic": 0.0817,
+              "n_evaluated": 300
+            },
+            "inter_in_degree": {
+              "ks_p": 0.0145,
+              "ks_statistic": 0.09,
+              "n_evaluated": 300
+            },
+            "log10_forward_ratio": {
+              "ks_p": 0.2797,
+              "ks_statistic": 0.0567,
+              "n_evaluated": 300
+            },
+            "threshold_scale": {
+              "ks_p": 0.1517,
+              "ks_statistic": 0.065,
+              "n_evaluated": 300
+            }
+          },
+          "n": 300
+        }
+      }
+    }
+  },
   "twin_hd15_real_inference": {
     "caveat": "HD14 identifies gabaa_scale only weakly (contraction 0.3) and it is not among the 3 of 5 parameters passing the rank-uniformity check, so these medians are directional evidence at best",
     "distribution_check": {

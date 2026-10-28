@@ -254,6 +254,14 @@ def _results(m0_p: float, m1_p: float, m2_p: float, m2_cov=0.8, m2_shrink=0.5) -
     }
 
 
+def test_same_rows_counts_exact_reproductions_only() -> None:
+    from neuromps.twin.recalibration_run import same_rows
+
+    cached = np.array([[1.0, 2.0], [3.0, 4.0]])
+    out = same_rows(cached, np.array([[1.0, 2.0], [3.0, 4.5]]))
+    assert out == {"n_checked": 2, "n_identical": 1, "max_abs_difference": 0.5}
+
+
 def test_predictions_pass_when_the_ensemble_is_calibrated_and_sharp() -> None:
     from neuromps.twin.recalibration_run import adopted_parameters, score_predictions
 

@@ -370,8 +370,16 @@ def main(argv: list[str] | None = None) -> int:
     )
     p.add_argument("--processes", type=int, default=MAX_PROCESSES)
     p.add_argument("--no-deadline", action="store_true", help="ignore the registered cut-off")
+    p.add_argument(
+        "--post-hoc", action="store_true", help="add only the post hoc checks to the record"
+    )
     args = p.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+    if args.post_hoc:
+        from neuromps.twin.recalibration_run import add_post_hoc
+
+        print(json.dumps(add_post_hoc(), indent=2, default=str))
+        return 0
     if args.simulate:
         deadline = None if args.no_deadline else DEADLINE
         if args.simulate in ("heldout", "all"):
