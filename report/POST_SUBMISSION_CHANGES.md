@@ -58,6 +58,7 @@ the bottom.*
 | 47 | 2026-10-28 | Our extractor rerun under the Kapucu 2022 depositors' stated settings, one change at a time (post hoc); the feature definitions recorded as D33 | none to earlier results; the twofold burst-rate difference is traced mainly to the burst-rate denominator, on the hPSC plates; two report wording errors fixed | `46d1607`, `e10a2ff` … this branch |
 | 48 | 2026-10-28 | The depositors' logISI burst detector, implemented and tested against their meaRtools output (D34, registered) | 1 of 4 registered predictions pass; burst duration and spikes per burst reach their scale but not their ordering, the hPSC burst rate overshoots; the detector attribution stays open | `e11bc05`, `9570a9f`, `6f63385` … this branch |
 | 49 | 2026-10-28 | Settling or steady noise in the human iPSC split-half spread (D35) | 3 of 3 registered predictions pass; the registered linearity check fails for human wells; the human spread is mostly uneven settling, and five more minutes would not remove it | `e743c4c`, `bc6a56b` … this branch |
+| 52 | 2026-10-28 | The recalibration figure (D31) redrawn: the coverage legend moved off the `threshold_scale` panel; its lost simulation cache regenerated with the registered seeds; a `--replot` path | none; every recorded calibration statistic reproduced exactly before the figure was redrawn | this branch |
 
 ---
 
@@ -1352,6 +1353,41 @@ recordings are too short to say how long it must be.*
 - **Evidence.** Report §36; decision D35; `outputs/figures/hpsc_settling_real.png`,
   `outputs/hpsc_settling_REAL.json` (with the per-well table), `outputs/metrics.json` key
   `hpsc_settling`; tests `tests/test_hpsc_settling.py`.
+
+## 52. The recalibration figure, redrawn from regenerated simulations; no number changed
+
+**Slide message:** *The D31 figure's coverage legend no longer covers a panel. It was redrawn from
+simulations regenerated with the registered seeds, and only after every recorded calibration
+statistic of the study had been reproduced exactly.*
+
+- **What changed.** The coverage row's legend in
+  `outputs/twin/hd14b_recalibration_simulated.png` sat on the `threshold_scale` panel; it is now
+  one figure-level legend below the bottom row (same panels, same data, same title). The figure is
+  drawn from ranks that existed only in memory during the run, and the simulation chunks and
+  trained models behind them, git-ignored, had been deleted with a worktree. A new path,
+  `python -m neuromps.twin.recalibration --replot` (`src/neuromps/twin/recalibration_replot.py`),
+  simulates only what the record fixes: the registered held-out set (1,000
+  <!-- metrics.json: twin_hd14b_recalibration.budget.held_out -->) and exactly the 51
+  <!-- metrics.json: twin_hd14b_recalibration.budget.new_train_chunks_completed --> training
+  chunks the run completed, never one beyond. It retrains M1, M2 and M3 with their registered
+  seeds, draws the ranks with the registered evaluation seed, persists them
+  (`data/interim/recalibration/ranks_simulated.npz`, git-ignored) so a later redraw takes seconds,
+  and compares every value under `twin_hd14b_recalibration.results`, `near_real` and `budget` with
+  the record. The figure is drawn only if all of them are equal. The path reads
+  `outputs/metrics.json` and never writes it; the timing is not recomputed.
+- **One guard, relaxed narrowly.** HD14's simulation cache carries the summary-code fingerprint the
+  run was made under. Entries 47 and 48 added definition options, off by default, to the feature
+  extractor, which changes that fingerprint without changing a value. The redraw path accepts the
+  cache only if the six rows the study's post hoc check re-simulates come out identical under
+  today's code (they did, with a largest difference of zero); every other cache guard is unchanged.
+- **Effect.** None on any result. Every value checked (all of `results`, `near_real` and `budget`)
+  was reproduced exactly, so training and sampling are bit-reproducible here and no value needed a
+  tolerance; `outputs/metrics.json` is
+  byte-identical. Appendix G gains one sentence.
+- **Evidence.** `outputs/twin/hd14b_recalibration_simulated.png`; the check is printed by
+  `python -m neuromps.twin.recalibration --replot`; tests
+  `tests/test_twin_recalibration_replot.py` (the comparison, the ranks file, the cache rule, and a
+  legend that overlaps no panel).
 
 ---
 
