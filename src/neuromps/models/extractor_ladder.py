@@ -30,12 +30,13 @@ from __future__ import annotations
 
 import json
 import logging
-from dataclasses import fields, replace
+from dataclasses import fields
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
 
+from neuromps.features import definitions
 from neuromps.features.mea import FeatureParams
 from neuromps.models.extractor_agreement import DEFAULT_DEFINITION, PLATES, Definition, _ratio
 
@@ -73,9 +74,10 @@ LADDER = (
     DEFAULT_DEFINITION,
     Definition("S1_active_gt10", _GT10),
     Definition("S2_noisy_dropped", _GT10, noisy="dropped_per_div"),
+    # S3 is the registry's `kapucu2022` definition set (D37), with the deposit's lists per DIV.
     Definition(
         "S3_rate_per_bursting_electrode",
-        replace(_GT10, burst_rate_denominator="bursting"),
+        definitions.get("kapucu2022").params,
         noisy="dropped_per_div",
     ),
 )
@@ -89,8 +91,9 @@ ONE_AT_A_TIME = (
 ASSUMPTION_CHECK = Definition("check_noisy_dropped_all_divs", _GT10, noisy="dropped_all_divs")
 ALL_DEFINITIONS = (*LADDER, *ONE_AT_A_TIME, ASSUMPTION_CHECK)
 # REGISTERED (preregistration/extractor_logisi.json, D34): S3 with the logISI detector.
+# It is the registry's `kapucu2022_logisi` definition set (D37).
 S4_LOGISI = Definition(
-    "S4_logisi", replace(LADDER[3].params, burst_detector="logisi"), noisy=LADDER[3].noisy
+    "S4_logisi", definitions.get("kapucu2022_logisi").params, noisy=LADDER[3].noisy
 )
 START, END = LADDER[0].name, LADDER[-1].name
 
