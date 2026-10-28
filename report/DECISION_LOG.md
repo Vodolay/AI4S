@@ -458,3 +458,41 @@ it with its own command or `python -m neuromps.fly.pipeline --only <step>`.
   the 30-minute recordings do not show how long it must be. Report §36, change-log entry 49.
 - **Revisit at:** `outputs/metrics.json` key `hpsc_settling`. Next: longer untreated human
   recordings, to find where the fall ends.
+
+### D37. Storing each feature under named definition sets (engineering)
+- **Found:** D33 kept one fixed set of feature definitions and left a future option open: store
+  each record's features under named definition sets. The post hoc settings ladder (report §3,
+  `extractor_agreement.settings_ladder`) showed that with the Kapucu 2022 depositors' stated
+  settings our extractor reproduces their firing rate, active-electrode count and STTC; the
+  registered logISI test (D34, `extractor_agreement.logisi`) passed 1 of 4 predictions with the
+  attribution open. A lab reading our numbers beside theirs had no way to see which of our
+  features translate into theirs, and which do not.
+- **Options:** keep one fixed definition only, and leave conversion to the reader (rejected:
+  the evidence that tells a reader where conversion works would stay in a metrics file); recompute
+  everything per lab on demand (rejected: every consumer would rerun the ETL, and nothing would
+  pin what a named lab definition means); named definition sets plus a sidecar table (taken).
+- **Taken:** a registry, `src/neuromps/features/definitions.py`, of three frozen sets, each a
+  named bundle of options `features/mea.py` already has plus whether a deposit's noisy
+  electrodes are dropped: `neuromps` (reference, the defaults the asset and the twin use),
+  `kapucu2022` (validated, the ladder's S3) and `kapucu2022_logisi` (experimental, S4, used for
+  no claim). The ladder and the logISI study now take their S3 and S4 from the registry; their
+  definitions are equal to the old ones, so their outputs do not change. A sidecar,
+  `data/processed/features_by_definition.parquet`, holds every spike-time record under every
+  set, re-read with the ETL modules' own loaders; its `neuromps` rows must equal the asset
+  exactly. A translation table (`outputs/tables/feature_definitions.md`) gives, per feature, the
+  ratio and rank agreement between our numbers and each Kapucu set on the recordings where the
+  depositors' own output exists, and a verdict: same number, scale factor or no conversion.
+  **Why:** additive, so no record, method block, twin target or earlier metric moves; one
+  extractor still computes everything; and a consumer can see, per feature, whether a
+  translation is supported by evidence before converting.
+- **Not a registered study:** it computes no new comparison with the depositors. The
+  translation re-expresses the ladder's (post hoc) and the logISI test's (registered) evidence
+  per pair of definition sets.
+- **Assumption recorded:** a pooled ratio between two definitions is a property of the
+  recordings it was measured on, not of the definitions. The translation table reports the
+  ratio per plate beside the pooled one, so a factor that differs between the human and rat
+  plates is visible, and it is checked only on the Kapucu 2022 developmental plates.
+- **Revisit at:** `outputs/metrics.json` key `feature_definitions`. Next: a set for another
+  laboratory only when that laboratory's own output exists on spike files we hold (the condition
+  for a `validated` status); promoting `kapucu2022_logisi` only after its attribution is
+  resolved (D34's next step, reading the depositors' scripts).

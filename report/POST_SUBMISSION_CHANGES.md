@@ -58,6 +58,7 @@ the bottom.*
 | 47 | 2026-10-28 | Our extractor rerun under the Kapucu 2022 depositors' stated settings, one change at a time (post hoc); the feature definitions recorded as D33 | none to earlier results; the twofold burst-rate difference is traced mainly to the burst-rate denominator, on the hPSC plates; two report wording errors fixed | `46d1607`, `e10a2ff` … this branch |
 | 48 | 2026-10-28 | The depositors' logISI burst detector, implemented and tested against their meaRtools output (D34, registered) | 1 of 4 registered predictions pass; burst duration and spikes per burst reach their scale but not their ordering, the hPSC burst rate overshoots; the detector attribution stays open | `e11bc05`, `9570a9f`, `6f63385` … this branch |
 | 49 | 2026-10-28 | Settling or steady noise in the human iPSC split-half spread (D35) | 3 of 3 registered predictions pass; the registered linearity check fails for human wells; the human spread is mostly uneven settling, and five more minutes would not remove it | `e743c4c`, `bc6a56b` … this branch |
+| 51 | 2026-10-28 | Named definition sets: the asset's spike-time features under ours and the Kapucu 2022 depositors' stated definitions, in a sidecar table, with a translation table (D37) | none to earlier results (asset and metrics byte-identical); three features carry over as the same number, three by a plate-dependent factor, burst rate not at all | this branch |
 
 ---
 
@@ -1352,6 +1353,60 @@ recordings are too short to say how long it must be.*
 - **Evidence.** Report §36; decision D35; `outputs/figures/hpsc_settling_real.png`,
   `outputs/hpsc_settling_REAL.json` (with the per-well table), `outputs/metrics.json` key
   `hpsc_settling`; tests `tests/test_hpsc_settling.py`.
+
+## 51. Our features under another laboratory's definitions, and where they translate
+
+**Slide message:** *Every spike-time record in the asset now also carries its features under the
+Kapucu 2022 depositors' stated definitions, from the same extractor; on their plates, three of seven
+features are the same number under both, three differ by a factor that depends on the culture
+(firing rate 1.1017 <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.mfr_hz.median_ratio_by_plate.Rat_MEA1 --> rat, 1.3902
+<!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.mfr_hz.median_ratio_by_plate.hPSC_MEA1 --> human), and burst rate cannot be converted.*
+
+- **What changed.** A registry of named definition sets, `src/neuromps/features/definitions.py`:
+  `neuromps` (reference, the defaults the asset and the twin use), `kapucu2022` (validated, the
+  settings ladder's S3) and `kapucu2022_logisi` (experimental, S4; used for no claim). Each is a
+  bundle of `FeatureParams` options plus whether a deposit's noisy electrodes are dropped, so
+  `features/mea.py` stays the one extractor. The ladder and the logISI study now take S3 and S4
+  from the registry; the definitions are equal to the old ones. A new stage in the models step
+  (`src/neuromps/models/feature_definitions.py`, after the extractor agreement) re-reads each
+  spike-time record with the ETL modules' own loaders (`src/neuromps/etl/spike_trains.py`), writes
+  `data/processed/features_by_definition.parquet` (record id, source, definition, feature, value)
+  and generates `outputs/tables/feature_definitions.md`. Decision D37; report §3, "Named definition
+  sets"; `schema/STANDARD.md` §4.4.
+- **Why.** D33 recorded this as the future option: a laboratory reading our numbers beside its own
+  needs to know where a translation is supported by evidence, and the evidence (the ladder and the
+  logISI test) was only in a metrics file.
+- **Effect.**
+  - The sidecar holds 1,512 <!-- metrics.json: feature_definitions.sidecar.n_records --> records under every set
+    (40,824 <!-- metrics.json: feature_definitions.sidecar.n_rows --> rows). Its `neuromps` rows equal the asset in all
+    13,608 <!-- metrics.json: feature_definitions.sidecar.check_reference_equals_asset.n_values --> values; on the developmental plates the
+    `kapucu2022` ratios against the depositors equal the ladder's S3 numbers in
+    28 <!-- metrics.json: feature_definitions.translation.ladder_check.kapucu2022.n_equal --> of
+    28 <!-- metrics.json: feature_definitions.translation.ladder_check.kapucu2022.n_compared --> comparisons
+    (all checks: true <!-- metrics.json: feature_definitions.checks_pass -->).
+  - `kapucu2022` against ours, on 336 <!-- metrics.json: feature_definitions.translation.n_recordings -->
+    recordings: share of spikes in bursts, spikes per burst and burst duration are the same number
+    (ratio 1.0132 <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.pct_spikes_in_bursts.median_ratio --> for the first); active electrodes,
+    firing rate and STTC are a scale factor (0.734 <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.active_electrodes.median_ratio -->,
+    1.3264 <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.mfr_hz.median_ratio --> and 1.315 <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.synchrony_index.median_ratio -->); burst
+    rate has no conversion (ratio 2.0584 <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.burst_rate_per_min.median_ratio -->, rank agreement
+    0.9299 <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.burst_rate_per_min.spearman_rho -->).
+  - The factors differ by plate, so they are properties of these cultures, not constants of the
+    definitions: active electrodes 0.9008
+    <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.active_electrodes.median_ratio_by_plate.Rat_MEA1 --> on the rat plate against 0.6958
+    <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.active_electrodes.median_ratio_by_plate.hPSC_MEA2 --> on hPSC_MEA2.
+  - A same number between two of our sets is not agreement with the depositors: burst duration is
+    unchanged by the switch, and `kapucu2022` sits at 0.8208
+    <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.burst_duration_s.target_vs_depositors.median_ratio --> of their value.
+  - Not a registered study, so the registration counts (§21, entry 43) do not change. No record of
+    `neuromps.parquet`, no method block, no twin target and no earlier key of
+    `outputs/metrics.json` changes; the stage adds the key `feature_definitions` and costs a few
+    seconds on the quick tier, which has no developmental-plate spike files and so skips the
+    translation.
+- **Evidence.** Report §3 ("Named definition sets"); decision D37; `schema/STANDARD.md` §4.4;
+  `data/processed/features_by_definition.parquet`; `outputs/tables/feature_definitions.md`;
+  `outputs/metrics.json` key `feature_definitions`; tests `tests/test_feature_definitions.py`,
+  `tests/test_definition_sidecar.py`, `tests/test_feature_translation.py`.
 
 ---
 
