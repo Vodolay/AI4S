@@ -1,0 +1,113 @@
+{
+  "title": "Does the twin's knob dose-response predict the SHAPE of real ToxCast concentration-response curves? (SIMULATED twin, REAL wells)",
+  "registered": "2026-10-28T02:30:00Z",
+  "decision": "D30 in report/DECISION_LOG.md",
+  "status": "registered before any treated-well value (electrophysiology or viability rval) of any compound listed here was computed or viewed in this analysis, and before the twin was run for this check; the only response data already seen are listed in seen_before_registration",
+  "origin": "report section 33 (twin_toxcast_positive_controls) showed the twin's knobs get the DIRECTION of the screen's three positive controls right at one saturating concentration each, with the limit that a follow-firing-rate rule also scores 11 of 11 and that magnitudes do not transfer. Section 34 states the open question: the positive controls test directions at the extremes, not the twin's dose response. This registration tests the shape of the dose response.",
+  "seen_before_registration": [
+    "the positive-control results of section 33 (metrics key twin_toxcast_positive_controls) and the vehicle noise floors of section 32 (toxcast_noise_floors), which use vehicle wells only",
+    "a private analysis (not in this repository) already looked at mean firing rate for mechanism-labelled compounds of this screen against same-date vehicle wells: the reference compounds agreed in sign with their class label, and the insecticide group and phenobarbital lost activity at the top concentration, which lowers activity whatever the target. Firing rate (mfr_hz, acid 2448) is therefore treated as SEEN for every compound here and is excluded from the registered shape tests P1-P3; every other readout is treated as unseen",
+    "for every compound of the screen: name, sample ids, tested concentrations, wells per concentration, exposure-date counts (no rval); the component table (acids 2447-2461 electrophysiology, 2495 LDH, 2496 viability) and that the viability component 2496 has level-0 rows carrying apid, spid, conc and wllq but no rval was read from them",
+    "a timing run of the calibrated twin (untreated and threshold_scale 1.8, build seed 9201 not used): about 26 s per 40 s recording, and the untreated feature values it printed",
+    "published primary-target annotation for the compound classes below, which is what the class labels rest on"
+  ],
+  "compound_labels": {
+    "source": "each compound is given one class label from its established primary target in mammalian neurons, as annotated in the pharmacology literature and in the EPA screen's own target families. The list and the labels are fixed here before any of these compounds' response data were read. Labels are class-level annotations for a model-checking exercise and are not statements about any compound's effects.",
+    "gabaa_antagonist": {
+      "knob": "gabaa_block",
+      "members": ["Fipronil", "Lindane", "Dieldrin", "Endrin", "Aldrin", "Heptachlor", "Heptachlor epoxide B", "Endosulfan", "Octachloro-4,7-methanotetrahydroindane"],
+      "label_reason": "annotated primary target: the GABA-A receptor chloride channel (phenylpyrazole and cyclodiene-type antagonists)"
+    },
+    "gabaa_positive_modulator": {
+      "knob": "gabaa_potentiate",
+      "members": ["Phenobarbital sodium", "Abamectin", "Emamectin benzoate"],
+      "label_reason": "annotated primary target: positive allosteric modulation of the GABA-A receptor in mammalian neurons"
+    },
+    "sodium_channel_blocker": {
+      "knob": "sodium_block",
+      "members": ["Indoxacarb"],
+      "label_reason": "annotated primary target: block of the voltage-gated sodium channel"
+    },
+    "ampa_antagonist": {
+      "knob": "ampa_block",
+      "members": [],
+      "note": "the screen contains no compound whose primary annotated target is the AMPA receptor; this knob is simulated only as a wrong-mechanism comparator for the shuffled-label null"
+    },
+    "excluded_without_a_knob": {
+      "sodium_channel_modulators": "compounds annotated as slowing sodium-channel inactivation rather than blocking it (the pyrethroid class and DDT-type organochlorines): the twin's threshold knob can only raise or lower excitability and has no prolonged-open-state mechanism",
+      "cholinesterase_targets": "organophosphate and carbamate classes: no cholinergic knob",
+      "nicotinic_targets": "nicotine and the neonicotinoid class: no knob",
+      "receptor_agonists": "Sodium L-glutamate hydrate: ampa_scale is a synaptic gain, not an agonist",
+      "secondary_channel_actions": "compounds whose primary annotated target is a monoamine transporter, receptor or other site, with channel block only secondary",
+      "positive_controls": "bicuculline, picrotoxin and tetrodotoxin are each tested at a single concentration, so they have no curve; section 33 already scores them"
+    },
+    "inclusion_rule": "a labelled compound enters when the screen tested it at four or more distinct concentration bins (see matching.bins)"
+  },
+  "features": {
+    "mapping": {
+      "mfr_hz": {"acid": 2448, "component": "firing_rate_mean", "status": "SEEN; reported, not tested in P1-P3"},
+      "burst_rate_per_min": {"acid": 2449, "component": "burst_number"},
+      "burst_duration_s": {"acid": 2450, "component": "burst_duration_mean"},
+      "spikes_per_burst": {"acid": 2451, "component": "per_burst_spike_number_mean"},
+      "pct_spikes_in_bursts": {"acid": 2453, "component": "burst_percentage_mean"},
+      "synchrony_index": {"acid": 2461, "component": "synchrony_index", "note": "different algorithms (STTC vs the plate reader's); rank order only"}
+    },
+    "reason": "exactly the six readouts section 33 registered as shared between the twin's features/mea.py output and the screen's components; none added or removed"
+  },
+  "twin": {
+    "model": "the calibrated twin (twin.calibrate.calibrated_params) through models.twin_prior._features, i.e. twin.perturbation._features_for, the same features/mea.py path as every real recording",
+    "knob_grids": {
+      "gabaa_block": {"parameter": "gabaa_scale", "levels": [0.9, 0.8, 0.65, 0.5, 0.35, 0.2, 0.1]},
+      "gabaa_potentiate": {"parameter": "gabaa_scale", "levels": [1.1, 1.25, 1.5, 1.8, 2.2, 2.6, 3.0]},
+      "sodium_block": {"parameter": "threshold_scale", "levels": [1.05, 1.1, 1.2, 1.3, 1.4, 1.6, 1.8]},
+      "ampa_block": {"parameter": "ampa_scale", "levels": [0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3]}
+    },
+    "grid_reason": "seven levels per knob, ordered weakest to strongest, spanning from barely perturbed to beyond the strongest setting earlier checks used (HD13 and section 33 used gabaa_scale 0.2 and 2.0, threshold_scale 1.6, ampa_scale 0.4; the twin_prior classifier drew from 0.1-0.6, 1.5-3.0, 1.2-2.0 and 0.2-0.7). Seven matches the screen's usual seven concentrations",
+    "design": "12 chips, build seeds 9201-9212 (unused before). Each chip is simulated once untreated (noise seed build + 100000) and once at every level of every knob (noise seed build + 200000 + 1000 x knob_index + level_index, knob_index in the order of knob_grids), 40 s each: 12 x (1 + 4 x 7) = 348 simulations. Change = models.dataset.log_ratio(treated, untreated) per feature, floored at log2(0.05)",
+    "level_summary": "per knob, level and feature, the median change over the 12 chips",
+    "moves_rule": "section 33's direction rule, reused: at a level the twin moves a feature when |median| >= 0.1 log2, at least 8 chips have a defined change, and at least 7/8 of the defined chips share the median's sign",
+    "commit_rule": "the twin's per-level changes are computed by neuromps.models.twin_toxcast_dose_response --predict and committed (outputs/twin/toxcast_dose_response_predictions_simulated.json) before any real treated-well statistic is computed"
+  },
+  "matching": {
+    "bins": "a compound's tested concentrations are grouped into half-decade bins (bin index = round(2 x log10(conc in uM))), which merges the near-identical concentrations two sample ids give and merges 30 with 40 uM. Wells recorded at a concentration of zero or below are dropped before binning: a tested concentration of zero is not a concentration, and such wells are not the screen's vehicle wells either",
+    "rule": "rank-based. For a compound with k tested bins, the i-th bin in ascending order (i = 0..k-1) is matched to position p = i x 6 / (k - 1) on its knob's seven levels (0 = weakest), and the twin's value is the linear interpolation of the per-level medians at floor(p) and ceil(p). The match uses every tested bin, so it is fixed by the screen's design and not by which bins survive the exclusion rule",
+    "why_rank": "the knob scales (conductance or threshold multipliers) and the concentration scale (uM) share no unit, and potency differs by compound and platform (HD8: magnitudes do not transfer). Every registered score below (a Spearman rank correlation across concentrations, and the order in which features begin to move) is invariant to any monotone map from concentration to knob level, so a rank match supplies exactly what those scores can use: whether the twin's curve carries the real curve's ordering, not where on the concentration axis it sits"
+  },
+  "real": {
+    "x": "log2(max(1 + rval/100, 0.05)) per well (toxcast_noise_floors.log2_change); NaN dropped",
+    "effect_per_well": "x of the treated well (wllt 't') minus the median x of the vehicle wells (wllt 'n') of the same component and apid (exposure date); wells on a date without vehicle wells are dropped, the referencing of sections 32 and 33",
+    "curve": "per compound, bin and feature: the median effect over its wells, sample ids and dates pooled",
+    "vehicle_null": "per feature and well count n: 20,000 draws (seed 20261029 + acid). Each draw picks an exposure date uniformly among those with at least n + 3 vehicle wells of that component, draws n of them without replacement as pseudo-treated wells, and records their median minus the median of that date's remaining vehicle wells",
+    "moves": "a bin moves when |median effect| exceeds the quantile 1 - 0.05/k of |draws| at that bin's well count (k = the compound's number of tested bins), so the family of a compound's bins holds 5% false alarms",
+    "responsive": "a (compound, feature) pair is responsive when the feature moves at one or more retained bins"
+  },
+  "exclusion": {
+    "rule": "loss of viability on the same plates, from the screen's own viability component (acid 2496, level-0 rows with wllq 1). Per well: log2(rval / median rval of the same apid's vehicle wells); per compound and bin: the median over its wells. A bin is flagged when that median falls below the one-sided 0.05/k quantile of the same vehicle null (draws as in real.vehicle_null, signed, seed 20261030). The lowest flagged bin and every higher bin of that compound are excluded from every test; a bin with no viability rows is not excluded by this rule",
+    "why_not_active_electrodes": "the acute screen's components include no active-electrode count, and loss of firing is itself the pharmacology under test (a sodium-channel block silences a well without any loss of viability), so the viability readout is the only available way to separate the two",
+    "minimum": "a compound with fewer than four retained bins is not scored"
+  },
+  "scoring": {
+    "scored_pair": "a (compound, feature) pair with feature != mfr_hz is scored when the compound has four or more retained bins, the real pair is responsive, the twin moves that feature at one or more of the matched levels, and at least four retained bins have a defined real and twin value",
+    "shape": "Spearman rank correlation between the twin's matched value and the real median effect over the compound's retained bins (signed values, not absolute, so a pair whose two curves run opposite ways scores negative)",
+    "hit": "a scored pair is a hit when its Spearman correlation is >= 0.6",
+    "first_mover": "per compound, the feature whose lowest retained moving bin is lowest, in the twin (lowest matched level at which moves_rule holds) and in the real curve (lowest retained bin that moves); ties are reported as ties and count as a match when the two sets intersect",
+    "nulls": {
+      "follow_firing_rate": "the null of section 33, extended to curves: for each scored pair, predict the real firing-rate curve of that same compound (the SEEN readout) in place of the twin's curve, and score the same Spearman. It uses no twin and no mechanism label",
+      "shuffled_mechanism": "the twin's curve for a knob the compound is not labelled with. For each scored pair, every other knob of knob_grids is matched the same way and scored; the null's statistic is the mean over those knobs, and its hit rate is computed over all (pair, wrong knob) combinations"
+    }
+  },
+  "predictions": {
+    "P1_shape": {"statement": "the twin's knob dose-response carries the rank order of the real concentration-response curves for the features it moves", "test": "the hit rate over scored pairs is >= 0.5, with at least 8 pairs scored"},
+    "P2_beats_follow_firing_rate": {"statement": "the twin's curves beat predicting every readout by the compound's own real firing-rate curve", "test": "the twin's mean Spearman over scored pairs exceeds that null's by >= 0.1"},
+    "P3_beats_shuffled_mechanism": {"statement": "the mechanism label matters: the labelled knob beats the other knobs", "test": "the twin's mean Spearman over scored pairs exceeds the shuffled-mechanism mean by >= 0.1"},
+    "P4_first_mover": {"statement": "the twin gets which readout moves first", "test": "the twin's first-mover set intersects the real one for >= 0.5 of the scored compounds (descriptive if fewer than 4 compounds are scored)"},
+    "P5_firing_rate_sign": {"statement": "SEEN readout, reported for completeness, not a test of this registration: the sign of the real firing-rate change at the highest retained bin agrees with the sign of the twin's at the matched level, per compound"}
+  },
+  "reporting": "every scored pair with both curves and its correlation, every prediction with pass or fail whichever way it falls, every compound dropped and why, and the two nulls. Anything decided after the real curves were seen is labelled post hoc. Research decision support only: this scores a simulator against one public screen's measurements and makes no claim about any compound.",
+  "outputs": {
+    "twin_predictions": "outputs/twin/toxcast_dose_response_predictions_simulated.json",
+    "results": "outputs/metrics.json key twin_toxcast_dose_response",
+    "figure": "outputs/figures/twin_toxcast_dose_response.png",
+    "code": "src/neuromps/models/twin_toxcast_dose_response.py, tests in tests/test_twin_toxcast_dose_response.py"
+  }
+}

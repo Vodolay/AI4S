@@ -1,6 +1,6 @@
 {
   "note": "Internal timestamps from this repository's history; not third-party verified.",
-  "root": "c7dc89c868fa8781624b62179a2dfb04239e04d41fad98e43808bb83cb3688ee",
+  "root": "7c68c20043f44c9674d78255327dc137b9537af1709b107df9fce83db056a19b",
   "registrations": [
     {
       "file": "fly_chip_to_animal.json",
@@ -281,6 +281,13 @@
       "commit": "4ae5b0c214880bfca557a00fb70c874dcae94d34",
       "committed_at": "2026-10-26T15:01:46-04:00",
       "chain": "c7dc89c868fa8781624b62179a2dfb04239e04d41fad98e43808bb83cb3688ee"
+    },
+    {
+      "file": "twin_toxcast_dose_response.json",
+      "sha256": "b399d65ea98068bdb74a5b49ec2776e02cddd5ecc44c184f605278b0fd072158",
+      "commit": "f3e1fb9b6de551a4e934c14e34432d25179693cd",
+      "committed_at": "2026-10-27T22:13:21-04:00",
+      "chain": "7c68c20043f44c9674d78255327dc137b9537af1709b107df9fce83db056a19b"
     }
   ],
   "registered_before_results": [
@@ -497,6 +504,12 @@
     {
       "output": "outputs/fly/tract_electrode_SIMULATED.json",
       "registration": "fly_output_tract_electrode.json",
+      "same_commit": false,
+      "registered_first": true
+    },
+    {
+      "output": "outputs/twin/toxcast_dose_response_predictions_simulated.json",
+      "registration": "twin_toxcast_dose_response.json",
       "same_commit": false,
       "registered_first": true
     },

@@ -187,10 +187,18 @@ def evaluate_predictions(cells: dict) -> dict:
     for key, drug in PREDICTION_KEYS.items():
         s = drug_summary(cells[drug])
         ok = s["scored"] >= 3 and s["agreeing"] >= (2 / 3) * s["scored"]
-        out[key] = {**s, "pass": bool(ok)}
+        out[key] = {**s, "pass": bool(ok), "outcome": _outcome(ok, s["scored"] >= 3)}
     rate = {d: c["mfr_hz"]["agrees"] for d, c in cells.items() if c["mfr_hz"]["agrees"] is not None}
-    out["P4_firing_rate"] = {"scored": rate, "pass": bool(rate) and all(rate.values())}
+    ok = bool(rate) and all(rate.values())
+    out["P4_firing_rate"] = {"scored": rate, "pass": ok, "outcome": _outcome(ok, bool(rate))}
     return out
+
+
+def _outcome(passed: bool, judgeable: bool) -> str:
+    """The audit's outcome word: below the registered minimum the test cannot be read."""
+    if not judgeable:
+        return "uninterpretable"
+    return "pass" if passed else "fail"
 
 
 def magnitudes(twin: dict, real: dict, cells: dict) -> dict:

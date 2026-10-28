@@ -133,6 +133,7 @@ def main(argv: list[str] | None = None) -> int:
             run_noise_floors(quick)
         elif stage == "twin":
             from neuromps.models.twin_toxcast_check import main as run_toxcast_check
+            from neuromps.models.twin_toxcast_dose_response import main as run_toxcast_doses
             from neuromps.report.diagrams import main as draw_model_diagrams
             from neuromps.twin.calibrate import main as calibrate_twin
             from neuromps.twin.delta_inference import main as run_delta_inference
@@ -152,6 +153,9 @@ def main(argv: list[str] | None = None) -> int:
             # The same knobs against a laboratory the twin has never seen; reuses the
             # committed predictions, and skips itself without the ToxCast well table.
             run_toxcast_check(quick)
+            # The same knobs over a dose grid, against the screen's concentration-response
+            # wells; also reuses committed predictions, and skips itself without the table.
+            run_toxcast_doses(quick)
             run_inference(quick)
             run_real_inference(quick)
             # The same question put to a change against each chip's own

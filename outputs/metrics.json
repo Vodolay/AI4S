@@ -12018,7 +12018,11 @@
     }
   },
   "registration_audit": {
-    "n_studies": 40,
+    "excluded": {
+      "registration_audit": "this audit's own output",
+      "rhythm_audit": "re-reads the predictions of stages 1d-2e, counted under their own keys"
+    },
+    "n_studies": 42,
     "studies": {
       "embodied_stage1": {
         "fail": 2,
@@ -12299,19 +12303,34 @@
         "pass": 1,
         "total": 3,
         "uninterpretable": 0
+      },
+      "twin_toxcast_dose_response": {
+        "fail": 2,
+        "other": 0,
+        "pass": 2,
+        "total": 4,
+        "uninterpretable": 0
+      },
+      "twin_toxcast_positive_controls": {
+        "fail": 0,
+        "other": 0,
+        "pass": 4,
+        "total": 4,
+        "uninterpretable": 0
       }
     },
     "total": {
-      "fail": 78,
+      "fail": 80,
       "other": 1,
-      "pass": 91,
-      "total": 208,
+      "pass": 97,
+      "total": 216,
       "uninterpretable": 38
-    }
+    },
+    "unrecognised": []
   },
   "registration_timestamps": {
-    "n_outputs_checked": 37,
-    "n_registrations": 40,
+    "n_outputs_checked": 38,
+    "n_registrations": 41,
     "n_violations": 0,
     "not_covered": [
       "twin_depression_under_block.json",
@@ -24736,6 +24755,7357 @@
       ]
     }
   },
+  "twin_toxcast_dose_response": {
+    "compounds": {
+      "Abamectin": {
+        "bins": [
+          -9,
+          -8,
+          -7,
+          -6,
+          -5,
+          -4,
+          -3,
+          -2,
+          -1,
+          0,
+          1,
+          2,
+          3
+        ],
+        "exclusion": {
+          "excluded": [],
+          "first_flagged_bin": null,
+          "untestable_bins": [],
+          "viability": [
+            {
+              "bin": -9,
+              "median": 0.0207,
+              "wells": 3
+            },
+            {
+              "bin": -8,
+              "median": -0.183,
+              "wells": 3
+            },
+            {
+              "bin": -7,
+              "median": 0.0217,
+              "wells": 3
+            },
+            {
+              "bin": -6,
+              "median": -0.1457,
+              "wells": 3
+            },
+            {
+              "bin": -5,
+              "median": -0.0117,
+              "wells": 3
+            },
+            {
+              "bin": -4,
+              "median": 0.3548,
+              "wells": 3
+            },
+            {
+              "bin": -3,
+              "median": 0.0241,
+              "wells": 6
+            },
+            {
+              "bin": -2,
+              "median": -0.3447,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": -0.3686,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": -0.4576,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": -0.2589,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": -0.2385,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": -0.2981,
+              "wells": 3
+            }
+          ]
+        },
+        "features": {
+          "burst_duration_s": {
+            "bins": 8,
+            "hit": true,
+            "scored": true,
+            "spearman": 0.8095
+          },
+          "burst_rate_per_min": {
+            "responsive": true,
+            "scored": false,
+            "twin_moves": false
+          },
+          "pct_spikes_in_bursts": {
+            "bins": 13,
+            "hit": false,
+            "scored": true,
+            "spearman": 0.5866
+          },
+          "spikes_per_burst": {
+            "bins": 8,
+            "hit": true,
+            "scored": true,
+            "spearman": 0.8095
+          },
+          "synchrony_index": {
+            "bins": 12,
+            "hit": true,
+            "scored": true,
+            "spearman": 0.7652
+          }
+        },
+        "firing_rate_sign": {
+          "agrees": true,
+          "real": -3.5067,
+          "twin": -0.3465
+        },
+        "first_mover": {
+          "match": false,
+          "real": [
+            "pct_spikes_in_bursts"
+          ],
+          "twin": [
+            "burst_duration_s",
+            "spikes_per_burst"
+          ]
+        },
+        "follow_firing_rate": {
+          "burst_duration_s": {
+            "bins": 8,
+            "hit": true,
+            "spearman": 0.8095
+          },
+          "pct_spikes_in_bursts": {
+            "bins": 13,
+            "hit": true,
+            "spearman": 0.9818
+          },
+          "spikes_per_burst": {
+            "bins": 8,
+            "hit": true,
+            "spearman": 0.9286
+          },
+          "synchrony_index": {
+            "bins": 12,
+            "hit": true,
+            "spearman": 0.871
+          }
+        },
+        "knob": "gabaa_potentiate",
+        "label": "gabaa_positive_modulator",
+        "real": {
+          "burst_duration_s": [
+            {
+              "bin": -9,
+              "median": 0.1078,
+              "moves": false,
+              "threshold": 0.5264,
+              "wells": 3
+            },
+            {
+              "bin": -8,
+              "median": 0.1545,
+              "moves": false,
+              "threshold": 0.5264,
+              "wells": 3
+            },
+            {
+              "bin": -7,
+              "median": 0.0958,
+              "moves": false,
+              "threshold": 0.5264,
+              "wells": 3
+            },
+            {
+              "bin": -6,
+              "median": 0.0318,
+              "moves": false,
+              "threshold": 0.5264,
+              "wells": 3
+            },
+            {
+              "bin": -5,
+              "median": -0.0654,
+              "moves": false,
+              "threshold": 0.5264,
+              "wells": 3
+            },
+            {
+              "bin": -4,
+              "median": 0.1027,
+              "moves": false,
+              "threshold": 0.5264,
+              "wells": 3
+            },
+            {
+              "bin": -3,
+              "median": -0.7168,
+              "moves": true,
+              "threshold": 0.472,
+              "wells": 4
+            },
+            {
+              "bin": -2,
+              "median": null,
+              "moves": false,
+              "threshold": null,
+              "wells": 0
+            },
+            {
+              "bin": -1,
+              "median": null,
+              "moves": false,
+              "threshold": null,
+              "wells": 0
+            },
+            {
+              "bin": 0,
+              "median": null,
+              "moves": false,
+              "threshold": null,
+              "wells": 0
+            },
+            {
+              "bin": 1,
+              "median": null,
+              "moves": false,
+              "threshold": null,
+              "wells": 0
+            },
+            {
+              "bin": 2,
+              "median": null,
+              "moves": false,
+              "threshold": null,
+              "wells": 0
+            },
+            {
+              "bin": 3,
+              "median": -1.1116,
+              "moves": true,
+              "threshold": 0.7497,
+              "wells": 1
+            }
+          ],
+          "burst_rate_per_min": [
+            {
+              "bin": -9,
+              "median": -0.4073,
+              "moves": false,
+              "threshold": 2.3865,
+              "wells": 3
+            },
+            {
+              "bin": -8,
+              "median": -0.1527,
+              "moves": false,
+              "threshold": 2.3865,
+              "wells": 3
+            },
+            {
+              "bin": -7,
+              "median": -0.3897,
+              "moves": false,
+              "threshold": 2.3865,
+              "wells": 3
+            },
+            {
+              "bin": -6,
+              "median": -0.4475,
+              "moves": false,
+              "threshold": 2.3865,
+              "wells": 3
+            },
+            {
+              "bin": -5,
+              "median": -0.7718,
+              "moves": false,
+              "threshold": 2.3865,
+              "wells": 3
+            },
+            {
+              "bin": -4,
+              "median": -1.6886,
+              "moves": false,
+              "threshold": 2.3865,
+              "wells": 3
+            },
+            {
+              "bin": -3,
+              "median": -3.4424,
+              "moves": true,
+              "threshold": 1.1179,
+              "wells": 6
+            },
+            {
+              "bin": -2,
+              "median": -3.4424,
+              "moves": true,
+              "threshold": 2.3865,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": -3.4424,
+              "moves": true,
+              "threshold": 2.3865,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": -3.4424,
+              "moves": true,
+              "threshold": 2.3865,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": -3.4424,
+              "moves": true,
+              "threshold": 2.3865,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": -3.4424,
+              "moves": true,
+              "threshold": 2.3865,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": -3.4424,
+              "moves": true,
+              "threshold": 2.3865,
+              "wells": 3
+            }
+          ],
+          "mfr_hz": [
+            {
+              "bin": -9,
+              "median": -0.1842,
+              "moves": false,
+              "threshold": 2.1894,
+              "wells": 3
+            },
+            {
+              "bin": -8,
+              "median": -0.0317,
+              "moves": false,
+              "threshold": 2.1894,
+              "wells": 3
+            },
+            {
+              "bin": -7,
+              "median": -0.1288,
+              "moves": false,
+              "threshold": 2.1894,
+              "wells": 3
+            },
+            {
+              "bin": -6,
+              "median": -0.3256,
+              "moves": false,
+              "threshold": 2.1894,
+              "wells": 3
+            },
+            {
+              "bin": -5,
+              "median": -0.8664,
+              "moves": false,
+              "threshold": 2.1894,
+              "wells": 3
+            },
+            {
+              "bin": -4,
+              "median": -0.9748,
+              "moves": false,
+              "threshold": 2.1894,
+              "wells": 3
+            },
+            {
+              "bin": -3,
+              "median": -3.4589,
+              "moves": true,
+              "threshold": 1.0393,
+              "wells": 6
+            },
+            {
+              "bin": -2,
+              "median": -3.5067,
+              "moves": true,
+              "threshold": 2.1894,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": -3.5067,
+              "moves": true,
+              "threshold": 2.1894,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": -3.5067,
+              "moves": true,
+              "threshold": 2.1894,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": -3.5067,
+              "moves": true,
+              "threshold": 2.1894,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": -3.5067,
+              "moves": true,
+              "threshold": 2.1894,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": -3.5067,
+              "moves": true,
+              "threshold": 2.1894,
+              "wells": 3
+            }
+          ],
+          "pct_spikes_in_bursts": [
+            {
+              "bin": -9,
+              "median": -0.1218,
+              "moves": false,
+              "threshold": 0.5159,
+              "wells": 3
+            },
+            {
+              "bin": -8,
+              "median": 0.0383,
+              "moves": false,
+              "threshold": 0.5159,
+              "wells": 3
+            },
+            {
+              "bin": -7,
+              "median": -0.0957,
+              "moves": false,
+              "threshold": 0.5159,
+              "wells": 3
+            },
+            {
+              "bin": -6,
+              "median": -0.0326,
+              "moves": false,
+              "threshold": 0.5159,
+              "wells": 3
+            },
+            {
+              "bin": -5,
+              "median": -0.3228,
+              "moves": false,
+              "threshold": 0.5159,
+              "wells": 3
+            },
+            {
+              "bin": -4,
+              "median": -0.6552,
+              "moves": true,
+              "threshold": 0.5159,
+              "wells": 3
+            },
+            {
+              "bin": -3,
+              "median": -1.6229,
+              "moves": true,
+              "threshold": 0.405,
+              "wells": 5
+            },
+            {
+              "bin": -2,
+              "median": -4.2725,
+              "moves": true,
+              "threshold": 0.7071,
+              "wells": 2
+            },
+            {
+              "bin": -1,
+              "median": -4.2725,
+              "moves": true,
+              "threshold": 0.7071,
+              "wells": 2
+            },
+            {
+              "bin": 0,
+              "median": -4.2725,
+              "moves": true,
+              "threshold": 3.6209,
+              "wells": 1
+            },
+            {
+              "bin": 1,
+              "median": -4.2725,
+              "moves": true,
+              "threshold": 0.7071,
+              "wells": 2
+            },
+            {
+              "bin": 2,
+              "median": -4.2725,
+              "moves": true,
+              "threshold": 0.7071,
+              "wells": 2
+            },
+            {
+              "bin": 3,
+              "median": -4.2725,
+              "moves": true,
+              "threshold": 0.5159,
+              "wells": 3
+            }
+          ],
+          "spikes_per_burst": [
+            {
+              "bin": -9,
+              "median": 0.0157,
+              "moves": false,
+              "threshold": 0.5881,
+              "wells": 3
+            },
+            {
+              "bin": -8,
+              "median": 0.1061,
+              "moves": false,
+              "threshold": 0.5881,
+              "wells": 3
+            },
+            {
+              "bin": -7,
+              "median": 0.0763,
+              "moves": false,
+              "threshold": 0.5881,
+              "wells": 3
+            },
+            {
+              "bin": -6,
+              "median": 0.0338,
+              "moves": false,
+              "threshold": 0.5881,
+              "wells": 3
+            },
+            {
+              "bin": -5,
+              "median": -0.335,
+              "moves": false,
+              "threshold": 0.5881,
+              "wells": 3
+            },
+            {
+              "bin": -4,
+              "median": -0.097,
+              "moves": false,
+              "threshold": 0.5881,
+              "wells": 3
+            },
+            {
+              "bin": -3,
+              "median": -1.1345,
+              "moves": true,
+              "threshold": 0.5848,
+              "wells": 4
+            },
+            {
+              "bin": -2,
+              "median": null,
+              "moves": false,
+              "threshold": null,
+              "wells": 0
+            },
+            {
+              "bin": -1,
+              "median": null,
+              "moves": false,
+              "threshold": null,
+              "wells": 0
+            },
+            {
+              "bin": 0,
+              "median": null,
+              "moves": false,
+              "threshold": null,
+              "wells": 0
+            },
+            {
+              "bin": 1,
+              "median": null,
+              "moves": false,
+              "threshold": null,
+              "wells": 0
+            },
+            {
+              "bin": 2,
+              "median": null,
+              "moves": false,
+              "threshold": null,
+              "wells": 0
+            },
+            {
+              "bin": 3,
+              "median": -0.9509,
+              "moves": true,
+              "threshold": 0.9011,
+              "wells": 1
+            }
+          ],
+          "synchrony_index": [
+            {
+              "bin": -9,
+              "median": -0.0333,
+              "moves": false,
+              "threshold": 0.5613,
+              "wells": 3
+            },
+            {
+              "bin": -8,
+              "median": 0.0043,
+              "moves": false,
+              "threshold": 0.5613,
+              "wells": 3
+            },
+            {
+              "bin": -7,
+              "median": 0.0813,
+              "moves": false,
+              "threshold": 0.5613,
+              "wells": 3
+            },
+            {
+              "bin": -6,
+              "median": 0.0007,
+              "moves": false,
+              "threshold": 0.5613,
+              "wells": 3
+            },
+            {
+              "bin": -5,
+              "median": -0.1832,
+              "moves": false,
+              "threshold": 0.5613,
+              "wells": 3
+            },
+            {
+              "bin": -4,
+              "median": -0.3127,
+              "moves": false,
+              "threshold": 0.5613,
+              "wells": 3
+            },
+            {
+              "bin": -3,
+              "median": -0.2051,
+              "moves": false,
+              "threshold": 0.279,
+              "wells": 5
+            },
+            {
+              "bin": -2,
+              "median": -0.0596,
+              "moves": false,
+              "threshold": 3.5632,
+              "wells": 1
+            },
+            {
+              "bin": -1,
+              "median": -4.2808,
+              "moves": true,
+              "threshold": 3.5632,
+              "wells": 1
+            },
+            {
+              "bin": 0,
+              "median": null,
+              "moves": false,
+              "threshold": null,
+              "wells": 0
+            },
+            {
+              "bin": 1,
+              "median": -4.2808,
+              "moves": true,
+              "threshold": 0.9492,
+              "wells": 2
+            },
+            {
+              "bin": 2,
+              "median": -4.2808,
+              "moves": true,
+              "threshold": 0.9492,
+              "wells": 2
+            },
+            {
+              "bin": 3,
+              "median": -4.2808,
+              "moves": true,
+              "threshold": 0.5613,
+              "wells": 3
+            }
+          ]
+        },
+        "retained_bins": [
+          -9,
+          -8,
+          -7,
+          -6,
+          -5,
+          -4,
+          -3,
+          -2,
+          -1,
+          0,
+          1,
+          2,
+          3
+        ],
+        "scored": true,
+        "shuffled_mechanism": {
+          "burst_duration_s": [
+            {
+              "bins": 8,
+              "hit": false,
+              "spearman": -0.8333
+            },
+            {
+              "bins": 3,
+              "spearman": null
+            },
+            {
+              "bins": 8,
+              "hit": false,
+              "spearman": -0.8333
+            }
+          ],
+          "pct_spikes_in_bursts": [
+            {
+              "bins": 13,
+              "hit": false,
+              "spearman": -0.9103
+            },
+            {
+              "bins": 13,
+              "hit": false,
+              "spearman": 0.5238
+            },
+            {
+              "bins": 13,
+              "hit": true,
+              "spearman": 0.8118
+            }
+          ],
+          "spikes_per_burst": [
+            {
+              "bins": 8,
+              "hit": false,
+              "spearman": -0.8095
+            },
+            {
+              "bins": 3,
+              "spearman": null
+            },
+            {
+              "bins": 8,
+              "hit": true,
+              "spearman": 0.7143
+            }
+          ],
+          "synchrony_index": [
+            {
+              "bins": 12,
+              "hit": false,
+              "spearman": -0.8827
+            },
+            {
+              "bins": 12,
+              "hit": false,
+              "spearman": 0.4487
+            },
+            {
+              "bins": 12,
+              "hit": true,
+              "spearman": 0.7962
+            }
+          ]
+        },
+        "spids": [
+          "TP0001414B08"
+        ]
+      },
+      "Aldrin": {
+        "bins": [
+          -3,
+          -2,
+          -1,
+          0,
+          1,
+          2,
+          3
+        ],
+        "exclusion": {
+          "excluded": [],
+          "first_flagged_bin": null,
+          "untestable_bins": [],
+          "viability": [
+            {
+              "bin": -3,
+              "median": 0.0701,
+              "wells": 3
+            },
+            {
+              "bin": -2,
+              "median": 0.005,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": 0.0621,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": 0.047,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": 0.143,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": 0.0746,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": 0.068,
+              "wells": 3
+            }
+          ]
+        },
+        "features": {
+          "burst_duration_s": {
+            "responsive": false,
+            "scored": false,
+            "twin_moves": true
+          },
+          "burst_rate_per_min": {
+            "responsive": false,
+            "scored": false,
+            "twin_moves": false
+          },
+          "pct_spikes_in_bursts": {
+            "responsive": false,
+            "scored": false,
+            "twin_moves": true
+          },
+          "spikes_per_burst": {
+            "responsive": false,
+            "scored": false,
+            "twin_moves": true
+          },
+          "synchrony_index": {
+            "responsive": false,
+            "scored": false,
+            "twin_moves": true
+          }
+        },
+        "firing_rate_sign": {
+          "agrees": true,
+          "real": 0.593,
+          "twin": 3.4531
+        },
+        "first_mover": {
+          "match": null,
+          "real": [],
+          "twin": [
+            "spikes_per_burst"
+          ]
+        },
+        "follow_firing_rate": {},
+        "knob": "gabaa_block",
+        "label": "gabaa_antagonist",
+        "real": {
+          "burst_duration_s": [
+            {
+              "bin": -3,
+              "median": 0.0338,
+              "moves": false,
+              "threshold": 0.5251,
+              "wells": 3
+            },
+            {
+              "bin": -2,
+              "median": 0.0636,
+              "moves": false,
+              "threshold": 0.5251,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": 0.0552,
+              "moves": false,
+              "threshold": 0.5251,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": -0.0282,
+              "moves": false,
+              "threshold": 0.5251,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": 0.0721,
+              "moves": false,
+              "threshold": 0.5251,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": 0.2044,
+              "moves": false,
+              "threshold": 0.5251,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": 0.3902,
+              "moves": false,
+              "threshold": 0.5251,
+              "wells": 3
+            }
+          ],
+          "burst_rate_per_min": [
+            {
+              "bin": -3,
+              "median": 0.4668,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            },
+            {
+              "bin": -2,
+              "median": 0.1049,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": 0.2024,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": 0.551,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": 0.2598,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": 0.4375,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": 0.4632,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            }
+          ],
+          "mfr_hz": [
+            {
+              "bin": -3,
+              "median": 0.4806,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            },
+            {
+              "bin": -2,
+              "median": 0.1369,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": 0.3104,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": 0.3533,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": 0.4552,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": 0.5286,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": 0.593,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            }
+          ],
+          "pct_spikes_in_bursts": [
+            {
+              "bin": -3,
+              "median": 0.1182,
+              "moves": false,
+              "threshold": 0.4083,
+              "wells": 3
+            },
+            {
+              "bin": -2,
+              "median": 0.1585,
+              "moves": false,
+              "threshold": 0.4083,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": 0.0024,
+              "moves": false,
+              "threshold": 0.4083,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": 0.041,
+              "moves": false,
+              "threshold": 0.4083,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": 0.1131,
+              "moves": false,
+              "threshold": 0.4083,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": 0.1217,
+              "moves": false,
+              "threshold": 0.4083,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": 0.1919,
+              "moves": false,
+              "threshold": 0.4083,
+              "wells": 3
+            }
+          ],
+          "spikes_per_burst": [
+            {
+              "bin": -3,
+              "median": 0.1089,
+              "moves": false,
+              "threshold": 0.4947,
+              "wells": 3
+            },
+            {
+              "bin": -2,
+              "median": 0.1424,
+              "moves": false,
+              "threshold": 0.4947,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": 0.1531,
+              "moves": false,
+              "threshold": 0.4947,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": 0.1517,
+              "moves": false,
+              "threshold": 0.4947,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": 0.3183,
+              "moves": false,
+              "threshold": 0.4947,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": 0.2454,
+              "moves": false,
+              "threshold": 0.4947,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": 0.3757,
+              "moves": false,
+              "threshold": 0.4947,
+              "wells": 3
+            }
+          ],
+          "synchrony_index": [
+            {
+              "bin": -3,
+              "median": -0.0,
+              "moves": false,
+              "threshold": 0.3331,
+              "wells": 3
+            },
+            {
+              "bin": -2,
+              "median": 0.0605,
+              "moves": false,
+              "threshold": 0.3331,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": 0.0228,
+              "moves": false,
+              "threshold": 0.3331,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": 0.0306,
+              "moves": false,
+              "threshold": 0.3331,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": 0.0592,
+              "moves": false,
+              "threshold": 0.3331,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": 0.1141,
+              "moves": false,
+              "threshold": 0.3331,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": 0.1064,
+              "moves": false,
+              "threshold": 0.3331,
+              "wells": 3
+            }
+          ]
+        },
+        "retained_bins": [
+          -3,
+          -2,
+          -1,
+          0,
+          1,
+          2,
+          3
+        ],
+        "scored": true,
+        "shuffled_mechanism": {},
+        "spids": [
+          "TP0001412G10"
+        ]
+      },
+      "Dieldrin": {
+        "bins": [
+          -3,
+          -2,
+          -1,
+          0,
+          1,
+          2,
+          3
+        ],
+        "exclusion": {
+          "excluded": [],
+          "first_flagged_bin": null,
+          "untestable_bins": [],
+          "viability": [
+            {
+              "bin": -3,
+              "median": -0.0755,
+              "wells": 3
+            },
+            {
+              "bin": -2,
+              "median": -0.1203,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": -0.0409,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": 0.0693,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": 0.0437,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": 0.0732,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": -0.1536,
+              "wells": 3
+            }
+          ]
+        },
+        "features": {
+          "burst_duration_s": {
+            "responsive": false,
+            "scored": false,
+            "twin_moves": true
+          },
+          "burst_rate_per_min": {
+            "responsive": false,
+            "scored": false,
+            "twin_moves": false
+          },
+          "pct_spikes_in_bursts": {
+            "bins": 7,
+            "hit": false,
+            "scored": true,
+            "spearman": 0.0714
+          },
+          "spikes_per_burst": {
+            "bins": 7,
+            "hit": false,
+            "scored": true,
+            "spearman": 0.2143
+          },
+          "synchrony_index": {
+            "bins": 7,
+            "hit": false,
+            "scored": true,
+            "spearman": 0.0357
+          }
+        },
+        "firing_rate_sign": {
+          "agrees": false,
+          "real": -0.7638,
+          "twin": 3.4531
+        },
+        "first_mover": {
+          "match": true,
+          "real": [
+            "spikes_per_burst",
+            "synchrony_index"
+          ],
+          "twin": [
+            "spikes_per_burst"
+          ]
+        },
+        "follow_firing_rate": {
+          "pct_spikes_in_bursts": {
+            "bins": 7,
+            "hit": false,
+            "spearman": 0.5714
+          },
+          "spikes_per_burst": {
+            "bins": 7,
+            "hit": true,
+            "spearman": 0.7143
+          },
+          "synchrony_index": {
+            "bins": 7,
+            "hit": true,
+            "spearman": 0.7857
+          }
+        },
+        "knob": "gabaa_block",
+        "label": "gabaa_antagonist",
+        "real": {
+          "burst_duration_s": [
+            {
+              "bin": -3,
+              "median": -0.0172,
+              "moves": false,
+              "threshold": 0.5251,
+              "wells": 3
+            },
+            {
+              "bin": -2,
+              "median": 0.0344,
+              "moves": false,
+              "threshold": 0.5251,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": 0.0717,
+              "moves": false,
+              "threshold": 0.5251,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": -0.0359,
+              "moves": false,
+              "threshold": 0.5251,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": -0.0182,
+              "moves": false,
+              "threshold": 0.5251,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": -0.1619,
+              "moves": false,
+              "threshold": 0.5251,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": -0.2496,
+              "moves": false,
+              "threshold": 0.5251,
+              "wells": 3
+            }
+          ],
+          "burst_rate_per_min": [
+            {
+              "bin": -3,
+              "median": -0.1758,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            },
+            {
+              "bin": -2,
+              "median": 0.2993,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": 0.9543,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": 1.0564,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": 1.0435,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": 1.8915,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": -0.7196,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            }
+          ],
+          "mfr_hz": [
+            {
+              "bin": -3,
+              "median": 0.059,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            },
+            {
+              "bin": -2,
+              "median": 0.5115,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": 1.0778,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": 1.0863,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": 1.3976,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": 1.8077,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": -0.7638,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            }
+          ],
+          "pct_spikes_in_bursts": [
+            {
+              "bin": -3,
+              "median": 0.0939,
+              "moves": false,
+              "threshold": 0.4083,
+              "wells": 3
+            },
+            {
+              "bin": -2,
+              "median": 0.2597,
+              "moves": false,
+              "threshold": 0.4083,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": 0.3799,
+              "moves": false,
+              "threshold": 0.4083,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": 0.4793,
+              "moves": true,
+              "threshold": 0.4083,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": 0.4135,
+              "moves": true,
+              "threshold": 0.4083,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": 0.2131,
+              "moves": false,
+              "threshold": 0.4083,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": 0.1634,
+              "moves": false,
+              "threshold": 0.4083,
+              "wells": 3
+            }
+          ],
+          "spikes_per_burst": [
+            {
+              "bin": -3,
+              "median": 0.1261,
+              "moves": false,
+              "threshold": 0.4947,
+              "wells": 3
+            },
+            {
+              "bin": -2,
+              "median": 0.3106,
+              "moves": false,
+              "threshold": 0.4947,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": 0.575,
+              "moves": true,
+              "threshold": 0.4947,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": 0.4483,
+              "moves": false,
+              "threshold": 0.4947,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": 0.6583,
+              "moves": true,
+              "threshold": 0.4947,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": 0.3545,
+              "moves": false,
+              "threshold": 0.4947,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": 0.2508,
+              "moves": false,
+              "threshold": 0.4947,
+              "wells": 3
+            }
+          ],
+          "synchrony_index": [
+            {
+              "bin": -3,
+              "median": 0.1706,
+              "moves": false,
+              "threshold": 0.3331,
+              "wells": 3
+            },
+            {
+              "bin": -2,
+              "median": 0.2688,
+              "moves": false,
+              "threshold": 0.3331,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": 0.4565,
+              "moves": true,
+              "threshold": 0.3331,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": 0.4732,
+              "moves": true,
+              "threshold": 0.3331,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": 0.5388,
+              "moves": true,
+              "threshold": 0.3331,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": 0.3722,
+              "moves": true,
+              "threshold": 0.3331,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": 0.1702,
+              "moves": false,
+              "threshold": 0.3331,
+              "wells": 3
+            }
+          ]
+        },
+        "retained_bins": [
+          -3,
+          -2,
+          -1,
+          0,
+          1,
+          2,
+          3
+        ],
+        "scored": true,
+        "shuffled_mechanism": {
+          "pct_spikes_in_bursts": [
+            {
+              "bins": 7,
+              "hit": false,
+              "spearman": -0.2143
+            },
+            {
+              "bins": 7,
+              "hit": false,
+              "spearman": -0.6124
+            },
+            {
+              "bins": 7,
+              "hit": false,
+              "spearman": -0.5345
+            }
+          ],
+          "spikes_per_burst": [
+            {
+              "bins": 7,
+              "hit": false,
+              "spearman": -0.2143
+            },
+            {
+              "bins": 2,
+              "spearman": null
+            },
+            {
+              "bins": 7,
+              "hit": false,
+              "spearman": -0.4643
+            }
+          ],
+          "synchrony_index": [
+            {
+              "bins": 7,
+              "hit": false,
+              "spearman": 0.0357
+            },
+            {
+              "bins": 7,
+              "hit": false,
+              "spearman": -0.4082
+            },
+            {
+              "bins": 7,
+              "hit": false,
+              "spearman": -0.49
+            }
+          ]
+        },
+        "spids": [
+          "TP0001412F07"
+        ]
+      },
+      "Emamectin benzoate": {
+        "bins": [
+          -9,
+          -8,
+          -7,
+          -6,
+          -5,
+          -4,
+          -3,
+          -2,
+          -1,
+          0,
+          1,
+          2,
+          3
+        ],
+        "exclusion": {
+          "excluded": [],
+          "first_flagged_bin": null,
+          "untestable_bins": [
+            -3,
+            -2,
+            -1,
+            0,
+            1,
+            2,
+            3
+          ],
+          "viability": [
+            {
+              "bin": -9,
+              "median": -0.4306,
+              "wells": 3
+            },
+            {
+              "bin": -8,
+              "median": -0.1134,
+              "wells": 3
+            },
+            {
+              "bin": -7,
+              "median": -0.0001,
+              "wells": 3
+            },
+            {
+              "bin": -6,
+              "median": -0.1282,
+              "wells": 3
+            },
+            {
+              "bin": -5,
+              "median": -0.0646,
+              "wells": 3
+            },
+            {
+              "bin": -4,
+              "median": 0.0035,
+              "wells": 3
+            },
+            {
+              "bin": -3,
+              "median": -0.0318,
+              "wells": 12
+            },
+            {
+              "bin": -2,
+              "median": -0.0686,
+              "wells": 9
+            },
+            {
+              "bin": -1,
+              "median": -0.1262,
+              "wells": 9
+            },
+            {
+              "bin": 0,
+              "median": -0.1353,
+              "wells": 9
+            },
+            {
+              "bin": 1,
+              "median": -0.1893,
+              "wells": 9
+            },
+            {
+              "bin": 2,
+              "median": -0.1213,
+              "wells": 9
+            },
+            {
+              "bin": 3,
+              "median": -1.1481,
+              "wells": 9
+            }
+          ]
+        },
+        "features": {
+          "burst_duration_s": {
+            "bins": 12,
+            "hit": true,
+            "scored": true,
+            "spearman": 0.7343
+          },
+          "burst_rate_per_min": {
+            "responsive": false,
+            "scored": false,
+            "twin_moves": false
+          },
+          "pct_spikes_in_bursts": {
+            "responsive": false,
+            "scored": false,
+            "twin_moves": true
+          },
+          "spikes_per_burst": {
+            "bins": 12,
+            "hit": true,
+            "scored": true,
+            "spearman": 0.6993
+          },
+          "synchrony_index": {
+            "bins": 13,
+            "hit": false,
+            "scored": true,
+            "spearman": 0.4151
+          }
+        },
+        "firing_rate_sign": {
+          "agrees": true,
+          "real": -4.1729,
+          "twin": -0.3465
+        },
+        "first_mover": {
+          "match": true,
+          "real": [
+            "burst_duration_s",
+            "spikes_per_burst"
+          ],
+          "twin": [
+            "burst_duration_s",
+            "spikes_per_burst"
+          ]
+        },
+        "follow_firing_rate": {
+          "burst_duration_s": {
+            "bins": 12,
+            "hit": false,
+            "spearman": 0.2104
+          },
+          "spikes_per_burst": {
+            "bins": 12,
+            "hit": true,
+            "spearman": 0.6953
+          },
+          "synchrony_index": {
+            "bins": 13,
+            "hit": true,
+            "spearman": 0.9318
+          }
+        },
+        "knob": "gabaa_potentiate",
+        "label": "gabaa_positive_modulator",
+        "real": {
+          "burst_duration_s": [
+            {
+              "bin": -9,
+              "median": 0.2474,
+              "moves": false,
+              "threshold": 0.5264,
+              "wells": 3
+            },
+            {
+              "bin": -8,
+              "median": 0.2686,
+              "moves": false,
+              "threshold": 0.5264,
+              "wells": 3
+            },
+            {
+              "bin": -7,
+              "median": 0.2182,
+              "moves": false,
+              "threshold": 0.5264,
+              "wells": 3
+            },
+            {
+              "bin": -6,
+              "median": 0.2134,
+              "moves": false,
+              "threshold": 0.5264,
+              "wells": 3
+            },
+            {
+              "bin": -5,
+              "median": 0.1202,
+              "moves": false,
+              "threshold": 0.5264,
+              "wells": 3
+            },
+            {
+              "bin": -4,
+              "median": 0.1076,
+              "moves": false,
+              "threshold": 0.5264,
+              "wells": 3
+            },
+            {
+              "bin": -3,
+              "median": -0.4813,
+              "moves": false,
+              "threshold": null,
+              "wells": 11
+            },
+            {
+              "bin": -2,
+              "median": -1.2288,
+              "moves": true,
+              "threshold": 0.5264,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": 0.226,
+              "moves": false,
+              "threshold": 0.7399,
+              "wells": 2
+            },
+            {
+              "bin": 0,
+              "median": 0.1069,
+              "moves": false,
+              "threshold": 0.5264,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": -1.5557,
+              "moves": true,
+              "threshold": 0.472,
+              "wells": 4
+            },
+            {
+              "bin": 2,
+              "median": null,
+              "moves": false,
+              "threshold": null,
+              "wells": 0
+            },
+            {
+              "bin": 3,
+              "median": 1.2202,
+              "moves": true,
+              "threshold": 0.7497,
+              "wells": 1
+            }
+          ],
+          "burst_rate_per_min": [
+            {
+              "bin": -9,
+              "median": -0.8014,
+              "moves": false,
+              "threshold": 2.3865,
+              "wells": 3
+            },
+            {
+              "bin": -8,
+              "median": -1.0359,
+              "moves": false,
+              "threshold": 2.3865,
+              "wells": 3
+            },
+            {
+              "bin": -7,
+              "median": 0.1311,
+              "moves": false,
+              "threshold": 2.3865,
+              "wells": 3
+            },
+            {
+              "bin": -6,
+              "median": -0.723,
+              "moves": false,
+              "threshold": 2.3865,
+              "wells": 3
+            },
+            {
+              "bin": -5,
+              "median": -0.9069,
+              "moves": false,
+              "threshold": 2.3865,
+              "wells": 3
+            },
+            {
+              "bin": -4,
+              "median": -0.3841,
+              "moves": false,
+              "threshold": 2.3865,
+              "wells": 3
+            },
+            {
+              "bin": -3,
+              "median": -3.1913,
+              "moves": false,
+              "threshold": null,
+              "wells": 11
+            },
+            {
+              "bin": -2,
+              "median": -3.6525,
+              "moves": false,
+              "threshold": null,
+              "wells": 7
+            },
+            {
+              "bin": -1,
+              "median": -3.6525,
+              "moves": false,
+              "threshold": null,
+              "wells": 8
+            },
+            {
+              "bin": 0,
+              "median": -3.6525,
+              "moves": false,
+              "threshold": null,
+              "wells": 9
+            },
+            {
+              "bin": 1,
+              "median": -3.953,
+              "moves": false,
+              "threshold": null,
+              "wells": 9
+            },
+            {
+              "bin": 2,
+              "median": -3.953,
+              "moves": false,
+              "threshold": null,
+              "wells": 9
+            },
+            {
+              "bin": 3,
+              "median": -3.953,
+              "moves": false,
+              "threshold": null,
+              "wells": 8
+            }
+          ],
+          "mfr_hz": [
+            {
+              "bin": -9,
+              "median": -0.6644,
+              "moves": false,
+              "threshold": 2.1894,
+              "wells": 3
+            },
+            {
+              "bin": -8,
+              "median": -0.84,
+              "moves": false,
+              "threshold": 2.1894,
+              "wells": 3
+            },
+            {
+              "bin": -7,
+              "median": 0.4705,
+              "moves": false,
+              "threshold": 2.1894,
+              "wells": 3
+            },
+            {
+              "bin": -6,
+              "median": -0.4928,
+              "moves": false,
+              "threshold": 2.1894,
+              "wells": 3
+            },
+            {
+              "bin": -5,
+              "median": -0.7789,
+              "moves": false,
+              "threshold": 2.1894,
+              "wells": 3
+            },
+            {
+              "bin": -4,
+              "median": -0.2846,
+              "moves": false,
+              "threshold": 2.1894,
+              "wells": 3
+            },
+            {
+              "bin": -3,
+              "median": -3.4111,
+              "moves": false,
+              "threshold": null,
+              "wells": 11
+            },
+            {
+              "bin": -2,
+              "median": -3.4111,
+              "moves": false,
+              "threshold": null,
+              "wells": 7
+            },
+            {
+              "bin": -1,
+              "median": -3.4111,
+              "moves": false,
+              "threshold": null,
+              "wells": 8
+            },
+            {
+              "bin": 0,
+              "median": -3.4111,
+              "moves": false,
+              "threshold": null,
+              "wells": 9
+            },
+            {
+              "bin": 1,
+              "median": -4.1729,
+              "moves": false,
+              "threshold": null,
+              "wells": 9
+            },
+            {
+              "bin": 2,
+              "median": -4.1729,
+              "moves": false,
+              "threshold": null,
+              "wells": 9
+            },
+            {
+              "bin": 3,
+              "median": -4.1729,
+              "moves": false,
+              "threshold": null,
+              "wells": 8
+            }
+          ],
+          "pct_spikes_in_bursts": [
+            {
+              "bin": -9,
+              "median": 0.0082,
+              "moves": false,
+              "threshold": 0.5159,
+              "wells": 3
+            },
+            {
+              "bin": -8,
+              "median": 0.0017,
+              "moves": false,
+              "threshold": 0.5159,
+              "wells": 3
+            },
+            {
+              "bin": -7,
+              "median": 0.1317,
+              "moves": false,
+              "threshold": 0.5159,
+              "wells": 3
+            },
+            {
+              "bin": -6,
+              "median": 0.134,
+              "moves": false,
+              "threshold": 0.5159,
+              "wells": 3
+            },
+            {
+              "bin": -5,
+              "median": 0.1638,
+              "moves": false,
+              "threshold": 0.5159,
+              "wells": 3
+            },
+            {
+              "bin": -4,
+              "median": 0.0586,
+              "moves": false,
+              "threshold": 0.5159,
+              "wells": 3
+            },
+            {
+              "bin": -3,
+              "median": -0.2469,
+              "moves": false,
+              "threshold": null,
+              "wells": 11
+            },
+            {
+              "bin": -2,
+              "median": -4.0526,
+              "moves": false,
+              "threshold": null,
+              "wells": 7
+            },
+            {
+              "bin": -1,
+              "median": -4.0526,
+              "moves": false,
+              "threshold": null,
+              "wells": 8
+            },
+            {
+              "bin": 0,
+              "median": -4.0526,
+              "moves": false,
+              "threshold": null,
+              "wells": 8
+            },
+            {
+              "bin": 1,
+              "median": -4.0526,
+              "moves": false,
+              "threshold": null,
+              "wells": 9
+            },
+            {
+              "bin": 2,
+              "median": -4.2699,
+              "moves": false,
+              "threshold": null,
+              "wells": 9
+            },
+            {
+              "bin": 3,
+              "median": -4.2699,
+              "moves": false,
+              "threshold": null,
+              "wells": 8
+            }
+          ],
+          "spikes_per_burst": [
+            {
+              "bin": -9,
+              "median": 0.1658,
+              "moves": false,
+              "threshold": 0.5881,
+              "wells": 3
+            },
+            {
+              "bin": -8,
+              "median": 0.1519,
+              "moves": false,
+              "threshold": 0.5881,
+              "wells": 3
+            },
+            {
+              "bin": -7,
+              "median": 0.2769,
+              "moves": false,
+              "threshold": 0.5881,
+              "wells": 3
+            },
+            {
+              "bin": -6,
+              "median": 0.0985,
+              "moves": false,
+              "threshold": 0.5881,
+              "wells": 3
+            },
+            {
+              "bin": -5,
+              "median": 0.1465,
+              "moves": false,
+              "threshold": 0.5881,
+              "wells": 3
+            },
+            {
+              "bin": -4,
+              "median": 0.1085,
+              "moves": false,
+              "threshold": 0.5881,
+              "wells": 3
+            },
+            {
+              "bin": -3,
+              "median": -0.5791,
+              "moves": false,
+              "threshold": null,
+              "wells": 11
+            },
+            {
+              "bin": -2,
+              "median": -1.1867,
+              "moves": true,
+              "threshold": 0.5881,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": 0.1645,
+              "moves": false,
+              "threshold": 0.8224,
+              "wells": 2
+            },
+            {
+              "bin": 0,
+              "median": -0.0238,
+              "moves": false,
+              "threshold": 0.5881,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": -1.3921,
+              "moves": true,
+              "threshold": 0.5848,
+              "wells": 4
+            },
+            {
+              "bin": 2,
+              "median": null,
+              "moves": false,
+              "threshold": null,
+              "wells": 0
+            },
+            {
+              "bin": 3,
+              "median": -0.2957,
+              "moves": false,
+              "threshold": 0.9011,
+              "wells": 1
+            }
+          ],
+          "synchrony_index": [
+            {
+              "bin": -9,
+              "median": 0.0028,
+              "moves": false,
+              "threshold": 0.5613,
+              "wells": 3
+            },
+            {
+              "bin": -8,
+              "median": -0.0209,
+              "moves": false,
+              "threshold": 0.5613,
+              "wells": 3
+            },
+            {
+              "bin": -7,
+              "median": 0.0794,
+              "moves": false,
+              "threshold": 0.5613,
+              "wells": 3
+            },
+            {
+              "bin": -6,
+              "median": -0.0094,
+              "moves": false,
+              "threshold": 0.5613,
+              "wells": 3
+            },
+            {
+              "bin": -5,
+              "median": 0.0106,
+              "moves": false,
+              "threshold": 0.5613,
+              "wells": 3
+            },
+            {
+              "bin": -4,
+              "median": 0.0575,
+              "moves": false,
+              "threshold": 0.5613,
+              "wells": 3
+            },
+            {
+              "bin": -3,
+              "median": -0.1835,
+              "moves": false,
+              "threshold": null,
+              "wells": 11
+            },
+            {
+              "bin": -2,
+              "median": -4.1914,
+              "moves": false,
+              "threshold": null,
+              "wells": 7
+            },
+            {
+              "bin": -1,
+              "median": -4.1914,
+              "moves": false,
+              "threshold": null,
+              "wells": 8
+            },
+            {
+              "bin": 0,
+              "median": -1.1203,
+              "moves": false,
+              "threshold": null,
+              "wells": 7
+            },
+            {
+              "bin": 1,
+              "median": -4.1914,
+              "moves": false,
+              "threshold": null,
+              "wells": 9
+            },
+            {
+              "bin": 2,
+              "median": -4.2916,
+              "moves": false,
+              "threshold": null,
+              "wells": 9
+            },
+            {
+              "bin": 3,
+              "median": -4.1914,
+              "moves": true,
+              "threshold": 0.2025,
+              "wells": 6
+            }
+          ]
+        },
+        "retained_bins": [
+          -9,
+          -8,
+          -7,
+          -6,
+          -5,
+          -4,
+          -3,
+          -2,
+          -1,
+          0,
+          1,
+          2,
+          3
+        ],
+        "scored": true,
+        "shuffled_mechanism": {
+          "burst_duration_s": [
+            {
+              "bins": 12,
+              "hit": false,
+              "spearman": -0.3497
+            },
+            {
+              "bins": 3,
+              "spearman": null
+            },
+            {
+              "bins": 12,
+              "hit": false,
+              "spearman": -0.4825
+            }
+          ],
+          "spikes_per_burst": [
+            {
+              "bins": 12,
+              "hit": false,
+              "spearman": -0.6993
+            },
+            {
+              "bins": 3,
+              "spearman": null
+            },
+            {
+              "bins": 12,
+              "hit": false,
+              "spearman": 0.3497
+            }
+          ],
+          "synchrony_index": [
+            {
+              "bins": 13,
+              "hit": false,
+              "spearman": -0.8051
+            },
+            {
+              "bins": 13,
+              "hit": false,
+              "spearman": 0.2392
+            },
+            {
+              "bins": 13,
+              "hit": false,
+              "spearman": 0.524
+            }
+          ]
+        },
+        "spids": [
+          "EPAPLT0167H10",
+          "TP0001413H03"
+        ]
+      },
+      "Endosulfan": {
+        "bins": [
+          -3,
+          -2,
+          -1,
+          0,
+          1,
+          2,
+          3
+        ],
+        "exclusion": {
+          "excluded": [],
+          "first_flagged_bin": null,
+          "untestable_bins": [],
+          "viability": [
+            {
+              "bin": -3,
+              "median": -0.0332,
+              "wells": 5
+            },
+            {
+              "bin": -2,
+              "median": 0.0003,
+              "wells": 6
+            },
+            {
+              "bin": -1,
+              "median": -0.0127,
+              "wells": 6
+            },
+            {
+              "bin": 0,
+              "median": 0.033,
+              "wells": 6
+            },
+            {
+              "bin": 1,
+              "median": -0.0245,
+              "wells": 6
+            },
+            {
+              "bin": 2,
+              "median": 0.0053,
+              "wells": 6
+            },
+            {
+              "bin": 3,
+              "median": -0.1903,
+              "wells": 6
+            }
+          ]
+        },
+        "features": {
+          "burst_duration_s": {
+            "bins": 7,
+            "hit": false,
+            "scored": true,
+            "spearman": 0.5
+          },
+          "burst_rate_per_min": {
+            "responsive": true,
+            "scored": false,
+            "twin_moves": false
+          },
+          "pct_spikes_in_bursts": {
+            "bins": 7,
+            "hit": false,
+            "scored": true,
+            "spearman": -0.7857
+          },
+          "spikes_per_burst": {
+            "bins": 7,
+            "hit": false,
+            "scored": true,
+            "spearman": 0.1429
+          },
+          "synchrony_index": {
+            "bins": 7,
+            "hit": false,
+            "scored": true,
+            "spearman": -0.8929
+          }
+        },
+        "firing_rate_sign": {
+          "agrees": false,
+          "real": -3.5852,
+          "twin": 3.4531
+        },
+        "first_mover": {
+          "match": true,
+          "real": [
+            "spikes_per_burst"
+          ],
+          "twin": [
+            "spikes_per_burst"
+          ]
+        },
+        "follow_firing_rate": {
+          "burst_duration_s": {
+            "bins": 7,
+            "hit": false,
+            "spearman": 0.0357
+          },
+          "pct_spikes_in_bursts": {
+            "bins": 7,
+            "hit": true,
+            "spearman": 0.6071
+          },
+          "spikes_per_burst": {
+            "bins": 7,
+            "hit": false,
+            "spearman": 0.3214
+          },
+          "synchrony_index": {
+            "bins": 7,
+            "hit": false,
+            "spearman": 0.3214
+          }
+        },
+        "knob": "gabaa_block",
+        "label": "gabaa_antagonist",
+        "real": {
+          "burst_duration_s": [
+            {
+              "bin": -3,
+              "median": 0.13,
+              "moves": false,
+              "threshold": 0.4199,
+              "wells": 5
+            },
+            {
+              "bin": -2,
+              "median": 0.1088,
+              "moves": false,
+              "threshold": 0.5051,
+              "wells": 6
+            },
+            {
+              "bin": -1,
+              "median": 0.299,
+              "moves": false,
+              "threshold": 0.5051,
+              "wells": 6
+            },
+            {
+              "bin": 0,
+              "median": 1.1214,
+              "moves": true,
+              "threshold": 0.4199,
+              "wells": 5
+            },
+            {
+              "bin": 1,
+              "median": 1.3352,
+              "moves": true,
+              "threshold": 0.4199,
+              "wells": 5
+            },
+            {
+              "bin": 2,
+              "median": 0.4672,
+              "moves": false,
+              "threshold": 0.5051,
+              "wells": 6
+            },
+            {
+              "bin": 3,
+              "median": 0.1418,
+              "moves": false,
+              "threshold": 0.4199,
+              "wells": 5
+            }
+          ],
+          "burst_rate_per_min": [
+            {
+              "bin": -3,
+              "median": -0.1807,
+              "moves": false,
+              "threshold": 1.9893,
+              "wells": 5
+            },
+            {
+              "bin": -2,
+              "median": 0.0755,
+              "moves": false,
+              "threshold": 1.0423,
+              "wells": 6
+            },
+            {
+              "bin": -1,
+              "median": 0.0135,
+              "moves": false,
+              "threshold": 1.0423,
+              "wells": 6
+            },
+            {
+              "bin": 0,
+              "median": -0.6678,
+              "moves": false,
+              "threshold": 1.9893,
+              "wells": 5
+            },
+            {
+              "bin": 1,
+              "median": -0.5184,
+              "moves": false,
+              "threshold": 1.9893,
+              "wells": 5
+            },
+            {
+              "bin": 2,
+              "median": -0.0474,
+              "moves": false,
+              "threshold": 1.0423,
+              "wells": 6
+            },
+            {
+              "bin": 3,
+              "median": -3.4963,
+              "moves": true,
+              "threshold": 1.0423,
+              "wells": 6
+            }
+          ],
+          "mfr_hz": [
+            {
+              "bin": -3,
+              "median": 0.0627,
+              "moves": false,
+              "threshold": 1.9276,
+              "wells": 5
+            },
+            {
+              "bin": -2,
+              "median": 0.1468,
+              "moves": false,
+              "threshold": 1.0178,
+              "wells": 6
+            },
+            {
+              "bin": -1,
+              "median": 0.4321,
+              "moves": false,
+              "threshold": 1.0178,
+              "wells": 6
+            },
+            {
+              "bin": 0,
+              "median": -0.1426,
+              "moves": false,
+              "threshold": 1.9276,
+              "wells": 5
+            },
+            {
+              "bin": 1,
+              "median": 0.1196,
+              "moves": false,
+              "threshold": 1.9276,
+              "wells": 5
+            },
+            {
+              "bin": 2,
+              "median": 0.7338,
+              "moves": false,
+              "threshold": 1.0178,
+              "wells": 6
+            },
+            {
+              "bin": 3,
+              "median": -3.5852,
+              "moves": true,
+              "threshold": 1.0178,
+              "wells": 6
+            }
+          ],
+          "pct_spikes_in_bursts": [
+            {
+              "bin": -3,
+              "median": 0.1452,
+              "moves": false,
+              "threshold": 0.3909,
+              "wells": 5
+            },
+            {
+              "bin": -2,
+              "median": 0.1555,
+              "moves": false,
+              "threshold": 0.2772,
+              "wells": 6
+            },
+            {
+              "bin": -1,
+              "median": 0.154,
+              "moves": false,
+              "threshold": 0.2772,
+              "wells": 6
+            },
+            {
+              "bin": 0,
+              "median": 0.0752,
+              "moves": false,
+              "threshold": 0.3909,
+              "wells": 5
+            },
+            {
+              "bin": 1,
+              "median": 0.0704,
+              "moves": false,
+              "threshold": 0.3909,
+              "wells": 5
+            },
+            {
+              "bin": 2,
+              "median": 0.0924,
+              "moves": false,
+              "threshold": 0.2772,
+              "wells": 6
+            },
+            {
+              "bin": 3,
+              "median": -0.2823,
+              "moves": true,
+              "threshold": 0.2772,
+              "wells": 6
+            }
+          ],
+          "spikes_per_burst": [
+            {
+              "bin": -3,
+              "median": 0.3221,
+              "moves": false,
+              "threshold": 0.3355,
+              "wells": 5
+            },
+            {
+              "bin": -2,
+              "median": 0.3786,
+              "moves": true,
+              "threshold": 0.3344,
+              "wells": 6
+            },
+            {
+              "bin": -1,
+              "median": 0.5798,
+              "moves": true,
+              "threshold": 0.3344,
+              "wells": 6
+            },
+            {
+              "bin": 0,
+              "median": 0.7704,
+              "moves": true,
+              "threshold": 0.3355,
+              "wells": 5
+            },
+            {
+              "bin": 1,
+              "median": 1.0632,
+              "moves": true,
+              "threshold": 0.3355,
+              "wells": 5
+            },
+            {
+              "bin": 2,
+              "median": 0.705,
+              "moves": true,
+              "threshold": 0.3344,
+              "wells": 6
+            },
+            {
+              "bin": 3,
+              "median": -0.3384,
+              "moves": true,
+              "threshold": 0.3355,
+              "wells": 5
+            }
+          ],
+          "synchrony_index": [
+            {
+              "bin": -3,
+              "median": 0.0545,
+              "moves": false,
+              "threshold": 0.225,
+              "wells": 5
+            },
+            {
+              "bin": -2,
+              "median": 0.0876,
+              "moves": false,
+              "threshold": 0.189,
+              "wells": 6
+            },
+            {
+              "bin": -1,
+              "median": 0.0796,
+              "moves": false,
+              "threshold": 0.189,
+              "wells": 6
+            },
+            {
+              "bin": 0,
+              "median": -0.0015,
+              "moves": false,
+              "threshold": 0.225,
+              "wells": 5
+            },
+            {
+              "bin": 1,
+              "median": -0.0103,
+              "moves": false,
+              "threshold": 0.225,
+              "wells": 5
+            },
+            {
+              "bin": 2,
+              "median": -0.0182,
+              "moves": false,
+              "threshold": 0.189,
+              "wells": 6
+            },
+            {
+              "bin": 3,
+              "median": -0.2548,
+              "moves": true,
+              "threshold": 0.225,
+              "wells": 5
+            }
+          ]
+        },
+        "retained_bins": [
+          -3,
+          -2,
+          -1,
+          0,
+          1,
+          2,
+          3
+        ],
+        "scored": true,
+        "shuffled_mechanism": {
+          "burst_duration_s": [
+            {
+              "bins": 7,
+              "hit": false,
+              "spearman": -0.6786
+            },
+            {
+              "bins": 2,
+              "spearman": null
+            },
+            {
+              "bins": 7,
+              "hit": false,
+              "spearman": 0.5714
+            }
+          ],
+          "pct_spikes_in_bursts": [
+            {
+              "bins": 7,
+              "hit": true,
+              "spearman": 0.6071
+            },
+            {
+              "bins": 7,
+              "hit": false,
+              "spearman": 0.2041
+            },
+            {
+              "bins": 7,
+              "hit": false,
+              "spearman": 0.5791
+            }
+          ],
+          "spikes_per_burst": [
+            {
+              "bins": 7,
+              "hit": false,
+              "spearman": -0.1429
+            },
+            {
+              "bins": 2,
+              "spearman": null
+            },
+            {
+              "bins": 7,
+              "hit": false,
+              "spearman": -0.1429
+            }
+          ],
+          "synchrony_index": [
+            {
+              "bins": 7,
+              "hit": false,
+              "spearman": 0.5357
+            },
+            {
+              "bins": 7,
+              "hit": false,
+              "spearman": 0.2041
+            },
+            {
+              "bins": 7,
+              "hit": false,
+              "spearman": 0.5791
+            }
+          ]
+        },
+        "spids": [
+          "EPAPLT0167G10",
+          "TP0001413H09"
+        ]
+      },
+      "Endrin": {
+        "bins": [
+          -3,
+          -2,
+          -1,
+          0,
+          1,
+          2,
+          3
+        ],
+        "exclusion": {
+          "excluded": [],
+          "first_flagged_bin": null,
+          "untestable_bins": [],
+          "viability": [
+            {
+              "bin": -3,
+              "median": 0.1327,
+              "wells": 3
+            },
+            {
+              "bin": -2,
+              "median": 0.4003,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": 0.1867,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": -0.0123,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": 0.0523,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": 0.0021,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": -0.0874,
+              "wells": 3
+            }
+          ]
+        },
+        "features": {
+          "burst_duration_s": {
+            "bins": 7,
+            "hit": true,
+            "scored": true,
+            "spearman": 0.9643
+          },
+          "burst_rate_per_min": {
+            "responsive": false,
+            "scored": false,
+            "twin_moves": false
+          },
+          "pct_spikes_in_bursts": {
+            "responsive": false,
+            "scored": false,
+            "twin_moves": true
+          },
+          "spikes_per_burst": {
+            "bins": 7,
+            "hit": true,
+            "scored": true,
+            "spearman": 0.9643
+          },
+          "synchrony_index": {
+            "responsive": false,
+            "scored": false,
+            "twin_moves": true
+          }
+        },
+        "firing_rate_sign": {
+          "agrees": true,
+          "real": 1.6401,
+          "twin": 3.4531
+        },
+        "first_mover": {
+          "match": true,
+          "real": [
+            "spikes_per_burst"
+          ],
+          "twin": [
+            "spikes_per_burst"
+          ]
+        },
+        "follow_firing_rate": {
+          "burst_duration_s": {
+            "bins": 7,
+            "hit": true,
+            "spearman": 0.9643
+          },
+          "spikes_per_burst": {
+            "bins": 7,
+            "hit": true,
+            "spearman": 0.9643
+          }
+        },
+        "knob": "gabaa_block",
+        "label": "gabaa_antagonist",
+        "real": {
+          "burst_duration_s": [
+            {
+              "bin": -3,
+              "median": -0.0629,
+              "moves": false,
+              "threshold": 0.5251,
+              "wells": 3
+            },
+            {
+              "bin": -2,
+              "median": 0.1693,
+              "moves": false,
+              "threshold": 0.5251,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": 0.518,
+              "moves": false,
+              "threshold": 0.5251,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": 0.7829,
+              "moves": true,
+              "threshold": 0.5251,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": 1.115,
+              "moves": true,
+              "threshold": 0.5251,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": 1.3264,
+              "moves": true,
+              "threshold": 0.5251,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": 1.2716,
+              "moves": true,
+              "threshold": 0.5251,
+              "wells": 3
+            }
+          ],
+          "burst_rate_per_min": [
+            {
+              "bin": -3,
+              "median": 0.4993,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            },
+            {
+              "bin": -2,
+              "median": 0.3688,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": 0.48,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": 0.3416,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": 0.346,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": 0.7742,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": 0.5019,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            }
+          ],
+          "mfr_hz": [
+            {
+              "bin": -3,
+              "median": 0.6899,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            },
+            {
+              "bin": -2,
+              "median": 0.6585,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": 0.894,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": 1.0374,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": 1.3119,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": 1.7036,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": 1.6401,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            }
+          ],
+          "pct_spikes_in_bursts": [
+            {
+              "bin": -3,
+              "median": 0.2927,
+              "moves": false,
+              "threshold": 0.4083,
+              "wells": 3
+            },
+            {
+              "bin": -2,
+              "median": 0.343,
+              "moves": false,
+              "threshold": 0.4083,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": 0.306,
+              "moves": false,
+              "threshold": 0.4083,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": 0.2406,
+              "moves": false,
+              "threshold": 0.4083,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": 0.2444,
+              "moves": false,
+              "threshold": 0.4083,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": 0.2455,
+              "moves": false,
+              "threshold": 0.4083,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": 0.2678,
+              "moves": false,
+              "threshold": 0.4083,
+              "wells": 3
+            }
+          ],
+          "spikes_per_burst": [
+            {
+              "bin": -3,
+              "median": 0.3618,
+              "moves": false,
+              "threshold": 0.4947,
+              "wells": 3
+            },
+            {
+              "bin": -2,
+              "median": 0.4816,
+              "moves": false,
+              "threshold": 0.4947,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": 0.7015,
+              "moves": true,
+              "threshold": 0.4947,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": 0.7019,
+              "moves": true,
+              "threshold": 0.4947,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": 1.2083,
+              "moves": true,
+              "threshold": 0.4947,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": 1.2792,
+              "moves": true,
+              "threshold": 0.4947,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": 1.2422,
+              "moves": true,
+              "threshold": 0.4947,
+              "wells": 3
+            }
+          ],
+          "synchrony_index": [
+            {
+              "bin": -3,
+              "median": 0.1915,
+              "moves": false,
+              "threshold": 0.3331,
+              "wells": 3
+            },
+            {
+              "bin": -2,
+              "median": 0.2298,
+              "moves": false,
+              "threshold": 0.3331,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": 0.1655,
+              "moves": false,
+              "threshold": 0.3331,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": 0.1467,
+              "moves": false,
+              "threshold": 0.3331,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": 0.0517,
+              "moves": false,
+              "threshold": 0.3331,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": 0.0419,
+              "moves": false,
+              "threshold": 0.3331,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": 0.0775,
+              "moves": false,
+              "threshold": 0.3331,
+              "wells": 3
+            }
+          ]
+        },
+        "retained_bins": [
+          -3,
+          -2,
+          -1,
+          0,
+          1,
+          2,
+          3
+        ],
+        "scored": true,
+        "shuffled_mechanism": {
+          "burst_duration_s": [
+            {
+              "bins": 7,
+              "hit": false,
+              "spearman": -0.7857
+            },
+            {
+              "bins": 2,
+              "spearman": null
+            },
+            {
+              "bins": 7,
+              "hit": true,
+              "spearman": 1.0
+            }
+          ],
+          "spikes_per_burst": [
+            {
+              "bins": 7,
+              "hit": false,
+              "spearman": -0.9643
+            },
+            {
+              "bins": 2,
+              "spearman": null
+            },
+            {
+              "bins": 7,
+              "hit": false,
+              "spearman": -0.6071
+            }
+          ]
+        },
+        "spids": [
+          "TP0001414E02"
+        ]
+      },
+      "Fipronil": {
+        "bins": [
+          -3,
+          -2,
+          -1,
+          0,
+          1,
+          2,
+          3
+        ],
+        "exclusion": {
+          "excluded": [],
+          "first_flagged_bin": null,
+          "untestable_bins": [],
+          "viability": [
+            {
+              "bin": -3,
+              "median": -0.1346,
+              "wells": 6
+            },
+            {
+              "bin": -2,
+              "median": 0.0595,
+              "wells": 6
+            },
+            {
+              "bin": -1,
+              "median": 0.0196,
+              "wells": 5
+            },
+            {
+              "bin": 0,
+              "median": 0.0199,
+              "wells": 6
+            },
+            {
+              "bin": 1,
+              "median": 0.0709,
+              "wells": 6
+            },
+            {
+              "bin": 2,
+              "median": -0.0222,
+              "wells": 6
+            },
+            {
+              "bin": 3,
+              "median": 0.0588,
+              "wells": 6
+            }
+          ]
+        },
+        "features": {
+          "burst_duration_s": {
+            "responsive": false,
+            "scored": false,
+            "twin_moves": true
+          },
+          "burst_rate_per_min": {
+            "responsive": true,
+            "scored": false,
+            "twin_moves": false
+          },
+          "pct_spikes_in_bursts": {
+            "bins": 7,
+            "hit": false,
+            "scored": true,
+            "spearman": 0.0714
+          },
+          "spikes_per_burst": {
+            "bins": 6,
+            "hit": true,
+            "scored": true,
+            "spearman": 0.9429
+          },
+          "synchrony_index": {
+            "bins": 7,
+            "hit": false,
+            "scored": true,
+            "spearman": 0.0357
+          }
+        },
+        "firing_rate_sign": {
+          "agrees": false,
+          "real": -3.8396,
+          "twin": 3.4531
+        },
+        "first_mover": {
+          "match": true,
+          "real": [
+            "spikes_per_burst"
+          ],
+          "twin": [
+            "spikes_per_burst"
+          ]
+        },
+        "follow_firing_rate": {
+          "pct_spikes_in_bursts": {
+            "bins": 7,
+            "hit": false,
+            "spearman": 0.3214
+          },
+          "spikes_per_burst": {
+            "bins": 6,
+            "hit": false,
+            "spearman": -0.5429
+          },
+          "synchrony_index": {
+            "bins": 7,
+            "hit": false,
+            "spearman": 0.3571
+          }
+        },
+        "knob": "gabaa_block",
+        "label": "gabaa_antagonist",
+        "real": {
+          "burst_duration_s": [
+            {
+              "bin": -3,
+              "median": 0.0488,
+              "moves": false,
+              "threshold": 0.4199,
+              "wells": 5
+            },
+            {
+              "bin": -2,
+              "median": 0.0273,
+              "moves": false,
+              "threshold": 0.5051,
+              "wells": 6
+            },
+            {
+              "bin": -1,
+              "median": 0.0237,
+              "moves": false,
+              "threshold": 0.4199,
+              "wells": 5
+            },
+            {
+              "bin": 0,
+              "median": 0.0987,
+              "moves": false,
+              "threshold": 0.4199,
+              "wells": 5
+            },
+            {
+              "bin": 1,
+              "median": 0.2136,
+              "moves": false,
+              "threshold": 0.4199,
+              "wells": 5
+            },
+            {
+              "bin": 2,
+              "median": 0.3897,
+              "moves": false,
+              "threshold": 0.4199,
+              "wells": 5
+            },
+            {
+              "bin": 3,
+              "median": null,
+              "moves": false,
+              "threshold": null,
+              "wells": 0
+            }
+          ],
+          "burst_rate_per_min": [
+            {
+              "bin": -3,
+              "median": 0.2968,
+              "moves": false,
+              "threshold": 1.9893,
+              "wells": 5
+            },
+            {
+              "bin": -2,
+              "median": 0.2329,
+              "moves": false,
+              "threshold": 1.0423,
+              "wells": 6
+            },
+            {
+              "bin": -1,
+              "median": -0.3942,
+              "moves": false,
+              "threshold": 1.9893,
+              "wells": 5
+            },
+            {
+              "bin": 0,
+              "median": 0.5145,
+              "moves": false,
+              "threshold": 1.9893,
+              "wells": 5
+            },
+            {
+              "bin": 1,
+              "median": 0.1623,
+              "moves": false,
+              "threshold": 1.9893,
+              "wells": 5
+            },
+            {
+              "bin": 2,
+              "median": -1.2395,
+              "moves": false,
+              "threshold": 1.9893,
+              "wells": 5
+            },
+            {
+              "bin": 3,
+              "median": -3.7774,
+              "moves": true,
+              "threshold": 1.9893,
+              "wells": 5
+            }
+          ],
+          "mfr_hz": [
+            {
+              "bin": -3,
+              "median": 0.3583,
+              "moves": false,
+              "threshold": 1.9276,
+              "wells": 5
+            },
+            {
+              "bin": -2,
+              "median": 0.4215,
+              "moves": false,
+              "threshold": 1.0178,
+              "wells": 6
+            },
+            {
+              "bin": -1,
+              "median": 0.1014,
+              "moves": false,
+              "threshold": 1.9276,
+              "wells": 5
+            },
+            {
+              "bin": 0,
+              "median": 0.5849,
+              "moves": false,
+              "threshold": 1.9276,
+              "wells": 5
+            },
+            {
+              "bin": 1,
+              "median": 0.2546,
+              "moves": false,
+              "threshold": 1.9276,
+              "wells": 5
+            },
+            {
+              "bin": 2,
+              "median": -1.0747,
+              "moves": false,
+              "threshold": 1.9276,
+              "wells": 5
+            },
+            {
+              "bin": 3,
+              "median": -3.8396,
+              "moves": true,
+              "threshold": 1.9276,
+              "wells": 5
+            }
+          ],
+          "pct_spikes_in_bursts": [
+            {
+              "bin": -3,
+              "median": 0.1995,
+              "moves": false,
+              "threshold": 0.3909,
+              "wells": 5
+            },
+            {
+              "bin": -2,
+              "median": 0.1258,
+              "moves": false,
+              "threshold": 0.2772,
+              "wells": 6
+            },
+            {
+              "bin": -1,
+              "median": 0.0779,
+              "moves": false,
+              "threshold": 0.3909,
+              "wells": 5
+            },
+            {
+              "bin": 0,
+              "median": 0.3316,
+              "moves": false,
+              "threshold": 0.3909,
+              "wells": 5
+            },
+            {
+              "bin": 1,
+              "median": 0.2658,
+              "moves": false,
+              "threshold": 0.3909,
+              "wells": 5
+            },
+            {
+              "bin": 2,
+              "median": 0.3613,
+              "moves": false,
+              "threshold": 0.3909,
+              "wells": 5
+            },
+            {
+              "bin": 3,
+              "median": -4.1585,
+              "moves": true,
+              "threshold": 0.4106,
+              "wells": 4
+            }
+          ],
+          "spikes_per_burst": [
+            {
+              "bin": -3,
+              "median": 0.1824,
+              "moves": false,
+              "threshold": 0.3355,
+              "wells": 5
+            },
+            {
+              "bin": -2,
+              "median": 0.1586,
+              "moves": false,
+              "threshold": 0.3344,
+              "wells": 6
+            },
+            {
+              "bin": -1,
+              "median": 0.1988,
+              "moves": false,
+              "threshold": 0.3355,
+              "wells": 5
+            },
+            {
+              "bin": 0,
+              "median": 0.4629,
+              "moves": true,
+              "threshold": 0.3355,
+              "wells": 5
+            },
+            {
+              "bin": 1,
+              "median": 0.6696,
+              "moves": true,
+              "threshold": 0.3355,
+              "wells": 5
+            },
+            {
+              "bin": 2,
+              "median": 0.7987,
+              "moves": true,
+              "threshold": 0.3355,
+              "wells": 5
+            },
+            {
+              "bin": 3,
+              "median": null,
+              "moves": false,
+              "threshold": null,
+              "wells": 0
+            }
+          ],
+          "synchrony_index": [
+            {
+              "bin": -3,
+              "median": 0.0969,
+              "moves": false,
+              "threshold": 0.225,
+              "wells": 5
+            },
+            {
+              "bin": -2,
+              "median": 0.0668,
+              "moves": false,
+              "threshold": 0.189,
+              "wells": 6
+            },
+            {
+              "bin": -1,
+              "median": 0.0735,
+              "moves": false,
+              "threshold": 0.225,
+              "wells": 5
+            },
+            {
+              "bin": 0,
+              "median": 0.2058,
+              "moves": false,
+              "threshold": 0.225,
+              "wells": 5
+            },
+            {
+              "bin": 1,
+              "median": 0.3877,
+              "moves": true,
+              "threshold": 0.225,
+              "wells": 5
+            },
+            {
+              "bin": 2,
+              "median": 0.2,
+              "moves": false,
+              "threshold": 0.225,
+              "wells": 5
+            },
+            {
+              "bin": 3,
+              "median": -4.2913,
+              "moves": true,
+              "threshold": 0.3331,
+              "wells": 3
+            }
+          ]
+        },
+        "retained_bins": [
+          -3,
+          -2,
+          -1,
+          0,
+          1,
+          2,
+          3
+        ],
+        "scored": true,
+        "shuffled_mechanism": {
+          "pct_spikes_in_bursts": [
+            {
+              "bins": 7,
+              "hit": false,
+              "spearman": 0.3929
+            },
+            {
+              "bins": 7,
+              "hit": false,
+              "spearman": 0.0
+            },
+            {
+              "bins": 7,
+              "hit": false,
+              "spearman": -0.1336
+            }
+          ],
+          "spikes_per_burst": [
+            {
+              "bins": 6,
+              "hit": false,
+              "spearman": -0.9429
+            },
+            {
+              "bins": 2,
+              "spearman": null
+            },
+            {
+              "bins": 6,
+              "hit": false,
+              "spearman": -0.5429
+            }
+          ],
+          "synchrony_index": [
+            {
+              "bins": 7,
+              "hit": false,
+              "spearman": 0.2143
+            },
+            {
+              "bins": 7,
+              "hit": false,
+              "spearman": 0.0
+            },
+            {
+              "bins": 7,
+              "hit": false,
+              "spearman": -0.2673
+            }
+          ]
+        },
+        "spids": [
+          "EPAPLT0167B08",
+          "TP0001412H03"
+        ]
+      },
+      "Heptachlor": {
+        "bins": [
+          -3,
+          -2,
+          -1,
+          0,
+          1,
+          2,
+          3
+        ],
+        "exclusion": {
+          "excluded": [],
+          "first_flagged_bin": null,
+          "untestable_bins": [],
+          "viability": [
+            {
+              "bin": -3,
+              "median": -0.1262,
+              "wells": 3
+            },
+            {
+              "bin": -2,
+              "median": -0.0072,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": 0.0449,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": 0.0107,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": -0.1155,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": 0.0523,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": -0.3592,
+              "wells": 3
+            }
+          ]
+        },
+        "features": {
+          "burst_duration_s": {
+            "responsive": false,
+            "scored": false,
+            "twin_moves": true
+          },
+          "burst_rate_per_min": {
+            "responsive": false,
+            "scored": false,
+            "twin_moves": false
+          },
+          "pct_spikes_in_bursts": {
+            "responsive": false,
+            "scored": false,
+            "twin_moves": true
+          },
+          "spikes_per_burst": {
+            "bins": 7,
+            "hit": false,
+            "scored": true,
+            "spearman": 0.1071
+          },
+          "synchrony_index": {
+            "bins": 7,
+            "hit": true,
+            "scored": true,
+            "spearman": 0.75
+          }
+        },
+        "firing_rate_sign": {
+          "agrees": true,
+          "real": 1.2333,
+          "twin": 3.4531
+        },
+        "first_mover": {
+          "match": true,
+          "real": [
+            "spikes_per_burst",
+            "synchrony_index"
+          ],
+          "twin": [
+            "spikes_per_burst"
+          ]
+        },
+        "follow_firing_rate": {
+          "spikes_per_burst": {
+            "bins": 7,
+            "hit": false,
+            "spearman": -0.0357
+          },
+          "synchrony_index": {
+            "bins": 7,
+            "hit": false,
+            "spearman": 0.3929
+          }
+        },
+        "knob": "gabaa_block",
+        "label": "gabaa_antagonist",
+        "real": {
+          "burst_duration_s": [
+            {
+              "bin": -3,
+              "median": 0.1448,
+              "moves": false,
+              "threshold": 0.5251,
+              "wells": 3
+            },
+            {
+              "bin": -2,
+              "median": 0.0385,
+              "moves": false,
+              "threshold": 0.5251,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": 0.1373,
+              "moves": false,
+              "threshold": 0.5251,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": 0.1306,
+              "moves": false,
+              "threshold": 0.5251,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": 0.136,
+              "moves": false,
+              "threshold": 0.5251,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": 0.4447,
+              "moves": false,
+              "threshold": 0.5251,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": -0.2308,
+              "moves": false,
+              "threshold": 0.5251,
+              "wells": 3
+            }
+          ],
+          "burst_rate_per_min": [
+            {
+              "bin": -3,
+              "median": -0.5415,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            },
+            {
+              "bin": -2,
+              "median": -0.1497,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": 0.0971,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": -0.0081,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": -0.1113,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": 0.558,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": 1.315,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            }
+          ],
+          "mfr_hz": [
+            {
+              "bin": -3,
+              "median": -0.2468,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            },
+            {
+              "bin": -2,
+              "median": -0.11,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": 0.1024,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": -0.0274,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": -0.0342,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": 1.0505,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": 1.2333,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            }
+          ],
+          "pct_spikes_in_bursts": [
+            {
+              "bin": -3,
+              "median": -0.0258,
+              "moves": false,
+              "threshold": 0.4083,
+              "wells": 3
+            },
+            {
+              "bin": -2,
+              "median": 0.0294,
+              "moves": false,
+              "threshold": 0.4083,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": 0.0836,
+              "moves": false,
+              "threshold": 0.4083,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": 0.1188,
+              "moves": false,
+              "threshold": 0.4083,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": 0.1802,
+              "moves": false,
+              "threshold": 0.4083,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": 0.2793,
+              "moves": false,
+              "threshold": 0.4083,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": -0.0056,
+              "moves": false,
+              "threshold": 0.4083,
+              "wells": 3
+            }
+          ],
+          "spikes_per_burst": [
+            {
+              "bin": -3,
+              "median": 0.1652,
+              "moves": false,
+              "threshold": 0.4947,
+              "wells": 3
+            },
+            {
+              "bin": -2,
+              "median": 0.0871,
+              "moves": false,
+              "threshold": 0.4947,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": 0.1128,
+              "moves": false,
+              "threshold": 0.4947,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": 0.2642,
+              "moves": false,
+              "threshold": 0.4947,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": 0.2098,
+              "moves": false,
+              "threshold": 0.4947,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": 0.764,
+              "moves": true,
+              "threshold": 0.4947,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": -0.0912,
+              "moves": false,
+              "threshold": 0.4947,
+              "wells": 3
+            }
+          ],
+          "synchrony_index": [
+            {
+              "bin": -3,
+              "median": 0.0446,
+              "moves": false,
+              "threshold": 0.3331,
+              "wells": 3
+            },
+            {
+              "bin": -2,
+              "median": 0.0408,
+              "moves": false,
+              "threshold": 0.3331,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": 0.0176,
+              "moves": false,
+              "threshold": 0.3331,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": 0.1024,
+              "moves": false,
+              "threshold": 0.3331,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": 0.1941,
+              "moves": false,
+              "threshold": 0.3331,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": 0.4298,
+              "moves": true,
+              "threshold": 0.3331,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": 0.1135,
+              "moves": false,
+              "threshold": 0.3331,
+              "wells": 3
+            }
+          ]
+        },
+        "retained_bins": [
+          -3,
+          -2,
+          -1,
+          0,
+          1,
+          2,
+          3
+        ],
+        "scored": true,
+        "shuffled_mechanism": {
+          "spikes_per_burst": [
+            {
+              "bins": 7,
+              "hit": false,
+              "spearman": -0.1071
+            },
+            {
+              "bins": 2,
+              "spearman": null
+            },
+            {
+              "bins": 7,
+              "hit": false,
+              "spearman": 0.25
+            }
+          ],
+          "synchrony_index": [
+            {
+              "bins": 7,
+              "hit": false,
+              "spearman": -0.1071
+            },
+            {
+              "bins": 7,
+              "hit": false,
+              "spearman": -0.2041
+            },
+            {
+              "bins": 7,
+              "hit": false,
+              "spearman": -0.4454
+            }
+          ]
+        },
+        "spids": [
+          "TP0001411C06"
+        ]
+      },
+      "Heptachlor epoxide B": {
+        "bins": [
+          -3,
+          -2,
+          -1,
+          0,
+          1,
+          2,
+          3
+        ],
+        "exclusion": {
+          "excluded": [],
+          "first_flagged_bin": null,
+          "untestable_bins": [],
+          "viability": [
+            {
+              "bin": -3,
+              "median": 0.3721,
+              "wells": 3
+            },
+            {
+              "bin": -2,
+              "median": 0.2217,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": 0.0353,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": 0.113,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": -0.0096,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": 0.4774,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": 0.0822,
+              "wells": 3
+            }
+          ]
+        },
+        "features": {
+          "burst_duration_s": {
+            "responsive": false,
+            "scored": false,
+            "twin_moves": true
+          },
+          "burst_rate_per_min": {
+            "responsive": false,
+            "scored": false,
+            "twin_moves": false
+          },
+          "pct_spikes_in_bursts": {
+            "bins": 7,
+            "hit": false,
+            "scored": true,
+            "spearman": -0.6786
+          },
+          "spikes_per_burst": {
+            "responsive": false,
+            "scored": false,
+            "twin_moves": true
+          },
+          "synchrony_index": {
+            "bins": 7,
+            "hit": false,
+            "scored": true,
+            "spearman": 0.0
+          }
+        },
+        "firing_rate_sign": {
+          "agrees": true,
+          "real": 0.2587,
+          "twin": 3.4531
+        },
+        "first_mover": {
+          "match": false,
+          "real": [
+            "pct_spikes_in_bursts",
+            "synchrony_index"
+          ],
+          "twin": [
+            "spikes_per_burst"
+          ]
+        },
+        "follow_firing_rate": {
+          "pct_spikes_in_bursts": {
+            "bins": 7,
+            "hit": false,
+            "spearman": 0.5357
+          },
+          "synchrony_index": {
+            "bins": 7,
+            "hit": true,
+            "spearman": 0.9286
+          }
+        },
+        "knob": "gabaa_block",
+        "label": "gabaa_antagonist",
+        "real": {
+          "burst_duration_s": [
+            {
+              "bin": -3,
+              "median": 0.1251,
+              "moves": false,
+              "threshold": 0.5251,
+              "wells": 3
+            },
+            {
+              "bin": -2,
+              "median": -0.0622,
+              "moves": false,
+              "threshold": 0.5251,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": -0.349,
+              "moves": false,
+              "threshold": 0.5251,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": -0.3754,
+              "moves": false,
+              "threshold": 0.5251,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": -0.0385,
+              "moves": false,
+              "threshold": 0.5251,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": -0.2267,
+              "moves": false,
+              "threshold": 0.5251,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": 0.1565,
+              "moves": false,
+              "threshold": 0.5251,
+              "wells": 3
+            }
+          ],
+          "burst_rate_per_min": [
+            {
+              "bin": -3,
+              "median": 0.802,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            },
+            {
+              "bin": -2,
+              "median": 1.2293,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": 1.3021,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": 1.376,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": 1.5479,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": 1.1825,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": 1.0231,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            }
+          ],
+          "mfr_hz": [
+            {
+              "bin": -3,
+              "median": 0.5398,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            },
+            {
+              "bin": -2,
+              "median": 0.8128,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": 0.8697,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": 0.9917,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": 1.1918,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": 0.6273,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": 0.2587,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            }
+          ],
+          "pct_spikes_in_bursts": [
+            {
+              "bin": -3,
+              "median": 0.3116,
+              "moves": false,
+              "threshold": 0.4083,
+              "wells": 3
+            },
+            {
+              "bin": -2,
+              "median": 0.4394,
+              "moves": true,
+              "threshold": 0.4083,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": 0.5011,
+              "moves": true,
+              "threshold": 0.4083,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": 0.4508,
+              "moves": true,
+              "threshold": 0.4083,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": 0.2575,
+              "moves": false,
+              "threshold": 0.4083,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": 0.2257,
+              "moves": false,
+              "threshold": 0.4083,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": -0.1403,
+              "moves": false,
+              "threshold": 0.4083,
+              "wells": 3
+            }
+          ],
+          "spikes_per_burst": [
+            {
+              "bin": -3,
+              "median": 0.3027,
+              "moves": false,
+              "threshold": 0.4947,
+              "wells": 3
+            },
+            {
+              "bin": -2,
+              "median": 0.2431,
+              "moves": false,
+              "threshold": 0.4947,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": 0.2685,
+              "moves": false,
+              "threshold": 0.4947,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": 0.4141,
+              "moves": false,
+              "threshold": 0.4947,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": 0.3973,
+              "moves": false,
+              "threshold": 0.4947,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": 0.0102,
+              "moves": false,
+              "threshold": 0.4947,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": 0.107,
+              "moves": false,
+              "threshold": 0.4947,
+              "wells": 3
+            }
+          ],
+          "synchrony_index": [
+            {
+              "bin": -3,
+              "median": 0.3195,
+              "moves": false,
+              "threshold": 0.3331,
+              "wells": 3
+            },
+            {
+              "bin": -2,
+              "median": 0.39,
+              "moves": true,
+              "threshold": 0.3331,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": 0.4779,
+              "moves": true,
+              "threshold": 0.3331,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": 0.7069,
+              "moves": true,
+              "threshold": 0.3331,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": 0.5717,
+              "moves": true,
+              "threshold": 0.3331,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": 0.4309,
+              "moves": true,
+              "threshold": 0.3331,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": -0.3391,
+              "moves": true,
+              "threshold": 0.3331,
+              "wells": 3
+            }
+          ]
+        },
+        "retained_bins": [
+          -3,
+          -2,
+          -1,
+          0,
+          1,
+          2,
+          3
+        ],
+        "scored": true,
+        "shuffled_mechanism": {
+          "pct_spikes_in_bursts": [
+            {
+              "bins": 7,
+              "hit": false,
+              "spearman": 0.0714
+            },
+            {
+              "bins": 7,
+              "hit": false,
+              "spearman": 0.0
+            },
+            {
+              "bins": 7,
+              "hit": false,
+              "spearman": 0.1336
+            }
+          ],
+          "synchrony_index": [
+            {
+              "bins": 7,
+              "hit": false,
+              "spearman": -0.0357
+            },
+            {
+              "bins": 7,
+              "hit": false,
+              "spearman": -0.4082
+            },
+            {
+              "bins": 7,
+              "hit": false,
+              "spearman": -0.49
+            }
+          ]
+        },
+        "spids": [
+          "TP0001412F11"
+        ]
+      },
+      "Indoxacarb": {
+        "bins": [
+          -3,
+          -2,
+          -1,
+          0,
+          1,
+          2,
+          3
+        ],
+        "exclusion": {
+          "excluded": [],
+          "first_flagged_bin": null,
+          "untestable_bins": [
+            -3,
+            -2,
+            -1,
+            0,
+            1,
+            3
+          ],
+          "viability": [
+            {
+              "bin": -3,
+              "median": 0.0876,
+              "wells": 8
+            },
+            {
+              "bin": -2,
+              "median": 0.057,
+              "wells": 9
+            },
+            {
+              "bin": -1,
+              "median": 0.0334,
+              "wells": 9
+            },
+            {
+              "bin": 0,
+              "median": 0.0413,
+              "wells": 9
+            },
+            {
+              "bin": 1,
+              "median": 0.0457,
+              "wells": 9
+            },
+            {
+              "bin": 2,
+              "median": 0.1077,
+              "wells": 6
+            },
+            {
+              "bin": 3,
+              "median": 0.0592,
+              "wells": 8
+            }
+          ]
+        },
+        "features": {
+          "burst_duration_s": {
+            "responsive": false,
+            "scored": false,
+            "twin_moves": false
+          },
+          "burst_rate_per_min": {
+            "responsive": false,
+            "scored": false,
+            "twin_moves": true
+          },
+          "pct_spikes_in_bursts": {
+            "responsive": false,
+            "scored": false,
+            "twin_moves": true
+          },
+          "spikes_per_burst": {
+            "responsive": true,
+            "scored": false,
+            "twin_moves": false
+          },
+          "synchrony_index": {
+            "responsive": false,
+            "scored": false,
+            "twin_moves": true
+          }
+        },
+        "firing_rate_sign": {
+          "agrees": true,
+          "real": -4.3482,
+          "twin": -3.1172
+        },
+        "first_mover": {
+          "match": false,
+          "real": [
+            "spikes_per_burst"
+          ],
+          "twin": [
+            "burst_rate_per_min",
+            "pct_spikes_in_bursts",
+            "synchrony_index"
+          ]
+        },
+        "follow_firing_rate": {},
+        "knob": "sodium_block",
+        "label": "sodium_channel_blocker",
+        "real": {
+          "burst_duration_s": [
+            {
+              "bin": -3,
+              "median": -0.0752,
+              "moves": false,
+              "threshold": null,
+              "wells": 8
+            },
+            {
+              "bin": -2,
+              "median": -0.0127,
+              "moves": false,
+              "threshold": null,
+              "wells": 9
+            },
+            {
+              "bin": -1,
+              "median": 0.0502,
+              "moves": false,
+              "threshold": null,
+              "wells": 9
+            },
+            {
+              "bin": 0,
+              "median": -0.1061,
+              "moves": false,
+              "threshold": null,
+              "wells": 9
+            },
+            {
+              "bin": 1,
+              "median": -0.1846,
+              "moves": false,
+              "threshold": null,
+              "wells": 9
+            },
+            {
+              "bin": 2,
+              "median": -0.1145,
+              "moves": false,
+              "threshold": 0.5051,
+              "wells": 6
+            },
+            {
+              "bin": 3,
+              "median": -0.2473,
+              "moves": false,
+              "threshold": 0.5251,
+              "wells": 3
+            }
+          ],
+          "burst_rate_per_min": [
+            {
+              "bin": -3,
+              "median": 0.5309,
+              "moves": false,
+              "threshold": null,
+              "wells": 8
+            },
+            {
+              "bin": -2,
+              "median": -0.1494,
+              "moves": false,
+              "threshold": null,
+              "wells": 9
+            },
+            {
+              "bin": -1,
+              "median": -0.7158,
+              "moves": false,
+              "threshold": null,
+              "wells": 9
+            },
+            {
+              "bin": 0,
+              "median": -0.4249,
+              "moves": false,
+              "threshold": null,
+              "wells": 9
+            },
+            {
+              "bin": 1,
+              "median": -0.1466,
+              "moves": false,
+              "threshold": null,
+              "wells": 9
+            },
+            {
+              "bin": 2,
+              "median": -0.9933,
+              "moves": false,
+              "threshold": 1.0423,
+              "wells": 6
+            },
+            {
+              "bin": 3,
+              "median": -4.128,
+              "moves": false,
+              "threshold": null,
+              "wells": 7
+            }
+          ],
+          "mfr_hz": [
+            {
+              "bin": -3,
+              "median": 0.15,
+              "moves": false,
+              "threshold": null,
+              "wells": 8
+            },
+            {
+              "bin": -2,
+              "median": -0.2628,
+              "moves": false,
+              "threshold": null,
+              "wells": 9
+            },
+            {
+              "bin": -1,
+              "median": -0.6716,
+              "moves": false,
+              "threshold": null,
+              "wells": 9
+            },
+            {
+              "bin": 0,
+              "median": -0.374,
+              "moves": false,
+              "threshold": null,
+              "wells": 9
+            },
+            {
+              "bin": 1,
+              "median": -0.4086,
+              "moves": false,
+              "threshold": null,
+              "wells": 9
+            },
+            {
+              "bin": 2,
+              "median": -1.2487,
+              "moves": true,
+              "threshold": 1.0178,
+              "wells": 6
+            },
+            {
+              "bin": 3,
+              "median": -4.3482,
+              "moves": false,
+              "threshold": null,
+              "wells": 7
+            }
+          ],
+          "pct_spikes_in_bursts": [
+            {
+              "bin": -3,
+              "median": 0.0147,
+              "moves": false,
+              "threshold": null,
+              "wells": 8
+            },
+            {
+              "bin": -2,
+              "median": -0.0081,
+              "moves": false,
+              "threshold": null,
+              "wells": 9
+            },
+            {
+              "bin": -1,
+              "median": -0.0278,
+              "moves": false,
+              "threshold": null,
+              "wells": 9
+            },
+            {
+              "bin": 0,
+              "median": -0.0434,
+              "moves": false,
+              "threshold": null,
+              "wells": 9
+            },
+            {
+              "bin": 1,
+              "median": -0.0081,
+              "moves": false,
+              "threshold": null,
+              "wells": 9
+            },
+            {
+              "bin": 2,
+              "median": 0.0405,
+              "moves": false,
+              "threshold": 0.2772,
+              "wells": 6
+            },
+            {
+              "bin": 3,
+              "median": -4.0317,
+              "moves": false,
+              "threshold": null,
+              "wells": 7
+            }
+          ],
+          "spikes_per_burst": [
+            {
+              "bin": -3,
+              "median": -0.1533,
+              "moves": false,
+              "threshold": null,
+              "wells": 8
+            },
+            {
+              "bin": -2,
+              "median": -0.2698,
+              "moves": false,
+              "threshold": null,
+              "wells": 9
+            },
+            {
+              "bin": -1,
+              "median": -0.2945,
+              "moves": false,
+              "threshold": null,
+              "wells": 9
+            },
+            {
+              "bin": 0,
+              "median": -0.1504,
+              "moves": false,
+              "threshold": null,
+              "wells": 9
+            },
+            {
+              "bin": 1,
+              "median": -0.253,
+              "moves": false,
+              "threshold": null,
+              "wells": 9
+            },
+            {
+              "bin": 2,
+              "median": -0.0444,
+              "moves": false,
+              "threshold": 0.3344,
+              "wells": 6
+            },
+            {
+              "bin": 3,
+              "median": -0.8094,
+              "moves": true,
+              "threshold": 0.4947,
+              "wells": 3
+            }
+          ],
+          "synchrony_index": [
+            {
+              "bin": -3,
+              "median": -0.0134,
+              "moves": false,
+              "threshold": null,
+              "wells": 8
+            },
+            {
+              "bin": -2,
+              "median": -0.0121,
+              "moves": false,
+              "threshold": null,
+              "wells": 9
+            },
+            {
+              "bin": -1,
+              "median": -0.0499,
+              "moves": false,
+              "threshold": null,
+              "wells": 9
+            },
+            {
+              "bin": 0,
+              "median": -0.0434,
+              "moves": false,
+              "threshold": null,
+              "wells": 9
+            },
+            {
+              "bin": 1,
+              "median": -0.0325,
+              "moves": false,
+              "threshold": null,
+              "wells": 9
+            },
+            {
+              "bin": 2,
+              "median": -0.0108,
+              "moves": false,
+              "threshold": 0.189,
+              "wells": 6
+            },
+            {
+              "bin": 3,
+              "median": -4.1627,
+              "moves": false,
+              "threshold": null,
+              "wells": 7
+            }
+          ]
+        },
+        "retained_bins": [
+          -3,
+          -2,
+          -1,
+          0,
+          1,
+          2,
+          3
+        ],
+        "scored": true,
+        "shuffled_mechanism": {},
+        "spids": [
+          "EPAPLT0167E10"
+        ]
+      },
+      "Lindane": {
+        "bins": [
+          -3,
+          -2,
+          -1,
+          0,
+          1,
+          2,
+          3
+        ],
+        "exclusion": {
+          "excluded": [],
+          "first_flagged_bin": null,
+          "untestable_bins": [],
+          "viability": [
+            {
+              "bin": -3,
+              "median": -0.1666,
+              "wells": 3
+            },
+            {
+              "bin": -2,
+              "median": -0.1653,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": -0.1916,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": -0.3166,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": -0.1728,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": -0.1849,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": 0.0822,
+              "wells": 3
+            }
+          ]
+        },
+        "features": {
+          "burst_duration_s": {
+            "bins": 7,
+            "hit": false,
+            "scored": true,
+            "spearman": 0.5714
+          },
+          "burst_rate_per_min": {
+            "responsive": false,
+            "scored": false,
+            "twin_moves": false
+          },
+          "pct_spikes_in_bursts": {
+            "responsive": false,
+            "scored": false,
+            "twin_moves": true
+          },
+          "spikes_per_burst": {
+            "bins": 7,
+            "hit": true,
+            "scored": true,
+            "spearman": 0.9286
+          },
+          "synchrony_index": {
+            "responsive": false,
+            "scored": false,
+            "twin_moves": true
+          }
+        },
+        "firing_rate_sign": {
+          "agrees": true,
+          "real": 1.8044,
+          "twin": 3.4531
+        },
+        "first_mover": {
+          "match": true,
+          "real": [
+            "burst_duration_s",
+            "spikes_per_burst"
+          ],
+          "twin": [
+            "spikes_per_burst"
+          ]
+        },
+        "follow_firing_rate": {
+          "burst_duration_s": {
+            "bins": 7,
+            "hit": false,
+            "spearman": 0.5357
+          },
+          "spikes_per_burst": {
+            "bins": 7,
+            "hit": true,
+            "spearman": 0.9286
+          }
+        },
+        "knob": "gabaa_block",
+        "label": "gabaa_antagonist",
+        "real": {
+          "burst_duration_s": [
+            {
+              "bin": -3,
+              "median": 0.0493,
+              "moves": false,
+              "threshold": 0.5251,
+              "wells": 3
+            },
+            {
+              "bin": -2,
+              "median": 0.1772,
+              "moves": false,
+              "threshold": 0.5251,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": 0.1516,
+              "moves": false,
+              "threshold": 0.5251,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": 0.0792,
+              "moves": false,
+              "threshold": 0.5251,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": 0.5883,
+              "moves": true,
+              "threshold": 0.5251,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": 0.1278,
+              "moves": false,
+              "threshold": 0.5251,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": 0.6232,
+              "moves": true,
+              "threshold": 0.5251,
+              "wells": 3
+            }
+          ],
+          "burst_rate_per_min": [
+            {
+              "bin": -3,
+              "median": 0.04,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            },
+            {
+              "bin": -2,
+              "median": -0.1107,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": 0.4366,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": 0.4004,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": 0.6283,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": 0.5718,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": 1.372,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            }
+          ],
+          "mfr_hz": [
+            {
+              "bin": -3,
+              "median": 0.2002,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            },
+            {
+              "bin": -2,
+              "median": 0.0004,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": 0.5195,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": 0.5815,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": 1.1545,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": 0.7132,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": 1.8044,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            }
+          ],
+          "pct_spikes_in_bursts": [
+            {
+              "bin": -3,
+              "median": -0.1573,
+              "moves": false,
+              "threshold": 0.4083,
+              "wells": 3
+            },
+            {
+              "bin": -2,
+              "median": -0.0026,
+              "moves": false,
+              "threshold": 0.4083,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": 0.1049,
+              "moves": false,
+              "threshold": 0.4083,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": 0.0546,
+              "moves": false,
+              "threshold": 0.4083,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": 0.2723,
+              "moves": false,
+              "threshold": 0.4083,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": 0.2735,
+              "moves": false,
+              "threshold": 0.4083,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": 0.1677,
+              "moves": false,
+              "threshold": 0.4083,
+              "wells": 3
+            }
+          ],
+          "spikes_per_burst": [
+            {
+              "bin": -3,
+              "median": 0.0272,
+              "moves": false,
+              "threshold": 0.4947,
+              "wells": 3
+            },
+            {
+              "bin": -2,
+              "median": 0.1247,
+              "moves": false,
+              "threshold": 0.4947,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": 0.1833,
+              "moves": false,
+              "threshold": 0.4947,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": 0.1282,
+              "moves": false,
+              "threshold": 0.4947,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": 0.7442,
+              "moves": true,
+              "threshold": 0.4947,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": 0.4753,
+              "moves": false,
+              "threshold": 0.4947,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": 0.8048,
+              "moves": true,
+              "threshold": 0.4947,
+              "wells": 3
+            }
+          ],
+          "synchrony_index": [
+            {
+              "bin": -3,
+              "median": 0.007,
+              "moves": false,
+              "threshold": 0.3331,
+              "wells": 3
+            },
+            {
+              "bin": -2,
+              "median": 0.0002,
+              "moves": false,
+              "threshold": 0.3331,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": 0.0116,
+              "moves": false,
+              "threshold": 0.3331,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": 0.0672,
+              "moves": false,
+              "threshold": 0.3331,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": 0.2344,
+              "moves": false,
+              "threshold": 0.3331,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": 0.2353,
+              "moves": false,
+              "threshold": 0.3331,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": 0.1178,
+              "moves": false,
+              "threshold": 0.3331,
+              "wells": 3
+            }
+          ]
+        },
+        "retained_bins": [
+          -3,
+          -2,
+          -1,
+          0,
+          1,
+          2,
+          3
+        ],
+        "scored": true,
+        "shuffled_mechanism": {
+          "burst_duration_s": [
+            {
+              "bins": 7,
+              "hit": false,
+              "spearman": -0.0714
+            },
+            {
+              "bins": 2,
+              "spearman": null
+            },
+            {
+              "bins": 7,
+              "hit": false,
+              "spearman": 0.4286
+            }
+          ],
+          "spikes_per_burst": [
+            {
+              "bins": 7,
+              "hit": false,
+              "spearman": -0.9286
+            },
+            {
+              "bins": 2,
+              "spearman": null
+            },
+            {
+              "bins": 7,
+              "hit": false,
+              "spearman": -0.8929
+            }
+          ]
+        },
+        "spids": [
+          "TP0001413B01"
+        ]
+      },
+      "Octachloro-4,7-methanotetrahydroindane": {
+        "bins": [
+          -3,
+          -2,
+          -1,
+          0,
+          1,
+          2,
+          3
+        ],
+        "exclusion": {
+          "excluded": [],
+          "first_flagged_bin": null,
+          "untestable_bins": [],
+          "viability": [
+            {
+              "bin": -3,
+              "median": -0.0037,
+              "wells": 3
+            },
+            {
+              "bin": -2,
+              "median": -0.0744,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": 0.133,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": -0.0443,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": 0.0158,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": 0.0551,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": -0.2024,
+              "wells": 3
+            }
+          ]
+        },
+        "features": {
+          "burst_duration_s": {
+            "responsive": false,
+            "scored": false,
+            "twin_moves": true
+          },
+          "burst_rate_per_min": {
+            "responsive": false,
+            "scored": false,
+            "twin_moves": false
+          },
+          "pct_spikes_in_bursts": {
+            "responsive": false,
+            "scored": false,
+            "twin_moves": true
+          },
+          "spikes_per_burst": {
+            "responsive": false,
+            "scored": false,
+            "twin_moves": true
+          },
+          "synchrony_index": {
+            "responsive": false,
+            "scored": false,
+            "twin_moves": true
+          }
+        },
+        "firing_rate_sign": {
+          "agrees": true,
+          "real": 0.2007,
+          "twin": 3.4531
+        },
+        "first_mover": {
+          "match": null,
+          "real": [],
+          "twin": [
+            "spikes_per_burst"
+          ]
+        },
+        "follow_firing_rate": {},
+        "knob": "gabaa_block",
+        "label": "gabaa_antagonist",
+        "real": {
+          "burst_duration_s": [
+            {
+              "bin": -3,
+              "median": 0.07,
+              "moves": false,
+              "threshold": 0.5251,
+              "wells": 3
+            },
+            {
+              "bin": -2,
+              "median": -0.0466,
+              "moves": false,
+              "threshold": 0.5251,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": -0.0625,
+              "moves": false,
+              "threshold": 0.5251,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": -0.1596,
+              "moves": false,
+              "threshold": 0.5251,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": 0.1297,
+              "moves": false,
+              "threshold": 0.5251,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": 0.3035,
+              "moves": false,
+              "threshold": 0.5251,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": 0.1665,
+              "moves": false,
+              "threshold": 0.5251,
+              "wells": 3
+            }
+          ],
+          "burst_rate_per_min": [
+            {
+              "bin": -3,
+              "median": -0.0556,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            },
+            {
+              "bin": -2,
+              "median": 0.2539,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": 0.1243,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": 0.2495,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": 0.1341,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": 0.5269,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": 0.1798,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            }
+          ],
+          "mfr_hz": [
+            {
+              "bin": -3,
+              "median": 0.0882,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            },
+            {
+              "bin": -2,
+              "median": 0.3087,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": 0.1995,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": 0.303,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": 0.152,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": 0.5176,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": 0.2007,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            }
+          ],
+          "pct_spikes_in_bursts": [
+            {
+              "bin": -3,
+              "median": 0.0357,
+              "moves": false,
+              "threshold": 0.4083,
+              "wells": 3
+            },
+            {
+              "bin": -2,
+              "median": 0.0501,
+              "moves": false,
+              "threshold": 0.4083,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": 0.1852,
+              "moves": false,
+              "threshold": 0.4083,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": 0.3434,
+              "moves": false,
+              "threshold": 0.4083,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": 0.3006,
+              "moves": false,
+              "threshold": 0.4083,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": 0.307,
+              "moves": false,
+              "threshold": 0.4083,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": 0.0428,
+              "moves": false,
+              "threshold": 0.4083,
+              "wells": 3
+            }
+          ],
+          "spikes_per_burst": [
+            {
+              "bin": -3,
+              "median": 0.052,
+              "moves": false,
+              "threshold": 0.4947,
+              "wells": 3
+            },
+            {
+              "bin": -2,
+              "median": 0.0981,
+              "moves": false,
+              "threshold": 0.4947,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": 0.1728,
+              "moves": false,
+              "threshold": 0.4947,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": 0.2695,
+              "moves": false,
+              "threshold": 0.4947,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": 0.3909,
+              "moves": false,
+              "threshold": 0.4947,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": 0.3998,
+              "moves": false,
+              "threshold": 0.4947,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": -0.0301,
+              "moves": false,
+              "threshold": 0.4947,
+              "wells": 3
+            }
+          ],
+          "synchrony_index": [
+            {
+              "bin": -3,
+              "median": 0.0275,
+              "moves": false,
+              "threshold": 0.3331,
+              "wells": 3
+            },
+            {
+              "bin": -2,
+              "median": 0.0774,
+              "moves": false,
+              "threshold": 0.3331,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": 0.1602,
+              "moves": false,
+              "threshold": 0.3331,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": 0.3294,
+              "moves": false,
+              "threshold": 0.3331,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": 0.2971,
+              "moves": false,
+              "threshold": 0.3331,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": 0.2094,
+              "moves": false,
+              "threshold": 0.3331,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": 0.0044,
+              "moves": false,
+              "threshold": 0.3331,
+              "wells": 3
+            }
+          ]
+        },
+        "retained_bins": [
+          -3,
+          -2,
+          -1,
+          0,
+          1,
+          2,
+          3
+        ],
+        "scored": true,
+        "shuffled_mechanism": {},
+        "spids": [
+          "TP0001411E05"
+        ]
+      },
+      "Phenobarbital sodium": {
+        "bins": [
+          -3,
+          -2,
+          -1,
+          0,
+          1,
+          2,
+          3
+        ],
+        "exclusion": {
+          "excluded": [],
+          "first_flagged_bin": null,
+          "untestable_bins": [],
+          "viability": [
+            {
+              "bin": -3,
+              "median": -0.2634,
+              "wells": 2
+            },
+            {
+              "bin": -2,
+              "median": -0.0679,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": 0.0864,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": -0.0001,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": -0.2751,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": -0.15,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": -0.0434,
+              "wells": 3
+            }
+          ]
+        },
+        "features": {
+          "burst_duration_s": {
+            "bins": 7,
+            "hit": false,
+            "scored": true,
+            "spearman": 0.0714
+          },
+          "burst_rate_per_min": {
+            "responsive": false,
+            "scored": false,
+            "twin_moves": false
+          },
+          "pct_spikes_in_bursts": {
+            "responsive": false,
+            "scored": false,
+            "twin_moves": true
+          },
+          "spikes_per_burst": {
+            "responsive": false,
+            "scored": false,
+            "twin_moves": true
+          },
+          "synchrony_index": {
+            "responsive": false,
+            "scored": false,
+            "twin_moves": true
+          }
+        },
+        "firing_rate_sign": {
+          "agrees": false,
+          "real": 0.5267,
+          "twin": -0.3465
+        },
+        "first_mover": {
+          "match": true,
+          "real": [
+            "burst_duration_s"
+          ],
+          "twin": [
+            "burst_duration_s",
+            "spikes_per_burst"
+          ]
+        },
+        "follow_firing_rate": {
+          "burst_duration_s": {
+            "bins": 7,
+            "hit": false,
+            "spearman": -0.6429
+          }
+        },
+        "knob": "gabaa_potentiate",
+        "label": "gabaa_positive_modulator",
+        "real": {
+          "burst_duration_s": [
+            {
+              "bin": -3,
+              "median": -0.0415,
+              "moves": false,
+              "threshold": 0.5953,
+              "wells": 2
+            },
+            {
+              "bin": -2,
+              "median": -0.1276,
+              "moves": false,
+              "threshold": 0.5251,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": -0.0838,
+              "moves": false,
+              "threshold": 0.5251,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": -0.0433,
+              "moves": false,
+              "threshold": 0.5251,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": -0.105,
+              "moves": false,
+              "threshold": 0.5251,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": -0.7395,
+              "moves": true,
+              "threshold": 0.5251,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": -0.001,
+              "moves": false,
+              "threshold": 0.5251,
+              "wells": 3
+            }
+          ],
+          "burst_rate_per_min": [
+            {
+              "bin": -3,
+              "median": 0.5026,
+              "moves": false,
+              "threshold": 2.1022,
+              "wells": 2
+            },
+            {
+              "bin": -2,
+              "median": 0.7051,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": 0.8592,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": 0.7324,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": 0.8805,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": 0.8963,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": 0.5816,
+              "moves": false,
+              "threshold": 2.3539,
+              "wells": 3
+            }
+          ],
+          "mfr_hz": [
+            {
+              "bin": -3,
+              "median": 0.518,
+              "moves": false,
+              "threshold": 1.7034,
+              "wells": 2
+            },
+            {
+              "bin": -2,
+              "median": 0.6272,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": 0.7533,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": 0.6,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": 0.6796,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": 0.669,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": 0.5267,
+              "moves": false,
+              "threshold": 1.9258,
+              "wells": 3
+            }
+          ],
+          "pct_spikes_in_bursts": [
+            {
+              "bin": -3,
+              "median": -0.1019,
+              "moves": false,
+              "threshold": 0.49,
+              "wells": 2
+            },
+            {
+              "bin": -2,
+              "median": 0.1071,
+              "moves": false,
+              "threshold": 0.4083,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": 0.0056,
+              "moves": false,
+              "threshold": 0.4083,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": 0.0552,
+              "moves": false,
+              "threshold": 0.4083,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": 0.0386,
+              "moves": false,
+              "threshold": 0.4083,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": 0.0761,
+              "moves": false,
+              "threshold": 0.4083,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": 0.0032,
+              "moves": false,
+              "threshold": 0.4083,
+              "wells": 3
+            }
+          ],
+          "spikes_per_burst": [
+            {
+              "bin": -3,
+              "median": 0.1179,
+              "moves": false,
+              "threshold": 0.5848,
+              "wells": 2
+            },
+            {
+              "bin": -2,
+              "median": 0.0682,
+              "moves": false,
+              "threshold": 0.4947,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": -0.0471,
+              "moves": false,
+              "threshold": 0.4947,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": 0.1246,
+              "moves": false,
+              "threshold": 0.4947,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": -0.0757,
+              "moves": false,
+              "threshold": 0.4947,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": -0.0078,
+              "moves": false,
+              "threshold": 0.4947,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": 0.0956,
+              "moves": false,
+              "threshold": 0.4947,
+              "wells": 3
+            }
+          ],
+          "synchrony_index": [
+            {
+              "bin": -3,
+              "median": -0.0199,
+              "moves": false,
+              "threshold": 0.551,
+              "wells": 2
+            },
+            {
+              "bin": -2,
+              "median": 0.0925,
+              "moves": false,
+              "threshold": 0.3331,
+              "wells": 3
+            },
+            {
+              "bin": -1,
+              "median": 0.0656,
+              "moves": false,
+              "threshold": 0.3331,
+              "wells": 3
+            },
+            {
+              "bin": 0,
+              "median": 0.0828,
+              "moves": false,
+              "threshold": 0.3331,
+              "wells": 3
+            },
+            {
+              "bin": 1,
+              "median": 0.0081,
+              "moves": false,
+              "threshold": 0.3331,
+              "wells": 3
+            },
+            {
+              "bin": 2,
+              "median": 0.0997,
+              "moves": false,
+              "threshold": 0.3331,
+              "wells": 3
+            },
+            {
+              "bin": 3,
+              "median": 0.053,
+              "moves": false,
+              "threshold": 0.3331,
+              "wells": 3
+            }
+          ]
+        },
+        "retained_bins": [
+          -3,
+          -2,
+          -1,
+          0,
+          1,
+          2,
+          3
+        ],
+        "scored": true,
+        "shuffled_mechanism": {
+          "burst_duration_s": [
+            {
+              "bins": 7,
+              "hit": false,
+              "spearman": 0.0
+            },
+            {
+              "bins": 2,
+              "spearman": null
+            },
+            {
+              "bins": 7,
+              "hit": false,
+              "spearman": -0.2143
+            }
+          ]
+        },
+        "spids": [
+          "TP0001414H03"
+        ]
+      }
+    },
+    "dropped": {},
+    "firing_rate_sign": {
+      "agreeing": 9,
+      "compounds": 13,
+      "disagreeing": [
+        "Dieldrin",
+        "Endosulfan",
+        "Fipronil",
+        "Phenobarbital sodium"
+      ],
+      "note": "firing rate was seen before registration; reported, not tested",
+      "per_compound": {
+        "Abamectin": {
+          "agrees": true,
+          "real": -3.5067,
+          "twin": -0.3465
+        },
+        "Aldrin": {
+          "agrees": true,
+          "real": 0.593,
+          "twin": 3.4531
+        },
+        "Dieldrin": {
+          "agrees": false,
+          "real": -0.7638,
+          "twin": 3.4531
+        },
+        "Emamectin benzoate": {
+          "agrees": true,
+          "real": -4.1729,
+          "twin": -0.3465
+        },
+        "Endosulfan": {
+          "agrees": false,
+          "real": -3.5852,
+          "twin": 3.4531
+        },
+        "Endrin": {
+          "agrees": true,
+          "real": 1.6401,
+          "twin": 3.4531
+        },
+        "Fipronil": {
+          "agrees": false,
+          "real": -3.8396,
+          "twin": 3.4531
+        },
+        "Heptachlor": {
+          "agrees": true,
+          "real": 1.2333,
+          "twin": 3.4531
+        },
+        "Heptachlor epoxide B": {
+          "agrees": true,
+          "real": 0.2587,
+          "twin": 3.4531
+        },
+        "Indoxacarb": {
+          "agrees": true,
+          "real": -4.3482,
+          "twin": -3.1172
+        },
+        "Lindane": {
+          "agrees": true,
+          "real": 1.8044,
+          "twin": 3.4531
+        },
+        "Octachloro-4,7-methanotetrahydroindane": {
+          "agrees": true,
+          "real": 0.2007,
+          "twin": 3.4531
+        },
+        "Phenobarbital sodium": {
+          "agrees": false,
+          "real": 0.5267,
+          "twin": -0.3465
+        }
+      }
+    },
+    "first_mover": {
+      "Abamectin": {
+        "match": false,
+        "real": [
+          "pct_spikes_in_bursts"
+        ],
+        "twin": [
+          "burst_duration_s",
+          "spikes_per_burst"
+        ]
+      },
+      "Aldrin": {
+        "match": null,
+        "real": [],
+        "twin": [
+          "spikes_per_burst"
+        ]
+      },
+      "Dieldrin": {
+        "match": true,
+        "real": [
+          "spikes_per_burst",
+          "synchrony_index"
+        ],
+        "twin": [
+          "spikes_per_burst"
+        ]
+      },
+      "Emamectin benzoate": {
+        "match": true,
+        "real": [
+          "burst_duration_s",
+          "spikes_per_burst"
+        ],
+        "twin": [
+          "burst_duration_s",
+          "spikes_per_burst"
+        ]
+      },
+      "Endosulfan": {
+        "match": true,
+        "real": [
+          "spikes_per_burst"
+        ],
+        "twin": [
+          "spikes_per_burst"
+        ]
+      },
+      "Endrin": {
+        "match": true,
+        "real": [
+          "spikes_per_burst"
+        ],
+        "twin": [
+          "spikes_per_burst"
+        ]
+      },
+      "Fipronil": {
+        "match": true,
+        "real": [
+          "spikes_per_burst"
+        ],
+        "twin": [
+          "spikes_per_burst"
+        ]
+      },
+      "Heptachlor": {
+        "match": true,
+        "real": [
+          "spikes_per_burst",
+          "synchrony_index"
+        ],
+        "twin": [
+          "spikes_per_burst"
+        ]
+      },
+      "Heptachlor epoxide B": {
+        "match": false,
+        "real": [
+          "pct_spikes_in_bursts",
+          "synchrony_index"
+        ],
+        "twin": [
+          "spikes_per_burst"
+        ]
+      },
+      "Indoxacarb": {
+        "match": false,
+        "real": [
+          "spikes_per_burst"
+        ],
+        "twin": [
+          "burst_rate_per_min",
+          "pct_spikes_in_bursts",
+          "synchrony_index"
+        ]
+      },
+      "Lindane": {
+        "match": true,
+        "real": [
+          "burst_duration_s",
+          "spikes_per_burst"
+        ],
+        "twin": [
+          "spikes_per_burst"
+        ]
+      },
+      "Octachloro-4,7-methanotetrahydroindane": {
+        "match": null,
+        "real": [],
+        "twin": [
+          "spikes_per_burst"
+        ]
+      },
+      "Phenobarbital sodium": {
+        "match": true,
+        "real": [
+          "burst_duration_s"
+        ],
+        "twin": [
+          "burst_duration_s",
+          "spikes_per_burst"
+        ]
+      }
+    },
+    "headline": {
+      "compounds_registered": 13,
+      "compounds_scored": 13,
+      "hit_rate": 0.3846,
+      "hits": 10,
+      "mean_spearman": 0.3398,
+      "pairs_scored": 26,
+      "predictions_passing": 2,
+      "predictions_total": 4
+    },
+    "label": "SIMULATED twin knob dose-response vs REAL ToxCast concentration-response wells",
+    "nulls": {
+      "follow_firing_rate": {
+        "hit_rate": 0.5,
+        "hits": 13,
+        "mean_spearman": 0.5189,
+        "pairs": 26
+      },
+      "shuffled_mechanism": {
+        "hit_rate": 0.0781,
+        "hits": 5,
+        "mean_spearman": -0.1319,
+        "pairs": 64
+      }
+    },
+    "pairs": [
+      {
+        "bins": 6,
+        "compound": "Fipronil",
+        "feature": "spikes_per_burst",
+        "hit": true,
+        "scored": true,
+        "spearman": 0.9429
+      },
+      {
+        "bins": 7,
+        "compound": "Fipronil",
+        "feature": "pct_spikes_in_bursts",
+        "hit": false,
+        "scored": true,
+        "spearman": 0.0714
+      },
+      {
+        "bins": 7,
+        "compound": "Fipronil",
+        "feature": "synchrony_index",
+        "hit": false,
+        "scored": true,
+        "spearman": 0.0357
+      },
+      {
+        "bins": 7,
+        "compound": "Lindane",
+        "feature": "burst_duration_s",
+        "hit": false,
+        "scored": true,
+        "spearman": 0.5714
+      },
+      {
+        "bins": 7,
+        "compound": "Lindane",
+        "feature": "spikes_per_burst",
+        "hit": true,
+        "scored": true,
+        "spearman": 0.9286
+      },
+      {
+        "bins": 7,
+        "compound": "Dieldrin",
+        "feature": "spikes_per_burst",
+        "hit": false,
+        "scored": true,
+        "spearman": 0.2143
+      },
+      {
+        "bins": 7,
+        "compound": "Dieldrin",
+        "feature": "pct_spikes_in_bursts",
+        "hit": false,
+        "scored": true,
+        "spearman": 0.0714
+      },
+      {
+        "bins": 7,
+        "compound": "Dieldrin",
+        "feature": "synchrony_index",
+        "hit": false,
+        "scored": true,
+        "spearman": 0.0357
+      },
+      {
+        "bins": 7,
+        "compound": "Endrin",
+        "feature": "burst_duration_s",
+        "hit": true,
+        "scored": true,
+        "spearman": 0.9643
+      },
+      {
+        "bins": 7,
+        "compound": "Endrin",
+        "feature": "spikes_per_burst",
+        "hit": true,
+        "scored": true,
+        "spearman": 0.9643
+      },
+      {
+        "bins": 7,
+        "compound": "Heptachlor",
+        "feature": "spikes_per_burst",
+        "hit": false,
+        "scored": true,
+        "spearman": 0.1071
+      },
+      {
+        "bins": 7,
+        "compound": "Heptachlor",
+        "feature": "synchrony_index",
+        "hit": true,
+        "scored": true,
+        "spearman": 0.75
+      },
+      {
+        "bins": 7,
+        "compound": "Heptachlor epoxide B",
+        "feature": "pct_spikes_in_bursts",
+        "hit": false,
+        "scored": true,
+        "spearman": -0.6786
+      },
+      {
+        "bins": 7,
+        "compound": "Heptachlor epoxide B",
+        "feature": "synchrony_index",
+        "hit": false,
+        "scored": true,
+        "spearman": 0.0
+      },
+      {
+        "bins": 7,
+        "compound": "Endosulfan",
+        "feature": "burst_duration_s",
+        "hit": false,
+        "scored": true,
+        "spearman": 0.5
+      },
+      {
+        "bins": 7,
+        "compound": "Endosulfan",
+        "feature": "spikes_per_burst",
+        "hit": false,
+        "scored": true,
+        "spearman": 0.1429
+      },
+      {
+        "bins": 7,
+        "compound": "Endosulfan",
+        "feature": "pct_spikes_in_bursts",
+        "hit": false,
+        "scored": true,
+        "spearman": -0.7857
+      },
+      {
+        "bins": 7,
+        "compound": "Endosulfan",
+        "feature": "synchrony_index",
+        "hit": false,
+        "scored": true,
+        "spearman": -0.8929
+      },
+      {
+        "bins": 7,
+        "compound": "Phenobarbital sodium",
+        "feature": "burst_duration_s",
+        "hit": false,
+        "scored": true,
+        "spearman": 0.0714
+      },
+      {
+        "bins": 8,
+        "compound": "Abamectin",
+        "feature": "burst_duration_s",
+        "hit": true,
+        "scored": true,
+        "spearman": 0.8095
+      },
+      {
+        "bins": 8,
+        "compound": "Abamectin",
+        "feature": "spikes_per_burst",
+        "hit": true,
+        "scored": true,
+        "spearman": 0.8095
+      },
+      {
+        "bins": 13,
+        "compound": "Abamectin",
+        "feature": "pct_spikes_in_bursts",
+        "hit": false,
+        "scored": true,
+        "spearman": 0.5866
+      },
+      {
+        "bins": 12,
+        "compound": "Abamectin",
+        "feature": "synchrony_index",
+        "hit": true,
+        "scored": true,
+        "spearman": 0.7652
+      },
+      {
+        "bins": 12,
+        "compound": "Emamectin benzoate",
+        "feature": "burst_duration_s",
+        "hit": true,
+        "scored": true,
+        "spearman": 0.7343
+      },
+      {
+        "bins": 12,
+        "compound": "Emamectin benzoate",
+        "feature": "spikes_per_burst",
+        "hit": true,
+        "scored": true,
+        "spearman": 0.6993
+      },
+      {
+        "bins": 13,
+        "compound": "Emamectin benzoate",
+        "feature": "synchrony_index",
+        "hit": false,
+        "scored": true,
+        "spearman": 0.4151
+      }
+    ],
+    "posthoc_without_top_bin": {
+      "dropping_bottom_bin": {
+        "nulls": {
+          "follow_firing_rate": {
+            "hit_rate": 0.5385,
+            "hits": 14,
+            "mean_spearman": 0.5082,
+            "pairs": 26
+          },
+          "shuffled_mechanism": {
+            "hit_rate": 0.1455,
+            "hits": 8,
+            "mean_spearman": -0.053,
+            "pairs": 55
+          }
+        },
+        "twin": {
+          "hit_rate": 0.3846,
+          "hits": 10,
+          "mean_spearman": 0.2178,
+          "pairs": 26
+        }
+      },
+      "dropping_middle_bin": {
+        "nulls": {
+          "follow_firing_rate": {
+            "hit_rate": 0.5769,
+            "hits": 15,
+            "mean_spearman": 0.5134,
+            "pairs": 26
+          },
+          "shuffled_mechanism": {
+            "hit_rate": 0.1094,
+            "hits": 7,
+            "mean_spearman": -0.1035,
+            "pairs": 64
+          }
+        },
+        "twin": {
+          "hit_rate": 0.4615,
+          "hits": 12,
+          "mean_spearman": 0.3216,
+          "pairs": 26
+        }
+      },
+      "dropping_top_bin": {
+        "nulls": {
+          "follow_firing_rate": {
+            "hit_rate": 0.5,
+            "hits": 11,
+            "mean_spearman": 0.4539,
+            "pairs": 22
+          },
+          "shuffled_mechanism": {
+            "hit_rate": 0.0962,
+            "hits": 5,
+            "mean_spearman": -0.3984,
+            "pairs": 52
+          }
+        },
+        "twin": {
+          "hit_rate": 0.7727,
+          "hits": 17,
+          "mean_spearman": 0.6521,
+          "pairs": 22
+        }
+      },
+      "note": "POST HOC, decided after the registered viability rule excluded no bin"
+    },
+    "predictions": {
+      "P1_shape": {
+        "hit_rate": 0.3846,
+        "outcome": "fail",
+        "pairs": 26,
+        "pass": false
+      },
+      "P2_beats_follow_firing_rate": {
+        "margin": -0.1791,
+        "null_mean_spearman": 0.5189,
+        "outcome": "fail",
+        "pass": false
+      },
+      "P3_beats_shuffled_mechanism": {
+        "margin": 0.4717,
+        "null_mean_spearman": -0.1319,
+        "outcome": "pass",
+        "pass": true
+      },
+      "P4_first_mover": {
+        "agreeing": 8,
+        "compounds": 11,
+        "descriptive_only": false,
+        "outcome": "pass",
+        "pass": true,
+        "rate": 0.7273
+      }
+    },
+    "predictions_file": "outputs/twin/toxcast_dose_response_predictions_simulated.json",
+    "registration": {
+      "committed_at": "2026-10-27T22:13:21-04:00",
+      "file": "preregistration/twin_toxcast_dose_response.json",
+      "registered_in_commit": "f3e1fb9b6de551a4e934c14e34432d25179693cd",
+      "sha256": "b399d65ea98068bdb74a5b49ec2776e02cddd5ecc44c184f605278b0fd072158"
+    },
+    "sensitivity_truncated_grid": {
+      "levels": 5,
+      "nulls": {
+        "follow_firing_rate": {
+          "hit_rate": 0.4348,
+          "hits": 10,
+          "mean_spearman": 0.4656,
+          "pairs": 23
+        },
+        "shuffled_mechanism": {
+          "hit_rate": 0.1186,
+          "hits": 7,
+          "mean_spearman": -0.2361,
+          "pairs": 59
+        }
+      },
+      "twin": {
+        "hit_rate": 0.3478,
+        "hits": 8,
+        "mean_spearman": 0.3098,
+        "pairs": 23
+      }
+    },
+    "twin": {
+      "hit_rate": 0.3846,
+      "hits": 10,
+      "mean_spearman": 0.3398,
+      "pairs": 26
+    },
+    "untestable_bins": {
+      "Emamectin benzoate": {
+        "burst_duration_s": [
+          -3
+        ],
+        "burst_rate_per_min": [
+          -3,
+          -2,
+          -1,
+          0,
+          1,
+          2,
+          3
+        ],
+        "mfr_hz": [
+          -3,
+          -2,
+          -1,
+          0,
+          1,
+          2,
+          3
+        ],
+        "pct_spikes_in_bursts": [
+          -3,
+          -2,
+          -1,
+          0,
+          1,
+          2,
+          3
+        ],
+        "spikes_per_burst": [
+          -3
+        ],
+        "synchrony_index": [
+          -3,
+          -2,
+          -1,
+          0,
+          1,
+          2
+        ]
+      },
+      "Indoxacarb": {
+        "burst_duration_s": [
+          -3,
+          -2,
+          -1,
+          0,
+          1
+        ],
+        "burst_rate_per_min": [
+          -3,
+          -2,
+          -1,
+          0,
+          1,
+          3
+        ],
+        "mfr_hz": [
+          -3,
+          -2,
+          -1,
+          0,
+          1,
+          3
+        ],
+        "pct_spikes_in_bursts": [
+          -3,
+          -2,
+          -1,
+          0,
+          1,
+          3
+        ],
+        "spikes_per_burst": [
+          -3,
+          -2,
+          -1,
+          0,
+          1
+        ],
+        "synchrony_index": [
+          -3,
+          -2,
+          -1,
+          0,
+          1,
+          3
+        ]
+      }
+    },
+    "viability_untestable_bins": {
+      "Emamectin benzoate": [
+        -3,
+        -2,
+        -1,
+        0,
+        1,
+        2,
+        3
+      ],
+      "Indoxacarb": [
+        -3,
+        -2,
+        -1,
+        0,
+        1,
+        3
+      ]
+    }
+  },
   "twin_toxcast_positive_controls": {
     "M1_drug_rank_on_firing_rate": {
       "real_ttx_over_bicuculline": true,
@@ -24908,20 +32278,24 @@
     "predictions": {
       "P1_bicuculline": {
         "agreeing": 4,
+        "outcome": "pass",
         "pass": true,
         "scored": 4
       },
       "P2_picrotoxin": {
         "agreeing": 4,
+        "outcome": "pass",
         "pass": true,
         "scored": 4
       },
       "P3_tetrodotoxin": {
         "agreeing": 4,
+        "outcome": "pass",
         "pass": true,
         "scored": 4
       },
       "P4_firing_rate": {
+        "outcome": "pass",
         "pass": true,
         "scored": {
           "Bicuculline": true,
