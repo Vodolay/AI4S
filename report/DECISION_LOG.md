@@ -407,3 +407,21 @@ it with its own command or `python -m neuromps.fly.pipeline --only <step>`.
 - **Revisit at:** a future version could store each record's features under named definition sets
   (for example `neuromps_v1` and `meartools_like`), selected per consumer, with the method record
   naming the set. `outputs/metrics.json` key `extractor_agreement.settings_ladder`.
+
+### D34. Testing whether the depositors' adaptive burst detector explains the rest of the extractor gap **(user)**
+- **Found:** the post hoc settings ladder (D33, report §3) reproduced the depositors' firing rate,
+  active-electrode count and STTC exactly and closed most of the burst-rate gap, but burst
+  duration and spikes per burst did not move, and 10-15% of the hPSC burst-rate gap remained. The
+  report attributed the rest to the burst detector (their logISI against our fixed 100 ms rule)
+  without a test.
+- **Options:** leave the attribution as an inference; implement logISI and test it.
+- **Taken:** implement logISI (Pasquale et al. 2010) as an option of the single extractor, off by
+  default, and register four predictions before running it on the Kapucu recordings
+  (`preregistration/extractor_logisi.json`): burst duration and spikes per burst close, the hPSC
+  burst rate closes, and the rat plate does not get worse. **Why:** a measured attribution answers
+  "why trust your extractor" better than an inferred one, and the registration fixes in advance
+  what would count as the detector explaining the gap.
+- **Assumption recorded:** our implementation is close enough to meaRtools' that a failure speaks
+  about the detector, not the implementation; the per-electrode thresholds and the fallback share
+  are reported so a reader can judge.
+- **Revisit at:** `outputs/metrics.json` key `extractor_agreement.logisi`.

@@ -1,0 +1,49 @@
+{
+  "title": "Does the depositors' adaptive burst detector (logISI) close the rest of the extractor gap? (REAL data, Kapucu 2022)",
+  "registered": "2026-10-28T14:08:26Z",
+  "decision": "D34",
+  "status": "registered before any logISI burst was detected on any Kapucu recording; the implementation section below is completed and committed with this file before the real-data run",
+  "origin": "the post hoc settings ladder (report section 3, extractor_agreement.settings_ladder) closed the electrode-set and denominator differences; the remaining gap (burst duration, spikes per burst, and 10-15% of the hPSC burst rate) was attributed to the burst detector without a test",
+  "seen_before_registration": [
+    "every number in extractor_agreement.settings_ladder, including S3 (depositors' electrode rule, noisy electrodes dropped, burst rate per bursting electrode): pooled median ratio ours/theirs burst_duration_s 0.8208, spikes_per_burst 0.9433, burst_rate_per_min 0.944; per plate burst rate hPSC_MEA1 0.8579, hPSC_MEA2 0.8973, Rat_MEA1 1.04",
+    "the depositors' stated settings in their Methods (data/raw/kapucu2022/paper/PMC8969177.xml): logISI, at least 5 spikes, bursts merged when under 100 ms apart",
+    "the published extractor_agreement figure (our values against theirs per feature)",
+    "no output of any logISI implementation on any real recording"
+  ],
+  "data": "the three Kapucu 2022 developmental plates and the pairing used by extractor_agreement (Rat_MEA1, hPSC_MEA1, hPSC_MEA2; 2,298 recording-feature pairs against the depositors' published meaRtools tables)",
+  "method": {
+    "detector": "logISI after Pasquale et al. 2010 (J Comput Neurosci 29:213), implemented as an option of features/mea.py (FeatureParams.burst_detector = 'logisi'; the default stays the fixed rule, so every existing output is unchanged)",
+    "variant": "S4_logisi = S3 (active > 10 spikes/min, the deposit's noisy electrodes dropped per DIV, burst rate per bursting electrode) with the logISI detector; reported beside S3 and S0",
+    "statistics": "as the ladder: per plate and pooled, per feature, median ratio ours/theirs, Spearman rho, share within 10%",
+    "implementation": "TO BE COMPLETED BEFORE THE REAL-DATA RUN AND COMMITTED WITH THIS FILE: histogram binning, smoothing, peak and minimum rules, the ISI-threshold cutoff, the void parameter, how bursts are extended when the threshold exceeds the cutoff, merging, minimum spikes, and the fallback when no valid threshold exists; each choice with its source (Pasquale 2010 text, the depositors' Methods, or meaRtools' documentation)"
+  },
+  "predictions": {
+    "L1_burst_duration_closes": {
+      "statement": "the detector is what remains of the burst-duration difference",
+      "test": "pass if S4_logisi pooled burst_duration_s has median ratio in [0.90, 1.10] and Spearman rho >= 0.90; fail otherwise"
+    },
+    "L2_spikes_per_burst_closes": {
+      "statement": "the detector is what remains of the spikes-per-burst difference",
+      "test": "pass if S4_logisi pooled spikes_per_burst has median ratio in [0.95, 1.05] and Spearman rho >= 0.95; fail otherwise"
+    },
+    "L3_hpsc_burst_rate_closes": {
+      "statement": "the detector is what remains of the hPSC burst-rate difference",
+      "test": "pass if S4_logisi burst_rate_per_min has median ratio in [0.95, 1.05] on both hPSC plates; fail otherwise"
+    },
+    "L4_rat_not_worse": {
+      "statement": "on the rat plate, where the fixed rule already agreed, logISI does not break the agreement",
+      "test": "pass if on Rat_MEA1 S4_logisi burst_rate_per_min has median ratio in [0.95, 1.05] and burst_duration_s in [0.90, 1.10]; fail otherwise"
+    }
+  },
+  "uninterpretable": "any prediction is uninterpretable if the fallback (no valid logISI threshold) applies to more than half of the active electrodes on the plates it concerns; the fallback share per plate is reported",
+  "assumption_check": {
+    "assumption": "our implementation is close enough to the depositors' meaRtools logISI that a failure means the detector is not the explanation, rather than that our implementation differs",
+    "check": "report the distribution of per-electrode thresholds per plate and the fallback share; and, post hoc and labelled, how many pairs move by more than 10% between S3 and S4 on each plate"
+  },
+  "reporting": "all four predictions reported with values whatever the outcome; the ladder's existing numbers do not change",
+  "outputs": {
+    "metrics_key": "extractor_agreement.logisi",
+    "results_file": "outputs/extractor_logisi_REAL.json (names this registration)",
+    "figure": "outputs/figures/extractor_logisi_real.png"
+  }
+}
