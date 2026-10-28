@@ -267,6 +267,29 @@ def test_evaluate_applies_the_registered_thresholds():
     assert thin["P1_shape"]["pass"] is False  # fewer than eight pairs
 
 
+def test_each_prediction_records_an_outcome_the_audit_counts():
+    twin = {"pairs": 10, "hits": 6, "hit_rate": 0.6, "mean_spearman": 0.5}
+    nulls = {
+        "follow_firing_rate": {"pairs": 10, "mean_spearman": 0.2},
+        "shuffled_mechanism": {"pairs": 30, "mean_spearman": 0.45},
+    }
+    movers = {k: {"match": k != "c"} for k in "abcd"}
+    got = dr.evaluate(twin, nulls, movers)
+    assert {k: v["outcome"] for k, v in got.items()} == {
+        "P1_shape": "pass",
+        "P2_beats_follow_firing_rate": "pass",
+        "P3_beats_shuffled_mechanism": "fail",
+        "P4_first_mover": "pass",
+    }
+    few = dr.evaluate(
+        {"pairs": 4, "hits": 4, "hit_rate": 1.0, "mean_spearman": 0.9},
+        nulls,
+        {"a": {"match": True}, "b": {"match": True}},
+    )
+    assert few["P1_shape"]["outcome"] == "uninterpretable"  # under the eight-pair floor
+    assert few["P4_first_mover"]["outcome"] == "uninterpretable"  # descriptive below four
+
+
 def test_level_summary_follows_the_registered_move_rule():
     assert dr.level_summary(np.array([1.0] * 12))["moves"] is True
     assert dr.level_summary(np.array([0.05] * 12))["moves"] is False  # too small

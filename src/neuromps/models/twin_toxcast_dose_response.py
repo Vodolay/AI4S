@@ -401,7 +401,13 @@ def evaluate(twin: dict, nulls: dict, first_mover: dict) -> dict:
 
     matched = [v for v in first_mover.values() if v["match"] is not None]
     agree = [v["match"] for v in matched]
-    return {
+    judgeable = {
+        "P1_shape": twin["pairs"] >= MIN_PAIRS,
+        "P2_beats_follow_firing_rate": gap(follow) is not None,
+        "P3_beats_shuffled_mechanism": gap(shuffled) is not None,
+        "P4_first_mover": len(agree) >= MIN_BINS,
+    }
+    preds = {
         "P1_shape": {
             "pairs": twin["pairs"],
             "hit_rate": twin["hit_rate"],
@@ -425,6 +431,16 @@ def evaluate(twin: dict, nulls: dict, first_mover: dict) -> dict:
             "pass": bool(agree and sum(agree) / len(agree) >= HIT_RATE and len(agree) >= MIN_BINS),
         },
     }
+    for key, pred in preds.items():
+        pred["outcome"] = outcome(pred["pass"], judgeable[key])
+    return preds
+
+
+def outcome(passed: bool, judgeable: bool) -> str:
+    """The audit's outcome word: below a registered minimum the test cannot be read."""
+    if not judgeable:
+        return "uninterpretable"
+    return "pass" if passed else "fail"
 
 
 # ------------------------------------------------------------ per-compound assembly
