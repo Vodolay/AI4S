@@ -13,8 +13,11 @@ about twofold. This module asks where that distance comes from, by rerunning the
   electrodes that burst, not by every active electrode.
 
 plus each change alone from S0, and one assumption check. The burst detector
-itself (their adaptive logISI against our fixed ISI rule) is not changed: that
-difference is named, not tested.
+itself (their adaptive logISI against our fixed ISI rule) is not changed here:
+within the ladder that difference is named, not tested. It is tested in a
+registered follow-up (D34, `extractor_logisi`): ``S4_logisi`` below is S3 with
+the logISI detector, defined here beside the ladder and kept out of
+``ALL_DEFINITIONS`` so that the ladder's own numbers do not change.
 
 **This is post hoc.** A scratch analysis ran these variants before this module
 was written, so the numbers here were seen before the code that produces them.
@@ -85,6 +88,10 @@ ONE_AT_A_TIME = (
 )
 ASSUMPTION_CHECK = Definition("check_noisy_dropped_all_divs", _GT10, noisy="dropped_all_divs")
 ALL_DEFINITIONS = (*LADDER, *ONE_AT_A_TIME, ASSUMPTION_CHECK)
+# REGISTERED (preregistration/extractor_logisi.json, D34): S3 with the logISI detector.
+S4_LOGISI = Definition(
+    "S4_logisi", replace(LADDER[3].params, burst_detector="logisi"), noisy=LADDER[3].noisy
+)
 START, END = LADDER[0].name, LADDER[-1].name
 
 
