@@ -733,6 +733,11 @@ def _plot_example(axis, pairs: list[dict], results: dict) -> None:
         color=COLOURS["twin"],
         label="SIMULATED twin, knob levels matched by rank",
     )
+    _style_example(axis, best, real, retained)
+
+
+def _style_example(axis, best: dict, real: list[dict], retained: list[int]) -> None:
+    """Mark the excluded bins and label the example panel."""
     for point in real:
         if point["bin"] not in retained:
             axis.axvspan(
@@ -810,6 +815,35 @@ def _headline(scored: dict, predictions: dict, results: dict) -> dict:
     }
 
 
+def build_payload(results: dict, scored: dict, curves: dict) -> dict:
+    """Everything this check writes to metrics.json, registered tests included."""
+    first_mover = first_mover_table(results)
+    predictions = evaluate(scored["twin"], scored["nulls"], first_mover)
+    check = collect(rescore(results, curves, TRUNCATED_LEVELS))
+    return {
+        "label": "SIMULATED twin knob dose-response vs REAL ToxCast concentration-response wells",
+        "registration": provenance(REGISTRATION),
+        "predictions_file": str(Path("outputs/twin") / PREDICTIONS_NAME),
+        "headline": _headline(scored, predictions, results),
+        "twin": scored["twin"],
+        "nulls": scored["nulls"],
+        "predictions": predictions,
+        "first_mover": first_mover,
+        "firing_rate_sign": {
+            n: r["firing_rate_sign"] for n, r in results.items() if r.get("scored")
+        },
+        "sensitivity_truncated_grid": {
+            "levels": TRUNCATED_LEVELS,
+            "twin": check["twin"],
+            "nulls": check["nulls"],
+        },
+        "dropped": {n: r["dropped"] for n, r in results.items() if r.get("dropped")},
+        "untestable_bins": untestable_bins(results),
+        "compounds": results,
+        "pairs": scored["pairs"],
+    }
+
+
 def main(argv: list[str] | None = None) -> int:
     """--predict: simulate and write the twin's curves only; else score them."""
     from neuromps.metrics import update_metrics
@@ -836,31 +870,7 @@ def main(argv: list[str] | None = None) -> int:
         if result.get("scored"):
             result["twin_levels"] = {f: curves[result["knob"]][f] for f in MAPPING}
     scored = collect(results)
-    first_mover = first_mover_table(results)
-    predictions = evaluate(scored["twin"], scored["nulls"], first_mover)
-    check = collect(rescore(results, curves, TRUNCATED_LEVELS))
-    payload = {
-        "label": "SIMULATED twin knob dose-response vs REAL ToxCast concentration-response wells",
-        "registration": provenance(REGISTRATION),
-        "predictions_file": str(Path("outputs/twin") / PREDICTIONS_NAME),
-        "headline": _headline(scored, predictions, results),
-        "twin": scored["twin"],
-        "nulls": scored["nulls"],
-        "predictions": predictions,
-        "first_mover": first_mover,
-        "firing_rate_sign": {
-            n: r["firing_rate_sign"] for n, r in results.items() if r.get("scored")
-        },
-        "sensitivity_truncated_grid": {
-            "levels": TRUNCATED_LEVELS,
-            "twin": check["twin"],
-            "nulls": check["nulls"],
-        },
-        "dropped": {n: r["dropped"] for n, r in results.items() if r.get("dropped")},
-        "untestable_bins": untestable_bins(results),
-        "compounds": results,
-        "pairs": scored["pairs"],
-    }
+    payload = build_payload(results, scored, curves)
     figures_dir().mkdir(parents=True, exist_ok=True)
     plot(scored, results, figures_dir() / "twin_toxcast_dose_response.png")
     # The twin's per-level curves live in the committed predictions file; the
