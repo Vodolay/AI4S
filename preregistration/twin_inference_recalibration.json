@@ -108,7 +108,7 @@
   "reporting": "Every prediction with its value and pass or fail, whichever way it falls; anything decided after seeing results is labelled post hoc. Results go to outputs/metrics.json under twin_hd14b_recalibration; the HD14 result and code path (twin_hd14_inference) are left as they are.",
   "amendments": [
     {
-      "date": "2026-10-27, 22:25 EDT, before any new simulation or training",
+      "date": "2026-10-27, 22:13 EDT, before any new simulation or training",
       "change": "coverage floor from 2 to 3 binomial standard errors, and a 1e-9 tolerance at the interval boundaries",
       "why": "a test written for the rule (tests/test_twin_recalibration.py) showed that exactly uniform ranks were flagged: over 15 cells (5 parameters x 3 levels) a 2-SE one-sided floor flags an exactly calibrated estimator in about 25% of held-out sets of 1,000 (simulated, 4,000 repetitions), and floating-point rounding of (1 - 0.95)/2 dropped rank 5 of 200 from the 95% interval, which biased that level low and raised the rate to about 50%. With 3 SE and the tolerance the rate is about 2% (n = 1,000) and 3% (n = 300). No simulation had been run and no estimator trained."
     }
