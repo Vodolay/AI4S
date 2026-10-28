@@ -11922,6 +11922,472 @@
       "network_burst_rate_per_min"
     ]
   },
+  "feature_definitions": {
+    "checks_pass": true,
+    "claims_use": [
+      "neuromps",
+      "kapucu2022"
+    ],
+    "label": "REAL recordings: the asset's spike-time records under every named definition set (sidecar), and on the Kapucu 2022 developmental plates, where the depositors' meaRtools output exists, how our numbers translate into theirs; engineering (D37), not registered",
+    "reference": "neuromps",
+    "registry": {
+      "kapucu2022": {
+        "changes_from_reference": [
+          "active_min_spikes_per_min",
+          "active_strict",
+          "burst_rate_denominator",
+          "drop_noisy"
+        ],
+        "choice_sources": {
+          "active_threshold": "more than 10 spikes/min; Kapucu et al. 2022, Methods (data/raw/kapucu2022/paper/PMC8969177.xml)",
+          "burst_detector": "ours, not theirs: fixed rule, ISI <= 100 ms (D33)",
+          "burst_rate_denominator": "electrodes exhibiting bursts; Kapucu et al. 2022, Methods (data/raw/kapucu2022/paper/PMC8969177.xml)",
+          "noisy_electrodes": "the deposit's noisy-electrode lists are discarded; Kapucu et al. 2022, Methods (data/raw/kapucu2022/paper/PMC8969177.xml)"
+        },
+        "description": "The Kapucu 2022 depositors' stated settings that change our numbers, with our fixed burst rule: the settings ladder's S3. Active above 10 spikes/min, the deposit's noisy electrodes dropped where a list exists, burst rate per bursting electrode. On their developmental plates it reproduces their firing rate, active-electrode count and STTC and most of their burst rate; burst duration stays short of theirs (post hoc).",
+        "drop_noisy": true,
+        "evidence": "extractor_agreement.settings_ladder",
+        "method_record": {
+          "active_electrode_threshold_spikes_per_min": 10.0,
+          "active_electrode_threshold_strict": true,
+          "burst_method": "maxinterval_simple(isi<=0.1s,>=5spikes)",
+          "burst_rate_denominator": "bursting",
+          "computed_by": "neuromps.features.mea",
+          "network_burst_method": "binned_participation(bin=0.025s,>=max(3,0.25*active,chance)electrodes,chance_fp<0.05/recording)",
+          "synchrony_method": "sttc"
+        },
+        "status": "validated"
+      },
+      "kapucu2022_logisi": {
+        "changes_from_reference": [
+          "active_min_spikes_per_min",
+          "active_strict",
+          "burst_rate_denominator",
+          "burst_detector",
+          "drop_noisy"
+        ],
+        "choice_sources": {
+          "active_threshold": "more than 10 spikes/min; Kapucu et al. 2022, Methods (data/raw/kapucu2022/paper/PMC8969177.xml)",
+          "burst_detector": "logISI, Pasquale et al. 2010, as the depositors state; Kapucu et al. 2022, Methods (data/raw/kapucu2022/paper/PMC8969177.xml)",
+          "burst_rate_denominator": "electrodes exhibiting bursts; Kapucu et al. 2022, Methods (data/raw/kapucu2022/paper/PMC8969177.xml)",
+          "noisy_electrodes": "the deposit's noisy-electrode lists are discarded; Kapucu et al. 2022, Methods (data/raw/kapucu2022/paper/PMC8969177.xml)"
+        },
+        "description": "kapucu2022 with the depositors' adaptive logISI burst detector (the ladder's S4, registered as D34). 1 of 4 registered predictions passed: burst duration and spikes per burst reach their scale but not their ordering, and the hPSC burst rate overshoots. Whether the detector or our implementation of it is the cause is open, so this set is used for no claim.",
+        "drop_noisy": true,
+        "evidence": "extractor_agreement.logisi",
+        "method_record": {
+          "active_electrode_threshold_spikes_per_min": 10.0,
+          "active_electrode_threshold_strict": true,
+          "burst_detector": "logisi",
+          "burst_method": "logisi_pasquale2010(cutoff=0.1s,void>0.7,bin=0.1log10,smooth=5bins,ceiling=1.0s,merge<0.1s,>=5spikes)",
+          "burst_rate_denominator": "bursting",
+          "computed_by": "neuromps.features.mea",
+          "network_burst_method": "binned_participation(bin=0.025s,>=max(3,0.25*active,chance)electrodes,chance_fp<0.05/recording)",
+          "synchrony_method": "sttc"
+        },
+        "status": "experimental"
+      },
+      "neuromps": {
+        "changes_from_reference": [],
+        "choice_sources": {
+          "active_threshold": "EPA acute MEA assay documents, section 2.5 (decision D33)",
+          "burst_detector": "fixed rule, ISI <= 100 ms and at least 5 spikes (D33)",
+          "burst_rate_denominator": "every active electrode (D33)",
+          "noisy_electrodes": "flagged, not dropped: schema/STANDARD.md section 5 (D33)"
+        },
+        "description": "The asset's own definitions, the FeatureParams defaults every record and the twin use: active at 5 or more spikes/min, noisy electrodes flagged and kept, fixed burst rule (ISI <= 100 ms, at least 5 spikes), burst rate per active electrode.",
+        "drop_noisy": false,
+        "evidence": null,
+        "method_record": {
+          "active_electrode_threshold_spikes_per_min": 5.0,
+          "burst_method": "maxinterval_simple(isi<=0.1s,>=5spikes)",
+          "computed_by": "neuromps.features.mea",
+          "network_burst_method": "binned_participation(bin=0.025s,>=max(3,0.25*active,chance)electrodes,chance_fp<0.05/recording)",
+          "synchrony_method": "sttc"
+        },
+        "status": "reference"
+      }
+    },
+    "sidecar": {
+      "asset_spike_time_records_without_rows": 0,
+      "by_source": {
+        "brewer2021": {
+          "asset_spike_time_records": 40,
+          "records": 40,
+          "rows_by_definition": {
+            "kapucu2022": 360,
+            "kapucu2022_logisi": 360,
+            "neuromps": 360
+          }
+        },
+        "kapucu2022": {
+          "asset_spike_time_records": 288,
+          "records": 288,
+          "rows_by_definition": {
+            "kapucu2022": 2592,
+            "kapucu2022_logisi": 2592,
+            "neuromps": 2592
+          }
+        },
+        "mateus2024": {
+          "asset_spike_time_records": 108,
+          "records": 108,
+          "rows_by_definition": {
+            "kapucu2022": 972,
+            "kapucu2022_logisi": 972,
+            "neuromps": 972
+          }
+        },
+        "screenneuropharm_bic": {
+          "asset_spike_time_records": 580,
+          "records": 580,
+          "rows_by_definition": {
+            "kapucu2022": 5220,
+            "kapucu2022_logisi": 5220,
+            "neuromps": 5220
+          }
+        },
+        "sharf2022": {
+          "asset_spike_time_records": 29,
+          "records": 29,
+          "rows_by_definition": {
+            "kapucu2022": 261,
+            "kapucu2022_logisi": 261,
+            "neuromps": 261
+          }
+        },
+        "trujillo2019": {
+          "asset_spike_time_records": 184,
+          "records": 184,
+          "rows_by_definition": {
+            "kapucu2022": 1656,
+            "kapucu2022_logisi": 1656,
+            "neuromps": 1656
+          }
+        },
+        "vassallo2017": {
+          "asset_spike_time_records": 283,
+          "records": 283,
+          "rows_by_definition": {
+            "kapucu2022": 2547,
+            "kapucu2022_logisi": 2547,
+            "neuromps": 2547
+          }
+        }
+      },
+      "check_reference_equals_asset": {
+        "examples": [],
+        "n_records": 1512,
+        "n_records_missing_from_asset": 0,
+        "n_values": 13608,
+        "n_values_mismatched": 0,
+        "pass": true
+      },
+      "file": "data/processed/features_by_definition.parquet",
+      "n_records": 1512,
+      "n_rows": 40824,
+      "quick_share": false,
+      "records_read_not_in_asset": 0
+    },
+    "status": "engineering decision D37; not a registered study",
+    "table": "outputs/tables/feature_definitions.md",
+    "translation": {
+      "ladder_check": {
+        "kapucu2022": {
+          "compared_against": "extractor_agreement.settings_ladder.by_variant.S3_rate_per_bursting_electrode",
+          "n_compared": 28,
+          "n_equal": 28,
+          "pass": true
+        },
+        "kapucu2022_logisi": {
+          "compared_against": "extractor_agreement.logisi.by_variant.S4_logisi",
+          "n_compared": 12,
+          "n_equal": 12,
+          "pass": true
+        },
+        "neuromps": {
+          "compared_against": "extractor_agreement.settings_ladder.by_variant.S0_ours",
+          "n_compared": 28,
+          "n_equal": 28,
+          "pass": true
+        }
+      },
+      "n_plates": 3,
+      "n_recordings": 336,
+      "not_covered": [
+        "isi_cv",
+        "network_burst_rate_per_min"
+      ],
+      "pairs": {
+        "neuromps_to_kapucu2022": {
+          "active_electrodes": {
+            "fraction_within_10pct": 0.1905,
+            "median_ratio": 0.734,
+            "median_ratio_by_plate": {
+              "Rat_MEA1": 0.9008,
+              "hPSC_MEA1": 0.7021,
+              "hPSC_MEA2": 0.6958
+            },
+            "n": 336,
+            "spearman_rho": 0.9763,
+            "target_vs_depositors": {
+              "median_ratio": 1.0,
+              "spearman_rho": 1.0
+            },
+            "verdict": "scale factor"
+          },
+          "burst_duration_s": {
+            "fraction_within_10pct": 0.9844,
+            "median_ratio": 1.0,
+            "median_ratio_by_plate": {
+              "Rat_MEA1": 1.0,
+              "hPSC_MEA1": 1.0,
+              "hPSC_MEA2": 1.0
+            },
+            "n": 320,
+            "spearman_rho": 0.9829,
+            "target_vs_depositors": {
+              "median_ratio": 0.8208,
+              "spearman_rho": 0.8167
+            },
+            "verdict": "same number"
+          },
+          "burst_rate_per_min": {
+            "fraction_within_10pct": 0.1469,
+            "median_ratio": 2.0584,
+            "median_ratio_by_plate": {
+              "Rat_MEA1": 1.0956,
+              "hPSC_MEA1": 2.4226,
+              "hPSC_MEA2": 2.3188
+            },
+            "n": 320,
+            "spearman_rho": 0.9299,
+            "target_vs_depositors": {
+              "median_ratio": 0.944,
+              "spearman_rho": 0.9819
+            },
+            "verdict": "no conversion"
+          },
+          "mfr_hz": {
+            "fraction_within_10pct": 0.1845,
+            "median_ratio": 1.3264,
+            "median_ratio_by_plate": {
+              "Rat_MEA1": 1.1017,
+              "hPSC_MEA1": 1.3902,
+              "hPSC_MEA2": 1.387
+            },
+            "n": 336,
+            "spearman_rho": 0.9831,
+            "target_vs_depositors": {
+              "median_ratio": 1.0,
+              "spearman_rho": 1.0
+            },
+            "verdict": "scale factor"
+          },
+          "pct_spikes_in_bursts": {
+            "fraction_within_10pct": 0.858,
+            "median_ratio": 1.0132,
+            "median_ratio_by_plate": {
+              "Rat_MEA1": 1.0015,
+              "hPSC_MEA1": 1.0201,
+              "hPSC_MEA2": 1.0162
+            },
+            "n": 336,
+            "spearman_rho": 0.9808,
+            "target_vs_depositors": {
+              "median_ratio": 1.0007,
+              "spearman_rho": 0.9897
+            },
+            "verdict": "same number"
+          },
+          "spikes_per_burst": {
+            "fraction_within_10pct": 0.9781,
+            "median_ratio": 1.0,
+            "median_ratio_by_plate": {
+              "Rat_MEA1": 1.0,
+              "hPSC_MEA1": 1.0,
+              "hPSC_MEA2": 1.0
+            },
+            "n": 320,
+            "spearman_rho": 0.9766,
+            "target_vs_depositors": {
+              "median_ratio": 0.9433,
+              "spearman_rho": 0.9443
+            },
+            "verdict": "same number"
+          },
+          "synchrony_index": {
+            "fraction_within_10pct": 0.1909,
+            "median_ratio": 1.315,
+            "median_ratio_by_plate": {
+              "Rat_MEA1": 1.0693,
+              "hPSC_MEA1": 1.369,
+              "hPSC_MEA2": 1.5413
+            },
+            "n": 330,
+            "spearman_rho": 0.9839,
+            "target_vs_depositors": {
+              "median_ratio": 1.0,
+              "spearman_rho": 1.0
+            },
+            "verdict": "scale factor"
+          }
+        },
+        "neuromps_to_kapucu2022_logisi": {
+          "active_electrodes": {
+            "fraction_within_10pct": 0.1905,
+            "median_ratio": 0.734,
+            "median_ratio_by_plate": {
+              "Rat_MEA1": 0.9008,
+              "hPSC_MEA1": 0.7021,
+              "hPSC_MEA2": 0.6958
+            },
+            "n": 336,
+            "spearman_rho": 0.9763,
+            "target_vs_depositors": {
+              "median_ratio": 1.0,
+              "spearman_rho": 1.0
+            },
+            "verdict": "scale factor"
+          },
+          "burst_duration_s": {
+            "fraction_within_10pct": 0.5692,
+            "median_ratio": 1.0657,
+            "median_ratio_by_plate": {
+              "Rat_MEA1": 1.289,
+              "hPSC_MEA1": 1.0315,
+              "hPSC_MEA2": 1.0381
+            },
+            "n": 318,
+            "spearman_rho": 0.8898,
+            "target_vs_depositors": {
+              "median_ratio": 0.9611,
+              "spearman_rho": 0.8347
+            },
+            "verdict": "no conversion"
+          },
+          "burst_rate_per_min": {
+            "fraction_within_10pct": 0.1667,
+            "median_ratio": 2.4437,
+            "median_ratio_by_plate": {
+              "Rat_MEA1": 1.0176,
+              "hPSC_MEA1": 3.0902,
+              "hPSC_MEA2": 2.9798
+            },
+            "n": 318,
+            "spearman_rho": 0.8768,
+            "target_vs_depositors": {
+              "median_ratio": 1.0488,
+              "spearman_rho": 0.9873
+            },
+            "verdict": "no conversion"
+          },
+          "mfr_hz": {
+            "fraction_within_10pct": 0.1845,
+            "median_ratio": 1.3264,
+            "median_ratio_by_plate": {
+              "Rat_MEA1": 1.1017,
+              "hPSC_MEA1": 1.3902,
+              "hPSC_MEA2": 1.387
+            },
+            "n": 336,
+            "spearman_rho": 0.9831,
+            "target_vs_depositors": {
+              "median_ratio": 1.0,
+              "spearman_rho": 1.0
+            },
+            "verdict": "scale factor"
+          },
+          "pct_spikes_in_bursts": {
+            "fraction_within_10pct": 0.7593,
+            "median_ratio": 1.0009,
+            "median_ratio_by_plate": {
+              "Rat_MEA1": 1.0078,
+              "hPSC_MEA1": 0.9912,
+              "hPSC_MEA2": 1.0034
+            },
+            "n": 336,
+            "spearman_rho": 0.9782,
+            "target_vs_depositors": {
+              "median_ratio": 0.9799,
+              "spearman_rho": 0.9901
+            },
+            "verdict": "same number"
+          },
+          "spikes_per_burst": {
+            "fraction_within_10pct": 0.7956,
+            "median_ratio": 1.05,
+            "median_ratio_by_plate": {
+              "Rat_MEA1": 1.0709,
+              "hPSC_MEA1": 1.0467,
+              "hPSC_MEA2": 1.0417
+            },
+            "n": 318,
+            "spearman_rho": 0.9643,
+            "target_vs_depositors": {
+              "median_ratio": 0.9986,
+              "spearman_rho": 0.9467
+            },
+            "verdict": "scale factor"
+          },
+          "synchrony_index": {
+            "fraction_within_10pct": 0.1909,
+            "median_ratio": 1.315,
+            "median_ratio_by_plate": {
+              "Rat_MEA1": 1.0693,
+              "hPSC_MEA1": 1.369,
+              "hPSC_MEA2": 1.5413
+            },
+            "n": 330,
+            "spearman_rho": 0.9839,
+            "target_vs_depositors": {
+              "median_ratio": 1.0,
+              "spearman_rho": 1.0
+            },
+            "verdict": "scale factor"
+          }
+        }
+      },
+      "scope": "Kapucu 2022 developmental plates, recordings with the depositors' meaRtools output",
+      "thresholds": {
+        "rank_agreement": 0.95,
+        "same_number_ratio_within": 0.05,
+        "within_share": 0.1
+      },
+      "verdicts": {
+        "neuromps_to_kapucu2022": {
+          "no conversion": [
+            "burst_rate_per_min"
+          ],
+          "same number": [
+            "burst_duration_s",
+            "pct_spikes_in_bursts",
+            "spikes_per_burst"
+          ],
+          "scale factor": [
+            "active_electrodes",
+            "mfr_hz",
+            "synchrony_index"
+          ]
+        },
+        "neuromps_to_kapucu2022_logisi": {
+          "no conversion": [
+            "burst_duration_s",
+            "burst_rate_per_min"
+          ],
+          "same number": [
+            "pct_spikes_in_bursts"
+          ],
+          "scale factor": [
+            "active_electrodes",
+            "mfr_hz",
+            "spikes_per_burst",
+            "synchrony_index"
+          ]
+        }
+      }
+    }
+  },
   "feature_dose_response": {
     "absolute": {
       "by_feature": {

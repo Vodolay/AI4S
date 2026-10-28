@@ -387,6 +387,67 @@ trims bursts whose spikes loosen towards their edges; with logISI, burst duratio
 the rat plate, where the per-electrode thresholds sit above the cutoff (above). A reader pooling our features with meaRtools output should convert, or recompute,
 rather than mix them.
 
+### Named definition sets
+
+Decision D33 kept one fixed definition per feature and left a second option open: store each
+record's features under named definition sets, so that a reader can set our number beside another
+laboratory's. That is now built (decision D37) without changing a record. A registry in
+`features/definitions.py` names three sets, each a bundle of options `features/mea.py` already has
+plus whether a deposit's noisy electrodes are dropped; none is a second extractor. `neuromps`
+(status `reference`) is the defaults every record and the twin use. `kapucu2022` (`validated`) is
+the ladder's S3: the depositors' activity threshold, noisy-electrode lists and burst-rate
+denominator, with our fixed burst rule; its evidence is the ladder above. `kapucu2022_logisi`
+(`experimental`) is S4, whose registered test passed one of four predictions with the attribution
+open; it is shown and used for no claim. A sidecar beside the asset,
+`data/processed/features_by_definition.parquet`, holds all 1,512
+<!-- metrics.json: feature_definitions.sidecar.n_records --> spike-time records under every set, re-read with the ETL
+modules' own loaders. Two checks run with it. Its `neuromps` rows equal the asset's own features in
+all 13,608 <!-- metrics.json: feature_definitions.sidecar.check_reference_equals_asset.n_values --> values, with
+0 <!-- metrics.json: feature_definitions.sidecar.check_reference_equals_asset.n_values_mismatched --> differing.
+And on the developmental plates the `kapucu2022` set's ratios against the depositors' tables equal
+the ladder's S3 numbers in 28 <!-- metrics.json: feature_definitions.translation.ladder_check.kapucu2022.n_equal -->
+of 28 <!-- metrics.json: feature_definitions.translation.ladder_check.kapucu2022.n_compared --> comparisons.
+
+**Where a translation holds.** On the 336 <!-- metrics.json: feature_definitions.translation.n_recordings -->
+developmental-plate recordings, the same recording's value under `kapucu2022` divided by its value
+under ours, with the agreement study's thresholds: same number when the ratio is within
+0.05 <!-- metrics.json: feature_definitions.translation.thresholds.same_number_ratio_within --> of one and the rank
+agreement reaches 0.95 <!-- metrics.json: feature_definitions.translation.thresholds.rank_agreement -->; scale factor
+when the ranks agree and the ratio does not; no conversion when the ranks do not agree. The last
+column is how far `kapucu2022` itself sits from the depositors' published values.
+
+| feature | ratio, `kapucu2022` / ours | rank agreement (ρ) | verdict | `kapucu2022` / depositors |
+|---|---|---|---|---|
+| `pct_spikes_in_bursts` | 1.0132 <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.pct_spikes_in_bursts.median_ratio --> | 0.9808 <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.pct_spikes_in_bursts.spearman_rho --> | `same number` <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.pct_spikes_in_bursts.verdict --> | 1.0007 <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.pct_spikes_in_bursts.target_vs_depositors.median_ratio --> |
+| `spikes_per_burst` | 1.0 <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.spikes_per_burst.median_ratio --> | 0.9766 <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.spikes_per_burst.spearman_rho --> | `same number` <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.spikes_per_burst.verdict --> | 0.9433 <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.spikes_per_burst.target_vs_depositors.median_ratio --> |
+| `burst_duration_s` | 1.0 <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.burst_duration_s.median_ratio --> | 0.9829 <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.burst_duration_s.spearman_rho --> | `same number` <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.burst_duration_s.verdict --> | 0.8208 <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.burst_duration_s.target_vs_depositors.median_ratio --> |
+| `active_electrodes` | 0.734 <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.active_electrodes.median_ratio --> | 0.9763 <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.active_electrodes.spearman_rho --> | `scale factor` <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.active_electrodes.verdict --> | 1.0 <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.active_electrodes.target_vs_depositors.median_ratio --> |
+| `mfr_hz` | 1.3264 <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.mfr_hz.median_ratio --> | 0.9831 <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.mfr_hz.spearman_rho --> | `scale factor` <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.mfr_hz.verdict --> | 1.0 <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.mfr_hz.target_vs_depositors.median_ratio --> |
+| `synchrony_index` | 1.315 <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.synchrony_index.median_ratio --> | 0.9839 <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.synchrony_index.spearman_rho --> | `scale factor` <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.synchrony_index.verdict --> | 1.0 <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.synchrony_index.target_vs_depositors.median_ratio --> |
+| `burst_rate_per_min` | 2.0584 <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.burst_rate_per_min.median_ratio --> | 0.9299 <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.burst_rate_per_min.spearman_rho --> | `no conversion` <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.burst_rate_per_min.verdict --> | 0.944 <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.burst_rate_per_min.target_vs_depositors.median_ratio --> |
+
+The full table, with the share of recordings within a tenth and the `kapucu2022_logisi` pair, is
+`outputs/tables/feature_definitions.md`. Three features carry over unchanged, three by a factor,
+and burst rate not at all: the denominator change moves each recording by its own share of
+bursting electrodes, so the ranks shift (ρ 0.9299
+<!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.burst_rate_per_min.spearman_rho -->).
+
+**The limits.** A translation is checked only where a depositor's own output exists, which today
+means these three plates; it is not a conversion for other laboratories or cultures. Even here a
+pooled factor is a property of the recordings, not of the two definitions: per plate the firing-rate
+ratio is 1.1017 <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.mfr_hz.median_ratio_by_plate.Rat_MEA1 --> on the rat plate and
+1.3902 <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.mfr_hz.median_ratio_by_plate.hPSC_MEA1 --> on hPSC_MEA1, and the active-electrode
+ratio 0.9008 <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.active_electrodes.median_ratio_by_plate.Rat_MEA1 --> against
+0.6958 <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.active_electrodes.median_ratio_by_plate.hPSC_MEA2 --> (hPSC_MEA2), because the
+stricter activity threshold drops more of the human electrodes. A same-number verdict between two
+of our sets says nothing about the depositors: burst duration is unchanged between `neuromps` and
+`kapucu2022`, and both sit at 0.8208
+<!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.burst_duration_s.target_vs_depositors.median_ratio --> of the depositors' value. Under the
+experimental set, burst duration has no conversion either
+(`no conversion` <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022_logisi.burst_duration_s.verdict -->), and no result in this report uses
+that set. The sidecar is for reading our records beside a named definition; where spike times
+exist, recomputing under a named set is better than converting.
+
 ## 4. The three questions we asked the data
 
 Every model in this report works on changes, not on static states. We pair each treated well with

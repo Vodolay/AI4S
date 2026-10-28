@@ -94,6 +94,39 @@ Electrode count per unit spans 8 to 26,400 across the current sources. Electrode
 quantities (`active_electrodes`, and any synchrony measure that averages over electrode pairs) MUST
 NOT be compared across platforms without an explicit, recorded rescaling.
 
+### 4.4 Named definition sets
+
+A record's `features` block is computed under one definition set, `neuromps`: the defaults of
+`FeatureParams` in `features/mea.py`, which its `feature_method` block states. Other laboratories
+define the same features differently (report §3), so the asset also carries each spike-time record
+under other **named definition sets**, without changing the record (decision D37).
+
+- **The registry** (`src/neuromps/features/definitions.py`) names each set. A set is a bundle of
+  options the one extractor already has (`active_min_spikes_per_min`, `active_strict`,
+  `burst_rate_denominator`, `burst_detector`, …) plus one electrode policy: whether a deposit's
+  listed noisy electrodes are dropped before extraction. A set is not a second extractor. Each
+  set states where every choice comes from and has a status: `reference` (what the asset's records
+  use), `validated` (reproduces another implementation's published output on real recordings; the
+  evidence is named by its `outputs/metrics.json` key) or `experimental` (computed and shown, used
+  for no claim). Current sets: `neuromps` (reference), `kapucu2022` (validated,
+  `extractor_agreement.settings_ladder`) and `kapucu2022_logisi` (experimental,
+  `extractor_agreement.logisi`).
+- **The sidecar** `data/processed/features_by_definition.parquet` holds every spike-time record
+  under every set, long-form: `record_id`, `source`, `definition`, `feature`, `value`. It joins
+  the asset on `record_id`; an undefined value is NaN, as in the asset. Its `neuromps` rows MUST
+  equal the asset's `features.*` exactly, which the pipeline checks on every run. The sidecar
+  derives from the same sources as the asset and carries the same licences
+  (`data/processed/NOTICE.md`). Each set's method fields are in `outputs/metrics.json` key
+  `feature_definitions.registry`.
+- **Translation** between two sets (`outputs/tables/feature_definitions.md`) is reported only where
+  a depositor's own output exists to check it against (the Kapucu 2022 developmental plates), with
+  a verdict per feature: same number, scale factor, or no conversion. A ratio there is a property of
+  those recordings, so it is reported per plate as well as pooled; it is not a conversion constant
+  for other cultures. A "same number" between two of our sets says nothing about the depositors:
+  the table's last columns say how close the target set itself comes to their published values.
+  Data with another laboratory's definitions should be recomputed under a named set from spike
+  times where possible, not converted.
+
 ## 5. Quality control
 
 `qc.usable` is a boolean decision; `qc.flags` is a closed vocabulary explaining it:

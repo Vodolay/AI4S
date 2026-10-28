@@ -100,6 +100,7 @@ def main(argv: list[str] | None = None) -> int:
             from neuromps.models.cross_lab import main as run_cross_lab
             from neuromps.models.dose_response import main as run_dose_response
             from neuromps.models.extractor_agreement import main as run_extractor_agreement
+            from neuromps.models.feature_definitions import main as run_feature_definitions
             from neuromps.models.hpsc_network_state import main as run_network_state
             from neuromps.models.hpsc_settling import main as run_settling
             from neuromps.models.hpsc_split_half import main as run_split_half
@@ -115,6 +116,9 @@ def main(argv: list[str] | None = None) -> int:
             # Does the shared extractor reproduce the depositors' own numbers?
             draw_architecture(quick)
             run_extractor_agreement(quick)
+            # D37: the asset's spike-time records under every named definition set (a
+            # sidecar beside the asset), checked against it and against the ladder above.
+            run_feature_definitions(quick)
             # Is the dose signal in the features the twin is given at all?
             run_dose_response(quick)
             # How far one rate change carries, and whether it carries across.

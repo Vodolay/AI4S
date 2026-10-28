@@ -206,9 +206,14 @@ standard, and the fly-brain study ("From chip to animal"), which appears once th
 |---|---|---|
 | `fetch` | eight public deposits over HTTP | `data/raw/<source>/`, `data/raw/MANIFEST.json` |
 | `data` | `data/raw/`, `schema/neuromps_schema.json` | `data/processed/neuromps.parquet`, `provenance.json` |
-| `models` | the asset | `outputs/metrics.json`, `outputs/figures/*.png` |
+| `models` | the asset | `outputs/metrics.json`, `outputs/figures/*.png`, `data/processed/features_by_definition.parquet` |
 | `twin` | the asset (calibration targets) | `outputs/twin/*.json`, `outputs/twin/*.png`, metrics |
 | `demo` | metrics, the trained posterior | `outputs/demo/` for the app |
+
+`features_by_definition.parquet` is the asset's sidecar: every spike-time record's features under
+each named definition set (ours, `neuromps`, and the Kapucu 2022 depositors' settings), joined on
+`record_id`; `outputs/tables/feature_definitions.md` says per feature where a translation between
+them holds ([schema/STANDARD.md](schema/STANDARD.md) §4.4, decision D37).
 
 No model weights need downloading: the only trained artefact is the `sbi` posterior, which
 `run_all.py` fits from simulations in the twin stage and caches under `outputs/twin/`.

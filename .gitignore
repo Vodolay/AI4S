@@ -12,6 +12,8 @@ data/processed/*
 !data/processed/neuromps.parquet
 !data/processed/provenance.json
 !data/processed/NOTICE.md
+# The asset's features under every named definition set (D37), keyed by record_id.
+!data/processed/features_by_definition.parquet
 !data/**/.gitkeep
 # Figures are tracked, not ignored: the technical report embeds them, so they
 # have to travel with the source that cites them and be visible in a diff when a
