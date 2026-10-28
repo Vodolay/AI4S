@@ -1,0 +1,66 @@
+{
+  "title": "Is an untreated human iPSC MEA recording noisier than a rat one? Split-half noise, same lab and protocol (REAL data)",
+  "registered": "2026-10-28T11:28:00Z",
+  "decision": "D32",
+  "status": "registered before any split-half feature, change or statistic was computed for any well",
+  "origin": "final-round deck review: the practical-value section gives wells needed for rat cortical chips (ToxCast) only; a judge will ask about human iPSC chips. The first design (untreated wells recorded at baseline and again at exposure) was dropped before registration: only 4 human and 6 rat such wells pass QC.",
+  "data": {
+    "source": "Kapucu et al. 2022 (G-Node GIN, CC-BY-4.0), spike times as deposited; data/raw/kapucu2022",
+    "primary": {
+      "human": "hPSC_MEA3_Pharmacology/hPSC_MEA3Baseline_DIV29: 48-well plate, 30-min untreated baseline recording, hPSC-derived cortical neurons, DIV29",
+      "rat": "Rat_MEA2_Pharmacology/Rat_MEA2Baseline_DIV22: 48-well plate, 30-min untreated baseline recording, rat primary cortical neurons, DIV22"
+    },
+    "replication": {
+      "human": "hPSC_MEA1 and hPSC_MEA2 developmental series, 12-well plates, 10-min recordings, every recording at DIV28 or later",
+      "rat": "Rat_MEA1 developmental series, 12-well plate, 10-min recordings, every recording at DIV21 or later",
+      "treatment": "NoTreatment wells only; ExcludedWell wells are not used"
+    }
+  },
+  "seen_before_registration": [
+    "from the built asset (data/processed/neuromps.parquet), for the Kapucu untreated wells: record counts per plate and phase, QC flag counts, and the median firing rate and median active-electrode count per species and phase (human baseline: median 5.06 Hz, 7 active electrodes; rat baseline: median 3.09 Hz, 15 active electrodes)",
+    "for the developmental plates: file names, recording durations (600 s), number of wells with spikes (hPSC_MEA1 and hPSC_MEA2 DIV28: 6 each; Rat_MEA1 DIV21: 12), and the expLog treatment counts (hPSC_MEA1: 6 ExcludedWell, 6 NoTreatment; Rat_MEA1: 12 NoTreatment)",
+    "the report's existing numbers, including the ToxCast wells-needed table and the rat-to-human classifier transfer",
+    "no feature of any half recording, and no change between halves, for any well"
+  ],
+  "method": {
+    "split": "each well's recording is cut at half its duration (the plate file's last spike time, as the asset uses); the second half's spike times are shifted to start at 0; both halves go through features/mea.py extract_features with default parameters and duration = half the recording",
+    "usable_well": "not ExcludedWell in the expLog, and at least 10 active electrodes (the asset's QC threshold, active as defined by the extractor) in each half; noisy electrodes are kept, as in the asset, and their count is reported",
+    "features": ["mfr_hz", "burst_rate_per_min", "burst_duration_s", "spikes_per_burst", "pct_spikes_in_bursts", "network_burst_rate_per_min", "synchrony_index", "isi_cv"],
+    "change": "d = log2(max(f2 / f1, 0.05)) per usable well and feature; not scored when either half is undefined or f1 <= 0; counts of unscored wells reported per feature",
+    "noise": "SD (ddof 1) of d over usable wells, per species and feature; 1.4826 x MAD reported beside it",
+    "ratio": "R = SD_human / SD_rat; 95% percentile interval from 2,000 bootstrap resamples of wells within each species, seed 20261028",
+    "replication_pooling": "every usable well-recording at or after the age floor is pooled; the bootstrap resamples wells (all of a well's recordings together), seed 20261028",
+    "feature_scored": "a feature is scored for a species comparison when at least 10 wells per species have a defined d (6 for the replication)"
+  },
+  "predictions": {
+    "P1_human_firing_rate_noisier": {
+      "statement": "on the matched 48-well baselines, an untreated human iPSC well's firing rate moves more between the two halves of its recording than a rat well's",
+      "test": "pass if the 95% interval of R for mfr_hz lies above 1; fail otherwise",
+      "uninterpretable": "fewer than 10 usable wells in either species"
+    },
+    "P2_human_noisier_across_features": {
+      "statement": "the difference is not specific to firing rate",
+      "test": "pass if SD_human > SD_rat for at least 5 of the 8 features, among at least 5 scored features; fail otherwise",
+      "uninterpretable": "fewer than 5 features scored"
+    },
+    "P3_replicates_on_developmental_plates": {
+      "statement": "the firing-rate result replicates on the 12-well developmental plates of the same lab",
+      "test": "pass if the point estimate of R for mfr_hz on the replication pool is above 1; fail otherwise",
+      "uninterpretable": "fewer than 6 usable wells in either species"
+    }
+  },
+  "reported_not_tested": {
+    "wells_needed": "per species, the wells per arm needed to detect a 20% and a 50% fall in firing rate against same-session controls at 5% two-sided false alarms and 80% power: n = ceil(2 (1.959964 + 0.841621)^2 SD^2 / log2(1 - fall)^2), from the primary pool's SD; stated as a LOWER BOUND, because split-half noise leaves out handling, compound addition and day-to-day variation, which the ToxCast vehicle wells include",
+    "per_feature": "SD, robust SD, n wells and R with its interval for every scored feature, both pools"
+  },
+  "assumption_check": {
+    "assumption": "a species difference in split-half noise is not just a difference in firing rate (fewer spikes give noisier rates)",
+    "check": "recompute R for mfr_hz on wells whose full-recording firing rate lies inside both species' 10th-90th percentile ranges (the overlap); report it with its interval and the wells kept; if it falls on the other side of 1 from the primary estimate, the report says the difference may be a firing-rate difference"
+  },
+  "reporting": "all three predictions reported with their values, whatever the outcome; the comparison with the ToxCast vehicle-well numbers is qualitative only, because the noise measured differs",
+  "outputs": {
+    "metrics_key": "hpsc_split_half",
+    "results_file": "outputs/hpsc_split_half_REAL.json (names this registration)",
+    "figure": "outputs/figures/hpsc_split_half_real.png"
+  }
+}

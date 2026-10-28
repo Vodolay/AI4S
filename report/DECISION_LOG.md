@@ -317,3 +317,23 @@ it with its own command or `python -m neuromps.fly.pipeline --only <step>`.
   comparable span of the mechanism to the knob grid. Checked by rescoring with the grid's two
   strongest levels dropped (`sensitivity_truncated_grid`).
 - **Revisit at:** `outputs/metrics.json` key `twin_toxcast_dose_response`, report §35.
+
+### D32. How noisy an untreated human iPSC chip is, against a rat chip from the same lab **(user)**
+- **Found:** the practical-value result (§32) gives the wells an assay needs for rat cortical
+  chips only. The natural human analogue, untreated wells recorded before and after a treatment
+  step, exists in Kapucu 2022, but only 4 human and 6 rat such wells pass QC.
+- **Options:** drop the human question; search for another licensed human iPSC set with
+  re-recorded untreated wells; measure the noise inside one untreated recording, by comparing
+  its two halves, on the lab's matched 48-well baselines (human DIV29, rat DIV22).
+- **Taken:** the split-half comparison, registered in `preregistration/hpsc_split_half.json`
+  before any half-recording feature was computed: three predictions (human firing rate noisier;
+  noisier across features; replicates on the lab's 12-well developmental plates), and the wells
+  per arm a 20% or 50% fall would need, reported as a lower bound. **Why:** it is the only
+  comparison with enough wells in both species, and the same lab, protocol and extractor make
+  the species the main difference.
+- **Assumption recorded:** a species difference could be a firing-rate difference, because fewer
+  spikes give noisier rates; checked on wells whose firing rates overlap between species.
+- **Limit stated in advance:** split-half noise leaves out handling, compound addition and
+  day-to-day variation, so the wells it implies are a lower bound, and are not compared
+  numerically with the ToxCast vehicle-well numbers.
+- **Revisit at:** `outputs/metrics.json` key `hpsc_split_half`.
