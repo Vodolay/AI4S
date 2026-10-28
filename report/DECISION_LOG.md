@@ -407,3 +407,17 @@ it with its own command or `python -m neuromps.fly.pipeline --only <step>`.
 - **Revisit at:** a future version could store each record's features under named definition sets
   (for example `neuromps_v1` and `meartools_like`), selected per consumer, with the method record
   naming the set. `outputs/metrics.json` key `extractor_agreement.settings_ladder`.
+
+### D35. Separating settling from steady noise in untreated human iPSC wells **(user)**
+- **Found:** D32 (report §36) measured human iPSC firing rate about twice as noisy as rat between
+  the halves of one untreated recording, and noted that human wells fall more within the
+  recording; part of that spread may be wells settling at different speeds, not steady noise.
+- **Options:** state the ambiguity and stop; separate the two within the same recordings.
+- **Taken:** six windows per 30-minute baseline, a straight-line trend per well on a fixed
+  electrode set, and three registered predictions (`preregistration/hpsc_settling.json`): human
+  wells settle more unevenly; human wells are also noisier around their own trend; in human wells
+  the trend carries most of the split-half spread. **Why:** for assay design the two call for
+  different fixes (a longer settling period before dosing against more wells), so which one
+  dominates matters.
+- **Assumption recorded:** a straight line describes the settling; checked with a quadratic term.
+- **Revisit at:** `outputs/metrics.json` key `hpsc_settling`.
