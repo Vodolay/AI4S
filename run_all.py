@@ -158,6 +158,7 @@ def main(argv: list[str] | None = None) -> int:
             from neuromps.twin.directionality import main as run_directionality
             from neuromps.twin.inference import main as run_inference
             from neuromps.twin.perturbation import main as run_knobs
+            from neuromps.twin.prior_reach_run import main as run_prior_reach
             from neuromps.twin.real_inference import main as run_real_inference
             from neuromps.twin.recalibration import main as run_recalibration
             from neuromps.twin.validate import main as validate_twin
@@ -179,6 +180,10 @@ def main(argv: list[str] | None = None) -> int:
             # run on the quick cache; full reuses the recorded simulation chunks and
             # simulates only those a clean clone lacks.
             run_recalibration(quick)
+            # D38: whether a widened prior reaches the real recordings. Full tier only:
+            # quick re-scores the committed record in milliseconds; full reuses the
+            # recorded chunks and simulates only those a clean clone lacks.
+            run_prior_reach(quick)
             run_real_inference(quick)
             # The same question put to a change against each chip's own
             # baseline, rather than to one recording's absolute features.

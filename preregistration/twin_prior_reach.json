@@ -1,0 +1,107 @@
+{
+  "title": "Is the gap between the twin and the real two-chamber recordings the prior's range or model misspecification? (SIMULATED pools against REAL recordings)",
+  "registered": "2026-10-28",
+  "decision": "D38 (report/DECISION_LOG.md); change-log entry 53 (report/POST_SUBMISSION_CHANGES.md)",
+  "status": "registered before any simulation from the new prior, before any new estimator was trained, and before HD14's cache was re-simulated for the reproduction check",
+  "origin": "D31 (report section 16, twin_hd14b_recalibration) found the 113 real two-chamber recordings far from every twin simulation (median distance to the nearest of 1,000 held-out simulations 2.661 against 0.541 between neighbouring simulations, both z-scored with D31's 15,750-simulation training pool) and calibration failing near them (assumption_check). Either the prior box is too narrow or the twin cannot produce the recordings; either answer is a result.",
+  "seen_before_registration": [
+    "everything in twin_hd14_inference, twin_hd14b_recalibration and twin_hd15_real_inference, including HD15's median prior acceptance of 0.0345 for the real recordings",
+    "the diagnostic below (neuromps.twin.prior_reach_run --diagnostic, run on HD14's 3,000 cached simulations, the 113 real recordings and HD14's saved posterior; no new simulation): on HD14's own scale the median real-to-nearest-simulation distance is 2.43 against 0.409 between neighbouring HD14 simulations",
+    "which summaries carry that distance (share of the summed squared distance from each real recording to its nearest HD14 simulation): log_rate_ratio 0.338, lag_ms 0.181, c1_active_electrodes 0.164, c0_active_electrodes 0.113, c0_pct_spikes_in_bursts 0.033; the rest under 0.03 each",
+    "where the real values sit: log_rate_ratio real median 0.263 (z 1.48) against HD14's 99th percentile 0.495, with 37% of recordings above it and 19.5% outside the whole simulated range; active electrodes 11.5% (c0) and 13.3% (c1) below HD14's 1st percentile and 8% (c0) above 48, the most the 48-electrode layout can show; lag_ms 8.8% above HD14's 99th percentile (20 ms)",
+    "which parameters move those summaries across HD14's pool (Spearman): log_rate_ratio ampa_scale -0.50 and log10_forward_ratio -0.40; active electrodes ampa_scale 0.59 and threshold_scale -0.59; lag_ms at most 0.29 (log10_forward_ratio); the simulations nearest the real recordings have log10_forward_ratio median 0.139 (10th percentile 0.025, the lower bound is 0) and threshold_scale median 1.096 (90th percentile 1.127, the upper bound is 1.15)",
+    "where HD14's posterior puts its raw draws for the real recordings (1,000 draws each, not rejected at the prior, seed 3803): median share inside the box 0.035; threshold_scale median share above 1.15 0.843, and 72% of recordings put most of their mass above it; log10_forward_ratio 27% of recordings put most of their mass below 0; ampa_scale median share above 1.4 0.117; inter_in_degree and gabaa_scale do not leave the box (median shares under 0.03 on either side, no recording mostly outside)",
+    "HD14's cache (data/interim/sbi_simulations.npz) carries summary-code hash 1520eac0462f1bc5; today's code hashes to 5edd7927cf714495, because two extractor options, off by default, were added to features/mea.py after HD14 ran (commits 46d1607 and 6f63385). D31's post hoc check re-simulated six HD14 rows identically before that change."
+  ],
+  "prior": {
+    "hd14_bounds": {
+      "log10_forward_ratio": [0.0, 1.3],
+      "inter_in_degree": [2.0, 20.0],
+      "gabaa_scale": [0.1, 2.0],
+      "ampa_scale": [0.4, 1.4],
+      "threshold_scale": [0.85, 1.15]
+    },
+    "new_bounds": {
+      "log10_forward_ratio": [-1.3, 1.3],
+      "inter_in_degree": [2.0, 20.0],
+      "gabaa_scale": [0.1, 2.0],
+      "ampa_scale": [0.4, 1.8],
+      "threshold_scale": [0.85, 1.35]
+    },
+    "distribution": "uniform over the box (sbi BoxUniform), drawn by neuromps.twin.inference.draw_parameters with the bounds passed explicitly",
+    "why": {
+      "log10_forward_ratio": "re-centred to a symmetric range (forward/backward ratio 1/20 to 20): the largest share of the gap is log_rate_ratio, real recordings run faster in compartment 0 than any simulation does, the HD14 simulations nearest them sit at the lower bound, and in the twin the only compartment-specific parameter is the pathway's direction; 27% of recordings put most of HD14's raw posterior mass below 0",
+      "threshold_scale": "the upper bound raised from 1.15 to 1.35: HD14.s raw posterior puts a median 84% of its mass above 1.15 for the real recordings, and 72% of recordings put most of it there; HD14's comment that the network is silent above 1.12 was written under an earlier, ten-times-sparser calibration and HD14's own pool has no silent simulation",
+      "ampa_scale": "the upper bound raised from 1.4 to 1.8: the second-largest edge mass (median 12% above 1.4), and stronger excitation is what can keep a network with a higher threshold bursting, which the real recordings do (median 92% of spikes in bursts)",
+      "unchanged": "inter_in_degree and gabaa_scale: HD14's raw posterior does not leave the box on either side for them"
+    },
+    "volume": "the new box is about 4.7 times HD14's, so at the same budget about a fifth of the new simulations fall inside HD14's box"
+  },
+  "misspecification_expected_in_part": "Most of the gap is carried by summaries that parameters in the box do move (log_rate_ratio, active electrodes), so a prior-range reading is possible. But part of it cannot be closed by any prior: active-electrode counts above 48 (8% of recordings in c0, 3% in c1) exceed the twin's 48-electrode layout, and lag_ms (18% of the gap) is moved weakly by every parameter (|rho| at most 0.29). A misspecification reading is therefore expected for the share of the remaining distance carried by lag_ms and by electrode counts, whatever R1 shows.",
+  "simulator": "unchanged: neuromps.twin.inference.simulate_summary at the calibrated density, 10 s, the default layout, the same 19-dimensional summary vector; every chunk file carries the summary-pipeline and calibration fingerprints and its prior box, and is refused on load if any of them differs from the current code or the registered box",
+  "seeds": {
+    "rule": "D31's chunk rule: chunks of 250; chunk k of a set draws its parameters with draw_parameters(n_chunk, draw_base + k, new_bounds) and simulates row j with network seed network_base + 250 k + j. Every network seed and seed + 1000 (the delay seed) is disjoint from HD14's (0-3999) and D31's sets",
+    "held_out": {"draw_base": 38500, "network_base": 38500000, "n": 600},
+    "train": {"draw_base": 38000, "network_base": 38000000, "n": 2400},
+    "flow_training_seed": 3801,
+    "evaluation_sampling_seed": 3802,
+    "edge_diagnostic_seed": 3803
+  },
+  "budget": {
+    "max_new_simulations": 3000,
+    "order": "the 600 held-out simulations first, then the 2,400 training simulations",
+    "processes": "at most 12 worker processes (the machine is shared)",
+    "cut_off": "no chunk is started at or after 2026-10-29 06:00 America/New_York; a running chunk finishes. Whichever of the 3,000 simulations or the cut-off comes first ends simulation. The pools are always prefixes of the registered chunk sequence, so where the cut falls cannot depend on results. How many finished is recorded (budget in the results)",
+    "failed_simulations": "dropped (non-finite summary) and counted, as in HD14 and D31"
+  },
+  "distance": {
+    "definition": "Euclidean distance on the 19 summaries, each z-scored as D31 did (recalibration_run._zscore: per-summary mean and population SD, an SD of 0 replaced by 1)",
+    "reference_scale": "D31's standardisation is pool-dependent (it used its own training pool). Here one reference scale is fixed: the mean and SD of HD14's 3,000 cached simulations, used for the HD14 pool, the new pool, the real recordings and every held-out set alike",
+    "equal_sizes": "nearest-neighbour distances shrink as a pool grows, so the HD14 pool is compared at the size of the new pool: its first n_new simulations by index (a random subset, HD14's draws being in prior order); with all 3,000 new simulations finished, both pools have 3,000",
+    "new_pool": "all usable new simulations, held-out set first, then the training set, in registered order"
+  },
+  "real_recordings": "the 113 two-chamber recordings of the committed asset, summarised by neuromps.twin.real_inference.real_summaries exactly as HD15 and D31 used them",
+  "estimator": {
+    "flow": "one masked autoregressive flow trained exactly as HD14 and D31's M1 (neuromps.twin.inference.train_posterior: sbi 0.27 NPE, density_estimator='maf', 5 autoregressive transforms, 50 hidden units; training batch 200, learning rate 5e-4, validation fraction 0.1, stopped after 20 epochs without validation improvement, gradient clip 5.0), with the new box as its prior, seed 3801, on the new training set only (up to 2,400 simulations; HD14's simulations are not added, because they were drawn from a different box and would make the training proposal non-uniform)",
+    "not_tried": "an ensemble or a different flow family: one change at a time; D31 already compared those on HD14's box"
+  },
+  "predictions": {
+    "R1_reach": {
+      "statement": "The widened prior reaches the real recordings: the median over the 113 real recordings of the distance to their nearest simulation in the new pool is at most half of the same quantity for the HD14 pool, on HD14's scale at equal pool sizes",
+      "test": "pass if median_new / median_hd14 <= 0.5; fail otherwise",
+      "uninterpretable": "if fewer than 600 new simulations are usable, or if the reproduction check (A1) fails"
+    },
+    "R2_old_region_kept": {
+      "statement": "Not at the expense of the old region: the new pool still has a simulation near most of HD14's held-out simulations",
+      "test": "HD14's held-out simulations are its last 300 (rows 2,700-2,999). Near means within the 90th percentile of their distances to their nearest simulation among HD14's own first m simulations, where m = min(2,700, n_new) and the new pool is cut to its first m simulations too. Pass if at least 50% of the 300 have a new-pool simulation within that distance (an identical prior would give about 90%); fail otherwise",
+      "uninterpretable": "as R1"
+    },
+    "R3_calibrated_near_real": {
+      "statement": "Near the real recordings the flow trained on the new pool is calibrated for threshold_scale, the one parameter D31 adopted",
+      "test": "held-out set: the 600 new held-out simulations. Near-real subset: the 200 of them nearest to any real recording (recalibration.nearest_to_real with HD14's scale, selected on summaries only, never on parameters). SBC rank of the true threshold_scale among 200 posterior samples (sampling seed 3802), scipy.stats.kstest against uniform; pass if p >= 0.05, fail otherwise. The other four parameters, coverage at 0.5/0.8/0.95 and contraction against the new box are reported, not tested",
+      "uninterpretable": "if fewer than 600 held-out simulations are usable or fewer than 1,000 training simulations"
+    }
+  },
+  "assumption_checks": {
+    "A1_hd14_cache_reproduced": {
+      "assumption": "HD14's cached summaries are what today's code produces, although the summary-code hash moved",
+      "check": "re-simulate HD14 rows 0, 1, 2, 2700, 2701, 2999 with today's code (D31's post hoc rows and seeds) and require every summary vector to equal its cached one exactly; if not, R1 and R2 are uninterpretable (the two pools would come from different simulators)"
+    },
+    "A2_reach_not_an_artifact_of_the_scale": {
+      "assumption": "a pass of R1 reflects simulations near the recordings, not the choice of HD14's scale (a wider pool on HD14's scale can look near because its summaries spread further)",
+      "check": "the R1 ratio recomputed with the new pool's own scale and with the pooled (HD14 at equal size plus new) scale; if R1 passes on HD14's scale but either ratio exceeds 0.5, the report calls R1 scale-dependent"
+    }
+  },
+  "reading_rule": {
+    "R1_pass": "the gap was largely the prior's range: HD14's box was too narrow for the real recordings, and the edges the HD14 posterior pushed against were the right ones to move",
+    "R1_fail": "widening the box where the HD14 posterior pointed does not halve the distance; what remains is read as misspecification of the twin for the summaries that carry the remaining distance (remaining_distance_share_of_total), within the limits of this box: a still wider or differently shaped box is not ruled out, but the widened directions were the ones the real recordings' posterior asked for",
+    "R2": "a fail with an R1 pass means the reach was bought by thinning the old region at this budget, so a model trained on the new pool is worse where HD14 was trained",
+    "R3": "a pass says the threshold_scale calibration D31 adopted holds near the real recordings under the new prior too; it does not by itself make the inverse model usable on real recordings unless R1 also passes"
+  },
+  "reported_not_tested": {
+    "new_flow_edges_on_real": "the share of the new flow's raw posterior draws inside the new box for each real recording (the analogue of HD15's prior acceptance), and per parameter which side mass leaves on",
+    "remaining_distance": "per summary, its share of the squared distance from each real recording to its nearest new-pool simulation",
+    "share_within_neighbour_distance": "the share of real recordings whose nearest simulation is within HD14's median neighbour distance, for both pools"
+  },
+  "reporting": "R1-R3 with values and outcomes whichever way they fall; anything decided after seeing results is labelled post hoc. Results to outputs/metrics.json under twin_prior_reach, outputs/twin/prior_reach_SIMULATED.json (names this registration) and outputs/twin/prior_reach_simulated.png. twin_hd14_inference and twin_hd14b_recalibration are left as they are."
+}

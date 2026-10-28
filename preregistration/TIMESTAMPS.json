@@ -1,6 +1,6 @@
 {
   "note": "Internal timestamps from this repository's history; not third-party verified.",
-  "root": "7c885a16ccab20b3e5ebda33e7d18275302451442781dae10c16cd22cca7ab3c",
+  "root": "6559c5e214c1a457e7f71b725b35d1cf551670d887977fda5a56487b1261cb47",
   "registrations": [
     {
       "file": "fly_chip_to_animal.json",
@@ -323,6 +323,13 @@
       "commit": "f669016d96238a97423c583d36046c2627a811a1",
       "committed_at": "2026-10-28T10:49:24-04:00",
       "chain": "7c885a16ccab20b3e5ebda33e7d18275302451442781dae10c16cd22cca7ab3c"
+    },
+    {
+      "file": "twin_prior_reach.json",
+      "sha256": "fd55468f4deec73fed72a9a6bb0c50493002ece04aa00985000a408d260001ca",
+      "commit": "3c2e43e73c941c710976587737ad61e6fc05e8cb",
+      "committed_at": "2026-10-28T11:32:36-04:00",
+      "chain": "6559c5e214c1a457e7f71b725b35d1cf551670d887977fda5a56487b1261cb47"
     }
   ],
   "registered_before_results": [
@@ -563,6 +570,12 @@
     {
       "output": "outputs/hpsc_split_half_REAL.json",
       "registration": "hpsc_split_half.json",
+      "same_commit": false,
+      "registered_first": true
+    },
+    {
+      "output": "outputs/twin/prior_reach_SIMULATED.json",
+      "registration": "twin_prior_reach.json",
       "same_commit": false,
       "registered_first": true
     },

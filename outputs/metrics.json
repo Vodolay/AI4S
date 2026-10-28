@@ -16039,7 +16039,7 @@
       "registration_audit": "this audit's own output",
       "rhythm_audit": "re-reads the predictions of stages 1d-2e, counted under their own keys"
     },
-    "n_studies": 47,
+    "n_studies": 48,
     "studies": {
       "embodied_stage1": {
         "fail": 2,
@@ -16356,6 +16356,13 @@
         "total": 3,
         "uninterpretable": 0
       },
+      "twin_prior_reach": {
+        "fail": 1,
+        "other": 0,
+        "pass": 2,
+        "total": 3,
+        "uninterpretable": 0
+      },
       "twin_toxcast_dose_response": {
         "fail": 2,
         "other": 0,
@@ -16372,27 +16379,27 @@
       }
     },
     "submission": {
-      "n_studies": 47,
+      "n_studies": 48,
       "total": {
-        "fail": 90,
+        "fail": 91,
         "other": 1,
-        "pass": 106,
-        "total": 236,
+        "pass": 108,
+        "total": 239,
         "uninterpretable": 39
       }
     },
     "total": {
-      "fail": 90,
+      "fail": 91,
       "other": 1,
-      "pass": 106,
-      "total": 236,
+      "pass": 108,
+      "total": 239,
       "uninterpretable": 39
     },
     "unrecognised": []
   },
   "registration_timestamps": {
-    "n_outputs_checked": 42,
-    "n_registrations": 46,
+    "n_outputs_checked": 43,
+    "n_registrations": 47,
     "n_violations": 0,
     "not_covered": [
       "twin_depression_under_block.json",
@@ -16401,8 +16408,8 @@
       "twin_inference_recalibration.json"
     ],
     "submission": {
-      "n_outputs_checked": 42,
-      "n_registrations": 46,
+      "n_outputs_checked": 43,
+      "n_registrations": 47,
       "n_violations": 0,
       "not_covered": [
         "twin_depression_under_block.json",
@@ -31191,6 +31198,1249 @@
         0.528,
         0.556
       ]
+    }
+  },
+  "twin_prior_reach": {
+    "assumption_checks": {
+      "A1_hd14_cache_reproduced": {
+        "max_abs_difference": 0.0,
+        "n_checked": 6,
+        "n_identical": 6,
+        "passed": true,
+        "rows": [
+          0,
+          1,
+          2,
+          2700,
+          2701,
+          2999
+        ],
+        "summary_code": {
+          "cached": "1520eac0462f1bc5",
+          "current": "5edd7927cf714495",
+          "matches": false
+        }
+      },
+      "A2_reach_not_an_artifact_of_the_scale": {
+        "all_at_most_threshold": false,
+        "new_pool_scale": 0.876,
+        "pooled_scale": 0.856
+      }
+    },
+    "budget": {
+      "failed": 0,
+      "held_out_chunks": "3 of 3",
+      "held_out_chunks_completed": 3,
+      "held_out_usable": 600,
+      "new_simulations_finished": 3000,
+      "new_simulations_usable": 3000,
+      "registered_max": 3000,
+      "train_chunks": "10 of 10",
+      "train_chunks_completed": 10,
+      "train_usable": 2400,
+      "truncated_by_cut_off": false
+    },
+    "calibration": {
+      "R3": {
+        "alpha": 0.05,
+        "ks_p": 0.2682,
+        "outcome": "pass"
+      },
+      "all_held_out": {
+        "contraction": {
+          "ampa_scale": 0.556,
+          "gabaa_scale": 0.305,
+          "inter_in_degree": 0.281,
+          "log10_forward_ratio": 0.531,
+          "threshold_scale": 0.696
+        },
+        "coverage": {
+          "ampa_scale": {
+            "L50": {
+              "coverage": 0.4133,
+              "floor": 0.4388,
+              "n": 600,
+              "over_confident": true
+            },
+            "L80": {
+              "coverage": 0.705,
+              "floor": 0.751,
+              "n": 600,
+              "over_confident": true
+            },
+            "L95": {
+              "coverage": 0.9117,
+              "floor": 0.9233,
+              "n": 600,
+              "over_confident": true
+            }
+          },
+          "gabaa_scale": {
+            "L50": {
+              "coverage": 0.3533,
+              "floor": 0.4388,
+              "n": 600,
+              "over_confident": true
+            },
+            "L80": {
+              "coverage": 0.6633,
+              "floor": 0.751,
+              "n": 600,
+              "over_confident": true
+            },
+            "L95": {
+              "coverage": 0.8817,
+              "floor": 0.9233,
+              "n": 600,
+              "over_confident": true
+            }
+          },
+          "inter_in_degree": {
+            "L50": {
+              "coverage": 0.3567,
+              "floor": 0.4388,
+              "n": 600,
+              "over_confident": true
+            },
+            "L80": {
+              "coverage": 0.655,
+              "floor": 0.751,
+              "n": 600,
+              "over_confident": true
+            },
+            "L95": {
+              "coverage": 0.8783,
+              "floor": 0.9233,
+              "n": 600,
+              "over_confident": true
+            }
+          },
+          "log10_forward_ratio": {
+            "L50": {
+              "coverage": 0.4667,
+              "floor": 0.4388,
+              "n": 600,
+              "over_confident": false
+            },
+            "L80": {
+              "coverage": 0.7467,
+              "floor": 0.751,
+              "n": 600,
+              "over_confident": true
+            },
+            "L95": {
+              "coverage": 0.9133,
+              "floor": 0.9233,
+              "n": 600,
+              "over_confident": true
+            }
+          },
+          "threshold_scale": {
+            "L50": {
+              "coverage": 0.4667,
+              "floor": 0.4388,
+              "n": 600,
+              "over_confident": false
+            },
+            "L80": {
+              "coverage": 0.7267,
+              "floor": 0.751,
+              "n": 600,
+              "over_confident": true
+            },
+            "L95": {
+              "coverage": 0.91,
+              "floor": 0.9233,
+              "n": 600,
+              "over_confident": true
+            }
+          }
+        },
+        "ks": {
+          "ampa_scale": {
+            "ks_p": 0.0092,
+            "ks_statistic": 0.0667,
+            "n_evaluated": 600
+          },
+          "gabaa_scale": {
+            "ks_p": 0.0,
+            "ks_statistic": 0.1017,
+            "n_evaluated": 600
+          },
+          "inter_in_degree": {
+            "ks_p": 0.0,
+            "ks_statistic": 0.1017,
+            "n_evaluated": 600
+          },
+          "log10_forward_ratio": {
+            "ks_p": 0.2418,
+            "ks_statistic": 0.0417,
+            "n_evaluated": 600
+          },
+          "threshold_scale": {
+            "ks_p": 0.0511,
+            "ks_statistic": 0.055,
+            "n_evaluated": 600
+          }
+        },
+        "n": 600
+      },
+      "density_estimator": {
+        "family": "masked autoregressive flow",
+        "hidden_units_per_layer": 50,
+        "n_autoregressive_transforms": 5,
+        "n_parameters": 34550,
+        "n_permutations": 5,
+        "requested": "maf"
+      },
+      "n_train": 2400,
+      "near_real": {
+        "contraction": {
+          "ampa_scale": 0.505,
+          "gabaa_scale": 0.265,
+          "inter_in_degree": 0.268,
+          "log10_forward_ratio": 0.533,
+          "threshold_scale": 0.663
+        },
+        "coverage": {
+          "ampa_scale": {
+            "L50": {
+              "coverage": 0.45,
+              "floor": 0.3939,
+              "n": 200,
+              "over_confident": false
+            },
+            "L80": {
+              "coverage": 0.73,
+              "floor": 0.7151,
+              "n": 200,
+              "over_confident": false
+            },
+            "L95": {
+              "coverage": 0.92,
+              "floor": 0.9038,
+              "n": 200,
+              "over_confident": false
+            }
+          },
+          "gabaa_scale": {
+            "L50": {
+              "coverage": 0.3,
+              "floor": 0.3939,
+              "n": 200,
+              "over_confident": true
+            },
+            "L80": {
+              "coverage": 0.625,
+              "floor": 0.7151,
+              "n": 200,
+              "over_confident": true
+            },
+            "L95": {
+              "coverage": 0.885,
+              "floor": 0.9038,
+              "n": 200,
+              "over_confident": true
+            }
+          },
+          "inter_in_degree": {
+            "L50": {
+              "coverage": 0.365,
+              "floor": 0.3939,
+              "n": 200,
+              "over_confident": true
+            },
+            "L80": {
+              "coverage": 0.685,
+              "floor": 0.7151,
+              "n": 200,
+              "over_confident": true
+            },
+            "L95": {
+              "coverage": 0.88,
+              "floor": 0.9038,
+              "n": 200,
+              "over_confident": true
+            }
+          },
+          "log10_forward_ratio": {
+            "L50": {
+              "coverage": 0.465,
+              "floor": 0.3939,
+              "n": 200,
+              "over_confident": false
+            },
+            "L80": {
+              "coverage": 0.78,
+              "floor": 0.7151,
+              "n": 200,
+              "over_confident": false
+            },
+            "L95": {
+              "coverage": 0.93,
+              "floor": 0.9038,
+              "n": 200,
+              "over_confident": false
+            }
+          },
+          "threshold_scale": {
+            "L50": {
+              "coverage": 0.47,
+              "floor": 0.3939,
+              "n": 200,
+              "over_confident": false
+            },
+            "L80": {
+              "coverage": 0.75,
+              "floor": 0.7151,
+              "n": 200,
+              "over_confident": false
+            },
+            "L95": {
+              "coverage": 0.94,
+              "floor": 0.9038,
+              "n": 200,
+              "over_confident": false
+            }
+          }
+        },
+        "ks": {
+          "ampa_scale": {
+            "ks_p": 0.4502,
+            "ks_statistic": 0.06,
+            "n_evaluated": 200
+          },
+          "gabaa_scale": {
+            "ks_p": 0.0007,
+            "ks_statistic": 0.14,
+            "n_evaluated": 200
+          },
+          "inter_in_degree": {
+            "ks_p": 0.0146,
+            "ks_statistic": 0.11,
+            "n_evaluated": 200
+          },
+          "log10_forward_ratio": {
+            "ks_p": 0.5617,
+            "ks_statistic": 0.055,
+            "n_evaluated": 200
+          },
+          "threshold_scale": {
+            "ks_p": 0.2682,
+            "ks_statistic": 0.07,
+            "n_evaluated": 200
+          }
+        },
+        "n": 200
+      },
+      "new_flow_edges_on_real": {
+        "by_parameter": {
+          "ampa_scale": {
+            "bounds": [
+              0.4,
+              1.8
+            ],
+            "median_share_above": 0.204,
+            "median_share_below": 0.0,
+            "recordings_mostly_above": 0.301,
+            "recordings_mostly_below": 0.027
+          },
+          "gabaa_scale": {
+            "bounds": [
+              0.1,
+              2.0
+            ],
+            "median_share_above": 0.002,
+            "median_share_below": 0.009,
+            "recordings_mostly_above": 0.0,
+            "recordings_mostly_below": 0.0
+          },
+          "inter_in_degree": {
+            "bounds": [
+              2.0,
+              20.0
+            ],
+            "median_share_above": 0.013,
+            "median_share_below": 0.016,
+            "recordings_mostly_above": 0.018,
+            "recordings_mostly_below": 0.0
+          },
+          "log10_forward_ratio": {
+            "bounds": [
+              -1.3,
+              1.3
+            ],
+            "median_share_above": 0.0,
+            "median_share_below": 0.0,
+            "recordings_mostly_above": 0.009,
+            "recordings_mostly_below": 0.115
+          },
+          "threshold_scale": {
+            "bounds": [
+              0.85,
+              1.35
+            ],
+            "median_share_above": 0.273,
+            "median_share_below": 0.0,
+            "recordings_mostly_above": 0.159,
+            "recordings_mostly_below": 0.0
+          }
+        },
+        "median_acceptance": 0.468,
+        "n_draws_per_recording": 1000,
+        "n_recordings": 113
+      }
+    },
+    "diagnostic": {
+      "distance_share_of_total": {
+        "asymmetry": 0.027,
+        "c0_active_electrodes": 0.113,
+        "c0_burst_rate_per_min": 0.0075,
+        "c0_isi_cv": 0.016,
+        "c0_mfr_hz": 0.014,
+        "c0_network_burst_rate_per_min": 0.0066,
+        "c0_pct_spikes_in_bursts": 0.0327,
+        "c0_synchrony_index": 0.012,
+        "c1_active_electrodes": 0.1638,
+        "c1_burst_rate_per_min": 0.0055,
+        "c1_isi_cv": 0.0092,
+        "c1_mfr_hz": 0.0115,
+        "c1_network_burst_rate_per_min": 0.0058,
+        "c1_pct_spikes_in_bursts": 0.0242,
+        "c1_synchrony_index": 0.0102,
+        "coupling_measured": 0.0097,
+        "lag_ms": 0.1814,
+        "log_rate_ratio": 0.3379,
+        "peak_correlation": 0.0118
+      },
+      "feature_positions": {
+        "asymmetry": {
+          "median_real_quantile_in_pool": 0.236,
+          "pool_q01": -0.4392,
+          "pool_q99": 0.4468,
+          "real_median": -0.0117,
+          "real_median_z": -0.193,
+          "share_above_q99": 0.009,
+          "share_below_q01": 0.0,
+          "share_outside_pool_range": 0.0
+        },
+        "c0_active_electrodes": {
+          "median_real_quantile_in_pool": 0.33,
+          "pool_q01": 28.0,
+          "pool_q99": 48.0,
+          "real_median": 44.0,
+          "real_median_z": -0.007,
+          "share_above_q99": 0.08,
+          "share_below_q01": 0.115,
+          "share_outside_pool_range": 0.15
+        },
+        "c0_burst_rate_per_min": {
+          "median_real_quantile_in_pool": 0.57,
+          "pool_q01": 0.0,
+          "pool_q99": 78.39,
+          "real_median": 9.7652,
+          "real_median_z": -0.372,
+          "share_above_q99": 0.0,
+          "share_below_q01": 0.0,
+          "share_outside_pool_range": 0.0
+        },
+        "c0_isi_cv": {
+          "median_real_quantile_in_pool": 0.831,
+          "pool_q01": 0.412,
+          "pool_q99": 12.3412,
+          "real_median": 3.7612,
+          "real_median_z": 0.634,
+          "share_above_q99": 0.0,
+          "share_below_q01": 0.0,
+          "share_outside_pool_range": 0.0
+        },
+        "c0_mfr_hz": {
+          "median_real_quantile_in_pool": 0.72,
+          "pool_q01": 0.6,
+          "pool_q99": 82.9944,
+          "real_median": 9.5811,
+          "real_median_z": 0.007,
+          "share_above_q99": 0.0,
+          "share_below_q01": 0.0,
+          "share_outside_pool_range": 0.0
+        },
+        "c0_network_burst_rate_per_min": {
+          "median_real_quantile_in_pool": 0.535,
+          "pool_q01": 0.0,
+          "pool_q99": 84.0,
+          "real_median": 9.7541,
+          "real_median_z": -0.444,
+          "share_above_q99": 0.0,
+          "share_below_q01": 0.0,
+          "share_outside_pool_range": 0.0
+        },
+        "c0_pct_spikes_in_bursts": {
+          "median_real_quantile_in_pool": 0.74,
+          "pool_q01": 0.0,
+          "pool_q99": 99.8624,
+          "real_median": 92.0092,
+          "real_median_z": 1.116,
+          "share_above_q99": 0.0,
+          "share_below_q01": 0.0,
+          "share_outside_pool_range": 0.0
+        },
+        "c0_synchrony_index": {
+          "median_real_quantile_in_pool": 0.594,
+          "pool_q01": 0.0007,
+          "pool_q99": 0.9979,
+          "real_median": 0.7487,
+          "real_median_z": 0.698,
+          "share_above_q99": 0.0,
+          "share_below_q01": 0.018,
+          "share_outside_pool_range": 0.0
+        },
+        "c1_active_electrodes": {
+          "median_real_quantile_in_pool": 0.24,
+          "pool_q01": 28.99,
+          "pool_q99": 48.0,
+          "real_median": 42.0,
+          "real_median_z": -0.479,
+          "share_above_q99": 0.027,
+          "share_below_q01": 0.133,
+          "share_outside_pool_range": 0.115
+        },
+        "c1_burst_rate_per_min": {
+          "median_real_quantile_in_pool": 0.558,
+          "pool_q01": 0.0,
+          "pool_q99": 82.7537,
+          "real_median": 10.2634,
+          "real_median_z": -0.382,
+          "share_above_q99": 0.0,
+          "share_below_q01": 0.0,
+          "share_outside_pool_range": 0.0
+        },
+        "c1_isi_cv": {
+          "median_real_quantile_in_pool": 0.757,
+          "pool_q01": 0.4278,
+          "pool_q99": 14.535,
+          "real_median": 3.7764,
+          "real_median_z": 0.383,
+          "share_above_q99": 0.0,
+          "share_below_q01": 0.0,
+          "share_outside_pool_range": 0.0
+        },
+        "c1_mfr_hz": {
+          "median_real_quantile_in_pool": 0.597,
+          "pool_q01": 0.6147,
+          "pool_q99": 120.1182,
+          "real_median": 6.1316,
+          "real_median_z": -0.314,
+          "share_above_q99": 0.0,
+          "share_below_q01": 0.0,
+          "share_outside_pool_range": 0.0
+        },
+        "c1_network_burst_rate_per_min": {
+          "median_real_quantile_in_pool": 0.511,
+          "pool_q01": 0.0,
+          "pool_q99": 84.0,
+          "real_median": 9.8791,
+          "real_median_z": -0.479,
+          "share_above_q99": 0.0,
+          "share_below_q01": 0.0,
+          "share_outside_pool_range": 0.0
+        },
+        "c1_pct_spikes_in_bursts": {
+          "median_real_quantile_in_pool": 0.637,
+          "pool_q01": 0.0,
+          "pool_q99": 99.9551,
+          "real_median": 88.1121,
+          "real_median_z": 0.953,
+          "share_above_q99": 0.0,
+          "share_below_q01": 0.0,
+          "share_outside_pool_range": 0.0
+        },
+        "c1_synchrony_index": {
+          "median_real_quantile_in_pool": 0.582,
+          "pool_q01": 0.0023,
+          "pool_q99": 0.9992,
+          "real_median": 0.7715,
+          "real_median_z": 0.687,
+          "share_above_q99": 0.0,
+          "share_below_q01": 0.009,
+          "share_outside_pool_range": 0.0
+        },
+        "coupling_measured": {
+          "median_real_quantile_in_pool": 0.277,
+          "pool_q01": 0.0,
+          "pool_q99": 1.0,
+          "real_median": 1.0,
+          "real_median_z": 0.619,
+          "share_above_q99": 0.0,
+          "share_below_q01": 0.0,
+          "share_outside_pool_range": 0.0
+        },
+        "lag_ms": {
+          "median_real_quantile_in_pool": 0.095,
+          "pool_q01": -20.0,
+          "pool_q99": 20.0,
+          "real_median": 0.0,
+          "real_median_z": -0.207,
+          "share_above_q99": 0.088,
+          "share_below_q01": 0.0,
+          "share_outside_pool_range": 0.035
+        },
+        "log_rate_ratio": {
+          "median_real_quantile_in_pool": 0.95,
+          "pool_q01": -1.2607,
+          "pool_q99": 0.4951,
+          "real_median": 0.2634,
+          "real_median_z": 1.482,
+          "share_above_q99": 0.372,
+          "share_below_q01": 0.044,
+          "share_outside_pool_range": 0.195
+        },
+        "peak_correlation": {
+          "median_real_quantile_in_pool": 0.648,
+          "pool_q01": 0.0415,
+          "pool_q99": 0.9981,
+          "real_median": 0.8902,
+          "real_median_z": 0.876,
+          "share_above_q99": 0.0,
+          "share_below_q01": 0.08,
+          "share_outside_pool_range": 0.0
+        }
+      },
+      "hd14_posterior_edges": {
+        "by_parameter": {
+          "ampa_scale": {
+            "bounds": [
+              0.4,
+              1.4
+            ],
+            "median_share_above": 0.117,
+            "median_share_below": 0.0,
+            "recordings_mostly_above": 0.018,
+            "recordings_mostly_below": 0.0
+          },
+          "gabaa_scale": {
+            "bounds": [
+              0.1,
+              2.0
+            ],
+            "median_share_above": 0.002,
+            "median_share_below": 0.027,
+            "recordings_mostly_above": 0.0,
+            "recordings_mostly_below": 0.0
+          },
+          "inter_in_degree": {
+            "bounds": [
+              2.0,
+              20.0
+            ],
+            "median_share_above": 0.025,
+            "median_share_below": 0.005,
+            "recordings_mostly_above": 0.0,
+            "recordings_mostly_below": 0.0
+          },
+          "log10_forward_ratio": {
+            "bounds": [
+              0.0,
+              1.3
+            ],
+            "median_share_above": 0.0,
+            "median_share_below": 0.012,
+            "recordings_mostly_above": 0.009,
+            "recordings_mostly_below": 0.274
+          },
+          "threshold_scale": {
+            "bounds": [
+              0.85,
+              1.15
+            ],
+            "median_share_above": 0.843,
+            "median_share_below": 0.0,
+            "recordings_mostly_above": 0.717,
+            "recordings_mostly_below": 0.0
+          }
+        },
+        "median_acceptance": 0.035,
+        "n_draws_per_recording": 1000,
+        "n_recordings": 113
+      },
+      "hd14_simulation_to_nearest_other": {
+        "max": 10.975,
+        "median": 0.409,
+        "q90": 0.91
+      },
+      "label": "SIMULATED HD14 pool against REAL recordings; seen before registration",
+      "largest_shares": [
+        {
+          "share": 0.3379,
+          "summary": "log_rate_ratio"
+        },
+        {
+          "share": 0.1814,
+          "summary": "lag_ms"
+        },
+        {
+          "share": 0.1638,
+          "summary": "c1_active_electrodes"
+        },
+        {
+          "share": 0.113,
+          "summary": "c0_active_electrodes"
+        },
+        {
+          "share": 0.0327,
+          "summary": "c0_pct_spikes_in_bursts"
+        }
+      ],
+      "n_hd14": 3000,
+      "n_real": 113,
+      "nearest_simulation_parameters_q10_q50_q90": {
+        "ampa_scale": [
+          0.741,
+          1.117,
+          1.311
+        ],
+        "gabaa_scale": [
+          0.283,
+          0.495,
+          1.644
+        ],
+        "inter_in_degree": [
+          2.965,
+          8.131,
+          16.803
+        ],
+        "log10_forward_ratio": [
+          0.025,
+          0.139,
+          0.931
+        ],
+        "threshold_scale": [
+          0.983,
+          1.096,
+          1.127
+        ]
+      },
+      "real_to_nearest_hd14_simulation": {
+        "max": 18.344,
+        "median": 2.43,
+        "q90": 5.864
+      },
+      "scale": "z-scored with HD14's 3,000 simulations (the registered reference scale)",
+      "sensitivity": {
+        "asymmetry": {
+          "max_abs_rho": 0.209,
+          "rho": {
+            "ampa_scale": 0.209,
+            "gabaa_scale": -0.062,
+            "inter_in_degree": 0.209,
+            "log10_forward_ratio": 0.057,
+            "threshold_scale": -0.002
+          },
+          "strongest": "inter_in_degree"
+        },
+        "c0_active_electrodes": {
+          "max_abs_rho": 0.588,
+          "rho": {
+            "ampa_scale": 0.588,
+            "gabaa_scale": 0.007,
+            "inter_in_degree": 0.107,
+            "log10_forward_ratio": -0.032,
+            "threshold_scale": -0.586
+          },
+          "strongest": "ampa_scale"
+        },
+        "c0_burst_rate_per_min": {
+          "max_abs_rho": 0.719,
+          "rho": {
+            "ampa_scale": 0.719,
+            "gabaa_scale": 0.029,
+            "inter_in_degree": 0.133,
+            "log10_forward_ratio": -0.044,
+            "threshold_scale": -0.527
+          },
+          "strongest": "ampa_scale"
+        },
+        "c0_isi_cv": {
+          "max_abs_rho": 0.712,
+          "rho": {
+            "ampa_scale": 0.712,
+            "gabaa_scale": -0.134,
+            "inter_in_degree": 0.179,
+            "log10_forward_ratio": -0.09,
+            "threshold_scale": -0.481
+          },
+          "strongest": "ampa_scale"
+        },
+        "c0_mfr_hz": {
+          "max_abs_rho": 0.651,
+          "rho": {
+            "ampa_scale": 0.651,
+            "gabaa_scale": -0.106,
+            "inter_in_degree": 0.167,
+            "log10_forward_ratio": -0.087,
+            "threshold_scale": -0.597
+          },
+          "strongest": "ampa_scale"
+        },
+        "c0_network_burst_rate_per_min": {
+          "max_abs_rho": 0.676,
+          "rho": {
+            "ampa_scale": 0.676,
+            "gabaa_scale": 0.104,
+            "inter_in_degree": 0.074,
+            "log10_forward_ratio": 0.0,
+            "threshold_scale": -0.532
+          },
+          "strongest": "ampa_scale"
+        },
+        "c0_pct_spikes_in_bursts": {
+          "max_abs_rho": 0.747,
+          "rho": {
+            "ampa_scale": 0.747,
+            "gabaa_scale": -0.117,
+            "inter_in_degree": 0.192,
+            "log10_forward_ratio": -0.09,
+            "threshold_scale": -0.428
+          },
+          "strongest": "ampa_scale"
+        },
+        "c0_synchrony_index": {
+          "max_abs_rho": 0.822,
+          "rho": {
+            "ampa_scale": 0.822,
+            "gabaa_scale": -0.104,
+            "inter_in_degree": 0.174,
+            "log10_forward_ratio": -0.076,
+            "threshold_scale": -0.387
+          },
+          "strongest": "ampa_scale"
+        },
+        "c1_active_electrodes": {
+          "max_abs_rho": 0.593,
+          "rho": {
+            "ampa_scale": 0.593,
+            "gabaa_scale": 0.009,
+            "inter_in_degree": 0.107,
+            "log10_forward_ratio": 0.006,
+            "threshold_scale": -0.585
+          },
+          "strongest": "ampa_scale"
+        },
+        "c1_burst_rate_per_min": {
+          "max_abs_rho": 0.719,
+          "rho": {
+            "ampa_scale": 0.719,
+            "gabaa_scale": 0.049,
+            "inter_in_degree": 0.132,
+            "log10_forward_ratio": -0.003,
+            "threshold_scale": -0.542
+          },
+          "strongest": "ampa_scale"
+        },
+        "c1_isi_cv": {
+          "max_abs_rho": 0.735,
+          "rho": {
+            "ampa_scale": 0.735,
+            "gabaa_scale": -0.139,
+            "inter_in_degree": 0.202,
+            "log10_forward_ratio": -0.019,
+            "threshold_scale": -0.472
+          },
+          "strongest": "ampa_scale"
+        },
+        "c1_mfr_hz": {
+          "max_abs_rho": 0.676,
+          "rho": {
+            "ampa_scale": 0.676,
+            "gabaa_scale": -0.108,
+            "inter_in_degree": 0.191,
+            "log10_forward_ratio": -0.006,
+            "threshold_scale": -0.582
+          },
+          "strongest": "ampa_scale"
+        },
+        "c1_network_burst_rate_per_min": {
+          "max_abs_rho": 0.631,
+          "rho": {
+            "ampa_scale": 0.631,
+            "gabaa_scale": 0.175,
+            "inter_in_degree": 0.067,
+            "log10_forward_ratio": 0.045,
+            "threshold_scale": -0.511
+          },
+          "strongest": "ampa_scale"
+        },
+        "c1_pct_spikes_in_bursts": {
+          "max_abs_rho": 0.755,
+          "rho": {
+            "ampa_scale": 0.755,
+            "gabaa_scale": -0.103,
+            "inter_in_degree": 0.199,
+            "log10_forward_ratio": -0.032,
+            "threshold_scale": -0.445
+          },
+          "strongest": "ampa_scale"
+        },
+        "c1_synchrony_index": {
+          "max_abs_rho": 0.822,
+          "rho": {
+            "ampa_scale": 0.822,
+            "gabaa_scale": -0.109,
+            "inter_in_degree": 0.204,
+            "log10_forward_ratio": -0.012,
+            "threshold_scale": -0.402
+          },
+          "strongest": "ampa_scale"
+        },
+        "coupling_measured": {
+          "max_abs_rho": 0.594,
+          "rho": {
+            "ampa_scale": 0.594,
+            "gabaa_scale": 0.019,
+            "inter_in_degree": 0.177,
+            "log10_forward_ratio": 0.049,
+            "threshold_scale": -0.395
+          },
+          "strongest": "ampa_scale"
+        },
+        "lag_ms": {
+          "max_abs_rho": 0.29,
+          "rho": {
+            "ampa_scale": 0.082,
+            "gabaa_scale": 0.045,
+            "inter_in_degree": 0.18,
+            "log10_forward_ratio": 0.29,
+            "threshold_scale": 0.038
+          },
+          "strongest": "log10_forward_ratio"
+        },
+        "log_rate_ratio": {
+          "max_abs_rho": 0.498,
+          "rho": {
+            "ampa_scale": -0.498,
+            "gabaa_scale": 0.042,
+            "inter_in_degree": -0.2,
+            "log10_forward_ratio": -0.401,
+            "threshold_scale": 0.224
+          },
+          "strongest": "ampa_scale"
+        },
+        "peak_correlation": {
+          "max_abs_rho": 0.699,
+          "rho": {
+            "ampa_scale": 0.699,
+            "gabaa_scale": -0.148,
+            "inter_in_degree": 0.286,
+            "log10_forward_ratio": -0.138,
+            "threshold_scale": -0.391
+          },
+          "strongest": "ampa_scale"
+        }
+      }
+    },
+    "label": "SIMULATED twin pools against REAL two-chamber recordings - prior reach (D38)",
+    "old_region": {
+      "R2": {
+        "outcome": "pass",
+        "share": 0.8233,
+        "threshold_share": 0.5
+      },
+      "median_distance_to_new_pool": 0.4847,
+      "n_hd14_held_out": 300,
+      "n_reference": 2700,
+      "share": 0.8233,
+      "threshold_distance": 0.8915
+    },
+    "predictions": {
+      "R1_reach": {
+        "hd14_pool_median": 2.43,
+        "new_pool_median": 2.211,
+        "outcome": "fail",
+        "ratio": 0.91,
+        "threshold_ratio": 0.5
+      },
+      "R2_old_region_kept": {
+        "outcome": "pass",
+        "share": 0.8233,
+        "threshold_share": 0.5
+      },
+      "R3_calibrated_near_real": {
+        "alpha": 0.05,
+        "ks_p": 0.2682,
+        "outcome": "pass"
+      }
+    },
+    "reach": {
+      "R1": {
+        "hd14_pool_median": 2.43,
+        "new_pool_median": 2.211,
+        "outcome": "fail",
+        "ratio": 0.91,
+        "threshold_ratio": 0.5
+      },
+      "feature_positions_in_new_pool": {
+        "asymmetry": {
+          "median_real_quantile_in_pool": 0.279,
+          "pool_q01": -0.4018,
+          "pool_q99": 0.4356,
+          "real_median": -0.0117,
+          "real_median_z": -0.193,
+          "share_above_q99": 0.009,
+          "share_below_q01": 0.0,
+          "share_outside_pool_range": 0.0
+        },
+        "c0_active_electrodes": {
+          "median_real_quantile_in_pool": 0.435,
+          "pool_q01": 12.0,
+          "pool_q99": 48.0,
+          "real_median": 44.0,
+          "real_median_z": -0.007,
+          "share_above_q99": 0.08,
+          "share_below_q01": 0.035,
+          "share_outside_pool_range": 0.08
+        },
+        "c0_burst_rate_per_min": {
+          "median_real_quantile_in_pool": 0.563,
+          "pool_q01": 0.0,
+          "pool_q99": 90.0,
+          "real_median": 9.7652,
+          "real_median_z": -0.372,
+          "share_above_q99": 0.0,
+          "share_below_q01": 0.0,
+          "share_outside_pool_range": 0.0
+        },
+        "c0_isi_cv": {
+          "median_real_quantile_in_pool": 0.703,
+          "pool_q01": 0.3032,
+          "pool_q99": 17.8057,
+          "real_median": 3.7612,
+          "real_median_z": 0.634,
+          "share_above_q99": 0.0,
+          "share_below_q01": 0.0,
+          "share_outside_pool_range": 0.0
+        },
+        "c0_mfr_hz": {
+          "median_real_quantile_in_pool": 0.634,
+          "pool_q01": 0.4,
+          "pool_q99": 147.064,
+          "real_median": 9.5811,
+          "real_median_z": 0.007,
+          "share_above_q99": 0.0,
+          "share_below_q01": 0.0,
+          "share_outside_pool_range": 0.0
+        },
+        "c0_network_burst_rate_per_min": {
+          "median_real_quantile_in_pool": 0.571,
+          "pool_q01": 0.0,
+          "pool_q99": 90.06,
+          "real_median": 9.7541,
+          "real_median_z": -0.444,
+          "share_above_q99": 0.0,
+          "share_below_q01": 0.0,
+          "share_outside_pool_range": 0.0
+        },
+        "c0_pct_spikes_in_bursts": {
+          "median_real_quantile_in_pool": 0.629,
+          "pool_q01": 0.0,
+          "pool_q99": 99.9808,
+          "real_median": 92.0092,
+          "real_median_z": 1.116,
+          "share_above_q99": 0.0,
+          "share_below_q01": 0.0,
+          "share_outside_pool_range": 0.0
+        },
+        "c0_synchrony_index": {
+          "median_real_quantile_in_pool": 0.557,
+          "pool_q01": -0.0075,
+          "pool_q99": 0.9996,
+          "real_median": 0.7487,
+          "real_median_z": 0.698,
+          "share_above_q99": 0.0,
+          "share_below_q01": 0.0,
+          "share_outside_pool_range": 0.0
+        },
+        "c1_active_electrodes": {
+          "median_real_quantile_in_pool": 0.412,
+          "pool_q01": 13.0,
+          "pool_q99": 48.0,
+          "real_median": 42.0,
+          "real_median_z": -0.479,
+          "share_above_q99": 0.027,
+          "share_below_q01": 0.018,
+          "share_outside_pool_range": 0.027
+        },
+        "c1_burst_rate_per_min": {
+          "median_real_quantile_in_pool": 0.563,
+          "pool_q01": 0.0,
+          "pool_q99": 90.015,
+          "real_median": 10.2634,
+          "real_median_z": -0.382,
+          "share_above_q99": 0.0,
+          "share_below_q01": 0.0,
+          "share_outside_pool_range": 0.0
+        },
+        "c1_isi_cv": {
+          "median_real_quantile_in_pool": 0.7,
+          "pool_q01": 0.2989,
+          "pool_q99": 18.0698,
+          "real_median": 3.7764,
+          "real_median_z": 0.383,
+          "share_above_q99": 0.0,
+          "share_below_q01": 0.0,
+          "share_outside_pool_range": 0.0
+        },
+        "c1_mfr_hz": {
+          "median_real_quantile_in_pool": 0.593,
+          "pool_q01": 0.4,
+          "pool_q99": 166.2838,
+          "real_median": 6.1316,
+          "real_median_z": -0.314,
+          "share_above_q99": 0.0,
+          "share_below_q01": 0.0,
+          "share_outside_pool_range": 0.0
+        },
+        "c1_network_burst_rate_per_min": {
+          "median_real_quantile_in_pool": 0.568,
+          "pool_q01": 0.0,
+          "pool_q99": 90.06,
+          "real_median": 9.8791,
+          "real_median_z": -0.479,
+          "share_above_q99": 0.0,
+          "share_below_q01": 0.0,
+          "share_outside_pool_range": 0.0
+        },
+        "c1_pct_spikes_in_bursts": {
+          "median_real_quantile_in_pool": 0.598,
+          "pool_q01": 0.0,
+          "pool_q99": 99.986,
+          "real_median": 88.1121,
+          "real_median_z": 0.953,
+          "share_above_q99": 0.0,
+          "share_below_q01": 0.0,
+          "share_outside_pool_range": 0.0
+        },
+        "c1_synchrony_index": {
+          "median_real_quantile_in_pool": 0.561,
+          "pool_q01": -0.0072,
+          "pool_q99": 0.9997,
+          "real_median": 0.7715,
+          "real_median_z": 0.687,
+          "share_above_q99": 0.0,
+          "share_below_q01": 0.0,
+          "share_outside_pool_range": 0.0
+        },
+        "coupling_measured": {
+          "median_real_quantile_in_pool": 0.352,
+          "pool_q01": 0.0,
+          "pool_q99": 1.0,
+          "real_median": 1.0,
+          "real_median_z": 0.619,
+          "share_above_q99": 0.0,
+          "share_below_q01": 0.0,
+          "share_outside_pool_range": 0.0
+        },
+        "lag_ms": {
+          "median_real_quantile_in_pool": 0.171,
+          "pool_q01": -15.0,
+          "pool_q99": 15.0,
+          "real_median": 0.0,
+          "real_median_z": -0.207,
+          "share_above_q99": 0.115,
+          "share_below_q01": 0.018,
+          "share_outside_pool_range": 0.0
+        },
+        "log_rate_ratio": {
+          "median_real_quantile_in_pool": 0.701,
+          "pool_q01": -1.235,
+          "pool_q99": 1.2109,
+          "real_median": 0.2634,
+          "real_median_z": 1.482,
+          "share_above_q99": 0.15,
+          "share_below_q01": 0.044,
+          "share_outside_pool_range": 0.115
+        },
+        "peak_correlation": {
+          "median_real_quantile_in_pool": 0.62,
+          "pool_q01": -0.0497,
+          "pool_q99": 0.9981,
+          "real_median": 0.8902,
+          "real_median_z": 0.876,
+          "share_above_q99": 0.0,
+          "share_below_q01": 0.0,
+          "share_outside_pool_range": 0.0
+        }
+      },
+      "hd14_neighbour_distance_median": 0.409,
+      "n_compared_each": 3000,
+      "nearest_new_simulation_parameters_q10_q50_q90": {
+        "ampa_scale": [
+          0.96,
+          1.315,
+          1.673
+        ],
+        "gabaa_scale": [
+          0.302,
+          0.962,
+          1.563
+        ],
+        "inter_in_degree": [
+          3.472,
+          12.298,
+          19.338
+        ],
+        "log10_forward_ratio": [
+          -1.083,
+          -0.236,
+          0.792
+        ],
+        "threshold_scale": [
+          1.032,
+          1.157,
+          1.297
+        ]
+      },
+      "real_to_nearest_hd14_simulation": {
+        "max": 18.344,
+        "median": 2.43,
+        "q90": 5.864
+      },
+      "real_to_nearest_new_simulation": {
+        "max": 13.007,
+        "median": 2.211,
+        "q90": 4.069
+      },
+      "remaining_distance_share_of_total": {
+        "asymmetry": 0.0283,
+        "c0_active_electrodes": 0.1024,
+        "c0_burst_rate_per_min": 0.0089,
+        "c0_isi_cv": 0.0196,
+        "c0_mfr_hz": 0.0192,
+        "c0_network_burst_rate_per_min": 0.0087,
+        "c0_pct_spikes_in_bursts": 0.0387,
+        "c0_synchrony_index": 0.0171,
+        "c1_active_electrodes": 0.1736,
+        "c1_burst_rate_per_min": 0.0057,
+        "c1_isi_cv": 0.0137,
+        "c1_mfr_hz": 0.0166,
+        "c1_network_burst_rate_per_min": 0.0107,
+        "c1_pct_spikes_in_bursts": 0.0216,
+        "c1_synchrony_index": 0.012,
+        "coupling_measured": 0.0076,
+        "lag_ms": 0.1829,
+        "log_rate_ratio": 0.2998,
+        "peak_correlation": 0.013
+      },
+      "share_real_within_hd14_neighbour_distance": {
+        "hd14_pool": 0.0,
+        "new_pool": 0.0
+      }
+    },
+    "reading": "misspecification within the widened box: widening the three edge-loaded parameters does not halve the distance (R1 fail); the summaries carrying what remains are where the twin does not produce the real recordings; old region kept: pass; calibration near real (R3): pass",
+    "reference_scale": "per-summary mean and SD of HD14's 3,000 simulations, for every pool",
+    "registration": {
+      "committed_at": "2026-10-28T11:32:36-04:00",
+      "file": "preregistration/twin_prior_reach.json",
+      "registered_in_commit": "3c2e43e73c941c710976587737ad61e6fc05e8cb",
+      "sha256": "fd55468f4deec73fed72a9a6bb0c50493002ece04aa00985000a408d260001ca"
     }
   },
   "twin_toxcast_dose_response": {

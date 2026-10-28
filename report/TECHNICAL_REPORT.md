@@ -1006,6 +1006,93 @@ without costing sharpness, but not far enough, so the limit is not budget alone;
 `twin_hd14b_recalibration` in `outputs/metrics.json`, and the rank histograms and coverage are in
 Appendix G.
 
+**A registered follow-up: is the gap the prior's range or the model? (decision D38).** The check
+above leaves a question open: are the real recordings far from the simulations because the
+prior box is too narrow, or because the twin cannot produce them at all? Before registering, we
+looked at where the gap comes from (a diagnostic on the first-round pool, declared as seen in
+`preregistration/twin_prior_reach.json`). On one fixed scale, the first-round pool's own, the
+median real recording lies 2.43
+<!-- metrics.json: twin_prior_reach.diagnostic.real_to_nearest_hd14_simulation.median --> units
+from its nearest simulation, against 0.409
+<!-- metrics.json: twin_prior_reach.diagnostic.hd14_simulation_to_nearest_other.median --> between
+neighbouring simulations. Four summaries carry most of that distance: the firing-rate ratio of the
+two chambers (a share of 0.338
+<!-- metrics.json: twin_prior_reach.diagnostic.distance_share_of_total.log_rate_ratio -->; for
+19.5% <!-- metrics.json: twin_prior_reach.diagnostic.feature_positions.log_rate_ratio.share_outside_pool_range -->
+of real chips it lies outside every simulated value, mostly with the first chamber the faster), the coupling lag (0.181
+<!-- metrics.json: twin_prior_reach.diagnostic.distance_share_of_total.lag_ms -->) and the two
+active-electrode counts (0.164
+<!-- metrics.json: twin_prior_reach.diagnostic.distance_share_of_total.c1_active_electrodes --> and
+0.113 <!-- metrics.json: twin_prior_reach.diagnostic.distance_share_of_total.c0_active_electrodes -->).
+Shown the real recordings, the first-round posterior pushes against two edges of its box: for
+72% <!-- metrics.json: twin_prior_reach.diagnostic.hd14_posterior_edges.by_parameter.threshold_scale.recordings_mostly_above -->
+of recordings most of its raw mass lies above the `threshold_scale` bound, and for
+27% <!-- metrics.json: twin_prior_reach.diagnostic.hd14_posterior_edges.by_parameter.log10_forward_ratio.recordings_mostly_below -->
+below the `log10_forward_ratio` bound; `gabaa_scale` and `inter_in_degree` stay inside. So we
+registered a wider box only where the recordings push: the pathway ratio re-centred to run either
+way (1/20 to 20), the upper bounds of `threshold_scale` (1.15 to 1.35) and `ampa_scale` (1.4 to
+1.8) raised, the other two unchanged. We simulated 3,000
+<!-- metrics.json: twin_prior_reach.budget.new_simulations_usable --> runs from it with fresh seeds,
+all before the registered cut-off, and scored three predictions on the first-round scale, with
+both pools at the same size:
+
+| registered prediction | value | outcome |
+|---|---|---|
+| R1 reach: median real-to-nearest distance at most halves | 2.43 <!-- metrics.json: twin_prior_reach.predictions.R1_reach.hd14_pool_median --> to 2.211 <!-- metrics.json: twin_prior_reach.predictions.R1_reach.new_pool_median -->, ratio 0.91 <!-- metrics.json: twin_prior_reach.predictions.R1_reach.ratio --> | fail |
+| R2 the old region keeps a near neighbour for at least half of the first-round held-out runs | 0.8233 <!-- metrics.json: twin_prior_reach.predictions.R2_old_region_kept.share --> | pass |
+| R3 one flow on the new pool is calibrated for `threshold_scale` on the 200 held-out runs nearest the real recordings (KS p ≥ 0.05) | 0.2682 <!-- metrics.json: twin_prior_reach.predictions.R3_calibrated_near_real.ks_p --> | pass |
+
+The registered reading of an R1 failure is misspecification within the widened box. Widening
+helps the far tail (the 90th percentile falls from 5.864
+<!-- metrics.json: twin_prior_reach.reach.real_to_nearest_hd14_simulation.q90 --> to 4.069
+<!-- metrics.json: twin_prior_reach.reach.real_to_nearest_new_simulation.q90 -->), but the typical
+recording barely moves, and no real recording, in either pool, comes within the distance at which
+simulations neighbour each other (a share of 0.0
+<!-- metrics.json: twin_prior_reach.reach.share_real_within_hd14_neighbour_distance.hd14_pool --> of
+recordings for the first-round pool and 0.0
+<!-- metrics.json: twin_prior_reach.reach.share_real_within_hd14_neighbour_distance.new_pool --> for
+the widened one).
+What is left is carried by the same summaries as before: the chamber rate ratio (0.2998
+<!-- metrics.json: twin_prior_reach.reach.remaining_distance_share_of_total.log_rate_ratio -->), the
+coupling lag (0.1829 <!-- metrics.json: twin_prior_reach.reach.remaining_distance_share_of_total.lag_ms -->)
+and the electrode counts. The new box produces rate ratios on both sides, yet 15%
+<!-- metrics.json: twin_prior_reach.reach.feature_positions_in_new_pool.log_rate_ratio.share_above_q99 -->
+of real recordings still lie above its 99th percentile, which is what one expects if the real
+asymmetry comes from something the twin does not have (a chamber-specific excitability or cell
+density, a conduction delay, uneven electrode coverage) rather than from the pathway's direction.
+The verdict does not depend on the scale: on the new pool's own scale the ratio is 0.876
+<!-- metrics.json: twin_prior_reach.assumption_checks.A2_reach_not_an_artifact_of_the_scale.new_pool_scale -->,
+on the pooled scale 0.856
+<!-- metrics.json: twin_prior_reach.assumption_checks.A2_reach_not_an_artifact_of_the_scale.pooled_scale -->.
+The first-round cache, whose summary-code hash moved when two off-by-default extractor options
+were added, still reproduces exactly (6
+<!-- metrics.json: twin_prior_reach.assumption_checks.A1_hd14_cache_reproduced.n_identical --> of
+6 <!-- metrics.json: twin_prior_reach.assumption_checks.A1_hd14_cache_reproduced.n_checked -->
+re-simulated rows identical), so the two pools come from the same simulator.
+
+R3 passes, but it is narrow. On the same 200 near-real runs the new flow fails `gabaa_scale`
+(p = 0.0007 <!-- metrics.json: twin_prior_reach.calibration.near_real.ks.gabaa_scale.ks_p -->) and
+`inter_in_degree` (p = 0.0146
+<!-- metrics.json: twin_prior_reach.calibration.near_real.ks.inter_in_degree.ks_p -->), and on all
+600 held-out runs `threshold_scale` only just passes (p = 0.0511
+<!-- metrics.json: twin_prior_reach.calibration.all_held_out.ks.threshold_scale.ks_p -->; reported,
+not tested). And "near" still means about two units away. The wider box does make the inverse
+model extrapolate less on real recordings: a median 0.468
+<!-- metrics.json: twin_prior_reach.calibration.new_flow_edges_on_real.median_acceptance --> of its
+raw draws fall inside its box, against 0.035
+<!-- metrics.json: twin_prior_reach.diagnostic.hd14_posterior_edges.median_acceptance --> for the
+first-round flow inside its own. But 30%
+<!-- metrics.json: twin_prior_reach.calibration.new_flow_edges_on_real.by_parameter.ampa_scale.recordings_mostly_above -->
+of recordings still put most of their mass above the new `ampa_scale` bound, so a still wider
+box is not ruled out for that knob (reported, not tested). What this means for use: the twin's
+inverse model is not to be read on absolute real recordings, under either prior; the
+`threshold_scale` calibration D31 adopted holds near them but describes simulations that are
+themselves far from the data. The next step is a change to the model, not to its prior: a
+parameter for chamber-specific excitability and for the coupling delay. The full record is
+`twin_prior_reach` in `outputs/metrics.json` and `outputs/twin/prior_reach_SIMULATED.json`.
+
+![SIMULATED twin pools under the first-round prior and the widened D38 prior, against the 113 REAL two-chamber recordings, on the first-round scale. Top: each summary's distribution. Bottom left: distance from each real recording to its nearest simulation, both pools at 3,000 runs, beside the distance between neighbouring simulations. Bottom right: which summaries carry that distance.](../outputs/twin/prior_reach_simulated.png){width=100%}
+
 **The false-disinhibition artifact.** When we applied the model to real untreated chips, it returned
 an inferred inhibition scale of 0.5219
 <!-- metrics.json: twin_hd15_real_inference.gabaa_scale_at_baseline.median --> on an interval of 0.2732 to 0.8503
@@ -1077,7 +1164,7 @@ what we would do instead.
 | 5 | synchrony was an artifact | depression and delay dispersion fail to fix synchrony | match cell density to culture and cap each electrode's radius at half the pitch (§13) |
 | 6 | posterior over-confidence | `gabaa_scale` fails rank uniformity at p = 0.0174 <!-- metrics.json: twin_hd14_inference.rank_uniformity_ks_p.gabaa_scale.ks_p -->; since round 1, on fresh simulations all five parameters fail, and a five-flow ensemble on 15,750 <!-- metrics.json: twin_hd14b_recalibration.budget.pool_simulations --> simulations leaves four over-confident (§16) | check rank uniformity and interval coverage on fresh simulations before quoting an interval; quote only parameters that pass both |
 | 7 | baseline read as drug effect | absolute features infer 0.5219 <!-- metrics.json: twin_hd15_real_inference.gabaa_scale_at_baseline.median --> inhibition scale on untreated chips | infer from paired deltas against each well's own baseline (§16) |
-| 8 | support rejection | the calibrated twin cannot sample 9 <!-- metrics.json: demo_precompute.posterior_draws.n_short_of_requested --> of 113 <!-- metrics.json: demo_precompute.posterior_draws.n_recordings --> real recordings | treat a refusal as an out-of-distribution flag and send the recording to a person |
+| 8 | support rejection | the calibrated twin cannot sample 9 <!-- metrics.json: demo_precompute.posterior_draws.n_short_of_requested --> of 113 <!-- metrics.json: demo_precompute.posterior_draws.n_recordings --> real recordings; since round 1, a prior widened where the posterior pointed leaves the real recordings almost as far from every simulation (median distance ratio 0.91 <!-- metrics.json: twin_prior_reach.predictions.R1_reach.ratio -->, registered, §16): the twin does not produce them, so this is misspecification, not the prior's range | treat a refusal as an out-of-distribution flag and send the recording to a person; do not read absolute real recordings through the inverse model under either prior; change the model (chamber-specific excitability, coupling delay) before widening the prior further |
 | 9 | vesicle depletion does not explain the GABA-A reversal (added after the first round) | under strong GABA-A block the twin's firing rate rises by 2.389 <!-- metrics.json: twin_depression_under_block.summary.control_mfr_delta_at_block --> log2; with depletion, by at least 0.8687 <!-- metrics.json: twin_depression_under_block.summary.smallest_mfr_delta_at_block_with_depression -->; on real chips it changes by −0.335 <!-- metrics.json: twin_depression_under_block.summary.real_gabaa_antagonist_mfr_delta --> | do not read the twin's firing-rate direction under disinhibition as the culture's; look for the missing mechanism elsewhere (recalibrating with depression, depolarization block). Since round 1: in the EPA's rat cortical wells, GABA-A antagonists raise firing rate as the twin does (§33), so the real direction differs between laboratories |
 
 **On the first, which matters most.** §6 showed that the mechanism classifier had no dose
@@ -1241,10 +1328,10 @@ guarded throughout: `data/raw/MANIFEST.json` records every source's URL, license
 
 The registrations are checked the same way. Every study that registered its predictions in
 `preregistration/` records each prediction's outcome, and `neuromps.report.audit` (run at the end
-of every `run_all`) counts them: 47 <!-- metrics.json: registration_audit.submission.n_studies --> studies made
-236 <!-- metrics.json: registration_audit.submission.total.total --> registered predictions, of which
-106 <!-- metrics.json: registration_audit.submission.total.pass --> passed,
-90 <!-- metrics.json: registration_audit.submission.total.fail --> failed and
+of every `run_all`) counts them: 48 <!-- metrics.json: registration_audit.submission.n_studies --> studies made
+239 <!-- metrics.json: registration_audit.submission.total.total --> registered predictions, of which
+108 <!-- metrics.json: registration_audit.submission.total.pass --> passed,
+91 <!-- metrics.json: registration_audit.submission.total.fail --> failed and
 39 <!-- metrics.json: registration_audit.submission.total.uninterpretable --> were uninterpretable.
 The audit names any study whose predictions carry no outcome, so that none is left out
 unnoticed (none is now; `registration_audit.unrecognised`), and it leaves out the rhythm audit,
@@ -1252,8 +1339,8 @@ which re-reads predictions already counted under their own stages.
 `neuromps.report.timestamps` writes `preregistration/TIMESTAMPS.json`: each registration's
 checksum and the commit that first added it, a hash chain over them in commit order, and, for
 every result file that names its registration, whether the registration's commit came first. Of
-46 <!-- metrics.json: registration_timestamps.submission.n_registrations --> registrations,
-42 <!-- metrics.json: registration_timestamps.submission.n_outputs_checked --> result files were checked and
+47 <!-- metrics.json: registration_timestamps.submission.n_registrations --> registrations,
+43 <!-- metrics.json: registration_timestamps.submission.n_outputs_checked --> result files were checked and
 0 <!-- metrics.json: registration_timestamps.submission.n_violations --> came before their registration. The
 check cannot see the
 4 <!-- metrics.json: registration_timestamps.submission.not_covered --> registrations whose results do not
