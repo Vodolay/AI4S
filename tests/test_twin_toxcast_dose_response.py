@@ -238,6 +238,89 @@ def test_registration_lists_only_knobs_the_twin_has():
     assert all(len(grid) == dr.LEVELS for _, grid in dr.KNOB_GRIDS.values())
 
 
+def _synthetic_screen(top_viability_drop: float = 0.0):
+    """Wells for one compound: a monotone rise with concentration, flat vehicle wells."""
+    concs = [0.03, 0.1, 0.3, 1.0, 3.0, 10.0, 30.0]
+    ephys, viability = [], []
+    for date in range(6):
+        for acid in dr.MAPPING.values():
+            for _ in range(10):
+                ephys.append(
+                    {
+                        "acid": acid,
+                        "wllt": "n",
+                        "spid": "DMSO",
+                        "apid": f"d{date}",
+                        "conc": 0.0,
+                        "rval": 0.0,
+                    }
+                )
+            for step, conc in enumerate(concs):
+                ephys.append(
+                    {
+                        "acid": acid,
+                        "wllt": "t",
+                        "spid": "SP1",
+                        "apid": f"d{date}",
+                        "conc": conc,
+                        "rval": 100.0 * (2**step - 1),  # log2 change = step
+                    }
+                )
+        for _ in range(10):
+            viability.append(
+                {"wllt": "n", "spid": "DMSO", "apid": f"d{date}", "conc": 0.0, "rval": 100.0}
+            )
+        for step, conc in enumerate(concs):
+            drop = top_viability_drop if step == len(concs) - 1 else 0.0
+            viability.append(
+                {
+                    "wllt": "t",
+                    "spid": "SP1",
+                    "apid": f"d{date}",
+                    "conc": conc,
+                    "rval": 100.0 * 2**-drop,
+                }
+            )
+    return pd.DataFrame(ephys), pd.DataFrame(viability)
+
+
+def _synthetic_twin(medians=(0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0)):
+    return {
+        knob: {feature: _summaries(list(medians)) for feature in dr.MAPPING}
+        for knob in dr.KNOB_GRIDS
+    }
+
+
+def test_analyse_scores_a_synthetic_compound_end_to_end(tmp_path):
+    wells, viability = _synthetic_screen()
+    results = dr.analyse(wells, viability, _synthetic_twin(), {"Lindane": ["SP1"]})
+    lindane = results["Lindane"]
+    assert lindane["scored"] and lindane["bins"] == [-3, -2, -1, 0, 1, 2, 3]
+    assert lindane["exclusion"]["excluded"] == []
+    assert results["Fipronil"]["dropped"] == "not in the screen"
+    scored = dr.collect(results)
+    assert scored["twin"]["pairs"] == len(dr.MAPPING) - 1  # every unseen feature
+    assert scored["twin"]["hit_rate"] == 1.0  # both curves rise monotonically
+    # The follow-firing-rate null does as well here: the synthetic features move together.
+    assert scored["nulls"]["follow_firing_rate"]["mean_spearman"] == 1.0
+    for result in results.values():
+        if result.get("scored"):
+            result["twin_levels"] = {
+                f: _summaries([0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0]) for f in dr.MAPPING
+            }
+    dr.plot(scored, results, tmp_path / "figure.png")
+    assert (tmp_path / "figure.png").stat().st_size > 0
+
+
+def test_a_viability_drop_at_the_top_concentration_excludes_that_bin():
+    wells, viability = _synthetic_screen(top_viability_drop=2.0)
+    results = dr.analyse(wells, viability, _synthetic_twin(), {"Lindane": ["SP1"]})
+    lindane = results["Lindane"]
+    assert lindane["exclusion"]["first_flagged_bin"] == 3
+    assert lindane["retained_bins"] == [-3, -2, -1, 0, 1, 2]
+    assert lindane["scored"]
+
+
 def test_score_compound_skips_a_feature_the_twin_does_not_move():
     real = {
         f: dr.flag_moving(
