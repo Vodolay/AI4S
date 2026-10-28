@@ -947,22 +947,22 @@ guarded throughout: `data/raw/MANIFEST.json` records every source's URL, license
 
 The registrations are checked the same way. Every study that registered its predictions in
 `preregistration/` records each prediction's outcome, and `neuromps.report.audit` (run at the end
-of every `run_all`) counts them: 42 <!-- metrics.json: registration_audit.n_studies --> studies made
-216 <!-- metrics.json: registration_audit.total.total --> registered predictions, of which
-97 <!-- metrics.json: registration_audit.total.pass --> passed,
-80 <!-- metrics.json: registration_audit.total.fail --> failed and
-38 <!-- metrics.json: registration_audit.total.uninterpretable --> were uninterpretable.
+of every `run_all`) counts them: 42 <!-- metrics.json: registration_audit.submission.n_studies --> studies made
+216 <!-- metrics.json: registration_audit.submission.total.total --> registered predictions, of which
+97 <!-- metrics.json: registration_audit.submission.total.pass --> passed,
+80 <!-- metrics.json: registration_audit.submission.total.fail --> failed and
+38 <!-- metrics.json: registration_audit.submission.total.uninterpretable --> were uninterpretable.
 The audit names any study whose predictions carry no outcome, so that none is left out
 unnoticed (none is now; `registration_audit.unrecognised`), and it leaves out the rhythm audit,
 which re-reads predictions already counted under their own stages.
 `neuromps.report.timestamps` writes `preregistration/TIMESTAMPS.json`: each registration's
 checksum and the commit that first added it, a hash chain over them in commit order, and, for
 every result file that names its registration, whether the registration's commit came first. Of
-41 <!-- metrics.json: registration_timestamps.n_registrations --> registrations,
-38 <!-- metrics.json: registration_timestamps.n_outputs_checked --> result files were checked and
-0 <!-- metrics.json: registration_timestamps.n_violations --> came before their registration. The
+41 <!-- metrics.json: registration_timestamps.submission.n_registrations --> registrations,
+38 <!-- metrics.json: registration_timestamps.submission.n_outputs_checked --> result files were checked and
+0 <!-- metrics.json: registration_timestamps.submission.n_violations --> came before their registration. The
 check cannot see the
-3 <!-- metrics.json: registration_timestamps.not_covered --> registrations whose results do not
+3 <!-- metrics.json: registration_timestamps.submission.not_covered --> registrations whose results do not
 name them (the twin's depression test, its prior classifier and the ToxCast noise floors), and it
 rests on this repository's own history, not on a third-party timestamp. The two manuscripts in
 preparation register their studies the same way in a separate, private repository.

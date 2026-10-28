@@ -22,6 +22,7 @@ from pathlib import Path
 from neuromps.metrics import update_metrics
 from neuromps.paths import REPO_ROOT
 from neuromps.qc.provenance import sha256_file
+from neuromps.report.audit import manuscript_only
 
 log = logging.getLogger("neuromps.report")
 PREREG = REPO_ROOT / "preregistration"
@@ -108,8 +109,7 @@ def order_checks(regs: list[dict]) -> list[dict]:
     return out
 
 
-def summary(regs: list[dict], checks: list[dict]) -> dict:
-    """The manifest in numbers, including the registrations the order check cannot see."""
+def _counts(regs: list[dict], checks: list[dict]) -> dict:
     named = {c["registration"] for c in checks}
     return {
         "n_registrations": len(regs),
@@ -117,6 +117,16 @@ def summary(regs: list[dict], checks: list[dict]) -> dict:
         "n_violations": sum(not c["registered_first"] for c in checks),
         "not_covered": [r["file"] for r in regs if r["file"] not in named],
     }
+
+
+def summary(regs: list[dict], checks: list[dict], manuscript_only: set[str] = frozenset()) -> dict:
+    """The manifest in numbers, including the registrations the order check cannot see.
+
+    ``submission`` repeats them without the registrations listed as manuscript-only.
+    """
+    shown = [r for r in regs if r["file"] not in manuscript_only]
+    shown_checks = [c for c in checks if c["registration"] not in manuscript_only]
+    return {**_counts(regs, checks), "submission": _counts(shown, shown_checks)}
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -132,7 +142,7 @@ def main(argv: list[str] | None = None) -> int:
         "violations": [c for c in checks if not c["registered_first"]],
     }
     OUT.write_text(json.dumps(manifest, indent=2) + "\n")
-    update_metrics("registration_timestamps", summary(regs, checks))
+    update_metrics("registration_timestamps", summary(regs, checks, manuscript_only(PREREG)))
     print(
         f"{len(regs)} registrations; root {manifest['root']}; "
         f"{len(checks)} outputs checked; {len(manifest['violations'])} violations"

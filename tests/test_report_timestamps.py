@@ -24,9 +24,26 @@ def test_summary_counts_checks_violations_and_uncovered_registrations() -> None:
         {"registration": "b.json", "registered_first": False},
     ]
     got = ts.summary(regs, checks)
+    assert got.pop("submission") == got  # nothing listed: the submission is everything
     assert got == {
         "n_registrations": 3,
         "n_outputs_checked": 3,
         "n_violations": 1,
+        "not_covered": ["c.json"],
+    }
+
+
+def test_summary_reports_the_submission_without_manuscript_only_registrations() -> None:
+    regs = [{"file": "a.json"}, {"file": "b.json"}, {"file": "c.json"}]
+    checks = [
+        {"registration": "a.json", "registered_first": True},
+        {"registration": "b.json", "registered_first": False},
+    ]
+    got = ts.summary(regs, checks, manuscript_only={"b.json"})
+    assert got["n_registrations"] == 3
+    assert got["submission"] == {
+        "n_registrations": 2,
+        "n_outputs_checked": 1,
+        "n_violations": 0,
         "not_covered": ["c.json"],
     }

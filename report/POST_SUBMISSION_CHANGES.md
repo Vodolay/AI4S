@@ -991,14 +991,14 @@ checked against the commit that registered it, here, in the public repository.*
 - **Why.** The final-round deck quoted registration counts and a hash chain that existed only in
   the private manuscript repository, so a reader of this repository could not check them.
 - **Effect.**
-  - 42 <!-- metrics.json: registration_audit.n_studies --> registered studies here made
-    216 <!-- metrics.json: registration_audit.total.total --> predictions:
-    97 <!-- metrics.json: registration_audit.total.pass --> passed,
-    80 <!-- metrics.json: registration_audit.total.fail --> failed,
-    38 <!-- metrics.json: registration_audit.total.uninterpretable --> were uninterpretable.
-  - 38 <!-- metrics.json: registration_timestamps.n_outputs_checked --> result files name their
-    registration, and 0 <!-- metrics.json: registration_timestamps.n_violations --> of them came
-    before it; 3 <!-- metrics.json: registration_timestamps.not_covered --> registrations are not
+  - 42 <!-- metrics.json: registration_audit.submission.n_studies --> registered studies here made
+    216 <!-- metrics.json: registration_audit.submission.total.total --> predictions:
+    97 <!-- metrics.json: registration_audit.submission.total.pass --> passed,
+    80 <!-- metrics.json: registration_audit.submission.total.fail --> failed,
+    38 <!-- metrics.json: registration_audit.submission.total.uninterpretable --> were uninterpretable.
+  - 38 <!-- metrics.json: registration_timestamps.submission.n_outputs_checked --> result files name their
+    registration, and 0 <!-- metrics.json: registration_timestamps.submission.n_violations --> of them came
+    before it; 3 <!-- metrics.json: registration_timestamps.submission.not_covered --> registrations are not
     covered because their results do not name them.
   - No earlier result changes.
 - **Correction (2026-10-28).** As first merged, the audit counted 40 studies and 208
