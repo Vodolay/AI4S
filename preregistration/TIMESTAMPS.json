@@ -529,6 +529,12 @@
       "registered_first": true
     },
     {
+      "output": "outputs/hpsc_settling_REAL.json",
+      "registration": "hpsc_settling.json",
+      "same_commit": false,
+      "registered_first": true
+    },
+    {
       "output": "outputs/hpsc_split_half_REAL.json",
       "registration": "hpsc_split_half.json",
       "same_commit": false,
