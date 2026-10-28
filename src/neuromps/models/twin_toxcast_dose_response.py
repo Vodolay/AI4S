@@ -322,18 +322,21 @@ def excluded_bins(
 ) -> dict:
     """The lowest bin the viability readout flags, and every bin above it."""
     cache = {} if cache is None else cache
-    flagged = []
+    flagged, untestable = [], []
     for point in curve:
         n = point["wells"]
         if n == 0 or point["median"] is None:
             continue
         cut = cached_threshold(cache, groups, n, k, VIABILITY_SEED + n, lower=True)["threshold"]
-        if cut is not None and point["median"] < cut:
+        if cut is None:
+            untestable.append(point["bin"])
+        elif point["median"] < cut:
             flagged.append(point["bin"])
     first = min(flagged) if flagged else None
     return {
         "first_flagged_bin": first,
         "excluded": [] if first is None else [p["bin"] for p in curve if p["bin"] >= first],
+        "untestable_bins": untestable,
         "viability": curve,
     }
 
@@ -601,6 +604,29 @@ def rescore(results: dict, twin: dict, levels: int) -> dict:
     return out
 
 
+def rescore_dropping(results: dict, twin: dict, which: str) -> dict:
+    """POST HOC (decided after seeing the curves): drop one bin per compound.
+
+    The registered viability rule excluded nothing, so the highest concentration
+    stayed in every curve - and that is where a compound can lose activity for
+    reasons no mechanism knob represents. ``which='top'`` asks what the scores
+    look like without it; ``'bottom'`` and ``'middle'`` are the controls that
+    say whether dropping *any* one bin would do as much. Decided after the real
+    curves were seen, so none of this is a test.
+    """
+    trimmed = {}
+    for name, result in results.items():
+        if not result.get("scored"):
+            continue
+        bins = list(result["retained_bins"])
+        index = {"top": len(bins) - 1, "bottom": 0, "middle": len(bins) // 2}[which]
+        kept = bins[:index] + bins[index + 1 :]
+        if len(kept) < MIN_BINS:
+            continue
+        trimmed[name] = {**result, "retained_bins": kept}
+    return rescore(trimmed, twin, LEVELS)
+
+
 def analyse(wells: pd.DataFrame, viability: pd.DataFrame, twin: dict, spids: dict) -> dict:
     """Every registered compound that the screen tested, in registration order."""
     groups = {f: vehicle_groups(wells, acid) for f, acid in MAPPING.items()}
@@ -743,9 +769,13 @@ def _style_example(axis, best: dict, real: list[dict], retained: list[int]) -> N
             axis.axvspan(
                 point["bin"] / 2 - 0.25, point["bin"] / 2 + 0.25, color="#CCCCCC", alpha=0.5
             )
-    axis.set_xlabel(
-        "log10 concentration (uM); grey bands excluded by the viability rule", fontsize=7
+    dropped = [p["bin"] for p in real if p["bin"] not in retained]
+    note = (
+        "grey bands excluded by the viability rule"
+        if dropped
+        else "the viability rule excluded no concentration"
     )
+    axis.set_xlabel(f"log10 concentration (uM); {note}", fontsize=7)
     axis.set_ylabel("log2 change", fontsize=7)
     axis.set_title(
         f"{best['compound']} · {best['feature'].replace('_', ' ')} "
@@ -815,6 +845,19 @@ def _headline(scored: dict, predictions: dict, results: dict) -> dict:
     }
 
 
+def _posthoc_top_bin(results: dict, curves: dict) -> dict:
+    """The post-hoc rescore without each compound's highest concentration.
+
+    With the controls that drop one other bin instead: if they lift the score as
+    much, the top concentration is not what the registered test tripped over.
+    """
+    out = {"note": "POST HOC, decided after the registered viability rule excluded no bin"}
+    for which in ("top", "bottom", "middle"):
+        got = collect(rescore_dropping(results, curves, which))
+        out[f"dropping_{which}_bin"] = {"twin": got["twin"], "nulls": got["nulls"]}
+    return out
+
+
 def build_payload(results: dict, scored: dict, curves: dict) -> dict:
     """Everything this check writes to metrics.json, registered tests included."""
     first_mover = first_mover_table(results)
@@ -837,8 +880,14 @@ def build_payload(results: dict, scored: dict, curves: dict) -> dict:
             "twin": check["twin"],
             "nulls": check["nulls"],
         },
+        "posthoc_without_top_bin": _posthoc_top_bin(results, curves),
         "dropped": {n: r["dropped"] for n, r in results.items() if r.get("dropped")},
         "untestable_bins": untestable_bins(results),
+        "viability_untestable_bins": {
+            n: r["exclusion"]["untestable_bins"]
+            for n, r in results.items()
+            if r.get("exclusion", {}).get("untestable_bins")
+        },
         "compounds": results,
         "pairs": scored["pairs"],
     }

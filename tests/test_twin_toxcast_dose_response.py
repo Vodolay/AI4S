@@ -119,6 +119,65 @@ def test_excluded_bins_excludes_nothing_when_viability_holds():
     assert got["first_flagged_bin"] is None and got["excluded"] == []
 
 
+def test_excluded_bins_reports_a_bin_whose_null_is_undefined_instead_of_passing_it():
+    # Ten wells per date cannot judge a bin pooling nine wells (nine + three > ten),
+    # so the drop is recorded as untestable rather than silently treated as fine.
+    groups = [np.random.default_rng(i).normal(0, 0.1, 10) for i in range(10)]
+    curve = _curve([0.0, 0.0, 0.0, -3.0], wells=9)
+    got = dr.excluded_bins(curve, groups, k=4)
+    assert got["first_flagged_bin"] is None and got["excluded"] == []
+    assert got["untestable_bins"] == [0, 1, 2, 3]
+
+
+def test_the_post_hoc_rescore_drops_the_bin_it_is_asked_to():
+    bins = [0, 1, 2, 3, 4]
+    real = {f: _curve([0.1, 0.4, 0.9, 1.6, 9.0], bins=bins) for f in dr.MAPPING}
+    for curve in real.values():
+        for point in curve:
+            point["moves"] = True
+    results = {
+        "Lindane": {"scored": True, "knob": "gabaa_block", "retained_bins": bins, "real": real}
+    }
+    kept = {
+        which: dr.rescore_dropping(results, _synthetic_twin(), which)["Lindane"]["features"][
+            "synchrony_index"
+        ]["bins"]
+        for which in ("top", "bottom", "middle")
+    }
+    assert kept == {"top": 4, "bottom": 4, "middle": 4}
+
+
+def test_the_post_hoc_rescore_skips_a_curve_left_too_short():
+    real = {
+        f: dr.flag_moving(
+            _curve([0.1, 0.4, 0.9, 1.6, 9.0]),
+            [np.random.default_rng(i).normal(0, 0.05, 12) for i in range(10)],
+            k=5,
+            seed=3,
+        )
+        for f in dr.MAPPING
+    }
+    twin = _synthetic_twin()
+    results = {
+        "Lindane": {
+            "scored": True,
+            "knob": "gabaa_block",
+            "retained_bins": [0, 1, 2, 3, 4],
+            "real": real,
+        },
+        "Endrin": {
+            "scored": True,
+            "knob": "gabaa_block",
+            "retained_bins": [0, 1, 2, 3],
+            "real": real,
+        },
+        "Aldrin": {"scored": False},
+    }
+    got = dr.rescore_dropping(results, twin, "top")
+    assert set(got) == {"Lindane"}  # Endrin would be left with three bins
+    assert got["Lindane"]["features"]["synchrony_index"]["bins"] == 4
+
+
 def test_treated_effects_subtract_the_same_date_vehicle_median():
     rows = _vehicle_wells(dates=3, per_date=4)
     for d in range(3):
