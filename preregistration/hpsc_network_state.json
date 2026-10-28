@@ -1,0 +1,50 @@
+{
+  "title": "Does early network bursting predict how an untreated human iPSC well settles? A replication on the lab's developmental plates (REAL data, Kapucu 2022)",
+  "registered": "2026-10-28T14:49:24Z",
+  "decision": "D36",
+  "status": "registered before any windowed feature was computed on the developmental plates",
+  "origin": "an exploratory, post hoc look at D35's human wells (48-well baseline, DIV29) found two settling behaviours: wells that keep falling after the first five minutes and wells that recover. Network-burst rate in the first window predicted the later trend (Spearman -0.73, 24 wells), synchrony less so (-0.49), firing rate not at all (-0.02); in rat wells none of the three did (+0.17, +0.12, -0.04). That analysis is not registered; this registration tests it on independent recordings.",
+  "seen_before_registration": [
+    "the exploratory result above, computed in a scratch script on the 48-well baselines (hPSC_MEA3Baseline_DIV29, Rat_MEA2Baseline_DIV22)",
+    "everything in hpsc_split_half (D32), including its replication pool on these developmental plates: per-recording split-half changes of every feature and their SDs, 144 usable human recordings from 12 wells and 58 rat recordings from 12 wells, and that network-burst rate was unscored for 50 human developmental recordings because their first half had no network bursts",
+    "everything in hpsc_settling (D35)",
+    "no feature of any window shorter than half a recording on the developmental plates"
+  ],
+  "data": "the D32 replication pool exactly: hPSC_MEA1 and hPSC_MEA2 (12-well, 10-min recordings) at DIV28 or later, Rat_MEA1 (12-well, 10-min) at DIV21 or later, NoTreatment wells, the recordings D32 judged usable",
+  "method": {
+    "windows": "each recording cut into 6 consecutive windows of equal length (100 s for these 10-min recordings), cut as in D32 and D35",
+    "early_state": "features/mea.py extract_features at defaults on window 0 alone: nb0 = network_burst_rate_per_min, sync0 = synchrony_index, mfr0 = mfr_hz; an undefined value (no active electrode in the window) leaves the recording unscored for that feature, and the count is reported",
+    "late_trend": "per recording, the firing rate per window on the electrodes active over the whole recording (as D35), y_k = log2 of it with D35's floor, and late_b = ordinary least-squares slope of y_k on k for k = 1..5",
+    "statistic": "Spearman rho between an early-state feature and late_b over all usable recordings of a species, pooled across ages",
+    "interval": "95% percentile interval from 2,000 bootstrap resamples of wells (all of a well's recordings together) within species, seed 20261028"
+  },
+  "predictions": {
+    "N1_early_network_bursting_predicts_settling_in_human": {
+      "statement": "in human iPSC recordings, more network bursting in the first window goes with a more negative later trend",
+      "test": "pass if the 95% interval of rho(nb0, late_b) in human recordings lies below 0; fail otherwise"
+    },
+    "N2_not_in_rat": {
+      "statement": "rat recordings show no such negative relation",
+      "test": "pass if the 95% interval of rho(nb0, late_b) in rat recordings does not lie entirely below 0; fail otherwise"
+    },
+    "N3_network_state_not_firing_rate": {
+      "statement": "in human recordings the early network state predicts the later trend better than the early firing rate does",
+      "test": "pass if the 95% interval of rho(mfr0, late_b) - rho(nb0, late_b) in human recordings lies above 0; fail otherwise"
+    }
+  },
+  "uninterpretable": "a prediction is uninterpretable if its species has fewer than 30 scored recordings from at least 8 wells, or (N1, N3) if nb0 is zero in more than 80% of scored human recordings",
+  "reported_not_tested": {
+    "sync0": "rho(sync0, late_b) per species with its interval",
+    "primary_pool_post_hoc": "the exploratory result on the 48-well baselines recomputed by the module, labelled post hoc"
+  },
+  "assumption_check": {
+    "assumption": "the relation is not an artefact of culture age (both network bursting and settling may change with age)",
+    "check": "rho(nb0, late_b) after regressing the ranks of both on DIV (partial Spearman), and the median of per-DIV rhos, both reported for each species; if the partial rho in human recordings is above -0.1, the report says the N1 relation may be an age effect"
+  },
+  "reporting": "all three predictions reported with values whatever the outcome",
+  "outputs": {
+    "metrics_key": "hpsc_network_state",
+    "results_file": "outputs/hpsc_network_state_REAL.json (names this registration)",
+    "figure": "outputs/figures/hpsc_network_state_real.png"
+  }
+}

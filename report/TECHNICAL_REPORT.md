@@ -1180,10 +1180,10 @@ guarded throughout: `data/raw/MANIFEST.json` records every source's URL, license
 
 The registrations are checked the same way. Every study that registered its predictions in
 `preregistration/` records each prediction's outcome, and `neuromps.report.audit` (run at the end
-of every `run_all`) counts them: 46 <!-- metrics.json: registration_audit.submission.n_studies --> studies made
-233 <!-- metrics.json: registration_audit.submission.total.total --> registered predictions, of which
-105 <!-- metrics.json: registration_audit.submission.total.pass --> passed,
-88 <!-- metrics.json: registration_audit.submission.total.fail --> failed and
+of every `run_all`) counts them: 47 <!-- metrics.json: registration_audit.submission.n_studies --> studies made
+236 <!-- metrics.json: registration_audit.submission.total.total --> registered predictions, of which
+106 <!-- metrics.json: registration_audit.submission.total.pass --> passed,
+90 <!-- metrics.json: registration_audit.submission.total.fail --> failed and
 39 <!-- metrics.json: registration_audit.submission.total.uninterpretable --> were uninterpretable.
 The audit names any study whose predictions carry no outcome, so that none is left out
 unnoticed (none is now; `registration_audit.unrecognised`), and it leaves out the rhythm audit,
@@ -1191,8 +1191,8 @@ which re-reads predictions already counted under their own stages.
 `neuromps.report.timestamps` writes `preregistration/TIMESTAMPS.json`: each registration's
 checksum and the commit that first added it, a hash chain over them in commit order, and, for
 every result file that names its registration, whether the registration's commit came first. Of
-45 <!-- metrics.json: registration_timestamps.submission.n_registrations --> registrations,
-41 <!-- metrics.json: registration_timestamps.submission.n_outputs_checked --> result files were checked and
+46 <!-- metrics.json: registration_timestamps.submission.n_registrations --> registrations,
+42 <!-- metrics.json: registration_timestamps.submission.n_outputs_checked --> result files were checked and
 0 <!-- metrics.json: registration_timestamps.submission.n_violations --> came before their registration. The
 check cannot see the
 4 <!-- metrics.json: registration_timestamps.submission.not_covered --> registrations whose results do not
@@ -2175,6 +2175,123 @@ third" is strict (with both fits at ddof 2, the rat share is
 0.45 <!-- metrics.json: hpsc_settling.assumption_check.share_lowered_both_ddof2_sensitivity.rat -->,
 still below one half). The caveat flag is set on T1 and T3, as registered; the note on T2 above
 is ours.
+
+### Registered replication: does early network bursting predict how a human well settles?
+
+**The post hoc observation.** Looking again at the follow-up's human wells, after its results
+were in, we saw two settling behaviours: some wells keep falling after the first five minutes,
+others recover. Across the 24 <!-- metrics.json: hpsc_network_state.primary_pool_post_hoc.human.n_wells -->
+human wells, the network-burst rate in the first 5-minute window (nb0, from the same extractor)
+tracked the later trend (late_b, the slope of the log2 firing rate over the last five of the six windows): Spearman
+rho −0.73 <!-- metrics.json: hpsc_network_state.primary_pool_post_hoc.human.rho.nb0.point -->
+(well-bootstrap interval −0.90 to −0.42 <!-- metrics.json: hpsc_network_state.primary_pool_post_hoc.human.rho.nb0.ci95 -->);
+first-window synchrony less so
+(−0.49 <!-- metrics.json: hpsc_network_state.primary_pool_post_hoc.human.rho.sync0.point -->),
+and first-window firing rate not at all
+(−0.02 <!-- metrics.json: hpsc_network_state.primary_pool_post_hoc.human.rho.mfr0.point -->). In the
+38 <!-- metrics.json: hpsc_network_state.primary_pool_post_hoc.rat.n_wells --> rat wells none of
+the three did (0.17 <!-- metrics.json: hpsc_network_state.primary_pool_post_hoc.rat.rho.nb0.point -->,
+0.12 <!-- metrics.json: hpsc_network_state.primary_pool_post_hoc.rat.rho.sync0.point -->,
+−0.04 <!-- metrics.json: hpsc_network_state.primary_pool_post_hoc.rat.rho.mfr0.point -->). These
+numbers are recomputed by the module and labelled post hoc there; they come from one plate per
+species at one age, found by looking, so they are a hypothesis, not a result.
+
+**The registered test.** Before any windowed feature was computed on the lab's 12-well
+developmental plates, we registered a replication on them (decision D36,
+`preregistration/hpsc_network_state.json`
+<!-- metrics.json: hpsc_network_state.registration.file -->; code and tests committed before the
+real-data run). The pool is D32's replication pool exactly: its usable untreated recordings,
+144 <!-- metrics.json: hpsc_network_state.replication.human.n_recordings --> human recordings from
+12 <!-- metrics.json: hpsc_network_state.replication.human.n_wells --> wells (DIV28 to 66) and
+58 <!-- metrics.json: hpsc_network_state.replication.rat.n_recordings --> rat recordings from
+12 <!-- metrics.json: hpsc_network_state.replication.rat.n_wells --> wells (DIV21 to 35). Each
+10-minute recording is cut into six equal windows; nb0, sync0 and mfr0 are the extractor's
+features on the first window alone, and late_b is the slope over the last five windows of the follow-up's
+fixed-electrode log2 rate. The statistic is Spearman rho pooled across ages within a species,
+with a 95% interval from resampling whole wells. Every recording was scored; nb0 was zero (no
+network burst in the first 100 seconds) in
+44% <!-- metrics.json: hpsc_network_state.replication.human.nb0_zero_share --> of human
+recordings, below the registered limit.
+
+![REAL data, Kapucu 2022, one lab, untreated wells. Each point is one recording: its network-burst rate in the first window (nb0) against the slope of its log2 firing rate over the later five windows (late_b). Left two panels: the registered replication on the 12-well developmental plates (100-second windows), coloured by plate. Right two panels: the post hoc observation on the 48-well baselines (5-minute windows), one recording per well.](../outputs/figures/hpsc_network_state_real.png){width=100%}
+
+**One of the three registered predictions passes; the one that carried the idea fails.**
+
+- **N1 (more early network bursting goes with a more negative later trend, human) fails.** rho
+  −0.06 <!-- metrics.json: hpsc_network_state.predictions.N1_early_network_bursting_predicts_settling_in_human.value -->,
+  95% interval
+  −0.23 to 0.09 <!-- metrics.json: hpsc_network_state.predictions.N1_early_network_bursting_predicts_settling_in_human.ci95 -->,
+  which does not lie below 0.
+- **N2 (no such relation in rat) passes.** rho
+  −0.06 <!-- metrics.json: hpsc_network_state.predictions.N2_not_in_rat.value -->
+  (−0.28 to 0.20 <!-- metrics.json: hpsc_network_state.predictions.N2_not_in_rat.ci95 -->). With
+  N1 failing, this pass says only that neither species shows the relation on these plates.
+- **N3 (network state predicts the trend better than firing rate, human) fails.**
+  rho(mfr0) − rho(nb0) is
+  0.02 <!-- metrics.json: hpsc_network_state.predictions.N3_network_state_not_firing_rate.value -->
+  (−0.09 to 0.11 <!-- metrics.json: hpsc_network_state.predictions.N3_network_state_not_firing_rate.ci95 -->):
+  in these recordings neither early readout tracks the later trend.
+
+Reported and not tested: first-window synchrony goes weakly with a more negative trend in human
+recordings (rho −0.17 <!-- metrics.json: hpsc_network_state.reported_not_tested.sync0.human.point -->,
+−0.34 to −0.01 <!-- metrics.json: hpsc_network_state.reported_not_tested.sync0.human.ci95 -->)
+and more clearly in rat
+(−0.37 <!-- metrics.json: hpsc_network_state.reported_not_tested.sync0.rat.point -->,
+−0.57 to −0.13 <!-- metrics.json: hpsc_network_state.reported_not_tested.sync0.rat.ci95 -->),
+where the early firing rate does too
+(−0.41 <!-- metrics.json: hpsc_network_state.replication.rat.rho.mfr0.point -->). We did not
+predict these, and read them as leads at most. Most human developmental recordings fall over the
+later windows (a share of
+0.85 <!-- metrics.json: hpsc_network_state.replication.human.late_b_negative_share --> with a
+negative late_b, against
+0.58 <!-- metrics.json: hpsc_network_state.primary_pool_post_hoc.human.late_b_negative_share -->
+on the 48-well baseline), so the "two behaviours" of the baseline plate are not as clear here.
+
+**The registered age check, and what it does and does not say.** Network bursting and settling
+could both change with culture age, so the registration asked for rho after regressing the ranks
+of both on DIV, and for the median of the per-DIV rhos. In human recordings the partial rho is
+−0.39 <!-- metrics.json: hpsc_network_state.age_check.human.partial_rho -->, not above the
+registered −0.1, so the age flag is not raised; the per-DIV median is
+−0.06 <!-- metrics.json: hpsc_network_state.age_check.human.per_div.median_rho -->, with
+6 <!-- metrics.json: hpsc_network_state.age_check.human.per_div.n_divs_negative --> of
+11 <!-- metrics.json: hpsc_network_state.age_check.human.per_div.n_divs --> scored ages
+negative. The two disagree. Descriptively (added after the run), human first-window bursting
+falls steeply with age (rank correlation with DIV
+−0.83 <!-- metrics.json: hpsc_network_state.age_check.human.rho_nb0_div_post_hoc -->), so a
+linear adjustment for age can reveal a within-age relation that the pooled rho hides, or create
+one if the age pattern is not linear; the per-DIV rhos, which need no such model, do not show a
+consistent relation. In rat the partial rho is
+0.06 <!-- metrics.json: hpsc_network_state.age_check.rat.partial_rho -->. A second post hoc
+reading asks whether the many zero nb0 values hide the relation: over the
+81 <!-- metrics.json: hpsc_network_state.nonzero_nb0_check_post_hoc.human.n_recordings --> human
+recordings with at least one early network burst, rho is
+−0.17 <!-- metrics.json: hpsc_network_state.nonzero_nb0_check_post_hoc.human.point -->
+(−0.34 to 0.00 <!-- metrics.json: hpsc_network_state.nonzero_nb0_check_post_hoc.human.ci95 -->),
+far weaker than the baseline plate's
+−0.73 <!-- metrics.json: hpsc_network_state.primary_pool_post_hoc.human.rho.nb0.point --> and with an interval reaching 0.
+
+**What it means for a lab.** The registered replication does not support stratifying human iPSC
+wells by their baseline network bursting to predict how they will settle: on independent
+recordings from the same lab the relation seen on one 48-well plate did not hold. The baseline
+observation stays a hypothesis tied to one plate, one age and 5-minute windows; the developmental
+recordings are shorter (windows a third as long, in which nearly half the human recordings had no
+network burst at all) and span many ages, and either difference could matter. Testing it again
+would need 30-minute untreated recordings of more human plates at matched ages. The practical
+reading of the follow-up is unchanged: human wells differ in how they settle, and we cannot yet
+say from a baseline readout which wells will settle which way.
+
+**Implementation notes.** Recorded under `hpsc_network_state.implementation_notes`: the
+recordings are D32's usable replication rows, read from its results file; window 0 is
+t < duration/6 (an edge spike starts the next window) and goes to the extractor alone, with that
+window's own active rule; late_b uses the follow-up's electrode set, rate and floor, fitted on
+the last five windows against the window index; each species' interval draws whole wells from a fresh generator
+with the registered seed, and the three rhos and the N3 difference come from the same draws;
+"below 0" and "above 0" are strict; "fewer than 30 scored recordings from at least 8 wells" is
+read as either count falling short; the partial rho regresses average ranks on an intercept and
+DIV; per-DIV rhos pool both human plates at a shared age. Before the code was committed, a timing
+check computed first-window features on one rat developmental file and printed one well's values;
+no trend or correlation was computed before the commit. A quick run scores only the post hoc
+pool (the developmental plates are in the full tier), and N1 to N3 are then uninterpretable.
 
 **What this section does not show.** Split-half noise is not exposure noise: it is the movement
 of one undisturbed recording, not of a well handled, dosed and read again, so it says how the
