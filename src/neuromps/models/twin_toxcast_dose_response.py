@@ -272,18 +272,33 @@ def real_curve(effects: pd.DataFrame, bins: list[int]) -> list[dict]:
     return out
 
 
-def flag_moving(curve: list[dict], groups: list[np.ndarray], k: int, seed: int) -> list[dict]:
+def cached_threshold(
+    cache: dict, groups: list[np.ndarray], n: int, k: int, seed: int, lower: bool = False
+) -> dict:
+    """``null_threshold`` memoised on its arguments: the same cut costs 20,000 draws once.
+
+    The cut depends only on the component's vehicle wells, the well count, the
+    family size and the seed, all of which repeat across compounds, so a shared
+    cache changes no number and keeps the step inside the quick run's budget.
+    """
+    key = (seed, n, k, lower)
+    if key not in cache:
+        cache[key] = null_threshold(groups, n, k, seed, lower=lower)
+    return cache[key]
+
+
+def flag_moving(
+    curve: list[dict], groups: list[np.ndarray], k: int, seed: int, cache: dict | None = None
+) -> list[dict]:
     """Mark the bins whose median effect clears the vehicle null at their well count."""
-    cache: dict[int, dict] = {}
+    cache = {} if cache is None else cache
     out = []
     for point in curve:
         n = point["wells"]
         if n == 0 or point["median"] is None:
             out.append({**point, "threshold": None, "moves": False})
             continue
-        if n not in cache:
-            cache[n] = null_threshold(groups, n, k, seed + n)
-        cut = cache[n]["threshold"]
+        cut = cached_threshold(cache, groups, n, k, seed + n)["threshold"]
         moves = cut is not None and abs(point["median"]) > cut
         out.append({**point, "threshold": cut, "moves": bool(moves)})
     return out
@@ -302,17 +317,17 @@ def viability_curve(viability: pd.DataFrame, spids: list[str], bins: list[int]) 
     return real_curve(treated[np.isfinite(treated["bin"])][["apid", "bin", "effect"]], bins)
 
 
-def excluded_bins(curve: list[dict], groups: list[np.ndarray], k: int) -> dict:
+def excluded_bins(
+    curve: list[dict], groups: list[np.ndarray], k: int, cache: dict | None = None
+) -> dict:
     """The lowest bin the viability readout flags, and every bin above it."""
-    cache: dict[int, dict] = {}
+    cache = {} if cache is None else cache
     flagged = []
     for point in curve:
         n = point["wells"]
         if n == 0 or point["median"] is None:
             continue
-        if n not in cache:
-            cache[n] = null_threshold(groups, n, k, VIABILITY_SEED + n, lower=True)
-        cut = cache[n]["threshold"]
+        cut = cached_threshold(cache, groups, n, k, VIABILITY_SEED + n, lower=True)["threshold"]
         if cut is not None and point["median"] < cut:
             flagged.append(point["bin"])
     first = min(flagged) if flagged else None
@@ -422,13 +437,17 @@ def tested_bins(
 
 
 def real_side(
-    wells: pd.DataFrame, spids: list[str], bins: list[int], groups: dict
+    wells: pd.DataFrame,
+    spids: list[str],
+    bins: list[int],
+    groups: dict,
+    cache: dict | None = None,
 ) -> dict[str, list[dict]]:
     """Per feature, the compound's real curve over its tested bins, moving bins flagged."""
     out = {}
     for feature, acid in MAPPING.items():
         curve = real_curve(treated_effects(wells, acid, spids), bins)
-        out[feature] = flag_moving(curve, groups[feature], len(bins), REAL_SEED + acid)
+        out[feature] = flag_moving(curve, groups[feature], len(bins), REAL_SEED + acid, cache)
     return out
 
 
@@ -511,13 +530,14 @@ def analyse_compound(
     groups: dict,
     spids: list[str],
     levels: int = LEVELS,
+    cache: dict | None = None,
 ) -> dict:
     """One compound end to end: bins, exclusion, curves, scores and first mover."""
     knob = LABEL_KNOB[label]
     bins = tested_bins(wells, spids)
-    real = real_side(wells, spids, bins, groups)
+    real = real_side(wells, spids, bins, groups, cache)
     exclusion = excluded_bins(
-        viability_curve(viability, spids, bins), groups["viability"], len(bins)
+        viability_curve(viability, spids, bins), groups["viability"], len(bins), cache
     )
     retained = [b for b in bins if b not in exclusion["excluded"]]
     out = {
@@ -585,13 +605,16 @@ def analyse(wells: pd.DataFrame, viability: pd.DataFrame, twin: dict, spids: dic
     """Every registered compound that the screen tested, in registration order."""
     groups = {f: vehicle_groups(wells, acid) for f, acid in MAPPING.items()}
     groups["viability"] = viability_groups(viability)
+    cache: dict = {}  # vehicle-null cuts repeat across compounds; drawn once each
     out = {}
     for name, label in compounds().items():
         if not spids.get(name):
             out[name] = {"label": label, "scored": False, "dropped": "not in the screen"}
             continue
         log.info("  %s (%s)", name, label)
-        out[name] = analyse_compound(label, wells, viability, twin, groups, spids[name])
+        out[name] = analyse_compound(
+            label, wells, viability, twin, groups, spids[name], cache=cache
+        )
     return out
 
 
