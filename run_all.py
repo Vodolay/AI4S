@@ -183,6 +183,10 @@ def main(argv: list[str] | None = None) -> int:
         # timeout writes no summary, and then the log is all there is to explain
         # where the time went.
         logging.info("stage %r finished in %.1f s", stage, timings[stage])
+    # Count every registered prediction's outcome, now that the stages have written them.
+    from neuromps.report.audit import main as run_audit
+
+    run_audit([])
     elapsed = round(time.time() - t0, 1)
     logging.info("run_all finished in %.1f s; results in %s", elapsed, outputs_dir())
     _record_timings(timings, elapsed, quick=args.quick, stages=stages)

@@ -927,12 +927,32 @@ To reproduce everything from a clean machine, run these steps in a terminal:
 | 4. quick run | `.venv/bin/python run_all.py --quick` | every stage end to end on the reduced data tier |
 | 5. full run | `.venv/bin/python run_all.py` | the full data tier, 3,000 <!-- metrics.json: twin_hd14_inference.n_simulations --> forward simulations, every figure |
 | 6. check the numbers | `.venv/bin/python -m neuromps.report.verify` | re-reads every citation in this report and fails on any disagreement |
-| 7. open the demo | `.venv/bin/streamlit run app/app.py` | interactive mechanism prediction, twin sweeps and record browser |
+| 7. check the registrations | `.venv/bin/python -m neuromps.report.timestamps` | hash-chains every registration and checks that each was committed before its results (needs the full git history, not a shallow clone) |
+| 8. open the demo | `.venv/bin/streamlit run app/app.py` | interactive mechanism prediction, twin sweeps and record browser |
 
 Use the environment's own `python` and `streamlit`, as shown. We ran these steps on a fresh clone,
 and every cited number reproduced exactly except ten that depend on the machine: the timings, and
 the counts and intervals from posterior sampling that stops at a time limit (§16). Provenance is
 guarded throughout: `data/raw/MANIFEST.json` records every source's URL, license and checksum.
+
+The registrations are checked the same way. Every study that registered its predictions in
+`preregistration/` records each prediction's outcome, and `neuromps.report.audit` (run at the end
+of every `run_all`) counts them: 40 <!-- metrics.json: registration_audit.n_studies --> studies made
+208 <!-- metrics.json: registration_audit.total.total --> registered predictions, of which
+91 <!-- metrics.json: registration_audit.total.pass --> passed,
+78 <!-- metrics.json: registration_audit.total.fail --> failed and
+38 <!-- metrics.json: registration_audit.total.uninterpretable --> were uninterpretable.
+`neuromps.report.timestamps` writes `preregistration/TIMESTAMPS.json`: each registration's
+checksum and the commit that first added it, a hash chain over them in commit order, and, for
+every result file that names its registration, whether the registration's commit came first. Of
+40 <!-- metrics.json: registration_timestamps.n_registrations --> registrations,
+37 <!-- metrics.json: registration_timestamps.n_outputs_checked --> result files were checked and
+0 <!-- metrics.json: registration_timestamps.n_violations --> came before their registration. The
+check cannot see the
+3 <!-- metrics.json: registration_timestamps.not_covered --> registrations whose results do not
+name them (the twin's depression test, its prior classifier and the ToxCast noise floors), and it
+rests on this repository's own history, not on a third-party timestamp. The two manuscripts in
+preparation register their studies the same way in a separate, private repository.
 
 ## 22. AI assistance disclosure
 
