@@ -9661,6 +9661,594 @@
     ],
     "figure": "extractor_agreement_real.png",
     "label": "REAL recordings, our extractor against the depositors' meaRtools output",
+    "logisi": {
+      "by_variant": {
+        "S0_ours": {
+          "Rat_MEA1": {
+            "burst_duration_s": {
+              "fraction_within_10pct": 0.0638,
+              "median_ratio": 0.7698,
+              "n": 94,
+              "spearman_rho": 0.8205
+            },
+            "burst_rate_per_min": {
+              "fraction_within_10pct": 0.5,
+              "median_ratio": 0.9573,
+              "n": 94,
+              "spearman_rho": 0.9851
+            },
+            "spikes_per_burst": {
+              "fraction_within_10pct": 0.6809,
+              "median_ratio": 0.9364,
+              "n": 94,
+              "spearman_rho": 0.9242
+            }
+          },
+          "hPSC_MEA1": {
+            "burst_duration_s": {
+              "fraction_within_10pct": 0.5357,
+              "median_ratio": 0.9274,
+              "n": 112,
+              "spearman_rho": 0.7714
+            },
+            "burst_rate_per_min": {
+              "fraction_within_10pct": 0.0089,
+              "median_ratio": 0.3417,
+              "n": 112,
+              "spearman_rho": 0.914
+            },
+            "spikes_per_burst": {
+              "fraction_within_10pct": 0.6786,
+              "median_ratio": 0.9503,
+              "n": 112,
+              "spearman_rho": 0.9605
+            }
+          },
+          "hPSC_MEA2": {
+            "burst_duration_s": {
+              "fraction_within_10pct": 0.4211,
+              "median_ratio": 0.8785,
+              "n": 114,
+              "spearman_rho": 0.6084
+            },
+            "burst_rate_per_min": {
+              "fraction_within_10pct": 0.0263,
+              "median_ratio": 0.3841,
+              "n": 114,
+              "spearman_rho": 0.9179
+            },
+            "spikes_per_burst": {
+              "fraction_within_10pct": 0.5526,
+              "median_ratio": 0.9475,
+              "n": 114,
+              "spearman_rho": 0.868
+            }
+          },
+          "pooled": {
+            "burst_duration_s": {
+              "fraction_within_10pct": 0.3563,
+              "median_ratio": 0.8189,
+              "n": 320,
+              "spearman_rho": 0.7926
+            },
+            "burst_rate_per_min": {
+              "fraction_within_10pct": 0.1594,
+              "median_ratio": 0.4423,
+              "n": 320,
+              "spearman_rho": 0.8907
+            },
+            "spikes_per_burst": {
+              "fraction_within_10pct": 0.6344,
+              "median_ratio": 0.9418,
+              "n": 320,
+              "spearman_rho": 0.9167
+            }
+          }
+        },
+        "S3_rate_per_bursting_electrode": {
+          "Rat_MEA1": {
+            "burst_duration_s": {
+              "fraction_within_10pct": 0.0638,
+              "median_ratio": 0.7705,
+              "n": 94,
+              "spearman_rho": 0.843
+            },
+            "burst_rate_per_min": {
+              "fraction_within_10pct": 0.766,
+              "median_ratio": 1.04,
+              "n": 94,
+              "spearman_rho": 0.9943
+            },
+            "spikes_per_burst": {
+              "fraction_within_10pct": 0.734,
+              "median_ratio": 0.9378,
+              "n": 94,
+              "spearman_rho": 0.9806
+            }
+          },
+          "hPSC_MEA1": {
+            "burst_duration_s": {
+              "fraction_within_10pct": 0.5357,
+              "median_ratio": 0.9275,
+              "n": 112,
+              "spearman_rho": 0.776
+            },
+            "burst_rate_per_min": {
+              "fraction_within_10pct": 0.2768,
+              "median_ratio": 0.8579,
+              "n": 112,
+              "spearman_rho": 0.971
+            },
+            "spikes_per_burst": {
+              "fraction_within_10pct": 0.7054,
+              "median_ratio": 0.9523,
+              "n": 112,
+              "spearman_rho": 0.9619
+            }
+          },
+          "hPSC_MEA2": {
+            "burst_duration_s": {
+              "fraction_within_10pct": 0.4298,
+              "median_ratio": 0.8804,
+              "n": 114,
+              "spearman_rho": 0.6395
+            },
+            "burst_rate_per_min": {
+              "fraction_within_10pct": 0.2807,
+              "median_ratio": 0.8973,
+              "n": 114,
+              "spearman_rho": 0.9797
+            },
+            "spikes_per_burst": {
+              "fraction_within_10pct": 0.5877,
+              "median_ratio": 0.9466,
+              "n": 114,
+              "spearman_rho": 0.9006
+            }
+          },
+          "pooled": {
+            "burst_duration_s": {
+              "fraction_within_10pct": 0.3594,
+              "median_ratio": 0.8208,
+              "n": 320,
+              "spearman_rho": 0.8167
+            },
+            "burst_rate_per_min": {
+              "fraction_within_10pct": 0.4219,
+              "median_ratio": 0.944,
+              "n": 320,
+              "spearman_rho": 0.9819
+            },
+            "spikes_per_burst": {
+              "fraction_within_10pct": 0.6719,
+              "median_ratio": 0.9433,
+              "n": 320,
+              "spearman_rho": 0.9443
+            }
+          }
+        },
+        "S4_logisi": {
+          "Rat_MEA1": {
+            "burst_duration_s": {
+              "fraction_within_10pct": 0.5745,
+              "median_ratio": 0.9825,
+              "n": 94,
+              "spearman_rho": 0.7909
+            },
+            "burst_rate_per_min": {
+              "fraction_within_10pct": 0.8511,
+              "median_ratio": 0.9816,
+              "n": 94,
+              "spearman_rho": 0.9961
+            },
+            "spikes_per_burst": {
+              "fraction_within_10pct": 0.9149,
+              "median_ratio": 1.0041,
+              "n": 94,
+              "spearman_rho": 0.9915
+            }
+          },
+          "hPSC_MEA1": {
+            "burst_duration_s": {
+              "fraction_within_10pct": 0.6364,
+              "median_ratio": 0.9686,
+              "n": 110,
+              "spearman_rho": 0.7986
+            },
+            "burst_rate_per_min": {
+              "fraction_within_10pct": 0.3818,
+              "median_ratio": 1.0847,
+              "n": 110,
+              "spearman_rho": 0.9839
+            },
+            "spikes_per_burst": {
+              "fraction_within_10pct": 0.8364,
+              "median_ratio": 1.0005,
+              "n": 110,
+              "spearman_rho": 0.9608
+            }
+          },
+          "hPSC_MEA2": {
+            "burst_duration_s": {
+              "fraction_within_10pct": 0.5,
+              "median_ratio": 0.9191,
+              "n": 114,
+              "spearman_rho": 0.6799
+            },
+            "burst_rate_per_min": {
+              "fraction_within_10pct": 0.3158,
+              "median_ratio": 1.1438,
+              "n": 114,
+              "spearman_rho": 0.9767
+            },
+            "spikes_per_burst": {
+              "fraction_within_10pct": 0.693,
+              "median_ratio": 0.9851,
+              "n": 114,
+              "spearman_rho": 0.9081
+            }
+          },
+          "pooled": {
+            "burst_duration_s": {
+              "fraction_within_10pct": 0.5692,
+              "median_ratio": 0.9611,
+              "n": 318,
+              "spearman_rho": 0.8347
+            },
+            "burst_rate_per_min": {
+              "fraction_within_10pct": 0.4969,
+              "median_ratio": 1.0488,
+              "n": 318,
+              "spearman_rho": 0.9873
+            },
+            "spikes_per_burst": {
+              "fraction_within_10pct": 0.8082,
+              "median_ratio": 0.9986,
+              "n": 318,
+              "spearman_rho": 0.9467
+            }
+          }
+        }
+      },
+      "fallback": {
+        "Rat_MEA1": {
+          "by_reason": {
+            "no_intraburst_peak": 14,
+            "no_void_minimum": 555,
+            "threshold_above_ceiling": 478,
+            "valid_above_cutoff": 3126,
+            "valid_below_cutoff": 353
+          },
+          "n_active": 4526,
+          "n_fallback": 1047,
+          "share": 0.2313
+        },
+        "hPSC_MEA1": {
+          "by_reason": {
+            "no_intraburst_peak": 114,
+            "no_void_minimum": 1348,
+            "threshold_above_ceiling": 345,
+            "valid_above_cutoff": 207,
+            "valid_below_cutoff": 1613
+          },
+          "n_active": 3627,
+          "n_fallback": 1807,
+          "share": 0.4982
+        },
+        "hPSC_MEA2": {
+          "by_reason": {
+            "no_intraburst_peak": 127,
+            "no_void_minimum": 1270,
+            "threshold_above_ceiling": 495,
+            "valid_above_cutoff": 198,
+            "valid_below_cutoff": 1466
+          },
+          "n_active": 3556,
+          "n_fallback": 1892,
+          "share": 0.5321
+        },
+        "pooled": {
+          "by_reason": {
+            "no_intraburst_peak": 255,
+            "no_void_minimum": 3173,
+            "threshold_above_ceiling": 1318,
+            "valid_above_cutoff": 3531,
+            "valid_below_cutoff": 3432
+          },
+          "n_active": 11709,
+          "n_fallback": 4746,
+          "share": 0.4053
+        }
+      },
+      "features": [
+        "burst_duration_s",
+        "spikes_per_burst",
+        "burst_rate_per_min"
+      ],
+      "figure": "outputs/figures/extractor_logisi_real.png",
+      "label": "REGISTERED (preregistration/extractor_logisi.json, D34): REAL recordings (Kapucu 2022), our extractor with the depositors' stated settings and the logISI burst detector (S4), against the meaRtools output they published",
+      "moved_s3_to_s4_post_hoc": {
+        "by_plate": {
+          "Rat_MEA1": {
+            "burst_duration_s": {
+              "moved": 82,
+              "n": 94,
+              "share": 0.8723
+            },
+            "burst_rate_per_min": {
+              "moved": 13,
+              "n": 94,
+              "share": 0.1383
+            },
+            "spikes_per_burst": {
+              "moved": 21,
+              "n": 94,
+              "share": 0.2234
+            }
+          },
+          "hPSC_MEA1": {
+            "burst_duration_s": {
+              "moved": 22,
+              "n": 110,
+              "share": 0.2
+            },
+            "burst_rate_per_min": {
+              "moved": 91,
+              "n": 110,
+              "share": 0.8273
+            },
+            "spikes_per_burst": {
+              "moved": 21,
+              "n": 110,
+              "share": 0.1909
+            }
+          },
+          "hPSC_MEA2": {
+            "burst_duration_s": {
+              "moved": 29,
+              "n": 114,
+              "share": 0.2544
+            },
+            "burst_rate_per_min": {
+              "moved": 87,
+              "n": 114,
+              "share": 0.7632
+            },
+            "spikes_per_burst": {
+              "moved": 13,
+              "n": 114,
+              "share": 0.114
+            }
+          },
+          "pooled": {
+            "burst_duration_s": {
+              "moved": 133,
+              "n": 318,
+              "share": 0.4182
+            },
+            "burst_rate_per_min": {
+              "moved": 191,
+              "n": 318,
+              "share": 0.6006
+            },
+            "spikes_per_burst": {
+              "moved": 55,
+              "n": 318,
+              "share": 0.173
+            }
+          }
+        },
+        "definition": "|S4 / S3 - 1| > 0.10 for the same plate, well, DIV and feature",
+        "label": "POST HOC (named in the registration's assumption check, no threshold set)"
+      },
+      "plates": [
+        "hPSC_MEA1",
+        "hPSC_MEA2",
+        "Rat_MEA1"
+      ],
+      "predictions": {
+        "L1_burst_duration_closes": {
+          "checks": [
+            {
+              "feature": "burst_duration_s",
+              "median_ratio": 0.9611,
+              "met": false,
+              "min_spearman_rho": 0.9,
+              "ratio_band": [
+                0.9,
+                1.1
+              ],
+              "readable": true,
+              "scope": "pooled",
+              "spearman_rho": 0.8347
+            }
+          ],
+          "fallback_share": 0.4053,
+          "outcome": "fail",
+          "pass": false,
+          "plates": [
+            "hPSC_MEA1",
+            "hPSC_MEA2",
+            "Rat_MEA1"
+          ],
+          "plates_missing": [],
+          "statement": "the detector is what remains of the burst-duration difference",
+          "test": "pass if S4_logisi pooled burst_duration_s has median ratio in [0.90, 1.10] and Spearman rho >= 0.90; fail otherwise"
+        },
+        "L2_spikes_per_burst_closes": {
+          "checks": [
+            {
+              "feature": "spikes_per_burst",
+              "median_ratio": 0.9986,
+              "met": false,
+              "min_spearman_rho": 0.95,
+              "ratio_band": [
+                0.95,
+                1.05
+              ],
+              "readable": true,
+              "scope": "pooled",
+              "spearman_rho": 0.9467
+            }
+          ],
+          "fallback_share": 0.4053,
+          "outcome": "fail",
+          "pass": false,
+          "plates": [
+            "hPSC_MEA1",
+            "hPSC_MEA2",
+            "Rat_MEA1"
+          ],
+          "plates_missing": [],
+          "statement": "the detector is what remains of the spikes-per-burst difference",
+          "test": "pass if S4_logisi pooled spikes_per_burst has median ratio in [0.95, 1.05] and Spearman rho >= 0.95; fail otherwise"
+        },
+        "L3_hpsc_burst_rate_closes": {
+          "checks": [
+            {
+              "feature": "burst_rate_per_min",
+              "median_ratio": 1.0847,
+              "met": false,
+              "min_spearman_rho": null,
+              "ratio_band": [
+                0.95,
+                1.05
+              ],
+              "readable": true,
+              "scope": "hPSC_MEA1",
+              "spearman_rho": 0.9839
+            },
+            {
+              "feature": "burst_rate_per_min",
+              "median_ratio": 1.1438,
+              "met": false,
+              "min_spearman_rho": null,
+              "ratio_band": [
+                0.95,
+                1.05
+              ],
+              "readable": true,
+              "scope": "hPSC_MEA2",
+              "spearman_rho": 0.9767
+            }
+          ],
+          "fallback_share": 0.515,
+          "outcome": "uninterpretable",
+          "pass": false,
+          "plates": [
+            "hPSC_MEA1",
+            "hPSC_MEA2"
+          ],
+          "plates_missing": [],
+          "statement": "the detector is what remains of the hPSC burst-rate difference",
+          "test": "pass if S4_logisi burst_rate_per_min has median ratio in [0.95, 1.05] on both hPSC plates; fail otherwise"
+        },
+        "L4_rat_not_worse": {
+          "checks": [
+            {
+              "feature": "burst_rate_per_min",
+              "median_ratio": 0.9816,
+              "met": true,
+              "min_spearman_rho": null,
+              "ratio_band": [
+                0.95,
+                1.05
+              ],
+              "readable": true,
+              "scope": "Rat_MEA1",
+              "spearman_rho": 0.9961
+            },
+            {
+              "feature": "burst_duration_s",
+              "median_ratio": 0.9825,
+              "met": true,
+              "min_spearman_rho": null,
+              "ratio_band": [
+                0.9,
+                1.1
+              ],
+              "readable": true,
+              "scope": "Rat_MEA1",
+              "spearman_rho": 0.7909
+            }
+          ],
+          "fallback_share": 0.2313,
+          "outcome": "pass",
+          "pass": true,
+          "plates": [
+            "Rat_MEA1"
+          ],
+          "plates_missing": [],
+          "statement": "on the rat plate, where the fixed rule already agreed, logISI does not break the agreement",
+          "test": "pass if on Rat_MEA1 S4_logisi burst_rate_per_min has median ratio in [0.95, 1.05] and burst_duration_s in [0.90, 1.10]; fail otherwise"
+        }
+      },
+      "registration": {
+        "committed_at": "2026-10-28T10:08:26-04:00",
+        "file": "preregistration/extractor_logisi.json",
+        "registered_in_commit": "e11bc052facab4a0140ed075b717ccb474b6c424",
+        "sha256": "7c9e0ec259b0102159c03ce0f12a3a3a5e3db98a7e5a6b2f96b5cde8e4ed0f9c"
+      },
+      "results_file": "outputs/extractor_logisi_REAL.json",
+      "s4_method_record": {
+        "active_electrode_threshold_spikes_per_min": 10.0,
+        "active_electrode_threshold_strict": true,
+        "burst_detector": "logisi",
+        "burst_method": "logisi_pasquale2010(cutoff=0.1s,void>0.7,bin=0.1log10,smooth=5bins,ceiling=1.0s,merge<0.1s,>=5spikes)",
+        "burst_rate_denominator": "bursting",
+        "computed_by": "neuromps.features.mea",
+        "network_burst_method": "binned_participation(bin=0.025s,>=max(3,0.25*active,chance)electrodes,chance_fp<0.05/recording)",
+        "synchrony_method": "sttc"
+      },
+      "status": "registered; predictions judged as the registration states them",
+      "threshold_distribution": {
+        "Rat_MEA1": {
+          "median_ms": 281.84,
+          "n_valid": 3479,
+          "p10_ms": 89.13,
+          "p25_ms": 177.83,
+          "p75_ms": 354.81,
+          "p90_ms": 562.34,
+          "share_valid_above_cutoff": 0.8985,
+          "share_valid_below_1ms": 0.0333
+        },
+        "hPSC_MEA1": {
+          "median_ms": 7.08,
+          "n_valid": 1820,
+          "p10_ms": 0.18,
+          "p25_ms": 0.45,
+          "p75_ms": 35.48,
+          "p90_ms": 112.2,
+          "share_valid_above_cutoff": 0.1137,
+          "share_valid_below_1ms": 0.2786
+        },
+        "hPSC_MEA2": {
+          "median_ms": 8.91,
+          "n_valid": 1664,
+          "p10_ms": 0.18,
+          "p25_ms": 2.82,
+          "p75_ms": 44.67,
+          "p90_ms": 112.2,
+          "share_valid_above_cutoff": 0.119,
+          "share_valid_below_1ms": 0.2133
+        },
+        "pooled": {
+          "median_ms": 112.2,
+          "n_valid": 6963,
+          "p10_ms": 0.35,
+          "p25_ms": 7.08,
+          "p75_ms": 281.84,
+          "p90_ms": 446.68,
+          "share_valid_above_cutoff": 0.5071,
+          "share_valid_below_1ms": 0.1405
+        }
+      },
+      "variants": [
+        "S0_ours",
+        "S3_rate_per_bursting_electrode",
+        "S4_logisi"
+      ]
+    },
     "n_checked": 7,
     "n_paired_values": 2298,
     "n_plates": 3,
@@ -14985,7 +15573,7 @@
       "registration_audit": "this audit's own output",
       "rhythm_audit": "re-reads the predictions of stages 1d-2e, counted under their own keys"
     },
-    "n_studies": 46,
+    "n_studies": 47,
     "studies": {
       "embodied_stage1": {
         "fail": 2,
@@ -15211,6 +15799,13 @@
         "total": 4,
         "uninterpretable": 0
       },
+      "extractor_agreement__logisi": {
+        "fail": 2,
+        "other": 0,
+        "pass": 1,
+        "total": 4,
+        "uninterpretable": 1
+      },
       "fly_chip_to_animal": {
         "fail": 3,
         "other": 0,
@@ -15311,21 +15906,21 @@
       }
     },
     "submission": {
-      "n_studies": 46,
+      "n_studies": 47,
       "total": {
-        "fail": 88,
+        "fail": 90,
         "other": 1,
-        "pass": 105,
-        "total": 232,
-        "uninterpretable": 38
+        "pass": 106,
+        "total": 236,
+        "uninterpretable": 39
       }
     },
     "total": {
-      "fail": 88,
+      "fail": 90,
       "other": 1,
-      "pass": 105,
-      "total": 232,
-      "uninterpretable": 38
+      "pass": 106,
+      "total": 236,
+      "uninterpretable": 39
     },
     "unrecognised": []
   },

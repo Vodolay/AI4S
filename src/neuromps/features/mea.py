@@ -17,6 +17,7 @@ from scipy.stats import binom
 
 SECONDS_PER_MINUTE = 60.0
 BURST_RATE_DENOMINATORS = ("active", "bursting")
+BURST_DETECTORS = ("fixed", "logisi")
 
 # The feature vector, in one place. Everything downstream - the schema, the
 # twin's summary vector, the report's "nine features" - is counting this tuple,
@@ -54,12 +55,27 @@ class FeatureParams:
     # ("active") or per electrode with at least one burst ("bursting").
     active_strict: bool = False
     burst_rate_denominator: str = "active"
+    # The burst detector (D34, registered in preregistration/extractor_logisi.json):
+    # "fixed" is the rule above (ISI <= burst_max_isi_s, at least burst_min_spikes);
+    # "logisi" is the adaptive detector of Pasquale et al. 2010 with the depositors'
+    # adjustments (see `logisi_threshold`). The logisi_* fields are read only by it.
+    burst_detector: str = "fixed"
+    logisi_cutoff_s: float = 0.1
+    logisi_void_threshold: float = 0.7
+    logisi_bin_log10: float = 0.1
+    logisi_smooth_bins: int = 5
+    logisi_max_threshold_s: float = 1.0
+    logisi_merge_s: float = 0.1
 
     def __post_init__(self) -> None:
         if self.burst_rate_denominator not in BURST_RATE_DENOMINATORS:
             raise ValueError(
                 f"burst_rate_denominator must be one of {BURST_RATE_DENOMINATORS}, "
                 f"got {self.burst_rate_denominator!r}"
+            )
+        if self.burst_detector not in BURST_DETECTORS:
+            raise ValueError(
+                f"burst_detector must be one of {BURST_DETECTORS}, got {self.burst_detector!r}"
             )
 
     def as_method_record(self) -> dict[str, object]:
@@ -73,6 +89,14 @@ class FeatureParams:
             record["active_electrode_threshold_strict"] = True
         if self.burst_rate_denominator != "active":
             record["burst_rate_denominator"] = self.burst_rate_denominator
+        if self.burst_detector != "fixed":
+            record["burst_detector"] = self.burst_detector
+            record["burst_method"] = (
+                f"logisi_pasquale2010(cutoff={self.logisi_cutoff_s}s,"
+                f"void>{self.logisi_void_threshold},bin={self.logisi_bin_log10}log10,"
+                f"smooth={self.logisi_smooth_bins}bins,ceiling={self.logisi_max_threshold_s}s,"
+                f"merge<{self.logisi_merge_s}s,>={self.burst_min_spikes}spikes)"
+            )
         return record
 
     def _default_method_record(self) -> dict[str, object]:
@@ -94,19 +118,26 @@ class FeatureParams:
 
 
 def _bursts(times: np.ndarray, params: FeatureParams) -> list[tuple[int, int]]:
-    """Index ranges [start, end] of bursts: runs of spikes with ISI <= threshold."""
-    if times.size < params.burst_min_spikes:
+    """Index ranges [start, end] of bursts under ``params.burst_detector``."""
+    if params.burst_detector == "logisi":
+        return _logisi_bursts(times, params)
+    return runs_below(times, params.burst_max_isi_s, params.burst_min_spikes)
+
+
+def runs_below(times: np.ndarray, max_isi_s: float, min_spikes: int) -> list[tuple[int, int]]:
+    """Index ranges [start, end] of runs of at least ``min_spikes`` spikes with ISI <= max."""
+    if times.size < min_spikes:
         return []
-    close = np.diff(times) <= params.burst_max_isi_s
+    close = np.diff(times) <= max_isi_s
     out, start = [], None
     for i, is_close in enumerate(close):
         if is_close and start is None:
             start = i
         elif not is_close and start is not None:
-            if i - start + 1 >= params.burst_min_spikes:
+            if i - start + 1 >= min_spikes:
                 out.append((start, i))
             start = None
-    if start is not None and times.size - start >= params.burst_min_spikes:
+    if start is not None and times.size - start >= min_spikes:
         out.append((start, times.size - 1))
     return out
 
@@ -229,10 +260,31 @@ def _active_trains(
     trains: Iterable[np.ndarray], duration_s: float, p: FeatureParams
 ) -> list[np.ndarray]:
     """Electrodes at (or, if ``active_strict``, above) the active threshold, with a spike."""
+    return [t for t in trains if _is_active(t, duration_s, p)]
+
+
+def _is_active(t: np.ndarray, duration_s: float, p: FeatureParams) -> bool:
+    """One electrode at (or, if ``active_strict``, above) the active threshold, with a spike."""
     min_spikes = p.active_min_spikes_per_min * duration_s / SECONDS_PER_MINUTE
     if p.active_strict:
-        return [t for t in trains if t.size > min_spikes and t.size > 0]
-    return [t for t in trains if t.size >= min_spikes and t.size > 0]
+        return t.size > min_spikes and t.size > 0
+    return t.size >= min_spikes and t.size > 0
+
+
+def logisi_thresholds(
+    spikes: Mapping[str, np.ndarray], duration_s: float, params: FeatureParams
+) -> list[dict[str, object]]:
+    """The logISI threshold of every active electrode, as `extract_features` selects them.
+
+    A diagnostic for the registered logISI study (D34): which electrodes found a valid
+    threshold, its value, and why the others fell back to the cutoff.
+    """
+    trains = {k: np.sort(np.asarray(v, dtype=float)) for k, v in spikes.items()}
+    return [
+        {"electrode": name, "n_spikes": int(t.size), **logisi_threshold(t, params)}
+        for name, t in trains.items()
+        if _is_active(t, duration_s, params)
+    ]
 
 
 def _mean_isi_cv(active: list[np.ndarray]) -> float | None:
@@ -279,3 +331,157 @@ def _mean_sttc(active: list[np.ndarray], duration_s: float, p: FeatureParams) ->
         if (v := _sttc_pair(active[i], active[j], duration_s, p.sttc_dt_s)) is not None
     ]
     return float(np.mean(values)) if values else None
+
+
+# ------------------------------------------------------------------ logISI (D34)
+# The adaptive detector of Pasquale, Martinoia & Chiappalone 2010 (J Comput Neurosci
+# 29:213) as the literature describes it, with the adjustments the Kapucu 2022
+# depositors state. Every choice and its source is written out in
+# preregistration/extractor_logisi.json (method.implementation).
+
+LOGISI_VALID = ("valid_below_cutoff", "valid_above_cutoff")
+
+
+def _log_isi_histogram(times: np.ndarray, bin_log10: float) -> tuple[np.ndarray, np.ndarray]:
+    """Counts of log10(ISI) in bins on a fixed grid of multiples of ``bin_log10``, and centres.
+
+    Zero ISIs (two spikes at one time stamp) have no logarithm and are left out.
+    """
+    isi = np.diff(times)
+    logs = np.log10(isi[isi > 0])
+    if logs.size == 0:
+        return np.zeros(0), np.zeros(0)
+    k = np.floor(logs / bin_log10 + 1e-9).astype(int)
+    first = int(k.min())
+    counts = np.bincount(k - first).astype(float)
+    centres = (np.arange(counts.size) + first + 0.5) * bin_log10
+    return counts, centres
+
+
+def _smooth(counts: np.ndarray, bins: int) -> np.ndarray:
+    """Local linear regression with tricube weights over ``bins`` neighbouring bins.
+
+    Lowess in one pass without robustness iterations; the window shrinks at the edges.
+    Negative fitted values are set to 0.
+    """
+    half = bins // 2
+    x_all = np.arange(counts.size, dtype=float)
+    out = np.empty_like(counts)
+    for i in range(counts.size):
+        lo, hi = max(0, i - half), min(counts.size, i + half + 1)
+        x, y = x_all[lo:hi] - i, counts[lo:hi]
+        w = (1.0 - (np.abs(x) / (half + 1)) ** 3) ** 3
+        xm = np.sum(w * x) / np.sum(w)
+        ym = np.sum(w * y) / np.sum(w)
+        sxx = np.sum(w * (x - xm) ** 2)
+        slope = np.sum(w * (x - xm) * (y - ym)) / sxx if sxx > 0 else 0.0
+        out[i] = ym - slope * xm
+    return np.clip(out, 0.0, None)
+
+
+def _peaks(h: np.ndarray) -> list[int]:
+    """Bins above their left neighbour and at least their right one (edges: one neighbour)."""
+    found = []
+    for i in range(h.size):
+        left = h[i - 1] if i > 0 else -np.inf
+        right = h[i + 1] if i < h.size - 1 else -np.inf
+        if h[i] > 0 and h[i] > left and h[i] >= right:
+            found.append(i)
+    return found
+
+
+def _void_minimum(h: np.ndarray, ibp: int, later: list[int], void: float) -> int | None:
+    """The first minimum between the intraburst peak and a later peak with void above ``void``."""
+    for p in later:
+        m = ibp + 1 + int(np.argmin(h[ibp + 1 : p]))
+        scale = np.sqrt(h[ibp] * h[p])
+        if scale > 0 and 1.0 - h[m] / scale > void:
+            return m
+    return None
+
+
+def _fallback(reason: str, cutoff_s: float, threshold_s: float | None = None) -> dict:
+    return {
+        "threshold_s": threshold_s,
+        "core_s": cutoff_s,
+        "extend_s": None,
+        "reason": reason,
+        "fallback": True,
+    }
+
+
+def logisi_threshold(times: np.ndarray, params: FeatureParams) -> dict[str, object]:
+    """The logISI threshold of one spike train, and how bursts are then detected.
+
+    Returns ``threshold_s`` (the ISI at the void minimum, or None), ``core_s`` (the ISI
+    threshold that detects bursts or burst cores), ``extend_s`` (the ISI within which cores
+    are extended, or None), ``reason`` and ``fallback`` (no valid threshold: the cutoff
+    alone, which is the fixed rule).
+    """
+    p = params
+    counts, centres = _log_isi_histogram(
+        np.sort(np.asarray(times, dtype=float)), p.logisi_bin_log10
+    )
+    if counts.size == 0:
+        return _fallback("too_few_isis", p.logisi_cutoff_s)
+    h = _smooth(counts, p.logisi_smooth_bins)
+    peaks = _peaks(h)
+    below = [i for i in peaks if centres[i] <= np.log10(p.logisi_cutoff_s) + 1e-9]
+    if not below:
+        return _fallback("no_intraburst_peak", p.logisi_cutoff_s)
+    ibp = max(below, key=lambda i: (h[i], -i))
+    m = _void_minimum(h, ibp, [i for i in peaks if i > ibp], p.logisi_void_threshold)
+    if m is None:
+        return _fallback("no_void_minimum", p.logisi_cutoff_s)
+    threshold = float(10.0 ** centres[m])
+    if threshold > p.logisi_max_threshold_s:
+        return _fallback("threshold_above_ceiling", p.logisi_cutoff_s, threshold)
+    if threshold <= p.logisi_cutoff_s:
+        return {
+            "threshold_s": threshold,
+            "core_s": threshold,
+            "extend_s": None,
+            "reason": "valid_below_cutoff",
+            "fallback": False,
+        }
+    return {
+        "threshold_s": threshold,
+        "core_s": p.logisi_cutoff_s,
+        "extend_s": threshold,
+        "reason": "valid_above_cutoff",
+        "fallback": False,
+    }
+
+
+def _extend(times: np.ndarray, bursts: list[tuple[int, int]], within_s: float) -> list:
+    """Grow each burst at both edges while the next spike out is within ``within_s``."""
+    out = []
+    for start, end in bursts:
+        while start > 0 and times[start] - times[start - 1] <= within_s:
+            start -= 1
+        while end < times.size - 1 and times[end + 1] - times[end] <= within_s:
+            end += 1
+        out.append((start, end))
+    return out
+
+
+def _merge(times: np.ndarray, bursts: list[tuple[int, int]], gap_s: float) -> list:
+    """Join bursts that overlap or whose gap (last spike to next first spike) is under ``gap_s``."""
+    out: list[tuple[int, int]] = []
+    for start, end in sorted(bursts):
+        if out and (start <= out[-1][1] or times[start] - times[out[-1][1]] < gap_s):
+            out[-1] = (out[-1][0], max(out[-1][1], end))
+        else:
+            out.append((start, end))
+    return out
+
+
+def _logisi_bursts(times: np.ndarray, p: FeatureParams) -> list[tuple[int, int]]:
+    """Bursts under logISI: cores at ``core_s`` with the minimum spikes, extended, merged."""
+    if times.size < p.burst_min_spikes:
+        return []
+    rule = logisi_threshold(times, p)
+    bursts = runs_below(times, float(rule["core_s"]), p.burst_min_spikes)
+    if rule["extend_s"] is not None:
+        bursts = _extend(times, bursts, float(rule["extend_s"]))
+    return _merge(times, bursts, p.logisi_merge_s)

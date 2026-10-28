@@ -9,7 +9,12 @@ import json
 import numpy as np
 import pytest
 
-from neuromps.features.mea import FeatureParams, extract_features
+from neuromps.features.mea import (
+    FeatureParams,
+    extract_features,
+    logisi_threshold,
+    logisi_thresholds,
+)
 from neuromps.qc.schema import SCHEMA_PATH
 
 
@@ -273,3 +278,143 @@ def test_bursting_denominator_is_undefined_without_bursts() -> None:
 def test_unknown_burst_rate_denominator_is_rejected() -> None:
     with pytest.raises(ValueError, match="burst_rate_denominator"):
         FeatureParams(burst_rate_denominator="wells")
+
+
+# ------------------------------------------------- logISI burst detector (D34, registered)
+
+
+def _loose_bursts(n_bursts: int = 20, gap_s: float = 8.0) -> tuple[np.ndarray, np.ndarray]:
+    """Bursts whose ISIs spread evenly in log from 5 ms to 250 ms, ``gap_s`` apart.
+
+    Each burst has 25 ISIs; the six longest (all above 100 ms) sit at positions 4, 8, ...,
+    24, so a fixed 100 ms rule keeps only the first five spikes of each burst and splits
+    the rest into runs of four. Returns the train and one burst's ISIs.
+    """
+    isis = np.sort(10.0 ** np.linspace(-2.3, -0.6, 25))
+    long_slots = [4, 8, 12, 16, 20, 24]
+    order = np.empty(25)
+    order[long_slots] = isis[-6:]
+    order[[i for i in range(25) if i not in long_slots]] = isis[:-6]
+    starts = np.arange(n_bursts) * (gap_s + order.sum())
+    train = np.concatenate([s + np.r_[0.0, np.cumsum(order)] for s in starts])
+    return train, order
+
+
+def _logisi(**kw) -> FeatureParams:
+    return FeatureParams(burst_detector="logisi", **kw)
+
+
+def test_logisi_matches_fixed_rule_on_tight_well_separated_bursts() -> None:
+    rng = np.random.default_rng(3)
+    train = bursty_train(n_bursts=20, spikes_per_burst=8, intra_isi=0.005, period=6.0)
+    train = np.sort(train + rng.uniform(0, 0.001, train.size))
+    fixed = extract_features({"e1": train}, 120.0)
+    adaptive = extract_features({"e1": train}, 120.0, _logisi())
+    assert adaptive["burst_rate_per_min"] == pytest.approx(10.0)
+    assert adaptive["spikes_per_burst"] == pytest.approx(8.0)
+    assert adaptive == fixed
+    found = logisi_threshold(train, _logisi())
+    assert found["reason"] == "valid_below_cutoff"
+    assert 0.006 < found["threshold_s"] < 0.1
+
+
+def test_logisi_keeps_loose_long_bursts_whole_that_the_fixed_rule_splits() -> None:
+    train, isis = _loose_bursts()
+    duration = float(train[-1] + 1.0)
+    fixed = extract_features({"e1": train}, duration)
+    adaptive = extract_features({"e1": train}, duration, _logisi())
+    assert fixed["spikes_per_burst"] == pytest.approx(5.0)
+    assert adaptive["spikes_per_burst"] == pytest.approx(26.0)
+    assert adaptive["burst_duration_s"] == pytest.approx(isis.sum())
+    assert adaptive["burst_rate_per_min"] == pytest.approx(20 / (duration / 60.0))
+    found = logisi_threshold(train, _logisi())
+    assert found["reason"] == "valid_above_cutoff"
+    assert 0.25 < found["threshold_s"] < 1.0
+    assert found["core_s"] == pytest.approx(0.1)
+    assert not found["fallback"]
+
+
+def test_logisi_falls_back_to_the_cutoff_without_an_intraburst_peak() -> None:
+    """A tonic 2 Hz train has its only ISI peak at 500 ms, above the 100 ms cutoff."""
+    train = regular_train(2.0, 60.0)
+    found = logisi_threshold(train, _logisi())
+    assert found["reason"] == "no_intraburst_peak"
+    assert found["fallback"] and found["threshold_s"] is None
+    assert found["core_s"] == pytest.approx(0.1)
+
+
+def test_logisi_falls_back_to_the_cutoff_without_a_void_minimum() -> None:
+    """A 20 Hz train has one ISI peak (50 ms) and nothing after it: no valley to set a threshold."""
+    train = regular_train(20.0, 60.0)
+    found = logisi_threshold(train, _logisi())
+    assert found["reason"] == "no_void_minimum"
+    assert found["fallback"]
+    fixed = extract_features({"e1": train}, 60.0)
+    assert extract_features({"e1": train}, 60.0, _logisi()) == fixed
+
+
+def test_logisi_fallback_is_the_fixed_rule_exactly_on_a_plate() -> None:
+    """Without a valid threshold on any electrode, logISI is the 100 ms rule bit for bit."""
+    plate = {
+        "tonic": regular_train(2.0, 60.0),
+        "fast": regular_train(20.0, 60.0, offset=0.01),
+        "d": _mixed_plate()["d"],
+    }
+    assert all(logisi_threshold(t, _logisi())["fallback"] for t in plate.values())
+    assert extract_features(plate, 60.0, _logisi()) == extract_features(plate, 60.0)
+
+
+def test_logisi_merges_bursts_closer_than_the_merge_interval() -> None:
+    """Pairs of 6-spike bursts 60 ms apart: one burst of 12, or two of 6 without merging."""
+    pair = np.r_[np.arange(6) * 0.005, 0.085 + np.arange(6) * 0.005]
+    train = np.concatenate([b * 5.0 + pair for b in range(20)])
+    merged = extract_features({"e1": train}, 100.0, _logisi())
+    assert logisi_threshold(train, _logisi())["threshold_s"] < 0.06
+    assert merged["spikes_per_burst"] == pytest.approx(12.0)
+    assert merged["burst_rate_per_min"] == pytest.approx(12.0)
+    apart = extract_features({"e1": train}, 100.0, _logisi(logisi_merge_s=0.0))
+    assert apart["spikes_per_burst"] == pytest.approx(6.0)
+    assert apart["burst_rate_per_min"] == pytest.approx(24.0)
+
+
+def test_logisi_applies_the_minimum_spike_count_before_merging() -> None:
+    """Two 4-spike clusters 50 ms apart are not bursts: each is below 5 spikes when detected."""
+    pair = np.r_[np.arange(4) * 0.005, 0.065 + np.arange(4) * 0.005]
+    tight = np.arange(8) * 0.005
+    train = np.concatenate([b * 5.0 + (pair if b % 2 else tight) for b in range(20)])
+    f = extract_features({"e1": train}, 100.0, _logisi())
+    # Only the ten 8-spike tight bursts count; the fixed 100 ms rule also takes the pairs.
+    assert f["burst_rate_per_min"] == pytest.approx(6.0)
+    assert f["spikes_per_burst"] == pytest.approx(8.0)
+    assert extract_features({"e1": train}, 100.0)["burst_rate_per_min"] == pytest.approx(12.0)
+
+
+def test_logisi_threshold_above_the_ceiling_falls_back() -> None:
+    """A valley found above the 1 s ceiling is not used: the cutoff applies alone."""
+    train, _ = _loose_bursts()
+    found = logisi_threshold(train, _logisi(logisi_max_threshold_s=0.2))
+    assert found["reason"] == "threshold_above_ceiling"
+    assert found["fallback"] and found["core_s"] == pytest.approx(0.1)
+
+
+def test_logisi_thresholds_cover_the_active_electrodes_only() -> None:
+    train, _ = _loose_bursts()
+    duration = float(train[-1] + 1.0)
+    spikes = {"loose": train, "silent": np.array([1.0, 2.0]), "tonic": regular_train(2.0, duration)}
+    rows = logisi_thresholds(spikes, duration, _logisi())
+    assert sorted(r["electrode"] for r in rows) == ["loose", "tonic"]
+    assert {r["electrode"]: r["fallback"] for r in rows} == {"loose": False, "tonic": True}
+
+
+def test_method_record_names_the_logisi_detector_only_when_chosen() -> None:
+    record = _logisi().as_method_record()
+    assert record["burst_detector"] == "logisi"
+    assert record["burst_method"].startswith("logisi_pasquale2010(")
+    assert "merge<0.1s" in record["burst_method"]
+    assert "burst_detector" not in FeatureParams().as_method_record()
+    assert FeatureParams(burst_detector="fixed").as_method_record() == GOLDEN_METHOD_RECORD
+
+
+def test_unknown_burst_detector_is_rejected() -> None:
+    with pytest.raises(ValueError, match="burst_detector"):
+        FeatureParams(burst_detector="surprise")
