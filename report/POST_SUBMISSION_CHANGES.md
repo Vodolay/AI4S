@@ -53,6 +53,7 @@ the bottom.*
 | 42 | 2026-10-26 | Real ToxCast vehicle wells: noise floors, wells needed, and the twin against unseen positive controls | new real-data results, both registered; twin 12 of 12 directions, no better than a firing-rate rule | `cf90872` … this branch |
 | 43 | 2026-10-27 | The registration audit and hash chain, in this repository | every registered prediction counted; no result file precedes its registration; corrected 2026-10-28 to count two studies it had missed | `d183585` … this branch |
 | 44 | 2026-10-28 | The twin's knob dose-response against real concentration-response curves | 2 of 4 registered predictions pass; the mechanism label matters, the curve shape does not clear the line | `f3e1fb9` … this branch |
+| 46 | 2026-10-28 | Human iPSC against rat chips from one lab: split-half noise of untreated wells | 2 of 3 registered predictions pass; human firing rate about twice as noisy, but not across readouts; wells needed reported as a lower bound | `35df26a` … this branch |
 
 ---
 
@@ -991,12 +992,12 @@ checked against the commit that registered it, here, in the public repository.*
 - **Why.** The final-round deck quoted registration counts and a hash chain that existed only in
   the private manuscript repository, so a reader of this repository could not check them.
 - **Effect.**
-  - 42 <!-- metrics.json: registration_audit.submission.n_studies --> registered studies here made
-    216 <!-- metrics.json: registration_audit.submission.total.total --> predictions:
-    97 <!-- metrics.json: registration_audit.submission.total.pass --> passed,
-    80 <!-- metrics.json: registration_audit.submission.total.fail --> failed,
+  - 43 <!-- metrics.json: registration_audit.submission.n_studies --> registered studies here made
+    219 <!-- metrics.json: registration_audit.submission.total.total --> predictions:
+    99 <!-- metrics.json: registration_audit.submission.total.pass --> passed,
+    81 <!-- metrics.json: registration_audit.submission.total.fail --> failed,
     38 <!-- metrics.json: registration_audit.submission.total.uninterpretable --> were uninterpretable.
-  - 38 <!-- metrics.json: registration_timestamps.submission.n_outputs_checked --> result files name their
+  - 39 <!-- metrics.json: registration_timestamps.submission.n_outputs_checked --> result files name their
     registration, and 0 <!-- metrics.json: registration_timestamps.submission.n_violations --> of them came
     before it; 3 <!-- metrics.json: registration_timestamps.submission.not_covered --> registrations are not
     covered because their results do not name them.
@@ -1060,6 +1061,53 @@ loss of activity.*
 - **Evidence.** Report §35; `outputs/figures/twin_toxcast_dose_response.png`,
   `outputs/twin/toxcast_dose_response_predictions_simulated.json`, `outputs/metrics.json` key
   `twin_toxcast_dose_response`.
+
+## 46. A human iPSC chip's firing rate is about twice as noisy as a rat chip's, in one lab
+
+**Slide message:** *In one lab's untreated recordings, a human iPSC well's firing rate moved
+about twice as much between the two halves of one recording as a rat well's (R = 2.06, 95%
+interval 1.39 to 3.56), so on these data a human chip needs more wells for the same firing-rate
+change; the difference is not general across readouts.*
+
+- **What changed.** A registered real-data analysis on the Kapucu et al. 2022 untreated wells
+  (`src/neuromps/models/hpsc_split_half.py`, `preregistration/hpsc_split_half.json`, decision
+  D32, report §36). Each untreated recording is cut in half, both halves go through
+  `features/mea.py`, and the spread of the change between halves is compared between species on
+  the lab's matched 48-well baselines, then on its 12-well developmental plates.
+- **Why.** The practical-value result (§32, entry 42) gives wells needed for rat cortical chips
+  only; a judge will ask about human iPSC chips, and the deposit has too few untreated wells
+  recorded twice to repeat §32's design.
+- **Effect.**
+  - P1 passes: on the baselines R for firing rate is
+    2.06 <!-- metrics.json: hpsc_split_half.predictions.P1_human_firing_rate_noisier.R -->
+    (1.39 to 3.56 <!-- metrics.json: hpsc_split_half.predictions.P1_human_firing_rate_noisier.ci95 -->)
+    over 24 <!-- metrics.json: hpsc_split_half.primary.usable_wells.human --> human and
+    38 <!-- metrics.json: hpsc_split_half.primary.usable_wells.rat --> rat wells.
+  - P2 fails: the human wells are noisier on
+    4 <!-- metrics.json: hpsc_split_half.predictions.P2_human_noisier_across_features.human_noisier -->
+    of 8 <!-- metrics.json: hpsc_split_half.predictions.P2_human_noisier_across_features.features_scored -->
+    readouts, one short of the registered 5; the rat wells are the noisier on the share of
+    spikes in bursts.
+  - P3 passes on its point estimate, as registered: R =
+    1.54 <!-- metrics.json: hpsc_split_half.predictions.P3_replicates_on_developmental_plates.R -->
+    on the developmental plates, but the interval
+    (0.75 to 2.95 <!-- metrics.json: hpsc_split_half.predictions.P3_replicates_on_developmental_plates.ci95 -->)
+    includes 1.
+  - Reported, not tested, and a lower bound: at least
+    7 <!-- metrics.json: hpsc_split_half.wells_needed.human.down_20pct --> human against
+    2 <!-- metrics.json: hpsc_split_half.wells_needed.rat.down_20pct --> rat wells per arm for a
+    20% firing-rate fall. Not comparable with entry 42's numbers, which include handling and
+    day-to-day variation.
+  - The registered firing-rate-overlap check keeps the direction: R =
+    4.62 <!-- metrics.json: hpsc_split_half.assumption_check.R --> on the
+    7 <!-- metrics.json: hpsc_split_half.assumption_check.kept.human --> human and
+    14 <!-- metrics.json: hpsc_split_half.assumption_check.kept.rat --> rat wells with
+    overlapping firing rates.
+  - No earlier result changes. The registration counts in §21 and entry 43 rise by this study's
+    three predictions.
+- **Evidence.** Report §36; `outputs/figures/hpsc_split_half_real.png`,
+  `outputs/hpsc_split_half_REAL.json` (with the per-well table), `outputs/metrics.json` key
+  `hpsc_split_half`.
 
 ---
 
