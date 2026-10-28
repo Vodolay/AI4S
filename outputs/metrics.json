@@ -12923,6 +12923,244 @@
     "total_is_complete_pass": true,
     "total_s": 519.0
   },
+  "hpsc_settling": {
+    "assumption_check": {
+      "linear": false,
+      "median_s_quad": {
+        "human": 0.0656,
+        "rat": 0.0166
+      },
+      "median_s_quad_ratio": 3.9518,
+      "share_lowered": {
+        "human": 1.0,
+        "rat": 0.2632
+      },
+      "share_lowered_both_ddof2_sensitivity": {
+        "human": 1.0,
+        "rat": 0.4474
+      },
+      "threshold_drop": 0.3333,
+      "threshold_share": 0.5,
+      "verdict": "not linear: T1 and T3 read with that caveat"
+    },
+    "bootstrap": {
+      "median_s_ratio": {
+        "ci95": [
+          7.907,
+          11.4261
+        ],
+        "nonfinite": 0,
+        "point": 10.173
+      },
+      "resamples": 2000,
+      "sd_b_ratio": {
+        "ci95": [
+          2.7241,
+          5.0442
+        ],
+        "nonfinite": 0,
+        "point": 3.6522
+      },
+      "seed": 20261028,
+      "share_human": {
+        "ci95": [
+          0.9268,
+          1.0806
+        ],
+        "nonfinite": 0,
+        "point": 0.9962
+      }
+    },
+    "figure": "outputs/figures/hpsc_settling_real.png",
+    "first_window_check_post_hoc": {
+      "human": {
+        "median_step_0_to_1": -0.4662,
+        "sd_d_without_window_0": 0.1705
+      },
+      "note": "post hoc, not registered: the first window is dropped, nothing refitted",
+      "rat": {
+        "median_step_0_to_1": -0.0796,
+        "sd_d_without_window_0": 0.0539
+      },
+      "ratio_sd_d_without_window_0": 3.1633
+    },
+    "implementation_notes": [
+      "Usable wells are read from D32's results file of the same run (hpsc_split_half_REAL.json, primary pool, usable true); if it is absent, D32's own table is rebuilt.",
+      "Recording duration and window length follow D32: the plate file's last spike time, cut into 6 equal windows; a spike on a window edge starts the next window and the last spike ends window 5.",
+      "The electrode set is the extractor's active rule (FeatureParams defaults, >= 5 spikes/min over the whole recording) applied to each electrode; noisy electrodes are not removed (D32 did not remove them either).",
+      "A rate is defined when the set has at least one electrode; the floor makes an empty window defined, so 'defined in all six windows' means a non-empty set.",
+      "SD(b) and the variances in the T3 share are sample statistics (ddof 1); the median of s is numpy's median.",
+      "T1 and T2 use one bootstrap: one generator (seed 20261028), each resample drawing human then rat wells, the same draw order as D32's interval; the ratios are human / rat; a resample with a zero rat denominator would be dropped and counted as nonfinite.",
+      "'Lies above 1' is read strictly: the interval's lower end must exceed 1.",
+      "The quadratic check compares the quadratic fit's residual SD with its own ddof (3) against the line's (ddof 2), and 'more than a third' strictly (s_quad < 2/3 s); the share with both at ddof 2 is reported as a sensitivity.",
+      "The wells-needed figures use D32's formula (5% two-sided, 80% power, 20% and 50% falls) on the SD of d_resid; the same formula on the SD of d of this windowed rate is given beside it.",
+      "Not registered, reported for reading T3: with independent, equal-variance window values and no trend, var(d_trend)/var(d) = 27/35 (about 0.77), above T3's 0.5 threshold.",
+      "The registered caveat flag is set on T1 and T3 only, as registered; the residual SD s of a straight line also absorbs any curvature, so when the trend is curved T2 measures curvature as well as scatter; the median residual SD of the quadratic fit (s_quad) is reported beside the check as the descriptive reading.",
+      "Added after the first real-data run and labelled post hoc: the slope spread expected from s alone, and the split-half change with the first window dropped."
+    ],
+    "label": "REAL Kapucu 2022 untreated wells: settling vs steady noise, human iPSC vs rat",
+    "n_windows": 6,
+    "per_window": {
+      "human": [
+        6.7305,
+        4.7968,
+        4.454,
+        4.2569,
+        4.442,
+        4.5468
+      ],
+      "rat": [
+        3.5856,
+        3.3531,
+        3.2699,
+        3.093,
+        3.0398,
+        2.9957
+      ],
+      "window_minutes": 5.0
+    },
+    "predictions": {
+      "T1_human_settling_more_uneven": {
+        "ci95": [
+          2.7241,
+          5.0442
+        ],
+        "outcome": "pass",
+        "pass": true,
+        "ratio": 3.6522,
+        "read_with_nonlinearity_caveat": true,
+        "sd_b_human": 0.0757,
+        "sd_b_rat": 0.0207,
+        "wells": {
+          "human": 24,
+          "rat": 38
+        }
+      },
+      "T2_human_steady_noise_larger": {
+        "ci95": [
+          7.907,
+          11.4261
+        ],
+        "median_s_human": 0.2173,
+        "median_s_rat": 0.0214,
+        "outcome": "pass",
+        "pass": true,
+        "ratio": 10.173,
+        "wells": {
+          "human": 24,
+          "rat": 38
+        }
+      },
+      "T3_settling_carries_the_human_spread": {
+        "outcome": "pass",
+        "pass": true,
+        "read_with_nonlinearity_caveat": true,
+        "share_human": 0.9962,
+        "share_human_ci95_descriptive": [
+          0.9268,
+          1.0806
+        ],
+        "share_rat": 0.9463,
+        "threshold": 0.5,
+        "wells": {
+          "human": 24,
+          "rat": 38
+        },
+        "white_noise_reference": 0.7714
+      }
+    },
+    "registration": {
+      "committed_at": "2026-10-28T10:08:26-04:00",
+      "file": "preregistration/hpsc_settling.json",
+      "registered_in_commit": "e743c4cf223726c7eeb1c2467aa8f9d3fec1420c",
+      "sha256": "f7e8d6334502da238c216f70fe7333230643b7fac3df4a8352b9bf0445886264"
+    },
+    "resamples": 2000,
+    "results_file": "outputs/hpsc_settling_REAL.json",
+    "seed": 20261028,
+    "slope_noise_check_post_hoc": {
+      "human": {
+        "sd_b_beyond_scatter": 0.0574,
+        "share_from_scatter": 0.4251,
+        "var_b": 0.0057,
+        "var_b_from_scatter": 0.0024
+      },
+      "note": "post hoc, not registered: var(b) expected from s alone is mean(s^2)/17.5",
+      "rat": {
+        "sd_b_beyond_scatter": 0.0199,
+        "share_from_scatter": 0.078,
+        "var_b": 0.0004,
+        "var_b_from_scatter": 0.0
+      },
+      "ratio_beyond_scatter": 2.8844
+    },
+    "species": {
+      "human": {
+        "cov_trend_resid": -0.0001,
+        "mean_b": -0.0922,
+        "median_b": -0.1218,
+        "median_electrodes": 16.0,
+        "median_s": 0.2173,
+        "n_wells": 24,
+        "sd_b": 0.0757,
+        "sd_d": 0.2274,
+        "sd_d_resid": 0.0211,
+        "share_trend": 0.9962,
+        "var_d": 0.0517,
+        "var_d_resid": 0.0004,
+        "var_d_trend": 0.0515
+      },
+      "rat": {
+        "cov_trend_resid": 0.0001,
+        "mean_b": -0.0412,
+        "median_b": -0.0429,
+        "median_electrodes": 15.0,
+        "median_s": 0.0214,
+        "n_wells": 38,
+        "sd_b": 0.0207,
+        "sd_d": 0.0639,
+        "sd_d_resid": 0.0063,
+        "share_trend": 0.9463,
+        "var_d": 0.0041,
+        "var_d_resid": 0.0,
+        "var_d_trend": 0.0039
+      }
+    },
+    "wells_defined": {
+      "human": 24,
+      "rat": 38
+    },
+    "wells_in_table": {
+      "human": 24,
+      "rat": 38
+    },
+    "wells_needed_residual_only": {
+      "false_alarm_rate": 0.05,
+      "human": {
+        "down_20pct": 1,
+        "down_50pct": 1,
+        "from_sd_d": {
+          "down_20pct": 8,
+          "down_50pct": 1
+        },
+        "sd_d": 0.2274,
+        "sd_d_resid": 0.0211
+      },
+      "note": "ILLUSTRATIVE, and a LOWER BOUND as in D32: what would remain if each well's own trend were removed (for example by a longer settling period before dosing). Removing a fitted line also removes the part of steady noise the line absorbs: with no trend at all the residual part keeps 0.2286 of the variance of d.",
+      "power": 0.8,
+      "rat": {
+        "down_20pct": 1,
+        "down_50pct": 1,
+        "from_sd_d": {
+          "down_20pct": 1,
+          "down_50pct": 1
+        },
+        "sd_d": 0.0639,
+        "sd_d_resid": 0.0063
+      }
+    },
+    "white_noise_share": 0.7714
+  },
   "hpsc_split_half": {
     "assumption_check": {
       "R": 4.6225,
@@ -14270,7 +14508,7 @@
       "registration_audit": "this audit's own output",
       "rhythm_audit": "re-reads the predictions of stages 1d-2e, counted under their own keys"
     },
-    "n_studies": 44,
+    "n_studies": 45,
     "studies": {
       "embodied_stage1": {
         "fail": 2,
@@ -14538,6 +14776,13 @@
         "total": 4,
         "uninterpretable": 0
       },
+      "hpsc_settling": {
+        "fail": 0,
+        "other": 0,
+        "pass": 3,
+        "total": 3,
+        "uninterpretable": 0
+      },
       "hpsc_split_half": {
         "fail": 1,
         "other": 0,
@@ -14582,27 +14827,27 @@
       }
     },
     "submission": {
-      "n_studies": 44,
+      "n_studies": 45,
       "total": {
         "fail": 86,
         "other": 1,
-        "pass": 101,
-        "total": 226,
+        "pass": 104,
+        "total": 229,
         "uninterpretable": 38
       }
     },
     "total": {
       "fail": 86,
       "other": 1,
-      "pass": 101,
-      "total": 226,
+      "pass": 104,
+      "total": 229,
       "uninterpretable": 38
     },
     "unrecognised": []
   },
   "registration_timestamps": {
-    "n_outputs_checked": 39,
-    "n_registrations": 43,
+    "n_outputs_checked": 40,
+    "n_registrations": 44,
     "n_violations": 0,
     "not_covered": [
       "twin_depression_under_block.json",
@@ -14611,8 +14856,8 @@
       "twin_inference_recalibration.json"
     ],
     "submission": {
-      "n_outputs_checked": 39,
-      "n_registrations": 43,
+      "n_outputs_checked": 40,
+      "n_registrations": 44,
       "n_violations": 0,
       "not_covered": [
         "twin_depression_under_block.json",
