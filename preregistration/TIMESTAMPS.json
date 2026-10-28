@@ -1,6 +1,6 @@
 {
   "note": "Internal timestamps from this repository's history; not third-party verified.",
-  "root": "e0d222481d52fd9c691e6eeb5d716040f4db5b0ea9458e67106ab2178aa4ec7e",
+  "root": "6559c5e214c1a457e7f71b725b35d1cf551670d887977fda5a56487b1261cb47",
   "registrations": [
     {
       "file": "fly_chip_to_animal.json",
@@ -318,11 +318,18 @@
       "chain": "8765d7f9bfd956e4068d3ead25ab2393d4c0d14d3c51bb72d84f2cdcdcf1c545"
     },
     {
+      "file": "hpsc_network_state.json",
+      "sha256": "7f934b654dd8578061c68f5660447738da22cb078ef007c74784f1bdf048af82",
+      "commit": "f669016d96238a97423c583d36046c2627a811a1",
+      "committed_at": "2026-10-28T10:49:24-04:00",
+      "chain": "7c885a16ccab20b3e5ebda33e7d18275302451442781dae10c16cd22cca7ab3c"
+    },
+    {
       "file": "twin_prior_reach.json",
       "sha256": "fd55468f4deec73fed72a9a6bb0c50493002ece04aa00985000a408d260001ca",
       "commit": "3c2e43e73c941c710976587737ad61e6fc05e8cb",
       "committed_at": "2026-10-28T11:32:36-04:00",
-      "chain": "e0d222481d52fd9c691e6eeb5d716040f4db5b0ea9458e67106ab2178aa4ec7e"
+      "chain": "6559c5e214c1a457e7f71b725b35d1cf551670d887977fda5a56487b1261cb47"
     }
   ],
   "registered_before_results": [
@@ -545,6 +552,12 @@
     {
       "output": "outputs/fly/tract_electrode_SIMULATED.json",
       "registration": "fly_output_tract_electrode.json",
+      "same_commit": false,
+      "registered_first": true
+    },
+    {
+      "output": "outputs/hpsc_network_state_REAL.json",
+      "registration": "hpsc_network_state.json",
       "same_commit": false,
       "registered_first": true
     },
