@@ -1122,9 +1122,9 @@ guarded throughout: `data/raw/MANIFEST.json` records every source's URL, license
 
 The registrations are checked the same way. Every study that registered its predictions in
 `preregistration/` records each prediction's outcome, and `neuromps.report.audit` (run at the end
-of every `run_all`) counts them: 44 <!-- metrics.json: registration_audit.submission.n_studies --> studies made
-226 <!-- metrics.json: registration_audit.submission.total.total --> registered predictions, of which
-101 <!-- metrics.json: registration_audit.submission.total.pass --> passed,
+of every `run_all`) counts them: 45 <!-- metrics.json: registration_audit.submission.n_studies --> studies made
+229 <!-- metrics.json: registration_audit.submission.total.total --> registered predictions, of which
+104 <!-- metrics.json: registration_audit.submission.total.pass --> passed,
 86 <!-- metrics.json: registration_audit.submission.total.fail --> failed and
 38 <!-- metrics.json: registration_audit.submission.total.uninterpretable --> were uninterpretable.
 The audit names any study whose predictions carry no outcome, so that none is left out
@@ -1133,8 +1133,8 @@ which re-reads predictions already counted under their own stages.
 `neuromps.report.timestamps` writes `preregistration/TIMESTAMPS.json`: each registration's
 checksum and the commit that first added it, a hash chain over them in commit order, and, for
 every result file that names its registration, whether the registration's commit came first. Of
-43 <!-- metrics.json: registration_timestamps.submission.n_registrations --> registrations,
-39 <!-- metrics.json: registration_timestamps.submission.n_outputs_checked --> result files were checked and
+44 <!-- metrics.json: registration_timestamps.submission.n_registrations --> registrations,
+40 <!-- metrics.json: registration_timestamps.submission.n_outputs_checked --> result files were checked and
 0 <!-- metrics.json: registration_timestamps.submission.n_violations --> came before their registration. The
 check cannot see the
 4 <!-- metrics.json: registration_timestamps.submission.not_covered --> registrations whose results do not
@@ -1951,7 +1951,8 @@ bounds**: noise within one untreated recording leaves out handling, compound add
 day-to-day variation that §32's vehicle wells include, so the numbers a real assay needs should be larger,
 and they are not to be set beside §32's table, which measures a different noise. What carries
 over is the ratio: on these data a human iPSC firing-rate readout needed more wells than a rat
-one for the same change.
+one for the same change. The follow-up below finds that ratio is mostly a difference in
+settling, which bears on whether a lab should add wells or wait longer before dosing.
 
 **The assumption this rests on, and the check (registered).** Fewer spikes give noisier rates,
 and the two species fire at different rates, so a species difference could be a firing-rate
@@ -1974,8 +1975,10 @@ falls from the first half to the second, the human more (mean d
 −0.32 <!-- metrics.json: hpsc_split_half.primary.features.mfr_hz.human.mean --> against
 −0.17 <!-- metrics.json: hpsc_split_half.primary.features.mfr_hz.rat.mean -->). A fall shared by
 every well does not enter the SD, but wells that settle at different speeds after the plate goes
-into the reader would, so part of what is measured here may be settling rather than steady-state
-noise.
+into the reader would. The registered follow-up below (D35) measured this: on the human baseline
+nearly all of the split-half spread is each well's own trend over the recording, and the wells
+differ in how far their firing rate falls early on, so what this section measures for firing
+rate is mostly uneven settling, not steady-state noise.
 
 **Implementation notes.** Where the registration left a choice, we took the most literal reading
 and recorded it in the results under `implementation_notes`:
@@ -1988,9 +1991,138 @@ plates' noisy-electrode lists are read from the column for each recording's DIV;
 interval draws from its own generator with the registered seed; and the overlap check uses the usable
 baseline wells, with percentile ends included.
 
+### Registered follow-up: settling or steady noise?
+
+The split-half change cannot tell a well that wobbles steadily from a well that is still
+settling after the plate went into the reader. The two call for different fixes in an assay, so
+we registered a test that separates them (decision D35, `preregistration/hpsc_settling.json`
+<!-- metrics.json: hpsc_settling.registration.file -->, committed before any window shorter than
+half a recording was computed; the code and its tests were committed before the first real-data
+run). Same baselines, same usable wells as above
+(24 <!-- metrics.json: hpsc_settling.wells_defined.human --> human,
+38 <!-- metrics.json: hpsc_settling.wells_defined.rat --> rat). Each 30-minute recording is cut
+into six 5-minute windows; per well, the firing rate is counted on one fixed set of electrodes
+(those active over the whole recording under the extractor's own rule), so a changing electrode
+set cannot move it. A straight line fitted to each well's six log2 rates gives its slope b (its
+settling, in log2 per window) and its residual SD s (the scatter around its own line). The
+split-half change then splits exactly into a trend part, 3b, and a residual part.
+
+![REAL data, Kapucu 2022, one lab. Left two panels: each usable well's log2 firing rate over six 5-minute windows on a fixed electrode set (faint), with the median rate per window (black), human iPSC and rat. Third: each well's within-recording slope. Right: each well's split-half change against its trend part (3b); points on the dashed line are all trend.](../outputs/figures/hpsc_settling_real.png){width=100%}
+
+**All three registered predictions pass; the registered linearity check fails for the human
+wells, and that changes how two of them read.**
+
+- **T1 (human wells settle more unevenly) passes.** The slope varies more across human wells:
+  SD 0.076 <!-- metrics.json: hpsc_settling.predictions.T1_human_settling_more_uneven.sd_b_human -->
+  against 0.021 <!-- metrics.json: hpsc_settling.predictions.T1_human_settling_more_uneven.sd_b_rat -->
+  log2 per window, a ratio of
+  3.65 <!-- metrics.json: hpsc_settling.predictions.T1_human_settling_more_uneven.ratio -->
+  (95% interval 2.72 to 5.04 <!-- metrics.json: hpsc_settling.predictions.T1_human_settling_more_uneven.ci95 -->),
+  above 1 as registered. Both species fall on average (mean slope
+  −0.092 <!-- metrics.json: hpsc_settling.species.human.mean_b --> human,
+  −0.041 <!-- metrics.json: hpsc_settling.species.rat.mean_b --> rat).
+- **T2 (human wells noisier around their own trend) passes.** Median residual SD
+  0.217 <!-- metrics.json: hpsc_settling.predictions.T2_human_steady_noise_larger.median_s_human -->
+  against 0.021 <!-- metrics.json: hpsc_settling.predictions.T2_human_steady_noise_larger.median_s_rat -->,
+  a ratio of 10.2 <!-- metrics.json: hpsc_settling.predictions.T2_human_steady_noise_larger.ratio -->
+  (7.91 to 11.43 <!-- metrics.json: hpsc_settling.predictions.T2_human_steady_noise_larger.ci95 -->).
+  As the linearity check shows, most of this is curvature a straight line misses, not scatter.
+- **T3 (the trend carries most of the human split-half spread) passes.** The trend part's share
+  of the variance of the split-half change is
+  0.996 <!-- metrics.json: hpsc_settling.predictions.T3_settling_carries_the_human_spread.share_human -->
+  in human wells (registered threshold
+  0.5 <!-- metrics.json: hpsc_settling.predictions.T3_settling_carries_the_human_spread.threshold -->),
+  and 0.946 <!-- metrics.json: hpsc_settling.predictions.T3_settling_carries_the_human_spread.share_rat -->
+  in rat wells. A caution we found only when implementing it: a straight line on six windows
+  absorbs part of pure steady noise too, so with no settling at all this share would be about
+  0.77 <!-- metrics.json: hpsc_settling.predictions.T3_settling_carries_the_human_spread.white_noise_reference -->,
+  above the registered threshold. The pass alone therefore does not separate settling from noise.
+  What does is how far above that reference the human share sits (descriptive interval
+  0.93 to 1.08 <!-- metrics.json: hpsc_settling.predictions.T3_settling_carries_the_human_spread.share_human_ci95_descriptive -->),
+  and how small the residual part is: SD
+  0.021 <!-- metrics.json: hpsc_settling.species.human.sd_d_resid --> against
+  0.227 <!-- metrics.json: hpsc_settling.species.human.sd_d --> for the whole change (log2).
+
+**The registered assumption check: the trend is not a straight line in human wells.** Adding a
+quadratic term lowers the residual SD by more than a third in a share of
+1.0 <!-- metrics.json: hpsc_settling.assumption_check.share_lowered.human --> of human wells
+and 0.26 <!-- metrics.json: hpsc_settling.assumption_check.share_lowered.rat --> of rat wells;
+the registered rule (more than half in either species) therefore says the trend is not linear
+(linear: False <!-- metrics.json: hpsc_settling.assumption_check.linear -->), and T1 and T3 are
+read with that caveat. The settling curve (reported, not tested) shows the shape: the human
+median rate falls from
+6.73 <!-- metrics.json: hpsc_settling.per_window.human.0 --> Hz in the first window to
+4.80 <!-- metrics.json: hpsc_settling.per_window.human.1 --> Hz in the second, bottoms at
+4.26 <!-- metrics.json: hpsc_settling.per_window.human.3 --> Hz in the fourth and ends at
+4.55 <!-- metrics.json: hpsc_settling.per_window.human.5 --> Hz; the rat median declines
+gently and steadily, from
+3.59 <!-- metrics.json: hpsc_settling.per_window.rat.0 --> to
+3.00 <!-- metrics.json: hpsc_settling.per_window.rat.5 --> Hz. So the slope of a human well
+summarises a fall and partial recovery, and its residual SD s is mostly the part of that curve
+the line misses. Around a quadratic (descriptive, beside the check) the human wells still
+scatter more, median
+0.066 <!-- metrics.json: hpsc_settling.assumption_check.median_s_quad.human --> against
+0.017 <!-- metrics.json: hpsc_settling.assumption_check.median_s_quad.rat --> (log2), but T2's
+tenfold ratio should not be read as tenfold steady noise. Read with the caveat, T1 still holds:
+the human wells differ much more in how far they fall, and T3's near-total share says that
+difference, not window-to-window scatter, is what D32's split-half SD mostly measured.
+
+**Two post hoc readings, added after the first run and not registered.** First, the scatter
+around each line (curvature included) would by itself produce a share of
+0.43 <!-- metrics.json: hpsc_settling.slope_noise_check_post_hoc.human.share_from_scatter -->
+of the human slope variance; beyond it, the human slopes still spread
+2.88 <!-- metrics.json: hpsc_settling.slope_noise_check_post_hoc.ratio_beyond_scatter -->
+times as widely as the rat ones, so T1 is not an artefact of noisier fits. Second, dropping the
+first window, as if the plate had settled five minutes longer, takes out the steepest human
+fall (median step from the first to the second window
+−0.47 <!-- metrics.json: hpsc_settling.first_window_check_post_hoc.human.median_step_0_to_1 -->
+log2 against
+−0.08 <!-- metrics.json: hpsc_settling.first_window_check_post_hoc.rat.median_step_0_to_1 -->)
+but not the species difference: the SD across wells of the remaining change is
+0.17 <!-- metrics.json: hpsc_settling.first_window_check_post_hoc.human.sd_d_without_window_0 -->
+human against
+0.054 <!-- metrics.json: hpsc_settling.first_window_check_post_hoc.rat.sd_d_without_window_0 -->
+rat, still
+3.16 <!-- metrics.json: hpsc_settling.first_window_check_post_hoc.ratio_sd_d_without_window_0 -->
+times larger.
+
+**Wells needed from the residual part alone: illustrative, reported and not tested.** With D32's
+formula on the residual part's SD, a 20% fall would need at least
+1 <!-- metrics.json: hpsc_settling.wells_needed_residual_only.human.down_20pct --> human and
+1 <!-- metrics.json: hpsc_settling.wells_needed_residual_only.rat.down_20pct --> rat well per
+arm, against 8 <!-- metrics.json: hpsc_settling.wells_needed_residual_only.human.from_sd_d.down_20pct -->
+human wells from the whole change of this windowed rate. This figure is not an assay design: it
+assumes each well's trend could be removed exactly, and removing a fitted line also removes part
+of the steady noise, so it flatters both species. We do not use it to set well counts.
+
+**What it changes for this section, and what a lab would do.** The caveat above is now a measured
+statement: D32's twofold human firing-rate noise is mostly uneven settling within the recording,
+not steady noise. For an assay this points first to a longer settling period before the baseline
+and dosing, rather than to more wells, because the spread sits in the trend. But these
+30-minute recordings do not show how long that period must be: five more minutes would not close
+the gap (the post hoc reading above), and the human median is still moving at the end of
+the recording. A lab would first record untreated human wells for longer to find where the fall
+ends, then decide between waiting that long and adding wells; until then, the wells-needed figures
+above stay the guide.
+
+**Implementation notes.** Where the registration left a choice, we took the most literal reading
+and recorded it under `hpsc_settling.implementation_notes`: usable wells are read from D32's
+results file; windows follow D32's cut (the plate file's last spike ends the recording; a spike
+on a window edge starts the next window); the electrode set is the extractor's default active
+rule applied to the whole recording, and noisy electrodes are kept, as in D32; with the floor, a
+rate is defined in every window of a well with a non-empty set; SDs and variances use ddof 1;
+one bootstrap serves T1 and T2, drawing human then rat wells per resample as D32 does; "above 1"
+is strict; the quadratic fit's residual SD uses its own degrees of freedom and "more than a
+third" is strict (with both fits at ddof 2, the rat share is
+0.45 <!-- metrics.json: hpsc_settling.assumption_check.share_lowered_both_ddof2_sensitivity.rat -->,
+still below one half). The caveat flag is set on T1 and T3, as registered; the note on T2 above
+is ours.
+
 **What this section does not show.** Split-half noise is not exposure noise: it is the movement
 of one undisturbed recording, not of a well handled, dosed and read again, so it says how the
-two culture types compare under the gentlest possible conditions, not what an assay will see.
+two culture types compare under the gentlest possible conditions, not what an assay will see;
+and for firing rate on the human baseline it is mostly settling over the first part of the
+recording, as the follow-up shows.
 Everything here comes from one lab, one human iPSC line and one rat preparation, at one age
 each (DIV29 and DIV22 on the baselines); another line, protocol or culture age could order the
 species differently. Half the human baseline plate was excluded upstream, and we do not know

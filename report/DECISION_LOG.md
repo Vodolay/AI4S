@@ -420,4 +420,17 @@ it with its own command or `python -m neuromps.fly.pipeline --only <step>`.
   different fixes (a longer settling period before dosing against more wells), so which one
   dominates matters.
 - **Assumption recorded:** a straight line describes the settling; checked with a quadratic term.
-- **Revisit at:** `outputs/metrics.json` key `hpsc_settling`.
+- **Outcome:** 3 of 3 (registration commit e743c4c; code and tests committed before the first
+  real-data run in bc6a56b). Human slopes spread
+  3.65 <!-- metrics.json: hpsc_settling.predictions.T1_human_settling_more_uneven.ratio --> times
+  as widely as rat; the trend carries a share of
+  0.996 <!-- metrics.json: hpsc_settling.predictions.T3_settling_carries_the_human_spread.share_human -->
+  of the human split-half variance. The linearity check fails for human wells (a fall and partial
+  recovery), so T1 and T3 carry that caveat, and T2's residual SD is mostly curvature, not steady
+  noise. The T3 threshold turned out to sit below what a line absorbs from pure noise (about
+  0.77 <!-- metrics.json: hpsc_settling.predictions.T3_settling_carries_the_human_spread.white_noise_reference -->);
+  recorded, not changed. Reading: D32's human spread is mostly uneven settling; a longer settling
+  period is the first fix to try, but five more minutes would not close the gap (post hoc), and
+  the 30-minute recordings do not show how long it must be. Report §36, change-log entry 49.
+- **Revisit at:** `outputs/metrics.json` key `hpsc_settling`. Next: longer untreated human
+  recordings, to find where the fall ends.
