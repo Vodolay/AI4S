@@ -56,6 +56,7 @@ the bottom.*
 | 45 | 2026-10-27/28 | The twin's inverse model recalibrated: 5.8x the simulations and a five-flow ensemble (D31) | 2 of 7 registered predictions pass; on fresh simulations the round-1 model fails all five parameters; the ensemble passes only `threshold_scale` under the registered rule | `0bc29aa` … this branch |
 | 46 | 2026-10-28 | Human iPSC against rat chips from one lab: split-half noise of untreated wells | 2 of 3 registered predictions pass; human firing rate about twice as noisy, but not across readouts; wells needed reported as a lower bound | `35df26a` … this branch |
 | 47 | 2026-10-28 | Our extractor rerun under the Kapucu 2022 depositors' stated settings, one change at a time (post hoc); the feature definitions recorded as D33 | none to earlier results; the twofold burst-rate difference is traced mainly to the burst-rate denominator, on the hPSC plates; two report wording errors fixed | `46d1607`, `e10a2ff` … this branch |
+| 48 | 2026-10-28 | The depositors' logISI burst detector, implemented and tested against their meaRtools output (D34, registered) | 1 of 4 registered predictions pass; burst duration and spikes per burst reach their scale but not their ordering, the hPSC burst rate overshoots; the detector attribution stays open | `e11bc05`, `9570a9f`, `6f63385` … this branch |
 | 49 | 2026-10-28 | Settling or steady noise in the human iPSC split-half spread (D35) | 3 of 3 registered predictions pass; the registered linearity check fails for human wells; the human spread is mostly uneven settling, and five more minutes would not remove it | `e743c4c`, `bc6a56b` … this branch |
 
 ---
@@ -993,12 +994,12 @@ checked against the commit that registered it, here, in the public repository.*
 - **Why.** The final-round deck quoted registration counts and a hash chain that existed only in
   the private manuscript repository, so a reader of this repository could not check them.
 - **Effect.**
-  - 45 <!-- metrics.json: registration_audit.submission.n_studies --> registered studies here made
-    229 <!-- metrics.json: registration_audit.submission.total.total --> predictions:
-    104 <!-- metrics.json: registration_audit.submission.total.pass --> passed,
-    86 <!-- metrics.json: registration_audit.submission.total.fail --> failed,
-    38 <!-- metrics.json: registration_audit.submission.total.uninterpretable --> were uninterpretable.
-  - 40 <!-- metrics.json: registration_timestamps.submission.n_outputs_checked --> result files name their
+  - 46 <!-- metrics.json: registration_audit.submission.n_studies --> registered studies here made
+    233 <!-- metrics.json: registration_audit.submission.total.total --> predictions:
+    105 <!-- metrics.json: registration_audit.submission.total.pass --> passed,
+    88 <!-- metrics.json: registration_audit.submission.total.fail --> failed,
+    39 <!-- metrics.json: registration_audit.submission.total.uninterpretable --> were uninterpretable.
+  - 41 <!-- metrics.json: registration_timestamps.submission.n_outputs_checked --> result files name their
     registration, and 0 <!-- metrics.json: registration_timestamps.submission.n_violations --> of them came
     before it; 4 <!-- metrics.json: registration_timestamps.submission.not_covered --> registrations are not
     covered because their results do not name them.
@@ -1240,6 +1241,62 @@ is a human iPSC effect. Post hoc.*
   `outputs/figures/extractor_settings_ladder_real.png`; `outputs/metrics.json` key
   `extractor_agreement.settings_ladder`; tests `tests/test_features_mea.py`,
   `tests/test_extractor_ladder.py`.
+
+## 48. The depositors' burst detector, tested: it does not explain the rest of the gap as registered
+
+**Slide message:** *With the depositors' own adaptive burst detector (logISI) added to their
+stated settings, our burst duration and spikes per burst land on their scale (pooled ratios 0.96
+and 1.00) but still rank recordings differently, and the human burst rate overshoots theirs; one
+of four registered predictions passes, so the detector does not account for the remaining gap, or
+our implementation differs from theirs.*
+
+- **What changed.** `features/mea.py` gains a third definition option, off by default:
+  `FeatureParams.burst_detector = "logisi"`, the adaptive detector of Pasquale et al. 2010 with
+  the depositors' stated minimum of five spikes and merging of close bursts. At the default every
+  feature value and method record is byte-identical (the golden-value tests pass). A new module,
+  `src/neuromps/models/extractor_logisi.py`, runs inside the extractor-agreement stage: S4 is the
+  ladder's S3 with logISI (defined in `extractor_ladder.py` beside the ladder, outside its
+  definition set). The registration (`preregistration/extractor_logisi.json`, decision D34)
+  fixed four predictions and the uninterpretable rule; its implementation section was completed
+  and committed alone (`9570a9f`) before the detector ran on any Kapucu recording.
+- **Why.** Entry 47 attributed what the settings ladder left (burst duration, spikes per burst,
+  part of the hPSC burst rate) to the burst detector without a test; a measured attribution
+  answers "why trust your extractor" better than an inferred one.
+- **Effect.**
+  - L1 `fail` <!-- metrics.json: extractor_agreement.logisi.predictions.L1_burst_duration_closes.outcome -->: pooled burst duration ratio 0.9611 <!-- metrics.json: extractor_agreement.logisi.predictions.L1_burst_duration_closes.checks.0.median_ratio --> is in
+    its band, but rho 0.8347 <!-- metrics.json: extractor_agreement.logisi.predictions.L1_burst_duration_closes.checks.0.spearman_rho --> is below
+    0.9 <!-- metrics.json: extractor_agreement.logisi.predictions.L1_burst_duration_closes.checks.0.min_spearman_rho --> (S3: 0.8167 <!-- metrics.json: extractor_agreement.logisi.by_variant.S3_rate_per_bursting_electrode.pooled.burst_duration_s.spearman_rho -->).
+  - L2 `fail` <!-- metrics.json: extractor_agreement.logisi.predictions.L2_spikes_per_burst_closes.outcome -->: pooled spikes per burst ratio 0.9986 <!-- metrics.json: extractor_agreement.logisi.predictions.L2_spikes_per_burst_closes.checks.0.median_ratio --> is in
+    its band, but rho 0.9467 <!-- metrics.json: extractor_agreement.logisi.predictions.L2_spikes_per_burst_closes.checks.0.spearman_rho --> is below
+    0.95 <!-- metrics.json: extractor_agreement.logisi.predictions.L2_spikes_per_burst_closes.checks.0.min_spearman_rho --> (S3: 0.9443 <!-- metrics.json: extractor_agreement.logisi.by_variant.S3_rate_per_bursting_electrode.pooled.spikes_per_burst.spearman_rho -->).
+  - L3 `uninterpretable` <!-- metrics.json: extractor_agreement.logisi.predictions.L3_hpsc_burst_rate_closes.outcome -->: the fallback covers a share of 0.515 <!-- metrics.json: extractor_agreement.logisi.predictions.L3_hpsc_burst_rate_closes.fallback_share --> of the
+    hPSC active electrode-recordings, more than the registered half; the ratios,
+    1.0847 <!-- metrics.json: extractor_agreement.logisi.predictions.L3_hpsc_burst_rate_closes.checks.0.median_ratio --> (hPSC_MEA1) and 1.1438 <!-- metrics.json: extractor_agreement.logisi.predictions.L3_hpsc_burst_rate_closes.checks.1.median_ratio -->
+    (hPSC_MEA2), lie above the band, where S3 lay below it.
+  - L4 `pass` <!-- metrics.json: extractor_agreement.logisi.predictions.L4_rat_not_worse.outcome -->: on the rat plate burst rate 0.9816 <!-- metrics.json: extractor_agreement.logisi.predictions.L4_rat_not_worse.checks.0.median_ratio --> and
+    burst duration 0.9825 <!-- metrics.json: extractor_agreement.logisi.predictions.L4_rat_not_worse.checks.1.median_ratio -->, up from
+    0.7705 <!-- metrics.json: extractor_agreement.logisi.by_variant.S3_rate_per_bursting_electrode.Rat_MEA1.burst_duration_s.median_ratio --> at S3.
+  - The registered assumption check: fallback shares 0.4982 <!-- metrics.json: extractor_agreement.logisi.fallback.hPSC_MEA1.share --> (hPSC_MEA1),
+    0.5321 <!-- metrics.json: extractor_agreement.logisi.fallback.hPSC_MEA2.share --> (hPSC_MEA2) and 0.2313 <!-- metrics.json: extractor_agreement.logisi.fallback.Rat_MEA1.share --> (Rat_MEA1); median
+    valid thresholds 7.08 <!-- metrics.json: extractor_agreement.logisi.threshold_distribution.hPSC_MEA1.median_ms --> ms, 8.91 <!-- metrics.json: extractor_agreement.logisi.threshold_distribution.hPSC_MEA2.median_ms --> ms and
+    281.84 <!-- metrics.json: extractor_agreement.logisi.threshold_distribution.Rat_MEA1.median_ms --> ms. A share of 0.2786 <!-- metrics.json: extractor_agreement.logisi.threshold_distribution.hPSC_MEA1.share_valid_below_1ms -->
+    and 0.2133 <!-- metrics.json: extractor_agreement.logisi.threshold_distribution.hPSC_MEA2.share_valid_below_1ms --> of the valid hPSC thresholds are below a
+    millisecond, where a peak of near-coincident spikes is taken as the intraburst peak; this
+    share was added to the output after the quick run showed such thresholds, and is descriptive.
+  - Post hoc, as the registration named it: from S3 to S4 the burst rate changes by more than a
+    tenth in a share of 0.8273 <!-- metrics.json: extractor_agreement.logisi.moved_s3_to_s4_post_hoc.by_plate.hPSC_MEA1.burst_rate_per_min.share --> (hPSC_MEA1) and
+    0.7632 <!-- metrics.json: extractor_agreement.logisi.moved_s3_to_s4_post_hoc.by_plate.hPSC_MEA2.burst_rate_per_min.share --> (hPSC_MEA2) of recordings, the rat burst
+    duration in 0.8723 <!-- metrics.json: extractor_agreement.logisi.moved_s3_to_s4_post_hoc.by_plate.Rat_MEA1.burst_duration_s.share -->.
+  - The ladder's numbers and the published agreement are unchanged (every other key of
+    `extractor_agreement` is identical to the previous run). The registration counts in §21 and
+    entry 43 rise by this study's four predictions. The depositors' analysis scripts, shared on
+    G-Node GIN, were not read; they are the next check if the attribution matters.
+- **Evidence.** Report §3 ("The detector, tested"); decision D34;
+  `outputs/figures/extractor_logisi_real.png`, `outputs/extractor_logisi_REAL.json` (with every
+  electrode's threshold), `outputs/metrics.json` key `extractor_agreement.logisi`; tests
+  `tests/test_features_mea.py`, `tests/test_extractor_logisi.py`.
+
+---
 
 ## 49. The human iPSC split-half noise is mostly uneven settling, not steady noise
 

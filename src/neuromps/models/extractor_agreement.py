@@ -489,16 +489,19 @@ def main(argv: list[str] | None = None) -> int:
     args = p.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 
-    from neuromps.models import extractor_ladder
+    from neuromps.models import extractor_ladder, extractor_logisi
 
     plates = PLATES[:1] if args.quick else PLATES
-    # One sweep computes the published agreement (S0) and the post hoc settings
-    # ladder together; the S0 rows are the agreement's table, row for row.
-    ladder_table = paired_table(
+    max_recordings = 4 if args.quick else None
+    # One sweep computes the published agreement (S0), the post hoc settings ladder
+    # and the registered logISI variant (S4, D34) together; the S0 rows are the
+    # agreement's table, row for row, and the ladder sees its own rows only.
+    swept = paired_table(
         plates,
-        max_recordings=4 if args.quick else None,
-        definitions=extractor_ladder.ALL_DEFINITIONS,
+        max_recordings=max_recordings,
+        definitions=(*extractor_ladder.ALL_DEFINITIONS, extractor_logisi.LOGISI),
     )
+    ladder_table = swept[swept["variant"] != extractor_logisi.LOGISI.name]
     table = default_rows(ladder_table)
     if table.empty:
         log.warning("no paired recordings found; is %s fetched?", DATA_ROOT)
@@ -513,6 +516,7 @@ def main(argv: list[str] | None = None) -> int:
     result["settings_ladder"] = extractor_ladder.run(
         ladder_table, by_feature, _previous_by_feature(), plates
     )
+    result["logisi"] = extractor_logisi.run(swept, plates, max_recordings)
     update_metrics("extractor_agreement", result)
     print(json.dumps({k: v for k, v in result.items() if k != "by_feature"}, indent=2))
     for feature, entry in sorted(by_feature.items()):
