@@ -434,3 +434,20 @@ it with its own command or `python -m neuromps.fly.pipeline --only <step>`.
   the 30-minute recordings do not show how long it must be. Report §36, change-log entry 49.
 - **Revisit at:** `outputs/metrics.json` key `hpsc_settling`. Next: longer untreated human
   recordings, to find where the fall ends.
+
+### D36. Testing whether early network bursting predicts how a human iPSC well settles **(user)**
+- **Found:** an exploratory look at D35's human wells (post hoc, 24 wells, one plate) found two
+  settling behaviours, wells that keep falling and wells that recover, and the network-burst rate
+  in the first five minutes predicted which (Spearman -0.73), while the early firing rate did not;
+  rat wells showed no such relation.
+- **Options:** report the exploratory result as it stands; replicate it on independent
+  recordings first.
+- **Taken:** a registered replication on the lab's 12-well developmental plates
+  (`preregistration/hpsc_network_state.json`), which D32 already uses as its replication pool:
+  three predictions (the relation holds in human recordings; not in rat; network state predicts
+  better than firing rate), with intervals from resampling whole wells. **Why:** a post hoc
+  finding on one plate is a hypothesis; if it replicates, a lab could cut the wells it needs by
+  stratifying human wells by baseline network state.
+- **Assumption recorded:** the relation is not an age effect; checked with a partial correlation
+  on culture age.
+- **Revisit at:** `outputs/metrics.json` key `hpsc_network_state`.
