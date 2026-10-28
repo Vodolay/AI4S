@@ -2167,14 +2167,16 @@ design
 
 ![Microchannel propagation asymmetry by device geometry, REAL recordings.](../outputs/figures/microchannel_asymmetry_real.png){width=85%}
 
-**Appendix K.** `--quick` completes end to end in 544.7 s
+**Appendix K.** `--quick` completes end to end in 519.0 s
 <!-- metrics.json: harness_quick.total_s --> on a workstation CPU with 20 cores
 <!-- metrics.json: harness_quick.cpu_count -->, and in under twenty minutes on a dual-vCPU CI runner;
 the two differ because `worker_processes` correctly asks for the cores it is given. The run itself
 writes that figure, and only a run that executed every stage can write it, so a partial re-run
 cannot quietly shrink it. It is one measurement rather than a bound: repeat runs on the same machine
-vary with whatever else the machine is doing, and the slowest we have seen crossed ten minutes. The
-longest stage is the twin, at 344.3 s
+vary with whatever else the machine is doing: this run was on an idle machine, with every study
+added through §36 included, and runs that shared the machine with other jobs took up to about twice
+as long, crossing ten minutes. The
+longest stage is the twin, at 322.5 s
 <!-- metrics.json: harness_quick.by_stage_s.twin -->. Full reproduction runs through
 `python run_all.py` after a full data-tier fetch. The environment is pinned in `pyproject.toml` and
 recorded from what actually imported: Python `3.11.16` <!-- metrics.json: harness_quick.python -->,
