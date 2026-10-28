@@ -1,0 +1,64 @@
+{
+  "title": "Does a larger simulation budget and an ensemble bring all five twin parameters into calibration? (SIMULATED)",
+  "registered": "2026-10-27",
+  "decision": "D31 (report/DECISION_LOG.md); change-log entry 44 (report/POST_SUBMISSION_CHANGES.md)",
+  "status": "registered before any new simulation was run and before any new estimator was trained",
+  "origin": "the inverse-model slide withholds gabaa_scale and inter_in_degree because they fail the SBC rank-uniformity check (twin_hd14_inference); the question is whether that is a budget or an estimator limit, or neither",
+  "seen_before_registration": [
+    "HD14 (twin_hd14_inference): one MAF (5 autoregressive transforms, 50 hidden units, sbi 0.27 defaults), 3,000 prior simulations (network seeds 0-2999, prior-draw seed 0), 2,700 train / 300 held out; SBC KS p on the 300: log10_forward_ratio 0.1517, inter_in_degree 0.0121, gabaa_scale 0.0174, ampa_scale 0.3128, threshold_scale 0.6105; contraction 0.438, 0.269, 0.3, 0.599, 0.661; 0.3061 s per 1,000-draw posterior",
+    "the HD14 learning curve (outputs/twin/hd14_learning_curve_simulated.json, an earlier calibration of the twin, 300-1,200 training simulations): KS p values mostly rise with training size",
+    "HD15 (twin_hd15_real_inference): 113 real two-chamber recordings; median prior acceptance 0.0345, i.e. the real recordings are partly outside the simulated range",
+    "a timing of four simulations at the calibrated density on this machine under its current load: 6.5-7.5 s each"
+  ],
+  "simulator": "unchanged: neuromps.twin.inference.simulate_summary at the calibrated density, 10 s, the default layout, the same prior (PRIOR_BOUNDS) drawn by draw_parameters, the same 19-dimensional summary vector; every chunk file carries the summary-pipeline and calibration fingerprints and is refused by check_cache_matches_code if either has changed",
+  "seeds": {
+    "rule": "every new simulation uses a seed outside HD14's (network seeds 0-2999, +1000 for delays; prior-draw seed 0); simulations come in chunks of 250, chunk k of a set draws its parameters with draw_parameters(250, draw_base + k) and simulates row j with network seed network_base + 250 k + j",
+    "held_out": {"draw_base": 32000, "network_base": 32000000, "n": 1000},
+    "train": {"draw_base": 31000, "network_base": 31000000, "n_target": 15000},
+    "training_seeds": {"M1_single_maf": 3101, "M2_ensemble_members": [3111, 3112, 3113, 3114, 3115], "M3_ensemble_members_on_hd14_set": [3121, 3122, 3123, 3124, 3125]},
+    "evaluation_sampling_seed": 3200
+  },
+  "budget": {
+    "held_out": "1,000 fresh prior simulations, simulated first",
+    "train_target": "15,000 fresh prior simulations (5x HD14), added to HD14's 3,000 cached simulations (all of them, including its 300 held-out: they are prior draws like any other, and the evaluation here is on fresh simulations) for a training pool of up to 18,000",
+    "why_not_30000": "at ~7 s per simulation on 5 worker processes the machine does about 2,500 an hour; 30,000 would need ~12 hours and does not fit before the presentation",
+    "truncation_rule": "no new training chunk is started after 05:00 EDT on 2026-10-28; a chunk already running finishes. The training pool is HD14's 3,000 plus every completed chunk, which is always a prefix of the registered chunk sequence, so the cut cannot depend on results. If fewer than 6,000 new training simulations complete, every prediction is still evaluated and the shortfall is reported beside it.",
+    "failed_simulations": "dropped (non-finite summary), as in HD14, and counted"
+  },
+  "estimators": {
+    "M0": "the HD14 posterior as saved (outputs/twin/hd14_posterior_simulated.pt), unchanged, re-evaluated on the fresh held-out set",
+    "M1_budget_alone": "one MAF trained exactly as HD14 (neuromps.twin.inference.train_posterior: sbi NPE, density_estimator='maf', library defaults) on the whole training pool",
+    "M2_ensemble": "five MAFs, each trained as M1 on the same pool with its own training seed, combined as an equal-weight mixture (sbi EnsemblePosterior). Registered as the estimator the slide adopts if it passes. Why an ensemble: averaging independently trained flows widens the posterior where they disagree, which is the documented remedy for over-confident neural posterior estimators (Hermans et al. 2022, 'A trust crisis in simulation-based inference?')",
+    "M3_ensemble_without_budget": "the M2 recipe on HD14's own 2,700 training simulations; exploratory, to separate the ensemble's effect from the budget's",
+    "not_tried": "a neural spline flow: one change at a time, and a different family would confound budget with architecture"
+  },
+  "evaluation_sets": {
+    "H300": "the first 300 finite held-out simulations by index: the same size as HD14's test, so pass and fail mean what they meant there",
+    "H1000": "all finite held-out simulations (up to 1,000)",
+    "near_real": "the 300 simulations of H1000 nearest to any of the real two-chamber recordings (neuromps.twin.real_inference.real_summaries on the committed asset), by Euclidean distance on summaries z-scored with the training pool's per-dimension mean and standard deviation. Selected on the summaries x, never on the parameters: an exact posterior is calibrated conditional on x, so it stays calibrated on any x-defined subset, whereas selecting on the parameters would skew the ranks of even an exact posterior."
+  },
+  "tests": {
+    "sbc_ks": "for each held-out simulation, the rank of the true value among 200 posterior samples (neuromps.twin.inference definition: count of samples below it), divided by 200, against the uniform distribution by scipy.stats.kstest; per parameter",
+    "alpha": 0.05,
+    "multiplicity": "none: each parameter is tested at 0.05 on its own. The null hypothesis is 'calibrated', so a correction raises the bar for detecting miscalibration and lowers it for passing; under Bonferroni (0.01) HD14's two failures would themselves pass. The uncorrected rule is the one HD14 failed under, so it is kept. Holm-adjusted p values are reported beside it, not used.",
+    "chance_of_a_false_fail": "with five independent tests at 0.05, an exactly calibrated estimator passes all five with probability about 0.77; a single borderline failure is therefore reported as such, not explained away",
+    "expected_coverage": "central (equal-tailed) marginal credible intervals at levels 0.5, 0.8 and 0.95, read off the same ranks: covered when (1 - L)/2 <= rank/200 <= (1 + L)/2. A parameter is over-confident at level L if its coverage on the set is below L - 2 sqrt(L (1 - L) / n); coverage above nominal (too wide) is reported, not failed",
+    "contraction": "1 - mean posterior standard deviation / prior standard deviation (neuromps.twin.inference definition), 200 samples, on H300, every estimator on the same simulations",
+    "timing": "median wall-clock seconds for one posterior of 1,000 draws, over 20 held-out observations (neuromps.twin.inference.amortized_timing), M0 and M2 timed in the same process"
+  },
+  "predictions": {
+    "P0_hd14_failure_replicates": {"statement": "On fresh simulations the HD14 posterior still fails at least one of the two parameters it failed", "test": "M0, H300: KS p < 0.05 for gabaa_scale or inter_in_degree"},
+    "P1_ensemble_all_calibrated": {"statement": "The ensemble trained on the larger set passes the calibration check for all five parameters", "test": "M2, H300: KS p >= 0.05 for all five"},
+    "P2_ensemble_coverage": {"statement": "The ensemble is not over-confident at any registered level", "test": "M2, H1000: coverage >= L - 2 sqrt(L(1-L)/n) for all five parameters at L = 0.5, 0.8, 0.95"},
+    "P3_no_contraction_lost": {"statement": "The ensemble does not buy calibration by widening the posterior", "test": "M2, H300: contraction of every parameter >= M0's contraction on H300 - 0.05"},
+    "P4_still_amortised": {"statement": "A posterior still costs under a second", "test": "M2: median seconds per 1,000-draw posterior < 1.0"},
+    "P5_budget_alone_suffices": {"statement": "More simulations alone fix both failing parameters: the HD14 architecture retrained on the larger pool passes them, so the ensemble is not needed for calibration", "test": "M1, H300: KS p >= 0.05 for gabaa_scale and for inter_in_degree"},
+    "P6_ensemble_calibrated_at_higher_power": {"statement": "The ensemble's calibration holds on the larger held-out set too", "test": "M2, H1000: KS p >= 0.05 for all five"}
+  },
+  "assumption_check": {
+    "assumption": "calibration averaged over the prior holds where the real recordings lie",
+    "check": "M2 on the near_real set: KS p >= 0.05 for all five and coverage not over-confident at L = 0.5, 0.8, 0.95 (same rules as above); reported as a check, with the distance of the real recordings to their nearest simulation beside it, because a real recording far from every simulation is outside what any held-out set can vouch for"
+  },
+  "adoption_rule": "the slide quotes a parameter of the adopted estimator (M2) only if it passes P1's test and is not over-confident under P2's; a parameter that fails stays withheld as before. If M2 fails a parameter that M1 passes, both results are reported and the slide still uses M2, the registered estimator.",
+  "reporting": "Every prediction with its value and pass or fail, whichever way it falls; anything decided after seeing results is labelled post hoc. Results go to outputs/metrics.json under twin_hd14b_recalibration; the HD14 result and code path (twin_hd14_inference) are left as they are."
+}
