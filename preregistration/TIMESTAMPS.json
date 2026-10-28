@@ -1,6 +1,6 @@
 {
   "note": "Internal timestamps from this repository's history; not third-party verified.",
-  "root": "af0f2b246750b750828e26f4992f6222e661b4e0665d5d286e7d329f78b49129",
+  "root": "bdbc70e72f62a3c2cea9752046699bfe18ba9d65092fa1efeb0884a16c48b90c",
   "registrations": [
     {
       "file": "fly_chip_to_animal.json",
@@ -302,9 +302,22 @@
       "commit": "44eb52242631a3b2524381c9a5249f6d2d6c9a9f",
       "committed_at": "2026-10-28T07:27:53-04:00",
       "chain": "af0f2b246750b750828e26f4992f6222e661b4e0665d5d286e7d329f78b49129"
+    },
+    {
+      "file": "extractor_logisi.json",
+      "sha256": "7c9e0ec259b0102159c03ce0f12a3a3a5e3db98a7e5a6b2f96b5cde8e4ed0f9c",
+      "commit": "e11bc052facab4a0140ed075b717ccb474b6c424",
+      "committed_at": "2026-10-28T10:08:26-04:00",
+      "chain": "bdbc70e72f62a3c2cea9752046699bfe18ba9d65092fa1efeb0884a16c48b90c"
     }
   ],
   "registered_before_results": [
+    {
+      "output": "outputs/extractor_logisi_REAL.json",
+      "registration": "extractor_logisi.json",
+      "same_commit": false,
+      "registered_first": true
+    },
     {
       "output": "outputs/fly/chip_to_animal_SIMULATED.json",
       "registration": "fly_chip_to_animal.json",

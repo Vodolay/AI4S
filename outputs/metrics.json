@@ -14858,7 +14858,7 @@
       "registration_audit": "this audit's own output",
       "rhythm_audit": "re-reads the predictions of stages 1d-2e, counted under their own keys"
     },
-    "n_studies": 44,
+    "n_studies": 45,
     "studies": {
       "embodied_stage1": {
         "fail": 2,
@@ -15084,6 +15084,13 @@
         "total": 4,
         "uninterpretable": 0
       },
+      "extractor_agreement__logisi": {
+        "fail": 2,
+        "other": 0,
+        "pass": 1,
+        "total": 4,
+        "uninterpretable": 1
+      },
       "fly_chip_to_animal": {
         "fail": 3,
         "other": 0,
@@ -15170,27 +15177,27 @@
       }
     },
     "submission": {
-      "n_studies": 44,
+      "n_studies": 45,
       "total": {
-        "fail": 86,
+        "fail": 88,
         "other": 1,
-        "pass": 101,
-        "total": 226,
-        "uninterpretable": 38
+        "pass": 102,
+        "total": 230,
+        "uninterpretable": 39
       }
     },
     "total": {
-      "fail": 86,
+      "fail": 88,
       "other": 1,
-      "pass": 101,
-      "total": 226,
-      "uninterpretable": 38
+      "pass": 102,
+      "total": 230,
+      "uninterpretable": 39
     },
     "unrecognised": []
   },
   "registration_timestamps": {
-    "n_outputs_checked": 39,
-    "n_registrations": 43,
+    "n_outputs_checked": 40,
+    "n_registrations": 44,
     "n_violations": 0,
     "not_covered": [
       "twin_depression_under_block.json",
@@ -15199,8 +15206,8 @@
       "twin_inference_recalibration.json"
     ],
     "submission": {
-      "n_outputs_checked": 39,
-      "n_registrations": 43,
+      "n_outputs_checked": 40,
+      "n_registrations": 44,
       "n_violations": 0,
       "not_covered": [
         "twin_depression_under_block.json",
