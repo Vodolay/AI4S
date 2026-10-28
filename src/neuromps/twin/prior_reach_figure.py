@@ -37,7 +37,8 @@ def _feature_panel(ax, pools: dict) -> None:
         ["HD14 prior (simulated)", "widened prior (simulated)", "real recordings"],
         fontsize=6,
         frameon=False,
-        loc="upper right",
+        loc="lower center",
+        bbox_to_anchor=(0.5, 1.0),
         ncol=3,
     )
 
@@ -74,7 +75,7 @@ def _distance_panel(ax, pools: dict, n: int) -> None:
     ax.set_xlabel("distance to nearest simulation (HD14 scale)", fontsize=7)
     ax.set_ylabel("cumulative share", fontsize=7)
     ax.tick_params(labelsize=6)
-    ax.legend(fontsize=6, frameon=False, loc="lower right")
+    ax.legend(fontsize=6, frameon=False, loc="upper left")
 
 
 def _share_panel(ax, payload: dict) -> None:
