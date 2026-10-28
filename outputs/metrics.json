@@ -12618,7 +12618,7 @@
       "registration_audit": "this audit's own output",
       "rhythm_audit": "re-reads the predictions of stages 1d-2e, counted under their own keys"
     },
-    "n_studies": 42,
+    "n_studies": 43,
     "studies": {
       "embodied_stage1": {
         "fail": 2,
@@ -12886,6 +12886,13 @@
         "total": 4,
         "uninterpretable": 0
       },
+      "hpsc_split_half": {
+        "fail": 1,
+        "other": 0,
+        "pass": 2,
+        "total": 3,
+        "uninterpretable": 0
+      },
       "twin_depression_under_block": {
         "fail": 1,
         "other": 1,
@@ -12916,27 +12923,27 @@
       }
     },
     "submission": {
-      "n_studies": 42,
+      "n_studies": 43,
       "total": {
-        "fail": 80,
+        "fail": 81,
         "other": 1,
-        "pass": 97,
-        "total": 216,
+        "pass": 99,
+        "total": 219,
         "uninterpretable": 38
       }
     },
     "total": {
-      "fail": 80,
+      "fail": 81,
       "other": 1,
-      "pass": 97,
-      "total": 216,
+      "pass": 99,
+      "total": 219,
       "uninterpretable": 38
     },
     "unrecognised": []
   },
   "registration_timestamps": {
-    "n_outputs_checked": 38,
-    "n_registrations": 41,
+    "n_outputs_checked": 39,
+    "n_registrations": 42,
     "n_violations": 0,
     "not_covered": [
       "twin_depression_under_block.json",
@@ -12944,8 +12951,8 @@
       "toxcast_noise_floors.json"
     ],
     "submission": {
-      "n_outputs_checked": 38,
-      "n_registrations": 41,
+      "n_outputs_checked": 39,
+      "n_registrations": 42,
       "n_violations": 0,
       "not_covered": [
         "twin_depression_under_block.json",
