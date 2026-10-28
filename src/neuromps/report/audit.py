@@ -28,8 +28,16 @@ EXCLUDED = {
 }
 
 
-def _registered(entry) -> bool:
+def _predictions(entry):
+    """The registered predictions, also when nested under ``by_prediction``."""
     preds = entry.get("predictions") if isinstance(entry, dict) else None
+    if isinstance(preds, dict) and isinstance(preds.get("by_prediction"), dict):
+        return preds["by_prediction"]
+    return preds
+
+
+def _registered(entry) -> bool:
+    preds = _predictions(entry)
     return (
         isinstance(preds, dict)
         and bool(preds)
@@ -46,7 +54,7 @@ def _counts(preds: dict) -> dict:
 
 
 def _unreadable(entry) -> bool:
-    preds = entry.get("predictions") if isinstance(entry, dict) else None
+    preds = _predictions(entry)
     return isinstance(preds, dict) and bool(preds) and not _registered(entry)
 
 
@@ -85,14 +93,14 @@ def audit(metrics: dict, manuscript_only: set[str] = frozenset()) -> dict:
         if key in EXCLUDED:
             continue
         if _registered(entry):
-            studies[key], files[key] = _counts(entry["predictions"]), _registration_file(entry)
+            studies[key], files[key] = _counts(_predictions(entry)), _registration_file(entry)
         elif _unreadable(entry):
             unrecognised.append(key)
         elif isinstance(entry, dict):
             for sub, inner in entry.items():
                 name = f"{key}__{sub}"
                 if _registered(inner):
-                    studies[name] = _counts(inner["predictions"])
+                    studies[name] = _counts(_predictions(inner))
                     files[name] = _registration_file(inner, entry)
                 elif _unreadable(inner):
                     unrecognised.append(name)

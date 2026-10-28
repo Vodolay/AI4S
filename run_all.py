@@ -146,6 +146,7 @@ def main(argv: list[str] | None = None) -> int:
             from neuromps.twin.inference import main as run_inference
             from neuromps.twin.perturbation import main as run_knobs
             from neuromps.twin.real_inference import main as run_real_inference
+            from neuromps.twin.recalibration import main as run_recalibration
             from neuromps.twin.validate import main as validate_twin
 
             quick = ["--quick"] if args.quick else []
@@ -161,6 +162,10 @@ def main(argv: list[str] | None = None) -> int:
             # wells; also reuses committed predictions, and skips itself without the table.
             run_toxcast_doses(quick)
             run_inference(quick)
+            # D31: the registered recalibration of that posterior. Quick is a token
+            # run on the quick cache; full reuses the recorded simulation chunks and
+            # simulates only those a clean clone lacks.
+            run_recalibration(quick)
             run_real_inference(quick)
             # The same question put to a change against each chip's own
             # baseline, rather than to one recording's absolute features.

@@ -710,7 +710,96 @@ transmission does not — and it is the knob our pharmacology sections depend on
 its intervals as calibrated.** Before the density correction (§13), no parameter passed and a fifth of
 our simulations were silent; now 0
 <!-- metrics.json: twin_hd14_inference.fraction_silent_simulations --> are. Simulating at the
-calibrated density brought three knobs into calibration. Appendix G shows the full rank histograms.
+calibrated density brought three knobs into calibration on this test. Appendix G shows the full
+rank histograms. A registered follow-up after round 1 (below) found that the three passes do not
+hold on fresh simulations: this table is the test as it was run, not a calibration claim.
+
+**After round 1: more simulations and an ensemble (registered, decision D31).** We asked whether a
+larger simulation budget, an ensemble, or both would bring all five parameters into calibration
+without losing contraction, and registered seven predictions before running a single new
+simulation (`preregistration/twin_inference_recalibration.json`). Every new simulation used fresh
+seeds. Within the registered deadline we simulated 12,750
+<!-- metrics.json: twin_hd14b_recalibration.budget.new_train_simulations --> new training runs (51
+<!-- metrics.json: twin_hd14b_recalibration.budget.new_train_chunks_completed --> of 60 planned
+chunks, cut by a prefix rule fixed in advance), for a pool of 15,750
+<!-- metrics.json: twin_hd14b_recalibration.budget.pool_simulations -->, and 1,000
+<!-- metrics.json: twin_hd14b_recalibration.budget.held_out --> fresh held-out runs. We compared
+three estimators on the same held-out simulations: the first-round flow unchanged, the same flow
+retrained on the larger pool, and an equal-weight ensemble of five such flows. The test is the
+first-round test, unchanged: rank uniformity on the first 300 <!-- metrics.json: twin_hd14b_recalibration.results.M2.H300.n --> held-out runs (the primary test) at p ≥ 0.05 <!-- metrics.json: twin_hd14b_recalibration.alpha --> per parameter, with no
+correction for testing five (a correction would make passing easier, and would have passed the
+first-round failures). We added credible-interval coverage on the full held-out set.
+
+| model parameter | first-round flow, fresh runs (KS p) | one flow, larger pool (KS p) | five-flow ensemble (KS p) | ensemble contraction | ensemble coverage of a 50% interval |
+|---|---|---|---|---|---|
+| `threshold_scale` | 0.0121 <!-- metrics.json: twin_hd14b_recalibration.results.M0.H300.ks.threshold_scale.ks_p --> | 0.065 <!-- metrics.json: twin_hd14b_recalibration.results.M1.H300.ks.threshold_scale.ks_p --> | 0.3128 <!-- metrics.json: twin_hd14b_recalibration.results.M2.H300.ks.threshold_scale.ks_p --> | 0.742 <!-- metrics.json: twin_hd14b_recalibration.results.M2.H300.contraction.threshold_scale.contraction --> | 0.473 <!-- metrics.json: twin_hd14b_recalibration.results.M2.H1000.coverage.threshold_scale.L50.coverage --> |
+| `ampa_scale` | 0.0345 <!-- metrics.json: twin_hd14b_recalibration.results.M0.H300.ks.ampa_scale.ks_p --> | 0.1726 <!-- metrics.json: twin_hd14b_recalibration.results.M1.H300.ks.ampa_scale.ks_p --> | 0.3485 <!-- metrics.json: twin_hd14b_recalibration.results.M2.H300.ks.ampa_scale.ks_p --> | 0.663 <!-- metrics.json: twin_hd14b_recalibration.results.M2.H300.contraction.ampa_scale.contraction --> | 0.446 <!-- metrics.json: twin_hd14b_recalibration.results.M2.H1000.coverage.ampa_scale.L50.coverage --> |
+| `log10_forward_ratio` | 0.0037 <!-- metrics.json: twin_hd14b_recalibration.results.M0.H300.ks.log10_forward_ratio.ks_p --> | 0.0874 <!-- metrics.json: twin_hd14b_recalibration.results.M1.H300.ks.log10_forward_ratio.ks_p --> | 0.065 <!-- metrics.json: twin_hd14b_recalibration.results.M2.H300.ks.log10_forward_ratio.ks_p --> | 0.464 <!-- metrics.json: twin_hd14b_recalibration.results.M2.H300.contraction.log10_forward_ratio.contraction --> | 0.441 <!-- metrics.json: twin_hd14b_recalibration.results.M2.H1000.coverage.log10_forward_ratio.L50.coverage --> |
+| `gabaa_scale` | 0.01 <!-- metrics.json: twin_hd14b_recalibration.results.M0.H300.ks.gabaa_scale.ks_p --> | 0.0025 <!-- metrics.json: twin_hd14b_recalibration.results.M1.H300.ks.gabaa_scale.ks_p --> | 0.1726 <!-- metrics.json: twin_hd14b_recalibration.results.M2.H300.ks.gabaa_scale.ks_p --> | 0.31 <!-- metrics.json: twin_hd14b_recalibration.results.M2.H300.contraction.gabaa_scale.contraction --> | 0.424 <!-- metrics.json: twin_hd14b_recalibration.results.M2.H1000.coverage.gabaa_scale.L50.coverage --> |
+| `inter_in_degree` | 0.0001 <!-- metrics.json: twin_hd14b_recalibration.results.M0.H300.ks.inter_in_degree.ks_p --> | 0.0056 <!-- metrics.json: twin_hd14b_recalibration.results.M1.H300.ks.inter_in_degree.ks_p --> | 0.0056 <!-- metrics.json: twin_hd14b_recalibration.results.M2.H300.ks.inter_in_degree.ks_p --> | 0.306 <!-- metrics.json: twin_hd14b_recalibration.results.M2.H300.contraction.inter_in_degree.contraction --> | 0.41 <!-- metrics.json: twin_hd14b_recalibration.results.M2.H1000.coverage.inter_in_degree.L50.coverage --> |
+
+Two of the seven predictions pass
+(2 <!-- metrics.json: twin_hd14b_recalibration.predictions.n_passed --> of
+7 <!-- metrics.json: twin_hd14b_recalibration.predictions.n_registered -->):
+
+- **The first-round failure replicates (passes), and more.** On fresh simulations the first-round flow
+  fails all five parameters, not two. It was not a changed simulator: six of its own training
+  runs, re-simulated today, came out identical
+  (6 <!-- metrics.json: twin_hd14b_recalibration.post_hoc.simulator_reproduces_hd14_cache.n_identical -->
+  of 6 <!-- metrics.json: twin_hd14b_recalibration.post_hoc.simulator_reproduces_hd14_cache.n_checked -->,
+  a check added after the result). Nor was it our evaluation code: run on the first-round held-out set,
+  it reproduces the first-round pattern, `threshold_scale` passing at
+  0.7551 <!-- metrics.json: twin_hd14b_recalibration.post_hoc.M0_on_hd14_own_holdout.ks.threshold_scale.ks_p -->
+  and `inter_in_degree` failing at
+  0.0037 <!-- metrics.json: twin_hd14b_recalibration.post_hoc.M0_on_hd14_own_holdout.ks.inter_in_degree.ks_p -->.
+  What the first-round test missed, coverage shows: even on that set, the first-round flow's 50% intervals
+  held the true value 0.3933 <!-- metrics.json: twin_hd14b_recalibration.post_hoc.M0_on_hd14_own_holdout.coverage.inter_in_degree.L50.coverage --> to
+  0.47 <!-- metrics.json: twin_hd14b_recalibration.post_hoc.M0_on_hd14_own_holdout.coverage.ampa_scale.L50.coverage -->
+  of the time. Three hundred runs are too few for a rank test to see an over-confidence of
+  this size reliably, so the first-round passes were partly luck (post hoc reading).
+- **The ensemble does not calibrate all five (three predictions fail).** On the primary test it passes four
+  parameters and fails `inter_in_degree`; on the full held-out set it fails four of five (only
+  `threshold_scale`, p = 0.1935
+  <!-- metrics.json: twin_hd14b_recalibration.results.M2.H1000.ks.threshold_scale.ks_p -->, passes),
+  and its intervals are still too narrow for four parameters (coverage check fails).
+- **No contraction is lost (passes).** Every parameter's contraction is at or above the first-round
+  flow's on the same runs, less the registered margin of 0.05.
+- **It costs more per posterior (fails).** The ensemble takes 1.953 s
+  <!-- metrics.json: twin_hd14b_recalibration.amortized_inference.M2.median_seconds_per_posterior -->
+  for 1,000 draws against 0.3286 s
+  <!-- metrics.json: twin_hd14b_recalibration.amortized_inference.M0.median_seconds_per_posterior -->
+  for the first-round flow in the same process; the registered limit was 1 s. Each member is sampled
+  separately, so the cost scales with the number of members.
+- **Budget alone does not fix the two (fails).** The first-round flow retrained on 15,750 runs is
+  sharper but still fails `gabaa_scale` (p = 0.0025
+  <!-- metrics.json: twin_hd14b_recalibration.results.M1.H300.ks.gabaa_scale.ks_p -->) and
+  `inter_in_degree`. The five-flow ensemble on the first-round training set alone fails all five on
+  the primary test. Only budget and averaging together moved `gabaa_scale` past the threshold on the
+  300-run test, and on the full held-out set it fails there too (exploratory comparison).
+
+The registered check near the real recordings also fails: on the 300 <!-- metrics.json: twin_hd14b_recalibration.near_real.n_selected --> held-out runs closest to the
+113 <!-- metrics.json: twin_hd14b_recalibration.near_real.n_real --> real two-chamber recordings, the
+ensemble fails `ampa_scale` (p = 0.0121
+<!-- metrics.json: twin_hd14b_recalibration.assumption_check.ks_p.ampa_scale -->). Those runs are not
+very close: the median real recording lies 2.661
+<!-- metrics.json: twin_hd14b_recalibration.near_real.real_to_nearest_simulation.median --> standard
+units from its nearest simulation, where a simulation lies 0.541
+<!-- metrics.json: twin_hd14b_recalibration.near_real.simulation_to_nearest_other_simulation.median -->
+from its nearest neighbour.
+
+Under the rule registered for the slide, the ensemble may be quoted for `threshold_scale` only. The
+inhibitory knob our pharmacology sections lean on stays withheld, as do the other three. More
+simulations and averaging lower every parameter's rank-test statistic on the full held-out set (for
+`gabaa_scale` from 0.11
+<!-- metrics.json: twin_hd14b_recalibration.results.M0.H1000.ks.gabaa_scale.ks_statistic --> to
+0.077 <!-- metrics.json: twin_hd14b_recalibration.results.M2.H1000.ks.gabaa_scale.ks_statistic -->,
+for `inter_in_degree` from 0.107
+<!-- metrics.json: twin_hd14b_recalibration.results.M0.H1000.ks.inter_in_degree.ks_statistic --> to
+0.063 <!-- metrics.json: twin_hd14b_recalibration.results.M2.H1000.ks.inter_in_degree.ks_statistic -->)
+without costing sharpness, but not far enough, so the limit is not budget alone; whether it is the estimator family or what the
+19 summaries carry is the next question, not one this test answers. The full record is
+`twin_hd14b_recalibration` in `outputs/metrics.json`, and the rank histograms and coverage are in
+Appendix G.
 
 **The false-disinhibition artifact.** When we applied the model to real untreated chips, it returned
 an inferred inhibition scale of 0.5219
@@ -781,7 +870,7 @@ what we would do instead.
 | 3 | no cross-laboratory transfer | 0.3482 <!-- metrics.json: cross_lab_transfer.balanced_accuracy --> against 0.3333 <!-- metrics.json: cross_lab_transfer.chance --> chance | validate inside one laboratory; a cross-laboratory test needs two laboratories sharing at least two classes |
 | 4 | domain adaptation backfires | CORAL drops transfer to 0.442 <!-- metrics.json: species_transfer.transfer.coral.rat_to_human.balanced_accuracy -->, standardization to 0.408 <!-- metrics.json: species_transfer.transfer.standardize.rat_to_human.balanced_accuracy --> | report the unadapted transfer first; adapt only once it beats that on held-out cultures |
 | 5 | synchrony was an artifact | depression and delay dispersion fail to fix synchrony | match cell density to culture and cap each electrode's radius at half the pitch (§13) |
-| 6 | posterior over-confidence | `gabaa_scale` fails rank uniformity at p = 0.0174 <!-- metrics.json: twin_hd14_inference.rank_uniformity_ks_p.gabaa_scale.ks_p --> | check rank uniformity before quoting an interval; quote only parameters that pass |
+| 6 | posterior over-confidence | `gabaa_scale` fails rank uniformity at p = 0.0174 <!-- metrics.json: twin_hd14_inference.rank_uniformity_ks_p.gabaa_scale.ks_p -->; since round 1, on fresh simulations all five parameters fail, and a five-flow ensemble on 15,750 <!-- metrics.json: twin_hd14b_recalibration.budget.pool_simulations --> simulations leaves four over-confident (§16) | check rank uniformity and interval coverage on fresh simulations before quoting an interval; quote only parameters that pass both |
 | 7 | baseline read as drug effect | absolute features infer 0.5219 <!-- metrics.json: twin_hd15_real_inference.gabaa_scale_at_baseline.median --> inhibition scale on untreated chips | infer from paired deltas against each well's own baseline (§16) |
 | 8 | support rejection | the calibrated twin cannot sample 9 <!-- metrics.json: demo_precompute.posterior_draws.n_short_of_requested --> of 113 <!-- metrics.json: demo_precompute.posterior_draws.n_recordings --> real recordings | treat a refusal as an out-of-distribution flag and send the recording to a person |
 | 9 | vesicle depletion does not explain the GABA-A reversal (added after the first round) | under strong GABA-A block the twin's firing rate rises by 2.389 <!-- metrics.json: twin_depression_under_block.summary.control_mfr_delta_at_block --> log2; with depletion, by at least 0.8687 <!-- metrics.json: twin_depression_under_block.summary.smallest_mfr_delta_at_block_with_depression -->; on real chips it changes by −0.335 <!-- metrics.json: twin_depression_under_block.summary.real_gabaa_antagonist_mfr_delta --> | do not read the twin's firing-rate direction under disinhibition as the culture's; look for the missing mechanism elsewhere (recalibrating with depression, depolarization block). Since round 1: in the EPA's rat cortical wells, GABA-A antagonists raise firing rate as the twin does (§33), so the real direction differs between laboratories |
@@ -947,10 +1036,10 @@ guarded throughout: `data/raw/MANIFEST.json` records every source's URL, license
 
 The registrations are checked the same way. Every study that registered its predictions in
 `preregistration/` records each prediction's outcome, and `neuromps.report.audit` (run at the end
-of every `run_all`) counts them: 43 <!-- metrics.json: registration_audit.submission.n_studies --> studies made
-219 <!-- metrics.json: registration_audit.submission.total.total --> registered predictions, of which
-99 <!-- metrics.json: registration_audit.submission.total.pass --> passed,
-81 <!-- metrics.json: registration_audit.submission.total.fail --> failed and
+of every `run_all`) counts them: 44 <!-- metrics.json: registration_audit.submission.n_studies --> studies made
+226 <!-- metrics.json: registration_audit.submission.total.total --> registered predictions, of which
+101 <!-- metrics.json: registration_audit.submission.total.pass --> passed,
+86 <!-- metrics.json: registration_audit.submission.total.fail --> failed and
 38 <!-- metrics.json: registration_audit.submission.total.uninterpretable --> were uninterpretable.
 The audit names any study whose predictions carry no outcome, so that none is left out
 unnoticed (none is now; `registration_audit.unrecognised`), and it leaves out the rhythm audit,
@@ -962,8 +1051,9 @@ every result file that names its registration, whether the registration's commit
 39 <!-- metrics.json: registration_timestamps.submission.n_outputs_checked --> result files were checked and
 0 <!-- metrics.json: registration_timestamps.submission.n_violations --> came before their registration. The
 check cannot see the
-3 <!-- metrics.json: registration_timestamps.submission.not_covered --> registrations whose results do not
-name them (the twin's depression test, its prior classifier and the ToxCast noise floors), and it
+4 <!-- metrics.json: registration_timestamps.submission.not_covered --> registrations whose results do not
+name them (the twin's depression test, its prior classifier, the ToxCast noise floors and the
+inverse-model recalibration, whose results are recorded only in `metrics.json`), and it
 rests on this repository's own history, not on a third-party timestamp. The two manuscripts in
 preparation register their studies the same way in a separate, private repository.
 
@@ -1919,6 +2009,12 @@ inhibitory knob — the latter being the one §16 depends on, which is why we do
 as calibrated.
 
 ![SIMULATED posterior calibration: the rank of the true parameter among posterior samples. Flat would be calibrated; these are not.](../outputs/twin/hd14_posterior_ranks_simulated.png){width=100%}
+
+After round 1 (§16, decision D31) the first-round flow and the five-flow ensemble were judged on the
+same 1,000 <!-- metrics.json: twin_hd14b_recalibration.budget.held_out --> fresh held-out simulations. The ensemble's histograms are flatter and its coverage sits
+closer to the diagonal, but the U shape of over-confidence remains for four parameters.
+
+![SIMULATED: the first-round flow (top) and the five-flow ensemble on 15,750 simulations (middle) on 1,000 fresh held-out simulations; grey is the band a calibrated model fills 99% of the time. Bottom: empirical against nominal coverage of central credible intervals for all four estimators.](../outputs/twin/hd14b_recalibration_simulated.png){width=100%}
 
 ## Appendix H — Quality-control flag registry
 
