@@ -536,6 +536,12 @@
       "registered_first": true
     },
     {
+      "output": "outputs/hpsc_network_state_REAL.json",
+      "registration": "hpsc_network_state.json",
+      "same_commit": false,
+      "registered_first": true
+    },
+    {
       "output": "outputs/hpsc_settling_REAL.json",
       "registration": "hpsc_settling.json",
       "same_commit": false,

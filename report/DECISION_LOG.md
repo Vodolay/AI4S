@@ -450,4 +450,18 @@ it with its own command or `python -m neuromps.fly.pipeline --only <step>`.
   stratifying human wells by baseline network state.
 - **Assumption recorded:** the relation is not an age effect; checked with a partial correlation
   on culture age.
-- **Revisit at:** `outputs/metrics.json` key `hpsc_network_state`.
+- **Outcome:** 1 of 3 (registration commit f669016; code and tests committed before the
+  real-data run in d7ba7da). N1 fails: in
+  144 <!-- metrics.json: hpsc_network_state.predictions.N1_early_network_bursting_predicts_settling_in_human.n_recordings -->
+  human developmental recordings rho(nb0, late_b) is
+  −0.06 <!-- metrics.json: hpsc_network_state.predictions.N1_early_network_bursting_predicts_settling_in_human.value -->,
+  interval −0.23 to 0.09 <!-- metrics.json: hpsc_network_state.predictions.N1_early_network_bursting_predicts_settling_in_human.ci95 -->;
+  N2 passes (rat rho −0.06 <!-- metrics.json: hpsc_network_state.predictions.N2_not_in_rat.value -->,
+  no relation in either species); N3 fails. The age flag is not raised (human partial rho
+  −0.39 <!-- metrics.json: hpsc_network_state.age_check.human.partial_rho -->), but the per-DIV
+  median (−0.06 <!-- metrics.json: hpsc_network_state.age_check.human.per_div.median_rho -->)
+  does not agree with it. The post hoc baseline result recomputes as
+  −0.73 <!-- metrics.json: hpsc_network_state.primary_pool_post_hoc.human.rho.nb0.point --> and
+  stays a hypothesis tied to one plate. Reading: stratifying human wells by baseline network
+  bursting is not supported by the replication. Report §36, change-log entry 50.
+- **Revisit at:** `outputs/metrics.json` key `hpsc_network_state`. Next, if pursued: 30-minute untreated recordings of more human plates at matched ages.
