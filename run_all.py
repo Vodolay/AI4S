@@ -100,6 +100,7 @@ def main(argv: list[str] | None = None) -> int:
             from neuromps.models.cross_lab import main as run_cross_lab
             from neuromps.models.dose_response import main as run_dose_response
             from neuromps.models.extractor_agreement import main as run_extractor_agreement
+            from neuromps.models.hpsc_split_half import main as run_split_half
             from neuromps.models.mechanism import main as run_models
             from neuromps.models.microchannels import main as run_microchannels
             from neuromps.models.rate_only import main as run_rate_only
@@ -131,6 +132,9 @@ def main(argv: list[str] | None = None) -> int:
             # Real vehicle wells: what change a chip can see. Skips itself when the
             # ToxCast well table (built outside the fetch tiers) is absent.
             run_noise_floors(quick)
+            # The same question for human iPSC wells: split-half noise against rat, one lab.
+            # A quick run takes the two 48-well baselines only (the quick data tier).
+            run_split_half(quick)
         elif stage == "twin":
             from neuromps.models.twin_toxcast_check import main as run_toxcast_check
             from neuromps.models.twin_toxcast_dose_response import main as run_toxcast_doses

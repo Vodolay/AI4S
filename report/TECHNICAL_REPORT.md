@@ -1036,10 +1036,10 @@ guarded throughout: `data/raw/MANIFEST.json` records every source's URL, license
 
 The registrations are checked the same way. Every study that registered its predictions in
 `preregistration/` records each prediction's outcome, and `neuromps.report.audit` (run at the end
-of every `run_all`) counts them: 43 <!-- metrics.json: registration_audit.submission.n_studies --> studies made
-223 <!-- metrics.json: registration_audit.submission.total.total --> registered predictions, of which
-99 <!-- metrics.json: registration_audit.submission.total.pass --> passed,
-85 <!-- metrics.json: registration_audit.submission.total.fail --> failed and
+of every `run_all`) counts them: 44 <!-- metrics.json: registration_audit.submission.n_studies --> studies made
+226 <!-- metrics.json: registration_audit.submission.total.total --> registered predictions, of which
+101 <!-- metrics.json: registration_audit.submission.total.pass --> passed,
+86 <!-- metrics.json: registration_audit.submission.total.fail --> failed and
 38 <!-- metrics.json: registration_audit.submission.total.uninterpretable --> were uninterpretable.
 The audit names any study whose predictions carry no outcome, so that none is left out
 unnoticed (none is now; `registration_audit.unrecognised`), and it leaves out the rhythm audit,
@@ -1047,8 +1047,8 @@ which re-reads predictions already counted under their own stages.
 `neuromps.report.timestamps` writes `preregistration/TIMESTAMPS.json`: each registration's
 checksum and the commit that first added it, a hash chain over them in commit order, and, for
 every result file that names its registration, whether the registration's commit came first. Of
-42 <!-- metrics.json: registration_timestamps.submission.n_registrations --> registrations,
-38 <!-- metrics.json: registration_timestamps.submission.n_outputs_checked --> result files were checked and
+43 <!-- metrics.json: registration_timestamps.submission.n_registrations --> registrations,
+39 <!-- metrics.json: registration_timestamps.submission.n_outputs_checked --> result files were checked and
 0 <!-- metrics.json: registration_timestamps.submission.n_violations --> came before their registration. The
 check cannot see the
 4 <!-- metrics.json: registration_timestamps.submission.not_covered --> registrations whose results do not
@@ -1772,6 +1772,145 @@ are pooled across exposure dates while the null draws within one date, which mak
 rule slightly permissive for the few compounds run on more than one date. And the class labels
 are the compounds' established primary targets, not measurements made here; a compound that acts
 on something else as well will not match its knob however good the twin is.
+
+## 36. Is a human iPSC chip noisier than a rat one? Split-half noise from one lab
+
+§32 tells a lab how many wells a rat cortical chip needs. The obvious next question is about
+human iPSC-derived chips, and the public data we have cannot answer it the way §32 does: the
+Kapucu et al. 2022 deposit (Creative Commons Attribution licence) records human and rat cultures in one lab with one
+protocol, but has too few untreated wells recorded twice. What it does have is long untreated
+recordings in both species. So we cut each one in half and asked how much an untreated well's
+readouts move between the two halves of a single recording, per species.
+
+Registered first (decision D32, `preregistration/hpsc_split_half.json`
+<!-- metrics.json: hpsc_split_half.registration.file -->, committed before any half-recording
+feature was computed; the code and its tests were committed before the first real-data run).
+Each well's recording is cut at half its duration and both halves go through the same
+`features/mea.py` extractor as everything else. A well is usable if it is not excluded upstream
+and has at least 10 active electrodes in each half. The change in each feature is
+d = log2(second half / first half), with the ratio floored so that an abolished readout counts as a fixed large fall. The noise is the SD of d across
+wells, and R = SD human / SD rat, with a 95% interval from resampling wells within each species.
+The primary pool is the lab's two matched 48-well untreated baselines: human DIV29, 30 minutes,
+24 <!-- metrics.json: hpsc_split_half.primary.usable_wells.human --> usable wells of
+48 <!-- metrics.json: hpsc_split_half.primary.wells.human -->, the other half excluded upstream;
+rat DIV22, 30 minutes,
+38 <!-- metrics.json: hpsc_split_half.primary.usable_wells.rat --> usable wells of 48
+<!-- metrics.json: hpsc_split_half.primary.wells.rat -->. The replication pool is the lab's
+12-well developmental plates, every 10-minute recording at DIV28 or later for human and DIV21 or
+later for rat:
+144 <!-- metrics.json: hpsc_split_half.replication.usable_recordings.human --> usable recordings from
+12 <!-- metrics.json: hpsc_split_half.replication.usable_wells.human --> human wells, and
+58 <!-- metrics.json: hpsc_split_half.replication.usable_recordings.rat --> from
+12 <!-- metrics.json: hpsc_split_half.replication.usable_wells.rat --> rat wells.
+
+![REAL data, Kapucu 2022, one lab. Left: R = SD human / SD rat of the split-half change for each readout, with its 95% interval, on the 48-well baselines (circles) and the 12-well developmental plates (squares); right of the dashed line, the human wells move more. Middle: each usable 48-well baseline well's firing-rate change between the halves. Right: the size of that change against the well's firing rate, with the band where the two species' firing rates overlap.](../outputs/figures/hpsc_split_half_real.png){width=100%}
+
+**Two of the three registered predictions pass.**
+
+- **P1 (human firing rate noisier) passes.** On the matched baselines the human wells' firing
+  rate moves about twice as much between halves: SD
+  0.21 <!-- metrics.json: hpsc_split_half.primary.features.mfr_hz.human.sd --> against
+  0.10 <!-- metrics.json: hpsc_split_half.primary.features.mfr_hz.rat.sd --> (log2), R =
+  2.06 <!-- metrics.json: hpsc_split_half.predictions.P1_human_firing_rate_noisier.R -->, 95%
+  interval 1.39 to 3.56 <!-- metrics.json: hpsc_split_half.predictions.P1_human_firing_rate_noisier.ci95 -->,
+  entirely above 1 as the registration required.
+- **P2 (noisier across readouts) fails.** The human wells are noisier on only
+  4 <!-- metrics.json: hpsc_split_half.predictions.P2_human_noisier_across_features.human_noisier -->
+  of the
+  8 <!-- metrics.json: hpsc_split_half.predictions.P2_human_noisier_across_features.features_scored -->
+  scored readouts, against the 5 registered: firing rate, burst duration, spikes per burst and
+  ISI CV. On the share of spikes in bursts the rat wells are clearly the noisier
+  (R = 0.36 <!-- metrics.json: hpsc_split_half.primary.features.pct_spikes_in_bursts.R -->,
+  0.21 to 0.65 <!-- metrics.json: hpsc_split_half.primary.features.pct_spikes_in_bursts.ci95 -->),
+  and on synchrony narrowly so. On these baselines the difference is specific to some readouts,
+  firing rate among them, not a general property of the human wells.
+- **P3 (replicates on the developmental plates) passes, as registered, on its point estimate
+  only.** R for firing rate is
+  1.54 <!-- metrics.json: hpsc_split_half.predictions.P3_replicates_on_developmental_plates.R -->,
+  above 1, but its 95% interval,
+  0.75 to 2.95 <!-- metrics.json: hpsc_split_half.predictions.P3_replicates_on_developmental_plates.ci95 -->,
+  includes 1: twelve wells per species replicate the direction, not the certainty. On these
+  plates the human wells are the noisier on every readout but ISI CV, so the readout pattern
+  that made P2 fail does not repeat either; we read neither pool's pattern beyond firing rate as
+  settled.
+
+Every readout, both pools (SD of the split-half change in log2; R with its percentile interval from the well bootstrap):
+
+| readout | 48-well baselines: SD human / SD rat (log2) | R (95% interval) | 12-well developmental: SD human / SD rat (log2) | R (95% interval) |
+|---|---|---|---|---|
+| mfr hz | 0.21 <!-- metrics.json: hpsc_split_half.primary.features.mfr_hz.human.sd --> / 0.10 <!-- metrics.json: hpsc_split_half.primary.features.mfr_hz.rat.sd --> | 2.06 <!-- metrics.json: hpsc_split_half.primary.features.mfr_hz.R --> (1.39 to 3.56 <!-- metrics.json: hpsc_split_half.primary.features.mfr_hz.ci95 -->) | 0.42 <!-- metrics.json: hpsc_split_half.replication.features.mfr_hz.human.sd --> / 0.28 <!-- metrics.json: hpsc_split_half.replication.features.mfr_hz.rat.sd --> | 1.54 <!-- metrics.json: hpsc_split_half.replication.features.mfr_hz.R --> (0.75 to 2.94 <!-- metrics.json: hpsc_split_half.replication.features.mfr_hz.ci95 -->) |
+| burst rate per min | 0.18 <!-- metrics.json: hpsc_split_half.primary.features.burst_rate_per_min.human.sd --> / 0.25 <!-- metrics.json: hpsc_split_half.primary.features.burst_rate_per_min.rat.sd --> | 0.73 <!-- metrics.json: hpsc_split_half.primary.features.burst_rate_per_min.R --> (0.49 to 1.15 <!-- metrics.json: hpsc_split_half.primary.features.burst_rate_per_min.ci95 -->) | 0.50 <!-- metrics.json: hpsc_split_half.replication.features.burst_rate_per_min.human.sd --> / 0.23 <!-- metrics.json: hpsc_split_half.replication.features.burst_rate_per_min.rat.sd --> | 2.23 <!-- metrics.json: hpsc_split_half.replication.features.burst_rate_per_min.R --> (1.57 to 3.45 <!-- metrics.json: hpsc_split_half.replication.features.burst_rate_per_min.ci95 -->) |
+| burst duration s | 0.11 <!-- metrics.json: hpsc_split_half.primary.features.burst_duration_s.human.sd --> / 0.08 <!-- metrics.json: hpsc_split_half.primary.features.burst_duration_s.rat.sd --> | 1.35 <!-- metrics.json: hpsc_split_half.primary.features.burst_duration_s.R --> (0.82 to 2.43 <!-- metrics.json: hpsc_split_half.primary.features.burst_duration_s.ci95 -->) | 0.37 <!-- metrics.json: hpsc_split_half.replication.features.burst_duration_s.human.sd --> / 0.21 <!-- metrics.json: hpsc_split_half.replication.features.burst_duration_s.rat.sd --> | 1.73 <!-- metrics.json: hpsc_split_half.replication.features.burst_duration_s.R --> (0.55 to 3.65 <!-- metrics.json: hpsc_split_half.replication.features.burst_duration_s.ci95 -->) |
+| spikes per burst | 0.16 <!-- metrics.json: hpsc_split_half.primary.features.spikes_per_burst.human.sd --> / 0.08 <!-- metrics.json: hpsc_split_half.primary.features.spikes_per_burst.rat.sd --> | 2.07 <!-- metrics.json: hpsc_split_half.primary.features.spikes_per_burst.R --> (1.23 to 3.75 <!-- metrics.json: hpsc_split_half.primary.features.spikes_per_burst.ci95 -->) | 0.41 <!-- metrics.json: hpsc_split_half.replication.features.spikes_per_burst.human.sd --> / 0.25 <!-- metrics.json: hpsc_split_half.replication.features.spikes_per_burst.rat.sd --> | 1.61 <!-- metrics.json: hpsc_split_half.replication.features.spikes_per_burst.R --> (0.60 to 3.16 <!-- metrics.json: hpsc_split_half.replication.features.spikes_per_burst.ci95 -->) |
+| pct spikes in bursts | 0.07 <!-- metrics.json: hpsc_split_half.primary.features.pct_spikes_in_bursts.human.sd --> / 0.20 <!-- metrics.json: hpsc_split_half.primary.features.pct_spikes_in_bursts.rat.sd --> | 0.35 <!-- metrics.json: hpsc_split_half.primary.features.pct_spikes_in_bursts.R --> (0.21 to 0.65 <!-- metrics.json: hpsc_split_half.primary.features.pct_spikes_in_bursts.ci95 -->) | 0.47 <!-- metrics.json: hpsc_split_half.replication.features.pct_spikes_in_bursts.human.sd --> / 0.11 <!-- metrics.json: hpsc_split_half.replication.features.pct_spikes_in_bursts.rat.sd --> | 4.14 <!-- metrics.json: hpsc_split_half.replication.features.pct_spikes_in_bursts.R --> (2.36 to 9.56 <!-- metrics.json: hpsc_split_half.replication.features.pct_spikes_in_bursts.ci95 -->) |
+| network burst rate per min | 1.01 <!-- metrics.json: hpsc_split_half.primary.features.network_burst_rate_per_min.human.sd --> / 1.49 <!-- metrics.json: hpsc_split_half.primary.features.network_burst_rate_per_min.rat.sd --> | 0.68 <!-- metrics.json: hpsc_split_half.primary.features.network_burst_rate_per_min.R --> (0.37 to 1.22 <!-- metrics.json: hpsc_split_half.primary.features.network_burst_rate_per_min.ci95 -->) | 1.62 <!-- metrics.json: hpsc_split_half.replication.features.network_burst_rate_per_min.human.sd --> / 0.65 <!-- metrics.json: hpsc_split_half.replication.features.network_burst_rate_per_min.rat.sd --> | 2.47 <!-- metrics.json: hpsc_split_half.replication.features.network_burst_rate_per_min.R --> (1.46 to 6.41 <!-- metrics.json: hpsc_split_half.replication.features.network_burst_rate_per_min.ci95 -->) |
+| synchrony index | 0.19 <!-- metrics.json: hpsc_split_half.primary.features.synchrony_index.human.sd --> / 0.46 <!-- metrics.json: hpsc_split_half.primary.features.synchrony_index.rat.sd --> | 0.42 <!-- metrics.json: hpsc_split_half.primary.features.synchrony_index.R --> (0.23 to 0.99 <!-- metrics.json: hpsc_split_half.primary.features.synchrony_index.ci95 -->) | 0.37 <!-- metrics.json: hpsc_split_half.replication.features.synchrony_index.human.sd --> / 0.22 <!-- metrics.json: hpsc_split_half.replication.features.synchrony_index.rat.sd --> | 1.64 <!-- metrics.json: hpsc_split_half.replication.features.synchrony_index.R --> (1.16 to 2.80 <!-- metrics.json: hpsc_split_half.replication.features.synchrony_index.ci95 -->) |
+| isi cv | 0.11 <!-- metrics.json: hpsc_split_half.primary.features.isi_cv.human.sd --> / 0.03 <!-- metrics.json: hpsc_split_half.primary.features.isi_cv.rat.sd --> | 3.11 <!-- metrics.json: hpsc_split_half.primary.features.isi_cv.R --> (2.01 to 4.36 <!-- metrics.json: hpsc_split_half.primary.features.isi_cv.ci95 -->) | 0.15 <!-- metrics.json: hpsc_split_half.replication.features.isi_cv.human.sd --> / 0.22 <!-- metrics.json: hpsc_split_half.replication.features.isi_cv.rat.sd --> | 0.70 <!-- metrics.json: hpsc_split_half.replication.features.isi_cv.R --> (0.50 to 1.10 <!-- metrics.json: hpsc_split_half.replication.features.isi_cv.ci95 -->) |
+
+Network burst rate is unscored for a well whose first half has no network burst: that removes
+16 <!-- metrics.json: hpsc_split_half.primary.features.network_burst_rate_per_min.rat.unscored -->
+rat wells from the baselines and
+50 <!-- metrics.json: hpsc_split_half.replication.features.network_burst_rate_per_min.human.unscored -->
+human recordings from the developmental pool, so that readout rests on fewer, and more active,
+wells than the others.
+
+**Wells needed: a lower bound, reported and not tested.** From the baselines' firing-rate SD, a
+same-session comparison at 5% false alarms and 80% power needs at least
+7 <!-- metrics.json: hpsc_split_half.wells_needed.human.down_20pct --> human wells per arm to
+detect a 20% fall in firing rate, against at least
+2 <!-- metrics.json: hpsc_split_half.wells_needed.rat.down_20pct --> rat wells; a 50% fall needs
+at least 1 <!-- metrics.json: hpsc_split_half.wells_needed.human.down_50pct --> human and
+1 <!-- metrics.json: hpsc_split_half.wells_needed.rat.down_50pct --> rat well. These are **lower
+bounds**: noise within one untreated recording leaves out handling, compound addition and the
+day-to-day variation that §32's vehicle wells include, so the numbers a real assay needs should be larger,
+and they are not to be set beside §32's table, which measures a different noise. What carries
+over is the ratio: on these data a human iPSC firing-rate readout needed more wells than a rat
+one for the same change.
+
+**The assumption this rests on, and the check (registered).** Fewer spikes give noisier rates,
+and the two species fire at different rates, so a species difference could be a firing-rate
+difference. Restricting the baselines to wells whose full-recording firing rate lies inside both
+species' 10th-90th percentile ranges
+(3.53 to 4.89 Hz <!-- metrics.json: hpsc_split_half.assumption_check.overlap_hz -->) keeps
+7 <!-- metrics.json: hpsc_split_half.assumption_check.kept.human --> human and
+14 <!-- metrics.json: hpsc_split_half.assumption_check.kept.rat --> rat wells and gives R =
+4.62 <!-- metrics.json: hpsc_split_half.assumption_check.R -->
+(2.19 to 7.89 <!-- metrics.json: hpsc_split_half.assumption_check.ci95 -->), on the same side of
+1 as the full estimate
+(other side of one: False <!-- metrics.json: hpsc_split_half.assumption_check.other_side_of_one -->).
+At matched firing rates the human wells are, if anything, noisier, though seven wells is few.
+Two further readings, descriptive and added after the first run: the usable human wells do not
+have fewer active electrodes than the rat ones (median
+16 <!-- metrics.json: hpsc_split_half.primary.median_active_electrodes_usable.human --> against
+15 <!-- metrics.json: hpsc_split_half.primary.median_active_electrodes_usable.rat -->), so
+averaging over fewer electrodes does not explain the difference; and both species' firing rate
+falls from the first half to the second, the human more (mean d
+−0.32 <!-- metrics.json: hpsc_split_half.primary.features.mfr_hz.human.mean --> against
+−0.17 <!-- metrics.json: hpsc_split_half.primary.features.mfr_hz.rat.mean -->). A fall shared by
+every well does not enter the SD, but wells that settle at different speeds after the plate goes
+into the reader would, so part of what is measured here may be settling rather than steady-state
+noise.
+
+**Implementation notes.** Where the registration left a choice, we took the most literal reading
+and recorded it in the results under `implementation_notes`:
+a spike exactly at the cut starts the second half; P1 needs the interval's lower end strictly
+above 1 and P3 a point estimate strictly above 1; P2 is judged on the primary pool with the SD;
+well counts are distinct wells (plate and well), and on the developmental plates the SD pools
+all of a species' usable recordings while the bootstrap draws whole wells; the developmental
+plates' noisy-electrode lists are read from the column for each recording's DIV; synchrony
+(STTC) can be negative, and a non-positive second half is floored like any other fall; each
+interval draws from its own generator with the registered seed; and the overlap check uses the usable
+baseline wells, with percentile ends included.
+
+**What this section does not show.** Split-half noise is not exposure noise: it is the movement
+of one undisturbed recording, not of a well handled, dosed and read again, so it says how the
+two culture types compare under the gentlest possible conditions, not what an assay will see.
+Everything here comes from one lab, one human iPSC line and one rat preparation, at one age
+each (DIV29 and DIV22 on the baselines); another line, protocol or culture age could order the
+species differently. Half the human baseline plate was excluded upstream, and we do not know
+why. None of this says anything about human biology, about a compound, or about how either
+culture type predicts an effect in people; it is a property of two public recording sets that
+bears on how many wells a human iPSC chip assay might need.
 
 ---
 

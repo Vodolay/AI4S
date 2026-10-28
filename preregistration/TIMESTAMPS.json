@@ -1,6 +1,6 @@
 {
   "note": "Internal timestamps from this repository's history; not third-party verified.",
-  "root": "f12f7cc0a5f0db727e940f295e61c7e31e55978186da082fbb9a2c0df493bb80",
+  "root": "af0f2b246750b750828e26f4992f6222e661b4e0665d5d286e7d329f78b49129",
   "registrations": [
     {
       "file": "fly_chip_to_animal.json",
@@ -295,6 +295,13 @@
       "commit": "f3e1fb9b6de551a4e934c14e34432d25179693cd",
       "committed_at": "2026-10-27T22:13:21-04:00",
       "chain": "f12f7cc0a5f0db727e940f295e61c7e31e55978186da082fbb9a2c0df493bb80"
+    },
+    {
+      "file": "hpsc_split_half.json",
+      "sha256": "59fad1edd1962f5f4f4b91354d68acd6ca20b4bc8bf73cdc534a9e8fda692d3e",
+      "commit": "44eb52242631a3b2524381c9a5249f6d2d6c9a9f",
+      "committed_at": "2026-10-28T07:27:53-04:00",
+      "chain": "af0f2b246750b750828e26f4992f6222e661b4e0665d5d286e7d329f78b49129"
     }
   ],
   "registered_before_results": [
@@ -511,6 +518,12 @@
     {
       "output": "outputs/fly/tract_electrode_SIMULATED.json",
       "registration": "fly_output_tract_electrode.json",
+      "same_commit": false,
+      "registered_first": true
+    },
+    {
+      "output": "outputs/hpsc_split_half_REAL.json",
+      "registration": "hpsc_split_half.json",
       "same_commit": false,
       "registered_first": true
     },
