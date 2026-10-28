@@ -308,4 +308,14 @@ it with its own command or `python -m neuromps.fly.pipeline --only <step>`.
   the budget, of the estimator, or of what the summaries carry.
 - **Registered:** `preregistration/twin_inference_recalibration.json` (seven predictions and the
   assumption check), committed before any new simulation.
+- **Outcome:** 2 of 7 (registration commit 0bc29aa, amended before any simulation in 176b36e).
+  51 of 60 training chunks finished before the cut. On fresh simulations the round-1 model fails
+  all five parameters, not two; the ensemble keeps its sharpness and passes four of five on the
+  300-run test, but fails `inter_in_degree`, stays over-confident by coverage for four
+  parameters, and takes about 2 s per posterior. Budget alone fixes neither failing parameter.
+  Under the registered rule the slide quotes `threshold_scale` only. Report §16, change-log
+  entry 45.
 - **Revisit at:** `neuromps.twin.recalibration`; `twin_hd14b_recalibration` in `outputs/metrics.json`.
+  Next branches, each to be registered with fresh seeds: a different flow family (neural spline
+  flow) on the same pool, which would separate estimator from summaries; or summaries that carry
+  connectivity more directly (the failure that neither remedy moves).
