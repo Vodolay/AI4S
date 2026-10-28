@@ -424,4 +424,10 @@ it with its own command or `python -m neuromps.fly.pipeline --only <step>`.
 - **Assumption recorded:** our implementation is close enough to meaRtools' that a failure speaks
   about the detector, not the implementation; the per-electrode thresholds and the fallback share
   are reported so a reader can judge.
+- **Outcome:** 1 of 4 (registration commit e11bc05, implementation section completed before the run in 9570a9f). L1 and L2 fail on rank agreement with their ratios in band (burst duration 0.9611 <!-- metrics.json: extractor_agreement.logisi.predictions.L1_burst_duration_closes.checks.0.median_ratio -->, rho
+  0.8347 <!-- metrics.json: extractor_agreement.logisi.predictions.L1_burst_duration_closes.checks.0.spearman_rho -->; spikes per burst 0.9986 <!-- metrics.json: extractor_agreement.logisi.predictions.L2_spikes_per_burst_closes.checks.0.median_ratio -->, rho
+  0.9467 <!-- metrics.json: extractor_agreement.logisi.predictions.L2_spikes_per_burst_closes.checks.0.spearman_rho -->); L3 is uninterpretable (fallback on a share of
+  0.515 <!-- metrics.json: extractor_agreement.logisi.predictions.L3_hpsc_burst_rate_closes.fallback_share --> of the hPSC electrodes; both ratios overshoot); L4 passes. The detector does not
+  explain the rest of the gap as registered, or our implementation differs; the attribution stays open.
+  Report §3, change-log entry 48.
 - **Revisit at:** `outputs/metrics.json` key `extractor_agreement.logisi`.

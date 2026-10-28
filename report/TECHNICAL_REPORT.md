@@ -262,7 +262,7 @@ labelled exploratory and is not registered.
 | active electrode | more than 10 <!-- metrics.json: extractor_agreement.settings_ladder.depositors_stated_settings.active_min_spikes_per_min --> spikes/min | at least 5 <!-- metrics.json: extractor_agreement.settings_ladder.our_settings.active_min_spikes_per_min --> spikes/min | S1 |
 | noisy electrodes | discarded | flagged, kept | S2 |
 | burst rate divided by | electrodes that burst | every active electrode | S3 |
-| burst detector | logISI (adaptive); bursts closer than 100 <!-- metrics.json: extractor_agreement.settings_ladder.depositors_stated_settings.burst_merge_interval_ms --> ms merged | fixed: ISI ≤ 100 <!-- metrics.json: extractor_agreement.settings_ladder.our_settings.burst_max_isi_ms --> ms | not tested |
+| burst detector | logISI (adaptive); bursts closer than 100 <!-- metrics.json: extractor_agreement.settings_ladder.depositors_stated_settings.burst_merge_interval_ms --> ms merged | fixed: ISI ≤ 100 <!-- metrics.json: extractor_agreement.settings_ladder.our_settings.burst_max_isi_ms --> ms | S4, registered (below) |
 | minimum spikes per burst | 5 | 5 | same |
 | STTC window | 50 ms | 50 ms | same |
 
@@ -301,12 +301,13 @@ to theirs, while in a median hPSC recording only a share of 0.6225
 (hPSC_MEA2) of the active electrodes burst at all, against 0.9815
 <!-- metrics.json: extractor_agreement.settings_ladder.bursting_fraction_of_active_S2.Rat_MEA1 -->
 on the rat plate. Dividing by every active electrode therefore lowers the human rate and hardly
-moves the rat one. What remains is the detector, which we did not change: burst duration stays at
-a pooled ratio of 0.8208
+moves the rat one. The ladder leaves the rest to the burst detector, which it does not change:
+burst duration stays at a pooled ratio of 0.8208
 <!-- metrics.json: extractor_agreement.settings_ladder.by_variant.S3_rate_per_bursting_electrode.pooled.burst_duration_s.median_ratio -->
 and spikes per burst at 0.9433
 <!-- metrics.json: extractor_agreement.settings_ladder.by_variant.S3_rate_per_bursting_electrode.pooled.spikes_per_burst.median_ratio -->
-at S3. The ladder's first step reproduces the published comparison above exactly (check:
+at S3. Whether the detector accounts for that remainder was then tested, as registered (below).
+The ladder's first step reproduces the published comparison above exactly (check:
 true <!-- metrics.json: extractor_agreement.settings_ladder.check_s0_reproduces_published_agreement -->).
 One assumption could mislead here: that the deposit's noisy-electrode file lists electrodes per DIV
 column. Under the alternative reading, that an electrode listed on any DIV is noisy throughout, the
@@ -315,6 +316,63 @@ active-electrode count matches theirs in a share of only 0.253
 of recordings, so the per-DIV reading is the one their output follows. A per-electrode averaging
 hypothesis, tried in the scratch analysis, moved the share of spikes in bursts further from theirs;
 it was dropped and is not in the code.
+
+**The detector, tested (registered).** We then implemented the depositors' adaptive detector,
+logISI (Pasquale et al. 2010, with their minimum of five spikes and their merging of bursts that
+lie closer than the merge interval), as an option of the same extractor, off by default
+(`FeatureParams.burst_detector`), and registered four predictions before running it on any Kapucu
+recording (decision D34, `preregistration/extractor_logisi.json`; its implementation section,
+committed before the run, gives each choice of binning, smoothing, peaks, cutoff, extension,
+fallback and merging with its source). Each electrode gets its own ISI threshold from the valley
+of its log-ISI histogram; an electrode with no valid threshold falls back to the fixed rule. S4 is
+S3 with logISI, so the electrodes and the denominator stay the depositors'.
+
+| prediction | registered test | S4 | outcome |
+|---|---|---|---|
+| L1, burst duration closes | pooled ratio 0.9 to 1.1 <!-- metrics.json: extractor_agreement.logisi.predictions.L1_burst_duration_closes.checks.0.ratio_band -->, rho at least 0.9 <!-- metrics.json: extractor_agreement.logisi.predictions.L1_burst_duration_closes.checks.0.min_spearman_rho --> | ratio 0.9611 <!-- metrics.json: extractor_agreement.logisi.predictions.L1_burst_duration_closes.checks.0.median_ratio -->, rho 0.8347 <!-- metrics.json: extractor_agreement.logisi.predictions.L1_burst_duration_closes.checks.0.spearman_rho --> | `fail` <!-- metrics.json: extractor_agreement.logisi.predictions.L1_burst_duration_closes.outcome --> |
+| L2, spikes per burst closes | pooled ratio 0.95 to 1.05 <!-- metrics.json: extractor_agreement.logisi.predictions.L2_spikes_per_burst_closes.checks.0.ratio_band -->, rho at least 0.95 <!-- metrics.json: extractor_agreement.logisi.predictions.L2_spikes_per_burst_closes.checks.0.min_spearman_rho --> | ratio 0.9986 <!-- metrics.json: extractor_agreement.logisi.predictions.L2_spikes_per_burst_closes.checks.0.median_ratio -->, rho 0.9467 <!-- metrics.json: extractor_agreement.logisi.predictions.L2_spikes_per_burst_closes.checks.0.spearman_rho --> | `fail` <!-- metrics.json: extractor_agreement.logisi.predictions.L2_spikes_per_burst_closes.outcome --> |
+| L3, hPSC burst rate closes | ratio 0.95 to 1.05 <!-- metrics.json: extractor_agreement.logisi.predictions.L3_hpsc_burst_rate_closes.checks.0.ratio_band --> on both hPSC plates | 1.0847 <!-- metrics.json: extractor_agreement.logisi.predictions.L3_hpsc_burst_rate_closes.checks.0.median_ratio --> (hPSC_MEA1), 1.1438 <!-- metrics.json: extractor_agreement.logisi.predictions.L3_hpsc_burst_rate_closes.checks.1.median_ratio --> (hPSC_MEA2) | `uninterpretable` <!-- metrics.json: extractor_agreement.logisi.predictions.L3_hpsc_burst_rate_closes.outcome -->: the fallback covers a share of 0.515 <!-- metrics.json: extractor_agreement.logisi.predictions.L3_hpsc_burst_rate_closes.fallback_share --> of the hPSC active electrodes, more than half |
+| L4, rat not worse | Rat_MEA1 burst rate 0.95 to 1.05 <!-- metrics.json: extractor_agreement.logisi.predictions.L4_rat_not_worse.checks.0.ratio_band -->, burst duration 0.9 to 1.1 <!-- metrics.json: extractor_agreement.logisi.predictions.L4_rat_not_worse.checks.1.ratio_band --> | 0.9816 <!-- metrics.json: extractor_agreement.logisi.predictions.L4_rat_not_worse.checks.0.median_ratio --> and 0.9825 <!-- metrics.json: extractor_agreement.logisi.predictions.L4_rat_not_worse.checks.1.median_ratio --> | `pass` <!-- metrics.json: extractor_agreement.logisi.predictions.L4_rat_not_worse.outcome --> |
+
+| median ratio ours/theirs, S3 → S4 | hPSC_MEA1 | hPSC_MEA2 | Rat_MEA1 | pooled |
+|---|---|---|---|---|
+| burst duration | 0.9275 <!-- metrics.json: extractor_agreement.logisi.by_variant.S3_rate_per_bursting_electrode.hPSC_MEA1.burst_duration_s.median_ratio --> → 0.9686 <!-- metrics.json: extractor_agreement.logisi.by_variant.S4_logisi.hPSC_MEA1.burst_duration_s.median_ratio --> | 0.8804 <!-- metrics.json: extractor_agreement.logisi.by_variant.S3_rate_per_bursting_electrode.hPSC_MEA2.burst_duration_s.median_ratio --> → 0.9191 <!-- metrics.json: extractor_agreement.logisi.by_variant.S4_logisi.hPSC_MEA2.burst_duration_s.median_ratio --> | 0.7705 <!-- metrics.json: extractor_agreement.logisi.by_variant.S3_rate_per_bursting_electrode.Rat_MEA1.burst_duration_s.median_ratio --> → 0.9825 <!-- metrics.json: extractor_agreement.logisi.by_variant.S4_logisi.Rat_MEA1.burst_duration_s.median_ratio --> | 0.8208 <!-- metrics.json: extractor_agreement.logisi.by_variant.S3_rate_per_bursting_electrode.pooled.burst_duration_s.median_ratio --> → 0.9611 <!-- metrics.json: extractor_agreement.logisi.by_variant.S4_logisi.pooled.burst_duration_s.median_ratio --> |
+| spikes per burst | 0.9523 <!-- metrics.json: extractor_agreement.logisi.by_variant.S3_rate_per_bursting_electrode.hPSC_MEA1.spikes_per_burst.median_ratio --> → 1.0005 <!-- metrics.json: extractor_agreement.logisi.by_variant.S4_logisi.hPSC_MEA1.spikes_per_burst.median_ratio --> | 0.9466 <!-- metrics.json: extractor_agreement.logisi.by_variant.S3_rate_per_bursting_electrode.hPSC_MEA2.spikes_per_burst.median_ratio --> → 0.9851 <!-- metrics.json: extractor_agreement.logisi.by_variant.S4_logisi.hPSC_MEA2.spikes_per_burst.median_ratio --> | 0.9378 <!-- metrics.json: extractor_agreement.logisi.by_variant.S3_rate_per_bursting_electrode.Rat_MEA1.spikes_per_burst.median_ratio --> → 1.0041 <!-- metrics.json: extractor_agreement.logisi.by_variant.S4_logisi.Rat_MEA1.spikes_per_burst.median_ratio --> | 0.9433 <!-- metrics.json: extractor_agreement.logisi.by_variant.S3_rate_per_bursting_electrode.pooled.spikes_per_burst.median_ratio --> → 0.9986 <!-- metrics.json: extractor_agreement.logisi.by_variant.S4_logisi.pooled.spikes_per_burst.median_ratio --> |
+| burst rate | 0.8579 <!-- metrics.json: extractor_agreement.logisi.by_variant.S3_rate_per_bursting_electrode.hPSC_MEA1.burst_rate_per_min.median_ratio --> → 1.0847 <!-- metrics.json: extractor_agreement.logisi.by_variant.S4_logisi.hPSC_MEA1.burst_rate_per_min.median_ratio --> | 0.8973 <!-- metrics.json: extractor_agreement.logisi.by_variant.S3_rate_per_bursting_electrode.hPSC_MEA2.burst_rate_per_min.median_ratio --> → 1.1438 <!-- metrics.json: extractor_agreement.logisi.by_variant.S4_logisi.hPSC_MEA2.burst_rate_per_min.median_ratio --> | 1.04 <!-- metrics.json: extractor_agreement.logisi.by_variant.S3_rate_per_bursting_electrode.Rat_MEA1.burst_rate_per_min.median_ratio --> → 0.9816 <!-- metrics.json: extractor_agreement.logisi.by_variant.S4_logisi.Rat_MEA1.burst_rate_per_min.median_ratio --> | 0.944 <!-- metrics.json: extractor_agreement.logisi.by_variant.S3_rate_per_bursting_electrode.pooled.burst_rate_per_min.median_ratio --> → 1.0488 <!-- metrics.json: extractor_agreement.logisi.by_variant.S4_logisi.pooled.burst_rate_per_min.median_ratio --> |
+
+![Burst duration, spikes per burst and burst rate, median ratio ours/theirs per plate and pooled, for our definitions (S0), the depositors' stated settings (S3) and S3 with the logISI detector (S4, registered); REAL recordings. Dashed line is equality.](../outputs/figures/extractor_logisi_real.png){width=100%}
+
+**The reading.** As we implemented it, the detector puts burst duration and spikes per burst on
+the depositors' scale but does not make the two implementations order the recordings the same way:
+rank agreement moves only from 0.8167 <!-- metrics.json: extractor_agreement.logisi.by_variant.S3_rate_per_bursting_electrode.pooled.burst_duration_s.spearman_rho --> to
+0.8347 <!-- metrics.json: extractor_agreement.logisi.by_variant.S4_logisi.pooled.burst_duration_s.spearman_rho --> for burst duration and from
+0.9443 <!-- metrics.json: extractor_agreement.logisi.by_variant.S3_rate_per_bursting_electrode.pooled.spikes_per_burst.spearman_rho --> to
+0.9467 <!-- metrics.json: extractor_agreement.logisi.by_variant.S4_logisi.pooled.spikes_per_burst.spearman_rho --> for spikes per burst. On the human plates it
+overshoots the burst rate instead of closing it; on the rat plate it closes most of the
+burst-duration gap and leaves the burst rate in agreement. So the registered answer is no: the
+detector does not explain the rest of the difference, or our implementation of it differs from
+theirs, and these data cannot tell the two apart. The attribution stays open. Two diagnostics
+point at the implementation as much as at the detector. On the hPSC plates about half of the
+active electrode-recordings found no valid threshold (a share of
+0.4982 <!-- metrics.json: extractor_agreement.logisi.fallback.hPSC_MEA1.share --> on hPSC_MEA1 and 0.5321 <!-- metrics.json: extractor_agreement.logisi.fallback.hPSC_MEA2.share --> on hPSC_MEA2, against
+0.2313 <!-- metrics.json: extractor_agreement.logisi.fallback.Rat_MEA1.share --> on the rat plate), most often because their histogram has no valley
+after its first peak. And of those that did, a share of
+0.2786 <!-- metrics.json: extractor_agreement.logisi.threshold_distribution.hPSC_MEA1.share_valid_below_1ms --> (hPSC_MEA1) and
+0.2133 <!-- metrics.json: extractor_agreement.logisi.threshold_distribution.hPSC_MEA2.share_valid_below_1ms --> (hPSC_MEA2) set it below a millisecond: a peak of
+near-coincident spike pairs is taken as the intraburst peak, and that electrode then has almost no
+bursts. On the rat plate the median threshold is
+281.84 <!-- metrics.json: extractor_agreement.logisi.threshold_distribution.Rat_MEA1.median_ms --> ms, above the cutoff for a share of
+0.8985 <!-- metrics.json: extractor_agreement.logisi.threshold_distribution.Rat_MEA1.share_valid_above_cutoff --> of its electrodes, so there logISI extends bursts at
+their edges, which is what lengthens them. Post hoc, and labelled so in the output: from S3 to S4
+the hPSC burst rate changes by more than a tenth in a share of
+0.8273 <!-- metrics.json: extractor_agreement.logisi.moved_s3_to_s4_post_hoc.by_plate.hPSC_MEA1.burst_rate_per_min.share --> and
+0.7632 <!-- metrics.json: extractor_agreement.logisi.moved_s3_to_s4_post_hoc.by_plate.hPSC_MEA2.burst_rate_per_min.share --> of recordings, the rat burst duration in
+0.8723 <!-- metrics.json: extractor_agreement.logisi.moved_s3_to_s4_post_hoc.by_plate.Rat_MEA1.burst_duration_s.share -->; and two hPSC recordings lose every burst under S4
+(318 <!-- metrics.json: extractor_agreement.logisi.by_variant.S4_logisi.pooled.burst_duration_s.n --> pairs against
+320 <!-- metrics.json: extractor_agreement.logisi.by_variant.S3_rate_per_bursting_electrode.pooled.burst_duration_s.n -->). Whether the depositors' implementation treats
+near-coincident spikes the same way we cannot say: their analysis scripts are shared with the
+deposit (G-Node GIN) and were not read for this test, and reading them is the next step if the
+attribution matters.
 
 **What this does and does not say.** We do not claim our definitions are more correct than the
 depositors'. They are fixed, stated, recorded in every record's method block, and applied
@@ -325,8 +383,8 @@ distribution, which suits describing one culture and complicates comparing two. 
 performs best on every data set (Cotterill et al. 2016, *J Neurophysiol*), and ours has a known
 cost: the fixed 100
 <!-- metrics.json: extractor_agreement.settings_ladder.our_settings.burst_max_isi_ms --> ms rule
-probably under-detects loose bursts in hPSC recordings, which is where the burst-duration
-difference sits. A reader pooling our features with meaRtools output should convert, or recompute,
+trims bursts whose spikes loosen towards their edges; with logISI, burst duration moved most on
+the rat plate, where the per-electrode thresholds sit above the cutoff (above). A reader pooling our features with meaRtools output should convert, or recompute,
 rather than mix them.
 
 ## 4. The three questions we asked the data
@@ -1122,19 +1180,19 @@ guarded throughout: `data/raw/MANIFEST.json` records every source's URL, license
 
 The registrations are checked the same way. Every study that registered its predictions in
 `preregistration/` records each prediction's outcome, and `neuromps.report.audit` (run at the end
-of every `run_all`) counts them: 44 <!-- metrics.json: registration_audit.submission.n_studies --> studies made
-226 <!-- metrics.json: registration_audit.submission.total.total --> registered predictions, of which
-101 <!-- metrics.json: registration_audit.submission.total.pass --> passed,
-86 <!-- metrics.json: registration_audit.submission.total.fail --> failed and
-38 <!-- metrics.json: registration_audit.submission.total.uninterpretable --> were uninterpretable.
+of every `run_all`) counts them: 45 <!-- metrics.json: registration_audit.submission.n_studies --> studies made
+230 <!-- metrics.json: registration_audit.submission.total.total --> registered predictions, of which
+102 <!-- metrics.json: registration_audit.submission.total.pass --> passed,
+88 <!-- metrics.json: registration_audit.submission.total.fail --> failed and
+39 <!-- metrics.json: registration_audit.submission.total.uninterpretable --> were uninterpretable.
 The audit names any study whose predictions carry no outcome, so that none is left out
 unnoticed (none is now; `registration_audit.unrecognised`), and it leaves out the rhythm audit,
 which re-reads predictions already counted under their own stages.
 `neuromps.report.timestamps` writes `preregistration/TIMESTAMPS.json`: each registration's
 checksum and the commit that first added it, a hash chain over them in commit order, and, for
 every result file that names its registration, whether the registration's commit came first. Of
-43 <!-- metrics.json: registration_timestamps.submission.n_registrations --> registrations,
-39 <!-- metrics.json: registration_timestamps.submission.n_outputs_checked --> result files were checked and
+44 <!-- metrics.json: registration_timestamps.submission.n_registrations --> registrations,
+40 <!-- metrics.json: registration_timestamps.submission.n_outputs_checked --> result files were checked and
 0 <!-- metrics.json: registration_timestamps.submission.n_violations --> came before their registration. The
 check cannot see the
 4 <!-- metrics.json: registration_timestamps.submission.not_covered --> registrations whose results do not
