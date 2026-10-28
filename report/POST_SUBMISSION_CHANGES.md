@@ -58,6 +58,8 @@ the bottom.*
 | 47 | 2026-10-28 | Our extractor rerun under the Kapucu 2022 depositors' stated settings, one change at a time (post hoc); the feature definitions recorded as D33 | none to earlier results; the twofold burst-rate difference is traced mainly to the burst-rate denominator, on the hPSC plates; two report wording errors fixed | `46d1607`, `e10a2ff` … this branch |
 | 48 | 2026-10-28 | The depositors' logISI burst detector, implemented and tested against their meaRtools output (D34, registered) | 1 of 4 registered predictions pass; burst duration and spikes per burst reach their scale but not their ordering, the hPSC burst rate overshoots; the detector attribution stays open | `e11bc05`, `9570a9f`, `6f63385` … this branch |
 | 49 | 2026-10-28 | Settling or steady noise in the human iPSC split-half spread (D35) | 3 of 3 registered predictions pass; the registered linearity check fails for human wells; the human spread is mostly uneven settling, and five more minutes would not remove it | `e743c4c`, `bc6a56b` … this branch |
+| 50 | 2026-10-28 | Does early network bursting predict how an untreated human iPSC well settles? A registered replication on the developmental plates (D36) | 1 of 3 registered predictions pass; the post hoc 48-well relation does not replicate (N1 fails), so stratifying human wells by baseline network bursting is not supported | `f669016`, `d7ba7da` … this branch |
+| 51 | 2026-10-28 | Named definition sets: the asset's spike-time features under ours and the Kapucu 2022 depositors' stated definitions, in a sidecar table, with a translation table (D37) | none to earlier results (asset and metrics byte-identical); three features carry over as the same number, three by a plate-dependent factor, burst rate not at all | this branch |
 | 52 | 2026-10-28 | The recalibration figure (D31) redrawn: the coverage legend moved off the `threshold_scale` panel; its lost simulation cache regenerated with the registered seeds; a `--replot` path | none; every recorded calibration statistic reproduced exactly before the figure was redrawn | this branch |
 
 ---
@@ -995,12 +997,12 @@ checked against the commit that registered it, here, in the public repository.*
 - **Why.** The final-round deck quoted registration counts and a hash chain that existed only in
   the private manuscript repository, so a reader of this repository could not check them.
 - **Effect.**
-  - 46 <!-- metrics.json: registration_audit.submission.n_studies --> registered studies here made
-    233 <!-- metrics.json: registration_audit.submission.total.total --> predictions:
-    105 <!-- metrics.json: registration_audit.submission.total.pass --> passed,
-    88 <!-- metrics.json: registration_audit.submission.total.fail --> failed,
+  - 47 <!-- metrics.json: registration_audit.submission.n_studies --> registered studies here made
+    236 <!-- metrics.json: registration_audit.submission.total.total --> predictions:
+    106 <!-- metrics.json: registration_audit.submission.total.pass --> passed,
+    90 <!-- metrics.json: registration_audit.submission.total.fail --> failed,
     39 <!-- metrics.json: registration_audit.submission.total.uninterpretable --> were uninterpretable.
-  - 41 <!-- metrics.json: registration_timestamps.submission.n_outputs_checked --> result files name their
+  - 42 <!-- metrics.json: registration_timestamps.submission.n_outputs_checked --> result files name their
     registration, and 0 <!-- metrics.json: registration_timestamps.submission.n_violations --> of them came
     before it; 4 <!-- metrics.json: registration_timestamps.submission.not_covered --> registrations are not
     covered because their results do not name them.
@@ -1353,6 +1355,105 @@ recordings are too short to say how long it must be.*
 - **Evidence.** Report §36; decision D35; `outputs/figures/hpsc_settling_real.png`,
   `outputs/hpsc_settling_REAL.json` (with the per-well table), `outputs/metrics.json` key
   `hpsc_settling`; tests `tests/test_hpsc_settling.py`.
+
+## 50. Early network bursting does not predict how a human iPSC well settles, on independent plates
+
+**Slide message:** *On one 48-well plate, human iPSC wells with more network bursting in the
+first five minutes kept falling (post hoc rho
+−0.73 <!-- metrics.json: hpsc_network_state.primary_pool_post_hoc.human.rho.nb0.point -->);
+registered and retested on
+144 <!-- metrics.json: hpsc_network_state.predictions.N1_early_network_bursting_predicts_settling_in_human.n_recordings -->
+recordings from the lab's developmental plates, the relation is gone (rho
+−0.06 <!-- metrics.json: hpsc_network_state.predictions.N1_early_network_bursting_predicts_settling_in_human.value -->,
+interval −0.23 to 0.09 <!-- metrics.json: hpsc_network_state.predictions.N1_early_network_bursting_predicts_settling_in_human.ci95 -->),
+so a baseline network readout cannot yet be used to sort human wells.*
+
+- **What changed.** A registered replication (`src/neuromps/models/hpsc_network_state.py`,
+  `preregistration/hpsc_network_state.json`, decision D36, report §36, "Registered replication")
+  of a post hoc observation on entry 49's human wells. On D32's replication pool (the 12-well
+  developmental plates, its usable untreated recordings), each 10-minute recording is cut into six
+  windows; the first window's network-burst rate, synchrony and firing rate (the shared extractor)
+  are set against the slope of the fixed-electrode log2 firing rate over the last five windows.
+- **Why.** If early network state predicted settling, a lab could stratify human wells by it at
+  baseline; a relation found by looking at one plate needed independent recordings first.
+- **Effect.**
+  - N1 fails: the human interval does not lie below 0. N2 passes (rat rho
+    −0.06 <!-- metrics.json: hpsc_network_state.predictions.N2_not_in_rat.value -->,
+    −0.28 to 0.20 <!-- metrics.json: hpsc_network_state.predictions.N2_not_in_rat.ci95 -->), which
+    with N1 failing means neither species shows the relation. N3 fails (rho(mfr0) − rho(nb0)
+    0.02 <!-- metrics.json: hpsc_network_state.predictions.N3_network_state_not_firing_rate.value -->).
+  - Every recording was scored; nb0 was zero in
+    44% <!-- metrics.json: hpsc_network_state.replication.human.nb0_zero_share --> of human
+    recordings (registered limit 80%). Post hoc, over the human recordings with an early network
+    burst, rho is −0.17 <!-- metrics.json: hpsc_network_state.nonzero_nb0_check_post_hoc.human.point -->,
+    still with an interval reaching 0.
+  - Registered age check: the human partial rho on DIV is
+    −0.39 <!-- metrics.json: hpsc_network_state.age_check.human.partial_rho -->, so the age flag
+    is not raised; the per-DIV median,
+    −0.06 <!-- metrics.json: hpsc_network_state.age_check.human.per_div.median_rho -->, does not
+    agree, and human early bursting falls steeply with age. Neither is a registered test of a
+    within-age relation.
+  - No earlier result changes. The registration counts in §21 and entry 43 rise by this study's
+    three predictions and one checked result file.
+- **Evidence.** Report §36; decision D36; `outputs/figures/hpsc_network_state_real.png`,
+  `outputs/hpsc_network_state_REAL.json` (with the per-recording table), `outputs/metrics.json`
+  key `hpsc_network_state`; tests `tests/test_hpsc_network_state.py`.
+
+---
+
+## 51. Our features under another laboratory's definitions, and where they translate
+
+**Slide message:** *Every spike-time record in the asset now also carries its features under the
+Kapucu 2022 depositors' stated definitions, from the same extractor; on their plates, three of seven
+features are the same number under both, three differ by a factor that depends on the culture
+(firing rate 1.1017 <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.mfr_hz.median_ratio_by_plate.Rat_MEA1 --> rat, 1.3902
+<!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.mfr_hz.median_ratio_by_plate.hPSC_MEA1 --> human), and burst rate cannot be converted.*
+
+- **What changed.** A registry of named definition sets, `src/neuromps/features/definitions.py`:
+  `neuromps` (reference, the defaults the asset and the twin use), `kapucu2022` (validated, the
+  settings ladder's S3) and `kapucu2022_logisi` (experimental, S4; used for no claim). Each is a
+  bundle of `FeatureParams` options plus whether a deposit's noisy electrodes are dropped, so
+  `features/mea.py` stays the one extractor. The ladder and the logISI study now take S3 and S4
+  from the registry; the definitions are equal to the old ones. A new stage in the models step
+  (`src/neuromps/models/feature_definitions.py`, after the extractor agreement) re-reads each
+  spike-time record with the ETL modules' own loaders (`src/neuromps/etl/spike_trains.py`), writes
+  `data/processed/features_by_definition.parquet` (record id, source, definition, feature, value)
+  and generates `outputs/tables/feature_definitions.md`. Decision D37; report §3, "Named definition
+  sets"; `schema/STANDARD.md` §4.4.
+- **Why.** D33 recorded this as the future option: a laboratory reading our numbers beside its own
+  needs to know where a translation is supported by evidence, and the evidence (the ladder and the
+  logISI test) was only in a metrics file.
+- **Effect.**
+  - The sidecar holds 1,512 <!-- metrics.json: feature_definitions.sidecar.n_records --> records under every set
+    (40,824 <!-- metrics.json: feature_definitions.sidecar.n_rows --> rows). Its `neuromps` rows equal the asset in all
+    13,608 <!-- metrics.json: feature_definitions.sidecar.check_reference_equals_asset.n_values --> values; on the developmental plates the
+    `kapucu2022` ratios against the depositors equal the ladder's S3 numbers in
+    28 <!-- metrics.json: feature_definitions.translation.ladder_check.kapucu2022.n_equal --> of
+    28 <!-- metrics.json: feature_definitions.translation.ladder_check.kapucu2022.n_compared --> comparisons
+    (all checks: true <!-- metrics.json: feature_definitions.checks_pass -->).
+  - `kapucu2022` against ours, on 336 <!-- metrics.json: feature_definitions.translation.n_recordings -->
+    recordings: share of spikes in bursts, spikes per burst and burst duration are the same number
+    (ratio 1.0132 <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.pct_spikes_in_bursts.median_ratio --> for the first); active electrodes,
+    firing rate and STTC are a scale factor (0.734 <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.active_electrodes.median_ratio -->,
+    1.3264 <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.mfr_hz.median_ratio --> and 1.315 <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.synchrony_index.median_ratio -->); burst
+    rate has no conversion (ratio 2.0584 <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.burst_rate_per_min.median_ratio -->, rank agreement
+    0.9299 <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.burst_rate_per_min.spearman_rho -->).
+  - The factors differ by plate, so they are properties of these cultures, not constants of the
+    definitions: active electrodes 0.9008
+    <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.active_electrodes.median_ratio_by_plate.Rat_MEA1 --> on the rat plate against 0.6958
+    <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.active_electrodes.median_ratio_by_plate.hPSC_MEA2 --> on hPSC_MEA2.
+  - A same number between two of our sets is not agreement with the depositors: burst duration is
+    unchanged by the switch, and `kapucu2022` sits at 0.8208
+    <!-- metrics.json: feature_definitions.translation.pairs.neuromps_to_kapucu2022.burst_duration_s.target_vs_depositors.median_ratio --> of their value.
+  - Not a registered study, so the registration counts (§21, entry 43) do not change. No record of
+    `neuromps.parquet`, no method block, no twin target and no earlier key of
+    `outputs/metrics.json` changes; the stage adds the key `feature_definitions` and costs a few
+    seconds on the quick tier, which has no developmental-plate spike files and so skips the
+    translation.
+- **Evidence.** Report §3 ("Named definition sets"); decision D37; `schema/STANDARD.md` §4.4;
+  `data/processed/features_by_definition.parquet`; `outputs/tables/feature_definitions.md`;
+  `outputs/metrics.json` key `feature_definitions`; tests `tests/test_feature_definitions.py`,
+  `tests/test_definition_sidecar.py`, `tests/test_feature_translation.py`.
 
 ## 52. The recalibration figure, redrawn from regenerated simulations; no number changed
 

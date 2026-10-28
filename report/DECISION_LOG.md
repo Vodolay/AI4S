@@ -458,3 +458,72 @@ it with its own command or `python -m neuromps.fly.pipeline --only <step>`.
   the 30-minute recordings do not show how long it must be. Report §36, change-log entry 49.
 - **Revisit at:** `outputs/metrics.json` key `hpsc_settling`. Next: longer untreated human
   recordings, to find where the fall ends.
+
+### D36. Testing whether early network bursting predicts how a human iPSC well settles **(user)**
+- **Found:** an exploratory look at D35's human wells (post hoc, 24 wells, one plate) found two
+  settling behaviours, wells that keep falling and wells that recover, and the network-burst rate
+  in the first five minutes predicted which (Spearman -0.73), while the early firing rate did not;
+  rat wells showed no such relation.
+- **Options:** report the exploratory result as it stands; replicate it on independent
+  recordings first.
+- **Taken:** a registered replication on the lab's 12-well developmental plates
+  (`preregistration/hpsc_network_state.json`), which D32 already uses as its replication pool:
+  three predictions (the relation holds in human recordings; not in rat; network state predicts
+  better than firing rate), with intervals from resampling whole wells. **Why:** a post hoc
+  finding on one plate is a hypothesis; if it replicates, a lab could cut the wells it needs by
+  stratifying human wells by baseline network state.
+- **Assumption recorded:** the relation is not an age effect; checked with a partial correlation
+  on culture age.
+- **Outcome:** 1 of 3 (registration commit f669016; code and tests committed before the
+  real-data run in d7ba7da). N1 fails: in
+  144 <!-- metrics.json: hpsc_network_state.predictions.N1_early_network_bursting_predicts_settling_in_human.n_recordings -->
+  human developmental recordings rho(nb0, late_b) is
+  −0.06 <!-- metrics.json: hpsc_network_state.predictions.N1_early_network_bursting_predicts_settling_in_human.value -->,
+  interval −0.23 to 0.09 <!-- metrics.json: hpsc_network_state.predictions.N1_early_network_bursting_predicts_settling_in_human.ci95 -->;
+  N2 passes (rat rho −0.06 <!-- metrics.json: hpsc_network_state.predictions.N2_not_in_rat.value -->,
+  no relation in either species); N3 fails. The age flag is not raised (human partial rho
+  −0.39 <!-- metrics.json: hpsc_network_state.age_check.human.partial_rho -->), but the per-DIV
+  median (−0.06 <!-- metrics.json: hpsc_network_state.age_check.human.per_div.median_rho -->)
+  does not agree with it. The post hoc baseline result recomputes as
+  −0.73 <!-- metrics.json: hpsc_network_state.primary_pool_post_hoc.human.rho.nb0.point --> and
+  stays a hypothesis tied to one plate. Reading: stratifying human wells by baseline network
+  bursting is not supported by the replication. Report §36, change-log entry 50.
+- **Revisit at:** `outputs/metrics.json` key `hpsc_network_state`. Next, if pursued: 30-minute untreated recordings of more human plates at matched ages.
+
+### D37. Storing each feature under named definition sets (engineering)
+- **Found:** D33 kept one fixed set of feature definitions and left a future option open: store
+  each record's features under named definition sets. The post hoc settings ladder (report §3,
+  `extractor_agreement.settings_ladder`) showed that with the Kapucu 2022 depositors' stated
+  settings our extractor reproduces their firing rate, active-electrode count and STTC; the
+  registered logISI test (D34, `extractor_agreement.logisi`) passed 1 of 4 predictions with the
+  attribution open. A lab reading our numbers beside theirs had no way to see which of our
+  features translate into theirs, and which do not.
+- **Options:** keep one fixed definition only, and leave conversion to the reader (rejected:
+  the evidence that tells a reader where conversion works would stay in a metrics file); recompute
+  everything per lab on demand (rejected: every consumer would rerun the ETL, and nothing would
+  pin what a named lab definition means); named definition sets plus a sidecar table (taken).
+- **Taken:** a registry, `src/neuromps/features/definitions.py`, of three frozen sets, each a
+  named bundle of options `features/mea.py` already has plus whether a deposit's noisy
+  electrodes are dropped: `neuromps` (reference, the defaults the asset and the twin use),
+  `kapucu2022` (validated, the ladder's S3) and `kapucu2022_logisi` (experimental, S4, used for
+  no claim). The ladder and the logISI study now take their S3 and S4 from the registry; their
+  definitions are equal to the old ones, so their outputs do not change. A sidecar,
+  `data/processed/features_by_definition.parquet`, holds every spike-time record under every
+  set, re-read with the ETL modules' own loaders; its `neuromps` rows must equal the asset
+  exactly. A translation table (`outputs/tables/feature_definitions.md`) gives, per feature, the
+  ratio and rank agreement between our numbers and each Kapucu set on the recordings where the
+  depositors' own output exists, and a verdict: same number, scale factor or no conversion.
+  **Why:** additive, so no record, method block, twin target or earlier metric moves; one
+  extractor still computes everything; and a consumer can see, per feature, whether a
+  translation is supported by evidence before converting.
+- **Not a registered study:** it computes no new comparison with the depositors. The
+  translation re-expresses the ladder's (post hoc) and the logISI test's (registered) evidence
+  per pair of definition sets.
+- **Assumption recorded:** a pooled ratio between two definitions is a property of the
+  recordings it was measured on, not of the definitions. The translation table reports the
+  ratio per plate beside the pooled one, so a factor that differs between the human and rat
+  plates is visible, and it is checked only on the Kapucu 2022 developmental plates.
+- **Revisit at:** `outputs/metrics.json` key `feature_definitions`. Next: a set for another
+  laboratory only when that laboratory's own output exists on spike files we hold (the condition
+  for a `validated` status); promoting `kapucu2022_logisi` only after its attribution is
+  resolved (D34's next step, reading the depositors' scripts).
