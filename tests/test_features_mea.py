@@ -180,3 +180,96 @@ def test_network_bursts_survive_on_top_of_high_background_rate() -> None:
         spikes[f"e{i}"] = np.sort(np.concatenate([noise, synchronous + i * 0.0002]))
     f = extract_features(spikes, duration_s=60.0)
     assert f["network_burst_rate_per_min"] == pytest.approx(len(events), abs=1.0)
+
+
+# ------------------------------------------------- definition options (D33, post hoc ladder)
+
+
+def _mixed_plate() -> dict[str, np.ndarray]:
+    """Two bursting electrodes, one tonic non-bursting one, one at exactly 5 spikes/min."""
+    return {
+        "a": bursty_train(n_bursts=10, spikes_per_burst=8, intra_isi=0.005, period=6.0),
+        "b": 0.3 + bursty_train(n_bursts=5, spikes_per_burst=6, intra_isi=0.01, period=12.0),
+        "c": np.sort((np.arange(1, 41) ** 1.5) % 60.0),
+        "d": np.arange(0.0, 60.0, 12.0),
+    }
+
+
+# Recorded from the extractor before the options existed: the defaults must keep
+# every value bit for bit, because the asset and the twin were built with them.
+GOLDEN_DEFAULTS = {
+    "mfr_hz": 0.6458333333333334,
+    "burst_rate_per_min": 3.75,
+    "burst_duration_s": 0.03999999999999885,
+    "spikes_per_burst": 7.333333333333333,
+    "pct_spikes_in_bursts": 70.96774193548387,
+    "network_burst_rate_per_min": 1.0,
+    "synchrony_index": 0.12985001736894017,
+    "isi_cv": 1.5459609695883432,
+    "active_electrodes": 4,
+}
+GOLDEN_METHOD_RECORD = {
+    "computed_by": "neuromps.features.mea",
+    "burst_method": "maxinterval_simple(isi<=0.1s,>=5spikes)",
+    "network_burst_method": (
+        "binned_participation(bin=0.025s,>=max(3,0.25*active,chance)electrodes,"
+        "chance_fp<0.05/recording)"
+    ),
+    "synchrony_method": "sttc",
+    "active_electrode_threshold_spikes_per_min": 5.0,
+}
+
+
+def test_default_outputs_are_unchanged_by_the_definition_options() -> None:
+    assert extract_features(_mixed_plate(), 60.0) == GOLDEN_DEFAULTS
+    explicit = FeatureParams(active_strict=False, burst_rate_denominator="active")
+    assert extract_features(_mixed_plate(), 60.0, explicit) == GOLDEN_DEFAULTS
+
+
+def test_method_record_is_unchanged_at_defaults() -> None:
+    assert FeatureParams().as_method_record() == GOLDEN_METHOD_RECORD
+
+
+def test_method_record_names_a_non_default_definition() -> None:
+    record = FeatureParams(active_strict=True, burst_rate_denominator="bursting").as_method_record()
+    assert record["active_electrode_threshold_strict"] is True
+    assert record["burst_rate_denominator"] == "bursting"
+    only_one = FeatureParams(active_strict=True).as_method_record()
+    assert "burst_rate_denominator" not in only_one
+
+
+def test_strict_threshold_drops_an_electrode_exactly_at_the_threshold() -> None:
+    """Electrode d fires exactly 5 spikes in a minute: active under >=, not under >."""
+    inclusive = extract_features(_mixed_plate(), 60.0)
+    strict = extract_features(_mixed_plate(), 60.0, FeatureParams(active_strict=True))
+    assert inclusive["active_electrodes"] == 4
+    assert strict["active_electrodes"] == 3
+    assert strict["mfr_hz"] == pytest.approx((80 + 30 + 40) / 3 / 60.0)
+    assert strict["burst_rate_per_min"] == pytest.approx(15 / 3)
+
+
+def test_strict_threshold_still_requires_a_spike_at_threshold_zero() -> None:
+    p = FeatureParams(active_min_spikes_per_min=0.0, active_strict=True)
+    f = extract_features({"e1": regular_train(1.0, 60.0), "e2": np.array([])}, 60.0, p)
+    assert f["active_electrodes"] == 1
+
+
+def test_bursting_denominator_divides_by_electrodes_that_burst() -> None:
+    """15 bursts in a minute on 2 of 4 active electrodes: 3.75 per active, 7.5 per bursting."""
+    p = FeatureParams(burst_rate_denominator="bursting")
+    f = extract_features(_mixed_plate(), 60.0, p)
+    assert f["burst_rate_per_min"] == pytest.approx(7.5)
+    # Only the rate moves: every other feature is the default's.
+    rest = {k: v for k, v in f.items() if k != "burst_rate_per_min"}
+    assert rest == {k: v for k, v in GOLDEN_DEFAULTS.items() if k != "burst_rate_per_min"}
+
+
+def test_bursting_denominator_is_undefined_without_bursts() -> None:
+    p = FeatureParams(burst_rate_denominator="bursting")
+    f = extract_features({"e1": regular_train(1.0, 60.0)}, 60.0, p)
+    assert f["burst_rate_per_min"] is None
+
+
+def test_unknown_burst_rate_denominator_is_rejected() -> None:
+    with pytest.raises(ValueError, match="burst_rate_denominator"):
+        FeatureParams(burst_rate_denominator="wells")
