@@ -29,7 +29,7 @@ def render(stamps: dict[str, float]) -> None:
     point, run = _slider_panel(grid, meta)
     _simulation_panel(point, run, meta, stamps)
     st.divider()
-    _inversion_diagram()
+    _inversion_diagram(stamps)
     _real_recordings_panel(stamps)
     st.divider()
     _directionality_panel(stamps)
@@ -48,17 +48,58 @@ def _architecture_diagram() -> None:
         )
 
 
-def _inversion_diagram() -> None:
+def _inversion_diagram(stamps: dict[str, float]) -> None:
     """What inference does, before the posteriors it produces."""
     figure = loaders.diagram("inference_network_simulated.png")
     if figure is None:
         return
     with st.container(border=True):
         st.image(str(figure), width="stretch")
-        st.caption(
-            "The same twin, run backwards. Two of the five parameters fail the rank-uniformity "
-            "check, so their intervals below are shown but are not claimed to be calibrated."
-        )
+        st.caption(_inversion_caption(loaders.load_metrics(stamps["metrics"])))
+
+
+def _quoted(adopted: list[str]) -> str:
+    """Which intervals D31's registered adoption rule lets the project quote."""
+    if not adopted:
+        return "no parameter passes every registered check, so no interval is quoted"
+    names = ", ".join(f"`{name}`" for name in adopted)
+    if len(adopted) == 1:
+        return f"only {names} passes every registered check, so only that interval is quoted"
+    return f"only {names} pass every registered check, so only those intervals are quoted"
+
+
+def _fresh_failures(recalibration: dict) -> tuple[dict, list[str]]:
+    """The round-1 model on D31's 1,000 fresh simulations, and the parameters it fails."""
+    fresh = recalibration["results"]["M0"]["H1000"]
+    alpha = recalibration["alpha"]
+    return fresh, [name for name, value in fresh["ks"].items() if value["ks_p"] < alpha]
+
+
+def _inversion_caption(metrics: dict) -> str:
+    """The diagram's caption, from D31 (`twin_hd14b_recalibration`) rather than round 1.
+
+    It used to say two of five parameters fail, which was round 1's own 300-run
+    check. On fresh simulations the round-1 model fails more, and the registered
+    recalibration decides what may be quoted.
+    """
+    recalibration = metrics.get("twin_hd14b_recalibration", {})
+    if not recalibration:
+        return "The same twin, run backwards. Calibration results are not in this run's metrics."
+    fresh, failing = _fresh_failures(recalibration)
+    budget = recalibration["budget"]
+    sharpness = (
+        "keeps its sharpness"
+        if recalibration["predictions"]["by_prediction"]["P3_no_contraction_lost"]["passed"]
+        else "loses sharpness"
+    )
+    return (
+        f"The same twin, run backwards. On {fresh['n']:,} fresh simulations the round-1 inverse "
+        f"model fails the rank-uniformity check for {len(failing)} of {len(fresh['ks'])} "
+        f"parameters. The registered recalibration (decision D31: "
+        f"{budget['pool_simulations']:,} training simulations instead of "
+        f"{budget['hd14_train']:,}, and an ensemble of flows) {sharpness}, but "
+        f"{_quoted(recalibration['adopted_parameters'])}."
+    )
 
 
 def _slider_panel(grid: pd.DataFrame, meta: dict) -> tuple[pd.Series, dict]:
@@ -127,23 +168,26 @@ def _identifiability_note(metrics: dict) -> str:
     """What the posterior may be read as, written from the metrics not from memory.
 
     This caption used to say "only threshold_scale is well identified
-    (contraction 0.8)". The density correction changed both halves of that: the
-    contraction is no longer 0.8 and three parameters now pass, not one. A
-    sentence the checker cannot see is a sentence that outlives its result.
+    (contraction 0.8)", then "three parameters pass" from round 1's 300-run
+    check. D31 changed it again: on fresh simulations the round-1 model this
+    panel samples fails more parameters, and the one interval quoted comes from
+    the recalibrated ensemble. A sentence the checker cannot see is a sentence
+    that outlives its result.
     """
-    inference = metrics.get("twin_hd14_inference", {})
-    contraction = inference.get("contraction", {})
-    ks_p = inference.get("rank_uniformity_ks_p", {})
-    if not contraction or not ks_p:
+    contraction = metrics.get("twin_hd14_inference", {}).get("contraction", {})
+    recalibration = metrics.get("twin_hd14b_recalibration", {})
+    if not contraction or not recalibration:
         return "Posterior diagnostics are not in this run's metrics."
-    passing = sorted(name for name, value in ks_p.items() if value["ks_p"] > 0.05)
-    failing = sorted(name for name, value in ks_p.items() if value["ks_p"] <= 0.05)
+    fresh, failing = _fresh_failures(recalibration)
     best = max(contraction, key=lambda name: contraction[name]["contraction"])
     return (
-        f"{len(passing)} of {len(ks_p)} parameters pass the rank-uniformity check; "
-        f"`{'`, `'.join(failing)}` do not, so their intervals are shown but are not "
-        f"calibrated. The tightest posterior is `{best}` at contraction "
-        f"{contraction[best]['contraction']}. The twin supports a contrast, not a measurement."
+        f"These intervals come from the round-1 model, which fails the rank-uniformity check "
+        f"for {len(failing)} of {len(fresh['ks'])} parameters on {fresh['n']:,} fresh "
+        "simulations; none of them is claimed to be calibrated here. Quoted intervals come from "
+        "the recalibrated ensemble (decision D31), which this panel does not sample: "
+        f"{_quoted(recalibration['adopted_parameters'])}. The tightest posterior is `{best}` "
+        f"at contraction {contraction[best]['contraction']}. The twin supports a contrast, "
+        "not a measurement."
     )
 
 

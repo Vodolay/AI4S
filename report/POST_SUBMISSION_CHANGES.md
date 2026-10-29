@@ -62,6 +62,7 @@ the bottom.*
 | 51 | 2026-10-28 | Named definition sets: the asset's spike-time features under ours and the Kapucu 2022 depositors' stated definitions, in a sidecar table, with a translation table (D37) | none to earlier results (asset and metrics byte-identical); three features carry over as the same number, three by a plate-dependent factor, burst rate not at all | this branch |
 | 52 | 2026-10-28 | The recalibration figure (D31) redrawn: the coverage legend moved off the `threshold_scale` panel; its lost simulation cache regenerated with the registered seeds; a `--replot` path | none; every recorded calibration statistic reproduced exactly before the figure was redrawn | this branch |
 | 53 | 2026-10-28 | Is the twin's distance from the real recordings the prior's range? A registered wider prior (D38) | 2 of 3 registered predictions pass; widening the box where the posterior pointed barely moves the real recordings closer, so the gap is misspecification; the inverse model is not to be read on absolute real recordings | `3c2e43e`, `c3a7d3a`, `44f78f1` … this branch |
+| 54 | 2026-10-29 | The demo's inverse-model diagram and captions follow D31, not round 1 | none to any result; only `threshold_scale` is labelled calibrated, and the posterior panel, which samples the round-1 model, now claims none of its intervals | this branch |
 
 ---
 
@@ -1542,6 +1543,43 @@ its inverse model is not to be read on them, under either prior.*
 - **Evidence.** Report §16; decision D38; `outputs/twin/prior_reach_simulated.png`,
   `outputs/twin/prior_reach_SIMULATED.json`, `outputs/metrics.json` key `twin_prior_reach`;
   tests `tests/test_twin_prior_reach.py`.
+
+---
+
+## 54. The demo's inverse model, captioned from the recalibration
+
+**Slide message:** *The demo now says what the deck says: on 1,000
+<!-- metrics.json: twin_hd14b_recalibration.results.M0.H1000.n --> fresh simulations the round-1
+inverse model is miscalibrated, and after the registered recalibration only `threshold_scale` is
+quoted.*
+
+- **What changed.** The hosted demo's twin tab still carried round 1's own 300-run check from
+  `twin_hd14_inference`, two of five parameters failing, after entry 45 (D31) superseded it.
+  - `outputs/figures/inference_network_simulated.png` (`src/neuromps/report/diagrams.py`): the
+    bottom panel labelled three parameters calibrated. It now shows each parameter for the
+    round-1 model and the recalibrated ensemble on the same fresh simulations (contraction and
+    KS p; `threshold_scale` 0.0281
+    <!-- metrics.json: twin_hd14b_recalibration.results.M0.H1000.ks.threshold_scale.ks_p --> to
+    0.1935 <!-- metrics.json: twin_hd14b_recalibration.results.M2.H1000.ks.threshold_scale.ks_p -->),
+    and labels calibrated only what `twin_hd14b_recalibration.adopted_parameters` holds. The
+    footer (`inference_caption`) is built from the same record. Redrawn with
+    `python -m neuromps.report.diagrams`; the other two diagrams came out byte-identical.
+  - The tab's caption under the diagram (`app/tab_twin.py`, `_inversion_caption`) now gives the
+    fresh-simulation failure, the recalibration's budget (15,750
+    <!-- metrics.json: twin_hd14b_recalibration.budget.pool_simulations --> training simulations
+    instead of 2,700 <!-- metrics.json: twin_hd14b_recalibration.budget.hd14_train -->), whether
+    sharpness was kept, and the adopted parameter, all read from `outputs/metrics.json`.
+  - The posterior panel's note (`_identifiability_note`) said three of five pass. The panel
+    samples the round-1 model (`outputs/twin/hd14_posterior_simulated.pt`), whose
+    `threshold_scale` also fails on fresh simulations, so the note now claims none of the
+    plotted intervals calibrated and says the one quoted interval comes from the ensemble, which
+    the demo does not sample.
+- **Why.** The demo, the deck and the report must not disagree about which interval is quoted.
+- **Effect.** None on any result; `outputs/metrics.json` is unchanged. The SIMULATED labels and
+  the research decision-support banner are unchanged.
+- **Evidence.** Tests in `tests/test_report_diagrams.py` (the panel's verdicts follow
+  `adopted_parameters`; the footer follows the record) and `tests/test_app_smoke.py` (the tab
+  caption and the posterior note, through `streamlit.testing`).
 
 ---
 
