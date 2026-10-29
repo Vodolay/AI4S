@@ -73,8 +73,8 @@ pushed. It has four parts, and after the first round we added two more.
   to the next. Two rate features alone match the full nine-feature vector.
 - **A biophysical digital twin.** We simulate an asymmetric two-compartment chip in Brian2: leaky
   integrate-and-fire neurons, 80/20 excitatory/inhibitory, with spike-frequency adaptation, wired
-  through a directional "axon diode". We calibrated it against the interquartile band of 48 real
-  chamber recordings
+  through a directional pathway with an adjustable forward-to-backward ratio. We calibrated it
+  against the interquartile band of 48 real chamber recordings
   <!-- metrics.json: twin_hd12_calibration.targets_real.n_records --> and score it with the same
   feature code as the real data. We use it for experimental power analysis and as a generator of
   labelled training data: 3,000 <!-- metrics.json: twin_hd14_inference.n_simulations --> simulated
@@ -721,7 +721,7 @@ a directional pathway. Virtual electrodes sit over the sheet and "hear" neurons 
 and their spike trains go through the same `features/mea.py` that the real recordings use. That last
 point is a deliberate constraint: the twin cannot look good by being measured differently.
 
-![The SIMULATED two-compartment twin: two chambers of model neurons, a one-way axon diode between them, and virtual electrodes whose listening radius is capped so that no two can hear the same neuron.](../outputs/figures/twin_architecture_simulated.png){width=100%}
+![The SIMULATED two-compartment twin: two chambers of model neurons, a directional pathway with an adjustable forward-to-backward ratio between them, and virtual electrodes whose listening radius is capped so that no two can hear the same neuron.](../outputs/figures/twin_architecture_simulated.png){width=100%}
 
 **What the twin is for.** It lets us test scenarios that are expensive or impractical to try at the
 bench. How many electrodes, and how much recording time, do you need to detect an effect? What

@@ -62,6 +62,7 @@ the bottom.*
 | 51 | 2026-10-28 | Named definition sets: the asset's spike-time features under ours and the Kapucu 2022 depositors' stated definitions, in a sidecar table, with a translation table (D37) | none to earlier results (asset and metrics byte-identical); three features carry over as the same number, three by a plate-dependent factor, burst rate not at all | this branch |
 | 52 | 2026-10-28 | The recalibration figure (D31) redrawn: the coverage legend moved off the `threshold_scale` panel; its lost simulation cache regenerated with the registered seeds; a `--replot` path | none; every recorded calibration statistic reproduced exactly before the figure was redrawn | this branch |
 | 53 | 2026-10-28 | Is the twin's distance from the real recordings the prior's range? A registered wider prior (D38) | 2 of 3 registered predictions pass; widening the box where the posterior pointed barely moves the real recordings closer, so the gap is misspecification; the inverse model is not to be read on absolute real recordings | `3c2e43e`, `c3a7d3a`, `44f78f1` … this branch |
+| 54 | 2026-10-29 | The twin's inter-chamber pathway described as directional with an adjustable forward-to-backward ratio, not as a one-way axon diode; the architecture figure relabelled | none; wording and one figure label only | this branch |
 
 ---
 
@@ -1542,6 +1543,42 @@ its inverse model is not to be read on them, under either prior.*
 - **Evidence.** Report §16; decision D38; `outputs/twin/prior_reach_simulated.png`,
   `outputs/twin/prior_reach_SIMULATED.json`, `outputs/metrics.json` key `twin_prior_reach`;
   tests `tests/test_twin_prior_reach.py`.
+
+---
+
+## 54. The twin's pathway is directional, not one-way
+
+**Slide message:** *The twin's two chambers are joined by a directional pathway with an adjustable
+forward-to-backward ratio, not a one-way axon diode: signals cross both ways, and how much more one
+way than the other is what the inversion estimates.*
+
+- **What changed.** The technical report called the twin's inter-chamber wiring a "one-way axon
+  diode" (the caption of the §12 architecture figure) and a directional "axon diode" (the twin's
+  line in the executive summary). The code does not build a one-way pathway. `forward_ratio` in
+  `src/neuromps/twin/network.py` defaults to a symmetric pathway, and `_inter_probabilities` turns
+  it into a forward and a backward connection probability, so the backward pathway is never
+  closed. The inversion samples `log10_forward_ratio` from 0.0
+  <!-- metrics.json: twin_hd14_inference.prior_bounds.log10_forward_ratio.0 --> to 1.3
+  <!-- metrics.json: twin_hd14_inference.prior_bounds.log10_forward_ratio.1 -->, and the wider
+  prior of entry 53 from -1.3
+  <!-- metrics.json: twin_prior_reach.calibration.new_flow_edges_on_real.by_parameter.log10_forward_ratio.bounds.0 -->,
+  where the backward pathway is the stronger. Both passages now say "a directional pathway with an
+  adjustable forward-to-backward ratio".
+- **The figure.** `draw_twin` in `src/neuromps/report/diagrams.py` labelled the pathway "axon
+  diode". It now reads "directional pathway", with "ratio adjustable" under the forward and back
+  arrows, and `outputs/figures/twin_architecture_simulated.png` was redrawn with
+  `python -m neuromps.report.diagrams`. The other two diagrams that command draws came out
+  byte-identical.
+- **Left as written.** Three passages about real chips, not the twin, keep their wording: a chip
+  designer's aim of showing that a microchannel makes signals flow one way (§1), the "axon diode"
+  idea that microchannel geometry biases which way axons grow (§15), and the advice that showing
+  axons conduct one way needs electrodes inside the microchannels (§20). `axon_diode` stays the
+  name of the source asset.
+- **Effect.** None on any result; `outputs/metrics.json` is unchanged.
+- **Evidence.** Report executive summary and §12 (figure and caption);
+  `outputs/figures/twin_architecture_simulated.png`; `src/neuromps/report/diagrams.py`;
+  `src/neuromps/twin/network.py` (`forward_ratio`, `_inter_probabilities`);
+  `src/neuromps/twin/inference.py` (the prior on `log10_forward_ratio`).
 
 ---
 
