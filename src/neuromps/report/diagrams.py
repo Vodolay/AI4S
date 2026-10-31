@@ -354,7 +354,7 @@ def _excitation_legend(ax, x, y):
 
 
 def draw_twin(metrics: dict, path: Path) -> Path:
-    """What the digital twin is: two chambers, a one-way pathway, one extractor."""
+    """What the digital twin is: two chambers, a directional pathway, one extractor."""
     m = lambda key: metric(metrics, key)  # noqa: E731 - local shorthand
     draw = "twin_hd12_calibration.best.draw"
     neurons = m(f"{draw}.n_per_compartment")
@@ -383,9 +383,21 @@ def draw_twin(metrics: dict, path: Path) -> Path:
         )
     _arrow(ax, (0.335, 0.635), (0.460, 0.635), colour=ORANGE, width=2.6)
     _arrow(ax, (0.460, 0.565), (0.335, 0.565), colour=MUTED, width=0.8)
-    ax.text(0.3975, 0.690, "axon diode", ha="center", fontsize=7.4, fontweight="bold")
+    # Not "axon diode": the backward pathway is never closed. The two differ by a
+    # ratio the inversion samples, and at ratio 1 they are equal.
+    ax.text(
+        0.3975,
+        0.665,
+        "directional\npathway",
+        ha="center",
+        va="bottom",
+        fontsize=7.4,
+        fontweight="bold",
+        linespacing=1.1,
+    )
     ax.text(0.3975, 0.600, "forward", ha="center", fontsize=5.8, color=ORANGE)
     ax.text(0.3975, 0.530, "back", ha="center", fontsize=5.8, color=MUTED)
+    ax.text(0.3975, 0.475, "ratio adjustable", ha="center", fontsize=5.8, color=MUTED)
     _box(ax, 0.795, 0.520, 0.190, 0.190, "features/mea.py", "the nine features", fill=SHADE)
     _arrow(ax, (0.745, 0.615), (0.790, 0.615))
     ax.text(
