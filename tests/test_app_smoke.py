@@ -159,6 +159,57 @@ def test_tab_three_offers_a_live_simulation_button(app: AppTest) -> None:
     assert any("live simulation" in b.label for b in app.button)
 
 
+def _metrics() -> dict:
+    import json
+
+    from neuromps.paths import OUTPUTS_ROOT
+
+    return json.loads((OUTPUTS_ROOT / "metrics.json").read_text())
+
+
+def _calibration_claims(text: str, names) -> set[str]:
+    """Parameters a caption names in a sentence about calibration or quoting."""
+    sentences = [s for s in text.split(". ") if "calibrat" in s or "quoted" in s]
+    return {name for name in names if any(f"`{name}`" in s for s in sentences)}
+
+
+@needs_demo
+def test_the_inversion_caption_reports_the_recalibration(app: AppTest) -> None:
+    """D31 superseded the round-1 300-run check; the caption must say what it found."""
+    recalibration = _metrics()["twin_hd14b_recalibration"]
+    fresh = recalibration["results"]["M0"]["H1000"]
+    budget = recalibration["budget"]
+    failing = [n for n, v in fresh["ks"].items() if v["ks_p"] < recalibration["alpha"]]
+    caption = next(c.value for c in app.caption if "run backwards" in c.value)
+    assert f"On {fresh['n']:,} fresh simulations" in caption
+    assert f"{len(failing)} of {len(fresh['ks'])} parameters" in caption
+    assert f"{budget['pool_simulations']:,}" in caption and f"{budget['hd14_train']:,}" in caption
+    assert _calibration_claims(caption, fresh["ks"]) == set(recalibration["adopted_parameters"])
+    assert "Two of the five" not in caption
+
+
+def test_the_posterior_note_calls_only_the_adopted_parameter_calibrated() -> None:
+    """The panel samples the round-1 model; only D31's adopted interval is quoted."""
+    from app.tab_twin import _identifiability_note
+
+    metrics = _metrics()
+    recalibration = metrics["twin_hd14b_recalibration"]
+    names = recalibration["results"]["M0"]["H1000"]["ks"]
+    note = _identifiability_note(metrics)
+    assert "pass the rank-uniformity check" not in note
+    assert "round-1" in note
+    assert _calibration_claims(note, names) == set(recalibration["adopted_parameters"])
+    recalibration["adopted_parameters"] = ["ampa_scale"]
+    assert _calibration_claims(_identifiability_note(metrics), names) == {"ampa_scale"}
+
+
+@needs_demo
+def test_the_posterior_panel_shows_the_note(app: AppTest) -> None:
+    from app.tab_twin import _identifiability_note
+
+    assert _identifiability_note(_metrics()) in [c.value for c in app.caption]
+
+
 @needs_demo
 def test_changing_a_twin_slider_responds_within_the_budget() -> None:
     """The app's promise: an interaction never waits on a simulator."""

@@ -48,8 +48,16 @@ FIGURES = {
         "draw_twin",
         ("twin_hd12_calibration", "twin_hd13_perturbation"),
     ),
-    "inference_network_simulated.png": ("draw_inference", ("twin_hd14_inference",)),
+    "inference_network_simulated.png": (
+        "draw_inference",
+        ("twin_hd14_inference", "twin_hd14b_recalibration"),
+    ),
 }
+
+# The inversion panel's verdicts. Only D31's registered adoption rule
+# (`twin_hd14b_recalibration.adopted_parameters`) earns the first.
+QUOTED = "calibrated: quoted"
+NOT_QUOTED = "not calibrated"
 
 
 def metric(metrics: dict, path: str):
@@ -459,23 +467,31 @@ def _prior_block(ax, x, y, w, h, bounds):
         )
 
 
-def _uniformity_panel(ax, y, contraction, ks_p):
-    """The honesty gate: which posteriors may be read as credible intervals."""
+def _uniformity_panel(ax, y, recalibration):
+    """The honesty gate: which posteriors may be read as credible intervals.
+
+    Round 1 judged this on its own 300 held-out runs. D31 re-ran the check on
+    fresh simulations, so each box shows the round-1 model and the recalibrated
+    ensemble on the same runs, and only the registered rule decides the verdict.
+    """
     from matplotlib.patches import Rectangle
 
+    before, after = (recalibration["results"][model]["H1000"] for model in ("M0", "M2"))
+    adopted = set(recalibration["adopted_parameters"])
     ax.text(
         0.5,
         y + 0.140,
-        "Before any posterior is quoted: how much was learned, and are the intervals honest?",
+        f"Before any interval is quoted, on {before['n']:,} fresh simulations: "
+        "round-1 model → recalibrated ensemble",
         ha="center",
         fontsize=7.4,
         fontweight="bold",
     )
-    names = sorted(contraction)
-    width, gap = 0.160, 0.020
+    names = sorted(before["ks"])
+    width, gap = 0.172, 0.010  # wide enough for "contraction a → b" at this size
     left = (1 - (len(names) * width + (len(names) - 1) * gap)) / 2
     for index, name in enumerate(names):
-        passes = ks_p[name]["ks_p"] > 0.05
+        passes = name in adopted
         x = left + index * (width + gap)
         ax.add_patch(
             Rectangle(
@@ -491,7 +507,8 @@ def _uniformity_panel(ax, y, contraction, ks_p):
         ax.text(
             x + width / 2,
             y + 0.059,
-            f"contraction {contraction[name]['contraction']}",
+            f"contraction {before['contraction'][name]['contraction']} → "
+            f"{after['contraction'][name]['contraction']}",
             ha="center",
             fontsize=5.4,
             color=MUTED,
@@ -499,7 +516,7 @@ def _uniformity_panel(ax, y, contraction, ks_p):
         ax.text(
             x + width / 2,
             y + 0.035,
-            f"KS p {ks_p[name]['ks_p']}",
+            f"KS p {before['ks'][name]['ks_p']} → {after['ks'][name]['ks_p']}",
             ha="center",
             fontsize=5.4,
             color=MUTED,
@@ -507,12 +524,38 @@ def _uniformity_panel(ax, y, contraction, ks_p):
         ax.text(
             x + width / 2,
             y + 0.011,
-            "calibrated" if passes else "over-confident",
+            QUOTED if passes else NOT_QUOTED,
             ha="center",
             fontsize=5.4,
             fontweight="normal" if passes else "bold",
             color=INK if passes else ORANGE,
         )
+
+
+def inference_caption(metrics: dict) -> str:
+    """The inversion diagram's caveat: D31 on fresh simulations, not round 1's 300 runs."""
+    recalibration = metric(metrics, "twin_hd14b_recalibration")
+    fresh = recalibration["results"]["M0"]["H1000"]
+    failing = [
+        name for name, value in fresh["ks"].items() if value["ks_p"] < recalibration["alpha"]
+    ]
+    adopted = recalibration["adopted_parameters"]
+    if not adopted:
+        verdict = "no parameter passes every registered check, so no interval is quoted."
+    elif len(adopted) == 1:
+        verdict = (
+            f"only {adopted[0]} passes every registered check, so only its interval is quoted."
+        )
+    else:
+        verdict = (
+            f"only {', '.join(adopted)} pass every registered check, so only their intervals "
+            "are quoted."
+        )
+    return (
+        f"On {fresh['n']:,} fresh simulations the round-1 model fails rank uniformity for "
+        f"{len(failing)} of {len(fresh['ks'])} parameters.\nAfter the registered recalibration "
+        + verdict
+    )
 
 
 def draw_inference(metrics: dict, path: Path) -> Path:
@@ -523,9 +566,6 @@ def draw_inference(metrics: dict, path: Path) -> Path:
     summaries = m(f"{hd14}.summary_names")
     simulations = m(f"{hd14}.n_simulations")
     silent = m(f"{hd14}.fraction_silent_simulations")
-    contraction = m(f"{hd14}.contraction")
-    ks_p = m(f"{hd14}.rank_uniformity_ks_p")
-    passing = sum(1 for name in ks_p if ks_p[name]["ks_p"] > 0.05)
     flow = m(f"{hd14}.density_estimator")
 
     fig, ax, _ = _canvas(10.0, 5.6, "Running the twin backwards", "SIMULATED")
@@ -576,12 +616,8 @@ def draw_inference(metrics: dict, path: Path) -> Path:
         fontsize=7.8,
     )
     _arrow(ax, (0.845, 0.472), (0.845, 0.448), colour=BLUE, width=1.3)
-    _uniformity_panel(ax, 0.120, contraction, ks_p)
-    _footer(
-        ax,
-        f"{passing} of {len(ks_p)} parameters pass rank uniformity. The two that fail are reported "
-        "as over-confident, and their intervals are not quoted as calibrated.",
-    )
+    _uniformity_panel(ax, 0.120, m("twin_hd14b_recalibration"))
+    _footer(ax, inference_caption(metrics))
     return _save(fig, path)
 
 

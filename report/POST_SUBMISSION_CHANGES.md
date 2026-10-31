@@ -62,7 +62,7 @@ the bottom.*
 | 51 | 2026-10-28 | Named definition sets: the asset's spike-time features under ours and the Kapucu 2022 depositors' stated definitions, in a sidecar table, with a translation table (D37) | none to earlier results (asset and metrics byte-identical); three features carry over as the same number, three by a plate-dependent factor, burst rate not at all | this branch |
 | 52 | 2026-10-28 | The recalibration figure (D31) redrawn: the coverage legend moved off the `threshold_scale` panel; its lost simulation cache regenerated with the registered seeds; a `--replot` path | none; every recorded calibration statistic reproduced exactly before the figure was redrawn | this branch |
 | 53 | 2026-10-28 | Is the twin's distance from the real recordings the prior's range? A registered wider prior (D38) | 2 of 3 registered predictions pass; widening the box where the posterior pointed barely moves the real recordings closer, so the gap is misspecification; the inverse model is not to be read on absolute real recordings | `3c2e43e`, `c3a7d3a`, `44f78f1` … this branch |
-| 54 | 2026-10-29 | The twin's inter-chamber pathway described as directional with an adjustable forward-to-backward ratio, not as a one-way axon diode; the architecture figure relabelled | none; wording and one figure label only | this branch |
+| 54 | 2026-10-29 | The demo's inverse-model diagram and captions follow D31, not round 1 | none to any result; only `threshold_scale` is labelled calibrated, and the posterior panel, which samples the round-1 model, now claims none of its intervals | this branch |
 
 ---
 
@@ -1546,39 +1546,40 @@ its inverse model is not to be read on them, under either prior.*
 
 ---
 
-## 54. The twin's pathway is directional, not one-way
+## 54. The demo's inverse model, captioned from the recalibration
 
-**Slide message:** *The twin's two chambers are joined by a directional pathway with an adjustable
-forward-to-backward ratio, not a one-way axon diode: signals cross both ways, and how much more one
-way than the other is what the inversion estimates.*
+**Slide message:** *The demo now says what the deck says: on 1,000
+<!-- metrics.json: twin_hd14b_recalibration.results.M0.H1000.n --> fresh simulations the round-1
+inverse model is miscalibrated, and after the registered recalibration only `threshold_scale` is
+quoted.*
 
-- **What changed.** The technical report called the twin's inter-chamber wiring a "one-way axon
-  diode" (the caption of the §12 architecture figure) and a directional "axon diode" (the twin's
-  line in the executive summary). The code does not build a one-way pathway. `forward_ratio` in
-  `src/neuromps/twin/network.py` defaults to a symmetric pathway, and `_inter_probabilities` turns
-  it into a forward and a backward connection probability, so the backward pathway is never
-  closed. The inversion samples `log10_forward_ratio` from 0.0
-  <!-- metrics.json: twin_hd14_inference.prior_bounds.log10_forward_ratio.0 --> to 1.3
-  <!-- metrics.json: twin_hd14_inference.prior_bounds.log10_forward_ratio.1 -->, and the wider
-  prior of entry 53 from -1.3
-  <!-- metrics.json: twin_prior_reach.calibration.new_flow_edges_on_real.by_parameter.log10_forward_ratio.bounds.0 -->,
-  where the backward pathway is the stronger. Both passages now say "a directional pathway with an
-  adjustable forward-to-backward ratio".
-- **The figure.** `draw_twin` in `src/neuromps/report/diagrams.py` labelled the pathway "axon
-  diode". It now reads "directional pathway", with "ratio adjustable" under the forward and back
-  arrows, and `outputs/figures/twin_architecture_simulated.png` was redrawn with
-  `python -m neuromps.report.diagrams`. The other two diagrams that command draws came out
-  byte-identical.
-- **Left as written.** Three passages about real chips, not the twin, keep their wording: a chip
-  designer's aim of showing that a microchannel makes signals flow one way (§1), the "axon diode"
-  idea that microchannel geometry biases which way axons grow (§15), and the advice that showing
-  axons conduct one way needs electrodes inside the microchannels (§20). `axon_diode` stays the
-  name of the source asset.
-- **Effect.** None on any result; `outputs/metrics.json` is unchanged.
-- **Evidence.** Report executive summary and §12 (figure and caption);
-  `outputs/figures/twin_architecture_simulated.png`; `src/neuromps/report/diagrams.py`;
-  `src/neuromps/twin/network.py` (`forward_ratio`, `_inter_probabilities`);
-  `src/neuromps/twin/inference.py` (the prior on `log10_forward_ratio`).
+- **What changed.** The hosted demo's twin tab still carried round 1's own 300-run check from
+  `twin_hd14_inference`, two of five parameters failing, after entry 45 (D31) superseded it.
+  - `outputs/figures/inference_network_simulated.png` (`src/neuromps/report/diagrams.py`): the
+    bottom panel labelled three parameters calibrated. It now shows each parameter for the
+    round-1 model and the recalibrated ensemble on the same fresh simulations (contraction and
+    KS p; `threshold_scale` 0.0281
+    <!-- metrics.json: twin_hd14b_recalibration.results.M0.H1000.ks.threshold_scale.ks_p --> to
+    0.1935 <!-- metrics.json: twin_hd14b_recalibration.results.M2.H1000.ks.threshold_scale.ks_p -->),
+    and labels calibrated only what `twin_hd14b_recalibration.adopted_parameters` holds. The
+    footer (`inference_caption`) is built from the same record. Redrawn with
+    `python -m neuromps.report.diagrams`; the other two diagrams came out byte-identical.
+  - The tab's caption under the diagram (`app/tab_twin.py`, `_inversion_caption`) now gives the
+    fresh-simulation failure, the recalibration's budget (15,750
+    <!-- metrics.json: twin_hd14b_recalibration.budget.pool_simulations --> training simulations
+    instead of 2,700 <!-- metrics.json: twin_hd14b_recalibration.budget.hd14_train -->), whether
+    sharpness was kept, and the adopted parameter, all read from `outputs/metrics.json`.
+  - The posterior panel's note (`_identifiability_note`) said three of five pass. The panel
+    samples the round-1 model (`outputs/twin/hd14_posterior_simulated.pt`), whose
+    `threshold_scale` also fails on fresh simulations, so the note now claims none of the
+    plotted intervals calibrated and says the one quoted interval comes from the ensemble, which
+    the demo does not sample.
+- **Why.** The demo, the deck and the report must not disagree about which interval is quoted.
+- **Effect.** None on any result; `outputs/metrics.json` is unchanged. The SIMULATED labels and
+  the research decision-support banner are unchanged.
+- **Evidence.** Tests in `tests/test_report_diagrams.py` (the panel's verdicts follow
+  `adopted_parameters`; the footer follows the record) and `tests/test_app_smoke.py` (the tab
+  caption and the posterior note, through `streamlit.testing`).
 
 ---
 
